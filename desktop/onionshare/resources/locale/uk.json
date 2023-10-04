@@ -31,7 +31,6 @@
     "gui_settings_autoupdate_timestamp": "Попередня перевірка: {}",
     "gui_settings_autoupdate_timestamp_never": "Ніколи",
     "gui_settings_autoupdate_check_button": "Перевірити наявність оновлень",
-    "gui_settings_close_after_first_download_option": "Припинити ділитися, якщо файли надіслано",
     "gui_settings_connection_type_label": "Як OnionShare повинен з'єднуватися з Tor?",
     "gui_settings_connection_type_bundled_option": "Використовувати вбудовану в OnionShare версію Tor",
     "gui_settings_connection_type_automatic_option": "Намагатися автоматично налаштувати за допомогою Tor Browser",
@@ -45,13 +44,11 @@
     "gui_settings_authenticate_password_option": "Пароль",
     "gui_settings_password_label": "Пароль",
     "gui_settings_tor_bridges": "Під'єднатися за допомогою мосту Tor?",
-    "gui_settings_tor_bridges_meek_lite_azure_radio_option": "Застосовувати вбудовані meek_lite (Azure) під'єднувані транспорти",
     "gui_settings_meek_lite_expensive_warning": "Увага: Мости meek-azure заважкі для роботи Tor Project. <br> <br>Користуйтеся ними лише якщо не вдається з'єднатися з Tor безпосередньо, через obfs4 транспорти або інші звичайні мости.",
     "gui_settings_tor_bridges_invalid": "Жоден з доданих мостів не працює. Ще раз перевірте їх або додайте інші.",
     "gui_settings_button_save": "Зберегти",
     "gui_settings_button_cancel": "Скасувати",
     "gui_settings_button_help": "Допомога",
-    "gui_settings_autostart_timer": "Почати ділитися о:",
     "settings_error_unknown": "Не вдалося з'єднатися з контролером Tor, оскільки налаштування беззмістовні.",
     "settings_error_automatic": "Не вдалося під'єднатися до контролера Tor. Чи запущено Tor браузер (доступний з torproject.org) у фоні?",
     "settings_error_socket_port": "Не вдалося з'єднатися з контролером Tor за {}: {}.",
@@ -100,7 +97,6 @@
     "history_completed_tooltip": "{} завершено",
     "error_cannot_create_data_dir": "Не вдалося створити теку даних OnionShare: {}",
     "gui_receive_mode_warning": "Режим отримання дозволяє завантажувати файли до вашого комп'ютера.<br><br><b>Деякі файли, потенційно, можуть заволодіти вашим комп'ютером, у разі їх відкриття. Відкривайте файли лише від довірених осіб, або якщо ви впевнені у своїх діях.</b>",
-    "gui_settings_data_dir_label": "Зберігати файли до",
     "gui_settings_language_label": "Мова",
     "gui_settings_language_changed_notice": "Перезапустіть OnionShare, щоб змінити мови.",
     "systray_menu_exit": "Вийти",
@@ -256,5 +252,7 @@
     "gui_autoconnect_trying_to_connect_to_tor": "З'єднання з Tor…",
     "gui_autoconnect_bridge_description": "Також можливо, що ваш Інтернет піддається цензурі. Можливо, ви зможете обійти це за допомогою моста.",
     "gui_autoconnect_configure": "Налаштування мережі",
-    "gui_autoconnect_no_bridge": "Спробувати ще раз без мосту"
+    "gui_autoconnect_no_bridge": "Спробувати ще раз без мосту",
+    "waitress_web_server_error": "Під час запуску вебсервера сталася помилка",
+    "gui_close_tab_warning_chat_description": "Закрити вкладку, на якій розміщено чат-сервер?"
 }

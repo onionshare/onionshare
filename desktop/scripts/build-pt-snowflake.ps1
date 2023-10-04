@@ -1,4 +1,4 @@
-$env:SNOWFLAKE_TAG = 'v2.3.1'
+$env:SNOWFLAKE_TAG = 'v2.6.0'
 
 New-Item -ItemType Directory -Force -Path .\build\snowflake
 cd .\build\snowflake

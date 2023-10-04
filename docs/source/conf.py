@@ -8,20 +8,21 @@ exclude_patterns = []
 
 languages = [
     ("English", "en"),  # English
-    # ("Français", "fr"),  # French
+    ("Français", "fr"),  # French
     # ("Deutsch", "de"),  # German
     ("Ελληνικά", "el"),  # Greek
     # ("Italiano", "it"),  # Italian
-    ("日本語", "ja"),  # Japanese
-    ("ភាសាខ្មែរ", "km"),  # Khmer (Central)
+    # ("日本語", "ja"),  # Japanese
+    # ("ភាសាខ្មែរ", "km"),  # Khmer (Central)
     # ("Norsk Bokmål", "nb_NO"),  # Norwegian Bokmål
-    # ("Polish", "pl"),  # Polish
+    ("Polish", "pl"),  # Polish
     # ("Portuguese (Brazil)", "pt_BR"),  # Portuguese (Brazil))
     # ("Русский", "ru"),  # Russian
     ("Español", "es"),  # Spanish
-    ("Svenska", "sv"),  # Swedish
+    # ("Svenska", "sv"),  # Swedish
     ("Türkçe", "tr"),  # Turkish
     ("Українська", "uk"),  # Ukrainian
+    ("Tiếng Việt", "vi"),  # Vietnamese
 ]
 
 versions = ["2.3", "2.3.1", "2.3.2", "2.3.3", "2.4", "2.5", "2.6", "2.6.1"]

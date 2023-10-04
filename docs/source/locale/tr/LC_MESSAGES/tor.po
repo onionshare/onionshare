@@ -7,23 +7,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2022-03-31 16:26+1100\n"
-"PO-Revision-Date: 2022-10-03 23:25+0000\n"
+"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"PO-Revision-Date: 2023-06-06 17:06+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: tr <LL@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.18-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
 msgstr "Tor Bağlantısı Kurmak"
 
-#: ../../source/tor.rst:6
+#: ../../source/tor.rst:4
 msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect to "
 "the Tor network."
@@ -315,7 +315,7 @@ msgstr ""
 
 #: ../../source/tor.rst:97
 msgid "Using a system ``tor`` in Windows"
-msgstr "Windows üzerinde sistem ``tor` hizmetini kullanmak"
+msgstr "Windows üzerinde sistem ``tor`` hizmetini kullanmak"
 
 #: ../../source/tor.rst:99
 msgid ""
@@ -327,15 +327,16 @@ msgstr ""
 
 #: ../../source/tor.rst:101
 msgid ""
-"Download the Tor Windows Expert Bundle `from <https://www.torproject.org/"
-"download/tor/>`_. Extract the compressed file and copy the extracted folder "
-"to ``C:\\Program Files (x86)\\`` Rename the extracted folder with ``Data`` "
-"and ``Tor`` in it to ``tor-win32``."
+"Download the Tor Windows Expert Bundle `from the Tor website <https://www."
+"torproject.org/download/tor/>`_. Extract the compressed file and copy the "
+"extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted "
+"folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
-"`Buradan <https://www.torproject.org/download/tor/>`_ Tor Windows Uzman "
-"Paketini indirin. Sıkıştırılmış dosyayı ayıklayın ve ayıklanan klasörü ``C:"
-"\\Program Files (x86)\\`` içine taşıyın. ``Data`` ve ``Tor`` klasörlerinin "
-"bulunduğu ayıklanmış klasörü ``tor-win32`` olarak yeniden adlandırın."
+"`Tor internet sitesinden <https://www.torproject.org/download/tor/>`_ Tor "
+"Windows Uzman Paketini indirin. Sıkıştırılmış dosyayı ayıklayın ve ayıklanan "
+"klasörü ``C:\\Program Files (x86)\\`` içine taşıyın. ``Data`` ve ``Tor`` "
+"klasörlerinin bulunduğu ayıklanmış klasörü ``tor-win32`` olarak yeniden "
+"adlandırın."
 
 #: ../../source/tor.rst:105
 msgid ""
@@ -408,7 +409,7 @@ msgstr ""
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
-msgstr "macOS üzerinde sistem ``tor` işlemini kullanmak"
+msgstr "macOS üzerinde sistem ``tor`` işlemini kullanmak"
 
 #: ../../source/tor.rst:136
 msgid ""
@@ -452,7 +453,7 @@ msgstr ""
 
 #: ../../source/tor.rst:160
 msgid "Using a system ``tor`` in Linux"
-msgstr "Linux üzerinde sistem ``tor` işlemini kullanmak"
+msgstr "Linux üzerinde sistem ``tor`` işlemini kullanmak"
 
 #: ../../source/tor.rst:162
 msgid ""
@@ -499,3 +500,26 @@ msgstr ""
 "control`` olarak ayarlayın. \"Tor kimlik doğrulama ayarları\" altında "
 "\"Kimlik doğrulama yok veya çerez kimlik doğrulaması\" seçeneğini seçin. "
 "\"Tor Bağlantısını Test Et\" düğmesine tıklayın."
+
+#~ msgid "Use the ``tor`` bundled with OnionShare"
+#~ msgstr "OnionShare ile birlikte gelen ``tor`` işlemi kullanılsın"
+
+#~ msgid "Using Tor bridges"
+#~ msgstr "Tor köprülerini kullanmak"
+
+#~ msgid "To configure bridges, click the \"⚙\" icon in OnionShare."
+#~ msgstr ""
+#~ "Köprüleri yapılandırmak için OnionShare uygulamasındaki \"⚙\" simgesine "
+#~ "tıklayın."
+
+#~ msgid ""
+#~ "You can use the built-in obfs4 pluggable transports, the built-in "
+#~ "meek_lite (Azure) pluggable transports, or custom bridges, which you can "
+#~ "obtain from Tor's `BridgeDB <https://bridges.torproject.org/>`_. If you "
+#~ "need to use a bridge, try the built-in obfs4 ones first."
+#~ msgstr ""
+#~ "Yerleşik obfs4 değiştirilebilir taşıyıcıları, yerleşik meek_lite (Azure) "
+#~ "değiştirilebilir taşıyıcıları veya Tor `BridgeDB <https://bridges."
+#~ "torproject.org/>`_ adresinden edinebileceğiniz özel köprüleri "
+#~ "kullanabilirsiniz. Bir köprü kullanmanız gerekirse, önce yerleşik obfs4 "
+#~ "olanları deneyin."
