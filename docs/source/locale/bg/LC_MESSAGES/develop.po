@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.4.1\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2021-11-23 19:33-0800\n"
-"PO-Revision-Date: 2023-09-17 21:00+0000\n"
+"PO-Revision-Date: 2023-10-07 13:10+0000\n"
 "Last-Translator: 109247019824 <stoyan@gmx.com>\n"
 "Language-Team: none\n"
 "Language: bg\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "Разработка на OnionShare"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
