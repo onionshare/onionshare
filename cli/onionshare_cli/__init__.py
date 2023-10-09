@@ -394,7 +394,13 @@ def main(cwd=None):
             if mode_settings.get("general", "qr"):
                 qr = QRCode()
                 qr.add_data(url)
+                print("Onion address as QR code:")
                 qr.print_ascii()
+                if not mode_settings.get("general", "public"):
+                    qr.clear()
+                    qr.add_data(app.auth_string)
+                    print("Private key as QR code:")
+                    qr.print_ascii()
             print("")
             print("Waiting for the scheduled time before starting...")
             app.onion.cleanup(False)
@@ -481,7 +487,13 @@ def main(cwd=None):
             if mode_settings.get("general", "qr"):
                 qr = QRCode()
                 qr.add_data(url)
+                print("Onion address as QR code:")
                 qr.print_ascii()
+                if not mode_settings.get("general", "public"):
+                    qr.clear()
+                    qr.add_data(app.auth_string)
+                    print("Private key as QR code:")
+                    qr.print_ascii()
 
         print("")
         print("Press Ctrl+C to stop the server")
