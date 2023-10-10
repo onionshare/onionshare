@@ -17,10 +17,10 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10.11'
+          python-version: '3.12.0'
 
       - name: Install poetry
-        run: C:\hostedtoolcache\windows\Python\3.10.11\x64\python -m pip install poetry
+        run: C:\hostedtoolcache\windows\Python\3.12.0\x64\python -m pip install poetry
 
       - name: Restore cache - poetry
         uses: actions/cache@v3
@@ -31,8 +31,8 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry install
-          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry env list --full-path
+          C:\hostedtoolcache\windows\Python\3.12.0\x64\Scripts\poetry install
+          C:\hostedtoolcache\windows\Python\3.12.0\x64\Scripts\poetry env list --full-path
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -41,7 +41,7 @@ jobs:
           key: ${{ runner.os }}-win64-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
 
       - name: Get tor binaries from Tor Browser (64-bit)
-        run: cd desktop && C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\scripts\get-tor.py win64
+        run: cd desktop && C:\hostedtoolcache\windows\Python\3.12.0\x64\Scripts\poetry run python .\scripts\get-tor.py win64
 
       - name: Install Go >=1.21.1
         uses: actions/setup-go@v4
@@ -100,8 +100,8 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\setup-freeze.py build
-          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
+          C:\hostedtoolcache\windows\Python\3.12.0\x64\Scripts\poetry run python .\setup-freeze.py build
+          C:\hostedtoolcache\windows\Python\3.12.0\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
       - name: Compress
         shell: pwsh
@@ -122,9 +122,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Python 3.10.9 (universal2)
+      - name: Install Python 3.12.0 (universal2)
         run: |
-          curl -L https://www.python.org/ftp/python/3.10.9/python-3.10.9-macos11.pkg --output ~/Downloads/python.pkg
+          curl -L https://www.python.org/ftp/python/3.12.0/python-3.12.0-macos11.pkg --output ~/Downloads/python.pkg
           sudo installer -pkg ~/Downloads/python.pkg -target /
 
       - name: Install poetry
@@ -140,7 +140,7 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry install
+          /Library/Frameworks/Python.framework/Versions/3.12/bin/poetry install
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -151,7 +151,7 @@ jobs:
       - name: Get tor binaries from Tor Browser
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/get-tor.py macos
+          /Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./scripts/get-tor.py macos
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
@@ -210,10 +210,10 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py bdist_mac
+          /Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./setup-freeze.py bdist_mac
           rm -rf build/OnionShare.app/Contents/Resources/lib
-          mv build/exe.macosx-10.9-universal2-3.10/lib build/OnionShare.app/Contents/Resources/
-          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/build-macos.py cleanup-build
+          mv build/exe.macosx-10.9-universal2-3.12/lib build/OnionShare.app/Contents/Resources/
+          /Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./scripts/build-macos.py cleanup-build
 
       - name: Compress
         run: |
