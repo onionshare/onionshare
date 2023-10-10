@@ -17,10 +17,10 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12.0'
+          python-version: '3.11.6'
 
       - name: Install poetry
-        run: C:\hostedtoolcache\windows\Python\3.12.0\x64\python -m pip install poetry
+        run: C:\hostedtoolcache\windows\Python\3.11.6\x64\python -m pip install poetry
 
       - name: Restore cache - poetry
         uses: actions/cache@v3
@@ -31,8 +31,8 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.12.0\x64\Scripts\poetry install
-          C:\hostedtoolcache\windows\Python\3.12.0\x64\Scripts\poetry env list --full-path
+          C:\hostedtoolcache\windows\Python\3.11.6\x64\Scripts\poetry install
+          C:\hostedtoolcache\windows\Python\3.11.6\x64\Scripts\poetry env list --full-path
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -41,7 +41,7 @@ jobs:
           key: ${{ runner.os }}-win64-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
 
       - name: Get tor binaries from Tor Browser (64-bit)
-        run: cd desktop && C:\hostedtoolcache\windows\Python\3.12.0\x64\Scripts\poetry run python .\scripts\get-tor.py win64
+        run: cd desktop && C:\hostedtoolcache\windows\Python\3.11.6\x64\Scripts\poetry run python .\scripts\get-tor.py win64
 
       - name: Install Go >=1.21.1
         uses: actions/setup-go@v4
@@ -100,8 +100,8 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.12.0\x64\Scripts\poetry run python .\setup-freeze.py build
-          C:\hostedtoolcache\windows\Python\3.12.0\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
+          C:\hostedtoolcache\windows\Python\3.11.6\x64\Scripts\poetry run python .\setup-freeze.py build
+          C:\hostedtoolcache\windows\Python\3.11.6\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
       - name: Compress
         shell: pwsh
@@ -114,17 +114,14 @@ jobs:
           name: win64-build
           path: ~\onionshare-win64.zip
 
-  # TODO: Someday, build universal2 mac binaries. Right now it's blocked because Github Actions doesn't support
-  # M1 Mac VMs: https://github.com/actions/runner-images/issues/2187
-
   build-mac-intel:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Python 3.12.0 (universal2)
+      - name: Install Python 3.11.6 (universal2)
         run: |
-          curl -L https://www.python.org/ftp/python/3.12.0/python-3.12.0-macos11.pkg --output ~/Downloads/python.pkg
+          curl -L https://www.python.org/ftp/python/3.11.6/python-3.11.6-macos11.pkg --output ~/Downloads/python.pkg
           sudo installer -pkg ~/Downloads/python.pkg -target /
 
       - name: Install poetry
@@ -212,7 +209,7 @@ jobs:
           cd desktop
           /Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./setup-freeze.py bdist_mac
           rm -rf build/OnionShare.app/Contents/Resources/lib
-          mv build/exe.macosx-10.9-universal2-3.12/lib build/OnionShare.app/Contents/Resources/
+          mv build/exe.macosx-10.9-universal2-3.11/lib build/OnionShare.app/Contents/Resources/
           /Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./scripts/build-macos.py cleanup-build
 
       - name: Compress
@@ -222,7 +219,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: mac-build
+          name: mac-intel-build
           path: ~/onionshare-macos-intel.tar.gz
 
   build-flatpak:
