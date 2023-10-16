@@ -205,7 +205,7 @@
     "gui_close_tab_warning_receive_description": "Close tab that is receiving files?",
     "gui_close_tab_warning_chat_description": "Close tab that is hosting a chat server?",
     "gui_close_tab_warning_website_description": "Close tab that is hosting a website?",
-    "gui_close_tab_warning_close": "Close",
+    "gui_close_tab_warning_close": "Ok",
     "gui_close_tab_warning_cancel": "Cancel",
     "gui_quit_warning_title": "Quit OnionShare?",
     "gui_quit_warning_description": "Quit and close all tabs, even though sharing is active in some of them?",
