@@ -85,12 +85,14 @@ class ReceiveMode(Mode):
         self.disable_text_checkbox.setText(
             strings._("mode_settings_receive_disable_text_checkbox")
         )
+        self.disable_text_checkbox.setStyleSheet(self.common.gui.css["receive_options"])
         self.disable_files_checkbox = self.settings.get("receive", "disable_files")
         self.disable_files_checkbox = QtWidgets.QCheckBox()
         self.disable_files_checkbox.clicked.connect(self.disable_files_checkbox_clicked)
         self.disable_files_checkbox.setText(
             strings._("mode_settings_receive_disable_files_checkbox")
         )
+        self.disable_files_checkbox.setStyleSheet(self.common.gui.css["receive_options"])
         disable_layout = QtWidgets.QHBoxLayout()
         disable_layout.addWidget(self.disable_text_checkbox)
         disable_layout.addWidget(self.disable_files_checkbox)
@@ -235,11 +237,21 @@ class ReceiveMode(Mode):
         self.settings.set(
             "receive", "disable_text", self.disable_text_checkbox.isChecked()
         )
+        if self.disable_text_checkbox.isChecked():
+            # Prevent also disabling files if text is disabled
+            self.disable_files_checkbox.setDisabled(True)
+        else:
+            self.disable_files_checkbox.setDisabled(False)
 
     def disable_files_checkbox_clicked(self):
         self.settings.set(
             "receive", "disable_files", self.disable_files_checkbox.isChecked()
         )
+        if self.disable_files_checkbox.isChecked():
+            # Prevent also disabling text if files is disabled
+            self.disable_text_checkbox.setDisabled(True)
+        else:
+            self.disable_text_checkbox.setDisabled(False)
 
     def webhook_url_checkbox_clicked(self):
         if self.webhook_url_checkbox.isChecked():

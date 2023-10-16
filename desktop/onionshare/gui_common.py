@@ -471,6 +471,10 @@ class GuiCommon:
                 QPushButton {
                     padding: 5px 10px;
                 }""",
+            "receive_options": """
+                QCheckBox:disabled {
+                    color: #666666;
+                }""",
             # Tor Settings dialogs
             "tor_settings_error": """
                 QLabel {
