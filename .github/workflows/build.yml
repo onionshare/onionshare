@@ -1,5 +1,5 @@
 name: Build
-run-name: Build win64, mac (Intel), Snap, and Flatpak 🚀
+run-name: Build Windows (x86_64), macOS (Intel and ARM64), Snap, and Flatpak 🚀
 on:
   push:
     branches:
@@ -17,7 +17,7 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11.6'
+          python-version: "3.11.6"
 
       - name: Install poetry
         run: C:\hostedtoolcache\windows\Python\3.11.6\x64\python -m pip install poetry
@@ -46,7 +46,7 @@ jobs:
       - name: Install Go >=1.21.1
         uses: actions/setup-go@v4
         with:
-          go-version: '>=1.21.1'
+          go-version: ">=1.21.1"
       - run: go version
 
       - name: Restore cache - obfs4proxy
@@ -106,7 +106,7 @@ jobs:
       - name: Compress
         shell: pwsh
         run: |
-          mv desktop\build\exe.win-amd64-3.10\ ~\onionshare-win64
+          mv desktop\build\exe.win-amd64-3.11\ ~\onionshare-win64
           Compress-Archive -LiteralPath ~\onionshare-win64 -DestinationPath ~\onionshare-win64.zip
 
       - uses: actions/upload-artifact@v3
