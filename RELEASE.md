@@ -185,45 +185,52 @@ This will create:
 
 ### macOS release
 
-In order to make a universal2 binary, you must run this one a Mac with Apple Silicon. To keep a clean environment, you can use VM.
+In order to make a universal2 binary, you must following these instructions using a Mac with Apple Silicon. To keep a clean environment, you can use VM.
 
 Set up the VM like this:
 
 - Install [Homebrew](https://brew.sh/)
 - `brew install create-dmg libiodbc`
-- Install the latest Python 3.10 from https://www.python.org/downloads/
+- Install the latest Python 3.11 from https://www.python.org/downloads/
 - Install ARM64 version of Go from https://go.dev/dl/
-- Install "Postgres.app with PostgreSQL 14 (Universal)" from https://postgresapp.com/downloads.html (required for cx_Freeze build step)
+- Install "Postgres.app with PostgreSQL 14 (Universal)" from https://postgresapp.com/downloads.html
+
+After cloning the OnionShare git repo and checking out the release branch, install and build dependencies:
 
 ```sh
 cd desktop
 python3 -m pip install poetry
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry install
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/get-tor.py macos
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry install
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/get-tor.py macos
 ./scripts/build-pt-obfs4proxy.sh
 ./scripts/build-pt-snowflake.sh
 ./scripts/build-pt-meek.sh
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py build
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py bdist_mac
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/build-macos.py cleanup-build
-cd build
-tar -czvf ~/onionshare-macos-universal2.tar.gz OnionShare.app
 ```
 
-
-Set up the packaging environment:
-
-- Install create-dmg: `brew install create-dmg`
-
-Github Actions will build the binaries. Find the Github Actions `build` workflow, switch to the summary tab, and download:
-
-- `build-mac`
-
-Extract these files, change to the `desktop` folder, and run:
+Make the Apple Silicon app bundle:
 
 ```sh
-poetry run python ./scripts/build-macos.py codesign [app_path]
-poetry run python ./scripts/build-macos.py package [app_path]
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./setup-freeze.py bdist_mac
+rm -rf build/OnionShare.app/Contents/Resources/lib
+mv build/exe.macosx-10.9-universal2-3.11/lib build/OnionShare.app/Contents/Resources/
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/build-macos.py cleanup-build
+```
+
+The Apple Silicon app bundle will be in `build` folder called `OnionShare.app`.
+
+Github Actions will build the Intel app bundle. Find the Github Actions `build` workflow, switch to the summary tab, and download the `mac-intel-build` artifact. Extract it, and you'll get the Intel `OnionShare.app` folder.
+
+Next, merge these two app bundles into a single universal2 app bundle:
+
+```sh
+poetry run ./scripts/macos-merge-universal.py [intel_app_path] [silicon_app_path] [universal2_app_path]
+```
+
+Finally, code sign and package the universal2 app bundle:
+
+```sh
+poetry run python ./scripts/build-macos.py codesign [universal2_app_path]
+poetry run python ./scripts/build-macos.py package [universal2_app_path]
 ```
 
 The will create `dist/OnionShare-$VERSION.dmg`.
