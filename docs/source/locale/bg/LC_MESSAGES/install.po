@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: 2023-10-07 13:10+0000\n"
+"PO-Revision-Date: 2023-10-17 14:10+0000\n"
 "Last-Translator: 109247019824 <stoyan@gmx.com>\n"
 "Language-Team: none\n"
 "Language: bg\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.1\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -31,10 +31,12 @@ msgid ""
 "You can download OnionShare for Windows and macOS from the `OnionShare "
 "website <https://onionshare.org/>`_."
 msgstr ""
+"Изтеглете OnionShare за Windows и macOS от `страницата на OnionShare "
+"<https://onionshare.org/>`_."
 
 #: ../../source/install.rst:12
 msgid "Linux"
-msgstr "Линукс"
+msgstr "Linux"
 
 #: ../../source/install.rst:14
 msgid ""
@@ -43,6 +45,10 @@ msgid ""
 "<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
+"Има различни начини да инсталирате OnionShare за Linux, но препоръчителният "
+"е да използвате пакетите `Flatpak <https://flatpak.org/>`_ или `Snap "
+"<https://snapcraft.io/>`_. Flatpak и Snapcraft гарантират, че винаги ще "
+"използвате най-новото издание и OnionShare ще работи в контролирана среда."
 
 #: ../../source/install.rst:17
 msgid ""
@@ -50,26 +56,34 @@ msgid ""
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
+"Поддръжката за Snapcraft е вградена в Ubuntu, а Fedora идва с поддръжка за "
+"Flatpak, но изборът е изцяло ваш. И двата пакета работят във всички варианти "
+"на Linux."
 
 #: ../../source/install.rst:19
 msgid ""
 "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
 "onionshare.OnionShare"
 msgstr ""
+"**Инсталиране на OnionShare от Flatpak**: https://flathub.org/apps/details/"
+"org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
+"**Инсталиране на OnionShare от Snapcraft**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:23
 msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"Ако предпочитате можете да изтеглите и цифрово подписани с PGP пакети на ``."
+"flatpak`` или ``.snap`` от https://onionshare.org/dist/."
 
 #: ../../source/install.rst:26
 msgid "Manual Flatpak Installation"
-msgstr ""
+msgstr "Ръчна инсталация от Flatpak"
 
 #: ../../source/install.rst:28
 msgid ""
@@ -116,7 +130,7 @@ msgstr ""
 
 #: ../../source/install.rst:39
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "Ръчна инсталация от Snapcraft"
 
 #: ../../source/install.rst:41
 msgid ""
