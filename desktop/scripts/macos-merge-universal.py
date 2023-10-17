@@ -16,6 +16,7 @@ def get_binary_arches(app_dir):
                 out = subprocess.check_output(["file", filename]).decode("utf-8")
                 if (
                     "Mach-O 64-bit executable" in out
+                    or "Mach-O 64-bit bundle" in out
                     or "Mach-O 64-bit dynamically linked shared library" in out
                 ):
                     arm64, x86 = False, False
