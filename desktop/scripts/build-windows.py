@@ -46,7 +46,7 @@ def sign(filename):
             "/d",
             "OnionShare",
             "/sha1",
-            "1a0345732140749bdaa03efe8591b2c2a036884c",
+            "a0165a5cf503102364d49f16ba3f8b388f4666c7",
             "/fd",
             "SHA256",
             "/td",
