@@ -27,7 +27,9 @@ poetry install
 
 ### Get Tor
 
-**Linux users:** You may need the `libxcb-xinerama0` and `libxcb-cursor0` packages installed.
+**Linux users:** 
+- On Debian/Debian-based distributions you may need the `libxcb-xinerama0` and `libxcb-cursor0` packages installed.
+- On Fedora/CentOS you may need the `libxcb-*` and `xcb-util-*` packages installed.
 
 **Windows users:** 
 - Download and install 7-Zip (x64) from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-togit fethc-your-path-in-windows-5ffa4ce61a53) `C:\Program Files\7-Zip` to your path.
