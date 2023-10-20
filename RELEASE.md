@@ -162,25 +162,21 @@ From https://snapcraft.io/onionshare/releases (you must be logged in), promote t
 
 Set up the packaging environment:
 
-- Install the Windows SDK from here: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/ and add `C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool` to the path (you'll need it for `signtool.exe`)
+- Install the Windows SDK from here: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/.
 - Go to https://dotnet.microsoft.com/download/dotnet-framework and download and install .NET Framework 3.5 SP1 Runtime. I downloaded `dotnetfx35.exe`.
-- Go to https://wixtoolset.org/releases/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
+- Go to https://wixtoolset.org/docs/wix3/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
 
-Github Actions will build the binaries. Find the Github Actions `build` workflow, switch to the summary tab, and download:
+Github Actions will build the binaries. Find the Github Actions `build` workflow, switch to the summary tab, download `win64-build.zip`, and copy it to the Windows packaging environment.
 
-- `build-win32`
-- `build-win64`
-
-Extract these files, change to the `desktop` folder, and run:
+Extract `win64-build.zip`. Run:
 
 ```
-poetry run python .\scripts\build-windows.py codesign [onionshare_win32_path] [onionshare_win64_path]
-poetry run python .\scripts\build-windows.py package [onionshare_win32_path] [onionshare_win64_path]
+poetry run python .\scripts\build-windows.py codesign [path]
+poetry run python .\scripts\build-windows.py package [path]
 ```
 
 This will create:
 
-- `desktop/dist/OnionShare-win32-$VERSION.msi`
 - `desktop/dist/OnionShare-win64-$VERSION.msi`
 
 ### macOS release
