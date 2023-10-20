@@ -180,7 +180,7 @@ def msi_package(build_path, msi_path, product_update_code):
         "name": "SourceDir",
         "dirs": [
             {
-                "id": "ProgramFilesFolder",
+                "id": "ProgramFiles64Folder",
                 "dirs": [],
             },
             {
