@@ -8,6 +8,21 @@ You can download OnionShare for Windows and macOS from the `OnionShare website <
 
 .. _linux:
 
+Mobile
+----------------
+
+You can download OnionShare for Mobile from the follow links
+
+* Android
+	* Google Play: https://play.google.com/store/apps/details?id=org.onionshare.android
+	* F-Droid: https://github.com/onionshare/onionshare-android-nightly 
+
+* iOS
+	* Apple App Store: https://apps.apple.com/app/onionshare/id1601890129
+	* Direct IPA download: https://github.com/onionshare/onionshare-ios/releases
+	* Testflight: https://testflight.apple.com/join/ZCJeY65W
+
+
 Linux
 -----
 
