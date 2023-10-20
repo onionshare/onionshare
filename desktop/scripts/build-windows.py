@@ -40,17 +40,17 @@ def sign(filename):
     click.echo(f"> Signing {filename}")
     run(
         [
-            shutil.which("signtool"),
+            shutil.which("signtool.exe"),
             "sign",
             "/v",
             "/d",
             "OnionShare",
-            "/sha1",
-            "a0165a5cf503102364d49f16ba3f8b388f4666c7",
+            "/n",
+            "Science and Design Inc.",
             "/fd",
-            "SHA256",
+            "sha256",
             "/td",
-            "SHA256",
+            "sha256",
             "/tr",
             "http://timestamp.digicert.com",
             filename,
