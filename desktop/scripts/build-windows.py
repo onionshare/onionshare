@@ -117,6 +117,7 @@ def wix_build_dir_xml(root, data):
             "Component",
             Id="ApplicationShortcuts",
             Guid="539e7de8-a124-4c09-aa55-0dd516aad7bc",
+            Win64="yes",
         )
         ET.SubElement(
             component_el,
@@ -152,6 +153,7 @@ def wix_build_components_xml(root, data):
                 "Component",
                 Id=subdata["component_id"],
                 Guid=subdata["component_guid"],
+                Win64="yes",
             )
             for filename in subdata["files"]:
                 file_el = ET.SubElement(
@@ -218,10 +220,11 @@ def msi_package(build_path, msi_path, product_update_code):
         Keywords="Installer",
         Description="OnionShare $(var.ProductVersion) Installer",
         Manufacturer="Micah Lee, et al.",
-        InstallerVersion="100",
+        InstallerVersion="200",
         Languages="1033",
         Compressed="yes",
         SummaryCodepage="1252",
+        Platform="x64",
     )
     ET.SubElement(product_el, "Media", Id="1", Cabinet="product.cab", EmbedCab="yes")
     ET.SubElement(
