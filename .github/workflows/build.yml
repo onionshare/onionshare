@@ -261,14 +261,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Restore cache - lxd
+        uses: actions/cache@v3
+        with:
+          path: /var/snap/lxd/common/lxd
+          key: snap-lxd-${{ hashFiles('snap/snapcraft.yaml') }}
+
       - name: Install dependencies
         run: |
           sudo lxd init --auto
+          sudo lxc storage list
           sudo snap install snapcraft --classic
           sudo ufw disable
 
       - name: Build snap
-        run: sudo snapcraft --use-lxd
+        run: sudo snapcraft
 
       - uses: actions/upload-artifact@v3
         with:
