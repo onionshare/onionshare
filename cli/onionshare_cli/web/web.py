@@ -365,7 +365,8 @@ class Web:
                 )
                 self.waitress.run()
             except Exception as e:
-                raise WaitressException(f"Error starting Waitress: {e}")
+                if not self.waitress.shutdown:
+                    raise WaitressException(f"Error starting Waitress: {e}")
 
     def stop(self, port):
         """
@@ -398,6 +399,7 @@ class Web:
     def waitress_custom_shutdown(self):
         """Shutdown the Waitress server immediately"""
         # Code borrowed from https://github.com/Pylons/webtest/blob/4b8a3ebf984185ff4fefb31b4d0cf82682e1fcf7/webtest/http.py#L93-L104
+        self.waitress.shutdown = True
         while self.waitress._map:
             triggers = list(self.waitress._map.values())
             for trigger in triggers:
