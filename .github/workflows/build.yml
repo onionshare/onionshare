@@ -261,31 +261,38 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # Change permissions before caching
-      - name: Set permissions for caching
-        run: sudo chmod -R 777 /var/snap/lxd/common/lxd/storage-pools/default
-        continue-on-error: true
+      - name: Initialize LXD/LXC
+        run: |
+          sudo lxd init --auto
+          sudo lxc storage list
+
+      - name: Prepare cacheable directory
+        run: mkdir -p ~/lxd_cache
 
       - name: Restore cache - lxd
         uses: actions/cache@v3
         with:
-          path: /var/snap/lxd/common/lxd/storage-pools/default
+          path: ~/lxd_cache
           key: snap-lxd-${{ hashFiles('snap/snapcraft.yaml') }}
 
-      # Restore original permissions after caching
-      - name: Restore permissions after caching
-        run: sudo chmod -R 755 /var/snap/lxd/common/lxd/storage-pools/default
-        continue-on-error: true
+      - name: Restore cached content to lxd directory
+        run: |
+          if [ -d "~/lxd_cache" ]; then
+            sudo rsync -a ~/lxd_cache/ /var/snap/lxd/common/lxd/storage-pools/default/
+          fi
 
       - name: Install dependencies
         run: |
-          sudo lxd init --auto
-          sudo lxc storage list
           sudo snap install snapcraft --classic
           sudo ufw disable
 
       - name: Build snap
         run: sudo snapcraft
+
+      - name: Copy lxd directory to cacheable directory
+        run: |
+          sudo rsync -a /var/snap/lxd/common/lxd/storage-pools/default/ ~/lxd_cache/
+          sudo chown -R $USER:$USER ~/lxd_cache/
 
       - uses: actions/upload-artifact@v3
         with:
