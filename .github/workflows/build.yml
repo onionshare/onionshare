@@ -261,11 +261,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      # Change permissions before caching
+      - name: Set permissions for caching
+        run: sudo chmod -R 777 /var/snap/lxd/common/lxd/storage-pools/default
+        continue-on-error: true
+
       - name: Restore cache - lxd
         uses: actions/cache@v3
         with:
-          path: /var/snap/lxd/common/lxd
+          path: /var/snap/lxd/common/lxd/storage-pools/default
           key: snap-lxd-${{ hashFiles('snap/snapcraft.yaml') }}
+
+      # Restore original permissions after caching
+      - name: Restore permissions after caching
+        run: sudo chmod -R 755 /var/snap/lxd/common/lxd/storage-pools/default
+        continue-on-error: true
 
       - name: Install dependencies
         run: |
