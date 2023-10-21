@@ -160,11 +160,31 @@ From https://snapcraft.io/onionshare/releases (you must be logged in), promote t
 
 ### Windows release
 
-Set up the packaging environment:
+Create a Windows 11 VM, and set it up like this:
 
+- Install [git for Windows](https://git-scm.com/download/win).
+- Install the latest version of 3.11 [from python.org](https://www.python.org/downloads/).
+- Install [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/), making sure to check "Desktop development with C++".
+- Download and install [7-Zip (x64)](https://7-zip.org/). Add `C:\Program Files\7-Zip` to your path.
+- Download and install [gpg4win](https://gpg4win.org/). Add `C:\Program Files (x86)\GnuPG\bin` to your path.
 - Install the Windows SDK from here: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/.
 - Go to https://dotnet.microsoft.com/download/dotnet-framework and download and install .NET Framework 3.5 SP1 Runtime. I downloaded `dotnetfx35.exe`.
 - Go to https://wixtoolset.org/docs/wix3/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
+
+Clone the OnionShare git repo and checkout the release tag.
+
+If you've used this git repo for a previous release, clean it up:
+
+- In the `onionshare/desktop` folder, delete `build` and `dist` from the previous build.
+- Delete the poetry environment. You can find its name by run `poetry env list`, and then you can delete it with `poetry env remove [ENV_NAME]`.
+
+Install Poetry and deps. Open a Developer PowerShell for VS window, change to the `onionshare` folder, and run:
+
+```powershell
+cd desktop
+pip install poetry
+poetry install
+```
 
 Github Actions will build the binaries. Find the Github Actions `build` workflow, switch to the summary tab, download `win64-build.zip`, and copy it to the Windows packaging environment.
 
@@ -191,7 +211,18 @@ Set up the VM like this:
 - Install ARM64 version of Go from https://go.dev/dl/
 - Install "Postgres.app with PostgreSQL 14 (Universal)" from https://postgresapp.com/downloads.html
 
-After cloning the OnionShare git repo and checking out the release branch, install and build dependencies:
+Clone the OnionShare git repo and checkout the release tag.
+
+If you've used this git repo for a previous release, clean it up:
+
+```sh
+cd desktop
+rm -rf build dist
+# Delete the old poetry environment
+poetry env remove $(poetry env list | grep "(Activated)" | cut -d" " -f1)
+```
+
+Install and build dependencies:
 
 ```sh
 cd desktop
