@@ -279,6 +279,7 @@ jobs:
         run: |
           if [ -d "~/lxd_cache" ]; then
             sudo rsync -a ~/lxd_cache/ /var/snap/lxd/common/lxd/storage-pools/default/
+            sudo chown -R root:root /var/snap/lxd/common/lxd/storage-pools/default/
           fi
 
       - name: Install dependencies
@@ -293,6 +294,9 @@ jobs:
         run: |
           sudo rsync -a /var/snap/lxd/common/lxd/storage-pools/default/ ~/lxd_cache/
           sudo chown -R $USER:$USER ~/lxd_cache/
+          sudo find ~/lxd_cache/
+          sudo ls -l ~/lxd_cache/
+          sudo ~/lxd_cache/*
 
       - uses: actions/upload-artifact@v3
         with:
