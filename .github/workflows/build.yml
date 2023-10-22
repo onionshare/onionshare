@@ -237,13 +237,13 @@ jobs:
         uses: actions/cache@v3
         with:
           path: flatpak/.flatpak-builder
-          key: flatpak-.flatpak-builder
+          key: flatpak-.flatpak-builder-${{ hashFiles('flatpak/org.onionshare.OnionShare.yaml') }}
 
       - name: Restore cache - build
         uses: actions/cache@v3
         with:
           path: flatpak/build
-          key: flatpak-build
+          key: flatpak-build-${{ hashFiles('flatpak/org.onionshare.OnionShare.yaml') }}
 
       - name: Flatpak build
         run: |
