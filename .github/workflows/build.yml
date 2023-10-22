@@ -261,42 +261,32 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Initialize LXD/LXC
-        run: |
-          sudo lxd init --auto
-          sudo lxc storage list
-
-      - name: Prepare cacheable directory
-        run: mkdir -p ~/lxd_cache
-
       - name: Restore cache - lxd
         uses: actions/cache@v3
         with:
-          path: ~/lxd_cache
+          path: ~/lxd_cache.tar.gz
           key: snap-lxd-${{ hashFiles('snap/snapcraft.yaml') }}
 
-      - name: Restore cached content to lxd directory
+      - name: Decompress cached content to lxd directory
         run: |
-          if [ -d "~/lxd_cache" ]; then
-            sudo rsync -a ~/lxd_cache/ /var/snap/lxd/common/lxd/storage-pools/default/
-            sudo chown -R root:root /var/snap/lxd/common/lxd/storage-pools/default/
+          if [ -f "~/lxd_cache.tar.gz" ]; then
+            sudo tar -xzf ~/lxd_cache.tar.gz -C /
           fi
 
       - name: Install dependencies
         run: |
+          sudo lxd init --auto
+          sudo lxc storage list
           sudo snap install snapcraft --classic
           sudo ufw disable
 
       - name: Build snap
         run: sudo snapcraft
 
-      - name: Copy lxd directory to cacheable directory
+      - name: Compress lxd directory and set proper permissions
         run: |
-          sudo rsync -a /var/snap/lxd/common/lxd/storage-pools/default/ ~/lxd_cache/
-          sudo chown -R $USER:$USER ~/lxd_cache/
-          sudo find ~/lxd_cache/
-          sudo ls -l ~/lxd_cache/
-          sudo ~/lxd_cache/*
+          sudo tar -czf ~/lxd_cache.tar.gz /var/snap/lxd/common/lxd/storage-pools/default
+          sudo chown $USER:$USER ~/lxd_cache.tar.gz
 
       - uses: actions/upload-artifact@v3
         with:
