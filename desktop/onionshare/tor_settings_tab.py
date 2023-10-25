@@ -97,7 +97,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.bridge_use_checkbox = QtWidgets.QCheckBox(
             strings._("gui_settings_bridge_use_checkbox")
         )
-        self.bridge_use_checkbox.stateChanged.connect(
+        self.bridge_use_checkbox.clicked.connect(
             self.bridge_use_checkbox_state_changed
         )
 
@@ -529,15 +529,17 @@ class TorSettingsTab(QtWidgets.QWidget):
             self.connection_type_socks.hide()
             self.connection_type_bridges_radio_group.show()
 
-    def bridge_use_checkbox_state_changed(self, state):
+    def bridge_use_checkbox_state_changed(self):
         """
         'Use a bridge' checkbox changed
         """
-        if state == QtCore.Qt.Checked:
+        if self.bridge_use_checkbox.isChecked():
+            self.common.log("TorSettingsTab", "bridge_use_checkbox_state_changed", "Use bridge checkbox toggled on")
             self.bridge_settings.show()
             self.bridge_builtin_radio.click()
             self.bridge_builtin_dropdown.setCurrentText("obfs4")
         else:
+            self.common.log("TorSettingsTab", "bridge_use_checkbox_state_changed", "Use bridge checkbox toggled off")
             self.bridge_settings.hide()
 
     def bridge_builtin_radio_toggled(self, checked):
