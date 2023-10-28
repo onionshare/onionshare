@@ -70,7 +70,6 @@
     "gui_tor_connection_lost": "Odłączony od sieci Tor.",
     "gui_server_started_after_autostop_timer": "Czas automatycznego zatrzymania upłynął przed uruchomieniem serwera. Utwórz nowy udział.",
     "gui_server_autostop_timer_expired": "Czas automatycznego zatrzymania już upłynął. Dostosuj go, aby rozpocząć udostępnianie.",
-    "share_via_onionshare": "Udostępniaj przez OnionShare",
     "gui_share_url_description": "<b>Każdy</b> z tym adresem OnionShare oraz kluczem prywatnym może <b>pobrać</b> Twoje pliki za pomocą przeglądarki <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Każdy</b> z tym adresem OnionShare oraz kluczem prywatnym może <b>przesyłać</b> pliki na Twój komputer za pomocą przeglądarki <b>Tor Browser</b>: <img src='{}' />",
     "gui_url_label_persistent": "Ten udział nie zatrzyma się automatycznie.<br><br>Każdy kolejny udział ponownie użyje tego adresu. (Aby użyć adresów jednorazowych, wyłącz w ustawieniach „Użyj stałego adresu”.)",
