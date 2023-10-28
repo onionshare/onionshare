@@ -72,7 +72,6 @@
     "gui_server_autostop_timer_expired": "Demê otomotîk-sekinandin ji berê de qediya. Ji kerema xwe dem dirêj bike ji bo weşan destpê bike.",
     "gui_server_autostart_timer_expired": "Demê pilankirî derbas bû. Ji kerema xwe dîsa dirêj bike ji bo weşan destpê bike.",
     "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "Demê otomatîk-qedandin nikare ji demê otomatîk-despêkirin kêmtir and wek heve bibe. Ji kerema xwe demê wê dirêjtir bike ji bo weşan despê bike.",
-    "share_via_onionshare": "Bi rêya OnionShare parve bike",
     "gui_share_url_description": "<b>Her kesî</b> bi vê malpera OnionShare bikare <b>belgeryên te bi</b> TorBrowser <b>berjêr bike</b>: <img src='{}' />",
     "gui_website_url_description": "<b>Her kesî</b> bi vê malpera OnionShare dikare <b>were li ser</b> malpera te <b>dema TorBrowser bikar tîne</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Her kesekî</b> bi vê malpera OnionShare dikare <b>belgeran li ser komputera te bi kar anîna</b> Tor Broweser <b>bar bike</b>: <img src='{}' />",

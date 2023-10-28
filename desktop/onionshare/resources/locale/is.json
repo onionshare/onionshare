@@ -69,7 +69,6 @@
     "gui_tor_connection_canceled": "Tókst ekki að tengjast Tor.\n\nGakktu úr skugga um að þú sért tengd/ur internetinu, opnaðu síðan aftur OnionShare og settu upp tengingu þess við Tor.",
     "gui_tor_connection_lost": "Aftengt frá Tor.",
     "gui_server_autostop_timer_expired": "Sjálfvirkri niðurtalningu er þegar lokið. Lagaðu hana til að hefja deilingu.",
-    "share_via_onionshare": "Deila með OnionShare",
     "gui_share_url_description": "<b>Hver sem er</b> með þetta OnionShare vistfang og þennan einkalykil getur <b>sótt</b> skrárnar þínar með því að nota <b>Tor-vafrann</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Hver sem er</b> með þetta OnionShare vistfang og einkalykil getur <b>sent skrár inn</b> á tölvuna þína með því að nota <b>Tor-vafrann</b>: <img src='{}' />",
     "gui_url_label_persistent": "Deiling þessarar sameignar mun ekki stöðvast sjálfvirkt.<br><br>Allar deilingar sem á eftir koma munu endurnýta vistfangið. (Til að nota eins-skiptis vistföng skaltu slökkva á \"Nota viðvarandi vistföng\" í stillingunum.)",

@@ -72,7 +72,6 @@
     "gui_tor_connection_lost": "Torから切断されました。",
     "gui_server_started_after_autostop_timer": "サーバーが起動した前、自動停止タイマーがタイムアウトしました。再びファイル共有をして下さい。",
     "gui_server_autostop_timer_expired": "自動停止タイマーはすでにタイムアウトしています。共有し始めるにはタイマーを調整して下さい。",
-    "share_via_onionshare": "OnionShareで共有する",
     "gui_share_url_description": "このOnionShareアドレスと秘密鍵を持つ限り<b>誰でも</b>は<b>Tor Browser</b>を利用してこのファイルを<b>ダウンロードできます</b>：<img src='{}' />",
     "gui_receive_url_description": "このOnionShareアドレスと秘密鍵を持つ限り<b>誰でも</b>は<b>Tor Browser</b>を利用してこのPCにファイルを<b>アップロードできます</b>：<img src='{}' />",
     "gui_url_label_persistent": "このファイル共有には自動停止はありません。<br><br>その次の共有は同じアドレスを再利用します。（1回限りのアドレスには、設定で「永続的アドレス」を無効にして下さい。）",

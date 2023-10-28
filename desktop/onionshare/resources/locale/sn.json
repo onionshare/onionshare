@@ -72,7 +72,6 @@
     "gui_tor_connection_lost": "haijaunganishwa na Tor.",
     "gui_server_started_after_autostop_timer": "Auto-stop timer imetoka kabla haijahifadhiwa. tafadhali hakikisha unasambaza.",
     "gui_server_autostop_timer_expired": "Auto-stop timer tayari imetoka. tafadhali sogeza ili uanze kusambaza.",
-    "share_via_onionshare": "sambaza kupitia OnionShare",
     "gui_share_url_description": "<b>yeyote</b>mwenye anuani ya OnionShare na private key anaweza <b>kupakua</b>kwa kutumia faili lako la <b>kivinjari cha Tor</b>: <img src='{}' />",
     "gui_receive_url_description": "<b> yeyote </b>: mwenye anuani ya OnionShare na private key anaweza <b> kupakia </b> mafaili kwenye kompyuta yako kwa kutumia <b> Tor Browser </b>:<img src='{}' />",
     "gui_url_label_persistent": "ukisambaza haiwezi kusimama, <br><br> na kila utakapotumia itahitaji utumie tna anuani. ( ili kutumia anuani ya moja kwa moja, zima \"tumia anuani inayoendelea\" kwenye mpangilio.)",

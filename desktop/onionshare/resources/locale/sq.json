@@ -116,7 +116,6 @@
     "gui_server_autostart_timer_expired": "Koha e planifikuar kaloi tashmë. Ju lutemi, rregullojeni, që të fillohet të ndahet me të tjerë.",
     "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "Koha për vetëndalje s’mund të jetë e njëjtë ose më herët se koha për vetënisje. Ju lutemi, që të fillohet ndarje me të tjerë, rregullojeni.",
     "gui_server_doesnt_support_stealth": "Na ndjeni, ky version i Tor-it s’mbulon “stealth” (mirëfilltësim klientësh). Ju lutemi, provoni me një version më të ri të Tor-it, ose përdorni mënyrën 'public', nëse s’është e nevojshme të jetë private.",
-    "share_via_onionshare": "Ndajeni me të tjerë përmes OnionShare-it",
     "gui_share_url_description": "<b>Cilido</b> me këtë adresë OnionShare dhe kyç privat mundet <b>të shkarkojë</b> kartelat tuaja duke përdorur <b>Shfletuesin Tor</b>: <img src='{}' />",
     "gui_share_url_public_description": "<b>Cilido</b> me këtë adresë OnionShare mundet <b>të shkarkojë</b> kartelat tuaja duke përdorur <b>Shfletuesin Tor</b>: <img src='{}' />",
     "gui_website_url_description": "<b>Cilido</b> me këtë adresë OnionShare dhe kyç privat mundet <b>të vizitojë</b> sajtin tuaj duke përdorur <b>Shfletuesin Tor</b>: <img src='{}' />",
