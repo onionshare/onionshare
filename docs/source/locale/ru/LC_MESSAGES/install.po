@@ -274,9 +274,7 @@ msgstr ""
 #: ../../source/install.rst:86
 #, fuzzy
 msgid "Or for Windows, in a command-prompt like this::"
-msgstr ""
-"В Windows, нужно запустить приложение ``cmd`` (или ``PowerShell``) и "
-"выполнить такую команду:"
+msgstr "Или для Windows в командной строке, например:"
 
 #: ../../source/install.rst:90
 msgid "The expected output looks like this::"
