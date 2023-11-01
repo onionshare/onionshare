@@ -14,7 +14,7 @@ msgstr ""
 "Language-Team: el <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
 
@@ -89,6 +89,10 @@ msgstr ""
 msgid "Manual Flatpak Installation"
 msgstr "Μη αυτόματη εγκατάσταση Flatpak"
 
+#: ../../source/install.rst:26
+msgid "Manual Flatpak Installation"
+msgstr "Μη αυτόματη εγκατάσταση Flatpak"
+
 #: ../../source/install.rst:28
 msgid ""
 "If you'd like to install OnionShare manually with Flatpak using the PGP-"
@@ -100,7 +104,7 @@ msgstr ""
 "`<https://docs.flatpak.org/en/latest/single-file-bundles.html>`_, "
 "μπορείτε να το κάνετε ως εξής:"
 
-#: ../../source/install.rst:30
+#: ../../source/install.rst:55
 msgid ""
 "Install Flatpak by following the instructions at "
 "https://flatpak.org/setup/."
