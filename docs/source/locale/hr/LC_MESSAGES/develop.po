@@ -8,24 +8,24 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2020-11-15 14:54-0800\n"
-"PO-Revision-Date: 2021-01-07 15:29+0000\n"
+"PO-Revision-Date: 2023-11-28 13:05+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: none\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "Razvijanje OnionSharea"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "Surađivanje"
 
 #: ../../source/develop.rst:9
 msgid ""
@@ -46,13 +46,15 @@ msgstr ""
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "Doprinošenje kodu"
 
 #: ../../source/develop.rst:17
 msgid ""
 "OnionShare source code is to be found in this Git repository: https://github."
 "com/micahflee/onionshare"
 msgstr ""
+"Izvorni kod OnionSharea nalazi se u ovom Git repozitoriju: https://github."
+"com/micahflee/onionshare"
 
 #: ../../source/develop.rst:19
 msgid ""
@@ -71,7 +73,7 @@ msgstr ""
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
-msgstr ""
+msgstr "Počinjanje razvoja"
 
 #: ../../source/develop.rst:29
 msgid ""
@@ -91,11 +93,11 @@ msgstr ""
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr ""
+msgstr "Savjeti za uklanjanje grešaka"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "Modus opširnih poruka"
 
 #: ../../source/develop.rst:40
 msgid ""
@@ -121,7 +123,7 @@ msgstr ""
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "Samo lokalno"
 
 #: ../../source/develop.rst:126
 msgid ""
@@ -139,7 +141,7 @@ msgstr ""
 
 #: ../../source/develop.rst:167 ../../source/develop.rst:168
 msgid "Contributing Translations"
-msgstr ""
+msgstr "Doprinošenje prijevodima"
 
 #: ../../source/develop.rst:169 ../../source/develop.rst:170
 msgid ""
@@ -152,17 +154,19 @@ msgstr ""
 #: ../../source/develop.rst:171 ../../source/develop.rst:172
 msgid ""
 "To help translate, make a Hosted Weblate account and start contributing."
-msgstr ""
+msgstr "Pomogni prevoditi. Otvori Hosted Weblate račun i počni doprinositi."
 
 #: ../../source/develop.rst:174 ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "Prijedlozi za izvorne engleske izraze"
 
 #: ../../source/develop.rst:176 ../../source/develop.rst:177
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between the "
 "application and the documentation."
 msgstr ""
+"Ponekad izvorni engleski izrazi nisu ispravni ili se ne podudaraju između "
+"aplikacije i dokumentacije."
 
 #: ../../source/develop.rst:178 ../../source/develop.rst:179
 msgid ""
@@ -190,6 +194,8 @@ msgid ""
 "OnionShare source code is to be found in this Git repository: https://github."
 "com/onionshare/onionshare"
 msgstr ""
+"Izvorni kod OnionSharea nalazi se u ovom Git repozitoriju: https://github."
+"com/onionshare/onionshare"
 
 #: ../../source/develop.rst:19
 msgid ""
