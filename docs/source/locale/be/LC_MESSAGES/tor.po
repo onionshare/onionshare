@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: 2023-11-20 16:03+0000\n"
+"PO-Revision-Date: 2023-11-29 17:05+0000\n"
 "Last-Translator: kopatych <maxklezovich@gmail.com>\n"
 "Language-Team: none\n"
 "Language: be\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.2\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
@@ -166,6 +166,9 @@ msgstr "Ручная настройка параметраў Tor"
 #: ../../source/tor.rst:61
 msgid "You can get to the Tor settings by clicking \"Network Settings\" on the welcome screen, or by clicking the \"⚙\" icon in the bottom-right corner of the application, and then switch to the Tor Settings tab in the screen that appears."
 msgstr ""
+"Вы можаце атрымаць доступ да налад Tor, націснуўшы «Налады сеткі» на экране "
+"прывітання або націснуўшы значок «⚙» у правым ніжнім куце праграмы, а затым "
+"перайшоўшы на ўкладку «Налады Tor» на экране, які з'явіцца."
 
 #: ../../source/tor.rst:65
 msgid "Here are the different ways you can configure OnionShare to connect to Tor:"
