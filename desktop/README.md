@@ -32,8 +32,8 @@ poetry install
 - On Fedora/CentOS you may need the `libxcb-*` and `xcb-util-*` packages installed.
 
 **Windows users:** 
-- Download and install 7-Zip (x64) from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-togit fethc-your-path-in-windows-5ffa4ce61a53) `C:\Program Files\7-Zip` to your path.
-- Download and install gpg4win from https://gpg4win.org/. Add `C:\Program Files (x86)\GnuPG\bin` to your path too.
+- Download and install [7-Zip (x64)](https://7-zip.org/). Add `C:\Program Files\7-Zip` to your path.
+- Download and install [gpg4win](https://gpg4win.org/). Add `C:\Program Files (x86)\GnuPG\bin` to your path.
 
 Download Tor Browser and extract the binaries for your platform. The platform must be `win64`, `macos`, or `linux64`.
 
