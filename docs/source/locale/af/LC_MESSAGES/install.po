@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: 2022-11-10 05:49+0000\n"
+"PO-Revision-Date: 2023-12-07 08:02+0000\n"
 "Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -45,6 +45,11 @@ msgid ""
 "<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
+"Daar is verskeie maniere om OnionShare vir Linux te installeer, maar die "
+"aanbevole manier is om òf die `Flatpak- <https://flatpak.org/>`_ òf die "
+"`Snap- <https://snapcraft.io/>`_-pakket te gebruik. Flatpak en Snapcrat "
+"verseker dat u altyd die nuutste weergawe het en laat OnionShare binne ’n "
+"sandput loop."
 
 #: ../../source/install.rst:17
 msgid ""
@@ -126,31 +131,39 @@ msgstr ""
 
 #: ../../source/install.rst:39
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "Handmatige Snapcraft-installasie"
 
 #: ../../source/install.rst:41
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
+"Indien u OnionShare handmatig met Snapcraft wil installeer deur die PGP-"
+"ondertekende pakket te gebruik, kan u dit soos volg doen:"
 
 #: ../../source/install.rst:43
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
+"Installeer Snapcraft deur die instruksies by https://snapcraft.io/docs/"
+"installing-snapd te volg."
 
 #: ../../source/install.rst:44
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
+"Gaan na https://onionshare.org/dist/, kies die nuutste weergawe van "
+"OnionShare en laai die ``.snap``- en ``.snap.asc``- lêers af."
 
 #: ../../source/install.rst:45
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Bevestig die PGP-handtekening van die ``.snap``-lêer. Sien "
+":ref:`verifying_sigs` vir meer inligting."
 
 #: ../../source/install.rst:46
 msgid ""
