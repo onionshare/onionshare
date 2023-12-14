@@ -24,6 +24,9 @@ working_path = os.path.join(root_path, "build", "tor")
 
 
 def get_latest_tor_version_urls(platform):
+    if platform == 'linux64':
+        platform = 'linux-x86_64'
+
     r = requests.get(torbrowser_latest_url)
     if r.status_code != 200 or platform not in r.json()["downloads"]:
         print("Tor browser latest version url not working")
@@ -233,16 +236,16 @@ def get_tor_linux64(gpg, torkey, linux64_url, linux64_filename, expected_linux64
     )
     os.chmod(os.path.join(dist_path, "tor"), 0o755)
     shutil.copyfile(
-        os.path.join(tarball_tor_path, "Tor", "libcrypto.so.1.1"),
-        os.path.join(dist_path, "libcrypto.so.1.1"),
+        os.path.join(tarball_tor_path, "Tor", "libcrypto.so.3"),
+        os.path.join(dist_path, "libcrypto.so.3"),
     )
     shutil.copyfile(
         os.path.join(tarball_tor_path, "Tor", "libevent-2.1.so.7"),
         os.path.join(dist_path, "libevent-2.1.so.7"),
     )
     shutil.copyfile(
-        os.path.join(tarball_tor_path, "Tor", "libssl.so.1.1"),
-        os.path.join(dist_path, "libssl.so.1.1"),
+        os.path.join(tarball_tor_path, "Tor", "libssl.so.3"),
+        os.path.join(dist_path, "libssl.so.3"),
     )
     shutil.copyfile(
         os.path.join(tarball_tor_path, "Tor", "libstdc++", "libstdc++.so.6"),
