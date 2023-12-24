@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: 2023-12-24 10:38+0000\n"
-"Last-Translator: munter <muntermacherbln@hotmail.com>\n"
+"PO-Revision-Date: 2023-12-25 11:10+0000\n"
+"Last-Translator: curtisb <curtisbaltimore@protonmail.com>\n"
 "Language-Team: de <LL@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,6 @@ msgid "Custom Titles"
 msgstr "Benutzerdefinierte Titel"
 
 #: ../../source/advanced.rst:39
-#, fuzzy
 msgid ""
 "When people load OnionShare services in the Tor Browser they see the default "
 "title for each type of service. For example, the default title for chat "
@@ -176,11 +175,10 @@ msgid ""
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
 msgstr ""
-"**Die Einstellung eines Termins (Datum und Zeit) für den Stopp eines "
-"OnionShare-Dienstes kann sinnvoll sein, um den Dienst nicht mehr als nötig "
-"einem Zugriff von Außen auszusetzen**; beispielsweise, wenn du geheime "
-"Dokumente nur für ein paar Tage freigeben möchtest oder eine Information nur "
-"für einige Tage gültig ist."
+"**Die automatische Beendigung eines OnionShare-Dienstes schränkt seine "
+"Sichtbarkeit ein**. Wenn du geheime Informationen oder etwas, das veraltet "
+"ist, weitergeben willst, kannst du das für eine ausgewählte begrenzte Zeit "
+"tun."
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
@@ -214,52 +212,49 @@ msgid "Then run it like this::"
 msgstr "Führe es dann wie folgt aus::"
 
 #: ../../source/advanced.rst:82
-#, fuzzy
 msgid ""
 "Info about installing it on different operating systems can be found in the "
 "`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
 "README.md>`_ in the Git repository."
 msgstr ""
-"Um mehr Informationen darüber zu bekommen, wie du es auf verschiedenen "
-"Betriebssystem installieren kannst, schau dir die `CLI README Datei <https://"
-"github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ im Git-"
-"Repository an."
+"Informationen über die Installation auf verschiedenen Betriebssystem findest "
+"du in der Datei `CLI README<https://github.com/onionshare/onionshare/blob/"
+"develop/cli/README.md>`_ im Git-Repository."
 
 #: ../../source/advanced.rst:84
-#, fuzzy
 msgid ""
 "If you installed OnionShare using the Snap package, you can also just run "
 "``onionshare.cli`` to access the command-line interface version."
 msgstr ""
-"Falls du OnionShare über das Snapcraft-Paket für Linux installiert hast, "
-"kannst du ``onionshare.cli`` ausführen, um zur Kommandozeilen-Version zu "
-"gelangen."
+"Falls du OnionShare über das Snap-Paket installiert hast, kannst du einfach "
+"``onionshare.cli`` ausführen, um zur Kommandozeilen-Version zu gelangen."
 
 #: ../../source/advanced.rst:87
 msgid "Usage"
 msgstr "Benutzung"
 
 #: ../../source/advanced.rst:89
-#, fuzzy
 msgid ""
 "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
-"Die Dokumentation zur Kommandozeile kann über den Befehl ``onionshare --"
-"help`` abgerufen werden::"
+"Die Dokumentation zur Kommandozeile kann über den Befehl ``onionshare "
+"--help`` abgerufen werden::"
 
 #: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Tastaturkurzbefehle"
 
 #: ../../source/advanced.rst:153
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
+"Die OnionShare-Desktop-Anwendung enthält einige Tastaturkurzbefehle, die der "
+"Bequemlichkeit und Zugänglichkeit dienen::"
 
 #: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"
-msgstr ""
+msgstr "Und auf dem Hauptbildschirm für die Modusauswahl::"
 
 #~ msgid ""
 #~ "By default, everything in OnionShare is temporary. As soon as you close "
