@@ -70,7 +70,6 @@
     "gui_tor_connection_lost": "S'ha perdut la connexió amb Tor.",
     "gui_server_started_after_autostop_timer": "El temporitzador de finalització automàtica ha acabat abans que s'iniciés el servidor. Torneu a compartir-ho.",
     "gui_server_autostop_timer_expired": "El temporitzador de finalització automàtica ja s'ha acabat. Ajusteu-lo per a poder compartir.",
-    "share_via_onionshare": "Comparteix-ho amb l'OnionShare",
     "gui_share_url_description": "<b>Qualsevol persona</b> amb aquesta adreça d'OnionShare pot <b>baixar</b> els vostres fitxers fent servir el <b>Navegador Tor</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Qualsevol persona</b> amb aquesta adreça d'OnionShare pot <b>pujar</b> fitxers al vostre ordinador fent servir el <b>Navegador Tor</b>: <img src='{}' />",
     "gui_url_label_persistent": "Aquest recurs no es tancarà ell sol.<br><br>Cada recurs compartit reutilitzarà aquesta mateixa adreça. (Si voleu crear una adreça diferent per a cada recurs, desactiveu l'opció «Utilitza una adreça persistent» a les opcions.)",

@@ -71,7 +71,6 @@
     "gui_tor_connection_lost": "Tor bağlantısı kesildi.",
     "gui_server_started_after_autostop_timer": "Otomatik durdurma sayacı, sunucu başlamadan önce sona erdi. Lütfen yeni bir paylaşım yapın.",
     "gui_server_autostop_timer_expired": "Otomatik durdurma sayacı zaten sona ermiş. Paylaşımı başlatmak için sayacı ayarlayın.",
-    "share_via_onionshare": "OnionShare ile paylaş",
     "gui_share_url_description": "Bu OnionShare adresine ve kişisel anahtara sahip olan <b>herkes</b> <b>Tor Browser</b> kullanarak dosyalarınızı <b>indirebilir</b>: <img src='{}' />",
     "gui_receive_url_description": "Bu OnionShare adresine ve kişisel anahtara sahip olan <b>herkes</b> <b>Tor Browser</b> kullanarak dosyaları bilgisayarınıza <b>yükleyebilir</b>: <img src='{}' />",
     "gui_url_label_persistent": "Bu paylaşım otomatik olarak durdurulmayacak.<br><br>Sonraki her paylaşımda adres yeniden kullanılır (bir kerelik adresleri kullanmak için, ayarlardan \"Kalıcı adres kullanılsın\" seçeneğini kapatın.)",

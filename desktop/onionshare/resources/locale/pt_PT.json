@@ -70,7 +70,6 @@
     "gui_tor_connection_lost": "Desconectado da rede Tor.",
     "gui_server_started_after_autostop_timer": "O cronómetro de paragem automática atingiu o tempo limite antes do servidor iniciar. Crie uma nova partilha.",
     "gui_server_autostop_timer_expired": "O cronómetro de paragem automática expirou. Por favor, ajuste-o para começar a partilhar.",
-    "share_via_onionshare": "Partilhar via OnionShare",
     "gui_share_url_description": "<b>Qualquer pessoa</b> com este endereço do OnionShare pode <b>descarregar</b> os seus ficheiros utilizando o <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Qualquer pessoa</b> com este endereço do OnionShare pode <b>enviar</b> ficheiros para o seu computador utilizando o <b>Tor Browser</b>: <img src='{}' />",
     "gui_url_label_persistent": "Esta partilha não vai ser encerrada automaticamente.<br><br>Todas as partilhas posteriores utilizarão este endereço. (Para usar endereços de uma só utilização, desative a opção \"Usar endereço persistente\" nas configurações.)",

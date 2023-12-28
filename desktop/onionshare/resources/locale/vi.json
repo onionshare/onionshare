@@ -116,7 +116,6 @@
     "gui_server_autostart_timer_expired": "Thời gian được lịch trình đã qua mất rồi. Xin vui lòng điều chỉnh nó để bắt đầu chia sẻ.",
     "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "Thời gian tự động dừng không thể trùng khớp hoặc sớm hơn thời gian tự động bắt đầu. Xin vui lòng điều chỉnh nó để bắt đầu chia sẻ.",
     "gui_server_doesnt_support_stealth": "Xin lỗi, phiên bản này của Tor không hỗ trợ tàng hình (xác thực máy khách). Xin vui lòng thử lại với một phiên bản mới hơn của Tor, hoặc sử dụng chế độ 'công cộng' nếu nó không cần phải được riêng tư.",
-    "share_via_onionshare": "Chia sẻ thông qua OnionShare",
     "gui_share_url_description": "<b>Bất kỳ ai</b> có địa chỉ OnionShare và khóa key cá nhân này đều có thể <b>tải xuống</b> các tệp của bạn bằng cách sử dụng <b>Trình duyệt Tor</b>: <img src='{}' />",
     "gui_share_url_public_description": "<b>Bất kỳ ai</b> có địa chỉ OnionShare này có thể <b>tải xuống</b> các tập tin của bạn bằng cách sử dụng <b>Trình duyệt Tor Browser</b>: <img src='{}' />",
     "gui_website_url_description": "<b>Bất kỳ ai</b> có địa chỉ OnionShare và khoá key cá nhân này có thể <b>ghé thăm</b> trang web của bạn bằng cách sử dụng <b>Trình duyệt Tor Browser</b>: <img src='{}' />",

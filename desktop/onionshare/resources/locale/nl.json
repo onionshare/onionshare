@@ -59,7 +59,6 @@
     "gui_tor_connection_canceled": "Kon niet verbinden met Tor.\n\nZorg dat je met het internet verbonden bent, herstart OnionShare en configureer de verbinding met Tor.",
     "gui_server_started_after_autostop_timer": "De auto-stop timer verliep, voordat de server startte. Maak een nieuwe share aan.",
     "gui_server_autostop_timer_expired": "De auto-stop timer is al verlopen. Stel een nieuwe tijd in om te beginnen met delen.",
-    "share_via_onionshare": "Deel via OnionShare",
     "gui_share_start_server": "Start met delen",
     "gui_share_stop_server": "Stop met delen",
     "gui_share_stop_server_autostop_timer": "Stop met Delen ({})",

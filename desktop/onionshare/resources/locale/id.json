@@ -70,7 +70,6 @@
     "gui_tor_connection_lost": "Terputus dari Tor.",
     "gui_server_started_after_autostop_timer": "Timer berhenti otomatis habis sebelum server dimulai. Silakan buat pembagian baru.",
     "gui_server_autostop_timer_expired": "Timer berhenti otomatis sudah habis. Silakan sesuaikan untuk mulai berbagi.",
-    "share_via_onionshare": "Bagikan via OnionShare",
     "gui_share_url_description": "<b>Siapa saja</b> dengan alamat OnionShare ini dapat <b>mengunduh</b> berkas Anda menggunakan <b>Tor Browser</b>:<img src='{}' />",
     "gui_receive_url_description": "<b>Siapa saja</b> dengan alamat OnionShare ini dapat <b>mengunggah</b> berkas ke komputer Anda menggunakan <b>Tor Browser</b>:<img src='{}' />",
     "gui_url_label_persistent": "Pembagian ini tidak akan berhenti otomatis.<br><br>Setiap pembagian selanjutnya menggunakan lagi alamat tersebut. (Untuk menggunakan alamat sekali pakai, matikan \"Gunakan alamat persisten\" di pengaturan.)",
