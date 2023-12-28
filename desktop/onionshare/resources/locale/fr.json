@@ -58,7 +58,6 @@
     "gui_tor_connection_ask_open_settings": "Oui",
     "gui_tor_connection_ask_quit": "Fermer",
     "gui_tor_connection_lost": "Vous êtes déconnecté de Tor.",
-    "share_via_onionshare": "Partager avec OnionShare",
     "gui_share_url_description": "<b>Quiconque</b> disposant de cette adresse OnionShare et de cette clé privée peut <b>télécharger</b> vos fichiers en utilisant le <b>Navigateur Tor</b> : <img src='{}' />",
     "gui_receive_url_description": "<b>Quiconque</b> disposant de cette adresse OnionShare et de cette clé privée peut <b>téléverser</b> des fichiers vers votre ordinateur en utilisant le <b>Navigateur Tor</b> : <img src='{}' />",
     "gui_url_label_persistent": "Ce partage ne s’arrêtera pas automatiquement.<br><br>Tout partage subséquent réutilisera l’adresse. (Pour des adresses qui ne peuvent être utilisées qu’une fois, désactivez « Utiliser une adresse persistante » dans les paramètres.)",

@@ -72,7 +72,6 @@
     "gui_server_autostop_timer_expired": "",
     "gui_server_autostart_timer_expired": "",
     "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "",
-    "share_via_onionshare": "",
     "gui_share_url_description": "",
     "gui_website_url_description": "",
     "gui_receive_url_description": "",

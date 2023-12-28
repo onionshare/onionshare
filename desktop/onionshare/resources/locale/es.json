@@ -54,7 +54,6 @@
     "gui_tor_connection_lost": "Se desconectó de Tor.",
     "gui_server_started_after_autostop_timer": "El temporizador de parada automática expiró antes de que se iniciara el servidor. Por favor vuelve a compartirlo.",
     "gui_server_autostop_timer_expired": "El temporizador de parada automática ya expiró. Por favor ajústalo para comenzar a compartir.",
-    "share_via_onionshare": "Compartir con OnionShare",
     "gui_share_url_description": "<b>Cualquiera</b> con esta dirección OnionShare y la clave privada puede <b>descargar</b> tus archivos usando el <b>Navegador Tor</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Cualquiera</b> con esta dirección de OnionShare y clave privada puede <b>subir</b> archivos a tu ordenador usando el <b>Navegador Tor</b>: <img src='{}' />",
     "gui_url_label_persistent": "Este recurso compartido no se detendrá automáticamente.<br><br>Cada recurso compartido subsiguiente reutilizará la dirección. (Para usar direcciones una sola vez, desactiva la opción «Usar dirección persistente» en la configuración.)",

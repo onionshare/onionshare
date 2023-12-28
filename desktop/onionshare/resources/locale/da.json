@@ -64,7 +64,6 @@
     "gui_tor_connection_lost": "Der er ikke oprettet forbindelse til Tor.",
     "gui_server_started_after_autostop_timer": "Timeren med automatisk stop løb ud inden serveren startede. Opret venligst en ny deling.",
     "gui_server_autostop_timer_expired": "Timeren med automatisk stop er allerede løbet ud. Juster den venligst for at begynde at dele.",
-    "share_via_onionshare": "Del via OnionShare",
     "gui_copied_url_title": "Kopierede OnionShare-adresse",
     "gui_url_label_persistent": "Delingen stopper ikke automatisk.<br><br>Enhver efterfølgende deling bruger den samme adresse igen (hvis du vil bruge engangsadresser, så deaktivér \"Brug vedvarende adresse\", i indstillingerne).",
     "gui_url_label_stay_open": "Delingen stopper ikke automatisk.",
