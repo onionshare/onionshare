@@ -14,7 +14,7 @@
     "gui_settings_password_label": "Пароль",
     "gui_settings_button_save": "Сохранить",
     "gui_settings_button_cancel": "Отмена",
-    "gui_settings_button_help": "Помощь",
+    "gui_settings_button_help": "Справка",
     "gui_tor_connection_ask_open_settings": "Да",
     "gui_tor_connection_ask_quit": "Выйти",
     "gui_status_indicator_share_started": "Идёт отправка",
@@ -251,5 +251,7 @@
     "gui_autoconnect_no_bridge": "Попробовать подключиться без моста ещё раз",
     "gui_autoconnect_try_again_without_a_bridge": "Попробовать подключиться без моста ещё раз",
     "gui_autoconnect_circumventing_censorship_starting_meek": "Подключаемся к мосту meek…",
-    "gui_general_settings_window_title": "Общие"
+    "gui_general_settings_window_title": "Общие",
+    "waitress_web_server_error": "Возникла проблема с запуском веб-сервера",
+    "gui_close_tab_warning_chat_description": "Закрыть вкладку, на которой размещен сервер чата?"
 }

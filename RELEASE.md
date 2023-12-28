@@ -160,70 +160,104 @@ From https://snapcraft.io/onionshare/releases (you must be logged in), promote t
 
 ### Windows release
 
-Set up the packaging environment:
+Create a Windows 11 VM, and set it up like this:
 
-- Install the Windows SDK from here: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/ and add `C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool` to the path (you'll need it for `signtool.exe`)
+- Install [git for Windows](https://git-scm.com/download/win).
+- Install the latest version of 3.11 [from python.org](https://www.python.org/downloads/).
+- Install [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/), making sure to check "Desktop development with C++".
+- Download and install [7-Zip (x64)](https://7-zip.org/). Add `C:\Program Files\7-Zip` to your path.
+- Download and install [gpg4win](https://gpg4win.org/). Add `C:\Program Files (x86)\GnuPG\bin` to your path.
+- Install the Windows SDK from here: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/.
 - Go to https://dotnet.microsoft.com/download/dotnet-framework and download and install .NET Framework 3.5 SP1 Runtime. I downloaded `dotnetfx35.exe`.
-- Go to https://wixtoolset.org/releases/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
+- Go to https://wixtoolset.org/docs/wix3/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
 
-Github Actions will build the binaries. Find the Github Actions `build` workflow, switch to the summary tab, and download:
+Clone the OnionShare git repo and checkout the release tag.
 
-- `build-win32`
-- `build-win64`
+If you've used this git repo for a previous release, clean it up:
 
-Extract these files, change to the `desktop` folder, and run:
+- In the `onionshare/desktop` folder, delete `build` and `dist` from the previous build.
+- Delete the poetry environment. You can find its name by run `poetry env list`, and then you can delete it with `poetry env remove [ENV_NAME]`.
+
+Install Poetry and deps. Open a Developer PowerShell for VS window, change to the `onionshare` folder, and run:
+
+```powershell
+cd desktop
+pip install poetry
+poetry install
+```
+
+Github Actions will build the binaries. Find the Github Actions `build` workflow, switch to the summary tab, download `win64-build.zip`, and copy it to the Windows packaging environment.
+
+Extract `win64-build.zip`. Run:
 
 ```
-poetry run python .\scripts\build-windows.py codesign [onionshare_win32_path] [onionshare_win64_path]
-poetry run python .\scripts\build-windows.py package [onionshare_win32_path] [onionshare_win64_path]
+poetry run python .\scripts\build-windows.py codesign [path]
+poetry run python .\scripts\build-windows.py package [path]
 ```
 
 This will create:
 
-- `desktop/dist/OnionShare-win32-$VERSION.msi`
 - `desktop/dist/OnionShare-win64-$VERSION.msi`
 
 ### macOS release
 
-In order to make a universal2 binary, you must run this one a Mac with Apple Silicon. To keep a clean environment, you can use VM.
+In order to make a universal2 binary, you must following these instructions using a Mac with Apple Silicon. To keep a clean environment, you can use VM.
 
 Set up the VM like this:
 
 - Install [Homebrew](https://brew.sh/)
 - `brew install create-dmg libiodbc`
-- Install the latest Python 3.10 from https://www.python.org/downloads/
+- Install the latest Python 3.11 from https://www.python.org/downloads/
 - Install ARM64 version of Go from https://go.dev/dl/
-- Install "Postgres.app with PostgreSQL 14 (Universal)" from https://postgresapp.com/downloads.html (required for cx_Freeze build step)
+- Install "Postgres.app with PostgreSQL 14 (Universal)" from https://postgresapp.com/downloads.html
+
+Clone the OnionShare git repo and checkout the release tag.
+
+If you've used this git repo for a previous release, clean it up:
+
+```sh
+cd desktop
+rm -rf build dist
+# Delete the old poetry environment
+poetry env remove $(poetry env list | grep "(Activated)" | cut -d" " -f1)
+```
+
+Install and build dependencies:
 
 ```sh
 cd desktop
 python3 -m pip install poetry
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry install
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/get-tor.py macos
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry install
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/get-tor.py macos
 ./scripts/build-pt-obfs4proxy.sh
 ./scripts/build-pt-snowflake.sh
 ./scripts/build-pt-meek.sh
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py build
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py bdist_mac
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/build-macos.py cleanup-build
-cd build
-tar -czvf ~/onionshare-macos-universal2.tar.gz OnionShare.app
 ```
 
-
-Set up the packaging environment:
-
-- Install create-dmg: `brew install create-dmg`
-
-Github Actions will build the binaries. Find the Github Actions `build` workflow, switch to the summary tab, and download:
-
-- `build-mac`
-
-Extract these files, change to the `desktop` folder, and run:
+Make the Apple Silicon app bundle:
 
 ```sh
-poetry run python ./scripts/build-macos.py codesign [app_path]
-poetry run python ./scripts/build-macos.py package [app_path]
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./setup-freeze.py bdist_mac
+rm -rf build/OnionShare.app/Contents/Resources/lib
+mv build/exe.macosx-10.9-universal2-3.11/lib build/OnionShare.app/Contents/Resources/
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/build-macos.py cleanup-build
+```
+
+The Apple Silicon app bundle will be in `build` folder called `OnionShare.app`.
+
+Github Actions will build the Intel app bundle. Find the Github Actions `build` workflow, switch to the summary tab, and download the `mac-intel-build` artifact. Extract it, and you'll get the Intel `OnionShare.app` folder.
+
+Next, merge these two app bundles into a single universal2 app bundle:
+
+```sh
+poetry run ./scripts/macos-merge-universal.py [intel_app_path] [silicon_app_path] [universal2_app_path]
+```
+
+Finally, code sign and package the universal2 app bundle:
+
+```sh
+poetry run python ./scripts/build-macos.py codesign [universal2_app_path]
+poetry run python ./scripts/build-macos.py package [universal2_app_path]
 ```
 
 The will create `dist/OnionShare-$VERSION.dmg`.

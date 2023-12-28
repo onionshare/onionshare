@@ -37,7 +37,7 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:14
 msgid ""

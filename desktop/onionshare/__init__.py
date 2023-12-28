@@ -144,10 +144,6 @@ def main():
     common = Common()
     common.display_banner()
 
-    # Required for macOS Big Sur: https://stackoverflow.com/a/64878899
-    if common.platform == "Darwin":
-        os.environ["QT_MAC_WANTS_LAYER"] = "1"
-
     # Start the Qt app
     global qtapp
     qtapp = Application(common)

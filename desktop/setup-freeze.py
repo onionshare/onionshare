@@ -35,7 +35,7 @@ with open(os.path.join("..", "cli", "onionshare_cli", "resources", "version.txt"
         version = version[0:-5]
 
 # Build
-include_files = [(os.path.join("..", "LICENSE"), "LICENSE")]
+include_files = [(os.path.join("..", "LICENSE.txt"), "LICENSE.txt")]
 
 if platform.system() == "Windows":
     include_msvcr = True

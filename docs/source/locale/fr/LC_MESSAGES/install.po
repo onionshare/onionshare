@@ -14,7 +14,7 @@ msgstr ""
 "Language-Team: none\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
 
@@ -90,6 +90,10 @@ msgstr ""
 msgid "Manual Flatpak Installation"
 msgstr "Installation manuelle de Flatpak"
 
+#: ../../source/install.rst:26
+msgid "Manual Flatpak Installation"
+msgstr "Installation manuelle de Flatpak"
+
 #: ../../source/install.rst:28
 msgid ""
 "If you'd like to install OnionShare manually with Flatpak using the PGP-"
@@ -101,7 +105,7 @@ msgstr ""
 "/single-file-bundles.html>`_signé par PGP, vous pouvez le faire comme "
 "suit :"
 
-#: ../../source/install.rst:30
+#: ../../source/install.rst:55
 msgid ""
 "Install Flatpak by following the instructions at "
 "https://flatpak.org/setup/."
@@ -167,7 +171,7 @@ msgstr ""
 "utilisant le paquet Snapcraft signé PGP, vous pouvez le faire comme suit "
 ":"
 
-#: ../../source/install.rst:43
+#: ../../source/install.rst:68
 msgid ""
 "Install Snapcraft by following the instructions at "
 "https://snapcraft.io/docs/installing-snapd."
@@ -191,7 +195,7 @@ msgstr ""
 "Vérifie la signature PGP du fichier ``.snap``. Voir :ref:`verifying_sigs`"
 " pour plus d'informations."
 
-#: ../../source/install.rst:46
+#: ../../source/install.rst:71
 msgid ""
 "Install the ``.snap`` file by running ``snap install --dangerous "
 "onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version "

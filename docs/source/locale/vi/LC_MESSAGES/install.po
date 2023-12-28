@@ -86,6 +86,10 @@ msgstr ""
 msgid "Manual Flatpak Installation"
 msgstr "Cài đặt Flatpak theo cách thủ công"
 
+#: ../../source/install.rst:26
+msgid "Manual Flatpak Installation"
+msgstr "Cài đặt Flatpak theo cách thủ công"
+
 #: ../../source/install.rst:28
 msgid ""
 "If you'd like to install OnionShare manually with Flatpak using the PGP-"
@@ -97,7 +101,7 @@ msgstr ""
 "<https://docs.flatpak.org/en/latest/single-file-bundles.html>`_, bạn có "
 "thể thực hiện như sau:"
 
-#: ../../source/install.rst:30
+#: ../../source/install.rst:55
 msgid ""
 "Install Flatpak by following the instructions at "
 "https://flatpak.org/setup/."
@@ -160,7 +164,7 @@ msgstr ""
 " cách sử dụng gói package Snapcraft có chữ ký PGP, bạn có thể làm như thế"
 " này:"
 
-#: ../../source/install.rst:43
+#: ../../source/install.rst:68
 msgid ""
 "Install Snapcraft by following the instructions at "
 "https://snapcraft.io/docs/installing-snapd."
@@ -184,7 +188,7 @@ msgstr ""
 "Xác minh chữ ký PGP của file tệp tin ``.snap``. hãy xem "
 ":ref:`verifying_sigs` để biết thêm thông tin."
 
-#: ../../source/install.rst:46
+#: ../../source/install.rst:71
 msgid ""
 "Install the ``.snap`` file by running ``snap install --dangerous "
 "onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version "
