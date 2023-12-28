@@ -7,6 +7,8 @@ import shutil
 import glob
 import itertools
 
+from common import get_binary_arches
+
 root = os.path.dirname(
     os.path.dirname(
         os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -52,6 +54,10 @@ def sign(path, entitlements, identity):
             str(path),
         ]
     )
+
+
+def get_binaries():
+    pass
 
 
 @click.group()
@@ -159,7 +165,7 @@ def cleanup_build():
         "QtSvgWidgets",
         "QtUiTools",
         "QtWebEngineQuick",
-        "QtWebEngineQuickDelegatesQml"
+        "QtWebEngineQuickDelegatesQml",
     ]:
         shutil.rmtree(
             f"{app_path}/Contents/MacOS/lib/PySide6/Qt/lib/{framework}.framework"
@@ -229,26 +235,11 @@ def cleanup_build():
 @click.argument("app_path")
 def codesign(app_path):
     """Sign macOS binaries before packaging"""
-    for path in itertools.chain(
-        glob.glob(f"{app_path}/Contents/Resources/lib/**/*.so", recursive=True),
-        glob.glob(f"{app_path}/Contents/Resources/lib/**/*.dylib", recursive=True),
-        [
-            f"{app_path}/Contents/Frameworks/QtCore.framework/Versions/A/QtCore",
-            f"{app_path}/Contents/Frameworks/QtDBus.framework/Versions/A/QtDBus",
-            f"{app_path}/Contents/Frameworks/QtGui.framework/Versions/A/QtGui",
-            f"{app_path}/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets",
-            f"{app_path}/Contents/Resources/lib/Python",
-            f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/meek-client",
-            f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/obfs4proxy",
-            f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/snowflake-client",
-            f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/tor",
-            f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/libevent-2.1.7.dylib",
-            f"{app_path}/Contents/MacOS/onionshare",
-            f"{app_path}/Contents/MacOS/onionshare-cli",
-            f"{app_path}",
-        ],
-    ):
-        sign(path, entitlements_plist_path, identity_name_application)
+    bin_universal, bin_silicon, bin_intel = get_binary_arches(app_path)
+    binaries = bin_universal + bin_silicon + bin_intel + [app_path]
+
+    for filename in binaries:
+        sign(filename, entitlements_plist_path, identity_name_application)
 
     print(f"> Signed app bundle: {app_path}")
 
