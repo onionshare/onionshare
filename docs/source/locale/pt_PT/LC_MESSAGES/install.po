@@ -40,7 +40,6 @@ msgid "Linux"
 msgstr ""
 
 #: ../../source/install.rst:14
-#, fuzzy
 msgid ""
 "There are various ways to install OnionShare for Linux, but the recommended "
 "way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap "
@@ -49,8 +48,8 @@ msgid ""
 msgstr ""
 "Existem várias maneiras de instalar o OnionShare para Linux, mas a maneira "
 "recomendada é usar o pacote `Flatpak <https://flatpak.org/>`_ ou `Snapcraft "
-"<https://snapcraft.io/>`_ . Ambos asseguram que a versão usada é a mais "
-"recente e correm o OnionShare dentro de uma sandbox."
+"<https://snapcraft.io/>`_ . Ambos asseguram que a versão usada é sempre a "
+"mais recente e correm o OnionShare dentro de uma sandbox."
 
 #: ../../source/install.rst:17
 #, fuzzy
