@@ -151,6 +151,13 @@ jobs:
           cd desktop
           /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/get-tor.py macos
 
+      - name: Install Go >=1.21.1
+        uses: actions/setup-go@v4
+        with:
+          go-version: ">=1.21.1"
+          cache: false
+      - run: go version
+
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
         with:
