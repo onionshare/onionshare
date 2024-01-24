@@ -41,7 +41,7 @@
     "gui_settings_authenticate_password_option": "पासवर्ड",
     "gui_settings_password_label": "पासवर्ड",
     "gui_settings_tor_bridges": "Tor ब्रिज सपोर्ट",
-    "gui_settings_meek_lite_expensive_warning": "चेतावनी: टॉर प्रोजेक्ट को चलाने के लिए मीक_लाइट  ब्रिज एक अच्छा विकल्प नहीं हैं।<br><br>केवल उनका उपयोग तभी करें यदि ओबीफएस4 ट्रांसपोर्ट, या अन्य सामान्य ब्रिड्जेस के माध्यम से टोर से सीधे कनेक्ट करने में आप असमर्थ हों।",
+    "gui_settings_meek_lite_expensive_warning": "चेतावनी: टॉर प्रोजेक्ट को चलाने के लिए मीक_लाइट ब्रिज एक अच्छा विकल्प नहीं हैं।<br><br>केवल उनका उपयोग तभी करें यदि ओबीफएस4 ट्रांसपोर्ट, या अन्य सामान्य ब्रिड्जेस के माध्यम से टोर से सीधे कनेक्ट करने में आप असमर्थ हों।",
     "gui_settings_tor_bridges_invalid": "",
     "gui_settings_button_save": "सहेजें",
     "gui_settings_button_cancel": "रद्द करे",
