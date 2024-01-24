@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: 2023-09-11 10:51+0000\n"
-"Last-Translator: xXx <xxx_xxx_xxxxxxxxx@mail.ru>\n"
+"PO-Revision-Date: 2024-01-25 13:17+0000\n"
+"Last-Translator: emma peel <emma.peel@riseup.net>\n"
 "Language-Team: ru <LL@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
@@ -93,6 +93,7 @@ msgid "Manual Flatpak Installation"
 msgstr "Ручная установка Flatpak"
 
 #: ../../source/install.rst:28
+#, fuzzy
 msgid ""
 "If you'd like to install OnionShare manually with Flatpak using the PGP-"
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
@@ -116,9 +117,9 @@ msgid ""
 "won't be downloading OnionShare from Flathub, OnionShare depends on some "
 "packages that are only available there."
 msgstr ""
-"Добавьте репозиторий Flathub, запустив Flatpak Remote-Add --if-not-exists "
-"Flathub https://flathub.org/repo/flathub.flatpakrepo. Несмотря на то, что вы "
-"не будете загружать OnionShare с Flathub, OnionShare зависит от некоторых "
+"Добавьте репозиторий Flathub, запустив ``flatpak remote-add --if-not-exists "
+"flathub https://flathub.org/repo/flathub.flatpakrepo``. Несмотря на то, что "
+"вы не будете загружать OnionShare с Flathub, OnionShare зависит от некоторых "
 "пакетов, которые доступны только там."
 
 #: ../../source/install.rst:32
@@ -266,7 +267,7 @@ msgid ""
 msgstr ""
 "Для проверки цифровых подписей PGP на компьютере пользователя должно быть "
 "установлено программное обеспечение GnuPG. Для macOS рекомендуется "
-"использовать `GPGTools <https://gpgtools.org/>`, для Windows `Gpg4win "
+"использовать `GPGTools <https://gpgtools.org/>`_, для Windows `Gpg4win "
 "<https://www.gpg4win.org/>`_."
 
 #: ../../source/install.rst:74
@@ -297,11 +298,11 @@ msgid ""
 msgstr ""
 "После того, как вы импортировали открытый ключ Мики в свою связку ключей "
 "GnuPG, загрузили двоичный файл и подпись ``.asc``, вы можете проверить "
-"двоичный файл для macOS в терминале следующим образом:"
+"двоичный файл для macOS в терминале следующим образом::"
 
 #: ../../source/install.rst:86
 msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Или для Windows в командной строке, например:"
+msgstr "Или для Windows в командной строке, например::"
 
 #: ../../source/install.rst:90
 msgid "The expected output looks like this::"
