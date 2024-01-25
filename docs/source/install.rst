@@ -69,6 +69,40 @@ Command-line only
 
 You can install just the command-line version of OnionShare on any operating system using the Python package manager ``pip``. :ref:`cli` has more info.
 
+.. _freebsd:
+
+FreeBSD
+-------
+
+Althought not being officially developed for this platform, OnionShare can also be installed on `FreeBSD <https://freebsd.org/>`_. It's available via its ports collection or as pre-built package. Should you opt to install and use OnionShare on a FreeBSD operating system, please be aware that it's **NOT** officially supported by the OnionShare project.
+
+Though not being offered and officially maintained by the OnionShare developers, the FreeBSD packages and ports do fetch and verifies the source codes from the official OnionShare repository (or its official release packages from `PyPI <https://pypi.org/project/onionshare-cli/>`_). Should you wish to check changes related to this platform, please refer to the following resources:
+
+- https://cgit.freebsd.org/ports/log/www/onionshare
+- https://www.freshports.org/www/onionshare
+
+Manual pkg Installation
+^^^^^^^^^^^^^^^^^^^^^^^
+
+To install the binary package, use ``pkg install pyXY-onionshare``, with ``pyXY`` specifying the version of Python the package was built for. So, in order to install OnionShare for Python 3.9, use::
+
+    pkg install py39-onionshare
+
+There's also a **Command-line only** version of OnionShare available as pre-built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you want to install that version.
+
+For additional information and details about the FreeBSD pre-built packages, please refer to its `official Handbook section about pkg <https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_.
+
+Manual port Installation
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+To install the FreeBSD port, change directory to the `ports collection <https://freebsd.org/ports/>`_ you must have checked out before and run the following::
+
+    make -s -C www/onionshare all install clean
+
+The ports collection also offers a dedicated port for the **Command-line only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-cli`` if you want to install that version.
+
+For additional information and details about the FreeBSD ports collection, please refer to its `official Handbook section about ports <https://docs.freebsd.org/en/books/handbook/ports/#ports-using>`_.
+
 .. _verifying_sigs:
 
 Verifying PGP signatures
