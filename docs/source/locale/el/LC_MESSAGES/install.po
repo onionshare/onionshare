@@ -89,10 +89,6 @@ msgstr ""
 msgid "Manual Flatpak Installation"
 msgstr "Μη αυτόματη εγκατάσταση Flatpak"
 
-#: ../../source/install.rst:26
-msgid "Manual Flatpak Installation"
-msgstr "Μη αυτόματη εγκατάσταση Flatpak"
-
 #: ../../source/install.rst:28
 msgid ""
 "If you'd like to install OnionShare manually with Flatpak using the PGP-"
