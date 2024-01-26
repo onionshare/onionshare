@@ -252,5 +252,7 @@
     "moat_captcha_placeholder": "Weka wahusika kutoka kwa picha",
     "moat_captcha_reload": "Pakia upya",
     "moat_captcha_submit": "Wasilisha",
-    "moat_bridgedb_error": "Haikuweza kuwasiliana na BridgeD."
+    "moat_bridgedb_error": "Haikuweza kuwasiliana na BridgeD.",
+    "waitress_web_server_error": "",
+    "gui_close_tab_warning_chat_description": ""
 }
