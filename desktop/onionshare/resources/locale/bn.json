@@ -248,5 +248,11 @@
     "gui_autoconnect_circumventing_censorship_got_bridges": "সেতু পাওয়া গেছে! টর এ পুনঃসংযোগের চেষ্টা করা হচ্ছে",
     "gui_autoconnect_circumventing_censorship_starting_meek": "ডোমেন-ফ্রন্টিং এর জন্য মিইক শুরু করা হচ্ছে",
     "gui_autoconnect_trying_to_connect_to_tor": "টর এ সংযোগের চেষ্টা করা হচ্ছে...",
-    "gui_autoconnect_try_again_without_a_bridge": "সেতু ছাড়া চেষ্টা করো"
+    "gui_autoconnect_try_again_without_a_bridge": "সেতু ছাড়া চেষ্টা করো",
+    "waitress_web_server_error": "",
+    "gui_autoconnect_bridge_description": "",
+    "gui_close_tab_warning_chat_description": "",
+    "gui_autoconnect_could_not_connect_to_tor_api": "",
+    "gui_autoconnect_bridge_detect_automatic": "",
+    "gui_autoconnect_circumventing_censorship_requesting_bridges": ""
 }
