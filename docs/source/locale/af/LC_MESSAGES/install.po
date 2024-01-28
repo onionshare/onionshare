@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: 2024-01-24 10:01+0000\n"
+"PO-Revision-Date: 2024-01-29 17:20+0000\n"
 "Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
@@ -70,11 +70,9 @@ msgstr ""
 "org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
-#, fuzzy
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
-"**Installeer OnionShare d.m.v. Flatpak**: https://flathub.org/apps/details/"
-"org.onionshare.OnionShare"
+"**Installeer OnionShare d.m.v. Snapcraft**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:23
 msgid ""
@@ -275,7 +273,6 @@ msgid "Verifying"
 msgstr "Bevestig tans"
 
 #: ../../source/install.rst:82
-#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and ``.asc`` signature, you can verify the binary for "
@@ -301,6 +298,11 @@ msgid ""
 "package, it only means you haven't defined a level of \"trust\" of Micah's "
 "(the core developer) PGP key.)"
 msgstr ""
+"Indien u nie ``Geldige handtekenign van`` sien nie is daar dalk ’n probleem "
+"met die lêer se integriteit (kwaadwillig of andersins), en u moet nie die "
+"pakket installeer nie. (Die ``WAARSKUWING:`` hier bo is nie ’n probleem met "
+"die pakket nie, dit beteken slegs dat u nie ’n vlak van “vertroue” van Micah "
+"(die kernontwikkelaar) se PGP-sleutel gedefinieer het nie.)"
 
 #: ../../source/install.rst:104
 msgid ""
