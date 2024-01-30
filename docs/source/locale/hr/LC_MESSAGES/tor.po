@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: 2023-11-28 13:05+0000\n"
+"PO-Revision-Date: 2024-01-31 10:01+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: none\n"
 "Language: hr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
@@ -85,6 +85,8 @@ msgid ""
 "If you choose the \"Try again without a bridge\" option, OnionShare will "
 "retry connecting to Tor like normal, without attempting to bypass censorship."
 msgstr ""
+"Ako odabereš opciju „Pokušaj ponovno bez mosta”, OnionShare će se ponovo "
+"pokušati povezati s Torom kao i obično, bez pokušaja zaobilaženja cenzure."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -162,7 +164,7 @@ msgstr ""
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Ručno konfiguriranje Tor postavki"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -239,7 +241,7 @@ msgstr ""
 
 #: ../../source/tor.rst:97
 msgid "Using a system ``tor`` in Windows"
-msgstr ""
+msgstr "Korištenje ``tor`` sustava u Windows sustavu"
 
 #: ../../source/tor.rst:99
 msgid ""
@@ -302,7 +304,7 @@ msgstr ""
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
-msgstr ""
+msgstr "Korištenje ``tor`` sustava u macOS sustavu"
 
 #: ../../source/tor.rst:136
 msgid ""
@@ -334,7 +336,7 @@ msgstr ""
 
 #: ../../source/tor.rst:160
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "Korištenje ``tor`` sustava u Linux sustavu"
 
 #: ../../source/tor.rst:162
 msgid ""
