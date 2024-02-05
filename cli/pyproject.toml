@@ -18,7 +18,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = ">=3.8,<3.12"
 click = "*"
-flask = "2.3.2"
+flask = "3.0.2"
 flask-compress = "^1.13"
 flask-socketio = "5.3.4"
 psutil = "*"
