@@ -9,7 +9,7 @@ git clone https://github.com/onionshare/onionshare.git
 cd onionshare/desktop
 ```
 
-Make sure you have Python 3 installed. If you're using Windows or macOS, install the latest version of 3.10 [from python.org](https://www.python.org/downloads/). For Windows, make sure to check the box to add python to the path on the first page of the installer.
+Make sure you have Python 3 installed. If you're using Windows or macOS, install the latest version of 3.11 [from python.org](https://www.python.org/downloads/). For Windows, make sure to check the box to add python to the path on the first page of the installer.
 
 Make sure you have [poetry](https://python-poetry.org/) installed:
 
@@ -27,13 +27,15 @@ poetry install
 
 ### Get Tor
 
-**Linux users:** In Ubuntu you may need the `libxcb-xinerama0` package installed.
+**Linux users:** 
+- On Debian/Debian-based distributions you may need the `libxcb-xinerama0` and `libxcb-cursor0` packages installed.
+- On Fedora/CentOS you may need the `libxcb-*` and `xcb-util-*` packages installed.
 
 **Windows users:** 
-- Download and install 7-Zip (x64) from https://7-zip.org/download.html. [Add](https://medium.com/@kevinmarkvi/how-to-add-executables-togit fethc-your-path-in-windows-5ffa4ce61a53) `C:\Program Files\7-Zip` to your path.
-- Download and install gpg4win from https://gpg4win.org/. Add `C:\Program Files (x86)\GnuPG\bin` to your path too.
+- Download and install [7-Zip (x64)](https://7-zip.org/). Add `C:\Program Files\7-Zip` to your path.
+- Download and install [gpg4win](https://gpg4win.org/). Add `C:\Program Files (x86)\GnuPG\bin` to your path.
 
-Download Tor Browser and extract the binaries for your platform. The platform must be `win64`, `macos`, or `linux64`.
+Download Tor Browser and extract the binaries for your platform. The platform must be `win64`, `macos`, or `linux-x86_64`.
 
 ```sh
 poetry run python ./scripts/get-tor.py [platform]

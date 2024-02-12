@@ -19,7 +19,35 @@ Unless you're a core OnionShare developer making a release, you'll probably neve
 - [ ] `desktop/org.onionshare.OnionShare.appdata.xml` should have the correct release date, and links to correct screenshots
 - [ ] `CHANGELOG.md` should be updated to include a list of all major changes since the last release
 
+### Update dependencies
+
+Check `cli/pyproject.toml` to see if any hard-coded versions should be updated. Then, update the dependencies like this:
+
+```sh
+cd cli
+poetry update
+cd ..
+```
+
 If you update `flask-socketio`, ensure that you also update the [socket.io.min.js](https://github.com/micahflee/onionshare/blob/develop/cli/onionshare_cli/resources/static/js/socket.io.min.js) file to a version that is [supported](https://flask-socketio.readthedocs.io/en/latest/#version-compatibility) by the updated version of `flask-socketio`.
+
+Check `desktop/pyproject.toml` to see if any hard-coded versions should be updated. Then, update the dependencies like this:
+
+```
+cd desktop
+poetry update
+cd ..
+```
+
+Update the docs dependencies like this:
+
+```
+cd docs
+poetry update
+cd ..
+```
+
+Update the versions of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts. You can find the latest versions by looking at the tags in their git repos: [meek](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek/-/tags), [obfs4proxy](https://gitlab.com/yawning/obfs4/-/tags), [snowflake](https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake/-/tags).
 
 ### Update the documentation
 
@@ -27,7 +55,11 @@ If you update `flask-socketio`, ensure that you also update the [socket.io.min.j
 
 ### Finalize localization
 
-- [ ] Merge all the translations from weblate
+- [ ] Merge all the translations from weblate:
+      ```
+      git remote add weblate https://hosted.weblate.org/projects/onionshare/translations/
+      git pull weblate main
+      ```
 - [ ] In `docs` run `poetry run ./check-weblate.py [API_KEY]` to see which translations are >90% in the app and docs
 - [ ] Edit `cli/onionshare_cli/settings.py`, make sure `self.available_locales` lists only locales that are >90% translated
 - [ ] From the `desktop` folder in the virtual env, run `./scripts/countries-update-list.py` to make sure the localized country list for censorship circumvention is available in all available languages
@@ -46,50 +78,53 @@ In `snap/snapcraft.yaml`:
 
 - [ ] The `tor`, `libevent`, `obfs4`, `snowflake-client`, and `meek-client` parts should be updated if necessary
 - [ ] In the `onionshare` part, in the `override-pull` section, all of the dependencies in the `requirements.txt` file should match the dependencies listed in `cli/pyproject.toml` and `desktop/pyproject.toml`, with the exception of PySide2
-- [ ] With every commit to the `main` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them. You can install them with: `snap install onionshare --edge`
+
+To test locally:
+
+- Install snapcraft with: `sudo snap install snapcraft --classic`
+- Build snap with: `snapcraft`
+- Install with: `sudo snap install ./onionshare_${VERSION}_amd64.snap --devmode`
+
+To in the edge branch:
+
+With every commit to the `main` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them. You can install them with: `snap install onionshare --edge`
 
 ### Make sure the Flatpak packaging works
 
 In `flatpak/org.onionshare.OnionShare.yaml`:
 
-- [ ] Update `tor`, `libevent`, `obfs4`, `meek-client`, and `snowflake-client` dependencies, if necessary
-- [ ] Built the latest python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) (see below)
-- [ ] Test the Flatpak package, ensure it works
+- [ ] Update `tor` and `libevent`
+- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies, if necessary using [this tool](https://github.com/micahflee/flatpak-builder-tools/tree/fix-go/go):
+  ```sh
+  cd flatpak-builder-tools/go
 
+  # For each these, incorporate the output into the Flatpak maniest
+  # Make sure to update the version numbers
+  ./flatpak-go-deps.py git.torproject.org/pluggable-transports/meek.git/meek-client@v0.38.0
+  ./flatpak-go-deps.py git.torproject.org/pluggable-transports/snowflake.git/client@v2.6.0
+  ./flatpak-go-deps.py gitlab.com/yawning/obfs4.git/obfs4proxy@obfs4proxy-0.0.14
+  ```
+  Merge the output of each of these commands into the Flatpak manifest.
+- [ ] Update the Python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) along with `flatpak/poetry-to-requirements.py`:
+  ```sh
+  cd flatpak-build-tools/pip
+
+  # get onionshare-cli dependencies
+  ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/cli/pyproject.toml)
+  ../flatpak-json2yaml.py ./python3-modules.json
+  mv python3-modules.yml onionshare-cli.yaml
+
+  # get onionshare dependencies
+  ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/desktop/pyproject.toml | grep -v PySide6)
+  ../flatpak-json2yaml.py ./python3-modules.json
+  mv python3-modules.yml onionshare-desktop.yaml
+  ```
+  Now, merge `onionshare-desktop.yaml` and `onionshare-cli.yaml` into the Flatpak manifest.
+- [ ] Build and test the Flatpak package to ensure it works:
+  ```sh
+  flatpak-builder build --force-clean --jobs=$(nproc) --install-deps-from=flathub --install --user flatpak/org.onionshare.OnionShare.yaml
+  flatpak run org.onionshare.OnionShare
 ```
-pip3 install toml requirements-parser
-
-# clone flatpak-build-tools
-git clone https://github.com/flatpak/flatpak-builder-tools.git
-
-# get onionshare-cli dependencies
-cd poetry
-./flatpak-poetry-generator.py ../../onionshare/cli/poetry.lock
-cd ..
-
-# get onionshare dependencies
-cd pip
-./flatpak-pip-generator $(python3 -c 'import toml; print("\n".join(toml.loads(open("../../onionshare/desktop/pyproject.toml").read())["tool"]["poetry"]["dependencies"]))' |grep -vi onionshare_cli |grep -vi python | grep -vi pyside6 | grep -vi cx_freeze |tr "\n" " ")
-cd ..
-
-# convert to yaml
-./flatpak-json2yaml.py -o onionshare-cli.yml poetry/generated-poetry-sources.json
-./flatpak-json2yaml.py -o onionshare.yml pip/python3-modules.json
-```
-
-Now, merge `onionshare-cli.yml` and `onionshare.yml` into the Flatpak manifest.
-
-Build and test the Flatpak package before publishing:
-
-```sh
-flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
-flatpak run org.onionshare.OnionShare
-```
-
-### Update to the latest version of Tor
-
-- [ ] Edit `desktop/scripts/get-tor.py` to use the latest version of Tor Browser, and the latest sha256 checksums.
-- [ ] Update the version of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scripts/build-pt-*` scripts, both the bash and PowerShell scripts.
 
 ### Create a signed git tag
 
@@ -125,70 +160,104 @@ From https://snapcraft.io/onionshare/releases (you must be logged in), promote t
 
 ### Windows release
 
-Set up the packaging environment:
+Create a Windows 11 VM, and set it up like this:
 
-- Install the Windows SDK from here: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/ and add `C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool` to the path (you'll need it for `signtool.exe`)
+- Install [git for Windows](https://git-scm.com/download/win).
+- Install the latest version of 3.11 [from python.org](https://www.python.org/downloads/).
+- Install [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/), making sure to check "Desktop development with C++".
+- Download and install [7-Zip (x64)](https://7-zip.org/). Add `C:\Program Files\7-Zip` to your path.
+- Download and install [gpg4win](https://gpg4win.org/). Add `C:\Program Files (x86)\GnuPG\bin` to your path.
+- Install the Windows SDK from here: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/.
 - Go to https://dotnet.microsoft.com/download/dotnet-framework and download and install .NET Framework 3.5 SP1 Runtime. I downloaded `dotnetfx35.exe`.
-- Go to https://wixtoolset.org/releases/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
+- Go to https://wixtoolset.org/docs/wix3/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
 
-Github Actions will build the binaries. Find the Github Actions `build` workflow, switch to the summary tab, and download:
+Clone the OnionShare git repo and checkout the release tag.
 
-- `build-win32`
-- `build-win64`
+If you've used this git repo for a previous release, clean it up:
 
-Extract these files, change to the `desktop` folder, and run:
+- In the `onionshare/desktop` folder, delete `build` and `dist` from the previous build.
+- Delete the poetry environment. You can find its name by run `poetry env list`, and then you can delete it with `poetry env remove [ENV_NAME]`.
+
+Install Poetry and deps. Open a Developer PowerShell for VS window, change to the `onionshare` folder, and run:
+
+```powershell
+cd desktop
+pip install poetry
+poetry install
+```
+
+Github Actions will build the binaries. Find the Github Actions `build` workflow, switch to the summary tab, download `win64-build.zip`, and copy it to the Windows packaging environment.
+
+Extract `win64-build.zip`. Run:
 
 ```
-poetry run python .\scripts\build-windows.py codesign [onionshare_win32_path] [onionshare_win64_path]
-poetry run python .\scripts\build-windows.py package [onionshare_win32_path] [onionshare_win64_path]
+poetry run python .\scripts\build-windows.py codesign [path]
+poetry run python .\scripts\build-windows.py package [path]
 ```
 
 This will create:
 
-- `desktop/dist/OnionShare-win32-$VERSION.msi`
 - `desktop/dist/OnionShare-win64-$VERSION.msi`
 
 ### macOS release
 
-In order to make a universal2 binary, you must run this one a Mac with Apple Silicon. To keep a clean environment, you can use VM.
+In order to make a universal2 binary, you must following these instructions using a Mac with Apple Silicon. To keep a clean environment, you can use VM.
 
 Set up the VM like this:
 
 - Install [Homebrew](https://brew.sh/)
 - `brew install create-dmg libiodbc`
-- Install the latest Python 3.10 from https://www.python.org/downloads/
+- Install the latest Python 3.11 from https://www.python.org/downloads/
 - Install ARM64 version of Go from https://go.dev/dl/
-- Install "Postgres.app with PostgreSQL 14 (Universal)" from https://postgresapp.com/downloads.html (required for cx_Freeze build step)
+- Install "Postgres.app with PostgreSQL 14 (Universal)" from https://postgresapp.com/downloads.html
+
+Clone the OnionShare git repo and checkout the release tag.
+
+If you've used this git repo for a previous release, clean it up:
+
+```sh
+cd desktop
+rm -rf build dist
+# Delete the old poetry environment
+poetry env remove $(poetry env list | grep "(Activated)" | cut -d" " -f1)
+```
+
+Install and build dependencies:
 
 ```sh
 cd desktop
 python3 -m pip install poetry
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry install
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/get-tor.py macos
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry install
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/get-tor.py macos
 ./scripts/build-pt-obfs4proxy.sh
 ./scripts/build-pt-snowflake.sh
 ./scripts/build-pt-meek.sh
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py build
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py bdist_mac
-/Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/build-macos.py cleanup-build
-cd build
-tar -czvf ~/onionshare-macos-universal2.tar.gz OnionShare.app
 ```
 
-
-Set up the packaging environment:
-
-- Install create-dmg: `brew install create-dmg`
-
-Github Actions will build the binaries. Find the Github Actions `build` workflow, switch to the summary tab, and download:
-
-- `build-mac`
-
-Extract these files, change to the `desktop` folder, and run:
+Make the Apple Silicon app bundle:
 
 ```sh
-poetry run python ./scripts/build-macos.py codesign [app_path]
-poetry run python ./scripts/build-macos.py package [app_path]
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./setup-freeze.py bdist_mac
+rm -rf build/OnionShare.app/Contents/Resources/lib
+mv build/exe.macosx-10.9-universal2-3.11/lib build/OnionShare.app/Contents/Resources/
+/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/build-macos.py cleanup-build
+```
+
+The Apple Silicon app bundle will be in `build` folder called `OnionShare.app`.
+
+Github Actions will build the Intel app bundle. Find the Github Actions `build` workflow, switch to the summary tab, and download the `mac-intel-build` artifact. Extract it, and you'll get the Intel `OnionShare.app` folder.
+
+Next, merge these two app bundles into a single universal2 app bundle:
+
+```sh
+poetry run ./scripts/macos-merge-universal.py [intel_app_path] [silicon_app_path] [universal2_app_path]
+```
+
+Finally, code sign and package the universal2 app bundle:
+
+```sh
+poetry run python ./scripts/build-macos.py codesign [universal2_app_path]
+poetry run python ./scripts/build-macos.py package [universal2_app_path]
 ```
 
 The will create `dist/OnionShare-$VERSION.dmg`.

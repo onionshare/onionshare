@@ -76,7 +76,6 @@
     "gui_server_autostop_timer_expired": "Automatinio sustabdymo laikmatis jau baigėsi. Sureguliuokite jį, kad pradėtumėte dalintis.",
     "gui_server_autostart_timer_expired": "Numatytas laikas jau praėjo. Pakoreguokite jį, kad galėtumėte pradėti dalintis.",
     "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "Automatinio sustabdymo laikas negali būti toks pat arba ankstesnis už automatinio paleidimo laiką. Sureguliuokite jį, kad galėtumėte pradėti dalytis.",
-    "share_via_onionshare": "Bendrinti per „OnionShare“",
     "gui_share_url_description": "<b>Visi</b>, turintys šį „OnionShare“ adresą ir privatųjį raktą gali <b>atsisiųsti</b> jūsų failus, naudodamiesi <b>„Tor“Naršykle</b>: <img src='{}' />",
     "gui_website_url_description": "<b>Kiekvienas</b>, turintis šį „OnionShare“ adresą ir privatųjį raktą, gali <b>apsilankyti</b> jūsų svetainėje naudodamas <b>„Tor“ naršyklę</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Kiekvienas</b>, turintis šį „OnionShare“ adresą ir privatųjį raktą, gali <b>įkelti</b> failus į jūsų kompiuterį naudodamas <b>„Tor“ naršyklę</b>: <img src='{}' />",

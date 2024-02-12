@@ -29,10 +29,11 @@ jobs:
       - run: |
           cd cli
           poetry run pytest -v ./tests
-          poetry run onionshare-cli --local-only ./tests --auto-stop-timer 2 --verbose
-          poetry run onionshare-cli --local-only --receive --auto-stop-timer 2 --verbose
-          poetry run onionshare-cli --local-only --website ../docs --auto-stop-timer 2 --verbose
-          poetry run onionshare-cli --local-only --chat --auto-stop-timer 5 --verbose
+          poetry run onionshare-cli --local-only ./tests --auto-stop-timer 2 --qr --verbose
+          poetry run onionshare-cli --local-only ./tests --auto-start-timer 2 --auto-stop-timer 2 --qr --verbose
+          poetry run onionshare-cli --local-only --receive --auto-stop-timer 2 --qr --verbose
+          poetry run onionshare-cli --local-only --website ../docs --auto-stop-timer 2 --qr --verbose
+          poetry run onionshare-cli --local-only --chat --auto-stop-timer 5 --qr --verbose
 
   test-desktop:
     runs-on: ubuntu-latest

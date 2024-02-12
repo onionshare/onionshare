@@ -131,7 +131,7 @@ class SendBaseModeWeb:
 
         self.set_file_info_custom(filenames, processed_size_callback)
 
-    def directory_listing(self, filenames, path="", filesystem_path=None):
+    def directory_listing(self, filenames, path="", filesystem_path=None, add_trailing_slash=False):
         # Tell the GUI about the directory listing
         history_id = self.cur_history_id
         self.cur_history_id += 1
@@ -150,12 +150,12 @@ class SendBaseModeWeb:
         breadcrumbs_leaf = breadcrumbs.pop()[0]
 
         # If filesystem_path is None, this is the root directory listing
-        files, dirs = self.build_directory_listing(path, filenames, filesystem_path)
+        files, dirs = self.build_directory_listing(path, filenames, filesystem_path, add_trailing_slash)
         return self.directory_listing_template(
             path, files, dirs, breadcrumbs, breadcrumbs_leaf
         )
 
-    def build_directory_listing(self, path, filenames, filesystem_path):
+    def build_directory_listing(self, path, filenames, filesystem_path, add_trailing_slash=False):
         files = []
         dirs = []
 
@@ -168,9 +168,14 @@ class SendBaseModeWeb:
             is_dir = os.path.isdir(this_filesystem_path)
 
             if is_dir:
-                dirs.append(
-                    {"link": os.path.join(f"/{path}", filename), "basename": filename}
-                )
+                if add_trailing_slash:
+                    dirs.append(
+                        {"link": os.path.join(f"/{path}", filename, ""), "basename": filename}
+                    )
+                else:
+                    dirs.append(
+                        {"link": os.path.join(f"/{path}", filename), "basename": filename}
+                    )
             else:
                 size = os.path.getsize(this_filesystem_path)
                 size_human = self.common.human_readable_filesize(size)

@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: 2024-01-25 13:17+0000\n"
-"Last-Translator: emma peel <emma.peel@riseup.net>\n"
+"PO-Revision-Date: 2023-06-02 11:21+0000\n"
+"Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: ru <LL@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -89,8 +89,9 @@ msgstr ""
 "org/dist/."
 
 #: ../../source/install.rst:26
+#, fuzzy
 msgid "Manual Flatpak Installation"
-msgstr "Ручная установка Flatpak"
+msgstr "Установка"
 
 #: ../../source/install.rst:28
 #, fuzzy
@@ -99,16 +100,11 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
-"Если вы хотите установить OnionShare вручную с помощью Flatpak, используя "
-"подписанный PGP однофайловый пакет <https://docs.flatpak.org/en/latest/"
-"single-file-bundles.html>`_, вы можете сделать Ну вот так:"
 
 #: ../../source/install.rst:30
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
-"Установите Flatpak, следуя инструкциям на странице https://flatpak.org/setup/"
-"."
 
 #: ../../source/install.rst:31
 msgid ""
@@ -127,16 +123,12 @@ msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
-"Перейдите на https://onionshare.org/dist/, выберите последнюю версию "
-"OnionShare и загрузите файлы ``. Flatpak`` и ``. Flatpak.asc``."
 
 #: ../../source/install.rst:33
 msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
-"Проверьте подпись PGP файла ``.flatpak``. Дополнительную информацию см. в "
-"разделе :ref:`verifying_sigs`."
 
 #: ../../source/install.rst:34
 msgid ""
@@ -144,51 +136,38 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
-"Установите файл ``. Flatpak``, запустив `` Flatpak install OnionShare-"
-"VERSION. Flatpak``. Замените ``VERSION`` на номер версии загруженного вами "
-"файла."
 
 #: ../../source/install.rst:36
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
 msgstr ""
-"Вы можете запустить OnionShare с помощью: ` Flatpak run org.onionshare."
-"OnionShare`."
 
 #: ../../source/install.rst:39
 msgid "Manual Snapcraft Installation"
-msgstr "Ручная установка Snapcraft"
+msgstr ""
 
 #: ../../source/install.rst:41
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
-"Если вы хотите установить OnionShare вручную с помощью Snapcraft, используя "
-"пакет Snapcraft, подписанный PGP, вы можете сделать это следующим образом:"
 
 #: ../../source/install.rst:43
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
-"Установите Snapcraft, следуя инструкциям на странице https://snapcraft.io/"
-"docs/installing-snapd."
 
 #: ../../source/install.rst:44
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
-"Перейдите на https://onionshare.org/dist/, выберите последнюю версию "
-"OnionShare и загрузите файлы ``.snap`` и ``.snap.asc``."
 
 #: ../../source/install.rst:45
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
-"Проверьте подпись PGP файла ``.snap``. Дополнительную информацию см. в "
-"разделе :ref:`verifying_sigs`."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -198,15 +177,10 @@ msgid ""
 "package is not signed by the Snapcraft store, however you did verify its PGP "
 "signature, so you know it's legitimate."
 msgstr ""
-"Установите файл .snap, запустив snap install --dangerous "
-"onionshare_VERSION_amd64.snap. Замените ``VERSION`` на номер версии "
-"загруженного вами файла. Обратите внимание, что вы должны использовать "
-"`--dangerous`, поскольку пакет не подписан магазином Snapcraft, однако вы "
-"проверили его подпись PGP и знаете, что он легален."
 
 #: ../../source/install.rst:48
 msgid "You can run OnionShare with: `snap run onionshare`."
-msgstr "Вы можете запустить OnionShare с помощью: `snap run onionshare`."
+msgstr ""
 
 #: ../../source/install.rst:53
 msgid "Command-line only"
@@ -291,6 +265,7 @@ msgid "Verifying"
 msgstr "Проверка"
 
 #: ../../source/install.rst:82
+#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and ``.asc`` signature, you can verify the binary for "
@@ -301,6 +276,7 @@ msgstr ""
 "двоичный файл для macOS в терминале следующим образом::"
 
 #: ../../source/install.rst:86
+#, fuzzy
 msgid "Or for Windows, in a command-prompt like this::"
 msgstr "Или для Windows в командной строке, например::"
 

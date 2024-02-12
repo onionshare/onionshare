@@ -50,7 +50,8 @@ async def app_percent_output(percent_min, percent_max=101):
     out = []
     for lang_code in languages:
         if (
-            app_translations[lang_code] >= percent_min
+            lang_code in app_translations
+            and app_translations[lang_code] >= percent_min
             and app_translations[lang_code] < percent_max
         ):
             out.append(
@@ -110,7 +111,7 @@ async def main():
     # Get the list of languages in the OnionShare project
     res = await api("/api/projects/onionshare/languages/")
     for obj in res:
-        languages[obj["code"]] = obj["language"]
+        languages[obj["code"]] = obj["name"]
 
     # Get the app translations for each language
     for lang_code in languages:

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 13:07+0200\n"
 "PO-Revision-Date: 2023-11-20 16:03+0000\n"
 "Last-Translator: kopatych <maxklezovich@gmail.com>\n"
@@ -35,7 +35,7 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Linux"
-msgstr "Linux"
+msgstr ""
 
 #: ../../source/install.rst:14
 msgid "There are various ways to install OnionShare for Linux, but the recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap <https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll always use the newest version and run OnionShare inside of a sandbox."

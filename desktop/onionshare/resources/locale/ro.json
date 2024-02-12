@@ -70,7 +70,6 @@
     "gui_tor_connection_lost": "Deconectat de la Tor.",
     "gui_server_started_after_autostop_timer": "Cronometrul de oprire automată a expirat înainte de pornirea serverului. Vă rugăm să faceți o nouă partajare.",
     "gui_server_autostop_timer_expired": "Timpul pentru cronometrul auto-stop a expirat deja. Vă rugăm să îl modificați pentru a începe distribuirea.",
-    "share_via_onionshare": "Partajați prin OnionShare",
     "gui_share_url_description": "<b>Oricine</b> are această adresă OnionShare poate <b>descărca</b> fișierele dvs. folosind <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Oricine</b> are această adresă OnionShare poate <b>încărca</b> fișiere pe computerul dvs. folosind <b>Tor Browser</b>: <img src='{}' />",
     "gui_url_label_persistent": "Această partajare nu se va opri automat. <br> <br> Fiecare acțiune ulterioară reutilizează adresa. (Pentru a utiliza adrese unice, dezactivați „Utilizați adresa persistentă” din setări.)",

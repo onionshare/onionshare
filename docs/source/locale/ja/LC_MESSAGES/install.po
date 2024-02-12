@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 13:07+0200\n"
 "PO-Revision-Date: 2024-01-31 10:01+0000\n"
 "Last-Translator: Himmel <anonymous.colt330@aleeas.com>\n"

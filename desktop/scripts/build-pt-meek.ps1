@@ -1,4 +1,4 @@
-$env:MEEK_TAG = 'v0.37.0'
+$env:MEEK_TAG = 'v0.38.0'
 
 New-Item -ItemType Directory -Force -Path .\build\meek
 cd .\build\meek

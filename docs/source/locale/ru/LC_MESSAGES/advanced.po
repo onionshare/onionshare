@@ -249,7 +249,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"
-msgstr "И на главном экране выбора режима::"
+msgstr ""
 
 #~ msgid "Turn Off Passwords"
 #~ msgstr "Отключение паролей"

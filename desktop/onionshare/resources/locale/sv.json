@@ -70,7 +70,6 @@
     "gui_tor_connection_lost": "Frånkopplad från Tor.",
     "gui_server_started_after_autostop_timer": "Tiden för den automatiska stopp-tidtagaren löpte ut innan servern startades.\nGör en ny delning.",
     "gui_server_autostop_timer_expired": "Den automatiska stopp-tidtagaren har redan löpt ut. Justera den för att starta delning.",
-    "share_via_onionshare": "Dela med OnionShare",
     "gui_share_url_description": "<b>Vem som helst</b> med denna OnionShare-adress och privata nyckel kan <b>ladda ner</b> dina filer med hjälp av <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Alla</b> med denna OnionShare-adress och privata nyckel kan <b>ladda upp</b> filer till din dator med <b>Tor Browser</b>: <img src='{}' />",
     "gui_url_label_persistent": "Denna delning kommer inte automatiskt att avslutas.<br>< br>Varje efterföljande delning återanvänder adressen. (För att använda engångsadresser, stäng av \"Använd beständig adress\" i inställningarna.)",

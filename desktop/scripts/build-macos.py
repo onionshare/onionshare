@@ -7,6 +7,8 @@ import shutil
 import glob
 import itertools
 
+from common import get_binary_arches
+
 root = os.path.dirname(
     os.path.dirname(
         os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -52,6 +54,10 @@ def sign(path, entitlements, identity):
             str(path),
         ]
     )
+
+
+def get_binaries():
+    pass
 
 
 @click.group()
@@ -159,7 +165,7 @@ def cleanup_build():
         "QtSvgWidgets",
         "QtUiTools",
         "QtWebEngineQuick",
-        "QtWebEngineQuickDelegatesQml"
+        "QtWebEngineQuickDelegatesQml",
     ]:
         shutil.rmtree(
             f"{app_path}/Contents/MacOS/lib/PySide6/Qt/lib/{framework}.framework"
@@ -178,98 +184,37 @@ def cleanup_build():
         except FileNotFoundError:
             pass
 
-    print("> Move files around so Apple will notarize")
-    # https://github.com/marcelotduarte/cx_Freeze/issues/594
-    # https://gist.github.com/TechnicalPirate/259a9c24878fcad948452cb148af2a2c#file-custom_bdist_mac-py-L415
-
-    # Move lib from MacOS into Resources
-    os.rename(
-        f"{app_path}/Contents/MacOS/lib",
-        f"{app_path}/Contents/Resources/lib",
-    )
-    run(
-        ["ln", "-s", "../Resources/lib"],
-        cwd=f"{app_path}/Contents/MacOS",
-    )
-
-    # Move frameworks from Resources/lib into Frameworks
-    os.makedirs(f"{app_path}/Contents/Frameworks", exist_ok=True)
-    for framework_filename in glob.glob(
-        f"{app_path}/Contents/Resources/lib/PySide6/Qt/lib/Qt*.framework"
-    ):
-        basename = os.path.basename(framework_filename)
-
-        os.rename(framework_filename, f"{app_path}/Contents/Frameworks/{basename}")
-        run(
-            ["ln", "-s", f"../../../../../Frameworks/{basename}"],
-            cwd=f"{app_path}/Contents/Resources/lib/PySide6/Qt/lib",
-        )
-        if os.path.exists(f"{app_path}/Contents/Frameworks/{basename}/Resources"):
-            if not os.path.exists(f"{app_path}/Contents/Frameworks/{basename}/Versions/A/Resources"):
-                os.rename(
-                    f"{app_path}/Contents/Frameworks/{basename}/Resources",
-                    f"{app_path}/Contents/Frameworks/{basename}/Versions/A/Resources",
-                )
-            else:
-                shutil.rmtree(f"{app_path}/Contents/Frameworks/{basename}/Resources")
-            run(
-                ["ln", "-s", "Versions/A/Resources"],
-                cwd=f"{app_path}/Contents/Frameworks/{basename}",
-            )
-
-        try:
-            run(
-                ["ln", "-s", "A", "Current"],
-                cwd=f"{app_path}/Contents/Frameworks/{basename}/Versions",
-            )
-        except:
-            pass
-
-    # Move Qt plugins
-    os.rename(
-        f"{app_path}/Contents/Resources/lib/PySide6/Qt/plugins",
-        f"{app_path}/Contents/Frameworks/plugins",
-    )
-    run(
-        ["ln", "-s", "../../../../Frameworks/plugins"],
-        cwd=f"{app_path}/Contents/Resources/lib/PySide6/Qt",
-    )
-
     print("> Delete more unused PySide6 stuff to save space")
     for filename in [
         f"{app_path}/Contents/Resources/lib/PySide6/Designer.app",
-        f"{app_path}/Contents/Resources/lib/PySide6/examples",
         f"{app_path}/Contents/Resources/lib/PySide6/glue",
         f"{app_path}/Contents/Resources/lib/PySide6/include",
         f"{app_path}/Contents/Resources/lib/PySide6/lupdate",
-        f"{app_path}/Contents/Resources/lib/PySide6/libpyside6.abi3.6.4.dylib",
         f"{app_path}/Contents/Resources/lib/PySide6/Qt/qml",
-        f"{app_path}/Contents/Resources/lib/shiboken6/libshiboken6.abi3.6.4.dylib",
         f"{app_path}/Contents/Resources/lib/PySide6/Assistant.app",
         f"{app_path}/Contents/Resources/lib/PySide6/Linguist.app",
-        f"{app_path}/Contents/Resources/lib/PySide6/libpyside6qml.abi3.6.4.dylib",
         f"{app_path}/Contents/Resources/lib/PySide6/lrelease",
         f"{app_path}/Contents/Resources/lib/PySide6/qmlformat",
         f"{app_path}/Contents/Resources/lib/PySide6/qmllint",
         f"{app_path}/Contents/Resources/lib/PySide6/qmlls",
-        f"{app_path}/Contents/MacOS/QtBluetooth",
-        f"{app_path}/Contents/MacOS/QtConcurrent",
-        f"{app_path}/Contents/MacOS/QtDesigner",
-        f"{app_path}/Contents/MacOS/QtNetworkAuth",
-        f"{app_path}/Contents/MacOS/QtNfc",
-        f"{app_path}/Contents/MacOS/QtOpenGL",
-        f"{app_path}/Contents/MacOS/QtOpenGLWidgets",
-        f"{app_path}/Contents/MacOS/QtPositioning",
-        f"{app_path}/Contents/MacOS/QtQuick3D",
-        f"{app_path}/Contents/MacOS/QtQuick3DRuntimeRender",
-        f"{app_path}/Contents/MacOS/QtQuick3DUtils",
-        f"{app_path}/Contents/MacOS/QtShaderTools",
-        f"{app_path}/Contents/MacOS/QtStateMachine",
-        f"{app_path}/Contents/MacOS/QtSvgWidgets",
-        f"{app_path}/Contents/MacOS/QtWebChannel",
-        f"{app_path}/Contents/MacOS/QtWebEngineCore",
-        f"{app_path}/Contents/MacOS/QtWebEngineQuick",
-        f"{app_path}/Contents/MacOS/QtXml",
+        f"{app_path}/Contents/Resources/lib/QtBluetooth",
+        f"{app_path}/Contents/Resources/lib/QtConcurrent",
+        f"{app_path}/Contents/Resources/lib/QtDesigner",
+        f"{app_path}/Contents/Resources/lib/QtNetworkAuth",
+        f"{app_path}/Contents/Resources/lib/QtNfc",
+        f"{app_path}/Contents/Resources/lib/QtOpenGL",
+        f"{app_path}/Contents/Resources/lib/QtOpenGLWidgets",
+        f"{app_path}/Contents/Resources/lib/QtPositioning",
+        f"{app_path}/Contents/Resources/lib/QtQuick3D",
+        f"{app_path}/Contents/Resources/lib/QtQuick3DRuntimeRender",
+        f"{app_path}/Contents/Resources/lib/QtQuick3DUtils",
+        f"{app_path}/Contents/Resources/lib/QtShaderTools",
+        f"{app_path}/Contents/Resources/lib/QtStateMachine",
+        f"{app_path}/Contents/Resources/lib/QtSvgWidgets",
+        f"{app_path}/Contents/Resources/lib/QtWebChannel",
+        f"{app_path}/Contents/Resources/lib/QtWebEngineCore",
+        f"{app_path}/Contents/Resources/lib/QtWebEngineQuick",
+        f"{app_path}/Contents/Resources/lib/QtXml",
     ]:
         if os.path.isfile(filename) or os.path.islink(filename):
             os.remove(filename)
@@ -290,26 +235,11 @@ def cleanup_build():
 @click.argument("app_path")
 def codesign(app_path):
     """Sign macOS binaries before packaging"""
-    for path in itertools.chain(
-        glob.glob(f"{app_path}/Contents/Resources/lib/**/*.so", recursive=True),
-        glob.glob(f"{app_path}/Contents/Resources/lib/**/*.dylib", recursive=True),
-        [
-            f"{app_path}/Contents/Frameworks/QtCore.framework/Versions/A/QtCore",
-            f"{app_path}/Contents/Frameworks/QtDBus.framework/Versions/A/QtDBus",
-            f"{app_path}/Contents/Frameworks/QtGui.framework/Versions/A/QtGui",
-            f"{app_path}/Contents/Frameworks/QtWidgets.framework/Versions/A/QtWidgets",
-            f"{app_path}/Contents/Resources/lib/Python",
-            f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/meek-client",
-            f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/obfs4proxy",
-            f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/snowflake-client",
-            f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/tor",
-            f"{app_path}/Contents/Resources/lib/onionshare/resources/tor/libevent-2.1.7.dylib",
-            f"{app_path}/Contents/MacOS/onionshare",
-            f"{app_path}/Contents/MacOS/onionshare-cli",
-            f"{app_path}",
-        ],
-    ):
-        sign(path, entitlements_plist_path, identity_name_application)
+    bin_universal, bin_silicon, bin_intel = get_binary_arches(app_path)
+    binaries = bin_universal + bin_silicon + bin_intel + [app_path]
+
+    for filename in binaries:
+        sign(filename, entitlements_plist_path, identity_name_application)
 
     print(f"> Signed app bundle: {app_path}")
 

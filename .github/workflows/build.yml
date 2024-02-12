@@ -1,5 +1,5 @@
 name: Build
-run-name: Build win64, mac (Intel) 🚀
+run-name: Build Windows (x86_64), macOS (Intel), Snap, and Flatpak 🚀
 on:
   push:
     branches:
@@ -17,10 +17,10 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10.11'
+          python-version: "3.11.6"
 
       - name: Install poetry
-        run: C:\hostedtoolcache\windows\Python\3.10.11\x64\python -m pip install poetry
+        run: C:\hostedtoolcache\windows\Python\3.11.6\x64\python -m pip install poetry
 
       - name: Restore cache - poetry
         uses: actions/cache@v3
@@ -31,8 +31,8 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry install
-          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry env list --full-path
+          C:\hostedtoolcache\windows\Python\3.11.6\x64\Scripts\poetry install
+          C:\hostedtoolcache\windows\Python\3.11.6\x64\Scripts\poetry env list --full-path
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -41,7 +41,14 @@ jobs:
           key: ${{ runner.os }}-win64-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
 
       - name: Get tor binaries from Tor Browser (64-bit)
-        run: cd desktop && C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\scripts\get-tor.py win64
+        run: cd desktop && C:\hostedtoolcache\windows\Python\3.11.6\x64\Scripts\poetry run python .\scripts\get-tor.py win64
+
+      - name: Install Go >=1.21.1
+        uses: actions/setup-go@v4
+        with:
+          go-version: ">=1.21.1"
+          cache: false
+      - run: go version
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
@@ -94,13 +101,13 @@ jobs:
       - name: Build OnionShare
         run: |
           cd desktop
-          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\setup-freeze.py build
-          C:\hostedtoolcache\windows\Python\3.10.11\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
+          C:\hostedtoolcache\windows\Python\3.11.6\x64\Scripts\poetry run python .\setup-freeze.py build
+          C:\hostedtoolcache\windows\Python\3.11.6\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
       - name: Compress
         shell: pwsh
         run: |
-          mv desktop\build\exe.win-amd64-3.10\ ~\onionshare-win64
+          mv desktop\build\exe.win-amd64-3.11\ ~\onionshare-win64
           Compress-Archive -LiteralPath ~\onionshare-win64 -DestinationPath ~\onionshare-win64.zip
 
       - uses: actions/upload-artifact@v3
@@ -108,17 +115,14 @@ jobs:
           name: win64-build
           path: ~\onionshare-win64.zip
 
-  # TODO: Someday, build universal2 mac binaries. Right now it's blocked because Github Actions doesn't support
-  # M1 Mac VMs: https://github.com/actions/runner-images/issues/2187
-
   build-mac-intel:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Python 3.10.9 (universal2)
+      - name: Install Python 3.11.6 (universal2)
         run: |
-          curl -L https://www.python.org/ftp/python/3.10.9/python-3.10.9-macos11.pkg --output ~/Downloads/python.pkg
+          curl -L https://www.python.org/ftp/python/3.11.6/python-3.11.6-macos11.pkg --output ~/Downloads/python.pkg
           sudo installer -pkg ~/Downloads/python.pkg -target /
 
       - name: Install poetry
@@ -134,7 +138,7 @@ jobs:
       - name: Install poetry dependencies
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry install
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry install
 
       - name: Restore cache - tor
         uses: actions/cache@v3
@@ -145,7 +149,7 @@ jobs:
       - name: Get tor binaries from Tor Browser
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/get-tor.py macos
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/get-tor.py macos
 
       - name: Restore cache - obfs4proxy
         uses: actions/cache@v3
@@ -196,17 +200,18 @@ jobs:
         run: |
           brew install libiodbc
           cd ~/Downloads
-          curl -O -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.5.12/Postgres-2.5.12-14.dmg
-          hdiutil attach Postgres-2.5.12-14.dmg
-          cp -r /Volumes/Postgres-2.5.12-14/Postgres.app /Applications/
-          hdiutil detach /Volumes/Postgres-2.5.12-14
+          curl -O -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.5/Postgres-2.6.5-14.dmg
+          hdiutil attach Postgres-2.6.5-14.dmg
+          cp -r /Volumes/Postgres-2.6.5-14/Postgres.app /Applications/
+          hdiutil detach /Volumes/Postgres-2.6.5-14
 
       - name: Build OnionShare
         run: |
           cd desktop
-          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py build
-          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./setup-freeze.py bdist_mac
-          /Library/Frameworks/Python.framework/Versions/3.10/bin/poetry run python ./scripts/build-macos.py cleanup-build
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./setup-freeze.py bdist_mac
+          rm -rf build/OnionShare.app/Contents/Resources/lib
+          mv build/exe.macosx-10.9-universal2-3.11/lib build/OnionShare.app/Contents/Resources/
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/build-macos.py cleanup-build
 
       - name: Compress
         run: |
@@ -215,7 +220,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: mac-build
+          name: mac-intel-build
           path: ~/onionshare-macos-intel.tar.gz
 
   build-flatpak:
@@ -233,13 +238,13 @@ jobs:
         uses: actions/cache@v3
         with:
           path: flatpak/.flatpak-builder
-          key: flatpak-.flatpak-builder
+          key: flatpak-.flatpak-builder-${{ hashFiles('flatpak/org.onionshare.OnionShare.yaml') }}
 
       - name: Restore cache - build
         uses: actions/cache@v3
         with:
           path: flatpak/build
-          key: flatpak-build
+          key: flatpak-build-${{ hashFiles('flatpak/org.onionshare.OnionShare.yaml') }}
 
       - name: Flatpak build
         run: |
@@ -257,14 +262,32 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Restore cache - lxd
+        uses: actions/cache@v3
+        with:
+          path: ~/lxd_cache.tar.gz
+          key: snap-lxd-${{ hashFiles('snap/snapcraft.yaml') }}
+
+      - name: Decompress cached content to lxd directory
+        run: |
+          if [ -f "~/lxd_cache.tar.gz" ]; then
+            sudo tar -xzf ~/lxd_cache.tar.gz -C /
+          fi
+
       - name: Install dependencies
         run: |
           sudo lxd init --auto
+          sudo lxc storage list
           sudo snap install snapcraft --classic
           sudo ufw disable
 
       - name: Build snap
-        run: sudo snapcraft --use-lxd
+        run: sudo snapcraft
+
+      - name: Compress lxd directory and set proper permissions
+        run: |
+          sudo tar -czf ~/lxd_cache.tar.gz /var/snap/lxd/common/lxd/storage-pools/default
+          sudo chown $USER:$USER ~/lxd_cache.tar.gz
 
       - uses: actions/upload-artifact@v3
         with:

@@ -31,7 +31,7 @@ from .web import Web
 from .onion import TorErrorProtocolError, TorTooOldEphemeral, TorTooOldStealth, Onion
 from .onionshare import OnionShare
 from .mode_settings import ModeSettings
-
+from qrcode import QRCode
 
 def main(cwd=None):
     """
@@ -119,6 +119,13 @@ def main(cwd=None):
         default=False,
         help="Share files: Continue sharing after files have been sent (default is to stop sharing)",
     )
+    parser.add_argument(
+        "--qr",
+        action="store_true",
+        dest="qr",
+        default=False,
+        help="Display a QR code in the terminal for share links",
+    )
     # Receive args
     parser.add_argument(
         "--data-dir",
@@ -190,6 +197,7 @@ def main(cwd=None):
     autostart_timer = int(args.autostart_timer)
     autostop_timer = int(args.autostop_timer)
     autostop_sharing = not bool(args.no_autostop_sharing)
+    print_qr = bool(args.qr)
     data_dir = args.data_dir
     webhook_url = args.webhook_url
     disable_text = args.disable_text
@@ -229,6 +237,7 @@ def main(cwd=None):
         mode_settings.set("general", "public", public)
         mode_settings.set("general", "autostart_timer", autostart_timer)
         mode_settings.set("general", "autostop_timer", autostop_timer)
+        mode_settings.set("general", "qr", print_qr)
         if persistent_filename:
             mode_settings.set("persistent", "mode", mode)
         if mode == "share":
@@ -382,6 +391,16 @@ def main(cwd=None):
                         f"Give this address to your recipient, and tell them it won't be accessible until: {schedule.strftime('%I:%M:%S%p, %b %d, %y')}"
                     )
             print(url)
+            if mode_settings.get("general", "qr"):
+                qr = QRCode()
+                qr.add_data(url)
+                print("Onion address as QR code:")
+                qr.print_ascii()
+                if not mode_settings.get("general", "public"):
+                    qr.clear()
+                    qr.add_data(app.auth_string)
+                    print("Private key as QR code:")
+                    qr.print_ascii()
             print("")
             print("Waiting for the scheduled time before starting...")
             app.onion.cleanup(False)
@@ -465,6 +484,17 @@ def main(cwd=None):
                     print("Give this address and private key to the recipient:")
                     print(url)
                     print(f"Private key: {app.auth_string}")
+            if mode_settings.get("general", "qr"):
+                qr = QRCode()
+                qr.add_data(url)
+                print("Onion address as QR code:")
+                qr.print_ascii()
+                if not mode_settings.get("general", "public"):
+                    qr.clear()
+                    qr.add_data(app.auth_string)
+                    print("Private key as QR code:")
+                    qr.print_ascii()
+
         print("")
         print("Press Ctrl+C to stop the server")
 

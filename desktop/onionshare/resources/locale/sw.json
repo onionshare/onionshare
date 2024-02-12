@@ -76,7 +76,6 @@
     "gui_server_autostop_timer_expired": "Tayari muda wa auto-stop timer umekwiasha. Tafadhali rekebisha na uanze kusambaza.",
     "gui_server_autostart_timer_expired": "Wakati uliopangwa tayari umepita. Tafadhali irekebishe ili kuanza kusambaza.",
     "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "Muda wa kuisha hauwezi kuwa sawa na muda wa kuanza. Tafadhali rekebisha ili kuanza kusambaza.",
-    "share_via_onionshare": "Sambaza kupitia OnionShare",
     "gui_share_url_description": "<b>Yeyote</b> mwenye hizi anwani za OnionShare pamoja na alama za kipekee binafsi anaweza <b>kupakua</b> mafaili yako kwa kutumia<b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Yeyote</b> mwenye hii anwani ya OnionShare na private key anaweza<b>oakia</b> mafaili katika kompyuta yako kwa kutumia <b>Tor Browser</b>: <img src='{}' />",
     "gui_url_label_persistent": "Hii anuani inaweza kusimama.<br><br>Hivyo unaweza kutumia baadae. (Unaweza kutumia mara moja , zima halafu tumia anuani inayoendelea kwenye mpangilio.)",

@@ -77,7 +77,6 @@
     "gui_server_autostop_timer_expired": "Vrijeme timera za automatsko prekidanje je već isteklo. Za pokretanje dijeljenja, podesi vrijeme.",
     "gui_server_autostart_timer_expired": "Planirano vrijeme je već prošlo. Za pokretanje dijeljenja, podesi vrijeme.",
     "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "Vrijeme za automatsko prekidanje ne može biti isto kao vrijeme za automatsko pokretanje ili ranije. Za pokretanje dijeljenja, podesi vrijeme.",
-    "share_via_onionshare": "Dijeli putem OnionSharea",
     "gui_share_url_description": "<b>Svatko</b> s ovom OnionShare adresom i privatnim ključem može <b>preuzeti</b> tvoje datoteke koristeći <b>Tor preglednik</b>: <img src='{}' />",
     "gui_website_url_description": "<b>Svatko</b> s ovom OnionShare adresom i privatnim ključem može <b>posjetiti</b> tvoju web-stranicu koristeći <b>Tor preglednik</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Svatko</b> s ovom OnionShare adresom i privatnim ključem može <b>prenijeti</b> datoteke na tvoje računalo koristeći <b>Tor preglednik</b>: <img src='{}' />",

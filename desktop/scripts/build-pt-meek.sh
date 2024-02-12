@@ -1,5 +1,5 @@
 #!/bin/bash
-MEEK_TAG=v0.37.0
+MEEK_TAG=v0.38.0
 
 OS=$(uname -s)
 
