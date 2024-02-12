@@ -251,7 +251,5 @@
     "mode_settings_autostop_timer_checkbox": "funga huduma za onion kwa muda uliopangwa",
     "moat_solution_empty_error": "ingiza alama za picha",
     "gui_all_modes_transfer_canceled_range": "imesitishwa {}- {}",
-    "gui_rendezvous_cleanup": "inasubiri mzunguko wa Tor kumalizika ili kuwa na uhakika wa mafaili yako kuhamishwa.\n\nhii inaweza kuchukua muda kidogo.",
-    "waitress_web_server_error": "",
-    "gui_close_tab_warning_chat_description": ""
+    "gui_rendezvous_cleanup": "inasubiri mzunguko wa Tor kumalizika ili kuwa na uhakika wa mafaili yako kuhamishwa.\n\nhii inaweza kuchukua muda kidogo."
 }

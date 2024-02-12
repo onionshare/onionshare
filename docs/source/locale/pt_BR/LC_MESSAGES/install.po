@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-06-06 12:39+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: pt_BR <LL@li.org>\n"
@@ -236,11 +236,12 @@ msgid "Signatures"
 msgstr "Assinaturas"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "Você pode encontrar as assinaturas (como arquivos `` .asc``), bem como "
 "Windows, macOS, Flatpak, Snap e pacotes de origem, em https://onionshare.org/"
@@ -256,28 +257,40 @@ msgstr "Verificando"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "Depois de importar a chave pública de Micah para o seu keychain GnuPG, "
 "baixar o binário e a assinatura `` .asc``, você pode verificar o binário "
 "para macOS em um terminal como este ::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Ou para Windows, em um prompt de comando como este ::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "O resultado esperado se parece com isso::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 "Se você não ver ``Boa assinatura de``, pode haver um problema com a "
 "integridade do arquivo (malicioso ou outro) e você não deve instalar o "
@@ -285,7 +298,20 @@ msgstr ""
 "significa apenas que você ainda não definiu qualquer nível de \"confiança\" "
 "da chave PGP de Micah (o desenvolvedor principal).)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Se você não ver ``Boa assinatura de``, pode haver um problema com a "
+"integridade do arquivo (malicioso ou outro) e você não deve instalar o "
+"pacote. (O ``AVISO:`` mostrado acima não é um problema com o pacote, "
+"significa apenas que você ainda não definiu qualquer nível de \"confiança\" "
+"da chave PGP de Micah (o desenvolvedor principal).)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -296,6 +322,9 @@ msgstr ""
 "guias para `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/"
 ">` _ e o `Tor Project <https://support .torproject.org/tbb/how-to-verify-"
 "signature/> `_ podem ser úteis."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Ou para Windows, em um prompt de comando como este ::"
 
 #~ msgid "Install in Linux"
 #~ msgstr "Instalar no Linux"

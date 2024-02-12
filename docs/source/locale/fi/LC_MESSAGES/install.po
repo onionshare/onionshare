@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-06-06 12:39+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: none\n"
@@ -235,11 +235,12 @@ msgid "Signatures"
 msgstr "Allekirjoitukset"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "Löydät allekirjoitukset (``.asc``-tiedostoina), kuten myös WIndows-, macOS-, "
 "Flatpak-, Snap- ja muut lähdepaketit osoitteesta https://onionshare.org/"
@@ -255,29 +256,40 @@ msgstr "Varmennetaan"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "Kun olet tuonut Micah'n julkisen avaimen sinun GnuPG-avainketjuun, "
 "tallentanut binäärit ja ``.asc`` -allekirjoituksen, voit varmentaa binäärit "
 "macOS:lle terminaalissa näin::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Tai WIndowsille, komentokehote näyttää tältä::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Odotettu lopputulos näyttää tältä::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
 #, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 "Jos et näe \"Hyvä allekirjoitus henkilöltä\", tiedoston eheydessä voi olla "
 "ongelmia (haitallista tai muuta), ja sinun ei tulisi asentaa pakettia. "
@@ -285,7 +297,20 @@ msgstr ""
 "ainoastaan, ettet ole määritellyt \"luottamuksen\" tasoa Micah'n PGP-avaimen "
 "suhteen.)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Jos et näe \"Hyvä allekirjoitus henkilöltä\", tiedoston eheydessä voi olla "
+"ongelmia (haitallista tai muuta), ja sinun ei tulisi asentaa pakettia. "
+"(\"VAROITUS\" ei ole ongelma itse paketin suhteen, vaan se tarkoittaa "
+"ainoastaan, ettet ole määritellyt \"luottamuksen\" tasoa Micah'n PGP-avaimen "
+"suhteen.)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -296,6 +321,9 @@ msgstr ""
 "OS:lle <https://www.qubes-os.org/security/verifying-signatures/>`_ ja `Tor "
 "Projectille <https://support.torproject.org/tbb/how-to-verify-signature/>`_ "
 "voivat olla hyödyllisiä."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Tai WIndowsille, komentokehote näyttää tältä::"
 
 #~ msgid ""
 #~ "There are various ways to install OnionShare for Linux, but the "
@@ -321,20 +349,6 @@ msgstr ""
 #~ msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
 #~ msgstr ""
 #~ "**Asenna OnionShare käyttämällä Snapia**: https://snapcraft.io/onionshare"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you don't see ``Good signature from``, there might be a problem with "
-#~ "the integrity of the file (malicious or otherwise), and you should not "
-#~ "install the package. (The ``WARNING:`` shown above, is not a problem with "
-#~ "the package, it only means you haven't defined a level of \"trust\" of "
-#~ "Micah's PGP key.)"
-#~ msgstr ""
-#~ "Jos et näe \"Hyvä allekirjoitus henkilöltä\", tiedoston eheydessä voi "
-#~ "olla ongelmia (haitallista tai muuta), ja sinun ei tulisi asentaa "
-#~ "pakettia. (\"VAROITUS\" ei ole ongelma itse paketin suhteen, vaan se "
-#~ "tarkoittaa ainoastaan, ettet ole määritellyt \"luottamuksen\" tasoa "
-#~ "Micah'n PGP-avaimen suhteen.)"
 
 #~ msgid "Install in Linux"
 #~ msgstr "Asenna Linuxille"
