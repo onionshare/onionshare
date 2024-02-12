@@ -16,7 +16,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.2-dev\n"
+"Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -366,7 +368,3 @@ msgstr ""
 "le guide de `Qubes OS <https://www.qubes-os.org/security/verifying-"
 "signatures/>`_ et du `Projet Tor <https://support.torproject.org/tbb/how-"
 "to-verify-signature/>`_ peuvent être utiles."
-
-#~ msgid "Or for Windows, in a command-prompt like this::"
-#~ msgstr "Ou pour Windows, dans l'invite de commande comme ceci ::"
-

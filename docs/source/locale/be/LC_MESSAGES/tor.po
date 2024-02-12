@@ -6,107 +6,169 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2023-11-29 17:05+0000\n"
+"Last-Translator: kopatych <maxklezovich@gmail.com>\n"
 "Language-Team: none\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr ""
+msgstr "Падключэнне да Tor"
 
 #: ../../source/tor.rst:4
 msgid "When OnionShare starts, it will show you a screen asking you to connect to the Tor network."
 msgstr ""
+"Калі OnionShare запускаецца, ён пакажа вам экран з просьбай падлучыцца да "
+"сеткі Tor."
 
 #: ../../source/tor.rst:8
 msgid "You can toggle on the switch \"Connect to Tor automatically\" before clicking \"Connect to Tor\". This means that next time OnionShare starts, it will automatically connect with its Tor connection settings from the last session, instead of presenting you with the connection options. If the connection fails, you can still try bridges or reconfigure Tor via the \"Network Settings\" button."
 msgstr ""
+"Перад націскам кнопкі \"Падключыцца да Tor\" можна ўключыць перамыкач "
+"\"Падключацца да Tor аўтаматычна\". Гэта азначае, што пры наступным запуску "
+"OnionShare будзе аўтаматычна падлучацца, выкарыстоўваючы настройкі злучэння "
+"з Tor з апошняга сеансу працы, замест таго каб прапаноўваць Вам варыянты "
+"падключэння. Калі падлучэнне не атрымалася, можна паспрабаваць усталяваць "
+"мост ці пераналадзіць Tor з дапамогай кнопкі \"Налады Сеткі\"."
 
 #: ../../source/tor.rst:11
 msgid "You can click \"Connect to Tor\" to begin the connection process. If there are no problems with your network, including any attempts to block your access to the Tor network, this should hopefully work the first time."
 msgstr ""
+"Вы можаце націснуць кнопку \"Падключыцца да Tor\", каб пачаць працэс "
+"падключэння. Калі ў вашай сетцы няма ніякіх праблем, уключаючы спробы "
+"заблакіраваць доступ да сеткі Tor, тое ўсё павінна атрымацца з першага разу."
 
 #: ../../source/tor.rst:13
 msgid "Or, if you want to manually configure Bridges or other Tor settings before you connect, you can click \"Network Settings\"."
 msgstr ""
+"Ці, калі вы жадаеце ўручную наладзіць Масты ці іншыя параметры Tor перад "
+"падлучэннем, вы можаце націснуць кнопку \"Налады сеткі\"."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Аўтаматычны абыход цэнзуры"
 
 #: ../../source/tor.rst:18
 msgid "When you click \"Connect to Tor\", if OnionShare fails to connect, it might be because Tor is censored in your country or on your local network."
 msgstr ""
+"Калі пры націску кнопкі \"Падключыцца да Tor\" OnionShare не атрымоўваецца "
+"падлучыцца, гэта можа быць злучана з тым, што Tor падвяргаецца цэнзуры ў "
+"вашай краіне ці ў вашай лакальнай сетцы."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "У гэтым выпадку ў Вас будуць наступныя варыянты:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Паўтарыце спробу без моста"
 
 #: ../../source/tor.rst:23
 msgid "Automatically determine my country from my IP address for bridge settings"
-msgstr ""
+msgstr "Аўтаматычнае вызначэнне маёй краіны па IP-адрасе для налад маста"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Ручны выбар маёй краіны для налад маста"
 
 #: ../../source/tor.rst:28
 msgid "If you choose the \"Try again without a bridge\" option, OnionShare will retry connecting to Tor like normal, without attempting to bypass censorship."
 msgstr ""
+"Калі абраць опцыю \"Паспрабаваць яшчэ раз без маста\", OnionShare паўторыць "
+"спробу падлучэння да Tor у звычайным рэжыме, не спрабуючы абысці цэнзуру."
 
 #: ../../source/tor.rst:30
 msgid "The other two options will attempt to automatically bypass censorship using Tor bridges. If your network provider is blocking access to the Tor network, you can hopefully still connect to a Tor bridge, which will then connect you to the Tor network, circumventing the censorship. Both of these options use the Tor Project's Censorship Circumvention API to provide you with bridge settings that should work for you. OnionShare will temporarily use the `Meek <https://gitlab.torproject.org/legacy/trac/-/wikis/doc/meek/>`_ domain-fronting proxy to make a non-Tor connection from your computer to Tor's Censorship Circumvention API. The Meek proxy hides the fact that you are trying to find a way to connect to Tor."
 msgstr ""
+"У двух іншых варыянтах будзе зроблена спроба аўтаматычнага абыходу цэнзуры з "
+"дапамогай мастоў Tor. Калі ваш правайдар блакіруе доступ да сеткі Tor, вы "
+"можаце падключыцца да Tor-моста, які падключыць вас да сеткі Tor, абышоўшы "
+"цэнзуру. Абодва варыянты выкарыстоўваюць API абыходу цэнзуры праекта Tor, "
+"каб даць вам наладкі моста, якія павінны працаваць для вас. OnionShare "
+"часова выкарыстоўвае проксі-сервер `Meek <https://gitlab.torproject.org/"
+"legacy/trac/-/wikis/doc/meek/>`_ з даменным фронтам для стварэння Tor-"
+"злучэння з вашага камп’ютара з Tor Censorship Circumvention API. Проксі Meek "
+"хавае той факт, што вы спрабуеце знайсці спосаб падключэння да Tor."
 
 #: ../../source/tor.rst:36
 msgid "If you choose \"Automatically determine my country from my IP address for bridge settings\", the Censorship Circumvention API will consider your IP address (yes, your real IP address) to determine what country you might reside in. Based on the country information, the API will try to automatically find bridges that suit your location."
 msgstr ""
+"Калі вы вылучыце опцыю \"Аўтаматычна вызначаць краіну па IP-адрасе для "
+"налады мастоў\", то API абыходу цэнзуры будзе ўлічваць ваш IP-адрас (так, "
+"ваш рэальны IP-адрас), каб вызначыць, у якой краіне вы можаце пражываць. На "
+"аснове інфармацыі аб краіне API паспрабуе аўтаматычна знайсці масты, якія "
+"адпавядаюць вашаму месцазнаходжання."
 
 #: ../../source/tor.rst:41
 msgid "If you choose \"Manually select my country for bridge settings\", the Censorship API will find the bridges that suit the country that you specified."
 msgstr ""
+"Калі вы вылучыце опцыю \"Выбраць краіну для налады мастоў уручную\", то "
+"Censorship API знойдзе масты, прыдатныя для паказанай вамі краіны."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Як працуе аўтаматычны абыход цэнзуры"
 
 #: ../../source/tor.rst:48
 msgid "If the Censorship Circumvention API finds bridges that it believes will suit you, OnionShare will try to reconnect to Tor using those bridges. If the API does not find any bridges for your location, OnionShare will ask the API for \"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Калі Censorship Circumvention API знойдзе масты, якія, па яго меркаванню, "
+"вам падыдуць, OnionShare паспрабуе перападлучыцца да Tor, выкарыстоўваючы "
+"гэтыя масты. Калі API не знойдзе ніводнага маста для вашага "
+"месцазнаходжання, OnionShare запытае ў API \"запасныя\" варыянты, а затым "
+"паспрабуе перападлучыцца з іх дапамогай."
 
 #: ../../source/tor.rst:50
 msgid "If for some reason OnionShare fails to connect to the Censorship API itself, or if the API returns an error message, OnionShare will attempt to use the obfs4 built-in bridges."
 msgstr ""
+"Калі па якіх-небудзь чынніках OnionShare не атрымоўваецца падлучыцца да "
+"самога Censorship API ці API выдае паведамленне аб памылцы, OnionShare "
+"паспрабуе выкарыстаць убудаваныя масты obfs4."
 
 #: ../../source/tor.rst:52
 msgid "It's important to note that the requests to the Censorship Circumvention API do not go over the Tor network (because if you could connect to Tor already, you wouldn't need to connect to the API)."
 msgstr ""
+"Важна адзначыць, што запыты да API абыходу цэнзуры не праходзяць праз сетку "
+"Tor (бо калі б вы ўжо маглі падлучыцца да Tor, то вам не трэба было б "
+"падлучацца да API)."
 
 #: ../../source/tor.rst:54
 msgid "Even though it's hard for an adversary to discover where the Meek request is going, this may still be risky for some users. Therefore, it is an opt-in feature. The use of Meek and non-torified network requests are limited only to making one or two requests to the Censorship Circumvention API. Then Meek is stopped, and all further network requests happen over the Tor network."
 msgstr ""
+"Нягледзячы на тое, што зламысніку цяжка выявіць, куды накіроўваецца запыт "
+"Meek, для некаторых карыстальнікаў гэта ўсё ж можа быць рызыкоўна. Таму "
+"дадзеная функцыя з'яўляецца апцыянальнай. Выкарыстанне Meek і "
+"нетарыфікаваных сеткавых запытаў абмяжоўваецца толькі выкананнем аднаго-двух "
+"запытаў да API абыходу цэнзуры. Пасля гэтага праца Meek спыняецца, і ўсе "
+"далейшыя сеткавыя запыты ажыццяўляюцца праз сетку Tor."
 
 #: ../../source/tor.rst:56
 msgid "If you are uncomfortable with making a request that doesn't go over the Tor network, you can click \"Network Settings\" (or the Settings icon in the bottom right corner, followed by the Tor Settings tab in the screen that appears), and manually configure bridges. After you save any bridge settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Калі вам няёмка рабіць запыт, які не праходзіць праз сетку Tor, вы можаце "
+"націснуць кнопку \"Налады сеткі\" (ці значок \"Налады\" у правым ніжнім "
+"куце, а затым укладку \"Налады Tor\" у якое з'явілася акне) і ўручную "
+"наладзіць масты. Пасля захавання налад мастоў OnionShare будзе спрабаваць "
+"аднавіць злучэнне з дапамогай гэтых мастоў."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Ручная настройка параметраў Tor"
 
 #: ../../source/tor.rst:61
 msgid "You can get to the Tor settings by clicking \"Network Settings\" on the welcome screen, or by clicking the \"⚙\" icon in the bottom-right corner of the application, and then switch to the Tor Settings tab in the screen that appears."
 msgstr ""
+"Вы можаце атрымаць доступ да налад Tor, націснуўшы «Налады сеткі» на экране "
+"прывітання або націснуўшы значок «⚙» у правым ніжнім куце праграмы, а затым "
+"перайшоўшы на ўкладку «Налады Tor» на экране, які з'явіцца."
 
 #: ../../source/tor.rst:65
 msgid "Here are the different ways you can configure OnionShare to connect to Tor:"
@@ -114,7 +176,7 @@ msgstr ""
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Выкарыстоўвайце версію Tor, убудаваную ў OnionShare"
 
 #: ../../source/tor.rst:70
 msgid "This is the default, simplest and most reliable way that OnionShare connects to Tor. For this reason, it's recommended for most users."
@@ -146,7 +208,7 @@ msgstr ""
 
 #: ../../source/tor.rst:91
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "Спроба аўтаканфігурацыі з дапамогай Tor Browser"
 
 #: ../../source/tor.rst:93
 msgid "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ and don't want two ``tor`` processes running, you can use the ``tor`` process from the Tor Browser. Keep in mind you need to keep Tor Browser open in the background while you're using OnionShare for this to work."

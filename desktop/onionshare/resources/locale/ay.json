@@ -251,5 +251,7 @@
     "moat_bridgedb_error": "",
     "moat_captcha_error": "",
     "moat_solution_empty_error": "",
-    "mode_tor_not_connected_label": ""
+    "mode_tor_not_connected_label": "",
+    "gui_close_tab_warning_chat_description": "",
+    "waitress_web_server_error": ""
 }
