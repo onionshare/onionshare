@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-07-11 12:23+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: none\n"
@@ -107,8 +107,8 @@ msgstr ""
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
-"Installer Flatpak-pakken ved å følge instruksen på https://flatpak.org/setup/"
-"."
+"Installer Flatpak-pakken ved å følge instruksen på https://flatpak.org/"
+"setup/."
 
 #: ../../source/install.rst:31
 #, fuzzy
@@ -136,8 +136,8 @@ msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
-"Bekreft PGP-signaturen tilhørende``.flatpak``-filen. Sjekk "
-":ref:`verifying_sigs` for mer info."
+"Bekreft PGP-signaturen tilhørende``.flatpak``-filen. Sjekk :ref:"
+"`verifying_sigs` for mer info."
 
 #: ../../source/install.rst:34
 msgid ""
@@ -145,8 +145,9 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
-"Installer ``.flatpak``-filen ved å kjøre ``flatpak install OnionShare-VERSION"
-".flatpak``. Erstatt ``VERSION`` med versjonsnummeret for filen du lastet ned."
+"Installer ``.flatpak``-filen ved å kjøre ``flatpak install OnionShare-"
+"VERSION.flatpak``. Erstatt ``VERSION`` med versjonsnummeret for filen du "
+"lastet ned."
 
 #: ../../source/install.rst:36
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
@@ -161,7 +162,8 @@ msgstr "Manuell Snapcraft-installasjon"
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
-msgstr "Installer en PGP-signert utgave av Snapcraftpakken for OnionShare slik:"
+msgstr ""
+"Installer en PGP-signert utgave av Snapcraftpakken for OnionShare slik:"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -184,8 +186,8 @@ msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
-"Bekreft PGP-signaturen tilhørende ``.snap``-filen. Sjekk "
-":ref:`verifying_sigs` for merinfo."
+"Bekreft PGP-signaturen tilhørende ``.snap``-filen. Sjekk :ref:"
+"`verifying_sigs` for merinfo."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -276,7 +278,7 @@ msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "Du finner signaturene (``.asc`` files), såvel som, macOS, Flatpak, "
 "Snapcraft, og kildepakker, på https://onionshare.org/dist/ i mappene "
@@ -291,36 +293,59 @@ msgstr "Bekreftelse"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "Når du har importert Micah sin offentlige nøkkel inn i ditt GnuPG-"
 "nøkkelknippe, lastet ned binærfilen, og lastet ned ``.asc``-signaturen, kan "
 "du bekrefte den kjørbare binærfilen for macOS i en terminal slik::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Eller for WIndows, i en kommandoledetekst slik::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux|GNU"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Forventet utdata ser slik ut::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
 #, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 "Hvis du ikke ser «God signatur fra» er det kanskje et problem med filen "
 "(ondsinnet eller av annen årsak), og du bør ikke installere pakken. "
 "(«ADVARSEL» vist ovenfor er ikke et problem med pakken; det betyr kun at du "
 "ikke allerede har etablert et tillits-nivå til Micah sin PGP-nøkkel."
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Hvis du ikke ser «God signatur fra» er det kanskje et problem med filen "
+"(ondsinnet eller av annen årsak), og du bør ikke installere pakken. "
+"(«ADVARSEL» vist ovenfor er ikke et problem med pakken; det betyr kun at du "
+"ikke allerede har etablert et tillits-nivå til Micah sin PGP-nøkkel."
+
+#: ../../source/install.rst:116
 #, fuzzy
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
@@ -332,6 +357,9 @@ msgstr ""
 "veiledning for `Qubes OS <https://www.qubes-os.org/security/verifying-"
 "signatures/>`_ og `Tor Project <https://support.torproject.org/tbb/how-to-"
 "verify-signature/>`_."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Eller for WIndows, i en kommandoledetekst slik::"
 
 #~ msgid "Install in Linux"
 #~ msgstr "Installasjon på Linux"

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-06-08 16:50+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -218,26 +218,26 @@ msgid ""
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
 "`Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
-"你必须安装 GnuPG 来验证签名，对于 macOS 你可能想要 `GPGTools "
-"<https://gpgtools.org/>`_，对于 Windows 你可能想要 `Gpg4win <https://www."
-"gpg4win.org/>`_。"
+"你必须安装 GnuPG 来验证签名，对于 macOS 你可能想要 `GPGTools <https://"
+"gpgtools.org/>`_，对于 Windows 你可能想要 `Gpg4win <https://www.gpg4win.org/"
+">`_。"
 
 #: ../../source/install.rst:74
 msgid "Signatures"
 msgstr "签名"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
-"你可以在 https://onionshare.org/dist/ 下以 OnionShare "
-"每个版本命名的文件夹中找到这些签名（以 ``.asc`` 文件形式），以及对应 "
-"Windows、macOS、Flatpak、Snap 的 OnionShare 安装包和源码包。你也能在 `GitHub "
-"Releases page <https://github.com/micahflee/onionshare/releases>`_ "
-"上找到它们。"
+"你可以在 https://onionshare.org/dist/ 下以 OnionShare 每个版本命名的文件夹中"
+"找到这些签名（以 ``.asc`` 文件形式），以及对应 Windows、macOS、Flatpak、Snap "
+"的 OnionShare 安装包和源码包。你也能在 `GitHub Releases page <https://github."
+"com/micahflee/onionshare/releases>`_ 上找到它们。"
 
 #: ../../source/install.rst:80
 msgid "Verifying"
@@ -247,31 +247,48 @@ msgstr "验证"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "只要你导入过 Micah 的公钥到你的 GnuPG 密钥串上，下载好（被 Micah 的密钥签署过"
 "的）二进制文件和 ``.asc`` 签名文件，你就可以在 macOS 的终端中验证这个二进制文"
 "件，像这样::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "或是在 Windows 的命令提示符（cmd）中::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+msgid "For Linux::"
+msgstr ""
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "期望的输出看起来像是这样::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -279,9 +296,11 @@ msgid ""
 ">`_ may be useful."
 msgstr ""
 "如果你想了解更多有关验证 PGP 签名的知识，这几篇指南 `Qubes OS <https://www."
-"qubes-os.org/security/verifying-signatures/>`_ 和 `Tor Project "
-"<https://support.torproject.org/tbb/how-to-verify-signature/>`_ "
-"可能会有帮助。"
+"qubes-os.org/security/verifying-signatures/>`_ 和 `Tor Project <https://"
+"support.torproject.org/tbb/how-to-verify-signature/>`_ 可能会有帮助。"
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "或是在 Windows 的命令提示符（cmd）中::"
 
 #~ msgid ""
 #~ "There are various ways to install OnionShare for Linux, but the "
