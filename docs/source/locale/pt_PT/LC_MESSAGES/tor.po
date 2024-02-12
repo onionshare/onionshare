@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"POT-Creation-Date: 2023-09-05 11:30-0700\n"
 "PO-Revision-Date: 2021-10-23 18:43+0000\n"
 "Last-Translator: Gabriel Cardoso <g.cardoso@mailfence.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -200,8 +200,8 @@ msgstr ""
 
 #: ../../source/tor.rst:78
 msgid ""
-"To use a bridge, you must select \"Use the Tor version built into OnionShare"
-"\" and check the \"Use a bridge\" checkbox."
+"To use a bridge, you must select \"Use the Tor version built into "
+"OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
 
 #: ../../source/tor.rst:80
@@ -357,8 +357,8 @@ msgstr ""
 
 #: ../../source/tor.rst:170
 msgid ""
-"Reboot your computer. After it boots up again, open OnionShare, click the \"⚙"
-"\" icon in it, and switch to the Tor Settings tab. Under \"How should "
+"Reboot your computer. After it boots up again, open OnionShare, click the "
+"\"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should "
 "OnionShare connect to Tor?\" choose \"Connect using socket file\". Set the "
 "socket file to be ``/var/run/tor/control``. Under \"Tor authentication "
 "settings\" choose \"No authentication, or cookie authentication\". Click the "

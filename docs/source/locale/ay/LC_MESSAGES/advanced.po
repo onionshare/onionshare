@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-09 15:01-0700\n"
+"POT-Creation-Date: 2023-09-05 11:30-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -25,19 +25,29 @@ msgid "Save Tabs"
 msgstr ""
 
 #: ../../source/advanced.rst:9
-msgid "Closing OnionShare tabs you host destroys them, preventing reuse. Persistently hosted websites are available on the same address even if the computer they are shared from is rebooted."
+msgid ""
+"Closing OnionShare tabs you host destroys them, preventing reuse. "
+"Persistently hosted websites are available on the same address even if the "
+"computer they are shared from is rebooted."
 msgstr ""
 
 #: ../../source/advanced.rst:12
-msgid "Make any tab persistent by checking the \"Always open this tab when OnionShare is started\" box before starting your server."
+msgid ""
+"Make any tab persistent by checking the \"Always open this tab when "
+"OnionShare is started\" box before starting your server."
 msgstr ""
 
 #: ../../source/advanced.rst:16
-msgid "When opening OnionShare, your saved tabs from the prior session will start opened. Each service then can be started manually, and will be available on the same OnionShare address and be protected by the same private key."
+msgid ""
+"When opening OnionShare, your saved tabs from the prior session will start "
+"opened. Each service then can be started manually, and will be available on "
+"the same OnionShare address and be protected by the same private key."
 msgstr ""
 
 #: ../../source/advanced.rst:19
-msgid "If you save a tab, a copy of its onion service secret key is stored on your computer."
+msgid ""
+"If you save a tab, a copy of its onion service secret key is stored on your "
+"computer."
 msgstr ""
 
 #: ../../source/advanced.rst:24
@@ -45,15 +55,24 @@ msgid "Turn Off Private Key"
 msgstr ""
 
 #: ../../source/advanced.rst:26
-msgid "By default, all OnionShare services are protected with a private key, which Tor calls \"client authentication\"."
+msgid ""
+"By default, all OnionShare services are protected with a private key, which "
+"Tor calls \"client authentication\"."
 msgstr ""
 
 #: ../../source/advanced.rst:28
-msgid "The Tor Browser will ask you to enter your private key when you load an OnionShare service. If you want allow the public to use your service, it's better to disable the private key altogether."
+msgid ""
+"The Tor Browser will ask you to enter your private key when you load an "
+"OnionShare service. If you want allow the public to use your service, it's "
+"better to disable the private key altogether."
 msgstr ""
 
 #: ../../source/advanced.rst:31
-msgid "To turn off the private key for any tab, check the \"This is a public OnionShare service (disables private key)\" box before starting the server. Then the server will be public and a private key is not needed to load it in the Tor Browser."
+msgid ""
+"To turn off the private key for any tab, check the \"This is a public "
+"OnionShare service (disables private key)\" box before starting the server. "
+"Then the server will be public and a private key is not needed to load it in "
+"the Tor Browser."
 msgstr ""
 
 #: ../../source/advanced.rst:37
@@ -61,11 +80,16 @@ msgid "Custom Titles"
 msgstr ""
 
 #: ../../source/advanced.rst:39
-msgid "When people load OnionShare services in the Tor Browser they see the default title for each type of service. For example, the default title for chat services is \"OnionShare Chat\"."
+msgid ""
+"When people load OnionShare services in the Tor Browser they see the default "
+"title for each type of service. For example, the default title for chat "
+"services is \"OnionShare Chat\"."
 msgstr ""
 
 #: ../../source/advanced.rst:42
-msgid "If you edit the \"Custom title\" setting before starting a server you can change it."
+msgid ""
+"If you edit the \"Custom title\" setting before starting a server you can "
+"change it."
 msgstr ""
 
 #: ../../source/advanced.rst:45
@@ -73,19 +97,34 @@ msgid "Scheduled Times"
 msgstr ""
 
 #: ../../source/advanced.rst:47
-msgid "OnionShare supports scheduling exactly when a service should start and stop. Before starting a server, click \"Show advanced settings\" in its tab and then check the boxes next to either \"Start onion service at scheduled time\", \"Stop onion service at scheduled time\", or both, and set the respective desired dates and times."
+msgid ""
+"OnionShare supports scheduling exactly when a service should start and stop. "
+"Before starting a server, click \"Show advanced settings\" in its tab and "
+"then check the boxes next to either \"Start onion service at scheduled "
+"time\", \"Stop onion service at scheduled time\", or both, and set the "
+"respective desired dates and times."
 msgstr ""
 
 #: ../../source/advanced.rst:51
-msgid "Services scheduled to start in the future display a countdown timer when when the \"Start sharing\" button is clicked. Services scheduled to stop in the future display a countdown timer when started."
+msgid ""
+"Services scheduled to start in the future display a countdown timer when "
+"when the \"Start sharing\" button is clicked. Services scheduled to stop in "
+"the future display a countdown timer when started."
 msgstr ""
 
 #: ../../source/advanced.rst:54
-msgid "**Scheduling an OnionShare service to automatically start can be used as a dead man's switch**. This means your service is made public at a given time in the future if you are not there to prevent it. If nothing happens to you, you can cancel the service before it's scheduled to start."
+msgid ""
+"**Scheduling an OnionShare service to automatically start can be used as a "
+"dead man's switch**. This means your service is made public at a given time "
+"in the future if you are not there to prevent it. If nothing happens to you, "
+"you can cancel the service before it's scheduled to start."
 msgstr ""
 
 #: ../../source/advanced.rst:60
-msgid "**Scheduling an OnionShare service to automatically stop limits its exposure**. If you want to share secret info or something that will be outdated, you can do so for selected limited time."
+msgid ""
+"**Scheduling an OnionShare service to automatically stop limits its "
+"exposure**. If you want to share secret info or something that will be "
+"outdated, you can do so for selected limited time."
 msgstr ""
 
 #: ../../source/advanced.rst:68
@@ -93,15 +132,20 @@ msgid "Command-line Interface"
 msgstr ""
 
 #: ../../source/advanced.rst:70
-msgid "In addition to its graphical interface, OnionShare has a command-line interface."
+msgid ""
+"In addition to its graphical interface, OnionShare has a command-line "
+"interface."
 msgstr ""
 
 #: ../../source/advanced.rst:72
-msgid "You can install just the command-line version of OnionShare using ``pip3``::"
+msgid ""
+"You can install just the command-line version of OnionShare using ``pip3``::"
 msgstr ""
 
 #: ../../source/advanced.rst:76
-msgid "Note that you will also need the ``tor`` package installed. In macOS, install it with: ``brew install tor``"
+msgid ""
+"Note that you will also need the ``tor`` package installed. In macOS, "
+"install it with: ``brew install tor``"
 msgstr ""
 
 #: ../../source/advanced.rst:78
@@ -109,11 +153,16 @@ msgid "Then run it like this::"
 msgstr ""
 
 #: ../../source/advanced.rst:82
-msgid "Info about installing it on different operating systems can be found in the `CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the Git repository."
+msgid ""
+"Info about installing it on different operating systems can be found in the "
+"`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
+"README.md>`_ in the Git repository."
 msgstr ""
 
 #: ../../source/advanced.rst:84
-msgid "If you installed OnionShare using the Snap package, you can also just run ``onionshare.cli`` to access the command-line interface version."
+msgid ""
+"If you installed OnionShare using the Snap package, you can also just run "
+"``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 
 #: ../../source/advanced.rst:87
@@ -121,7 +170,8 @@ msgid "Usage"
 msgstr ""
 
 #: ../../source/advanced.rst:89
-msgid "Browse the command-line documentation by running ``onionshare --help``::"
+msgid ""
+"Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
 
 #: ../../source/advanced.rst:151
@@ -129,7 +179,9 @@ msgid "Keyboard Shortcuts"
 msgstr ""
 
 #: ../../source/advanced.rst:153
-msgid "The OnionShare desktop application contains some keyboard shortcuts, for convenience and accessibility::"
+msgid ""
+"The OnionShare desktop application contains some keyboard shortcuts, for "
+"convenience and accessibility::"
 msgstr ""
 
 #: ../../source/advanced.rst:158
