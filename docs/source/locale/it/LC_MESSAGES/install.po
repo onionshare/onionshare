@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-11-03 05:01+0000\n"
 "Last-Translator: emma peel <emma.peel@riseup.net>\n"
 "Language-Team: it <LL@li.org>\n"
@@ -236,11 +236,12 @@ msgid "Signatures"
 msgstr "Firme"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "Puoi trovare le firme (file ``.asc``), così come i pacchetti sorgente per "
 "Windows, macOS, Flatpak e Snapcraft su https://onionshare.org/dist/ nelle "
@@ -256,28 +257,40 @@ msgstr "Verifica in corso"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "Dopo aver importato la chiave pubblica di Micah nel tuo portachiavi GnuPG, "
 "scaricato il binario, e scaricato la firma ``.asc``, puoi verificare il "
 "binario per macOS in un terminale in questo modo::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Oppure, per Windows, in un prompt dei comandi come questo::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Il risultato atteso somiglia a questo::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 "Se non viene visualizzato ``Good signature from``, potrebbe essere un "
 "problema legato all'integrità del file (dannoso o meno) e non dovresti "
@@ -285,7 +298,20 @@ msgstr ""
 "con il pacchetto: significa solo che non hai definito alcun livello di "
 "'fiducia' della chiave PGP di Micah (lo sviluppatore principale).)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Se non viene visualizzato ``Good signature from``, potrebbe essere un "
+"problema legato all'integrità del file (dannoso o meno) e non dovresti "
+"installare il pacchetto. (L'``AVVISO `` mostrato sopra, non è un problema "
+"con il pacchetto: significa solo che non hai definito alcun livello di "
+"'fiducia' della chiave PGP di Micah (lo sviluppatore principale).)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -293,9 +319,12 @@ msgid ""
 ">`_ may be useful."
 msgstr ""
 "Se vuoi saperne di più sulla verifica delle firme PGP, le guide per `Qubes "
-"OS <https://www.qubes-os.org/security/verifying-signatures/>`_ e del `"
-"Progetto Tor <https://support.torproject.org/it/tbb/how-to-verify-signature/"
+"OS <https://www.qubes-os.org/security/verifying-signatures/>`_ e del "
+"`Progetto Tor <https://support.torproject.org/it/tbb/how-to-verify-signature/"
 ">`_ possono essere utili."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Oppure, per Windows, in un prompt dei comandi come questo::"
 
 #~ msgid "Install in Linux"
 #~ msgstr "Installa su Linux"

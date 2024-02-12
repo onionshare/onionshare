@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-06-02 11:21+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -94,7 +94,6 @@ msgid "Manual Flatpak Installation"
 msgstr "Установка"
 
 #: ../../source/install.rst:28
-#, fuzzy
 msgid ""
 "If you'd like to install OnionShare manually with Flatpak using the PGP-"
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
@@ -249,11 +248,12 @@ msgid "Signatures"
 msgstr "Подписи"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "Цифровые подписи в виде ``.asc``файлов, наряду с пакетами для Windows, "
 "macOS, Flatpak, Snap и исходным кодом OnionSHare можно найти на https://"
@@ -268,29 +268,40 @@ msgstr "Проверка"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "После того, как вы импортировали открытый ключ Мики в свою связку ключей "
 "GnuPG, загрузили двоичный файл и подпись ``.asc``, вы можете проверить "
 "двоичный файл для macOS в терминале следующим образом::"
 
-#: ../../source/install.rst:86
-#, fuzzy
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Или для Windows в командной строке, например::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Ожидаемый результат выполнения команды::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 "Если вывод команды не содержит строку ``Good signature from``, существует "
 "вероятность, что целостность пакета была нарушена (в результате "
@@ -299,7 +310,21 @@ msgstr ""
 "показанная выше не является проблемой. Она только означает, что пока "
 "отсутствует необходимый \"уровень доверия\" к публичному ключу PGP Micah.)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Если вывод команды не содержит строку ``Good signature from``, существует "
+"вероятность, что целостность пакета была нарушена (в результате "
+"злонамеренных действий третьих лиц или по техническим причинам). В таком "
+"случае нельзя производить дальнейшую установку. (Надпись \"WARNING:\" "
+"показанная выше не является проблемой. Она только означает, что пока "
+"отсутствует необходимый \"уровень доверия\" к публичному ключу PGP Micah.)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -310,3 +335,7 @@ msgstr ""
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ и "
 "здесь: `Tor Project <https://support.torproject.org/tbb/how-to-verify-"
 "signature/>`_ ."
+
+#, fuzzy
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Или для Windows в командной строке, например::"

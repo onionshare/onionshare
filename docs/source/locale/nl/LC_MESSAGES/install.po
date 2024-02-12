@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-01-31 18:46+0000\n"
 "Last-Translator: Lucrezia <luctranslator@outlook.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,11 +234,12 @@ msgid "Signatures"
 msgstr "Handtekeningen"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "Je kan de handtekeningen (als ``.asc`` bestanden) en de Windows, macOS, "
 "Flatpak, Snap, en broncode pakketten vinden op https://onionshare.org/dist/ "
@@ -254,29 +255,39 @@ msgstr "Verifiëren"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "Zodra je Micah's publieke sleutel in jouw GnuPG-sleutelhanger hebt "
 "geïmporteerd, de binary en ``.asc`` handtekening hebt gedownload, kan je de "
 "binary voor macOS in een terminal als volgt verifiëren::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Of voor Windows, in een command-prompt als deze::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+msgid "For Linux::"
+msgstr ""
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "De verwachte output ziet er als volgt uit::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
 #, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 "Als je geen \"Good signature from\" ziet, kan er een probleem zijn met de "
 "integriteit van het bestand (kwaadaardig of anders) en zou je het pakket "
@@ -284,7 +295,20 @@ msgstr ""
 "het pakket. Het betekent alleen dat je nog geen vertrouwensniveau hebt "
 "ingesteld voor Micah's PGP sleutel.)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Als je geen \"Good signature from\" ziet, kan er een probleem zijn met de "
+"integriteit van het bestand (kwaadaardig of anders) en zou je het pakket "
+"niet moeten installeren. (De \"WARNING:\" hierboven, is geen probleem met "
+"het pakket. Het betekent alleen dat je nog geen vertrouwensniveau hebt "
+"ingesteld voor Micah's PGP sleutel.)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -295,6 +319,9 @@ msgstr ""
 "handleidingen voor `Qubes OS <https://www.qubes-os.org/security/verifying-"
 "signatures/>`_ en het `Tor Project <https://support.torproject.org/tbb/how-"
 "to-verify-signature/>`_ misschien nuttig zijn."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Of voor Windows, in een command-prompt als deze::"
 
 #~ msgid "Install in Linux"
 #~ msgstr "Installatie onder Linux"
@@ -323,16 +350,3 @@ msgstr ""
 
 #~ msgid "**Install OnionShare using Snap**: https://snapcraft.io/onionshare"
 #~ msgstr "**Installeer OnionShare via Snap**: https://snapcraft.io/onionshare"
-
-#~ msgid ""
-#~ "If you don't see 'Good signature from', there might be a problem with the "
-#~ "integrity of the file (malicious or otherwise), and you should not "
-#~ "install the package. (The \"WARNING:\" shown above, is not a problem with "
-#~ "the package, it only means you haven't already defined any level of "
-#~ "'trust' of Micah's PGP key.)"
-#~ msgstr ""
-#~ "Als je geen \"Good signature from\" ziet, kan er een probleem zijn met de "
-#~ "integriteit van het bestand (kwaadaardig of anders) en zou je het pakket "
-#~ "niet moeten installeren. (De \"WARNING:\" hierboven, is geen probleem met "
-#~ "het pakket. Het betekent alleen dat je nog geen vertrouwensniveau hebt "
-#~ "ingesteld voor Micah's PGP sleutel.)"

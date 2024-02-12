@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2024-01-14 12:31+0000\n"
 "Last-Translator: curtisb <curtisbaltimore@protonmail.com>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -131,8 +131,8 @@ msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
-"Überprüfe die PGP-Signatur der ``.flatpak``-Datei. Siehe "
-":ref:`verifying_sigs` für weitere Informationen."
+"Überprüfe die PGP-Signatur der ``.flatpak``-Datei. Siehe :ref:"
+"`verifying_sigs` für weitere Informationen."
 
 #: ../../source/install.rst:34
 msgid ""
@@ -195,8 +195,8 @@ msgid ""
 msgstr ""
 "Installiere die Datei ``.snap``, indem du ``nap install --dangerous "
 "onionshare_VERSION_amd64.snap`` ausführst. Ersetze ``VERSION`` durch die "
-"Versionsnummer der Datei, die du heruntergeladen hast. Beachte, dass du "
-"`--dangerous` verwenden musst, weil das Paket nicht vom Snapcraft Store "
+"Versionsnummer der Datei, die du heruntergeladen hast. Beachte, dass du `--"
+"dangerous` verwenden musst, weil das Paket nicht vom Snapcraft Store "
 "signiert ist. Du hast jedoch seine PGP-Signatur verifiziert, also weißt du, "
 "dass es legitim ist."
 
@@ -270,11 +270,12 @@ msgid "Signatures"
 msgstr "Signaturen"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "Die Signaturen (``.asc``-Dateien) und auch die Windows-, macOS-, Flatpak-, "
 "Snapcraft- und Quellpakete kannst du auf https://onionshare.org/dist/ in den "
@@ -287,31 +288,44 @@ msgid "Verifying"
 msgstr "Verifizierung"
 
 #: ../../source/install.rst:82
+#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "Sobald du Micahs öffentlichen Schlüssel in deinen GnuPG-Schlüsselbund "
 "importiert, die Binärdatei und die passende ``.asc``-Signatur "
 "heruntergeladen hast, kannst du die Binärdatei für macOS im Terminal wie "
 "folgt überprüfen::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Oder unter Windows in der Kommandozeile wie folgt::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Eine erwartete Ausgabe sollte wiefolgt aussehen::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 "Wenn du nicht ``Good signature from`` siehst, könnte es ein Problem mit der "
 "Integrität der Datei geben (potentiell schädlich oder anderes) und du "
@@ -320,7 +334,21 @@ msgstr ""
 "keinen \"Trust-Level\" für Micahs (der Chefentwickler) PGP-Schlüssel "
 "festgelegt hast.)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Wenn du nicht ``Good signature from`` siehst, könnte es ein Problem mit der "
+"Integrität der Datei geben (potentiell schädlich oder anderes) und du "
+"solltest das Paket nicht installieren. (Das oben gezeigte ``WARNING`` deutet "
+"nicht auf ein Problem mit dem Paket hin, es bedeutet lediglich, dass du noch "
+"keinen \"Trust-Level\" für Micahs (der Chefentwickler) PGP-Schlüssel "
+"festgelegt hast.)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -331,6 +359,9 @@ msgstr ""
 "können die Leitfäden für `Qubes OS <https://www.qubes-os.org/security/"
 "verifying-signatures/>`_ und das`Tor-Projekt <https://support.torproject.org/"
 "tbb/how-to-verify-signature/>`_ eine Hilfestellung bieten."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Oder unter Windows in der Kommandozeile wie folgt::"
 
 #~ msgid "For added security, see :ref:`verifying_sigs`."
 #~ msgstr "Für zusätzliche Sicherheit, siehe :ref:`verifying_sigs`."

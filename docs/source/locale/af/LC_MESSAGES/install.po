@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2024-02-10 08:02+0000\n"
 "Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
@@ -92,8 +92,8 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
-"Indien u OnionShare handmatig met Flatpak met die PGP-ondertekende `"
-"enkellêerbundel <https://docs.flatpak.org/en/latest/sincle-file-bundles."
+"Indien u OnionShare handmatig met Flatpak met die PGP-ondertekende "
+"`enkellêerbundel <https://docs.flatpak.org/en/latest/sincle-file-bundles."
 "html>`_ wil installeer, kan u dit soos volg doen:"
 
 #: ../../source/install.rst:30
@@ -176,8 +176,8 @@ msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
-"Bevestig die PGP-handtekening van die ``.snap``-lêer. Sien "
-":ref:`verifying_sigs` vir meer inligting."
+"Bevestig die PGP-handtekening van die ``.snap``-lêer. Sien :ref:"
+"`verifying_sigs` vir meer inligting."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -261,11 +261,12 @@ msgid "Signatures"
 msgstr "Handtekeninge"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "U kan die handtekeninge (as ``.asc``-lêers), asook Windows, macOS, Flatpak, "
 "Snap en bronpakkette, by https://onionshare.org/dist/ kry in die vouers met "
@@ -277,30 +278,43 @@ msgid "Verifying"
 msgstr "Bevestig tans"
 
 #: ../../source/install.rst:82
+#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "Sodra u Micah se openbare sleutel in u GnuPG-sleutelhouer ingevoer het, en "
 "die binêr en ``.asc``-handtekening afgelaai het, kan u die binêr vir macOS "
 "soos volg in ’n terminaal bevestig::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Of vir Windows in ’n bevelpor soos volg::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Die verwagte afvoer lyk soos volg::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 "Indien u nie ``Geldige handtekenign van`` sien nie is daar dalk ’n probleem "
 "met die lêer se integriteit (kwaadwillig of andersins), en u moet nie die "
@@ -308,7 +322,20 @@ msgstr ""
 "die pakket nie, dit beteken slegs dat u nie ’n vlak van “vertroue” van Micah "
 "(die kernontwikkelaar) se PGP-sleutel gedefinieer het nie.)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Indien u nie ``Geldige handtekenign van`` sien nie is daar dalk ’n probleem "
+"met die lêer se integriteit (kwaadwillig of andersins), en u moet nie die "
+"pakket installeer nie. (Die ``WAARSKUWING:`` hier bo is nie ’n probleem met "
+"die pakket nie, dit beteken slegs dat u nie ’n vlak van “vertroue” van Micah "
+"(die kernontwikkelaar) se PGP-sleutel gedefinieer het nie.)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -319,3 +346,6 @@ msgstr ""
 "handleidings vir `Qubes OS <https://www.qubes-os.org/security/verifying-"
 "signatures/>`_ en die `Tor Project <https://support.torproject.org/tbb/how-"
 "to-verify-signature/>`_ handig wees."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Of vir Windows in ’n bevelpor soos volg::"
