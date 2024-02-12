@@ -72,7 +72,7 @@
     "gui_server_autostop_timer_expired": "زمان‌سنج توقف خودکار به پایان رسید. لطفا برای آغاز هم‌رسانی آن را تنظیم کنید.",
     "gui_share_url_description": "<b>هر کس</b> با این نشانی OnionShare و کلید خصوصی می‌تواند توسط <b>مرورگر Tor ‌‍‎‏‪‫</b> فایل‌های شما را <b>بارگیری کند‮</b>:‭<img src='{}' />",
     "gui_receive_url_description": "<b>هر کس</b> با این نشانی OnionShare و کلید خصوصی می‌تواند توسط <b>مرورگر Tor ‌‍‎‏‪‫</b> فایل‌هایی را بر روی رایانه شما <b>بارگذاری کند‮</b>:‭<img src='{}' />",
-    "gui_url_label_persistent": "این هم‌رسانی به صورت خودکار متوقف نمی‌شود.<br><br>هم‌رسانی‌های بعدی هم از همین نشانی  استفاده می‌کنند. (برای استفاده از نشانی‌های یک‌بارمصرف، گزینه «استفاده از آدرس پایا» را در تنظیمات غیرفعال کنید.)",
+    "gui_url_label_persistent": "این هم‌رسانی به صورت خودکار متوقف نمی‌شود.<br><br>هم‌رسانی‌های بعدی هم از همین نشانی استفاده می‌کنند. (برای استفاده از نشانی‌های یک‌بارمصرف، گزینه «استفاده از آدرس پایا» را در تنظیمات غیرفعال کنید.)",
     "gui_url_label_stay_open": "این هم‌رسانی به صورت خودکار متوقف خواهد شد.",
     "gui_url_label_onetime": "این هم‌رسانی پس از اولین تکمیل متوقف خواهد شد.",
     "gui_url_label_onetime_and_persistent": "این هم‌رسانی به صورت خودکار متوقف نخواهد شد.<br><br> هم‌رسانی‌های بعدی نیز از همین نشانی استفاده خواهند کرد. (برای استفاده از نشانی‌های یک‌بارمصرف،  گزینه «استفاده از آدرس پایا» را در تنظیمات غیرفعال کنید.)",
@@ -251,5 +251,7 @@
     "gui_autoconnect_circumventing_censorship_requesting_bridges": "در حال درخواست پل از API دور زدن سانسور Tor…",
     "gui_autoconnect_circumventing_censorship_got_bridges": "پل ایجاد شد. در حال اتصال مجدد به Tor…",
     "gui_autoconnect_could_not_connect_to_tor_api": "به TOR API متصل نشد. پیش از تلاش دوباره از اتصال خود به اینترنت مطمئن شوید.",
-    "gui_general_settings_window_title": "عمومی"
+    "gui_general_settings_window_title": "عمومی",
+    "gui_close_tab_warning_chat_description": "",
+    "waitress_web_server_error": ""
 }

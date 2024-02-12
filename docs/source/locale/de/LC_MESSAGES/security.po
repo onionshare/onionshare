@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2022-07-04 17:16-0400\n"
-"PO-Revision-Date: 2021-09-19 18:10+0000\n"
-"Last-Translator: Michael Breidenbach <leahc@tutanota.com>\n"
-"Language: de\n"
+"PO-Revision-Date: 2023-12-24 10:38+0000\n"
+"Last-Translator: curtisb <curtisbaltimore@protonmail.com>\n"
 "Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.4-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/security.rst:2
@@ -46,6 +47,12 @@ msgid ""
 "for that too. This avoids the traditional model of having to trust the "
 "computers of others."
 msgstr ""
+"**Dritte haben auf nichts in OnionShare Zugriff** Bei Onionshare werden die "
+"Dienste direkt auf deinem Computer gehostet. Wenn du Dateien mit OnionShare "
+"teilst, werden diese zu keinem Server Dritter hochgeladen. Selbst wenn du "
+"einen OnionShare Chatroom erstellst, wird dein Computer als Server "
+"verwendet. Dies vermeidet das traditionelle Modell, anderen vertrauen zu "
+"müssen."
 
 #: ../../source/security.rst:17
 msgid ""
@@ -81,7 +88,6 @@ msgstr ""
 "Identität des OnionShare-Nutzers nicht herausfinden."
 
 #: ../../source/security.rst:28
-#, fuzzy
 msgid ""
 "**If an attacker learns about the onion service, they still can't access "
 "anything.** Prior attacks against the Tor network to enumerate onion "
@@ -93,19 +99,17 @@ msgstr ""
 "**Wenn ein Angreifer etwas über den Onion-Dienst erfährt, kann er immer noch "
 "auf nichts zugreifen.** Frühere Angriffe auf das Tor-Netzwerk, um die Onion-"
 "Dienste aufzuzählen, erlaubten es dem Angreifer, private ``.onion``-Adressen "
-"zu entdecken. Wenn ein Angreifer eine private OnionShare-Adresse entdeckt, "
-"muss er auch den privaten Schlüssel erraten, der für die Client-"
-"Authentifizierung verwendet wird, um darauf zuzugreifen (es sei denn, der "
-"OnionShare-Benutzer entscheidet sich, seinen Dienst öffentlich zu machen, "
-"indem er den privaten Schlüssel abschaltet -- siehe :ref:"
-"`turn_off_private_key`)."
+"zu entdecken. Um auf einen OnionShare-Dienst von seiner Adresse aus "
+"zuzugreifen, muss der für die Client-Authentifizierung verwendete private "
+"Schlüssel erraten werden (es sei denn, der Dienst ist bereits durch "
+"Ausschalten des privaten Schlüssels öffentlich gemacht worden -- siehe "
+":ref:`turn_off_private_key`)."
 
 #: ../../source/security.rst:33
 msgid "What OnionShare doesn't protect against"
 msgstr "Wogegen OnionShare nicht schützt"
 
 #: ../../source/security.rst:35
-#, fuzzy
 msgid ""
 "**Communicating the OnionShare address and private key might not be secure."
 "** Communicating the OnionShare address to people is the responsibility of "
@@ -127,11 +131,10 @@ msgstr ""
 "Um dies zu vermeiden, muss die Adresse sicher kommuniziert werden, per "
 "verschlüsselter Textnachricht (wahrscheinlich mit aktivierten "
 "verschwindenden Nachrichten), verschlüsselter E-Mail oder persönlich. Dies "
-"ist nicht notwendig, wenn Sie OnionShare für etwas verwenden, das nicht "
+"ist nicht notwendig, wenn du OnionShare für etwas verwendest, das nicht "
 "geheim ist."
 
 #: ../../source/security.rst:42
-#, fuzzy
 msgid ""
 "**Communicating the OnionShare address and private key might not be "
 "anonymous.** Extra precaution must be taken to ensure the OnionShare address "

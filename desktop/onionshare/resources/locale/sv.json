@@ -251,5 +251,7 @@
     "gui_general_settings_window_title": "Allmänt",
     "gui_autoconnect_bridge_setting_options": "Inställningar för bryggning",
     "gui_autoconnect_circumventing_censorship_requesting_bridges": "Begär broar från Tors censur kringgående API…",
-    "gui_autoconnect_could_not_connect_to_tor_api": "Det gick inte att ansluta till Tor API. Kontrollera att du är ansluten till internet innan du försöker igen."
+    "gui_autoconnect_could_not_connect_to_tor_api": "Det gick inte att ansluta till Tor API. Kontrollera att du är ansluten till internet innan du försöker igen.",
+    "gui_close_tab_warning_chat_description": "Stäng flik som är värd för en chattserver?",
+    "waitress_web_server_error": "Det gick inte att starta webbservern"
 }

@@ -252,5 +252,6 @@
     "moat_captcha_error": "",
     "moat_solution_empty_error": "",
     "mode_tor_not_connected_label": "",
-    "waitress_web_server_error": ""
+    "waitress_web_server_error": "",
+    "gui_close_tab_warning_chat_description": ""
 }

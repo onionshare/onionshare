@@ -251,5 +251,7 @@
     "moat_bridgedb_error": "S’u lidh dot me BridgeDB.",
     "moat_captcha_error": "Zgjidhje e pasaktë. Ju lutemi, riprovoni.",
     "moat_solution_empty_error": "Jepni shenjat prej figure",
-    "mode_tor_not_connected_label": "OnionShare s’është i lidhur me rrjetin Tor"
+    "mode_tor_not_connected_label": "OnionShare s’është i lidhur me rrjetin Tor",
+    "waitress_web_server_error": "Pati një problem me nisjen e shërbyesit",
+    "gui_close_tab_warning_chat_description": "Të mbyllet skeda që strehon një shërbyes fjalosjeje?"
 }
