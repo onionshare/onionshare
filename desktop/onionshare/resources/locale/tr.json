@@ -71,7 +71,6 @@
     "gui_tor_connection_lost": "Tor bağlantısı kesildi.",
     "gui_server_started_after_autostop_timer": "Otomatik durdurma sayacı, sunucu başlamadan önce sona erdi. Lütfen yeni bir paylaşım yapın.",
     "gui_server_autostop_timer_expired": "Otomatik durdurma sayacı zaten sona ermiş. Paylaşımı başlatmak için sayacı ayarlayın.",
-    "share_via_onionshare": "OnionShare ile paylaş",
     "gui_share_url_description": "Bu OnionShare adresine ve kişisel anahtara sahip olan <b>herkes</b> <b>Tor Browser</b> kullanarak dosyalarınızı <b>indirebilir</b>: <img src='{}' />",
     "gui_receive_url_description": "Bu OnionShare adresine ve kişisel anahtara sahip olan <b>herkes</b> <b>Tor Browser</b> kullanarak dosyaları bilgisayarınıza <b>yükleyebilir</b>: <img src='{}' />",
     "gui_url_label_persistent": "Bu paylaşım otomatik olarak durdurulmayacak.<br><br>Sonraki her paylaşımda adres yeniden kullanılır (bir kerelik adresleri kullanmak için, ayarlardan \"Kalıcı adres kullanılsın\" seçeneğini kapatın.)",
@@ -146,7 +145,7 @@
     "gui_quit_warning_description": "Bazılarında paylaşım etkin olsa bile tüm sekmelerden çıkıp kapatılsın mı?",
     "gui_quit_warning_title": "OnionShare'den çıkılsın mı?",
     "gui_close_tab_warning_cancel": "İptal",
-    "gui_close_tab_warning_close": "Kapat",
+    "gui_close_tab_warning_close": "Tamam",
     "gui_close_tab_warning_website_description": "Bir web sitesini barındıran sekme kapatılsın mı?",
     "gui_close_tab_warning_receive_description": "Dosya alan sekme kapatılsın mı?",
     "gui_close_tab_warning_share_description": "Dosya gönderen sekme kapatılsın mı?",
@@ -254,5 +253,6 @@
     "gui_autoconnect_could_not_connect_to_tor_api": "Tor API'sine bağlanılamadı. Tekrar denemeden önce internete bağlı olduğunuzdan emin olun.",
     "gui_general_settings_window_title": "Genel",
     "waitress_web_server_error": "Web sunucusu başlatılırken bir sorun oluştu",
-    "gui_close_tab_warning_chat_description": "Sohbet sunucusu barındıran sekme kapatılsın mı?"
+    "gui_close_tab_warning_chat_description": "Sohbet sunucusu barındıran sekme kapatılsın mı?",
+    "gui_chat_mode_explainer": "Sohbet modu, Tor Browser'da başkalarıyla etkileşimli olarak sohbet etmenizi sağlar.<br><br><b>Sohbet geçmişi OnionShare'de saklanmaz. Tor Browser'ı kapattığınızda sohbet geçmişi kaybolacaktır.</b>"
 }

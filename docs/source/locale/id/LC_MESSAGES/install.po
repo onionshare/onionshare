@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: 2023-02-23 14:39+0000\n"
-"Last-Translator: Shizuka <yosiaondi48@gmail.com>\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
+"PO-Revision-Date: 2023-11-03 05:01+0000\n"
+"Last-Translator: emma peel <emma.peel@riseup.net>\n"
 "Language-Team: none\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -226,11 +226,12 @@ msgid "Signatures"
 msgstr "Tanda tangan"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "Anda dapat menemukan tanda tangan (sebagai file ``.asc``), serta paket "
 "Windows, macOS, Flatpak, Snap, dan sumber, di https://onionshare.org/dist/ "
@@ -246,31 +247,48 @@ msgstr "Memverifikasi"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "Setelah Anda mengimpor kunci publik Micah ke gantungan kunci GnuPG Anda, "
 "tanda tangan biner yang sudah diunduh dan dan ``.asc``, Anda dapat "
 "memverifikasi biner untuk macOS di terminal seperti ini::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Atau untuk Windows, di command-prompt seperti ini ::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+msgid "For Linux::"
+msgstr ""
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Output yang diharapkan terlihat seperti ini ::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -279,5 +297,8 @@ msgid ""
 msgstr ""
 "Jika Anda ingin mempelajari lebih lanjut tentang memverifikasi tanda tangan "
 "PGP, panduan untuk `Qubes OS <https://www.qubes-os.org/security/verifying-"
-"signatures/>`_ dan `Tor Project <https://support .torproject.org/tbb/how-to-"
-"verify-signature/>`_ mungkin bermanfaat."
+"signatures/>`_ dan `Tor Project <https://support.torproject.org/id/tbb/how-"
+"to-verify-signature/>`_ mungkin bermanfaat."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Atau untuk Windows, di command-prompt seperti ini ::"

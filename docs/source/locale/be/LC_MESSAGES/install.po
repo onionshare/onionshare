@@ -7,167 +7,351 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
+"PO-Revision-Date: 2023-11-20 16:03+0000\n"
+"Last-Translator: kopatych <maxklezovich@gmail.com>\n"
 "Language-Team: none\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.2\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
-msgstr ""
+msgstr "Усталяванне"
 
 #: ../../source/install.rst:5
 msgid "Windows or macOS"
-msgstr ""
+msgstr "Windows або macOS"
 
 #: ../../source/install.rst:7
-msgid "You can download OnionShare for Windows and macOS from the `OnionShare website <https://onionshare.org/>`_."
+msgid ""
+"You can download OnionShare for Windows and macOS from the `OnionShare "
+"website <https://onionshare.org/>`_."
 msgstr ""
+"Вы можаце загрузіць OnionShare для Windows і macOS з вэб-сайта `OnionShare "
+"<https://onionshare.org/>`_."
 
 #: ../../source/install.rst:12
 msgid "Linux"
 msgstr ""
 
 #: ../../source/install.rst:14
-msgid "There are various ways to install OnionShare for Linux, but the recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap <https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll always use the newest version and run OnionShare inside of a sandbox."
+msgid ""
+"There are various ways to install OnionShare for Linux, but the recommended "
+"way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap "
+"<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
+"always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
+"Існуюць розныя спосабы ўсталявання OnionShare на Linux, але мы рэкамендуем "
+"выкарыстоўваць пакет `Flatpak <https://flatpak.org/>`_ або `Snap <https://"
+"snapcraft.io/>`_. Flatpak і Snapcraft гарантуюць, што вы заўсёды "
+"выкарыстоўваеце апошнюю версію і OnionShare працуе ў пясочніцы."
 
 #: ../../source/install.rst:17
-msgid "Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak support, but which you use is up to you. Both work in all Linux distributions."
+msgid ""
+"Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak "
+"support, but which you use is up to you. Both work in all Linux "
+"distributions."
 msgstr ""
+"Падтрымка Snapcraft убудавана ў Ubuntu, а Flatpak убудаваны ў Fedora, але "
+"вам вырашаць, які з іх выкарыстоўваць. Яны абодва працуюць на ўсіх "
+"дыстрыбутывах Linux."
 
 #: ../../source/install.rst:19
-msgid "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org.onionshare.OnionShare"
+msgid ""
+"**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
+"onionshare.OnionShare"
 msgstr ""
+"**Усталюйце OnionShare з дапамогай Flatpak**: https://flathub.org/apps/"
+"details/org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
+"**Усталюйце OnionShare з дапамогай Snapcraft**: https://snapcraft.io/"
+"onionshare"
 
 #: ../../source/install.rst:23
-msgid "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` packages from https://onionshare.org/dist/ if you prefer."
+msgid ""
+"You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
+"packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"Пры жаданні вы можаце загрузіць і ўсталяваць падпісаныя PGP пакеты ``."
+"flatpak`` ці ``.snap`` з сайта https://onionshare.org/dist/."
 
 #: ../../source/install.rst:26
 msgid "Manual Flatpak Installation"
-msgstr ""
+msgstr "Усталёўка Flatpak уручную"
 
 #: ../../source/install.rst:28
-msgid "If you'd like to install OnionShare manually with Flatpak using the PGP-signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-bundles.html>`_, you can do so like this:"
+msgid ""
+"If you'd like to install OnionShare manually with Flatpak using the PGP-"
+"signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
+"bundles.html>`_, you can do so like this:"
 msgstr ""
+"Калі вы жадаеце ўсталяваць OnionShare уручную з дапамогай Flatpak, "
+"выкарыстоўваючы падпісаны PGP`single-file bundle <https://docs.flatpak.org/"
+"en/latest/single-file-bundles.html>`_, вы можаце зрабіць гэта наступным "
+"чынам:"
 
 #: ../../source/install.rst:30
-msgid "Install Flatpak by following the instructions at https://flatpak.org/setup/."
+msgid ""
+"Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
+"Усталюйце Flatpak, прытрымліваючыся інструкцый на сайце https://flatpak.org/"
+"setup/."
 
 #: ../../source/install.rst:31
-msgid "Add the Flathub repository by running ``flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo``. Even though you won't be downloading OnionShare from Flathub, OnionShare depends on some packages that are only available there."
+msgid ""
+"Add the Flathub repository by running ``flatpak remote-add --if-not-exists "
+"flathub https://flathub.org/repo/flathub.flatpakrepo``. Even though you "
+"won't be downloading OnionShare from Flathub, OnionShare depends on some "
+"packages that are only available there."
 msgstr ""
+"Дадайце рэпазітар Flathub, выканаўшы каманду ``flatpak remote-add --if-not-"
+"exists flathub https://flathub.org/repo/flathub.flatpakrepo``. Нягледзячы на "
+"тое, што вы не будзеце загружаць OnionShare з Flathub, OnionShare залежыць "
+"ад некаторых пакетаў, якія даступныя толькі там."
 
 #: ../../source/install.rst:32
-msgid "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, and download the ``.flatpak`` and ``.flatpak.asc`` files."
+msgid ""
+"Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
+"and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
+"Перайдзіце на сайт https://onionshare.org/dist/, абярыце апошнюю версію "
+"OnionShare і загрузіце файлы ``.flatpak`` і ``.flatpak.asc``."
 
 #: ../../source/install.rst:33
-msgid "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` for more info."
+msgid ""
+"Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
+"for more info."
 msgstr ""
+"Праверка подпіса PGP файла ``.flatpak``. Дадатковую інфармацыю гл. у :ref:"
+"`verifying_sigs`."
 
 #: ../../source/install.rst:34
-msgid "Install the ``.flatpak`` file by running ``flatpak install OnionShare-VERSION.flatpak``. Replace ``VERSION`` with the version number of the file you downloaded."
+msgid ""
+"Install the ``.flatpak`` file by running ``flatpak install OnionShare-"
+"VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
+"you downloaded."
 msgstr ""
+"Усталюеце файл ``.flatpak``, выканаўшы каманду ``flatpak install OnionShare-"
+"VERSION.flatpak``. Заменіце ``VERSION`` на нумар версіі загружанага файла."
 
 #: ../../source/install.rst:36
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
 msgstr ""
+"Запусціць OnionShare можна з дапамогай: `flatpak run org.onionshare."
+"OnionShare`."
 
 #: ../../source/install.rst:39
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "Усталёўка Snapcraft уручную"
 
 #: ../../source/install.rst:41
-msgid "If you'd like to install OnionShare manually with Snapcraft using the PGP-signed Snapcraft package, you can do so like this:"
+msgid ""
+"If you'd like to install OnionShare manually with Snapcraft using the PGP-"
+"signed Snapcraft package, you can do so like this:"
 msgstr ""
+"Калі вы жадаеце ўсталяваць OnionShare уручную з дапамогай Snapcraft, "
+"выкарыстоўваючы пакет Snapcraft з PGP-подпісам, вы можаце зрабіць гэта "
+"наступным чынам:"
 
 #: ../../source/install.rst:43
-msgid "Install Snapcraft by following the instructions at https://snapcraft.io/docs/installing-snapd."
+msgid ""
+"Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
+"installing-snapd."
 msgstr ""
+"Усталюйце Snapcraft, прытрымліваючыся інструкцыям на сайце https://snapcraft."
+"io/docs/installing-snapd."
 
 #: ../../source/install.rst:44
-msgid "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, and download the ``.snap`` and ``.snap.asc`` files."
+msgid ""
+"Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
+"and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
+"Перайдзіце на сайт https://onionshare.org/dist/, абярыце апошнюю версію "
+"OnionShare і загрузіце файлы ``.snap`` і ``.snap.asc``."
 
 #: ../../source/install.rst:45
-msgid "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` for more info."
+msgid ""
+"Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
+"for more info."
 msgstr ""
+"Праверка подпіса PGP файла ``.snap``. Больш падрабязную інфармацыю гл. у :"
+"ref:`verifying_sigs`."
 
 #: ../../source/install.rst:46
-msgid "Install the ``.snap`` file by running ``snap install --dangerous onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version number of the file you downloaded. Note that you must use `--dangerous` because the package is not signed by the Snapcraft store, however you did verify its PGP signature, so you know it's legitimate."
+msgid ""
+"Install the ``.snap`` file by running ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version number "
+"of the file you downloaded. Note that you must use `--dangerous` because the "
+"package is not signed by the Snapcraft store, however you did verify its PGP "
+"signature, so you know it's legitimate."
 msgstr ""
+"Усталюеце файл ``.snap``, выканаўшы каманду ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Заменіце ``VERSION`` на нумар версіі "
+"загружанага файла. Звярніце ўвагу, што выкарыстоўваць `--dangerous` "
+"неабходна таму, што пакет не падпісаны крамай Snapcraft, аднак вы праверылі "
+"яго PGP-подпіс, таму ўпэўненыя ў яго легітымнасці."
 
 #: ../../source/install.rst:48
 msgid "You can run OnionShare with: `snap run onionshare`."
-msgstr ""
+msgstr "Запусціць OnionShare можна з дапамогай: `snap run onionshare`."
 
 #: ../../source/install.rst:53
 msgid "Command-line only"
-msgstr ""
+msgstr "Толькі для каманднага радка"
 
 #: ../../source/install.rst:55
-msgid "You can install just the command-line version of OnionShare on any operating system using the Python package manager ``pip``. :ref:`cli` has more info."
+msgid ""
+"You can install just the command-line version of OnionShare on any operating "
+"system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
+"Вы можаце ўсталяваць толькі версію OnionShare для каманднага радка на любой "
+"аперацыйнай сістэме з дапамогай менеджара пакетаў Python ``pip``. Больш "
+"падрабязная інфармацыя змяшчаецца ў: ref: `cli`."
 
 #: ../../source/install.rst:60
 msgid "Verifying PGP signatures"
-msgstr ""
+msgstr "Праверка подпісаў PGP"
 
 #: ../../source/install.rst:62
-msgid "You can verify that the package you download is legitimate and hasn't been tampered with by verifying its PGP signature. For Windows and macOS, this step is optional and provides defense in depth: the OnionShare binaries include operating system-specific signatures, and you can just rely on those alone if you'd like."
+msgid ""
+"You can verify that the package you download is legitimate and hasn't been "
+"tampered with by verifying its PGP signature. For Windows and macOS, this "
+"step is optional and provides defense in depth: the OnionShare binaries "
+"include operating system-specific signatures, and you can just rely on those "
+"alone if you'd like."
 msgstr ""
+"Вы можаце пераканацца, што пакет, які вы спампоўваеце, сапраўдны і не быў "
+"падроблены, праверыўшы яго подпіс PGP. Для Windows і macOS гэты крок "
+"з'яўляецца неабавязковым і забяспечвае глыбокую абарону: двайковыя файлы "
+"OnionShare уключаюць спецыфічныя подпісы аперацыйнай сістэмы, і вы можаце "
+"спадзявацца на іх, калі хочаце."
 
 #: ../../source/install.rst:66
 msgid "Signing key"
-msgstr ""
+msgstr "Ключ подпісу"
 
 #: ../../source/install.rst:68
-msgid "Packages are signed by Micah Lee, the core developer, using his PGP public key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can download Micah's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+msgid ""
+"Packages are signed by Micah Lee, the core developer, using his PGP public "
+"key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can "
+"download Micah's key `from the keys.openpgp.org keyserver <https://keys."
+"openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
+"Пакеты падпісваюцца асноўным распрацоўшчыкам Micah Lee яго адкрытым ключом "
+"PGP з лічбавым подпісам ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Ключ "
+"Micah можна загрузіць `з сервера ключоў keys.openpgp.org <https://keys."
+"openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:71
-msgid "You must have GnuPG installed to verify signatures. For macOS you probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want `Gpg4win <https://www.gpg4win.org/>`_."
+msgid ""
+"You must have GnuPG installed to verify signatures. For macOS you probably "
+"want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
+"`Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
+"Для праверкі подпісаў неабходна ўсталяваць GnuPG. Для macOS вам, верагодна, "
+"спатрэбіцца `GPGTools <https://gpgtools.org/>`_, а для Windows вам, "
+"верагодна, спатрэбіцца `Gpg4win <https://www.gpg4win.org/>`_."
 
 #: ../../source/install.rst:74
 msgid "Signatures"
-msgstr ""
+msgstr "Подпісы"
 
 #: ../../source/install.rst:76
-msgid "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare. You can also find them on the `GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+#, fuzzy
+msgid ""
+"You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
+"Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
+"folders named for each version of OnionShare. You can also find them on the "
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
+"Вы можаце знайсці подпісы (файлы ``.asc``), а таксама Windows, macOS, "
+"Flatpak, Snap і зыходныя пакеты на https://onionshare.org/dist/ у папках, "
+"названых для кожнай версіі OnionShare. Вы таксама можаце знайсці іх на "
+"`старонцы выпускаў GitHub <https://github.com/micahflee/onionshare/"
+"releases>`_."
 
 #: ../../source/install.rst:80
 msgid "Verifying"
-msgstr ""
+msgstr "Праверка"
 
 #: ../../source/install.rst:82
-msgid "Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and ``.asc`` signature, you can verify the binary for macOS in a terminal like this::"
+#, fuzzy
+msgid ""
+"Once you have imported Micah's public key into your GnuPG keychain, "
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
+msgstr ""
+"Пасля таго як адкрыты ключ Micah будзе імпартаваны ў ваша сховішча ключоў "
+"GnuPG, двайковы файл загружаны і подпіс ``.asc`` загружаны, вы можаце "
+"праверыць двайковы файл macOS у тэрмінале наступным чынам::"
+
+#: ../../source/install.rst:84
+msgid "For Windows::"
 msgstr ""
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
+#: ../../source/install.rst:88
+msgid "For macOS::"
 msgstr ""
 
-#: ../../source/install.rst:90
-msgid "The expected output looks like this::"
+#: ../../source/install.rst:92
+msgid "For Linux::"
+msgstr ""
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
 msgstr ""
 
 #: ../../source/install.rst:102
-msgid "If you don't see ``Good signature from``, there might be a problem with the integrity of the file (malicious or otherwise), and you should not install the package. (The ``WARNING:`` shown above, is not a problem with the package, it only means you haven't defined a level of \"trust\" of Micah's (the core developer) PGP key.)"
-msgstr ""
+msgid "The expected output looks like this::"
+msgstr "Чаканы вынік выглядае наступным чынам::"
 
-#: ../../source/install.rst:104
-msgid "If you want to learn more about verifying PGP signatures, the guides for `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ may be useful."
+#: ../../source/install.rst:112
+#, fuzzy
+msgid ""
+"If you don't see ``Good signature from``, there might be a problem with the "
+"integrity of the file (malicious or otherwise), and you should not install "
+"the package."
 msgstr ""
+"Калі вы не бачыце ``Good signature from``, магчыма, існуе праблема з "
+"цэласнасцю файла (шкоднасная ці іншая), і вам не варта ўсталёўваць пакет. "
+"(Паказанае вышэй паведамленне ``WARNING:`` не з'яўляецца праблемай з "
+"пакетам, яно толькі азначае, што вы не вызначылі ўзровень \"даверу\" да PGP-"
+"ключу Micah (асноўнага распрацоўніка).)"
+
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Калі вы не бачыце ``Good signature from``, магчыма, існуе праблема з "
+"цэласнасцю файла (шкоднасная ці іншая), і вам не варта ўсталёўваць пакет. "
+"(Паказанае вышэй паведамленне ``WARNING:`` не з'яўляецца праблемай з "
+"пакетам, яно толькі азначае, што вы не вызначылі ўзровень \"даверу\" да PGP-"
+"ключу Micah (асноўнага распрацоўніка).)"
+
+#: ../../source/install.rst:116
+msgid ""
+"If you want to learn more about verifying PGP signatures, the guides for "
+"`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
+"the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/"
+">`_ may be useful."
+msgstr ""
+"Калі вы жадаеце даведацца больш пра праверку PGP-подпісаў, вам могуць быць "
+"карысныя кіраўніцтва па `Qubes OS <https://www.qubes-os.org/security/"
+"verifying-signatures/>`_ і `Tor Project <https://support.torproject.org/tbb/"
+"how-to-verify-signature/>`_."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Або для Windows - у камандным радку, напрыклад, так::"

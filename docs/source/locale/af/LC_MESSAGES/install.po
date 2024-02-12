@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: 2022-11-10 05:49+0000\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
+"PO-Revision-Date: 2024-02-10 08:02+0000\n"
 "Last-Translator: Gideon Wentink <gjwentink@gmail.com>\n"
 "Language-Team: none\n"
 "Language: af\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -45,6 +45,11 @@ msgid ""
 "<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
+"Daar is verskeie maniere om OnionShare vir Linux te installeer, maar die "
+"aanbevole manier is om òf die `Flatpak- <https://flatpak.org/>`_ òf die "
+"`Snap- <https://snapcraft.io/>`_-pakket te gebruik. Flatpak en Snapcrat "
+"verseker dat u altyd die nuutste weergawe het en laat OnionShare binne ’n "
+"sandput loop."
 
 #: ../../source/install.rst:17
 msgid ""
@@ -52,6 +57,9 @@ msgid ""
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
+"Snapcraft-ondersteuning is ingebou in Ubuntu en Fedora kom met Flatpak-"
+"ondersteuning, maar u kies wat u wil gebruik. Albei werk in alle Linux-"
+"verspreidings."
 
 #: ../../source/install.rst:19
 msgid ""
@@ -62,11 +70,9 @@ msgstr ""
 "org.onionshare.OnionShare"
 
 #: ../../source/install.rst:21
-#, fuzzy
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
-"**Installeer OnionShare d.m.v. Flatpak**: https://flathub.org/apps/details/"
-"org.onionshare.OnionShare"
+"**Installeer OnionShare d.m.v. Snapcraft**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:23
 msgid ""
@@ -77,9 +83,8 @@ msgstr ""
 "installeer vanaf https://onionshare.org/dist/ indien u dit verkies."
 
 #: ../../source/install.rst:26
-#, fuzzy
 msgid "Manual Flatpak Installation"
-msgstr "Installasie"
+msgstr "Handmatige Flatpak-installasie"
 
 #: ../../source/install.rst:28
 msgid ""
@@ -87,11 +92,16 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
+"Indien u OnionShare handmatig met Flatpak met die PGP-ondertekende "
+"`enkellêerbundel <https://docs.flatpak.org/en/latest/sincle-file-bundles."
+"html>`_ wil installeer, kan u dit soos volg doen:"
 
 #: ../../source/install.rst:30
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
+"Installeer Flatpak deur die instruksies by https://flatpak.org/setup/ te "
+"volg."
 
 #: ../../source/install.rst:31
 msgid ""
@@ -100,12 +110,18 @@ msgid ""
 "won't be downloading OnionShare from Flathub, OnionShare depends on some "
 "packages that are only available there."
 msgstr ""
+"Voeg die Flathub-opslagplek die deur ``flatpak remote-add --if-not-exists "
+"flathub https://flathub.org/repo/flathub.flatpakrepo`` te loop. Hoewel u nie "
+"OnionShare deur Flathub gaan aflaai nie, is OnionShare afhanklik van sommige "
+"pakkette wat slegs daar beskikbaar is."
 
 #: ../../source/install.rst:32
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
+"Gaan na https://onionshare.org/dist/, kies die nuutste weergawe van "
+"OnionShare, en laai die ``.flatpak``- en ``.flatpak.asc``-lêers af."
 
 #: ../../source/install.rst:33
 msgid ""
@@ -119,38 +135,49 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
+"Installeer die ``.flatpak``-lêer deur ``flatpak install OnionShare-VERSION."
+"flatpak`` te loop. Vervang ``VERSION`` met die weergawenommer van die "
+"afgelaaide lêer."
 
 #: ../../source/install.rst:36
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
-msgstr ""
+msgstr "U kan OnionShare loop met: `flatpak run org.onionshare.OnionShare`."
 
 #: ../../source/install.rst:39
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "Handmatige Snapcraft-installasie"
 
 #: ../../source/install.rst:41
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
+"Indien u OnionShare handmatig met Snapcraft wil installeer deur die PGP-"
+"ondertekende pakket te gebruik, kan u dit soos volg doen:"
 
 #: ../../source/install.rst:43
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
+"Installeer Snapcraft deur die instruksies by https://snapcraft.io/docs/"
+"installing-snapd te volg."
 
 #: ../../source/install.rst:44
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
+"Gaan na https://onionshare.org/dist/, kies die nuutste weergawe van "
+"OnionShare en laai die ``.snap``- en ``.snap.asc``- lêers af."
 
 #: ../../source/install.rst:45
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Bevestig die PGP-handtekening van die ``.snap``-lêer. Sien :ref:"
+"`verifying_sigs` vir meer inligting."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -160,10 +187,15 @@ msgid ""
 "package is not signed by the Snapcraft store, however you did verify its PGP "
 "signature, so you know it's legitimate."
 msgstr ""
+"Installeer die ``.snap``-lêer deir ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap`` te loop. Vervang ``VERSION`` met die "
+"weergawenommer van die afgelaaide lêer. Let daarop dat u `--dangerous` moet "
+"gebruik omdat die pakket nie deur die Snapcraft-winkel onderteken is nie. U "
+"het egter die PGP-handtekening geverifieer daarom weet u dit is wettig."
 
 #: ../../source/install.rst:48
 msgid "You can run OnionShare with: `snap run onionshare`."
-msgstr ""
+msgstr "U kan OnionShare loop met: `snap run onionshare`."
 
 #: ../../source/install.rst:53
 msgid "Command-line only"
@@ -174,6 +206,9 @@ msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
+"U kan slegs die opdragreëlweergawe van OnionShare op enige bedryfstelsel "
+"installeer deur die Python-pakketbestuurder ``pip`` te gebruik. :ref:`cli` "
+"het meer inligting."
 
 #: ../../source/install.rst:60
 msgid "Verifying PGP signatures"
@@ -226,11 +261,12 @@ msgid "Signatures"
 msgstr "Handtekeninge"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "U kan die handtekeninge (as ``.asc``-lêers), asook Windows, macOS, Flatpak, "
 "Snap en bronpakkette, by https://onionshare.org/dist/ kry in die vouers met "
@@ -245,31 +281,61 @@ msgstr "Bevestig tans"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "Sodra u Micah se openbare sleutel in u GnuPG-sleutelhouer ingevoer het, en "
 "die binêr en ``.asc``-handtekening afgelaai het, kan u die binêr vir macOS "
 "soos volg in ’n terminaal bevestig::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "Of vir Windows in ’n bevelpor soos volg::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Die verwagte afvoer lyk soos volg::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
+"Indien u nie ``Geldige handtekenign van`` sien nie is daar dalk ’n probleem "
+"met die lêer se integriteit (kwaadwillig of andersins), en u moet nie die "
+"pakket installeer nie. (Die ``WAARSKUWING:`` hier bo is nie ’n probleem met "
+"die pakket nie, dit beteken slegs dat u nie ’n vlak van “vertroue” van Micah "
+"(die kernontwikkelaar) se PGP-sleutel gedefinieer het nie.)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"Indien u nie ``Geldige handtekenign van`` sien nie is daar dalk ’n probleem "
+"met die lêer se integriteit (kwaadwillig of andersins), en u moet nie die "
+"pakket installeer nie. (Die ``WAARSKUWING:`` hier bo is nie ’n probleem met "
+"die pakket nie, dit beteken slegs dat u nie ’n vlak van “vertroue” van Micah "
+"(die kernontwikkelaar) se PGP-sleutel gedefinieer het nie.)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -280,3 +346,6 @@ msgstr ""
 "handleidings vir `Qubes OS <https://www.qubes-os.org/security/verifying-"
 "signatures/>`_ en die `Tor Project <https://support.torproject.org/tbb/how-"
 "to-verify-signature/>`_ handig wees."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "Of vir Windows in ’n bevelpor soos volg::"

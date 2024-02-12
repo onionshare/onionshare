@@ -6,26 +6,26 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2020-11-15 14:54-0800\n"
-"PO-Revision-Date: 2021-01-07 15:29+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-05 11:30-0700\n"
+"PO-Revision-Date: 2023-11-28 13:05+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: none\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.3-dev\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "Razvijanje OnionSharea"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "Surađivanje"
 
 #: ../../source/develop.rst:9
 msgid ""
@@ -46,20 +46,22 @@ msgstr ""
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "Doprinošenje kodu"
 
 #: ../../source/develop.rst:17
 msgid ""
 "OnionShare source code is to be found in this Git repository: https://github."
-"com/micahflee/onionshare"
+"com/onionshare/onionshare"
 msgstr ""
+"Izvorni kod OnionSharea nalazi se u ovom Git repozitoriju: https://github."
+"com/onionshare/onionshare"
 
 #: ../../source/develop.rst:19
 msgid ""
 "If you'd like to contribute code to OnionShare, it helps to join the Keybase "
 "team and ask questions about what you're thinking of working on. You should "
-"also review all of the `open issues <https://github.com/micahflee/onionshare/"
-"issues>`_ on GitHub to see if there are any you'd like to tackle."
+"also review all of the `open issues <https://github.com/onionshare/"
+"onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
 msgstr ""
 
 #: ../../source/develop.rst:22
@@ -71,12 +73,12 @@ msgstr ""
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
-msgstr ""
+msgstr "Počinjanje razvoja"
 
 #: ../../source/develop.rst:29
 msgid ""
 "OnionShare is developed in Python. To get started, clone the Git repository "
-"at https://github.com/micahflee/onionshare/ and then consult the ``cli/"
+"at https://github.com/onionshare/onionshare/ and then consult the ``cli/"
 "README.md`` file to learn how to set up your development environment for the "
 "command-line version, and the ``desktop/README.md`` file to learn how to set "
 "up your development environment for the graphical version."
@@ -91,11 +93,11 @@ msgstr ""
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr ""
+msgstr "Savjeti za uklanjanje grešaka"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "Modus opširnih poruka"
 
 #: ../../source/develop.rst:40
 msgid ""
@@ -121,7 +123,7 @@ msgstr ""
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "Samo lokalno"
 
 #: ../../source/develop.rst:126
 msgid ""
@@ -130,18 +132,18 @@ msgid ""
 "flag. For example::"
 msgstr ""
 
-#: ../../source/develop.rst:164
+#: ../../source/develop.rst:165
 msgid ""
-"In this case, you load the URL ``http://onionshare:train-"
-"system@127.0.0.1:17635`` in a normal web-browser like Firefox, instead of "
-"using the Tor Browser."
+"In this case, you load the URL ``http://127.0.0.1:17641`` in a normal web-"
+"browser like Firefox, instead of using the Tor Browser. The private key is "
+"not actually needed in local-only mode, so you can ignore it."
 msgstr ""
 
-#: ../../source/develop.rst:167 ../../source/develop.rst:168
+#: ../../source/develop.rst:168
 msgid "Contributing Translations"
-msgstr ""
+msgstr "Doprinošenje prijevodima"
 
-#: ../../source/develop.rst:169 ../../source/develop.rst:170
+#: ../../source/develop.rst:170
 msgid ""
 "Help make OnionShare easier to use and more familiar and welcoming for "
 "people by translating it on `Hosted Weblate <https://hosted.weblate.org/"
@@ -149,22 +151,24 @@ msgid ""
 "and use \"OnionShare (localname)\" if needed."
 msgstr ""
 
-#: ../../source/develop.rst:171 ../../source/develop.rst:172
+#: ../../source/develop.rst:172
 msgid ""
 "To help translate, make a Hosted Weblate account and start contributing."
-msgstr ""
+msgstr "Pomogni prevoditi. Otvori Hosted Weblate račun i počni doprinositi."
 
-#: ../../source/develop.rst:174 ../../source/develop.rst:175
+#: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "Prijedlozi za izvorne engleske izraze"
 
-#: ../../source/develop.rst:176 ../../source/develop.rst:177
+#: ../../source/develop.rst:177
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between the "
 "application and the documentation."
 msgstr ""
+"Ponekad izvorni engleski izrazi nisu ispravni ili se ne podudaraju između "
+"aplikacije i dokumentacije."
 
-#: ../../source/develop.rst:178 ../../source/develop.rst:179
+#: ../../source/develop.rst:179
 msgid ""
 "File source string improvements by adding @kingu to your Weblate comment, or "
 "open a GitHub issue or pull request. The latter ensures all upstream "
@@ -172,11 +176,11 @@ msgid ""
 "usual code review processes."
 msgstr ""
 
-#: ../../source/develop.rst:182 ../../source/develop.rst:183
+#: ../../source/develop.rst:183
 msgid "Status of Translations"
 msgstr "Stanje prijevoda"
 
-#: ../../source/develop.rst:183 ../../source/develop.rst:184
+#: ../../source/develop.rst:184
 msgid ""
 "Here is the current translation status. If you want start a translation in a "
 "language not yet started, please write to the mailing list: onionshare-"
@@ -185,32 +189,9 @@ msgstr ""
 "Ovo je trenutačno stanje prijevoda. Ako želiš započeti prijevod na jezik "
 "koji još nije započet, pošalji e-mail na: onionshare-dev@lists.riseup.net"
 
-#: ../../source/develop.rst:17
-msgid ""
-"OnionShare source code is to be found in this Git repository: https://github."
-"com/onionshare/onionshare"
-msgstr ""
-
-#: ../../source/develop.rst:19
-msgid ""
-"If you'd like to contribute code to OnionShare, it helps to join the Keybase "
-"team and ask questions about what you're thinking of working on. You should "
-"also review all of the `open issues <https://github.com/onionshare/"
-"onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
-msgstr ""
-
-#: ../../source/develop.rst:29
-msgid ""
-"OnionShare is developed in Python. To get started, clone the Git repository "
-"at https://github.com/onionshare/onionshare/ and then consult the ``cli/"
-"README.md`` file to learn how to set up your development environment for the "
-"command-line version, and the ``desktop/README.md`` file to learn how to set "
-"up your development environment for the graphical version."
-msgstr ""
-
-#: ../../source/develop.rst:165
-msgid ""
-"In this case, you load the URL ``http://127.0.0.1:17641`` in a normal web-"
-"browser like Firefox, instead of using the Tor Browser. The private key is "
-"not actually needed in local-only mode, so you can ignore it."
-msgstr ""
+#~ msgid ""
+#~ "OnionShare source code is to be found in this Git repository: https://"
+#~ "github.com/micahflee/onionshare"
+#~ msgstr ""
+#~ "Izvorni kod OnionSharea nalazi se u ovom Git repozitoriju: https://github."
+#~ "com/micahflee/onionshare"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-06-06 12:39+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: none\n"
@@ -235,11 +235,12 @@ msgid "Signatures"
 msgstr "ហត្ថលេខា(ឌីជីថល)"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "អ្នកអាចស្វែងរកហត្ថលេខា (ជាឯកសារ ``.asc``) ក៏ដូចជា Windows, macOS, Flatpak, Snap "
 "និងប្រភពរបស់កញ្ចប់នៅ https://onionshare.org/dist/ "
@@ -255,36 +256,59 @@ msgstr "ការផ្ទៀងផ្ទាត់"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "នៅពេលដែលអ្នកបាននាំចូលកូនសោសាធារណៈរបស់ Micah ទៅក្នុង GnuPG keychain របស់អ្នក "
 "សូមទាញយកប្រព័ន្ធគោលពីរ និងហត្ថលេខា ``.asc`` អ្នកអាចផ្ទៀងផ្ទាត់ប្រព័ន្ធគោលពីរសម្រាប់ macOS "
 "នៅក្នុង terminal ដូចនេះ::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "ឬសម្រាប់ Windows នៅក្នុង command-prompt ដូចនេះ::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+#, fuzzy
+msgid "For Linux::"
+msgstr "Linux"
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "លទ្ធផលរំពឹងទុកមើលទៅដូចនេះ::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
 #, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 "ប្រសិនបើអ្នកមិនឃើញ ``ហត្ថលេខាល្អពី`` ទេ វាអាចមានបញ្ហាជាមួយនឹងភាពត្រឹមត្រូវនៃឯកសារ (ហានិភ័យ "
 "ឬបើមិនដូច្នេះទេ) ហើយអ្នកមិនគួរដំឡើងកញ្ចប់នោះទេ។ (``ការរំឭក៖`` ការដែលបានបង្ហាញខាងលើ "
 "មិនមែនជាបញ្ហាជាមួយកញ្ចប់នោះទេ វាគ្រាន់តែមានន័យថា អ្នកមិនបានកំណត់កម្រិតនៃ \"ការជឿទុកចិត្ត\" "
 "នៃកូនសោ PGP របស់ Micah ទេ។)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+"ប្រសិនបើអ្នកមិនឃើញ ``ហត្ថលេខាល្អពី`` ទេ វាអាចមានបញ្ហាជាមួយនឹងភាពត្រឹមត្រូវនៃឯកសារ (ហានិភ័យ "
+"ឬបើមិនដូច្នេះទេ) ហើយអ្នកមិនគួរដំឡើងកញ្ចប់នោះទេ។ (``ការរំឭក៖`` ការដែលបានបង្ហាញខាងលើ "
+"មិនមែនជាបញ្ហាជាមួយកញ្ចប់នោះទេ វាគ្រាន់តែមានន័យថា អ្នកមិនបានកំណត់កម្រិតនៃ \"ការជឿទុកចិត្ត\" "
+"នៃកូនសោ PGP របស់ Micah ទេ។)"
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -295,3 +319,6 @@ msgstr ""
 "<https://www.qubes-os.org/security/verifying-signatures/>`_ និង `Tor Project "
 "<https://support .torproject.org/tbb/how-to-verify-signature/>`_ "
 "អាចមានប្រយោជន៍។"
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "ឬសម្រាប់ Windows នៅក្នុង command-prompt ដូចនេះ::"

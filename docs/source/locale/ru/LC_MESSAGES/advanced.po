@@ -6,17 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2022-10-02 16:17-0700\n"
-"PO-Revision-Date: 2021-09-23 15:36+0000\n"
-"Last-Translator: Alexander Tarasenko <alexound.login@gmail.com>\n"
-"Language: ru\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-05 11:30-0700\n"
+"PO-Revision-Date: 2023-09-11 10:51+0000\n"
+"Last-Translator: xXx <xxx_xxx_xxxxxxxxx@mail.ru>\n"
 "Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.0.1-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
@@ -33,12 +34,18 @@ msgid ""
 "Persistently hosted websites are available on the same address even if the "
 "computer they are shared from is rebooted."
 msgstr ""
+"Закрытие вкладок OnionShare, размещенных на вашем хостинге, уничтожает их, "
+"предотвращая повторное использование. Постоянно размещенные веб-сайты "
+"доступны по одному и тому же адресу, даже если компьютер, с которого они "
+"доступны, перезагружен."
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"Сделайте любую вкладку постоянной, установив флажок “Всегда открывать эту "
+"вкладку при запуске OnionShare“ перед запуском сервера."
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -46,15 +53,18 @@ msgid ""
 "opened. Each service then can be started manually, and will be available on "
 "the same OnionShare address and be protected by the same private key."
 msgstr ""
+"При открытии OnionShare ваши сохраненные вкладки из предыдущего сеанса "
+"начнут открываться. Затем каждую службу можно запустить вручную, она будет "
+"доступна по одному и тому же адресу OnionShare и защищена одним и тем же "
+"закрытым ключом."
 
 #: ../../source/advanced.rst:19
-#, fuzzy
 msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on your "
 "computer."
 msgstr ""
-"При сохранении вкладки копия ключа onion-сервиса также будет сохранена на "
-"компьютере вместе с настройками OnionShare."
+"Если вы сохраните вкладку, копия секретного ключа луковой службы будет "
+"сохранена на вашем компьютере."
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
@@ -74,43 +84,43 @@ msgid ""
 "OnionShare service. If you want allow the public to use your service, it's "
 "better to disable the private key altogether."
 msgstr ""
+"Браузер Tor попросит вас ввести закрытый ключ при загрузке службы "
+"OnionShare. Если вы хотите разрешить публично использовать ваш сервис, лучше "
+"вообще отключить закрытый ключ."
 
 #: ../../source/advanced.rst:31
-#, fuzzy
 msgid ""
 "To turn off the private key for any tab, check the \"This is a public "
 "OnionShare service (disables private key)\" box before starting the server. "
 "Then the server will be public and a private key is not needed to load it in "
 "the Tor Browser."
 msgstr ""
-"Чтобы отключить использование секретного ключа для любой вкладке, отметьте "
-"пункт \"Это публичный сервис OnionShare (секретный ключ не используется)\" "
-"перед запуском сервиса. В таком случае не понадобится секретный ключ для "
-"просмотра адреса в Tor Browser."
+"Чтобы отключить закрытый ключ для любой вкладки, перед запуском сервера "
+"установите флажок “Это общедоступная служба OnionShare (отключает закрытый "
+"ключ)“. Тогда сервер будет публичным и для его загрузки в Tor Browser не "
+"понадобится приватный ключ."
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
 msgstr "Указать заголовок"
 
 #: ../../source/advanced.rst:39
-#, fuzzy
 msgid ""
 "When people load OnionShare services in the Tor Browser they see the default "
 "title for each type of service. For example, the default title for chat "
 "services is \"OnionShare Chat\"."
 msgstr ""
-"По умолчанию, когда люди открывают страницу OnionShare в браузере Tor, они "
-"видят стандартное название сервиса. Например, стандартный заголовок чата это "
-"\"OnionShare Chat\"."
+"Когда люди загружают сервисы OnionShare в браузере Tor, они видят заголовок "
+"по умолчанию для каждого типа сервиса. Например, заголовок службы чата по "
+"умолчанию — “Чат OnionShare“."
 
 #: ../../source/advanced.rst:42
-#, fuzzy
 msgid ""
 "If you edit the \"Custom title\" setting before starting a server you can "
 "change it."
 msgstr ""
-"Если вы хотите указать своё название для сервиса, используйте настройку "
-"\"Свой заголовок\" перед запуском сервиса."
+"Если вы отредактируете настройку “Пользовательский заголовок“ перед запуском "
+"сервера, вы можете изменить ее."
 
 #: ../../source/advanced.rst:45
 msgid "Scheduled Times"
@@ -120,8 +130,8 @@ msgstr "Планирование времени"
 msgid ""
 "OnionShare supports scheduling exactly when a service should start and stop. "
 "Before starting a server, click \"Show advanced settings\" in its tab and "
-"then check the boxes next to either \"Start onion service at scheduled time"
-"\", \"Stop onion service at scheduled time\", or both, and set the "
+"then check the boxes next to either \"Start onion service at scheduled "
+"time\", \"Stop onion service at scheduled time\", or both, and set the "
 "respective desired dates and times."
 msgstr ""
 "OnionShare поддерживает возможность точного планирования, когда сервис "
@@ -137,6 +147,10 @@ msgid ""
 "when the \"Start sharing\" button is clicked. Services scheduled to stop in "
 "the future display a countdown timer when started."
 msgstr ""
+"Службы, запуск которых запланирован на будущее, отображают таймер обратного "
+"отсчета при нажатии кнопки “Начать общий доступ“. Службы, которые "
+"планируется остановить в будущем, при запуске отображают таймер обратного "
+"отсчета."
 
 #: ../../source/advanced.rst:54
 msgid ""
@@ -145,19 +159,20 @@ msgid ""
 "in the future if you are not there to prevent it. If nothing happens to you, "
 "you can cancel the service before it's scheduled to start."
 msgstr ""
+"**Планирование автоматического запуска службы OnionShare можно использовать "
+"как выключатель**. Это означает, что ваша услуга станет общедоступной в "
+"определенный момент в будущем, если вы не сможете предотвратить это. Если с "
+"вами ничего не произойдет, вы можете отменить услугу до ее запуска."
 
 #: ../../source/advanced.rst:60
-#, fuzzy
 msgid ""
 "**Scheduling an OnionShare service to automatically stop limits its "
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
 msgstr ""
-"**Запланированная автоматическая остановка сервиса OnionShare может быть "
-"использована, чтобы ограничить время доступности сервиса. ** Например можно "
-"сделать доступными для скачивания секретные документы на определённый период "
-"времени, чтобы они были видны пользователям сети Интернет только несколько "
-"дней."
+"**Планирование автоматической остановки службы OnionShare ограничивает ее "
+"уязвимость**. Если вы хотите поделиться секретной информацией или чем-то, "
+"что устареет, вы можете сделать это в течение ограниченного времени."
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
@@ -191,46 +206,46 @@ msgid "Then run it like this::"
 msgstr "Затем произведите запуск следующим образом::"
 
 #: ../../source/advanced.rst:82
-#, fuzzy
 msgid ""
 "Info about installing it on different operating systems can be found in the "
 "`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
 "README.md>`_ in the Git repository."
 msgstr ""
-"Информацию о том, как произвести установку на другие операционные системы, "
-"можно найти `в readme файле CLI <https://github.com/onionshare/onionshare/"
-"blob/develop/cli/README.md>`_ в репозитории Git."
+"Информацию об установке его в различных операционных системах можно найти в "
+"файле `CLI README <https://github.com/onionshare/onionshare/blob/develop/cli/"
+"README.md>`_ в репозитории Git."
 
 #: ../../source/advanced.rst:84
-#, fuzzy
 msgid ""
 "If you installed OnionShare using the Snap package, you can also just run "
 "``onionshare.cli`` to access the command-line interface version."
 msgstr ""
-"Если установка OnionShare была произведена при помощи Linux Snapcraft, "
-"запустить консольную версию можно при помощи команды: ``onionshare.cli``."
+"Если вы установили OnionShare с помощью пакета Snap, вы также можете просто "
+"запустить ``onionshare.cli``, чтобы получить доступ к версии интерфейса "
+"командной строки."
 
 #: ../../source/advanced.rst:87
 msgid "Usage"
 msgstr "Использование"
 
 #: ../../source/advanced.rst:89
-#, fuzzy
 msgid ""
 "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
-"Чтобы просмотреть документацию консольной версии OnionShare запустите "
-"команду: ``onionshare --help``::"
+"Просмотрите документацию по командной строке, запустив ``onionshare --"
+"help``::"
 
 #: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Горячие клавиши"
 
 #: ../../source/advanced.rst:153
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
+"Настольное приложение OnionShare содержит несколько сочетаний клавиш для "
+"удобства и доступности::"
 
 #: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"

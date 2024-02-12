@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-06-02 11:21+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: pt_PT <LL@li.org>\n"
@@ -40,7 +40,6 @@ msgid "Linux"
 msgstr ""
 
 #: ../../source/install.rst:14
-#, fuzzy
 msgid ""
 "There are various ways to install OnionShare for Linux, but the recommended "
 "way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap "
@@ -49,8 +48,8 @@ msgid ""
 msgstr ""
 "Existem várias maneiras de instalar o OnionShare para Linux, mas a maneira "
 "recomendada é usar o pacote `Flatpak <https://flatpak.org/>`_ ou `Snapcraft "
-"<https://snapcraft.io/>`_ . Ambos asseguram que a versão usada é a mais "
-"recente e correm o OnionShare dentro de uma sandbox."
+"<https://snapcraft.io/>`_ . Ambos asseguram que a versão usada é sempre a "
+"mais recente e correm o OnionShare dentro de uma sandbox."
 
 #: ../../source/install.rst:17
 #, fuzzy
@@ -240,7 +239,7 @@ msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "Pode encontrar as assinaturas nos ficheiros (``.asc``), assim como Windows, "
 "macOS, Flatpak, Snapcraft, e pacotes fonte em https://onionshare.org/dist/ "
@@ -256,28 +255,52 @@ msgstr "Verificação"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "Assim que tenha importado a chave pública do Micah para o seu chaveiro no "
 "GnuPG, descarregado o binário e a assinatura ``.asc``, pode verificar o "
 "binário para macOS no terminal desta forma::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "ou para Windows, na linha de comandos desta forma::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+msgid "For Linux::"
+msgstr ""
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "O resultado esperado é o seguinte::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
+#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
+msgstr ""
+"Se não vê a mensagem 'Good signature from', pode existir um problema com a "
+"integridade do ficheiro (malicioso ou de outra forma), e o pacote não deve "
+"ser instalado. (O AVISO apresentado acima, não é um problema com o pacote: "
+"Apenas significa que ainda não defeniu nenhum nível de 'confiança' com a "
+"chave PGP do Micah.)"
+
+#: ../../source/install.rst:114
+#, fuzzy
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
 msgstr ""
 "Se não vê a mensagem 'Good signature from', pode existir um problema com a "
 "integridade do ficheiro (malicioso ou de outra forma), e o pacote não deve "
@@ -285,7 +308,7 @@ msgstr ""
 "pacote: Apenas significa que ainda não defeniu nenhum nível de 'confiança' "
 "com a chave PGP do Micah.)"
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:116
 #, fuzzy
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
@@ -297,6 +320,9 @@ msgstr ""
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ e `Tor "
 "Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ "
 "podem ajudar."
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "ou para Windows, na linha de comandos desta forma::"
 
 #~ msgid "Install in Linux"
 #~ msgstr "Instalar em Linux"
@@ -328,17 +354,3 @@ msgstr ""
 #~ msgstr ""
 #~ "**Instalar OnionShare utilizando Snapcraft**: https://snapcraft.io/"
 #~ "onionshare"
-
-#, fuzzy
-#~ msgid ""
-#~ "If you don't see 'Good signature from', there might be a problem with the "
-#~ "integrity of the file (malicious or otherwise), and you should not "
-#~ "install the package. (The \"WARNING:\" shown above, is not a problem with "
-#~ "the package, it only means you haven't already defined any level of "
-#~ "'trust' of Micah's PGP key.)"
-#~ msgstr ""
-#~ "Se não vê a mensagem 'Good signature from', pode existir um problema com "
-#~ "a integridade do ficheiro (malicioso ou de outra forma), e o pacote não "
-#~ "deve ser instalado. (O AVISO apresentado acima, não é um problema com o "
-#~ "pacote: Apenas significa que ainda não defeniu nenhum nível de "
-#~ "'confiança' com a chave PGP do Micah.)"
