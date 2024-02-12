@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: 2023-06-06 12:39+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
@@ -220,11 +220,12 @@ msgid "Signatures"
 msgstr "簽名"
 
 #: ../../source/install.rst:76
+#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
-"`GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "找到簽名(像 ``.asc`` 檔案) 以及 Windows, macOS, Flatpak, Snap 和套件 https://"
 "onionshare.org/dist/ 資料夾依 OnionShare 各版本命名。`GitHub Releases page "
@@ -238,30 +239,47 @@ msgstr "驗證中"
 #, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary for "
-"macOS in a terminal like this::"
+"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
+"terminal like this:"
 msgstr ""
 "一旦滙入 Micah 公鑰到 GniPG 密鑰鏈，下載二進制的``.asc`` 簽名，macOS 終端機驗"
 "證二進的方式如下::"
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
-msgstr "或者在 Windows 命令列指像這樣::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
+msgstr ""
 
-#: ../../source/install.rst:90
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+msgid "For Linux::"
+msgstr ""
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
+msgstr ""
+
+#: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "預期的結果像這樣::"
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:112
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
-"the package. (The ``WARNING:`` shown above, is not a problem with the "
-"package, it only means you haven't defined a level of \"trust\" of Micah's "
-"(the core developer) PGP key.)"
+"the package."
 msgstr ""
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:114
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
+msgstr ""
+
+#: ../../source/install.rst:116
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -271,6 +289,9 @@ msgstr ""
 "想多了解 PGP 簽署驗證， `Qubes OS 指南 <https://www.qubes-os.org/security/"
 "verifying-signatures/>`_ 以及 `Tor Project <https://support.torproject.org/"
 "tbb/how-to-verify-signature/>`_ 可參考。"
+
+#~ msgid "Or for Windows, in a command-prompt like this::"
+#~ msgstr "或者在 Windows 命令列指像這樣::"
 
 #, fuzzy
 #~ msgid "Install in Linux"

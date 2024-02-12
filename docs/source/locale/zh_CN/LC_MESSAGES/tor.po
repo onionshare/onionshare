@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-05 11:30-0700\n"
 "PO-Revision-Date: 2023-06-10 02:52+0000\n"
 "Last-Translator: Chris Nolan <chrisnolan@tutanota.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,10 +38,10 @@ msgid ""
 "connection fails, you can still try bridges or reconfigure Tor via the "
 "\"Network Settings\" button."
 msgstr ""
-"您可以在点击\"Connect to Tor\"之前，打开\"Connect to Tor "
-"automatically\"的开关。这意味着下次OnionShare启动时，它将自动使用上次会话的To"
-"r连接设置进行连接，而不会呈现连接选项给您。如果连接失败，"
-"您仍然可以尝试使用桥接或通过\"Network Settings\"按钮重新配置Tor。"
+"您可以在点击\"Connect to Tor\"之前，打开\"Connect to Tor automatically\"的开"
+"关。这意味着下次OnionShare启动时，它将自动使用上次会话的Tor连接设置进行连接，"
+"而不会呈现连接选项给您。如果连接失败，您仍然可以尝试使用桥接或通过\"Network "
+"Settings\"按钮重新配置Tor。"
 
 #: ../../source/tor.rst:11
 msgid ""
@@ -56,7 +56,8 @@ msgstr ""
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings before "
 "you connect, you can click \"Network Settings\"."
-msgstr "或者，如果您希望在连接之前手动配置桥接或其他Tor设置，您可以点击\"Network "
+msgstr ""
+"或者，如果您希望在连接之前手动配置桥接或其他Tor设置，您可以点击\"Network "
 "Settings\"。"
 
 #: ../../source/tor.rst:16
@@ -67,7 +68,8 @@ msgstr "自动绕过网络审查"
 msgid ""
 "When you click \"Connect to Tor\", if OnionShare fails to connect, it might "
 "be because Tor is censored in your country or on your local network."
-msgstr "当您点击\"Connect to Tor\"时，如果OnionShare无法连接，可能是因为Tor在您所在的"
+msgstr ""
+"当您点击\"Connect to Tor\"时，如果OnionShare无法连接，可能是因为Tor在您所在的"
 "国家或本地网络中受到审查限制。"
 
 #: ../../source/tor.rst:20
@@ -211,8 +213,8 @@ msgstr ""
 
 #: ../../source/tor.rst:78
 msgid ""
-"To use a bridge, you must select \"Use the Tor version built into OnionShare"
-"\" and check the \"Use a bridge\" checkbox."
+"To use a bridge, you must select \"Use the Tor version built into "
+"OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
 
 #: ../../source/tor.rst:80
@@ -397,8 +399,8 @@ msgstr ""
 
 #: ../../source/tor.rst:170
 msgid ""
-"Reboot your computer. After it boots up again, open OnionShare, click the \"⚙"
-"\" icon in it, and switch to the Tor Settings tab. Under \"How should "
+"Reboot your computer. After it boots up again, open OnionShare, click the "
+"\"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should "
 "OnionShare connect to Tor?\" choose \"Connect using socket file\". Set the "
 "socket file to be ``/var/run/tor/control``. Under \"Tor authentication "
 "settings\" choose \"No authentication, or cookie authentication\". Click the "

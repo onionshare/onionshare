@@ -72,7 +72,6 @@
     "gui_server_autostop_timer_expired": "O temporizador de detención automática esgotouse. Configúrao para comezar a compartir.",
     "gui_server_autostart_timer_expired": "A hora programada xa pasou. Configúraa para comezar a compartir.",
     "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "A hora de detención automática non pode ser a mesma ou anterior á hora de inicio. Configúraa para comezar a compartir.",
-    "share_via_onionshare": "Compartir vía OnionShare",
     "gui_share_url_description": "<b>Calquera</b> con este enderezo OnionShare e chave privada pode <b>descargar</b> os teus ficheiros usando o <b>Tor Browser</b>: <img src='{}' />",
     "gui_website_url_description": "<b>Calquera</b>con este enderezo OnionShare e chave privada pode <b>visitar</b> o teu sition web usando <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Calquera</b> con este enderezo OnionShare e chave privada pode <b>subir</b> ficheiros ó teu ordenador usando <b>Tor Browser</b>: <img src='{}' />",

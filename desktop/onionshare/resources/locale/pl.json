@@ -70,7 +70,6 @@
     "gui_tor_connection_lost": "Odłączony od sieci Tor.",
     "gui_server_started_after_autostop_timer": "Czas automatycznego zatrzymania upłynął przed uruchomieniem serwera. Utwórz nowy udział.",
     "gui_server_autostop_timer_expired": "Czas automatycznego zatrzymania już upłynął. Dostosuj go, aby rozpocząć udostępnianie.",
-    "share_via_onionshare": "Udostępniaj przez OnionShare",
     "gui_share_url_description": "<b>Każdy</b> z tym adresem OnionShare oraz kluczem prywatnym może <b>pobrać</b> Twoje pliki za pomocą przeglądarki <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Każdy</b> z tym adresem OnionShare oraz kluczem prywatnym może <b>przesyłać</b> pliki na Twój komputer za pomocą przeglądarki <b>Tor Browser</b>: <img src='{}' />",
     "gui_url_label_persistent": "Ten udział nie zatrzyma się automatycznie.<br><br>Każdy kolejny udział ponownie użyje tego adresu. (Aby użyć adresów jednorazowych, wyłącz w ustawieniach „Użyj stałego adresu”.)",
@@ -172,7 +171,7 @@
     "gui_quit_warning_description": "Wyjść i zamknąć wszystke karty, mimo że udostępnianie jest aktywne w niektórych z nich?",
     "gui_quit_warning_title": "Zakończyć OnionShare?",
     "gui_close_tab_warning_cancel": "Anuluj",
-    "gui_close_tab_warning_close": "Zamknij",
+    "gui_close_tab_warning_close": "OK",
     "gui_close_tab_warning_website_description": "Zamknąć kartę, która hostuje stronę internetową?",
     "gui_close_tab_warning_receive_description": "Zamknij kartę, która odbiera pliki?",
     "gui_close_tab_warning_share_description": "Zamknąć kartę, która wysyła pliki?",
@@ -254,5 +253,6 @@
     "gui_autoconnect_start": "Połącz się z siecią Tor",
     "gui_general_settings_window_title": "Ogólne",
     "waitress_web_server_error": "Wystąpił problem z uruchomieniem serwera WWW",
-    "gui_close_tab_warning_chat_description": "Zamknąć kartę hostującą serwer czatu?"
+    "gui_close_tab_warning_chat_description": "Zamknąć kartę hostującą serwer czatu?",
+    "gui_chat_mode_explainer": "Tryb czatu umożliwia interaktywną rozmowę z innymi osobami w Tor Browser.<br><br><b>Historia czatów nie jest przechowywana w OnionShare. Historia czatów zniknie, gdy zamkniesz Tor Browser.</b>"
 }

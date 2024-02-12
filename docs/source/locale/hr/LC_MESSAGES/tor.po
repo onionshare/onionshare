@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: 2023-01-09 22:49+0000\n"
+"POT-Creation-Date: 2023-09-05 11:30-0700\n"
+"PO-Revision-Date: 2024-01-31 10:01+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: none\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
@@ -68,22 +68,25 @@ msgstr ""
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Pokušaj ponovo bez mosta"
 
 #: ../../source/tor.rst:23
 msgid ""
 "Automatically determine my country from my IP address for bridge settings"
 msgstr ""
+"Automatski odredi moju zemlju na osnovi moje IP adrese za postavke mosta"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Ručno odaberi moju zemlju za postavke mosta"
 
 #: ../../source/tor.rst:28
 msgid ""
 "If you choose the \"Try again without a bridge\" option, OnionShare will "
 "retry connecting to Tor like normal, without attempting to bypass censorship."
 msgstr ""
+"Ako odabereš opciju „Pokušaj ponovno bez mosta”, OnionShare će se ponovo "
+"pokušati povezati s Torom kao i obično, bez pokušaja zaobilaženja cenzure."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -161,7 +164,7 @@ msgstr ""
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Ručno konfiguriranje Tor postavki"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -178,7 +181,7 @@ msgstr ""
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Koristi verziju Tora koja je ugrađena u OnionShareu"
 
 #: ../../source/tor.rst:70
 msgid ""
@@ -200,8 +203,8 @@ msgstr ""
 
 #: ../../source/tor.rst:78
 msgid ""
-"To use a bridge, you must select \"Use the Tor version built into OnionShare"
-"\" and check the \"Use a bridge\" checkbox."
+"To use a bridge, you must select \"Use the Tor version built into "
+"OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
 
 #: ../../source/tor.rst:80
@@ -238,7 +241,7 @@ msgstr ""
 
 #: ../../source/tor.rst:97
 msgid "Using a system ``tor`` in Windows"
-msgstr ""
+msgstr "Korištenje ``tor`` sustava u Windows sustavu"
 
 #: ../../source/tor.rst:99
 msgid ""
@@ -301,7 +304,7 @@ msgstr ""
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
-msgstr ""
+msgstr "Korištenje ``tor`` sustava u macOS sustavu"
 
 #: ../../source/tor.rst:136
 msgid ""
@@ -333,7 +336,7 @@ msgstr ""
 
 #: ../../source/tor.rst:160
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "Korištenje ``tor`` sustava u Linux sustavu"
 
 #: ../../source/tor.rst:162
 msgid ""
@@ -357,8 +360,8 @@ msgstr ""
 
 #: ../../source/tor.rst:170
 msgid ""
-"Reboot your computer. After it boots up again, open OnionShare, click the \"⚙"
-"\" icon in it, and switch to the Tor Settings tab. Under \"How should "
+"Reboot your computer. After it boots up again, open OnionShare, click the "
+"\"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should "
 "OnionShare connect to Tor?\" choose \"Connect using socket file\". Set the "
 "socket file to be ``/var/run/tor/control``. Under \"Tor authentication "
 "settings\" choose \"No authentication, or cookie authentication\". Click the "

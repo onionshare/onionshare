@@ -70,7 +70,6 @@
     "gui_tor_connection_lost": "Frånkopplad från Tor.",
     "gui_server_started_after_autostop_timer": "Tiden för den automatiska stopp-tidtagaren löpte ut innan servern startades.\nGör en ny delning.",
     "gui_server_autostop_timer_expired": "Den automatiska stopp-tidtagaren har redan löpt ut. Justera den för att starta delning.",
-    "share_via_onionshare": "Dela med OnionShare",
     "gui_share_url_description": "<b>Vem som helst</b> med denna OnionShare-adress och privata nyckel kan <b>ladda ner</b> dina filer med hjälp av <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Alla</b> med denna OnionShare-adress och privata nyckel kan <b>ladda upp</b> filer till din dator med <b>Tor Browser</b>: <img src='{}' />",
     "gui_url_label_persistent": "Denna delning kommer inte automatiskt att avslutas.<br>< br>Varje efterföljande delning återanvänder adressen. (För att använda engångsadresser, stäng av \"Använd beständig adress\" i inställningarna.)",
@@ -252,5 +251,7 @@
     "gui_general_settings_window_title": "Allmänt",
     "gui_autoconnect_bridge_setting_options": "Inställningar för bryggning",
     "gui_autoconnect_circumventing_censorship_requesting_bridges": "Begär broar från Tors censur kringgående API…",
-    "gui_autoconnect_could_not_connect_to_tor_api": "Det gick inte att ansluta till Tor API. Kontrollera att du är ansluten till internet innan du försöker igen."
+    "gui_autoconnect_could_not_connect_to_tor_api": "Det gick inte att ansluta till Tor API. Kontrollera att du är ansluten till internet innan du försöker igen.",
+    "gui_close_tab_warning_chat_description": "Stäng flik som är värd för en chattserver?",
+    "waitress_web_server_error": "Det gick inte att starta webbservern"
 }

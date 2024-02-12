@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-05 11:30-0700\n"
 "PO-Revision-Date: 2023-08-03 16:11+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: none\n"
@@ -205,8 +205,8 @@ msgstr ""
 
 #: ../../source/tor.rst:78
 msgid ""
-"To use a bridge, you must select \"Use the Tor version built into OnionShare"
-"\" and check the \"Use a bridge\" checkbox."
+"To use a bridge, you must select \"Use the Tor version built into "
+"OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
 
 #: ../../source/tor.rst:80
@@ -376,8 +376,8 @@ msgstr ""
 #: ../../source/tor.rst:157 ../../source/tor.rst:177
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr ""
-"Kama vyote vitaenda sawal, unatakiwa kuona \"Connected to the Tor controller"
-"\"."
+"Kama vyote vitaenda sawal, unatakiwa kuona \"Connected to the Tor "
+"controller\"."
 
 #: ../../source/tor.rst:160
 msgid "Using a system ``tor`` in Linux"
@@ -413,8 +413,8 @@ msgstr ""
 
 #: ../../source/tor.rst:170
 msgid ""
-"Reboot your computer. After it boots up again, open OnionShare, click the \"⚙"
-"\" icon in it, and switch to the Tor Settings tab. Under \"How should "
+"Reboot your computer. After it boots up again, open OnionShare, click the "
+"\"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should "
 "OnionShare connect to Tor?\" choose \"Connect using socket file\". Set the "
 "socket file to be ``/var/run/tor/control``. Under \"Tor authentication "
 "settings\" choose \"No authentication, or cookie authentication\". Click the "
