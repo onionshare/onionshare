@@ -72,7 +72,6 @@
     "gui_tor_connection_lost": "",
     "gui_server_started_after_autostop_timer": "",
     "gui_server_autostop_timer_expired": "",
-    "share_via_onionshare": "",
     "gui_share_url_description": "",
     "gui_receive_url_description": "",
     "gui_url_label_persistent": "",

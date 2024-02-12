@@ -70,7 +70,6 @@
     "gui_tor_connection_lost": "Frakoblet fra Tor.",
     "gui_server_started_after_autostop_timer": "Tidsavbruddsuret gikk ut før tjeneren startet. Lag en ny deling.",
     "gui_server_autostop_timer_expired": "Tidsavbruddsuret har gått ut allerede. Juster det for å starte deling.",
-    "share_via_onionshare": "Del via OnionShare",
     "gui_share_url_description": "<b>Alle</b> som har denne OnionShare-adressen og tilhørende privat nøkkel kan <b>Laste ned</b> filene dine ved bruk av <b>Tor-Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Alle</b> som har denne OnionShare-adressen og tilhørende privat nøkkel kan <b>Laste opp</b> filer til din datamaskin ved bruk av <b>Tor-Browser</b>: <img src='{}' />",
     "gui_url_label_persistent": "Delingen vil ikke stoppe automatisk.<br><br>Hver påfølgende deling vil gjenbruke adressen. (For engangsadresser, skru av \"Bruk vedvarende adresse\" i innstillingene.)",

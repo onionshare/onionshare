@@ -72,7 +72,6 @@
     "gui_server_autostop_timer_expired": "Časovač automatického zastavenia už vypršal. Upravte ho tak, aby sa začal zdieľať.",
     "gui_server_autostart_timer_expired": "Plánovaný čas už uplynul. Upravte ho tak, aby sa začal zdieľať.",
     "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "Čas automatického zastavenia nemôže byť rovnaký alebo skorší ako čas automatického spustenia. Upravte ho, aby ste mohli začať zdieľať.",
-    "share_via_onionshare": "Zdieľať cez OnionShare",
     "gui_share_url_description": "<b>Ktokoľvek</b> s touto adresou OnionShare si môže <b>stiahnuť</b> vaše súbory pomocou <b>Tor Browser</b>: <img src='{}' />",
     "gui_website_url_description": "<b>Ktokoľvek</b> s touto adresou OnionShare môže <b>navštíviť</b> váš web pomocou <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Ktokoľvek</b> s touto adresou OnionShare môže <b>nahrať</b> súbory do vášho počítača pomocou <b>Tor Browser</b>: <img src='{}' />",

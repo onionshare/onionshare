@@ -84,12 +84,13 @@ class WebsiteModeWeb(SendBaseModeWeb):
                     return self.stream_individual_file(self.files[index_path])
 
                 else:
-                    # Otherwise, render directory listing
+                    # Otherwise, render directory listing, and enforce trailing slash
+                    # which can help with relative asset links in sub-directories.
                     filenames = []
                     for filename in os.listdir(filesystem_path):
                         filenames.append(filename)
                     filenames.sort()
-                    return self.directory_listing(filenames, path, filesystem_path)
+                    return self.directory_listing(filenames, path, filesystem_path, True)
 
             # If it's a file
             elif os.path.isfile(filesystem_path):
@@ -112,7 +113,7 @@ class WebsiteModeWeb(SendBaseModeWeb):
                     # Root directory listing
                     filenames = list(self.root_files)
                     filenames.sort()
-                    return self.directory_listing(filenames, path)
+                    return self.directory_listing(filenames, path, None, True)
 
             else:
                 # If the path isn't found, throw a 404

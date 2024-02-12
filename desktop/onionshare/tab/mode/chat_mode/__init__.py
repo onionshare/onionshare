@@ -80,6 +80,11 @@ class ChatMode(Mode):
         header_label = QtWidgets.QLabel(strings._("gui_new_tab_chat_button"))
         header_label.setStyleSheet(self.common.gui.css["mode_header_label"])
 
+        # Chat mode explainer
+        chat_mode_explainer = QtWidgets.QLabel(strings._("gui_chat_mode_explainer"))
+        chat_mode_explainer.setMinimumHeight(80)
+        chat_mode_explainer.setWordWrap(True)
+
         # Top bar
         top_bar_layout = QtWidgets.QHBoxLayout()
         # Add space at the top, same height as the toggle history bar in other modes
@@ -89,6 +94,7 @@ class ChatMode(Mode):
         self.main_layout = QtWidgets.QVBoxLayout()
         self.main_layout.addLayout(top_bar_layout)
         self.main_layout.addWidget(header_label)
+        self.main_layout.addWidget(chat_mode_explainer)
         self.main_layout.addWidget(self.primary_action, stretch=1)
         self.main_layout.addWidget(self.server_status)
         self.main_layout.addWidget(MinimumSizeWidget(700, 0))

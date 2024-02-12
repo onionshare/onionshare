@@ -108,7 +108,6 @@
     "moat_captcha_error": "Nesprávné řešení. Zkuste to prosím znovu.",
     "moat_solution_empty_error": "Zadejte znaky z obrázku",
     "mode_tor_not_connected_label": "OnionShare není připojen k síti Tor",
-    "share_via_onionshare": "Sdílet přes OnionShare",
     "gui_url_instructions_public_mode": "Odeslat adresu OnionShare uvedenou níže:",
     "gui_client_auth_instructions": "Dále zašlete soukromý klíč pro umožnění přístupu k Vaší službě OnionShare :",
     "gui_status_indicator_chat_stopped": "Připraveno chatovat",

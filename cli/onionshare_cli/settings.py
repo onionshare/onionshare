@@ -55,42 +55,48 @@ class Settings(object):
         # Dictionary of available languages in this version of OnionShare,
         # mapped to the language name, in that language
         self.available_locales = {
-            # "ar": "العربية",  # Arabic
+            "af": "Afrikaans",  # Afrikaans
+            "sq": "Shqip",  # Albanian
+            "ar": "العربية",  # Arabic
+            "be": "Беларуская",  # Belarusian
             # "bn": "বাংলা",  # Bengali
-            # "ca": "Català",  # Catalan
-            # "zh_Hant": "正體中文 (繁體)",  # Traditional Chinese
+            "ca": "Català",  # Catalan
+            "zh_Hant": "正體中文 (繁體)",  # Traditional Chinese
             "zh_Hans": "中文 (简体)",  # Simplified Chinese
             "hr": "Hrvatski",  # Croatian
             "cs": "čeština",  # Czech
             # "da": "Dansk",  # Danish
             # "nl": "Nederlands",  # Dutch
             "en": "English",  # English
-            # "fi": "Suomi",  # Finnish
-            # "fr": "Français",  # French
+            "fi": "Suomi",  # Finnish
+            "fr": "Français",  # French
             # "gl": "Galego",  # Galician
             "de": "Deutsch",  # German
             "el": "Ελληνικά",  # Greek
             "is": "Íslenska",  # Icelandic
             # "id": "Bahasa Indonesia",  # Indonesian
             # "ga": "Gaeilge",  # Irish
-            # "it": "Italiano",  # Italian
+            "it": "Italiano",  # Italian
             "ja": "日本語",  # Japanese
             # "ckb": "Soranî",  # Kurdish (Central)
-            # "lt": "Lietuvių Kalba",  # Lithuanian
-            # "nb_NO": "Norsk Bokmål",  # Norwegian Bokmål
-            # "fa": "فارسی",  # Persian
-            # "pl": "Polski",  # Polish
-            # "pt_BR": "Português (Brasil)",  # Portuguese Brazil
+            "lt": "Lietuvių Kalba",  # Lithuanian
+            "nb_NO": "Norsk Bokmål",  # Norwegian Bokmål
+            "fa": "فارسی",  # Persian
+            "pl": "Polski",  # Polish
+            "pt_BR": "Português (Brasil)",  # Portuguese Brazil
             # "pt_PT": "Português (Portugal)",  # Portuguese Portugal
             # "ro": "Română",  # Romanian
-            # "ru": "Русский",  # Russian
+            "ru": "Русский",  # Russian
+            "sn": "chiShona",  # Shona
             # "sr_Latn": "Srpska (latinica)",  # Serbian (latin)
             # "sk": "Slovenčina",  # Slovak
-            "sv": "Svenska",  # Swedish
             "es": "Español",  # Spanish
+            "sw": "Kiswahili",  # Swahili
+            "sv": "Svenska",  # Swedish
             # "te": "తెలుగు",  # Telugu
             "tr": "Türkçe",  # Turkish
             "uk": "Українська",  # Ukrainian
+            "vi": "Tiếng Việt",  # Vietnamese
         }
 
         # These are the default settings. They will get overwritten when loading from disk

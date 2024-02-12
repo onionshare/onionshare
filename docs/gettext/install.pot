@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 13:07+0200\n"
+"POT-Creation-Date: 2023-09-05 11:51-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -145,7 +145,7 @@ msgid "Signatures"
 msgstr ""
 
 #: ../../source/install.rst:76
-msgid "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare. You can also find them on the `GitHub Releases page <https://github.com/micahflee/onionshare/releases>`_."
+msgid "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare. You can also find them on the `GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 
 #: ../../source/install.rst:80
@@ -153,21 +153,37 @@ msgid "Verifying"
 msgstr ""
 
 #: ../../source/install.rst:82
-msgid "Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and ``.asc`` signature, you can verify the binary for macOS in a terminal like this::"
+msgid "Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and ``.asc`` signature, you can verify the binary in a terminal like this:"
 msgstr ""
 
-#: ../../source/install.rst:86
-msgid "Or for Windows, in a command-prompt like this::"
+#: ../../source/install.rst:84
+msgid "For Windows::"
 msgstr ""
 
-#: ../../source/install.rst:90
-msgid "The expected output looks like this::"
+#: ../../source/install.rst:88
+msgid "For macOS::"
+msgstr ""
+
+#: ../../source/install.rst:92
+msgid "For Linux::"
+msgstr ""
+
+#: ../../source/install.rst:98
+msgid "and for the source file::"
 msgstr ""
 
 #: ../../source/install.rst:102
-msgid "If you don't see ``Good signature from``, there might be a problem with the integrity of the file (malicious or otherwise), and you should not install the package. (The ``WARNING:`` shown above, is not a problem with the package, it only means you haven't defined a level of \"trust\" of Micah's (the core developer) PGP key.)"
+msgid "The expected output looks like this::"
 msgstr ""
 
-#: ../../source/install.rst:104
+#: ../../source/install.rst:112
+msgid "If you don't see ``Good signature from``, there might be a problem with the integrity of the file (malicious or otherwise), and you should not install the package."
+msgstr ""
+
+#: ../../source/install.rst:114
+msgid "The ``WARNING:`` shown above, is not a problem with the package, it only means you haven't defined a level of \"trust\" of Micah's (the core developer) PGP key."
+msgstr ""
+
+#: ../../source/install.rst:116
 msgid "If you want to learn more about verifying PGP signatures, the guides for `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ may be useful."
 msgstr ""

@@ -71,7 +71,6 @@
     "gui_tor_connection_lost": "Tor-yhteys katkaistu.",
     "gui_server_started_after_autostop_timer": "Automaattinen loputusajastin pysäytti toiminnon ennen palvelimen käynnistymistä. Luo uusi jako.",
     "gui_server_autostop_timer_expired": "Automaattinen pysäytysajastin päättyi jo. Säädä se jaon aloittamiseksi.",
-    "share_via_onionshare": "Jaa OnionSharella",
     "gui_share_url_description": "<b>Kaikki</b> joilla on tämä OnionShare-osoite voivat <b>ladata</b> tiedostojasi käyttämällä <b>Tor-selainta</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Kaikki</b> joilla on tämä OnionShare-osoite voivat <b>lähettää</b>tiedostoja tietokoneellesi käyttämällä <b>Tor-selainta</b>: <img src='{}' />",
     "gui_url_label_persistent": "Tämä jako ei pysähdy automaattisesti.<br><br>Jokainen seuraava jako käyttää osoitetta uudelleen. (Jos haluat käyttää kertaluontoisia osoitteita, sammuta \"Käytä pysyvää osoitetta\" asetuksissa.)",

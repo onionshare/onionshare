@@ -77,7 +77,6 @@
     "gui_server_autostop_timer_expired": "Die outo-stoptydhouer het reeds afgeloop. Pas dit aan om te begin deel.",
     "gui_server_autostart_timer_expired": "Die geskeduleerde tyd is verstreke. Verstel dit om met deel te begin met.",
     "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "Die outo-stoptyd kan nie dieselfde of vroeër as die outo-begintyd wees nie. Pas dit aan om te begin deel.",
-    "share_via_onionshare": "Deel d.m.v. OnionShare",
     "gui_share_url_description": "<b>Enigeen</b> met hierdie OnionShare-adres en privaat sleutel kan u lêers <b>aflaai</b> d.m.v. die <b>Tor Browser</b>: <img src=\"{}\" />",
     "gui_website_url_description": "<b>Enigeen</b> met hierdie OnionShare-adres en privaat sleutel kan u webwerf <b>besoek</b> d.m.v. die <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Enigeen</b> met hierdie OnionShare-adres kan lêers d.m.v. die <b>Tor Browser</b> na u rekenaar <b>oplaai</b>: <img src='{}' />",

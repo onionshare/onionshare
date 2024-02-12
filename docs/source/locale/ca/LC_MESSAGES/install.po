@@ -6,17 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-06 13:07+0200\n"
-"PO-Revision-Date: 2023-09-07 08:51+0000\n"
-"Last-Translator: Ecron <ecron_89@hotmail.com>\n"
+"PO-Revision-Date: 2020-11-25 18:28+0000\n"
+"Last-Translator: fadelkon <fadelkon@posteo.net>\n"
 "Language-Team: ca <LL@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -35,7 +34,7 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Linux"
-msgstr "Linux"
+msgstr ""
 
 #: ../../source/install.rst:14
 msgid ""

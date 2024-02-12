@@ -233,16 +233,16 @@ def get_tor_linux64(gpg, torkey, linux64_url, linux64_filename, expected_linux64
     )
     os.chmod(os.path.join(dist_path, "tor"), 0o755)
     shutil.copyfile(
-        os.path.join(tarball_tor_path, "Tor", "libcrypto.so.1.1"),
-        os.path.join(dist_path, "libcrypto.so.1.1"),
+        os.path.join(tarball_tor_path, "Tor", "libcrypto.so.3"),
+        os.path.join(dist_path, "libcrypto.so.3"),
     )
     shutil.copyfile(
         os.path.join(tarball_tor_path, "Tor", "libevent-2.1.so.7"),
         os.path.join(dist_path, "libevent-2.1.so.7"),
     )
     shutil.copyfile(
-        os.path.join(tarball_tor_path, "Tor", "libssl.so.1.1"),
-        os.path.join(dist_path, "libssl.so.1.1"),
+        os.path.join(tarball_tor_path, "Tor", "libssl.so.3"),
+        os.path.join(dist_path, "libssl.so.3"),
     )
     shutil.copyfile(
         os.path.join(tarball_tor_path, "Tor", "libstdc++", "libstdc++.so.6"),
@@ -310,7 +310,7 @@ def main(platform):
     """
     Download Tor Browser and extract tor binaries
     """
-    valid_platforms = ["win32", "win64", "macos", "linux64"]
+    valid_platforms = ["win64", "macos", "linux-x86_64"]
     if platform not in valid_platforms:
         click.echo(f"platform must be one of: {valid_platforms}")
         return
@@ -322,17 +322,23 @@ def main(platform):
     ) = get_latest_tor_version_urls(platform)
     tmpdir = tempfile.TemporaryDirectory()
     gpg = gnupg.GPG(gnupghome=tmpdir.name)
-    torkey = gpg.import_keys_file(os.path.join(root_path, "scripts", "kounek7zrdx745qydx6p59t9mqjpuhdf"))
+    torkey = gpg.import_keys_file(
+        os.path.join(root_path, "scripts", "tor-browser-devs.gpg")
+    )
     print(f"Imported Tor GPG key: {torkey.fingerprints}")
 
-    if platform == "win32":
-        get_tor_windows(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
-    elif platform == "win64":
-        get_tor_windows(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
+    if platform == "win64":
+        get_tor_windows(
+            gpg, torkey, platform_url, platform_filename, expected_platform_sig
+        )
     elif platform == "macos":
-        get_tor_macos(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
-    elif platform == "linux64":
-        get_tor_linux64(gpg, torkey, platform_url, platform_filename, expected_platform_sig)
+        get_tor_macos(
+            gpg, torkey, platform_url, platform_filename, expected_platform_sig
+        )
+    elif platform == "linux-x86_64":
+        get_tor_linux64(
+            gpg, torkey, platform_url, platform_filename, expected_platform_sig
+        )
     else:
         click.echo("invalid platform")
 
