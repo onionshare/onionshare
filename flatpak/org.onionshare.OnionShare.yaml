@@ -61,636 +61,242 @@ modules:
             url: https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
             sha256: 92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb
   - name: obfs4proxy
-    build-commands:
-    - . /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go
-      install gitlab.com/yawning/obfs4.git/obfs4.git
+    buildsystem: simple
     build-options:
       env:
-        GOBIN: /app/bin/
-    buildsystem: simple
+        GOBIN: "/app/bin/"
+    build-commands:
+      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install gitlab.com/yawning/obfs4.git/obfs4proxy"
     sources:
-    - commit: a7dfd8e4e6b456f2f0d11f0176885421029b6e3f
-      dest: src/filippo/io/edwards25519
-      type: git
-      url: https://github.com/FiloSottile/edwards25519
-    - commit: 15f83653abbcced9003c96cc14edc5b2f82e0e0e
-      dest: src/git/torproject/org/pluggable-transports/goptlib/git
-      type: git
-      url: https://git.torproject.org/pluggable-transports/goptlib.git
-    - commit: 34f201214d993633bb24f418ba11736ab8b55aa7
-      dest: src/github/com/dchest/siphash
-      type: git
-      url: https://github.com/dchest/siphash
-    - commit: 2f91fcc9fbdb888f3c795849b6777940135559b7
-      dest: src/gitlab/com/yawning/edwards25519-extra/git
-      type: git
-      url: https://gitlab.com/yawning/edwards25519-extra.git
-    - commit: a769d52b0f97a420f3dcafc17f8b3384217859a2
-      dest: src/golang/org/x/crypto
-      type: git
-      url: https://go.googlesource.com/crypto
-    - commit: e18ecbb051101a46fc263334b127c89bc7bff7ea
-      dest: src/golang/org/x/net
-      type: git
-      url: https://go.googlesource.com/net
-    - commit: 665e8c7367d1ecf644cea2d163019ef59c13d554
-      dest: src/golang/org/x/sys
-      type: git
-      url: https://go.googlesource.com/sys
-    - commit: 7de9c90e9dd184706b838f536a1cbf40a296ddb7
-      dest: src/golang/org/x/term
-      type: git
-      url: https://go.googlesource.com/term
-    - commit: 23ae387dee1f90d29a23c0e87ee0b46038fbed0e
-      dest: src/golang/org/x/text
-      type: git
-      url: https://go.googlesource.com/text
-    - commit: 90fa682c2a6e6a37b3a1364ce2fe1d5e41af9d6d
-      dest: src/golang/org/x/tools
-      type: git
-      url: https://go.googlesource.com/tools
+      - type: git
+        url: https://go.googlesource.com/net
+        commit: 69e39bad7dc2bbb411fa35755c46020969029fa7
+        dest: src/golang.org/x/net
+      - type: git
+        url: https://go.googlesource.com/crypto
+        commit: ceb1ce70b4faafeeb5b3f23cc83f09b39a4f3f1d
+        dest: src/golang.org/x/crypto
+      - type: git
+        url: https://go.googlesource.com/text
+        commit: 18b340fc7af22495828ffbe71e9f9e22583bc7a9
+        dest: src/golang.org/x/text
+      - type: git
+        url: https://go.googlesource.com/sys
+        commit: faf0a1b62c6b439486fd1d914d8185627b99d387
+        dest: src/golang.org/x/sys
+      - type: git
+        url: https://gitlab.com/yawning/obfs4
+        commit: 336a71d6e4cfd2d33e9c57797828007ad74975e9
+        dest: src/gitlab.com/yawning/obfs4.git
+      - type: git
+        url: https://gitlab.com/yawning/utls
+        commit: f1bcf4b40e4596d0ccd1dbf8f3a9f4922f9759ca
+        dest: src/gitlab.com/yawning/utls.git
+      - type: git
+        url: https://gitlab.com/yawning/bsaes
+        commit: 0a714cd429ec754482b4001e918db30cd2094405
+        dest: src/gitlab.com/yawning/bsaes.git
+      - type: git
+        url: https://gitlab.com/yawning/edwards25519-extra
+        commit: def713fd18e464864613d2b55ef41a21df2c9493
+        dest: src/gitlab.com/yawning/edwards25519-extra.git
+      - type: git
+        url: https://github.com/FiloSottile/edwards25519
+        commit: 8c58ed0e35502a485538e4c5ec086070840f3410
+        dest: src/filippo.io/edwards25519
+      - type: git
+        url: https://git.torproject.org/pluggable-transports/goptlib
+        commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
+        dest: src/git.torproject.org/pluggable-transports/goptlib.git
+      - type: git
+        url: https://github.com/dsnet/compress
+        commit: f66993602bf5da07ef49d35b08e7264ae9fe2b6e
+        dest: src/github.com/dsnet/compress
+      - type: git
+        url: https://github.com/dchest/siphash
+        commit: 991656ee3840f823396c2eb7f4a70d65dac06832
+        dest: src/github.com/dchest/siphash
   - name: meek-client
-    build-commands:
-    - . /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go
-      install gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git/meek.git
+    buildsystem: simple
     build-options:
       env:
-        GOBIN: /app/bin/
-    buildsystem: simple
+        GOBIN: "/app/bin/"
+    build-commands:
+      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install git.torproject.org/pluggable-transports/meek.git/meek-client"
     sources:
-    - commit: 781a46c66d2ddbc3509354ae7f1fccab74cb9927
-      dest: src/git/torproject/org/pluggable-transports/goptlib/git
-      type: git
-      url: https://git.torproject.org/pluggable-transports/goptlib.git
-    - commit: 1d750214c25205863625bb3eb8190a51b2cef26d
-      dest: src/github/com/andybalholm/brotli
-      type: git
-      url: https://github.com/andybalholm/brotli
-    - commit: 4b4f3c94fdf8c3a6c725e2ff110d9b44f88823ed
-      dest: src/github/com/klauspost/compress
-      type: git
-      url: https://github.com/klauspost/compress
-    - commit: 7a37261931c6d4ab67fec65e73a3cc68df4ef84a
-      dest: src/github/com/refraction-networking/utls
-      type: git
-      url: https://github.com/refraction-networking/utls
-    - commit: c86fa9a7ed909e2f2a8ab8298254fca727aba16a
-      dest: src/golang/org/x/crypto
-      type: git
-      url: https://go.googlesource.com/crypto
-    - commit: bea034e7d591acfddd606603cf48fae48bbdd340
-      dest: src/golang/org/x/net
-      type: git
-      url: https://go.googlesource.com/net
-    - commit: 3c1f35247d107ad3669216fc09e75d66fa146363
-      dest: src/golang/org/x/sys
-      type: git
-      url: https://go.googlesource.com/sys
-    - commit: 03fcf44c2211dcd5eb77510b5f7c1fb02d6ded50
-      dest: src/golang/org/x/term
-      type: git
-      url: https://go.googlesource.com/term
-    - commit: 383b2e75a7a4198c42f8f87833eefb772868a56f
-      dest: src/golang/org/x/text
-      type: git
-      url: https://go.googlesource.com/text
-    - commit: 90fa682c2a6e6a37b3a1364ce2fe1d5e41af9d6d
-      dest: src/golang/org/x/tools
-      type: git
-      url: https://go.googlesource.com/tools
+      - type: git
+        url: https://go.googlesource.com/net
+        commit: 69e39bad7dc2bbb411fa35755c46020969029fa7
+        dest: src/golang.org/x/net
+      - type: git
+        url: https://go.googlesource.com/crypto
+        commit: ceb1ce70b4faafeeb5b3f23cc83f09b39a4f3f1d
+        dest: src/golang.org/x/crypto
+      - type: git
+        url: https://go.googlesource.com/text
+        commit: 18b340fc7af22495828ffbe71e9f9e22583bc7a9
+        dest: src/golang.org/x/text
+      - type: git
+        url: https://go.googlesource.com/sys
+        commit: faf0a1b62c6b439486fd1d914d8185627b99d387
+        dest: src/golang.org/x/sys
+      - type: git
+        url: https://git.torproject.org/pluggable-transports/goptlib
+        commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
+        dest: src/git.torproject.org/pluggable-transports/goptlib.git
+      - type: git
+        url: https://git.torproject.org/pluggable-transports/meek
+        commit: 6600c52acb7979b08dd0916a7a779dd0e5dde0b0
+        dest: src/git.torproject.org/pluggable-transports/meek.git
+      - type: git
+        url: https://github.com/refraction-networking/utls
+        commit: 0b2885c8c0d4467cfe98136748a9d011d0b8fff0
+        dest: src/github.com/refraction-networking/utls
   - name: snowflake-client
     buildsystem: simple
     build-options:
       env:
         GOBIN: "/app/bin/"
     build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git/client"
+      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install git.torproject.org/pluggable-transports/snowflake.git/client"
       - "mv /app/bin/client /app/bin/snowflake-client"
     sources:
-      - commit: 64a2037ec6be8a4b0c1d1f706ed35b428b989239
-        dest: src/cloud/google/com/go
-        type: git
-        url: https://github.com/googleapis/google-cloud-go
-      - commit: 3012a1dbe2e4bd1391d42b32f0577cb7bbc7f005
-        dest: src/github/com/BurntSushi/toml
-        type: git
-        url: https://github.com/BurntSushi/toml
-      - commit: 649b5a2df7c0b694ee3822a3a4817d2417fec407
-        dest: src/github/com/alecthomas/kingpin/v2
-        type: git
-        url: https://github.com/alecthomas/kingpin
-      - commit: b94a6e3cc13755c0a75fffecbb089eb346fc4289
-        dest: src/github/com/alecthomas/units
-        type: git
-        url: https://github.com/alecthomas/units
-      - commit: 2848168f550a22ff691915d3d760b328244bfae8
-        dest: src/github/com/andybalholm/brotli
-        type: git
-        url: https://github.com/andybalholm/brotli
-      - commit: 37c8de3658fcb183f997c4e13e8337516ab753e6
-        dest: src/github/com/beorn7/perks
-        type: git
-        url: https://github.com/beorn7/perks
-      - commit: 7c80df9e61a54045aedb2ccad99d1e636a4b4c90
-        dest: src/github/com/bwesterb/go-ristretto
-        type: git
-        url: https://github.com/bwesterb/go-ristretto
-      - commit: d89fa54de508111353cb0b06403c00569be780d8
-        dest: src/github/com/census-instrumentation/opencensus-proto
-        type: git
-        url: https://github.com/census-instrumentation/opencensus-proto
-      - commit: a76eb16a93c1e30527c073ca831d9048b4b935f6
-        dest: src/github/com/cespare/xxhash/v2
-        type: git
-        url: https://github.com/cespare/xxhash
-      - commit: b90dc15cfd220ecf8bbc9043ecb928cef381f011
-        dest: src/github/com/client9/misspell
-        type: git
-        url: https://github.com/client9/misspell
-      - commit: 99f0f715ca5fbec868f5a0db1df2be6dcd28dbaa
-        dest: src/github/com/cloudflare/circl
-        type: git
-        url: https://github.com/cloudflare/circl
-      - commit: 269d4d468f6f798d803d140c3016ed6fc6b735c5
-        dest: src/github/com/cncf/udpa/go
-        type: git
-        url: https://github.com/cncf/udpa
-      - commit: 3a6a957789163cacdfe0e291617a1c8e80612c11
-        dest: src/github/com/creack/pty
-        type: git
-        url: https://github.com/creack/pty
-      - commit: 8991bc29aa16c548c550c7ff78260e27b9ab7c73
-        dest: src/github/com/davecgh/go-spew
-        type: git
-        url: https://github.com/davecgh/go-spew
-      - commit: ba8e577f987f6676343cac84525b92ed1b2d86fe
-        dest: src/github/com/envoyproxy/go-control-plane
-        type: git
-        url: https://github.com/envoyproxy/go-control-plane
-      - commit: 9eff07ddfcb4001aa1aab280648153f46e1a8ddc
-        dest: src/github/com/envoyproxy/protoc-gen-validate
-        type: git
-        url: https://github.com/envoyproxy/protoc-gen-validate
-      - commit: 1398296d938f9fae26750ddc2fe356b6d897f799
-        dest: src/github/com/francoispqt/gojay
-        type: git
-        url: https://github.com/francoispqt/gojay
-      - commit: 45d7d09e39ef4ac08d493309fa031790c15bfe8a
-        dest: src/github/com/fsnotify/fsnotify
-        type: git
-        url: https://github.com/fsnotify/fsnotify
-      - commit: 0b69c7049332e99c25d5fd0f4d08317cfe45e7d8
-        dest: src/github/com/go-kit/log
-        type: git
-        url: https://github.com/go-kit/log
-      - commit: 2fe45f2cf057d707c50bc1949e25ec2cd6b7a015
-        dest: src/github/com/go-logfmt/logfmt
-        type: git
-        url: https://github.com/go-logfmt/logfmt
-      - commit: 4da5305ff29a64c62f54ad43ebbfcb5e1b015fb2
-        dest: src/github/com/go-logr/logr
-        type: git
-        url: https://github.com/go-logr/logr
-      - commit: 52ccab3ef572c7e1a2c258be183f9a9296d60152
-        dest: src/github/com/go-task/slim-sprig
-        type: git
-        url: https://github.com/go-task/slim-sprig
-      - commit: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
-        dest: src/github/com/golang/glog
-        type: git
-        url: https://github.com/golang/glog
-      - commit: c34cdb4725f4c3844d095133c6e40e448b86589b
-        dest: src/github/com/golang/mock
-        type: git
-        url: https://github.com/golang/mock
-      - commit: 5d5e8c018a13017f9d5b8bf4fad64aaa42a87308
-        dest: src/github/com/golang/protobuf
-        type: git
-        url: https://github.com/golang/protobuf
-      - commit: a97318bf6562f2ed2632c5f985db51b1bc5bdcd0
-        dest: src/github/com/google/go-cmp
-        type: git
-        url: https://github.com/google/go-cmp
-      - commit: 94a9f03dee38882adc8bdfc42cdd6a04f8e7056e
-        dest: src/github/com/google/pprof
-        type: git
-        url: https://github.com/google/pprof
-      - commit: b3cae7c3064a8404a9f1eb0bb0662787ca3144f3
-        dest: src/github/com/google/uuid
-        type: git
-        url: https://github.com/google/uuid
-      - commit: fcf8e05a6f4fe7573b43c6bc65c2d1166fbd48cd
-        dest: src/github/com/gopherjs/gopherjs
-        type: git
-        url: https://github.com/gopherjs/gopherjs
-      - commit: ac0789be11725ab2285233e9a3800c2312cff4fc
-        dest: src/github/com/gorilla/websocket
-        type: git
-        url: https://github.com/gorilla/websocket
-      - commit: a30252cb686a21eb2d0b98132633053ec2f7f1e5
-        dest: src/github/com/hpcloud/tail
-        type: git
-        url: https://github.com/hpcloud/tail
-      - commit: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
-        dest: src/github/com/inconshreveable/mousetrap
-        type: git
-        url: https://github.com/inconshreveable/mousetrap
-      - commit: d80867952dff4e2fbfb4280ded4ff94d67790457
-        dest: src/github/com/jpillora/backoff
-        type: git
-        url: https://github.com/jpillora/backoff
-      - commit: 024077e996b048517130b21ea6bf12aa23055d3d
-        dest: src/github/com/json-iterator/go
-        type: git
-        url: https://github.com/json-iterator/go
-      - commit: b4936e06046bbecbb94cae9c18127ebe510a2cb9
-        dest: src/github/com/jtolds/gls
-        type: git
-        url: https://github.com/jtolds/gls
-      - commit: 4eec211fa4e8df74ed978dc5681612131854144f
-        dest: src/github/com/julienschmidt/httprouter
-        type: git
-        url: https://github.com/julienschmidt/httprouter
-      - commit: fd16146ec02fa4fb89dc256fc01f6c4087c0c375
-        dest: src/github/com/klauspost/compress
-        type: git
-        url: https://github.com/klauspost/compress
-      - commit: 1af2d99c24e60b21f4c8e8ea63ed69523ebbbb16
-        dest: src/github/com/klauspost/cpuid/v2
-        type: git
-        url: https://github.com/klauspost/cpuid
-      - commit: 523164698be98f1603cf1235f5a1de17728b2091
-        dest: src/github/com/klauspost/reedsolomon
-        type: git
-        url: https://github.com/klauspost/reedsolomon
-      - commit: 3cd153a126da607b78d1762779b1e1054f9889fc
-        dest: src/github/com/kr/pretty
-        type: git
-        url: https://github.com/kr/pretty
-      - commit: 282ce0e5322c82529687d609ee670fac7c7d917c
-        dest: src/github/com/kr/pty
-        type: git
-        url: https://github.com/kr/pty
-      - commit: 702c74938df48b97370179f33ce2107bd7ff3b3e
-        dest: src/github/com/kr/text
-        type: git
-        url: https://github.com/kr/text
-      - commit: c182affec369e30f25d3eb8cd8a478dee585ae7d
-        dest: src/github/com/matttproud/golang_protobuf_extensions
-        type: git
-        url: https://github.com/matttproud/golang_protobuf_extensions
-      - commit: 836bea2f8dffa00b74af2d505c04e1cde3a9739b
-        dest: src/github/com/miekg/dns
-        type: git
-        url: https://github.com/miekg/dns
-      - commit: bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94
-        dest: src/github/com/modern-go/concurrent
-        type: git
-        url: https://github.com/modern-go/concurrent
-      - commit: 2b33151c9bbc5231aea69b8861c540102b087070
-        dest: src/github/com/modern-go/reflect2
-        type: git
-        url: https://github.com/modern-go/reflect2
-      - commit: 2f068394615f73e460c2f3d2c158b0ad9321cadb
-        dest: src/github/com/mwitkow/go-conntrack
-        type: git
-        url: https://github.com/mwitkow/go-conntrack
-      - commit: 99348263ae862cc230986ce88deaddbf7edcc034
-        dest: src/github/com/neelance/astrewrite
-        type: git
-        url: https://github.com/neelance/astrewrite
-      - commit: 2833bce08e4c77c3e07af9cc765b046ccb259671
-        dest: src/github/com/neelance/sourcemap
-        type: git
-        url: https://github.com/neelance/sourcemap
-      - commit: abad231d8d07ef91e09cd4c4c457cac35ed3bbb9
-        dest: src/github/com/nxadm/tail
-        type: git
-        url: https://github.com/nxadm/tail
-      - commit: d38b9d946d52cd175495d30143fbecc5aff98f13
-        dest: src/github/com/onsi/ginkgo
-        type: git
-        url: https://github.com/onsi/ginkgo
-      - commit: b59e304f53fb217a4d49c025d092c9ac43b2ad89
-        dest: src/github/com/onsi/ginkgo/v2
-        type: git
-        url: https://github.com/onsi/ginkgo
-      - commit: 64305cbf9d7c2209f13bcfd65dc4aafd6ec4b898
-        dest: src/github/com/onsi/gomega
-        type: git
-        url: https://github.com/onsi/gomega
-      - commit: a3647f8e31d79543b2d0f0ae2fe5c379d72cedc0
-        dest: src/github/com/patrickmn/go-cache
-        type: git
-        url: https://github.com/patrickmn/go-cache
-      - commit: 17674f6224bb0697dbd781cec7d69c1a5eaa6cc7
-        dest: src/github/com/pion/datachannel
-        type: git
-        url: https://github.com/pion/datachannel
-      - commit: 5c0a7c1a8542d21287049de6814da614fd6badcf
-        dest: src/github/com/pion/dtls/v2
-        type: git
-        url: https://github.com/pion/dtls
-      - commit: c62fd28aa856386e986727651a6d0210e17c4d5a
-        dest: src/github/com/pion/ice/v2
-        type: git
-        url: https://github.com/pion/ice
-      - commit: 7d6c986a3949bb1807e9c06e6db517cd6ba1719a
-        dest: src/github/com/pion/interceptor
-        type: git
-        url: https://github.com/pion/interceptor
-      - commit: 0387f8acdeb20faf48e539e74906dd633851f3a8
-        dest: src/github/com/pion/logging
-        type: git
-        url: https://github.com/pion/logging
-      - commit: f385681a33b6d36b8407d214041f6409ae0b6d5c
-        dest: src/github/com/pion/mdns
-        type: git
-        url: https://github.com/pion/mdns
-      - commit: 3e7aefb6fd280d89fca72f1596348f1939525187
-        dest: src/github/com/pion/randutil
-        type: git
-        url: https://github.com/pion/randutil
-      - commit: 546aef85fc96df8686d9e9cf50c7682b42ff0944
-        dest: src/github/com/pion/rtcp
-        type: git
-        url: https://github.com/pion/rtcp
-      - commit: 7dc2af56736b663e76f1400ba403532ba590bceb
-        dest: src/github/com/pion/rtp
-        type: git
-        url: https://github.com/pion/rtp
-      - commit: c08b7f4b71d950fe91fd8cdd34c43e6e27592b28
-        dest: src/github/com/pion/sctp
-        type: git
-        url: https://github.com/pion/sctp
-      - commit: 436dfcf7bf073ed545aa229eae52109fef1b3d21
-        dest: src/github/com/pion/sdp/v3
-        type: git
-        url: https://github.com/pion/sdp
-      - commit: f598d3bb0514d2fb4e1d789de46ca07af82452ba
-        dest: src/github/com/pion/srtp/v2
-        type: git
-        url: https://github.com/pion/srtp
-      - commit: e56f1f82cd67337fd13713c396d4e942d10c5c36
-        dest: src/github/com/pion/stun
-        type: git
-        url: https://github.com/pion/stun
-      - commit: 452b133a53c34dd713ba881ab9d8ebe3ffeac553
-        dest: src/github/com/pion/transport
-        type: git
-        url: https://github.com/pion/transport
-      - commit: 536a6d13627fe050e477cb12ac82287da7259d1b
-        dest: src/github/com/pion/transport/v2
-        type: git
-        url: https://github.com/pion/transport
-      - commit: 701ff64e8ae945808b3e82c783e37d514a731c44
-        dest: src/github/com/pion/transport/v3
-        type: git
-        url: https://github.com/pion/transport
-      - commit: d87d0f3f81e0ea04a13455a193ceca4ad1fb060c
-        dest: src/github/com/pion/turn/v2
-        type: git
-        url: https://github.com/pion/turn
-      - commit: 462a71755ca5d6c69bfc97bf644e5e1430b3424d
-        dest: src/github/com/pion/webrtc/v3
-        type: git
-        url: https://github.com/pion/webrtc
-      - commit: 614d223910a179a466c1767a985424175c39b465
-        dest: src/github/com/pkg/errors
-        type: git
-        url: https://github.com/pkg/errors
-      - commit: 792786c7400a136282c1664665ae0a8db921c6c2
-        dest: src/github/com/pmezard/go-difflib
-        type: git
-        url: https://github.com/pmezard/go-difflib
-      - commit: fa1408ee351f6aba15c6d0207f7a0021eb3af406
-        dest: src/github/com/prometheus/client_golang
-        type: git
-        url: https://github.com/prometheus/client_golang
-      - commit: 1c92cadf7d8fa1726bae12e6025cca9b86d2ba5f
-        dest: src/github/com/prometheus/client_model
-        type: git
-        url: https://github.com/prometheus/client_model
-      - commit: 94bf9828e56d9670579b28a9f78237d3cd8d0395
-        dest: src/github/com/prometheus/common
-        type: git
-        url: https://github.com/prometheus/common
-      - commit: ff0ad85f7e8bcd5c677d99143f14a2a3aab533aa
-        dest: src/github/com/prometheus/procfs
-        type: git
-        url: https://github.com/prometheus/procfs
-      - commit: 3e7287cc7ce655141583b8511fbe09800d4ba896
-        dest: src/github/com/quic-go/qpack
-        type: git
-        url: https://github.com/quic-go/qpack
-      - commit: b4213ca09ee0645662324b1cd9d6a33df24dd41e
-        dest: src/github/com/quic-go/qtls-go1-20
-        type: git
-        url: https://github.com/quic-go/qtls-go1-20
-      - commit: 9a397abc177badb035e63b4d9321fc287430ee2d
-        dest: src/github/com/quic-go/quic-go
-        type: git
-        url: https://github.com/quic-go/quic-go
-      - commit: c4ba3ff3af8dc81d76c00f748f2d46b8f8b54e4c
-        dest: src/github/com/refraction-networking/utls
-        type: git
-        url: https://github.com/refraction-networking/utls
-      - commit: 66d1a7a6f940a81ade651cd6cf17877912dbff3d
-        dest: src/github/com/rogpeppe/go-internal
-        type: git
-        url: https://github.com/rogpeppe/go-internal
-      - commit: e3f6c97a4077ad821daab49db8172cf9f6690faf
-        dest: src/github/com/sclevine/agouti
-        type: git
-        url: https://github.com/sclevine/agouti
-      - commit: 93f07166e636e9ea49cd6e5cdda12d1579ae31d4
-        dest: src/github/com/shurcooL/go
-        type: git
-        url: https://github.com/shurcooL/go
-      - commit: 8d4bc4ba774931155e6cd5ef6098cb038dd45135
-        dest: src/github/com/shurcooL/httpfs
-        type: git
-        url: https://github.com/shurcooL/httpfs
-      - commit: 0d455de96546f756e8830efeec8dab0f489af135
-        dest: src/github/com/shurcooL/vfsgen
-        type: git
-        url: https://github.com/shurcooL/vfsgen
-      - commit: bdc0db8ead3853c56b7cd1ac2ba4e11b47d7da6b
-        dest: src/github/com/sirupsen/logrus
-        type: git
-        url: https://github.com/sirupsen/logrus
-      - commit: e64f0e2935168e4829711112dc859c21e2e85e27
-        dest: src/github/com/smarty/assertions
-        type: git
-        url: https://github.com/smarty/assertions
-      - commit: b2de0cb4f26d0705483a2f495d89896d0b808573
-        dest: src/github/com/smartystreets/assertions
-        type: git
-        url: https://github.com/smartystreets/assertions
-      - commit: 485adb037b3c3c978f3a8e8ad2481d5a4824d9a3
-        dest: src/github/com/smartystreets/goconvey
-        type: git
-        url: https://github.com/smartystreets/goconvey
-      - commit: de187e874d1ca382320088f8f6d76333408e5c2e
-        dest: src/github/com/spf13/cobra
-        type: git
-        url: https://github.com/spf13/cobra
-      - commit: 2e9d26c8c37aae03e3f9d4e90b7116f5accb7cab
-        dest: src/github/com/spf13/pflag
-        type: git
-        url: https://github.com/spf13/pflag
-      - commit: 50a2c064be99303c5dddf725da60e30fbc4f6ede
-        dest: src/github/com/stretchr/objx
-        type: git
-        url: https://github.com/stretchr/objx
-      - commit: f97607b89807936ac4ff96748d766cf4b9711f78
-        dest: src/github/com/stretchr/testify
-        type: git
-        url: https://github.com/stretchr/testify
-      - commit: 7587a738ad7da237dd30a5a9bd3ffbc2a07a1fdc
-        dest: src/github/com/templexxx/cpu
-        type: git
-        url: https://github.com/templexxx/cpu
-      - commit: 9a13d9e1f297e28af075456329d788b740841583
-        dest: src/github/com/templexxx/xorsimd
-        type: git
-        url: https://github.com/templexxx/xorsimd
-      - commit: e5d42cf103ccc31b531269aff84afe04dc80ef19
-        dest: src/github/com/tjfoc/gmsm
-        type: git
-        url: https://github.com/tjfoc/gmsm
-      - commit: 152c7c4432bfb93406816eacdfbbb7f3593eb508
-        dest: src/github/com/txthinking/runnergroup
-        type: git
-        url: https://github.com/txthinking/runnergroup
-      - commit: 4230056ae3012ccd47e9d0699fb0c47c1b924554
-        dest: src/github/com/txthinking/socks5
-        type: git
-        url: https://github.com/txthinking/socks5
-      - commit: 017325bfda0895fe02177e4ebb07962e58735bbf
-        dest: src/github/com/xhit/go-str2duration/v2
-        type: git
-        url: https://github.com/xhit/go-str2duration
-      - commit: 637838a7b24b500a2e0d0b2fb170acabba408b36
-        dest: src/github/com/xtaci/kcp-go/v5
-        type: git
-        url: https://github.com/xtaci/kcp-go
-      - commit: 8df528c0c9aeed110ff35a1d622c540d9f7d8f04
-        dest: src/github/com/xtaci/lossyconn
-        type: git
-        url: https://github.com/xtaci/lossyconn
-      - commit: 79ed6364e64973ccf475b1e14f7378f008c8a5af
-        dest: src/github/com/xtaci/smux
-        type: git
-        url: https://github.com/xtaci/smux
-      - commit: c0856327b39b00b39b5d7e1f5ed0eed8bb1b6a23
-        dest: src/github/com/yuin/goldmark
-        type: git
-        url: https://github.com/yuin/goldmark
-      - commit: 7ce4b3d98d01ff33bad8007db3f488d5b172382a
-        dest: src/gitlab/torproject/org/tpo/anti-censorship/geoip
-        type: git
-        url: https://gitlab.torproject.org/tpo/anti-censorship/geoip
       - type: git
-        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake
-        commit: a0e3e871c464ab2ccdbe32844d381ecf53ee0b29
-        dest: src/gitlab/torproject/org/tpo/anti-censorship/pluggable-transports/snowflake.git
-      - commit: 419cbb61395bc2725a9463dd8b216961f0b6eb21
-        dest: src/gitlab/torproject/org/tpo/anti-censorship/pluggable-transports/goptlib
-        type: git
-        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
-      - commit: 57226e5165e3d73d9693fd4f4decf0d67258fdec
-        dest: src/go/uber/org/mock
-        type: git
-        url: https://github.com/uber-go/mock
-      - commit: 9d2ee975ef9fe627bf0a6f01c1f69e8ef1d4f05d
-        dest: src/golang/org/x/crypto
-        type: git
-        url: https://go.googlesource.com/crypto
-      - commit: 47842c84f3db5d20ded7f781feb26f0f8f668354
-        dest: src/golang/org/x/exp
-        type: git
-        url: https://go.googlesource.com/exp
-      - commit: d0100b6bd8b389f0385611eb39152c4d7c3a7905
-        dest: src/golang/org/x/lint
-        type: git
-        url: https://go.googlesource.com/lint
-      - commit: baa5c2d058db25484c20d76985ba394e73176132
-        dest: src/golang/org/x/mod
-        type: git
-        url: https://go.googlesource.com/mod
-      - commit: a8e0109124268a0a063b5900bce0c2b33398ec01
-        dest: src/golang/org/x/net
-        type: git
         url: https://go.googlesource.com/net
-      - commit: 839de2255f57ac5af1321327f280f79471825bc9
-        dest: src/golang/org/x/oauth2
-        type: git
-        url: https://go.googlesource.com/oauth2
-      - commit: 22ba2078e183beec12908ea94f1d899c53dbf02c
-        dest: src/golang/org/x/sync
-        type: git
-        url: https://go.googlesource.com/sync
-      - commit: 13b15b780d9013988b1fb0e79e30b2528a877638
-        dest: src/golang/org/x/sys
-        type: git
-        url: https://go.googlesource.com/sys
-      - commit: ee66497fa39f03ba841b568a7b4f4ee4e4546f74
-        dest: src/golang/org/x/term
-        type: git
-        url: https://go.googlesource.com/term
-      - commit: 6c97a165dd661335ff7bce6104a008558123c353
-        dest: src/golang/org/x/text
-        type: git
+        commit: 69e39bad7dc2bbb411fa35755c46020969029fa7
+        dest: src/golang.org/x/net
+      - type: git
+        url: https://go.googlesource.com/crypto
+        commit: ceb1ce70b4faafeeb5b3f23cc83f09b39a4f3f1d
+        dest: src/golang.org/x/crypto
+      - type: git
         url: https://go.googlesource.com/text
-      - commit: b5e55d198461206bca9558e65cdd518f8e4f2735
-        dest: src/golang/org/x/tools
-        type: git
-        url: https://go.googlesource.com/tools
-      - commit: 5ec99f83aff198f5fbd629d6c8d8eb38a04218ca
-        dest: src/golang/org/x/xerrors
-        type: git
+        commit: 18b340fc7af22495828ffbe71e9f9e22583bc7a9
+        dest: src/golang.org/x/text
+      - type: git
+        url: https://go.googlesource.com/sys
+        commit: faf0a1b62c6b439486fd1d914d8185627b99d387
+        dest: src/golang.org/x/sys
+      - type: git
         url: https://go.googlesource.com/xerrors
-      - commit: 5d1c1d03f8703c2e81478d9a30e9afa2d3e4bd8a
-        dest: src/google/golang/org/appengine
-        type: git
-        url: https://github.com/golang/appengine
-      - commit: 24fa4b261c55da65468f2abfdae2b024eef27dfb
-        dest: src/google/golang/org/genproto
-        type: git
-        url: https://github.com/googleapis/go-genproto
-      - commit: bde0263672f027525e2950992a4c7db7af572b59
-        dest: src/google/golang/org/grpc
-        type: git
-        url: https://github.com/grpc/grpc-go
-      - commit: 68463f0e96c93bc19ef36ccd3adfe690bfdb568c
-        dest: src/google/golang/org/protobuf
-        type: git
-        url: https://go.googlesource.com/protobuf
-      - commit: 10cb98267c6cb43ea9cd6793f29ff4089c306974
-        dest: src/gopkg/in/check/v1
-        type: git
-        url: https://gopkg.in/check.v1.git
-      - commit: c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9
-        dest: src/gopkg/in/fsnotify/v1
-        type: git
-        url: https://gopkg.in/fsnotify.v1.git
-      - commit: dd632973f1e7218eb1089048e0798ec9ae7dceb8
-        dest: src/gopkg/in/tomb/v1
-        type: git
-        url: https://gopkg.in/tomb.v1.git
-      - commit: 7649d4548cb53a614db133b2a8ac1f31859dda8c
-        dest: src/gopkg/in/yaml/v2
-        type: git
-        url: https://gopkg.in/yaml.v2.git
-      - commit: f6f7691b1fdeb513f56608cd2c32c51f8194bf51
-        dest: src/gopkg/in/yaml/v3
-        type: git
-        url: https://gopkg.in/yaml.v3.git
-      - commit: ea95bdfd59fc14c1c9afa08716e0cd013eae4e12
-        dest: src/honnef/co/go/tools
-        type: git
-        url: https://github.com/dominikh/go-tools
+        commit: 5ec99f83aff198f5fbd629d6c8d8eb38a04218ca
+        dest: src/golang.org/x/xerrors
+      - type: git
+        url: https://git.torproject.org/pluggable-transports/goptlib
+        commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
+        dest: src/git.torproject.org/pluggable-transports/goptlib.git
+      - type: git
+        url: https://git.torproject.org/pluggable-transports/snowflake
+        commit: 36f03dfd4483922b3e7400dedc71df9cf2f30b6b
+        dest: src/git.torproject.org/pluggable-transports/snowflake.git
+      - type: git
+        url: https://github.com/refraction-networking/utls
+        commit: 0b2885c8c0d4467cfe98136748a9d011d0b8fff0
+        dest: src/github.com/refraction-networking/utls
+      - type: git
+        url: https://github.com/templexxx/xorsimd
+        commit: e2f34adfb57b524164fc712df2fcfd991ed0ccad
+        dest: src/github.com/templexxx/xorsimd
+      - type: git
+        url: https://github.com/templexxx/cpu
+        commit: 98168dcec14af3f8700bf309afe503bfe936e9f2
+        dest: src/github.com/templexxx/cpu
+      - type: git
+        url: https://github.com/google/uuid
+        commit: 44b5fee7c49cf3bcdf723f106b36d56ef13ccc88
+        dest: src/github.com/google/uuid
+      - type: git
+        url: https://github.com/pion/udp
+        commit: 68c2d469b1ffc77a8addab02c1e45c93b5d0071d
+        dest: src/github.com/pion/udp
+      - type: git
+        url: https://github.com/pion/dtls
+        commit: e4d311c89ca1b77c9fe928e6cbfc508c959a3e73
+        dest: src/github.com/pion/dtls
+      - type: git
+        url: https://github.com/pion/rtp
+        commit: 1bb23f70af626f56c785a0e1615da871f5a03129
+        dest: src/github.com/pion/rtp
+      - type: git
+        url: https://github.com/pion/stun
+        commit: fa0355cc10e886da31cdfffe5c67cc23d345bbdc
+        dest: src/github.com/pion/stun
+      - type: git
+        url: https://github.com/pion/randutil
+        commit: 3e7aefb6fd280d89fca72f1596348f1939525187
+        dest: src/github.com/pion/randutil
+      - type: git
+        url: https://github.com/pion/srtp
+        commit: 1d7627ee3ca0c5f9f3943d6fe92295dc0a2b8e69
+        dest: src/github.com/pion/srtp
+      - type: git
+        url: https://github.com/pion/sctp
+        commit: fd9945b6f0fe8785677b18df7ce3e9ec78f9d451
+        dest: src/github.com/pion/sctp
+      - type: git
+        url: https://github.com/pion/transport
+        commit: 33608e46f9f1fb5af237d9cf0df6126fa1b6b206
+        dest: src/github.com/pion/transport
+      - type: git
+        url: https://github.com/pion/logging
+        commit: b0e968691909fdc8f198d1be221624b74b397fa6
+        dest: src/github.com/pion/logging
+      - type: git
+        url: https://github.com/pion/datachannel
+        commit: 74e13972527c0130d4245897fef9c300a091b14b
+        dest: src/github.com/pion/datachannel
+      - type: git
+        url: https://github.com/pion/interceptor
+        commit: 75c3df4712798c9e6fbec8a41059cc5b2913c032
+        dest: src/github.com/pion/interceptor
+      - type: git
+        url: https://github.com/pion/ice
+        commit: d5db22342061ee429c247141700b1e02e73acf54
+        dest: src/github.com/pion/ice
+      - type: git
+        url: https://github.com/pion/webrtc
+        commit: 635bfd9cad37eff2d2b7004e303ca4d509b8de17
+        dest: src/github.com/pion/webrtc
+      - type: git
+        url: https://github.com/pion/mdns
+        commit: 9db0fe207a1804f909cd53dd8f6cc36311ea65d6
+        dest: src/github.com/pion/mdns
+      - type: git
+        url: https://github.com/pion/turn
+        commit: 72ffd594f7c6104b5680a4fea5651928e3b6ddb4
+        dest: src/github.com/pion/turn
+      - type: git
+        url: https://github.com/pion/rtcp
+        commit: 516927b4081bb24ad1e2778d4627f90529e3105e
+        dest: src/github.com/pion/rtcp
+      - type: git
+        url: https://github.com/pion/sdp
+        commit: 9f8ec15f7bbb128c4625b3c07ab7923831533518
+        dest: src/github.com/pion/sdp
+      - type: git
+        url: https://github.com/tjfoc/gmsm
+        commit: fdaa5ff368db5ce62bb672fc424b23f8923858dc
+        dest: src/github.com/tjfoc/gmsm
+      - type: git
+        url: https://github.com/xtaci/kcp-go
+        commit: bd59cf8a523bbf67e55024a164d419a32de9de39
+        dest: src/github.com/xtaci/kcp-go
+      - type: git
+        url: https://github.com/xtaci/smux
+        commit: "09e2c01560df5aaaed50e48e77547858e2623498"
+        dest: src/github.com/xtaci/smux
+      - type: git
+        url: https://github.com/klauspost/cpuid
+        commit: cffd0d4c86d45f8de353e162651c92fa263e845d
+        dest: src/github.com/klauspost/cpuid
+      - type: git
+        url: https://github.com/klauspost/reedsolomon
+        commit: 0eef97bb02ee165a0d7b42a5989502bfa40f6ba0
+        dest: src/github.com/klauspost/reedsolomon
+      - type: git
+        url: https://github.com/pkg/errors
+        commit: 5dd12d0cfe7f152f80558d591504ce685299311e
+        dest: src/github.com/pkg/errors
   - name: onionshare
     buildsystem: simple
     ensure-writable:
