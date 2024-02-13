@@ -206,7 +206,7 @@ parts:
     plugin: go
     build-snaps:
       - go/latest/stable
-    source: https://git.torproject.org/pluggable-transports/snowflake.git
+    source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
     source-type: git
     source-tag: v2.8.1
     organize:
@@ -216,7 +216,7 @@ parts:
     plugin: go
     build-snaps:
       - go/latest/stable
-    source: https://git.torproject.org/pluggable-transports/meek.git
+    source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek/.git
     source-type: git
     source-tag: v0.38.0
     override-build: |
