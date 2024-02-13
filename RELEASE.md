@@ -85,7 +85,7 @@ To test locally:
 - Build snap with: `snapcraft`
 - Install with: `sudo snap install ./onionshare_${VERSION}_amd64.snap --devmode`
 
-To in the edge branch:
+To test in the edge branch:
 
 With every commit to the `main` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them. You can install them with: `snap install onionshare --edge`
 
@@ -98,7 +98,7 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
   ```sh
   cd flatpak-builder-tools/go
 
-  # For each these, incorporate the output into the Flatpak maniest
+  # For each these, incorporate the output into the Flatpak manifest
   # Make sure to update the version numbers
   ./flatpak-go-deps.py git.torproject.org/pluggable-transports/meek.git/meek-client@v0.38.0
   ./flatpak-go-deps.py git.torproject.org/pluggable-transports/snowflake.git/client@v2.6.0
@@ -124,7 +124,7 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
   ```sh
   flatpak-builder build --force-clean --jobs=$(nproc) --install-deps-from=flathub --install --user flatpak/org.onionshare.OnionShare.yaml
   flatpak run org.onionshare.OnionShare
-```
+  ```
 
 ### Create a signed git tag
 
