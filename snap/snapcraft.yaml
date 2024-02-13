@@ -216,7 +216,7 @@ parts:
     plugin: go
     build-snaps:
       - go/latest/stable
-    source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek/.git
+    source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git
     source-type: git
     source-tag: v0.38.0
     override-build: |
