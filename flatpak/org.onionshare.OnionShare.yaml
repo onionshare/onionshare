@@ -61,97 +61,103 @@ modules:
             url: https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
             sha256: 92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb
   - name: obfs4proxy
-    buildsystem: simple
+    build-commands:
+    - . /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go
+      install gitlab.com/yawning/obfs4.git/obfs4.git
     build-options:
       env:
-        GOBIN: "/app/bin/"
-    build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install gitlab.com/yawning/obfs4.git/obfs4proxy"
+        GOBIN: /app/bin/
+    buildsystem: simple
     sources:
-      - type: git
-        url: https://go.googlesource.com/net
-        commit: 69e39bad7dc2bbb411fa35755c46020969029fa7
-        dest: src/golang.org/x/net
-      - type: git
-        url: https://go.googlesource.com/crypto
-        commit: ceb1ce70b4faafeeb5b3f23cc83f09b39a4f3f1d
-        dest: src/golang.org/x/crypto
-      - type: git
-        url: https://go.googlesource.com/text
-        commit: 18b340fc7af22495828ffbe71e9f9e22583bc7a9
-        dest: src/golang.org/x/text
-      - type: git
-        url: https://go.googlesource.com/sys
-        commit: faf0a1b62c6b439486fd1d914d8185627b99d387
-        dest: src/golang.org/x/sys
-      - type: git
-        url: https://gitlab.com/yawning/obfs4
-        commit: 336a71d6e4cfd2d33e9c57797828007ad74975e9
-        dest: src/gitlab.com/yawning/obfs4.git
-      - type: git
-        url: https://gitlab.com/yawning/utls
-        commit: f1bcf4b40e4596d0ccd1dbf8f3a9f4922f9759ca
-        dest: src/gitlab.com/yawning/utls.git
-      - type: git
-        url: https://gitlab.com/yawning/bsaes
-        commit: 0a714cd429ec754482b4001e918db30cd2094405
-        dest: src/gitlab.com/yawning/bsaes.git
-      - type: git
-        url: https://gitlab.com/yawning/edwards25519-extra
-        commit: def713fd18e464864613d2b55ef41a21df2c9493
-        dest: src/gitlab.com/yawning/edwards25519-extra.git
-      - type: git
-        url: https://github.com/FiloSottile/edwards25519
-        commit: 8c58ed0e35502a485538e4c5ec086070840f3410
-        dest: src/filippo.io/edwards25519
-      - type: git
-        url: https://git.torproject.org/pluggable-transports/goptlib
-        commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
-        dest: src/git.torproject.org/pluggable-transports/goptlib.git
-      - type: git
-        url: https://github.com/dsnet/compress
-        commit: f66993602bf5da07ef49d35b08e7264ae9fe2b6e
-        dest: src/github.com/dsnet/compress
-      - type: git
-        url: https://github.com/dchest/siphash
-        commit: 991656ee3840f823396c2eb7f4a70d65dac06832
-        dest: src/github.com/dchest/siphash
+    - commit: a7dfd8e4e6b456f2f0d11f0176885421029b6e3f
+      dest: src/filippo/io/edwards25519
+      type: git
+      url: https://github.com/FiloSottile/edwards25519
+    - commit: 15f83653abbcced9003c96cc14edc5b2f82e0e0e
+      dest: src/git/torproject/org/pluggable-transports/goptlib/git
+      type: git
+      url: https://git.torproject.org/pluggable-transports/goptlib.git
+    - commit: 34f201214d993633bb24f418ba11736ab8b55aa7
+      dest: src/github/com/dchest/siphash
+      type: git
+      url: https://github.com/dchest/siphash
+    - commit: 2f91fcc9fbdb888f3c795849b6777940135559b7
+      dest: src/gitlab/com/yawning/edwards25519-extra/git
+      type: git
+      url: https://gitlab.com/yawning/edwards25519-extra.git
+    - commit: a769d52b0f97a420f3dcafc17f8b3384217859a2
+      dest: src/golang/org/x/crypto
+      type: git
+      url: https://go.googlesource.com/crypto
+    - commit: e18ecbb051101a46fc263334b127c89bc7bff7ea
+      dest: src/golang/org/x/net
+      type: git
+      url: https://go.googlesource.com/net
+    - commit: 665e8c7367d1ecf644cea2d163019ef59c13d554
+      dest: src/golang/org/x/sys
+      type: git
+      url: https://go.googlesource.com/sys
+    - commit: 7de9c90e9dd184706b838f536a1cbf40a296ddb7
+      dest: src/golang/org/x/term
+      type: git
+      url: https://go.googlesource.com/term
+    - commit: 23ae387dee1f90d29a23c0e87ee0b46038fbed0e
+      dest: src/golang/org/x/text
+      type: git
+      url: https://go.googlesource.com/text
+    - commit: 90fa682c2a6e6a37b3a1364ce2fe1d5e41af9d6d
+      dest: src/golang/org/x/tools
+      type: git
+      url: https://go.googlesource.com/tools
   - name: meek-client
-    buildsystem: simple
+    build-commands:
+    - . /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go
+      install gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git/meek.git
     build-options:
       env:
-        GOBIN: "/app/bin/"
-    build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git/meek-client"
+        GOBIN: /app/bin/
+    buildsystem: simple
     sources:
-      - type: git
-        url: https://go.googlesource.com/net
-        commit: 69e39bad7dc2bbb411fa35755c46020969029fa7
-        dest: src/golang.org/x/net
-      - type: git
-        url: https://go.googlesource.com/crypto
-        commit: ceb1ce70b4faafeeb5b3f23cc83f09b39a4f3f1d
-        dest: src/golang.org/x/crypto
-      - type: git
-        url: https://go.googlesource.com/text
-        commit: 18b340fc7af22495828ffbe71e9f9e22583bc7a9
-        dest: src/golang.org/x/text
-      - type: git
-        url: https://go.googlesource.com/sys
-        commit: faf0a1b62c6b439486fd1d914d8185627b99d387
-        dest: src/golang.org/x/sys
-      - type: git
-        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
-        commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
-        dest: src/gitlab/torproject/org/tpo/anti-censorship/pluggable-transports/goptlib.git
-      - type: git
-        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek
-        commit: 6600c52acb7979b08dd0916a7a779dd0e5dde0b0
-        dest: src/gitlab/torproject/org/tpo/anti-censorship/pluggable-transports/meek.git
-      - type: git
-        url: https://github.com/refraction-networking/utls
-        commit: 0b2885c8c0d4467cfe98136748a9d011d0b8fff0
-        dest: src/github.com/refraction-networking/utls
+    - commit: 781a46c66d2ddbc3509354ae7f1fccab74cb9927
+      dest: src/git/torproject/org/pluggable-transports/goptlib/git
+      type: git
+      url: https://git.torproject.org/pluggable-transports/goptlib.git
+    - commit: 1d750214c25205863625bb3eb8190a51b2cef26d
+      dest: src/github/com/andybalholm/brotli
+      type: git
+      url: https://github.com/andybalholm/brotli
+    - commit: 4b4f3c94fdf8c3a6c725e2ff110d9b44f88823ed
+      dest: src/github/com/klauspost/compress
+      type: git
+      url: https://github.com/klauspost/compress
+    - commit: 7a37261931c6d4ab67fec65e73a3cc68df4ef84a
+      dest: src/github/com/refraction-networking/utls
+      type: git
+      url: https://github.com/refraction-networking/utls
+    - commit: c86fa9a7ed909e2f2a8ab8298254fca727aba16a
+      dest: src/golang/org/x/crypto
+      type: git
+      url: https://go.googlesource.com/crypto
+    - commit: bea034e7d591acfddd606603cf48fae48bbdd340
+      dest: src/golang/org/x/net
+      type: git
+      url: https://go.googlesource.com/net
+    - commit: 3c1f35247d107ad3669216fc09e75d66fa146363
+      dest: src/golang/org/x/sys
+      type: git
+      url: https://go.googlesource.com/sys
+    - commit: 03fcf44c2211dcd5eb77510b5f7c1fb02d6ded50
+      dest: src/golang/org/x/term
+      type: git
+      url: https://go.googlesource.com/term
+    - commit: 383b2e75a7a4198c42f8f87833eefb772868a56f
+      dest: src/golang/org/x/text
+      type: git
+      url: https://go.googlesource.com/text
+    - commit: 90fa682c2a6e6a37b3a1364ce2fe1d5e41af9d6d
+      dest: src/golang/org/x/tools
+      type: git
+      url: https://go.googlesource.com/tools
   - name: snowflake-client
     buildsystem: simple
     build-options:
