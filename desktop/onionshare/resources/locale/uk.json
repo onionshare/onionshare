@@ -152,7 +152,7 @@
     "gui_quit_warning_cancel": "Скасувати",
     "gui_quit_warning_title": "Вийти з OnionShare?",
     "gui_close_tab_warning_cancel": "Скасувати",
-    "gui_close_tab_warning_close": "Закрити",
+    "gui_close_tab_warning_close": "Ок",
     "gui_close_tab_warning_title": "Закрити вкладку?",
     "gui_new_tab_tooltip": "Відкрити нову вкладку",
     "gui_new_tab": "Нова вкладка",
@@ -253,5 +253,6 @@
     "gui_autoconnect_configure": "Налаштування мережі",
     "gui_autoconnect_no_bridge": "Спробувати ще раз без мосту",
     "waitress_web_server_error": "Під час запуску вебсервера сталася помилка",
-    "gui_close_tab_warning_chat_description": "Закрити вкладку, на якій розміщено чат-сервер?"
+    "gui_close_tab_warning_chat_description": "Закрити вкладку, на якій розміщено чат-сервер?",
+    "gui_chat_mode_explainer": "Режим бесіди дозволяє вам інтерактивно спілкуватися з іншими користувачами в Браузері Tor.<br><br><b>Історія бесід не зберігається в OnionShare. Історія бесід зникне, коли ви закриєте Браузер Tor.</b>"
 }

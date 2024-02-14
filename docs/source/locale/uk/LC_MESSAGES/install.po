@@ -6,17 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-09-05 11:51-0700\n"
-"PO-Revision-Date: 2023-06-07 14:30+0000\n"
+"PO-Revision-Date: 2024-02-14 00:26+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.4-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: ../../source/install.rst:2
@@ -265,7 +266,6 @@ msgid "Signatures"
 msgstr "Підписи"
 
 #: ../../source/install.rst:76
-#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -274,8 +274,8 @@ msgid ""
 msgstr ""
 "Ви можете знайти підписи (файли ``.asc``), а також пакунки Windows, macOS, "
 "Flatpak, Snap та джерельні пакунки за адресою https://onionshare.org/dist/ у "
-"теках, названих для кожної версії OnionShare. Ви також можете знайти їх на "
-"`сторінці випусків GitHub <https://github.com/micahflee/onionshare/"
+"теках, названих для кожної версії OnionShare. Ви також можете знайти їх на `"
+"сторінці випусків GitHub <https://github.com/micahflee/onionshare/"
 "releases>`_."
 
 #: ../../source/install.rst:80
@@ -283,7 +283,6 @@ msgid "Verifying"
 msgstr "Перевірка"
 
 #: ../../source/install.rst:82
-#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and ``.asc`` signature, you can verify the binary in a "
@@ -291,31 +290,29 @@ msgid ""
 msgstr ""
 "Після того, як відкритий ключ Micah імпортовано до вашої збірки ключів "
 "GnuPG, завантажено двійковий файл і завантажено підпис ``.asc``, ви можете "
-"перевірити двійковий файл для macOS в терміналі в такий спосіб::"
+"перевірити двійковий файл для macOS в терміналі в такий спосіб:"
 
 #: ../../source/install.rst:84
 msgid "For Windows::"
-msgstr ""
+msgstr "Для Windows::"
 
 #: ../../source/install.rst:88
 msgid "For macOS::"
-msgstr ""
+msgstr "Для macOS::"
 
 #: ../../source/install.rst:92
-#, fuzzy
 msgid "For Linux::"
-msgstr "Linux"
+msgstr "Для Linux::"
 
 #: ../../source/install.rst:98
 msgid "and for the source file::"
-msgstr ""
+msgstr "і для початкового файлу::"
 
 #: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Очікуваний результат може виглядати так::"
 
 #: ../../source/install.rst:112
-#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -323,22 +320,17 @@ msgid ""
 msgstr ""
 "Якщо ви не бачите ``Good signature from``, можливо, виникла проблема з "
 "цілісністю файлу (зловмисна чи інша), і, можливо, вам не слід установлювати "
-"пакунок. (Вказаний раніше ``WARNING:`` не є проблемою з пакунком, це лише "
-"означає, що ви не визначили рівень «довіри» до самого ключа PGP від Micah "
-"(основного розробника).)"
+"пакунок."
 
 #: ../../source/install.rst:114
-#, fuzzy
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
-"Якщо ви не бачите ``Good signature from``, можливо, виникла проблема з "
-"цілісністю файлу (зловмисна чи інша), і, можливо, вам не слід установлювати "
-"пакунок. (Вказаний раніше ``WARNING:`` не є проблемою з пакунком, це лише "
-"означає, що ви не визначили рівень «довіри» до самого ключа PGP від Micah "
-"(основного розробника).)"
+"Вказаний раніше ``WARNING:`` не є проблемою з пакунком, це лише означає, що "
+"ви не визначили рівень «довіри» до самого ключа PGP від Micah (основного "
+"розробника)."
 
 #: ../../source/install.rst:116
 msgid ""
