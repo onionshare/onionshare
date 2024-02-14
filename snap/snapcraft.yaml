@@ -1,6 +1,6 @@
 name: onionshare
 base: core22
-version: "2.6.1.dev1"
+version: "2.6.1"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
   OnionShare lets you securely and anonymously send and receive files. It works by starting
@@ -177,8 +177,8 @@ parts:
     after: [onionshare-cli]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.8.5.tar.gz
-    source-checksum: sha256/6957cfd14a29eee7555c52f8387a46f2ce2f5fe7dadf93547f1bc74b1657e119
+    source: https://dist.torproject.org/tor-0.4.8.9.tar.gz
+    source-checksum: sha256/59bb7d8890f6131b4ce5344f3dcea5deb2182b7f4f10ff0cb4e4d81f11b2cf65
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
@@ -206,9 +206,9 @@ parts:
     plugin: go
     build-snaps:
       - go/latest/stable
-    source: https://git.torproject.org/pluggable-transports/snowflake.git
+    source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
     source-type: git
-    source-tag: v2.6.0
+    source-tag: v2.8.1
     organize:
       bin/client: bin/snowflake-client
 
@@ -216,7 +216,7 @@ parts:
     plugin: go
     build-snaps:
       - go/latest/stable
-    source: https://git.torproject.org/pluggable-transports/meek.git
+    source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git
     source-type: git
     source-tag: v0.38.0
     override-build: |

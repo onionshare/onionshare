@@ -7,6 +7,8 @@
 * Bug fix: Restore the primary_action mode settings in a tab after OnionShare reconnects to Tor
 * Bug fix: Fix issue with auto-connecting to Tor with persistent tabs open
 * Bug fix: Fix packaging issue where Windows version of OnionShare conflicts with Windows version of Dangerzone
+* Bug fix: Fix 'Use a bridge' checkbox state change
+* Bug fix: Raise error from waitress if not shutdown
 
 ## 2.6
 
