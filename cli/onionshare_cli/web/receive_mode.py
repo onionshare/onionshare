@@ -194,7 +194,10 @@ class ReceiveModeWeb:
                 if files_received > 0:
                     msg = f"Uploaded {files_msg}"
                 else:
-                    msg = "Nothing submitted"
+                   if not self.web.settings.get("receive", "disable_text"):
+                       msg = "Nothing submitted or message was too long (> 524288 characters)"
+                   else:
+                       msg = "Nothing submitted"
 
             if ajax:
                 info_flashes.append(msg)
@@ -462,7 +465,7 @@ class ReceiveModeRequest(Request):
                 self.includes_message = False
                 if not self.web.settings.get("receive", "disable_text"):
                     text_message = self.form.get("text")
-                    if text_message:
+                    if text_message and len(text_message) <= 524288:
                         if text_message.strip() != "":
                             self.includes_message = True
 
