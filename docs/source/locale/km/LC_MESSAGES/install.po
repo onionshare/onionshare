@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-09-05 11:51-0700\n"
-"PO-Revision-Date: 2023-06-06 12:39+0000\n"
-"Last-Translator: emma peel <emmapeel@torproject.org>\n"
+"PO-Revision-Date: 2024-02-16 18:02+0000\n"
+"Last-Translator: Edeth Meng <mengedeth@gmail.com>\n"
 "Language-Team: none\n"
 "Language: km\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.4\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/install.rst:2
@@ -95,11 +95,14 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
+"ប្រសិនបើអ្នកមានបំណងដំឡើង OnionShare ដោយខ្លួនឯងជាមួយនឹង Flatpak ប្រើប្រាស់ GP-"
+"signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
+"bundles.html>`_, អ្នកអាចធ្វើតាមដូចនេះបាន:"
 
 #: ../../source/install.rst:30
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
-msgstr ""
+msgstr "ដំឡើង Flatpak តាមការណែនាំនេះ https://flatpak.org/setup/."
 
 #: ../../source/install.rst:31
 msgid ""
@@ -114,12 +117,17 @@ msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
+"ទៅកាន់ https://onionshare.org/dist/ "
+"ដើម្បីធ្វើការជ្រើសរើសនូវកំណែប្រែចុងក្រោយបង្អស់របស់ OnionShare និងទាញយក ``."
+"flatpak`` និង ``.flatpak.asc`` ។"
 
 #: ../../source/install.rst:33
 msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"ធ្វើការបញ្ជាក់ហត្ថលេខានៃ PGP  ``.flatpak`` ។ សូមមើល :ref:`verifying_sigs` "
+"សម្រាប់ព័ត៌មានបន្ថែម។"
 
 #: ../../source/install.rst:34
 msgid ""
@@ -127,26 +135,34 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
+"ដំឡើង ``.flatpak`` ដោយដំណើរខំមាន ``flatpak install OnionShare-VERSION."
+"flatpak`` ។  ជំនួស ``VERSION`` ជាមួយនឹងចំនួនកំណែប្រែលើឯកសារដែលអ្នកបានទាញយក។"
 
 #: ../../source/install.rst:36
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
 msgstr ""
+"អ្នកអាចបើកដំណើរ OnionShare ជាមួយនឹងខំមាន៖ `flatpak run org.onionshare."
+"OnionShare`."
 
 #: ../../source/install.rst:39
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "ការដំឡើង Snapcraft ដោយខ្លួនឯង"
 
 #: ../../source/install.rst:41
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
+"ប្រសិនបើអ្នកពុំចង់ដំឡើងកម្មវិធី OnionShare ដោយផ្ទាល់ខ្លួនជាមួយនឹង Snapcraft "
+"ដោយប្រើកញ្ចប់ PGP-signed Snapcraft នោះទេ នោះអ្នកអាចធ្វើដូចនេះបាន៖"
 
 #: ../../source/install.rst:43
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
+"ធ្វើការដំឡើង Snapcraft តាមការណែនាំនៅ https://snapcraft.io/docs/installing-"
+"snapd"
 
 #: ../../source/install.rst:44
 msgid ""

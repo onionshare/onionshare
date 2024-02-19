@@ -9,7 +9,7 @@ exclude_patterns = []
 languages = [
     ("English", "en"),  # English
     ("Français", "fr"),  # French
-    # ("Deutsch", "de"),  # German
+    ("Deutsch", "de"),  # German
     ("Ελληνικά", "el"),  # Greek
     # ("Italiano", "it"),  # Italian
     # ("日本語", "ja"),  # Japanese
@@ -17,7 +17,7 @@ languages = [
     # ("Norsk Bokmål", "nb_NO"),  # Norwegian Bokmål
     ("Polish", "pl"),  # Polish
     # ("Portuguese (Brazil)", "pt_BR"),  # Portuguese (Brazil))
-    # ("Русский", "ru"),  # Russian
+    ("Русский", "ru"),  # Russian
     ("Español", "es"),  # Spanish
     # ("Svenska", "sv"),  # Swedish
     ("Türkçe", "tr"),  # Turkish
