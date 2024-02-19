@@ -59,7 +59,8 @@ class Settings(object):
             "sq": "Shqip",  # Albanian
             "ar": "العربية",  # Arabic
             "be": "Беларуская",  # Belarusian
-            # "bn": "বাংলা",  # Bengali
+            "bn": "বাংলা",  # Bengali
+            "bg": "Български",  #Bulgarian
             "ca": "Català",  # Catalan
             "zh_Hant": "正體中文 (繁體)",  # Traditional Chinese
             "zh_Hans": "中文 (简体)",  # Simplified Chinese
@@ -70,7 +71,7 @@ class Settings(object):
             "en": "English",  # English
             "fi": "Suomi",  # Finnish
             "fr": "Français",  # French
-            # "gl": "Galego",  # Galician
+            "gl": "Galego",  # Galician
             "de": "Deutsch",  # German
             "el": "Ελληνικά",  # Greek
             "is": "Íslenska",  # Icelandic
@@ -78,13 +79,14 @@ class Settings(object):
             # "ga": "Gaeilge",  # Irish
             "it": "Italiano",  # Italian
             "ja": "日本語",  # Japanese
+            "km": "ខ្មែរ",  # Khmer(Central)
             # "ckb": "Soranî",  # Kurdish (Central)
             "lt": "Lietuvių Kalba",  # Lithuanian
             "nb_NO": "Norsk Bokmål",  # Norwegian Bokmål
             "fa": "فارسی",  # Persian
             "pl": "Polski",  # Polish
             "pt_BR": "Português (Brasil)",  # Portuguese Brazil
-            # "pt_PT": "Português (Portugal)",  # Portuguese Portugal
+            "pt_PT": "Português (Portugal)",  # Portuguese Portugal
             # "ro": "Română",  # Romanian
             "ru": "Русский",  # Russian
             "sn": "chiShona",  # Shona

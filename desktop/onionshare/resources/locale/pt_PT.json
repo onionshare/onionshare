@@ -235,5 +235,21 @@
     "gui_autoconnect_trying_to_connect_to_tor": "A ligar-se à Tor…",
     "gui_autoconnect_description": "OnionShare depende da rede Tor, que é operada voluntariamente.",
     "gui_autoconnect_failed_to_connect_to_tor": "Não foi possivel conectar-se à Tor",
-    "gui_autoconnect_connection_error_msg": "Verifique se está ligado à Internet."
+    "gui_autoconnect_connection_error_msg": "Verifique se está ligado à Internet.",
+    "gui_autoconnect_circumventing_censorship_starting_circumvention": "Contornando a censura…",
+    "gui_chat_mode_explainer": "O modo de bate-papo permite que tu converses interativamente com outros no Navegador Tor.<br><br><b> O histórico de mudança não é armazenado no OnionShare. O histórico do chat desaparecerá quando tu fechares o Navegador Tor.</b>",
+    "gui_autoconnect_circumventing_censorship": "Resolvendo problemas de conectividade…",
+    "gui_autoconnect_circumventing_censorship_got_bridges": "Pontes estabelecidas. Reconectando à Tor…",
+    "gui_autoconnect_bridge_setting_options": "Configurações de Ponte",
+    "gui_autoconnect_could_not_connect_to_tor_api": "Não foi possível conectar-se à API Tor. Certifique-se de que estás conectado à Internet antes de tentar novamente.",
+    "gui_autoconnect_no_bridge": "Tentar novamente sem pontes",
+    "gui_enable_autoconnect_checkbox": "Conectar-se automaticamente à Tor",
+    "gui_autoconnect_bridge_description": "Podes conseguir conectar-se usando uma ponte se a tua conexão à Internet estiver censurada.",
+    "gui_autoconnect_bridge_detect_automatic": "Identifique meu país através do meu endereço de IP para as configurações de ponte",
+    "gui_autoconnect_bridge_detect_manual": "Selecione meu país para as configurações de ponte manualmente",
+    "gui_autoconnect_start": "Conectar à Tor",
+    "gui_autoconnect_configure": "Configurações de Rede",
+    "gui_autoconnect_try_again_without_a_bridge": "Tentar novamente sem pontes",
+    "gui_general_settings_window_title": "Geral",
+    "gui_autoconnect_circumventing_censorship_requesting_bridges": "Solicitando pontes da API de evasão de censura da Tor…"
 }

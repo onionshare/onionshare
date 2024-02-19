@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-09-05 11:51-0700\n"
-"PO-Revision-Date: 2024-01-14 12:31+0000\n"
+"PO-Revision-Date: 2024-02-18 10:54+0000\n"
 "Last-Translator: curtisb <curtisbaltimore@protonmail.com>\n"
 "Language-Team: de <LL@li.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.4\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
@@ -270,7 +270,6 @@ msgid "Signatures"
 msgstr "Signaturen"
 
 #: ../../source/install.rst:76
-#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -288,7 +287,6 @@ msgid "Verifying"
 msgstr "Verifizierung"
 
 #: ../../source/install.rst:82
-#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and ``.asc`` signature, you can verify the binary in a "
@@ -297,31 +295,29 @@ msgstr ""
 "Sobald du Micahs öffentlichen Schlüssel in deinen GnuPG-Schlüsselbund "
 "importiert, die Binärdatei und die passende ``.asc``-Signatur "
 "heruntergeladen hast, kannst du die Binärdatei für macOS im Terminal wie "
-"folgt überprüfen::"
+"folgt überprüfen:"
 
 #: ../../source/install.rst:84
 msgid "For Windows::"
-msgstr ""
+msgstr "Für Windows::"
 
 #: ../../source/install.rst:88
 msgid "For macOS::"
-msgstr ""
+msgstr "Für macOS::"
 
 #: ../../source/install.rst:92
-#, fuzzy
 msgid "For Linux::"
-msgstr "Linux"
+msgstr "Für Linux::"
 
 #: ../../source/install.rst:98
 msgid "and for the source file::"
-msgstr ""
+msgstr "und für die Quell-Datei::"
 
 #: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "Eine erwartete Ausgabe sollte wiefolgt aussehen::"
 
 #: ../../source/install.rst:112
-#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -329,24 +325,17 @@ msgid ""
 msgstr ""
 "Wenn du nicht ``Good signature from`` siehst, könnte es ein Problem mit der "
 "Integrität der Datei geben (potentiell schädlich oder anderes) und du "
-"solltest das Paket nicht installieren. (Das oben gezeigte ``WARNING`` deutet "
-"nicht auf ein Problem mit dem Paket hin, es bedeutet lediglich, dass du noch "
-"keinen \"Trust-Level\" für Micahs (der Chefentwickler) PGP-Schlüssel "
-"festgelegt hast.)"
+"solltest das Paket nicht installieren."
 
 #: ../../source/install.rst:114
-#, fuzzy
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
-"Wenn du nicht ``Good signature from`` siehst, könnte es ein Problem mit der "
-"Integrität der Datei geben (potentiell schädlich oder anderes) und du "
-"solltest das Paket nicht installieren. (Das oben gezeigte ``WARNING`` deutet "
-"nicht auf ein Problem mit dem Paket hin, es bedeutet lediglich, dass du noch "
-"keinen \"Trust-Level\" für Micahs (der Chefentwickler) PGP-Schlüssel "
-"festgelegt hast.)"
+"Das oben gezeigte ``WARNING`` deutet nicht auf ein Problem mit dem Paket "
+"hin, es bedeutet lediglich, dass du noch keinen \"Trust-Level\" für Micahs ("
+"der Chefentwickler) PGP-Schlüssel festgelegt hast."
 
 #: ../../source/install.rst:116
 msgid ""

@@ -2,7 +2,7 @@
 
 ## 2.6.1
 
-* Release updates: Automate builds with CI, make just 64-bit Windows release, make both Intel and Apple Silicon macOS releases
+* Release updates: Automate builds with CI, make just 64-bit Windows release, make a single universal2 release for both Intel and Apple Silicon macOS
 * Upgrade dependencies, including Tor, meek, and snowflake
 * Bug fix: Restore the primary_action mode settings in a tab after OnionShare reconnects to Tor
 * Bug fix: Fix issue with auto-connecting to Tor with persistent tabs open
