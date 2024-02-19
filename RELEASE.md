@@ -209,7 +209,7 @@ Set up the VM like this:
 - `brew install create-dmg libiodbc`
 - Install the latest Python 3.11 from https://www.python.org/downloads/
 - Install ARM64 version of Go from https://go.dev/dl/
-- Install "Postgres.app with PostgreSQL 14 (Universal)" from https://postgresapp.com/downloads.html
+- Install "Postgres.app with PostgreSQL 16 (Universal)" from https://postgresapp.com/downloads.html
 
 Clone the OnionShare git repo and checkout the release tag.
 
