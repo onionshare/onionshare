@@ -253,5 +253,6 @@
     "gui_general_settings_window_title": "Allgemein",
     "gui_autoconnect_try_again_without_a_bridge": "Erneuter Versuch ohne Brücken",
     "waitress_web_server_error": "Beim Starten des Webservers ist ein Problem aufgetreten",
-    "gui_close_tab_warning_chat_description": "Tab schließen, der einen Chat-Server hostet?"
+    "gui_close_tab_warning_chat_description": "Tab schließen, der einen Chat-Server hostet?",
+    "gui_chat_mode_explainer": "Im Chat-Modus kannst du interaktiv mit anderen im Tor-Browser chatten.<br><br><b>Der Chatverlauf wird nicht in OnionShare gespeichert. Der Chatverlauf verschwindet, wenn du den Tor-Browser schließt.</b>"
 }
