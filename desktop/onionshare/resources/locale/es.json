@@ -141,7 +141,7 @@
     "gui_quit_warning_description": "El modo compartir está activo en algunas de tus pestañas. Si sales, todas tus pestañas se cerrarán. ¿Estás seguro/a de que quieres salir?",
     "gui_quit_warning_title": "¿Salir de OnionShare?",
     "gui_close_tab_warning_cancel": "Cancelar",
-    "gui_close_tab_warning_close": "Cerrar",
+    "gui_close_tab_warning_close": "De acuerdo",
     "gui_close_tab_warning_website_description": "¿Cerrar la pestaña que está alojando un sitio web?",
     "gui_close_tab_warning_receive_description": "¿Cerrar la pestaña que está recibiendo archivos?",
     "gui_close_tab_warning_share_description": "¿Cerrar la pestaña que está enviando archivos?",
@@ -253,5 +253,6 @@
     "gui_autoconnect_could_not_connect_to_tor_api": "No se pudo conectar a la API de Tor. Asegúrate de estar conectado a Internet antes de volver a intentarlo.",
     "gui_general_settings_window_title": "General",
     "waitress_web_server_error": "Hubo un problema al iniciar el servidor web",
-    "gui_close_tab_warning_chat_description": "¿Cerrar la pestaña que aloja un servidor de chat?"
+    "gui_close_tab_warning_chat_description": "¿Cerrar la pestaña que aloja un servidor de chat?",
+    "gui_chat_mode_explainer": "El modo de chat te permite chatear de forma interactiva con otros, en el navegador Tor. <br><br><b>El historial del chat no se almacena en OnionShare. El historial de chat desaparecerá cuando cierres el navegador Tor.</b>"
 }
