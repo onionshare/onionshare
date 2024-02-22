@@ -248,7 +248,9 @@ def codesign(app_path):
 @click.argument("app_path")
 def package(app_path):
     """Build the DMG package"""
-    if not os.path.exists("/usr/local/bin/create-dmg"):
+    if not os.path.exists("/usr/local/bin/create-dmg") and not os.path.exists(
+        "/opt/homebrew/bin/create-dmg"
+    ):
         print("> Error: create-dmg is not installed")
         return
 
