@@ -83,6 +83,18 @@ setup(
                 "PySide6.QtGui",
                 "PySide6.QtWidgets",
             ],
+            "zip_include_packages": [
+                "cffi",
+                "engineio",
+                "engineio.async_drivers.gevent",
+                "engineio.async_drivers.gevent_uwsgi",
+                "gevent",
+                "jinja2.ext",
+                "PySide6",
+                "PySide6.QtCore",
+                "PySide6.QtGui",
+                "PySide6.QtWidgets",
+            ],
             "excludes": [
                 "test",
                 "tkinter",
