@@ -207,7 +207,7 @@ Set up the VM like this:
 
 - Install [Homebrew](https://brew.sh/)
 - `brew install create-dmg libiodbc`
-- Install the latest Python 3.11 from https://www.python.org/downloads/
+- Install the latest Python 3.12 from https://www.python.org/downloads/
 - Install ARM64 version of Go from https://go.dev/dl/
 - Install "Postgres.app with PostgreSQL 16 (Universal)" from https://postgresapp.com/downloads.html
 
@@ -227,8 +227,8 @@ Install and build dependencies:
 ```sh
 cd desktop
 python3 -m pip install poetry
-/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry install
-/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/get-tor.py macos
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry install
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./scripts/get-tor.py macos
 ./scripts/build-pt-obfs4proxy.sh
 ./scripts/build-pt-snowflake.sh
 ./scripts/build-pt-meek.sh
@@ -237,10 +237,10 @@ python3 -m pip install poetry
 Make the Apple Silicon app bundle:
 
 ```sh
-/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./setup-freeze.py bdist_mac
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./setup-freeze.py bdist_mac
 rm -rf build/OnionShare.app/Contents/Resources/lib
-mv build/exe.macosx-10.9-universal2-3.11/lib build/OnionShare.app/Contents/Resources/
-/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/build-macos.py cleanup-build
+mv build/exe.macosx-10.9-universal2-3.12/lib build/OnionShare.app/Contents/Resources/
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./scripts/build-macos.py cleanup-build
 ```
 
 The Apple Silicon app bundle will be in `build` folder called `OnionShare.app`.

@@ -203,7 +203,7 @@
     "gui_close_tab_warning_share_description": "Të mbyllet skeda që po dërgon kartela?",
     "gui_close_tab_warning_receive_description": "Të mbyllet skeda që po merr kartela?",
     "gui_close_tab_warning_website_description": "Të mbyllet skeda që po strehon një sajt?",
-    "gui_close_tab_warning_close": "Mbylle",
+    "gui_close_tab_warning_close": "Ok",
     "gui_close_tab_warning_cancel": "Anuloje",
     "gui_quit_warning_title": "Të dilet nga OnionShare?",
     "gui_quit_warning_description": "Të dilet dhe të mbyllen krejt skedat, edhe pse në disa prej tyre po kryhet ende ndarje me të tjerë?",
@@ -253,5 +253,6 @@
     "moat_solution_empty_error": "Jepni shenjat prej figure",
     "mode_tor_not_connected_label": "OnionShare s’është i lidhur me rrjetin Tor",
     "waitress_web_server_error": "Pati një problem me nisjen e shërbyesit",
-    "gui_close_tab_warning_chat_description": "Të mbyllet skeda që strehon një shërbyes fjalosjeje?"
+    "gui_close_tab_warning_chat_description": "Të mbyllet skeda që strehon një shërbyes fjalosjeje?",
+    "gui_chat_mode_explainer": "Mënyra fjalosje ju lejon të bisedoni në mënyrë ndërvepruese me të tjerë, në Shfletuesin Tor.<br><br><b>Historiku i fjalosjes nuk depozitohet në OnionShare. Historiku i fjalosjes do të zhduket, kur të mbyllni Shfletuesin Tor.</b>"
 }
