@@ -167,12 +167,15 @@ def cleanup_build():
         "QtWebEngineQuick",
         "QtWebEngineQuickDelegatesQml",
     ]:
-        shutil.rmtree(
-            f"{app_path}/Contents/MacOS/lib/PySide6/Qt/lib/{framework}.framework"
-        )
-        print(
-            f"Deleted: {app_path}/Contents/MacOS/lib/PySide6/Qt/lib/{framework}.framework"
-        )
+        try:
+            shutil.rmtree(
+                f"{app_path}/Contents/MacOS/lib/PySide6/Qt/lib/{framework}.framework"
+            )
+            print(
+                f"Deleted: {app_path}/Contents/MacOS/lib/PySide6/Qt/lib/{framework}.framework"
+            )
+        except FileNotFoundError:
+            pass
         try:
             os.remove(f"{app_path}/Contents/MacOS/lib/PySide6/{framework}.abi3.so")
             print(f"Deleted: {app_path}/Contents/MacOS/lib/PySide6/{framework}.abi3.so")
