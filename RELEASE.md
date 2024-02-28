@@ -238,8 +238,6 @@ Make the Apple Silicon app bundle:
 
 ```sh
 /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./setup-freeze.py bdist_mac
-rm -rf build/OnionShare.app/Contents/Resources/lib
-mv build/exe.macosx-10.9-universal2-3.11/lib build/OnionShare.app/Contents/Resources/
 /Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/build-macos.py cleanup-build
 ```
 
