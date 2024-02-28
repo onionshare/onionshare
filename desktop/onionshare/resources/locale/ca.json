@@ -148,7 +148,7 @@
     "gui_quit_warning_description": "Voleu sortir i tancar totes les pestanyes, tot i que algunes d'elles estan compartint?",
     "gui_quit_warning_title": "Voleu tancar l'OnionShare?",
     "gui_close_tab_warning_cancel": "Cancel·la",
-    "gui_close_tab_warning_close": "Tanca",
+    "gui_close_tab_warning_close": "D'acord",
     "gui_close_tab_warning_website_description": "Voleu tancar la pestanya que allotja el lloc web?",
     "gui_close_tab_warning_receive_description": "Voleu tancar la pestanya que rep els fitxers?",
     "gui_close_tab_warning_share_description": "Voleu tancar la pestanya que envia els fitxers?",
