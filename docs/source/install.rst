@@ -15,7 +15,7 @@ You can download OnionShare for Mobile from the follow links
 
 * Android
 	* Google Play: https://play.google.com/store/apps/details?id=org.onionshare.android
-	* F-Droid: https://github.com/onionshare/onionshare-android-nightly 
+	* F-Droid: https://github.com/onionshare/onionshare-android-nightly
 
 * iOS
 	* Apple App Store: https://apps.apple.com/app/onionshare/id1601890129
@@ -114,8 +114,16 @@ For Windows and macOS, this step is optional and provides defense in depth: the 
 Signing key
 ^^^^^^^^^^^
 
-Packages are signed by Micah Lee, the core developer, using his PGP public key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``.
-You can download Micah's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_.
+Packages are signed by the core developer who is responsible for the particular release. Following are the
+informations of the core developers of OnionShare:
+
+* Micah Lee:
+    * PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``.
+    * You can download Micah's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_.
+
+* Saptak Sengupta:
+    * PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``.
+    * You can download Saptak's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_.
 
 You must have GnuPG installed to verify signatures. For macOS you probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want `Gpg4win <https://www.gpg4win.org/>`_.
 
@@ -128,7 +136,7 @@ You can also find them on the `GitHub Releases page <https://github.com/onionsha
 Verifying
 ^^^^^^^^^
 
-Once you have imported Micah's public key into your GnuPG keychain, downloaded the binary and ``.asc`` signature, you can verify the binary in a terminal like this:
+Once you have imported the core developers public keys into your GnuPG keychain, downloaded the binary and ``.asc`` signature, you can verify the binary in a terminal like this:
 
 For Windows::
 
