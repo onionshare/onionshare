@@ -139,7 +139,7 @@
     "gui_quit_warning_cancel": "取消",
     "gui_quit_warning_title": "停止 OnionShare ?",
     "gui_close_tab_warning_cancel": "取消",
-    "gui_close_tab_warning_close": "關閉",
+    "gui_close_tab_warning_close": "好的",
     "gui_new_tab_receive_button": "接收檔案",
     "gui_new_tab": "新分頁",
     "gui_new_tab_tooltip": "開啟新分頁",
