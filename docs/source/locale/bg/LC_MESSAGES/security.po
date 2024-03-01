@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-09-05 11:30-0700\n"
-"PO-Revision-Date: 2024-02-28 12:02+0000\n"
+"PO-Revision-Date: 2024-03-01 23:00+0000\n"
 "Last-Translator: 109247019824 <stoyan@gmx.com>\n"
 "Language-Team: none\n"
 "Language: bg\n"
@@ -39,6 +39,7 @@ msgid "What OnionShare protects against"
 msgstr "От какво защитава OnionShare"
 
 #: ../../source/security.rst:11
+#, fuzzy
 msgid ""
 "**Third parties don't have access to anything that happens in OnionShare.** "
 "Using OnionShare means hosting services directly on your computer. When "
@@ -47,6 +48,8 @@ msgid ""
 "for that too. This avoids the traditional model of having to trust the "
 "computers of others."
 msgstr ""
+"**Трети страни нямат достъп до случващото се в OnionShare.** Като използвате "
+"OnionShare"
 
 #: ../../source/security.rst:17
 msgid ""
