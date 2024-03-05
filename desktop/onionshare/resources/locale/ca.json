@@ -148,7 +148,7 @@
     "gui_quit_warning_description": "Voleu sortir i tancar totes les pestanyes, tot i que algunes d'elles estan compartint?",
     "gui_quit_warning_title": "Voleu tancar l'OnionShare?",
     "gui_close_tab_warning_cancel": "Cancel·la",
-    "gui_close_tab_warning_close": "Tanca",
+    "gui_close_tab_warning_close": "D'acord",
     "gui_close_tab_warning_website_description": "Voleu tancar la pestanya que allotja el lloc web?",
     "gui_close_tab_warning_receive_description": "Voleu tancar la pestanya que rep els fitxers?",
     "gui_close_tab_warning_share_description": "Voleu tancar la pestanya que envia els fitxers?",
@@ -253,5 +253,6 @@
     "gui_autoconnect_circumventing_censorship_starting_meek": "S'està establint el pont meek per al domain-fronting…",
     "gui_general_settings_window_title": "General",
     "gui_close_tab_warning_chat_description": "Voleu tancar la pestanya que hostatja un servidor de xat?",
-    "waitress_web_server_error": "Hi ha hagut un problema en iniciar el servidor web"
+    "waitress_web_server_error": "Hi ha hagut un problema en iniciar el servidor web",
+    "gui_chat_mode_explainer": "El mode de xat us permet xatejar de manera interactiva amb altres persones al Navegador Tor.<br><br><b>L'historial de xat no s'emmagatzema a OnionShare. L'historial de xat desapareixerà quan tanqueu el Navegador Tor.</b>"
 }

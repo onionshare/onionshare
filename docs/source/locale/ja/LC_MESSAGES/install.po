@@ -6,34 +6,35 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-09-05 11:51-0700\n"
-"PO-Revision-Date: 2024-01-31 10:01+0000\n"
-"Last-Translator: Himmel <anonymous.colt330@aleeas.com>\n"
+"PO-Revision-Date: 2024-02-27 17:45+0000\n"
+"Last-Translator: Suguru Hirahara <shirahara@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: ja <LL@li.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
-msgstr "インストールする方法"
+msgstr "インストール"
 
 #: ../../source/install.rst:5
 msgid "Windows or macOS"
-msgstr "WindowsやmacOS"
+msgstr "WindowsとmacOS"
 
 #: ../../source/install.rst:7
 msgid ""
 "You can download OnionShare for Windows and macOS from the `OnionShare "
 "website <https://onionshare.org/>`_."
 msgstr ""
-"WindowsやmacOSの場合は`OnionShareホームページ <https://onionshare.org/>`_から"
-"ダウンロードできます。"
+"WindowsとmacOSの場合は\\ `OnionShareのウェブサイト <https://onionshare.org/>`"
+"_\\ からダウンロードできます。"
 
 #: ../../source/install.rst:12
 msgid "Linux"
@@ -46,10 +47,10 @@ msgid ""
 "<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
-"Linuxの場合は、様々なインストールする方法がありますが、勧められる方法は"
-"`Flatpak <https://flatpak.org/>`_ または`Snap <https://snapcraft.io/>`_ の"
-"パッケージの利用です。FlatpakやSnapでは、必ず最新バージョンを入手できます、そ"
-"してサンドボックスに実行されます。"
+"Linuxの場合は、様々なインストール方法がありますが、推奨されるのは\\ `Flatpak "
+"<https://flatpak.org/>`_\\ または\\ `Snap <https://snapcraft.io/>`_\\ のパッ"
+"ケージを使用することです。FlatpakやSnapを使用すると、最新のバージョンを確実に"
+"入手することができ、サンドボックスでOnionShareが実行されます。"
 
 #: ../../source/install.rst:17
 msgid ""
@@ -57,22 +58,21 @@ msgid ""
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
-"SnapcraftサポートはUbuntuに組み込まれており、FedoraにはFlatpakサポートが付属"
-"していますが、どちらを使用するかはユーザー次第です。どちらもすべてのLinuxディ"
-"ストリビューションで動作します。"
+"SnapcraftサポートはUbuntuに組み込まれており、FedoraにはFlatpakのサポートが付"
+"属していますが、どちらを使用するかはユーザー次第です。両方ともすべてのLinuxデ"
+"ィストリビューションで動作します。"
 
 #: ../../source/install.rst:19
 msgid ""
 "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
 "onionshare.OnionShare"
 msgstr ""
-"**FlatpakでOnionShareをインストール**: https://flathub.org/apps/details/org."
+"**FlatpakでOnionShareをインストール**：https://flathub.org/apps/details/org."
 "onionshare.OnionShare"
 
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
-msgstr ""
-"**Snapcraftを使用してOnionShareをインストール**: https://snapcraft.io/"
+msgstr "**Snapcraftを使用してOnionShareをインストール**：https://snapcraft.io/"
 "onionshare"
 
 #: ../../source/install.rst:23
@@ -80,12 +80,12 @@ msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
-"もしよろしければ、PGP署名された``.flatpak`` や ``.snap``パッケージを https://"
-"onionshare.org/dist/ からダウンロードしてインストールできます。"
+"PGPで署名された ``.flatpak`` や ``.snap`` パッケージを https://onionshare."
+"org/dist/ からダウンロードしてインストールすることもできます。"
 
 #: ../../source/install.rst:26
 msgid "Manual Flatpak Installation"
-msgstr "Flatpak をインストールする方法"
+msgstr "Flatpakをインストールする方法"
 
 #: ../../source/install.rst:28
 msgid ""
@@ -93,14 +93,14 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
-"PGPで署名された`シングルファイルバンドル <https://docs.flatpak.org/en/latest/"
-"single-file-bundles.html>`_を使用してFlatpakでOnionShareを手動でインストール"
-"する場合は、次のようにします。"
+"PGPで署名された\\ `シングルファイルバンドル <https://docs.flatpak.org/en/"
+"latest/single-file-bundles.html>`_\\ を使用して、FlatpakでOnionShareを手動で"
+"インストールしたい場合は、以下の手順に沿ってください。"
 
 #: ../../source/install.rst:30
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
-msgstr "https://flatpak.org/setup/ の手順に沿ってFlatpakをインストールします。"
+msgstr "https://flatpak.org/setup/ に従ってFlatpakをインストール。"
 
 #: ../../source/install.rst:31
 msgid ""
@@ -109,26 +109,26 @@ msgid ""
 "won't be downloading OnionShare from Flathub, OnionShare depends on some "
 "packages that are only available there."
 msgstr ""
-"``flatpak remote-add --if-not-exists flathub https://flathub.org/repo/"
-"flathub.flatpakrepo``を実行して、Flathubリポジトリを追加します。Flathubから"
-"OnionShareをダウンロードすることはありませんが、OnionShareはFlathubでのみ利用"
-"できるパッケージに依存しています。"
+"``flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub"
+".flatpakrepo`` を実行して、Flathubリポジトリを追加。FlathubからOnionShareをダ"
+"ウンロードすることはありませんが、OnionShareはFlathubでのみ利用できるパッケー"
+"ジに依存しています。"
 
 #: ../../source/install.rst:32
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
-"https://onionshare.org/dist/ にアクセスして、OnionShareの最新バージョンを選択"
-"し、 ``.flatpak`` および ``.flatpak.asc`` ファイルをダウンロードします。"
+"https://onionshare.org/dist/ "
+"にアクセスして、OnionShareの最新バージョンを選択し、 ``.flatpak`` および ``."
+"flatpak.asc`` ファイルをダウンロード。"
 
 #: ../../source/install.rst:33
 msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
-msgstr ""
-"``.flatpak``ファイルのPGP署名を検証します。詳細は、ref:`verifying_sigs`をご覧"
-"ください。"
+msgstr "``.flatpak`` ファイルのPGP署名を検証。詳細は\\ :ref:`verifying_sigs`\\ "
+"をご覧ください。"
 
 #: ../../source/install.rst:34
 msgid ""
@@ -136,17 +136,17 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
-"``flatpak install OnionShare-VERSION.flatpak``を実行して``.flatpak``ファイル"
-"をインストールします。``VERSION``をダウンロードしたファイルのバージョン番号に"
-"置き換えます。"
+"``flatpak install OnionShare-VERSION.flatpak`` を実行して ``.flatpak`` "
+"ファイルをインストール。その際には ``VERSION`` "
+"をダウンロードしたファイルのバージョン番号に置き換えてください。"
 
 #: ../../source/install.rst:36
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
-msgstr "OnionShareは、 `flatpak run org.onionshare.OnionShare`で実行できます。"
+msgstr "OnionShareは `flatpak run org.onionshare.OnionShare` で実行できます。"
 
 #: ../../source/install.rst:39
 msgid "Manual Snapcraft Installation"
-msgstr "Snapcraft のインストール方法"
+msgstr "Snapcraftをインストールする方法"
 
 #: ../../source/install.rst:41
 msgid ""
@@ -154,31 +154,29 @@ msgid ""
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
 "PGPで署名されたSnapcraftパッケージを使用して、SnapcraftでOnionShareを手動でイ"
-"ンストールしたい場合は、次のようにします："
+"ンストールしたい場合は、以下の手順に沿ってください。"
 
 #: ../../source/install.rst:43
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
-msgstr ""
-"https://snapcraft.io/docs/installing-snapd の手順に沿ってSnapcraftをインス"
-"トールします。"
+msgstr "https://snapcraft.io/docs/installing-snapd に従ってSnapcraftをインストール。"
 
 #: ../../source/install.rst:44
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
-"https://onionshare.org/dist/ にアクセスしてOnionShareの最新バージョンを選択"
-"し、``.snap``ファイルと``.snap.asc``ファイルをダウンロードします。"
+"https://onionshare.org/dist/ "
+"にアクセスしてOnionShareの最新バージョンを選択し、 ``.snap`` ファイルと ``."
+"snap.asc`` ファイルをダウンロード。"
 
 #: ../../source/install.rst:45
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
-msgstr ""
-"``.snap``ファイルの PGP 署名を検証します。詳しくは :ref:`verifying_sigs` をご"
-"覧ください。"
+msgstr "``.snap`` ファイルの PGP 署名を検証。詳細は\\ :ref:`verifying_sigs`\\ "
+"をご覧ください。"
 
 #: ../../source/install.rst:46
 msgid ""
@@ -188,14 +186,15 @@ msgid ""
 "package is not signed by the Snapcraft store, however you did verify its PGP "
 "signature, so you know it's legitimate."
 msgstr ""
-"``snap install --dangerous onionshare_VERSION_amd64.snap`` を実行して、``."
-"snap`` ファイルをインストールします。``VERSION`` はダウンロードしたファイルの"
-"バージョン番号に置き換えてください。パッケージはSnapcraftストアによって署名さ"
-"れていないため、`--dangerous`を使用する必要があります。"
+"``snap install --dangerous onionshare_VERSION_amd64.snap`` を実行して ``."
+"snap`` ファイルをインストール。その際には ``VERSION`` をダウンロードしたファ"
+"イルのバージョン番号に置き換えてください。パッケージはSnapcraftストアによって"
+"署名されていないため、`--dangerous` "
+"を使用する必要があります。既にPGP署名を検証しているので、問題はありません。"
 
 #: ../../source/install.rst:48
 msgid "You can run OnionShare with: `snap run onionshare`."
-msgstr "OnionShareは、`snap run onionshare`で実行できます。"
+msgstr "OnionShareは `snap run onionshare` で実行できます。"
 
 #: ../../source/install.rst:53
 msgid "Command-line only"
@@ -206,13 +205,13 @@ msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
-"Pythonのパッケージマネージャ ``pip`` を使えば、どのオペレーティングシステムに"
-"もOnionShareのコマンドライン版だけをインストールすることができます。:ref:"
-"`cli`に詳細があります。"
+"Pythonのパッケージマネージャー ``pip`` を使えば、どのオペレーティングシステム"
+"にもOnionShareのコマンドライン版をインストールすることができます。詳細は\\ "
+":ref:`cli`\\ をご覧ください。"
 
 #: ../../source/install.rst:60
 msgid "Verifying PGP signatures"
-msgstr "PGP署名を確認する方法"
+msgstr "PGP署名を検証する方法"
 
 #: ../../source/install.rst:62
 msgid ""
@@ -222,10 +221,10 @@ msgid ""
 "include operating system-specific signatures, and you can just rely on those "
 "alone if you'd like."
 msgstr ""
-"PGP署名を確認することによって、ダウンロードしたパッケージが改ざんされていない"
-"かを確認できます。WindowsやmacOSの場合、OnionShareバイナリーにはOSに特有の署"
-"名があるので、確認は任意です。もしよろしければ、OS署名のみに頼ることができま"
-"す。"
+"PGP署名を検証することで、ダウンロードしたパッケージが改ざんされていないかを確"
+"認できます。WindowsとmacOSの場合、OnionShareバイナリーにはOSに特有の署名があ"
+"るため、PGP署名の検証は、より強固な安全性を確保しようとする際に役立ちます。OS"
+"の署名のみに頼っても構いません。"
 
 #: ../../source/install.rst:66
 msgid "Signing key"
@@ -239,10 +238,11 @@ msgid ""
 "openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"パッケージは主任開発者のMicah Leeさんに署名されています。公開キー指紋は"
-"``927F419D7EC82C2F149C1BD1403C2657CD994F73``。Micah Leeさんの公開鍵を` keys."
-"openpgp.org のキーサーバーからダウンロードできます <https://keys.openpgp.org/"
-"vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_。"
+"パッケージは、コア開発者のMicah Leeにより署名されています。"
+"公開鍵のフィンガープリントは ``927F419D7EC82C2F149C1BD1403C2657CD994F73`` "
+"です。Micah Leeの公開鍵は\\ `keys.openpgp.orgのキーサーバーから <https://keys"
+".openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`"
+"_\\ ダウンロードできます。"
 
 #: ../../source/install.rst:71
 msgid ""
@@ -250,87 +250,79 @@ msgid ""
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
 "`Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
-"署名を確認するのに、GnuPGをインストールする必要があります。macOSの場合は "
-"`GPGTools <https://gpgtools.org/>`_、そしてWindowsの場合は `Gpg4win <https://"
-"www.gpg4win.org/>`_を利用できます。"
+"署名の検証には、GnuPGをインストールしておく必要があります。macOSの場合は\\ `"
+"GPGTools <https://gpgtools.org/>`_\\ 、Windowsの場合は\\ `Gpg4win "
+"<https://www.gpg4win.org/>`_\\ などを試してみてください。"
 
 #: ../../source/install.rst:74
 msgid "Signatures"
 msgstr "署名"
 
 #: ../../source/install.rst:76
-#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
 "`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
-"署名（``.asc`` ファイルの形として）そしてWindows、macOS、Flatpak、Snap、また"
-"はソースのパッケージはhttps://onionshare.org/dist/ から入手できます（各バー"
-"ジョンのフォルダーに）。`GitHubのリリースページ <https://github.com/"
-"micahflee/onionshare/releases>`_にもあります。"
+"``.asc`` ファイルによる署名、Windows、macOS、Flatpak、Snap、ソースコードのパ"
+"ッケージは、それぞれ https://onionshare.org/dist/ "
+"の各バージョンのフォルダーから入手できます。\\ `GitHubのリリースページ "
+"<https://github.com/micahflee/onionshare/releases>`_\\ でも入手できます。"
 
 #: ../../source/install.rst:80
 msgid "Verifying"
-msgstr "確認する方法"
+msgstr "検証"
 
 #: ../../source/install.rst:82
-#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and ``.asc`` signature, you can verify the binary in a "
 "terminal like this:"
 msgstr ""
-"Micahの公開鍵をGnuPGキーチェーンにインポートし、バイナリと``.asc``署名をダウ"
-"ンロードしたら、次のようなターミナルでmacOS用のバイナリを確認できます::"
+"Micahの公開鍵をGnuPGのキーチェーンにインポートし、バイナリーファイルと ``."
+"asc`` "
+"署名をダウンロードしたら、以下のようにターミナルでバイナリーを検証できます。"
 
 #: ../../source/install.rst:84
 msgid "For Windows::"
-msgstr ""
+msgstr "Windowsの場合は、以下のように入力してください。"
 
 #: ../../source/install.rst:88
 msgid "For macOS::"
-msgstr ""
+msgstr "macOSの場合は、以下のように入力してください。"
 
 #: ../../source/install.rst:92
-#, fuzzy
 msgid "For Linux::"
-msgstr "Linux"
+msgstr "Linuxの場合は、以下のように入力してください。"
 
 #: ../../source/install.rst:98
 msgid "and for the source file::"
-msgstr ""
+msgstr "ソースコードに関しては、以下のように入力してください。"
 
 #: ../../source/install.rst:102
 msgid "The expected output looks like this::"
-msgstr "予想される出力は以下のように表示されるはず::"
+msgstr "以下のように出力されるはずです。"
 
 #: ../../source/install.rst:112
-#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
 "the package."
 msgstr ""
 "もし ``Good signature from`` が表示されない場合は、ファイルの完全性に問題があ"
-"る (悪意があるかないか) 可能性があるので、そのパッケージをインストールすべき"
-"ではありません。（上に表示されている ``WARNING:`` はパッケージの問題ではな"
-"く、Micah (コア開発者) の PGP 鍵の「信頼」レベルを定義していないことを意味す"
-"るだけです。）"
+"るため（悪意による場合とそうでない場合があります）、そのパッケージはインスト"
+"ールしないでください。"
 
 #: ../../source/install.rst:114
-#, fuzzy
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
-"もし ``Good signature from`` が表示されない場合は、ファイルの完全性に問題があ"
-"る (悪意があるかないか) 可能性があるので、そのパッケージをインストールすべき"
-"ではありません。（上に表示されている ``WARNING:`` はパッケージの問題ではな"
-"く、Micah (コア開発者) の PGP 鍵の「信頼」レベルを定義していないことを意味す"
-"るだけです。）"
+"なお、上で表示されている ``WARNING:`` はパッケージに問題があることを示すもの"
+"ではなく、あなたがMicah（コア開発者）のPGP鍵の「信頼」レベルを設定していない"
+"ことを意味しているだけです。"
 
 #: ../../source/install.rst:116
 msgid ""
@@ -339,9 +331,10 @@ msgid ""
 "the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/"
 ">`_ may be useful."
 msgstr ""
-"PGP署名を確認する方法の詳しくは、`Qubes OS <https://www.qubes-os.org/"
-"security/verifying-signatures/>`_ または `Torプロジェクト <https://support."
-"torproject.org/tbb/how-to-verify-signature/>`_ のガイドは役立つでしょう。"
+"PGP署名を確認する方法の詳細に関しては\\ `Qubes OS <https://www.qubes-os.org/"
+"security/verifying-signatures/>`_\\ または\\ `Tor Project <https://support."
+"torproject.org/tbb/how-to-verify-signature/>`_\\ "
+"のガイドが役立つかもしれません。"
 
 #~ msgid "Or for Windows, in a command-prompt like this::"
 #~ msgstr "またはWindowsの場合はコマンド・プロンプトで以下のように::"
