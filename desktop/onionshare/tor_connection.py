@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import time
-from PySide6 import QtCore, QtWidgets
+from qtpy import QtCore, QtWidgets
 
 from onionshare_cli.onion import (
     BundledTorCanceled,

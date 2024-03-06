@@ -7,7 +7,7 @@ import secrets
 import platform
 import sys
 
-from PySide6 import QtCore, QtTest, QtWidgets
+from qtpy import QtCore, QtTest, QtWidgets
 
 from onionshare_cli.common import Common
 

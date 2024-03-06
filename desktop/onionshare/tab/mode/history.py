@@ -22,7 +22,7 @@ import time
 import subprocess
 import os
 from datetime import datetime
-from PySide6 import QtCore, QtWidgets, QtGui
+from qtpy import QtCore, QtWidgets, QtGui
 
 from ... import strings
 from ...widgets import Alert
