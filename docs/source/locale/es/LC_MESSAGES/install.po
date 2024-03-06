@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-09-05 11:51-0700\n"
-"PO-Revision-Date: 2023-06-07 16:33+0000\n"
+"PO-Revision-Date: 2024-02-24 22:01+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: ../../source/install.rst:2
@@ -261,80 +262,70 @@ msgid "Signatures"
 msgstr "Firmas"
 
 #: ../../source/install.rst:76
-#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
 "`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
-"Puedes encontrar las firmas (archivos ``.asc``), como así también los "
-"paquetes para Windows, macOS, Flatpak, Snap y el código fuente, en https://"
-"onionshare.org/dist/ en las carpetas nombradas por cada versión de "
-"OnionShare. También puedes encontrarlas en la `página de Lanzamientos de "
-"GitHub <https://github.com/micahflee/onionshare/releases>`_."
+"Puede encontrar las firmas (como archivos ``.asc``), así como Windows, "
+"macOS, Flatpak, Snap y paquetes fuente, en https://onionshare.org/dist/ en "
+"las carpetas nombradas para cada versión de OnionShare. También puedes "
+"encontrarlos en la página `Publicaciones en GitHub <https://github.com/"
+"onionshare/onionshare/releases>'_."
 
 #: ../../source/install.rst:80
 msgid "Verifying"
 msgstr "Verificando"
 
 #: ../../source/install.rst:82
-#, fuzzy
 msgid ""
 "Once you have imported Micah's public key into your GnuPG keychain, "
 "downloaded the binary and ``.asc`` signature, you can verify the binary in a "
 "terminal like this:"
 msgstr ""
-"Una vez que hayas importado la clave pública de Micah en tu llavero GnuPG, "
-"descargado el binario y la firma ``.asc``, puedes verificar el binario para "
-"macOS en un terminal de la siguiente manera::"
+"Una vez que hayas importado la clave pública de Micah en tu llavero de "
+"GnuPG, descargado el binario y la firma ``.asc``, puedes verificar el "
+"binario en un terminal como este:"
 
 #: ../../source/install.rst:84
 msgid "For Windows::"
-msgstr ""
+msgstr "Para Windows::"
 
 #: ../../source/install.rst:88
 msgid "For macOS::"
-msgstr ""
+msgstr "Para macOS::"
 
 #: ../../source/install.rst:92
-#, fuzzy
 msgid "For Linux::"
-msgstr "Linux"
+msgstr "Para Linux::"
 
 #: ../../source/install.rst:98
 msgid "and for the source file::"
-msgstr ""
+msgstr "y para el archivo fuente::"
 
 #: ../../source/install.rst:102
 msgid "The expected output looks like this::"
 msgstr "La salida esperada se parece a esta::"
 
 #: ../../source/install.rst:112
-#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
 "the package."
 msgstr ""
-"Si no ves ``Good signature from``, puede haber un problema con la integridad "
-"del archivo (malicioso o no), y no deberías instalar el paquete. (El "
-"``WARNING:`` mostrado arriba, no es un problema con el paquete, sólo "
-"significa que no has definido un nivel de \"confianza\" de la clave PGP de "
-"Micah (el desarrollador del núcleo))"
+"Si no ve ``Good signature from``, puede haber un problema con la integridad "
+"del fichero (malicioso o no), y no debería instalar el paquete."
 
 #: ../../source/install.rst:114
-#, fuzzy
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
-"Si no ves ``Good signature from``, puede haber un problema con la integridad "
-"del archivo (malicioso o no), y no deberías instalar el paquete. (El "
-"``WARNING:`` mostrado arriba, no es un problema con el paquete, sólo "
+"La ``ADVERTENCIA:`` mostrada, no es un problema con el paquete, sólo "
 "significa que no has definido un nivel de \"confianza\" de la clave PGP de "
-"Micah (el desarrollador del núcleo))"
+"Micah (el desarrollador del núcleo)."
 
 #: ../../source/install.rst:116
 msgid ""

@@ -149,7 +149,7 @@
     "gui_quit_warning_description": "Έξοδος και κλείσιμο όλων των καρτελών ακόμη και των ενεργών;",
     "gui_quit_warning_title": "Έξοδος από το OnionShare;",
     "gui_close_tab_warning_cancel": "Άκυρο",
-    "gui_close_tab_warning_close": "Κλείσιμο",
+    "gui_close_tab_warning_close": "Οκ",
     "gui_close_tab_warning_website_description": "Κλείσιμο της καρτέλας φιλοξενίας ιστότοπου;",
     "gui_close_tab_warning_receive_description": "Κλείσιμο της καρτέλας λήψης αρχείων;",
     "gui_close_tab_warning_share_description": "Κλείσιμο της καρτέλας αποστολής αρχείων;",
@@ -253,5 +253,6 @@
     "gui_autoconnect_could_not_connect_to_tor_api": "Δεν ήταν δυνατή η σύνδεση στο Tor API. Βεβαιωθείτε ότι είστε συνδεδεμένοι στο διαδίκτυο πριν προσπαθήσετε ξανά.",
     "gui_general_settings_window_title": "Γενικά",
     "waitress_web_server_error": "Παρουσιάστηκε πρόβλημα έναρξης του διακομιστή ιστού",
-    "gui_close_tab_warning_chat_description": "Κλείσιμο της καρτέλας που φιλοξενεί έναν διακομιστή συνομιλίας;"
+    "gui_close_tab_warning_chat_description": "Κλείσιμο της καρτέλας που φιλοξενεί έναν διακομιστή συνομιλίας;",
+    "gui_chat_mode_explainer": "Η λειτουργία συνομιλίας σάς επιτρέπει να συνομιλείτε διαδραστικά με άλλους, στο Tor Browser.<br><br><b>Το ιστορικό συνομιλίας δεν αποθηκεύεται στο OnionShare. Το ιστορικό συνομιλιών θα διαγραφεί όταν κλείσετε το Tor Browser.</b>"
 }

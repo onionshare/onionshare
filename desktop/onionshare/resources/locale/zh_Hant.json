@@ -139,7 +139,7 @@
     "gui_quit_warning_cancel": "取消",
     "gui_quit_warning_title": "停止 OnionShare ?",
     "gui_close_tab_warning_cancel": "取消",
-    "gui_close_tab_warning_close": "關閉",
+    "gui_close_tab_warning_close": "好的",
     "gui_new_tab_receive_button": "接收檔案",
     "gui_new_tab": "新分頁",
     "gui_new_tab_tooltip": "開啟新分頁",
@@ -253,5 +253,6 @@
     "moat_captcha_error": "答案錯誤，請再試一次。",
     "moat_captcha_label": "回答機器人辨識碼以請求橋接器。",
     "waitress_web_server_error": "啟動網頁伺候器時出現問題",
-    "gui_close_tab_warning_chat_description": "關閉使用聊天伺候器的分頁?"
+    "gui_close_tab_warning_chat_description": "關閉使用聊天伺候器的分頁?",
+    "gui_chat_mode_explainer": "聊天模式可以在 Tor 瀏覽器中與他人互動<br><br><b>OnionShare 不會儲存對話記錄，一旦關閉 Tor 瀏覽器它就會消失。</b>"
 }
