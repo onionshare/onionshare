@@ -137,7 +137,7 @@ class ChatModeWeb:
                     broadcast=True,
                 )
             else:
-                raise ConnectionRefusedError('You are active from another session!')
+                raise ConnectionRefusedError('Invalid session')
 
         @self.web.socketio.on("text", namespace="/chat")
         def text(message):
