@@ -48,13 +48,17 @@ class ChatModeWeb:
         self.define_routes()
 
     def validate_username(self, username):
-        username = username.strip()
-        return (
-            username
-            and username.isascii()
-            and username not in self.connected_users
-            and len(username) < 128
-        )
+        try:
+            username = username.strip()
+            return (
+                username
+                and username.isascii()
+                and username not in self.connected_users
+                and len(username) < 128
+            )
+        except Exception as e:
+            self.common.log("ChatModeWeb", "validate_username", e)
+            return False
 
     def define_routes(self):
         """
