@@ -49,18 +49,27 @@ class ChatModeWeb:
         self.define_routes()
 
     def remove_unallowed_characters(self, text):
-        allowed_unicode_categories = [
-            'L',    # All letters
-            'N',    # All numbers
-        ]
-        allowed_special_characters = [
-            '-',    # dash
-            '_',    # underscore
-            ' ',    # single space
-        ]
+        """
+        Sanitize username to remove unwanted characters.
+        Allowed characters right now are:
+            - all ASCII numbers
+            - all ASCII letters
+            - dash, underscore and single space
+        """
 
         def allowed_character(ch):
-            return unicodedata.category(ch)[0] in allowed_unicode_categories or ch in allowed_special_characters
+            allowed_unicode_categories = [
+                'L',    # All letters
+                'N',    # All numbers
+            ]
+            allowed_special_characters = [
+                '-',    # dash
+                '_',    # underscore
+                ' ',    # single space
+            ]
+            return (
+                unicodedata.category(ch)[0] in allowed_unicode_categories and ord(ch) < 128
+             ) or ch in allowed_special_characters
 
         return "".join(
             ch for ch in text if allowed_character(ch)
