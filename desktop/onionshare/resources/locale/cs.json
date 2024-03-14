@@ -48,7 +48,7 @@
     "gui_settings_autoupdate_check_button": "Kontrola nové verze",
     "gui_settings_connection_type_bundled_option": "Použít verzi Toru vestavěnou v OnionShare",
     "gui_settings_connection_type_test_button": "Vyzkoušet připojení k Toru",
-    "gui_settings_socks_label": "SOCKS port",
+    "gui_settings_socks_label": "",
     "gui_settings_tor_bridges": "Připojit se pomocí mostu Tor?",
     "gui_add_files": "Přidat soubory",
     "gui_add_folder": "Přidat adresář",
