@@ -5,7 +5,6 @@
     "gui_settings_autoupdate_timestamp_never": "በጭራሽ",
     "gui_settings_theme_label": "ገጽታ",
     "gui_settings_window_title": "ቅንብሮች",
-    "gui_settings_authenticate_password_option": "",
     "gui_quit_warning_cancel": "ሰርዝ",
     "gui_all_modes_history": "ታሪክ",
     "gui_add": "አክል",
@@ -17,6 +16,5 @@
     "gui_tab_name_chat": "Chat",
     "gui_settings_password_label": "የመግቢያ ቃል",
     "gui_settings_button_save": "ያስቀምጡ",
-    "gui_tab_name_share": "ማጋሪያ",
-    "moat_captcha_submit": ""
+    "gui_tab_name_share": "ማጋሪያ"
 }
