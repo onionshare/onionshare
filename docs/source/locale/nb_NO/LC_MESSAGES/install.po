@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-09-05 11:51-0700\n"
-"PO-Revision-Date: 2023-07-11 12:23+0000\n"
+"PO-Revision-Date: 2024-03-14 03:02+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: none\n"
 "Language: nb_NO\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
@@ -302,11 +302,11 @@ msgstr ""
 
 #: ../../source/install.rst:84
 msgid "For Windows::"
-msgstr ""
+msgstr "For Windows::"
 
 #: ../../source/install.rst:88
 msgid "For macOS::"
-msgstr ""
+msgstr "For macOS::"
 
 #: ../../source/install.rst:92
 #, fuzzy
@@ -314,8 +314,9 @@ msgid "For Linux::"
 msgstr "Linux|GNU"
 
 #: ../../source/install.rst:98
+#, fuzzy
 msgid "and for the source file::"
-msgstr ""
+msgstr "og for kildekodefiler::"
 
 #: ../../source/install.rst:102
 msgid "The expected output looks like this::"
