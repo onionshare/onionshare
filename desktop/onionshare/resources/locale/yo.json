@@ -20,5 +20,15 @@
     "gui_remove": "Yokuro",
     "gui_add_folder": "S'afikun folda",
     "gui_add_files": "S'afikun faili",
-    "incorrect_password": "Ashiko oro igbaniwole"
+    "incorrect_password": "Ashiko oro igbaniwole",
+    "gui_settings_password_label": "Password",
+    "gui_settings_language_label": "Èdè",
+    "gui_quit_warning_cancel": "Cancel",
+    "gui_tab_name_chat": "Chat",
+    "gui_all_modes_history": "Ìtàn",
+    "gui_tor_connection_ask_open_settings": "Yes",
+    "moat_captcha_submit": "Submit",
+    "gui_close_tab_warning_cancel": "Cancel",
+    "gui_settings_authenticate_password_option": "Password",
+    "gui_settings_button_cancel": "Cancel"
 }

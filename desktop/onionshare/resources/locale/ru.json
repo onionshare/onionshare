@@ -147,7 +147,7 @@
     "gui_quit_warning_description": "Выйти и закрыть все вкладки, несмотря на то, что в некоторых из них раздаются файлы?",
     "gui_quit_warning_title": "Закрыть OnionShare?",
     "gui_close_tab_warning_cancel": "Отменить",
-    "gui_close_tab_warning_close": "Закрыть",
+    "gui_close_tab_warning_close": "Ок",
     "gui_close_tab_warning_website_description": "Закрыть вкладку, размещающую сайт?",
     "gui_close_tab_warning_receive_description": "Закрыть вкладку, на которой принимаются файлы?",
     "gui_close_tab_warning_share_description": "Закрыть вкладку, отправляющую файлы?",

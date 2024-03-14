@@ -224,7 +224,7 @@
     "moat_captcha_error": "Ufumbuzi usio sahihi. tafadhali jaribu tena.",
     "moat_solution_empty_error": "Weka alama kutoka kwenye picha",
     "mode_tor_not_connected_label": "OnionShare imunganishwa na mtandao wa Tor",
-    "gui_close_tab_warning_close": "Funga",
+    "gui_close_tab_warning_close": "Sawa",
     "gui_tab_name_website": "Tovuti",
     "error_port_not_available": "Sakiti za OnionShare hazipatikani",
     "history_receive_read_message_button": "Soma Ujumbe",

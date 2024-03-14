@@ -203,7 +203,7 @@
     "gui_close_tab_warning_share_description": "Закрыць укладку, з якой адпраўляюцца файлы?",
     "gui_close_tab_warning_receive_description": "Закрыць укладку, на якой атрыманы файлы?",
     "gui_close_tab_warning_website_description": "Закрыць укладку, на якой знаходзіцца сайт?",
-    "gui_close_tab_warning_close": "Закрыць",
+    "gui_close_tab_warning_close": "Ок",
     "gui_close_tab_warning_cancel": "Адмяніць",
     "gui_quit_warning_title": "Выйсці з OnionShare?",
     "gui_quit_warning_description": "Выйсці і закрыць усе ўкладкі, нават калі абагульванне актыўна на некаторых з іх?",

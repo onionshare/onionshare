@@ -1,5 +1,22 @@
 {
     "gui_settings_button_cancel": "ተወው",
     "gui_settings_button_help": "መመሪያ",
-    "gui_tor_connection_ask_open_settings": "አዎ"
+    "gui_tor_connection_ask_open_settings": "አዎ",
+    "gui_settings_autoupdate_timestamp_never": "በጭራሽ",
+    "gui_settings_theme_label": "ገጽታ",
+    "gui_settings_window_title": "ቅንብሮች",
+    "gui_settings_authenticate_password_option": "Password",
+    "gui_quit_warning_cancel": "ሰርዝ",
+    "gui_all_modes_history": "ታሪክ",
+    "gui_add": "አክል",
+    "gui_general_settings_window_title": "ጄኔራል",
+    "gui_close_tab_warning_cancel": "ሰርዝ",
+    "gui_remove": "ያስወግዱ",
+    "gui_settings_language_label": "ቋንቋ",
+    "gui_hide": "ደብቅ",
+    "gui_tab_name_chat": "Chat",
+    "gui_settings_password_label": "Password",
+    "gui_settings_button_save": "ያስቀምጡ",
+    "gui_tab_name_share": "ማጋሪያ",
+    "moat_captcha_submit": "Submit"
 }

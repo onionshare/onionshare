@@ -146,7 +146,7 @@
     "gui_quit_warning_description": "Vill du vsluta och stänga alla flikar, även om delning är aktiv i några av dem?",
     "gui_quit_warning_title": "Avsluta OnionShare?",
     "gui_close_tab_warning_cancel": "Avbryt",
-    "gui_close_tab_warning_close": "Stäng",
+    "gui_close_tab_warning_close": "Ok",
     "gui_close_tab_warning_website_description": "Vill du stänga fliken som är värd för en webbplats?",
     "gui_close_tab_warning_receive_description": "Vill du stänga fliken som tar emot filer?",
     "gui_close_tab_warning_share_description": "Vill du stänga fliken som skickar filer?",
