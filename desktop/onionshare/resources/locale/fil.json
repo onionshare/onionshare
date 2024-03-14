@@ -28,7 +28,7 @@
     "gui_settings_autoupdate_timestamp_never": "Hindi kailanman",
     "gui_settings_language_label": "Wika",
     "gui_settings_theme_label": "Tema",
-    "gui_all_modes_history": "History",
+    "gui_all_modes_history": "",
     "gui_all_modes_clear_history": "Tanggalin Lahat",
     "gui_close_tab_warning_close": "Ok",
     "gui_close_tab_warning_cancel": "Kanselahin",

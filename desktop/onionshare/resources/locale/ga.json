@@ -164,5 +164,7 @@
     "mode_settings_receive_data_dir_browse_button": "Brabhsáil",
     "gui_new_tab_receive_button": "Glac le Comhaid",
     "gui_settings_theme_label": "Téama",
-    "moat_solution_empty_error": "Cuir isteach na carachtair a fheiceann tú sa bpictiúr"
+    "moat_solution_empty_error": "Cuir isteach na carachtair a fheiceann tú sa bpictiúr",
+    "moat_captcha_placeholder": "Cuir isteach na carachtair a fheiceann tú sa bpictiúr",
+    "moat_captcha_label": "Réitigh an CAPTCHA le droichead a iarraidh."
 }
