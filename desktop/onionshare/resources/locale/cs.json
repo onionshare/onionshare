@@ -199,7 +199,7 @@
     "gui_all_modes_progress_eta": "{0:s}, Přibližně: {1:s}, %p%",
     "gui_tab_name_share": "Sdílení",
     "gui_close_tab_warning_receive_description": "Zavřít panel, který přijímá soubory?",
-    "gui_close_tab_warning_close": "Zavřít",
+    "gui_close_tab_warning_close": "Ok",
     "gui_website_mode_no_files": "Zatím nejsou sdíleny žádné webové stránky",
     "gui_receive_mode_no_files": "Zatím nebyly přijaty žádné soubory",
     "gui_close_tab_warning_cancel": "Zrušit",

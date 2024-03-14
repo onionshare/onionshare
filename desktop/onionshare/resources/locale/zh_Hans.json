@@ -145,7 +145,7 @@
     "gui_quit_warning_description": "一些标签页还在共享，是否退出并关闭所有标签页？",
     "gui_quit_warning_title": "退出 OnionShare？",
     "gui_close_tab_warning_cancel": "取消",
-    "gui_close_tab_warning_close": "关闭",
+    "gui_close_tab_warning_close": "确定",
     "gui_close_tab_warning_website_description": "关闭正托管网站的标签页？",
     "gui_close_tab_warning_receive_description": "关闭正在接收文件的标签页？",
     "gui_close_tab_warning_share_description": "关闭正在发送文件的标签页？",

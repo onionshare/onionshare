@@ -145,7 +145,7 @@
     "gui_quit_warning_description": "Sair e fechar todas as abas, embora a partilha de ficheiros esteja ativa em algumas delas?",
     "gui_quit_warning_title": "Sair do OnionShare?",
     "gui_close_tab_warning_cancel": "Cancelar",
-    "gui_close_tab_warning_close": "Fechar",
+    "gui_close_tab_warning_close": "Ok",
     "gui_close_tab_warning_website_description": "Fechar a aba que está hospedando um site?",
     "gui_close_tab_warning_receive_description": "Fechar a aba que está recebendo ficheiros?",
     "gui_close_tab_warning_share_description": "Fechar a aba que está enviando ficheiros?",

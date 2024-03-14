@@ -235,5 +235,9 @@
     "gui_autoconnect_try_again_without_a_bridge": "Prøv igen uden broer",
     "gui_autoconnect_bridge_setting_options": "Indstillinger for broer",
     "waitress_web_server_error": "Der opstod et problem ved start af webserveren",
-    "gui_client_auth_instructions": "Send herefter den private nøgle for at give adgang til din OnionShare-tjeneste:"
+    "gui_client_auth_instructions": "Send herefter den private nøgle for at give adgang til din OnionShare-tjeneste:",
+    "gui_share_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>downloade</b> dine filer med <b>Tor Browser</b>: <img src='{}' />",
+    "gui_chat_url_public_description": "<b>Alle</b> med denne OnionShare-adresse kan <b>deltage i chatrummet</b> med <b>Tor Browser</b>: <img src='{}' />",
+    "gui_website_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>besøge</b> dit websted med <b>Tor Browser</b>: <img src='{}' />",
+    "gui_receive_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>uploade</b> filer til din computer med <b>Tor Browser</b>: <img src='{}' />"
 }

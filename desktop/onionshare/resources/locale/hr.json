@@ -145,7 +145,7 @@
     "gui_quit_warning_description": "Prekinuti i zatvoriti sve kartice, iako je u nekima od njih dijeljenje aktivno?",
     "gui_quit_warning_title": "Prekinuti OnionShare?",
     "gui_close_tab_warning_cancel": "Odustani",
-    "gui_close_tab_warning_close": "Zatvori",
+    "gui_close_tab_warning_close": "U redu",
     "gui_close_tab_warning_website_description": "Zatvoriti karticu koja hostira web mjesto?",
     "gui_close_tab_warning_receive_description": "Zatvoriti karticu koja prima datoteke?",
     "gui_close_tab_warning_share_description": "Zatvoriti karticu koja šalje datoteke?",

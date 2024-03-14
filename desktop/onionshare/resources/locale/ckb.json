@@ -175,5 +175,21 @@
     "error_port_not_available": "Port yê OnionShare tune",
     "gui_rendezvous_cleanup_quit_early": "Zû bigire",
     "gui_rendezvous_cleanup": "Li bendê ne haya kû Tor rêya hatî bikaranîn dîsa bigire ji bo ekîd bike nameyên te serkeftî hatine şandin.\n\nEw dikare hinek xulekan bidome.",
-    "gui_chat_url_description": "<b> Herkesî</b> bi vê navnîşanê OnionShare dikare<b>tevlî vê rûniştinê bibe</b>bi bikaranîna <b> Tor Browser</b>:<img src='{}'/>"
+    "gui_chat_url_description": "<b> Herkesî</b> bi vê navnîşanê OnionShare dikare<b>tevlî vê rûniştinê bibe</b>bi bikaranîna <b> Tor Browser</b>:<img src='{}'/>",
+    "gui_settings_theme_label": "ڕووکار",
+    "gui_settings_theme_light": "ڕووناکی",
+    "gui_settings_theme_dark": "تاریک",
+    "gui_hide": "Hide",
+    "gui_settings_bridge_none_radio_option": "Piran bi kar neyne",
+    "gui_receive_url_public_description": "<b>Her kesekî</b> bi vê malpera OnionShare dikare <b>belgeran li ser komputera te bi kar anîna</b> Tor Broweser <b>bar bike</b>: <img src='{}' />",
+    "gui_chat_url_public_description": "<b> Herkesî</b> bi vê navnîşanê OnionShare dikare<b>tevlî vê rûniştinê bibe</b>bi bikaranîna <b> Tor Browser</b>:<img src='{}'/>",
+    "gui_status_indicator_chat_working": "Destpê dike…",
+    "gui_status_indicator_chat_scheduled": "Pilankirî…",
+    "gui_please_wait_no_button": "Destpê dike…",
+    "gui_share_url_public_description": "<b>Her kesî</b> bi vê malpera OnionShare bikare <b>belgeryên te bi</b> TorBrowser <b>berjêr bike</b>: <img src='{}' />",
+    "gui_website_url_public_description": "<b>Her kesî</b> bi vê malpera OnionShare dikare <b>were li ser</b> malpera te <b>dema TorBrowser bikar tîne</b>: <img src='{}' />",
+    "gui_settings_theme_auto": "خۆکار",
+    "moat_captcha_submit": "پێشکەشکردن",
+    "moat_captcha_reload": "Reload",
+    "gui_general_settings_window_title": "گشتی"
 }
