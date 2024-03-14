@@ -252,5 +252,7 @@
     "mode_settings_autostart_timer_checkbox": "Spustit službu onion v naplánovaný čas",
     "settings_error_bundled_tor_not_supported": "Používání verze Toru dodávané se službou OnionShare nefunguje v režimu pro vývojáře v systémech Windows a macOS.",
     "gui_close_tab_warning_chat_description": "Zavřít kartu, která hostuje chat server?",
-    "waitress_web_server_error": "Došlo k chybě při spuštění webového serveru"
+    "waitress_web_server_error": "Došlo k chybě při spuštění webového serveru",
+    "gui_settings_socks_label": "SOCKS port",
+    "gui_chat_mode_explainer": "Režim chatu umožňuje interaktivně chatovat s ostatními v rámci Prohlížeče Tor.<br><br><b>Historie chatu není uložena v OnionShare. Historie chatu zmizí, když zavřete Prohlížeč Tor.</b>"
 }
