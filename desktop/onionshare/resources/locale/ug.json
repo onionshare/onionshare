@@ -1,1 +1,23 @@
-{}
+{
+    "gui_settings_button_cancel": "ۋاز كەچ",
+    "gui_settings_button_save": "ساقلاش",
+    "gui_hide": "يوشۇرۇن",
+    "gui_add": "قوش",
+    "gui_remove": "ئۆچۈر",
+    "gui_settings_window_title": "تەڭشەك",
+    "gui_general_settings_window_title": "ئادەتتىكى",
+    "gui_settings_theme_light": "ئاق",
+    "gui_settings_theme_label": "ئۇسلۇب",
+    "gui_settings_autoupdate_timestamp_never": "ھەرگىز",
+    "gui_settings_authenticate_password_option": "پارول",
+    "gui_settings_password_label": "پارول",
+    "gui_tor_connection_ask_open_settings": "ھەئە",
+    "gui_settings_language_label": "تىل",
+    "gui_all_modes_history": "نەشىر تارىخى",
+    "gui_tab_name_share": "ھەمبەھىر",
+    "gui_tab_name_website": "تورتۇرا",
+    "gui_close_tab_warning_cancel": "ۋاز كەچ",
+    "gui_quit_warning_cancel": "ۋاز كەچ",
+    "mode_settings_receive_data_dir_browse_button": "كۆرۈش",
+    "gui_status_indicator_share_started": "ئورتاقلىشىش"
+}

@@ -1,1 +1,25 @@
-{}
+{
+    "gui_all_modes_history": "Kasaysayan",
+    "gui_tab_name_share": "I-share",
+    "gui_add": "Magdagdag",
+    "gui_remove": "Tanggalin",
+    "gui_choose_items": "Pumili",
+    "gui_hide": "Itago",
+    "gui_close_tab_warning_cancel": "Kanselahin",
+    "gui_quit_warning_cancel": "Kanselahin",
+    "mode_settings_receive_data_dir_browse_button": "Mag-browse",
+    "moat_captcha_submit": "I-sumite",
+    "gui_settings_theme_auto": "Awtomatik",
+    "gui_settings_window_title": "Mga Setting",
+    "gui_settings_button_help": "Tulong",
+    "gui_settings_autoupdate_timestamp_never": "Di kailanman",
+    "gui_settings_language_label": "Wika",
+    "gui_settings_button_save": "I-save",
+    "gui_settings_button_cancel": "Kanselahin",
+    "gui_settings_theme_dark": "Madilim",
+    "gui_general_settings_window_title": "Pangkalahatan",
+    "gui_settings_authenticate_password_option": "Password",
+    "gui_settings_password_label": "Password",
+    "gui_settings_theme_light": "Maliwanag na tema",
+    "gui_tab_name_website": "Pook-sapot"
+}

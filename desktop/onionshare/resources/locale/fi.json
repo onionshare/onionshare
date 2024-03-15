@@ -141,7 +141,7 @@
     "gui_quit_warning_cancel": "Peruuta",
     "gui_quit_warning_title": "Lopetetaanko OnionShare?",
     "gui_close_tab_warning_cancel": "Peruuta",
-    "gui_close_tab_warning_close": "Sulje",
+    "gui_close_tab_warning_close": "OK",
     "gui_close_tab_warning_title": "Suljetaanko välilehti?",
     "gui_new_tab_website_button": "Julkaise nettisivu",
     "gui_new_tab_receive_button": "Vastaanota tiedostoja",
