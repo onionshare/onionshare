@@ -48,7 +48,6 @@
     "gui_settings_autoupdate_check_button": "Kontrola nové verze",
     "gui_settings_connection_type_bundled_option": "Použít verzi Toru vestavěnou v OnionShare",
     "gui_settings_connection_type_test_button": "Vyzkoušet připojení k Toru",
-    "gui_settings_socks_label": "SOCKS port",
     "gui_settings_tor_bridges": "Připojit se pomocí mostu Tor?",
     "gui_add_files": "Přidat soubory",
     "gui_add_folder": "Přidat adresář",
@@ -199,7 +198,7 @@
     "gui_all_modes_progress_eta": "{0:s}, Přibližně: {1:s}, %p%",
     "gui_tab_name_share": "Sdílení",
     "gui_close_tab_warning_receive_description": "Zavřít panel, který přijímá soubory?",
-    "gui_close_tab_warning_close": "Zavřít",
+    "gui_close_tab_warning_close": "Ok",
     "gui_website_mode_no_files": "Zatím nejsou sdíleny žádné webové stránky",
     "gui_receive_mode_no_files": "Zatím nebyly přijaty žádné soubory",
     "gui_close_tab_warning_cancel": "Zrušit",
@@ -253,5 +252,7 @@
     "mode_settings_autostart_timer_checkbox": "Spustit službu onion v naplánovaný čas",
     "settings_error_bundled_tor_not_supported": "Používání verze Toru dodávané se službou OnionShare nefunguje v režimu pro vývojáře v systémech Windows a macOS.",
     "gui_close_tab_warning_chat_description": "Zavřít kartu, která hostuje chat server?",
-    "waitress_web_server_error": "Došlo k chybě při spuštění webového serveru"
+    "waitress_web_server_error": "Došlo k chybě při spuštění webového serveru",
+    "gui_settings_socks_label": "SOCKS port",
+    "gui_chat_mode_explainer": "Režim chatu umožňuje interaktivně chatovat s ostatními v rámci Prohlížeče Tor.<br><br><b>Historie chatu není uložena v OnionShare. Historie chatu zmizí, když zavřete Prohlížeč Tor.</b>"
 }

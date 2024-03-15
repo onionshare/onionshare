@@ -152,7 +152,7 @@
     "mode_settings_advanced_toggle_hide": "Sakrij napredne postavke",
     "mode_settings_advanced_toggle_show": "Prikaži napredne postavke",
     "gui_quit_warning_title": "Da li ste sigurni?",
-    "gui_close_tab_warning_close": "Zatvori",
+    "gui_close_tab_warning_close": "U redu",
     "gui_close_tab_warning_title": "Da li ste sigurni?",
     "gui_tab_name_chat": "Ćaskanje",
     "gui_tab_name_website": "Veb sajt",
@@ -185,7 +185,7 @@
     "gui_settings_controller_extras_label": "Tor Podešenja",
     "gui_settings_bridge_use_checkbox": "Koristite most",
     "gui_settings_bridge_radio_builtin": "Odaberite most",
-    "gui_settings_bridge_none_radio_option": "Ne koristi most",
+    "gui_settings_bridge_none_radio_option": "Ne koristi mostove",
     "gui_settings_bridge_moat_radio_option": "Zatražite most od torproject.org",
     "gui_settings_bridge_moat_button": "Zatražite novi most",
     "gui_settings_bridge_custom_radio_option": "Obezbedite most za koji ste saznali iz pouzdanog izvora",
@@ -215,5 +215,11 @@
     "history_receive_read_message_button": "Pročitaj poruku",
     "moat_captcha_error": "Rješenje nije ispravno. Molimo pokušajte ponovo.",
     "moat_solution_empty_error": "Morate uneti znakove sa slike",
-    "mode_tor_not_connected_label": "OnionShare nije povezan na Tor mrežu"
+    "mode_tor_not_connected_label": "OnionShare nije povezan na Tor mrežu",
+    "gui_settings_theme_dark": "Tamna",
+    "gui_status_indicator_chat_working": "Pokretanje …",
+    "gui_status_indicator_chat_scheduled": "Planirano…",
+    "gui_settings_theme_label": "Tema",
+    "gui_settings_theme_light": "Svetla",
+    "gui_general_settings_window_title": "Generalno"
 }

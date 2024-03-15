@@ -20,5 +20,8 @@
     "gui_remove": "Yokuro",
     "gui_add_folder": "S'afikun folda",
     "gui_add_files": "S'afikun faili",
-    "incorrect_password": "Ashiko oro igbaniwole"
+    "incorrect_password": "Ashiko oro igbaniwole",
+    "gui_settings_language_label": "Èdè",
+    "gui_tab_name_chat": "Chat",
+    "gui_all_modes_history": "Ìtàn"
 }

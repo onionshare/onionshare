@@ -140,7 +140,7 @@
     "gui_close_tab_warning_share_description": "Uždaryti skirtuką, iš kurio siunčiami failai?",
     "gui_close_tab_warning_receive_description": "Uždaryti skirtuką, kuriame gaunami failai?",
     "gui_close_tab_warning_website_description": "Uždaryti skirtuką, kuriame talpinama svetainė?",
-    "gui_close_tab_warning_close": "Užverti",
+    "gui_close_tab_warning_close": "Gerai",
     "gui_close_tab_warning_cancel": "Atsisakyti",
     "gui_quit_warning_title": "Išeiti iš „OnionShare“?",
     "gui_quit_warning_description": "Išeiti ir uždaryti visus skirtukus, net jei kai kuriuose iš jų yra aktyvus bendrinimas?",
