@@ -12,7 +12,7 @@ languages = [
     ("Deutsch", "de"),  # German
     ("Ελληνικά", "el"),  # Greek
     # ("Italiano", "it"),  # Italian
-    # ("日本語", "ja"),  # Japanese
+    ("日本語", "ja"),  # Japanese
     # ("ភាសាខ្មែរ", "km"),  # Khmer (Central)
     # ("Norsk Bokmål", "nb_NO"),  # Norwegian Bokmål
     ("Polish", "pl"),  # Polish
