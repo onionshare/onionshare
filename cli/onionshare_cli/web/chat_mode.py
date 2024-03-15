@@ -17,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import unicodedata
 
 from flask import request, render_template, make_response, jsonify, session
 from flask_socketio import emit, ConnectionRefusedError
@@ -47,11 +48,37 @@ class ChatModeWeb:
 
         self.define_routes()
 
+    def remove_unallowed_characters(self, text):
+        """
+        Sanitize username to remove unwanted characters.
+        Allowed characters right now are:
+            - all ASCII numbers
+            - all ASCII letters
+            - dash, underscore and single space
+        """
+
+        def allowed_character(ch):
+            allowed_unicode_categories = [
+                'L',    # All letters
+                'N',    # All numbers
+            ]
+            allowed_special_characters = [
+                '-',    # dash
+                '_',    # underscore
+                ' ',    # single space
+            ]
+            return (
+                unicodedata.category(ch)[0] in allowed_unicode_categories and ord(ch) < 128
+             ) or ch in allowed_special_characters
+
+        return "".join(
+            ch for ch in text if allowed_character(ch)
+        )
+
     def validate_username(self, username):
-        username = username.strip()
+        username = self.remove_unallowed_characters(username.strip())
         return (
             username
-            and username.isascii()
             and username not in self.connected_users
             and len(username) < 128
         )
