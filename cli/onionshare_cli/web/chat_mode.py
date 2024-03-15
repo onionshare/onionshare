@@ -108,13 +108,17 @@ class ChatModeWeb:
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
             return render_template(
-                    "chat.html",
-                    static_url_path=self.web.static_url_path,
-                    username=session.get("name"),
-                    title=self.web.settings.get("general", "title"),
+                "chat.html",
+                static_url_path=self.web.static_url_path,
+                username=session.get("name"),
+                title=self.web.settings.get("general", "title"),
             )
 
-        @self.web.app.route("/update-session-username", methods=["POST"], provide_automatic_options=False)
+        @self.web.app.route(
+            "/update-session-username",
+            methods=["POST"],
+            provide_automatic_options=False,
+        )
         def update_session_username():
             history_id = self.cur_history_id
             data = request.get_json()
@@ -153,6 +157,8 @@ class ChatModeWeb:
             A status message is broadcast to all people in the room."""
             if self.validate_username(session.get("name")):
                 self.connected_users.append(session.get("name"))
+                # Store the session id for the user
+                session["socketio_session_id"] = request.sid
                 emit(
                     "status",
                     {
@@ -184,9 +190,9 @@ class ChatModeWeb:
             new_name = message.get("username", "").strip()
             if self.validate_username(new_name):
                 session["name"] = new_name
-                self.connected_users[
-                    self.connected_users.index(current_name)
-                ] = session.get("name")
+                self.connected_users[self.connected_users.index(current_name)] = (
+                    session.get("name")
+                )
                 emit(
                     "status",
                     {
@@ -209,13 +215,23 @@ class ChatModeWeb:
         def disconnect():
             """Sent by clients when they disconnect.
             A status message is broadcast to all people in the server."""
+            user_already_disconnected = False
             if session.get("name") in self.connected_users:
                 self.connected_users.remove(session.get("name"))
-            emit(
-                "status",
-                {
-                    "msg": "{} has left the room.".format(session.get("name")),
-                    "connected_users": self.connected_users,
-                },
-                broadcast=True,
+            else:
+                user_already_disconnected = True
+
+            # Forcefully disconnect the user
+            self.web.socketio.server.disconnect(
+                sid=session.get("socketio_session_id"), namespace="/chat"
             )
+
+            if not user_already_disconnected:
+                emit(
+                    "status",
+                    {
+                        "msg": "{} has left the room.".format(session.get("name")),
+                        "connected_users": self.connected_users,
+                    },
+                    broadcast=True,
+                )
