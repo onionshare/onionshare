@@ -53,7 +53,7 @@
       <p><input type="file" id="file-select" name="file[]" multiple /></p>
       {% endif %}
       {% if not disable_text %}
-      <p><textarea id="text" name="text" placeholder="Write a message"></textarea></p>
+      <p><textarea id="text" name="text" placeholder="Write a message (max length 524288 characters)" maxlength="524288"></textarea></p>
       {% endif %}
       <p><button type="submit" id="send-button" class="button">Submit</button></p>
     </form>
