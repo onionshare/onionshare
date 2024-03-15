@@ -76,12 +76,16 @@ class ChatModeWeb:
         )
 
     def validate_username(self, username):
-        username = self.remove_unallowed_characters(username.strip())
-        return (
-            username
-            and username not in self.connected_users
-            and len(username) < 128
-        )
+        try:
+            username = self.remove_unallowed_characters(username.strip())
+            return (
+                username
+                and username not in self.connected_users
+                and len(username) < 128
+            )
+        except Exception as e:
+            self.common.log("ChatModeWeb", "validate_username", e)
+            return False
 
     def define_routes(self):
         """
@@ -160,7 +164,7 @@ class ChatModeWeb:
                     broadcast=True,
                 )
             else:
-                raise ConnectionRefusedError('You are active from another session!')
+                raise ConnectionRefusedError('Invalid session')
 
         @self.web.socketio.on("text", namespace="/chat")
         def text(message):
