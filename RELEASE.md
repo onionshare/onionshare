@@ -267,9 +267,7 @@ export APPLE_PASSWORD="changeme" # app-specific Apple ID password
 export VERSION=$(cat ../cli/onionshare_cli/resources/version.txt)
 
 # Notarize it
-xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "$APPLE_PASSWORD" --file dist/OnionShare-$VERSION.dmg
-# Wait for it to get approved, check status with
-xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "$APPLE_PASSWORD"
+xcrun notarytool submit --apple-id "micah@micahflee.com" --team-id N9B95FDWH4 --password "$APPLE_PASSWORD" --progress --wait dist/OnionShare-$VERSION.dmg
 # After it's approved, staple the ticket
 xcrun stapler staple dist/OnionShare-$VERSION.dmg
 ```
