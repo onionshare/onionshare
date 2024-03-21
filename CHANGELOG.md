@@ -1,5 +1,13 @@
 # OnionShare Changelog
 
+## 2.6.2
+
+* Security fix: Removes newlines from History item path
+* Security fix: Set a maximum length of 524288 characters for text messages in Receive mode
+* Security fix: Allows only specific ASCII characters for usernames and removes control characters
+* Security fix: Forcefully disconnect user from chat on `disconnect` event
+* Security fix: Handle username validation excpeptions to prevent silent joining
+
 ## 2.6.1
 
 * Release updates: Automate builds with CI, make just 64-bit Windows release, make a single universal2 release for both Intel and Apple Silicon macOS
