@@ -17,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import unicodedata
 
 from flask import request, render_template, make_response, jsonify, session
 from flask_socketio import emit, ConnectionRefusedError
@@ -47,14 +48,44 @@ class ChatModeWeb:
 
         self.define_routes()
 
-    def validate_username(self, username):
-        username = username.strip()
-        return (
-            username
-            and username.isascii()
-            and username not in self.connected_users
-            and len(username) < 128
+    def remove_unallowed_characters(self, text):
+        """
+        Sanitize username to remove unwanted characters.
+        Allowed characters right now are:
+            - all ASCII numbers
+            - all ASCII letters
+            - dash, underscore and single space
+        """
+
+        def allowed_character(ch):
+            allowed_unicode_categories = [
+                'L',    # All letters
+                'N',    # All numbers
+            ]
+            allowed_special_characters = [
+                '-',    # dash
+                '_',    # underscore
+                ' ',    # single space
+            ]
+            return (
+                unicodedata.category(ch)[0] in allowed_unicode_categories and ord(ch) < 128
+             ) or ch in allowed_special_characters
+
+        return "".join(
+            ch for ch in text if allowed_character(ch)
         )
+
+    def validate_username(self, username):
+        try:
+            username = self.remove_unallowed_characters(username.strip())
+            return (
+                username
+                and username not in self.connected_users
+                and len(username) < 128
+            )
+        except Exception as e:
+            self.common.log("ChatModeWeb", "validate_username", e)
+            return False
 
     def define_routes(self):
         """
@@ -77,13 +108,17 @@ class ChatModeWeb:
 
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
             return render_template(
-                    "chat.html",
-                    static_url_path=self.web.static_url_path,
-                    username=session.get("name"),
-                    title=self.web.settings.get("general", "title"),
+                "chat.html",
+                static_url_path=self.web.static_url_path,
+                username=session.get("name"),
+                title=self.web.settings.get("general", "title"),
             )
 
-        @self.web.app.route("/update-session-username", methods=["POST"], provide_automatic_options=False)
+        @self.web.app.route(
+            "/update-session-username",
+            methods=["POST"],
+            provide_automatic_options=False,
+        )
         def update_session_username():
             history_id = self.cur_history_id
             data = request.get_json()
@@ -122,6 +157,8 @@ class ChatModeWeb:
             A status message is broadcast to all people in the room."""
             if self.validate_username(session.get("name")):
                 self.connected_users.append(session.get("name"))
+                # Store the session id for the user
+                session["socketio_session_id"] = request.sid
                 emit(
                     "status",
                     {
@@ -133,7 +170,7 @@ class ChatModeWeb:
                     broadcast=True,
                 )
             else:
-                raise ConnectionRefusedError('You are active from another session!')
+                raise ConnectionRefusedError('Invalid session')
 
         @self.web.socketio.on("text", namespace="/chat")
         def text(message):
@@ -153,9 +190,9 @@ class ChatModeWeb:
             new_name = message.get("username", "").strip()
             if self.validate_username(new_name):
                 session["name"] = new_name
-                self.connected_users[
-                    self.connected_users.index(current_name)
-                ] = session.get("name")
+                self.connected_users[self.connected_users.index(current_name)] = (
+                    session.get("name")
+                )
                 emit(
                     "status",
                     {
@@ -178,13 +215,23 @@ class ChatModeWeb:
         def disconnect():
             """Sent by clients when they disconnect.
             A status message is broadcast to all people in the server."""
+            user_already_disconnected = False
             if session.get("name") in self.connected_users:
                 self.connected_users.remove(session.get("name"))
-            emit(
-                "status",
-                {
-                    "msg": "{} has left the room.".format(session.get("name")),
-                    "connected_users": self.connected_users,
-                },
-                broadcast=True,
+            else:
+                user_already_disconnected = True
+
+            # Forcefully disconnect the user
+            self.web.socketio.server.disconnect(
+                sid=session.get("socketio_session_id"), namespace="/chat"
             )
+
+            if not user_already_disconnected:
+                emit(
+                    "status",
+                    {
+                        "msg": "{} has left the room.".format(session.get("name")),
+                        "connected_users": self.connected_users,
+                    },
+                    broadcast=True,
+                )
