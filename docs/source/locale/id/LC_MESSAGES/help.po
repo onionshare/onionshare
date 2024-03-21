@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../../source/help.rst:2
 msgid "Getting Help"
-msgstr ""
+msgstr "Bantuan"
 
 #: ../../source/help.rst:5
 msgid "Read This Website"

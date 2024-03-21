@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr ""
+msgstr "Menghubungkan ke Tor"
 
 #: ../../source/tor.rst:4
 msgid ""
