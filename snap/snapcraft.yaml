@@ -1,6 +1,6 @@
 name: onionshare
 base: core22
-version: "2.6.1"
+version: "2.6.2"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
   OnionShare lets you securely and anonymously send and receive files. It works by starting

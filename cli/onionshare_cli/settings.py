@@ -66,7 +66,7 @@ class Settings(object):
             "zh_Hans": "中文 (简体)",  # Simplified Chinese
             "hr": "Hrvatski",  # Croatian
             "cs": "čeština",  # Czech
-            # "da": "Dansk",  # Danish
+            "da": "Dansk",  # Danish
             # "nl": "Nederlands",  # Dutch
             "en": "English",  # English
             "fi": "Suomi",  # Finnish

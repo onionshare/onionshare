@@ -169,7 +169,7 @@ Create a Windows 11 VM, and set it up like this:
 - Download and install [gpg4win](https://gpg4win.org/). Add `C:\Program Files (x86)\GnuPG\bin` to your path.
 - Install the Windows SDK from here: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/.
 - Go to https://dotnet.microsoft.com/download/dotnet-framework and download and install .NET Framework 3.5 SP1 Runtime. I downloaded `dotnetfx35.exe`.
-- Go to https://wixtoolset.org/docs/wix3/ and download and install WiX toolset. I downloaded `wix311.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.11\bin` to the path.
+- Go to https://wixtoolset.org/docs/wix3/ and download and install WiX toolset. I downloaded `wix314.exe`. Add `C:\Program Files (x86)\WiX Toolset v3.14\bin` to the path.
 
 Clone the OnionShare git repo and checkout the release tag.
 
@@ -267,9 +267,7 @@ export APPLE_PASSWORD="changeme" # app-specific Apple ID password
 export VERSION=$(cat ../cli/onionshare_cli/resources/version.txt)
 
 # Notarize it
-xcrun altool --notarize-app --primary-bundle-id "com.micahflee.onionshare" -u "micah@micahflee.com" -p "$APPLE_PASSWORD" --file dist/OnionShare-$VERSION.dmg
-# Wait for it to get approved, check status with
-xcrun altool --notarization-history 0 -u "micah@micahflee.com" -p "$APPLE_PASSWORD"
+xcrun notarytool submit --apple-id "micah@micahflee.com" --team-id N9B95FDWH4 --password "$APPLE_PASSWORD" --progress --wait dist/OnionShare-$VERSION.dmg
 # After it's approved, staple the ticket
 xcrun stapler staple dist/OnionShare-$VERSION.dmg
 ```
@@ -290,7 +288,6 @@ After following all of the previous steps, gather these files:
 
 - `onionshare_${VERSION}_amd64.snap`
 - `OnionShare.flatpak` (rename to `OnionShare-$VERSION.flatpak`)
-- `OnionShare-win32-$VERSION.msi`
 - `OnionShare-win64-$VERSION.msi`
 - `OnionShare-$VERSION.dmg`
 - `onionshare-$VERSION.tar.gz`
