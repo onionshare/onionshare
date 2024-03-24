@@ -1,6 +1,6 @@
 {
     "not_a_readable_file": "{0:s}は読み込めません。",
-    "other_page_loaded": "アドレスをロードしました",
+    "other_page_loaded": "アドレスを読み込みました",
     "close_on_autostop_timer": "自動タイマーがタイムアウトしたため停止しました",
     "closing_automatically": "転送を完了したため停止しました",
     "large_filesize": "注意：大きなファイルを送信するに数時間かかる可能性があります",
@@ -22,7 +22,7 @@
     "gui_copied_url": "OnionShareのアドレスをクリップボードへコピーしました",
     "gui_please_wait": "開始しています… クリックでキャンセルします。",
     "gui_quit_warning_quit": "終了",
-    "zip_progress_bar_format": "圧縮中： %p%",
+    "zip_progress_bar_format": "圧縮しています：%p%",
     "gui_settings_window_title": "設定",
     "gui_settings_autoupdate_label": "新しいバージョンを確認",
     "gui_settings_autoupdate_option": "新しいバージョンがある場合に通知",

@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../../source/security.rst:2
 msgid "Security Design"
-msgstr ""
+msgstr "Desain Keamanan"
 
 #: ../../source/security.rst:4
 msgid "Read :ref:`how_it_works` first to get a handle on how OnionShare works."
