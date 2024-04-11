@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../../source/_templates/versions.html:10
 msgid "Versions"
-msgstr ""
+msgstr "Versi"
 
 #: ../../source/_templates/versions.html:18
 msgid "Languages"
