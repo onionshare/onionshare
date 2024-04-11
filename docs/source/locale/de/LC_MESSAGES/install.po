@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-02-18 10:54+0000\n"
-"Last-Translator: curtisb <curtisbaltimore@protonmail.com>\n"
+"PO-Revision-Date: 2024-04-03 16:02+0000\n"
+"Last-Translator: proxycon <lerosoft@live.de>\n"
 "Language-Team: de <LL@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -36,42 +37,50 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Mobile"
-msgstr ""
+msgstr "Mobilgeräte"
 
 #: ../../source/install.rst:14
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr ""
+"Du kannst OnionShare für Mobilgeräte über die folgenden Links herunterladen"
 
 #: ../../source/install.rst:18
+#, fuzzy
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../../source/install.rst:17
+#, fuzzy
 msgid ""
 "Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
 "android"
 msgstr ""
+"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
+"android"
 
 #: ../../source/install.rst:18
+#, fuzzy
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
-msgstr ""
+msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
 #: ../../source/install.rst:24
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #: ../../source/install.rst:21
 msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
-msgstr ""
+msgstr "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
 
 #: ../../source/install.rst:22
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 
 #: ../../source/install.rst:23
+#, fuzzy
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "Testflight: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
@@ -257,7 +266,7 @@ msgstr ""
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #: ../../source/install.rst:77
 msgid ""
@@ -267,6 +276,11 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
+"Auch wenn OnionShare nicht offiziell dafür entwickelt wurde, kann es auch "
+"auf `FreeBSD <https://freebsd.org/>`_ installiert werden. Es ist als über "
+"dessen Port Collection oder als vor-compiliertes Packet verfügbar. "
+"OnionShare Installationen auf einen FreeBSD Systemen werden **NICHT** "
+"offiziell vom OnionShare Team unterstützt."
 
 #: ../../source/install.rst:79
 msgid ""
