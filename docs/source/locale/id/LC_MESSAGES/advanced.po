@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
-msgstr ""
+msgstr "Penggunaan Tingkat Lanjut"
 
 #: ../../source/advanced.rst:7
 msgid "Save Tabs"
