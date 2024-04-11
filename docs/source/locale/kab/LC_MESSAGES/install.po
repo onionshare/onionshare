@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2023-09-05 11:51-0700\n"
-"PO-Revision-Date: 2024-03-08 14:02+0000\n"
+"PO-Revision-Date: 2024-03-16 16:27+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: none\n"
 "Language: kab\n"
@@ -34,7 +34,7 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:14
 msgid "There are various ways to install OnionShare for Linux, but the recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap <https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll always use the newest version and run OnionShare inside of a sandbox."
@@ -47,10 +47,12 @@ msgstr ""
 #: ../../source/install.rst:19
 msgid "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org.onionshare.OnionShare"
 msgstr ""
+"**Asebded n OnionShare s Flatpak**: https://flathub.org/apps/details/org."
+"onionshare.OnionShare"
 
 #: ../../source/install.rst:21
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
-msgstr ""
+msgstr "**Asebded n OnionShare s Snapcraft**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:23
 msgid "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` packages from https://onionshare.org/dist/ if you prefer."
@@ -67,6 +69,7 @@ msgstr ""
 #: ../../source/install.rst:30
 msgid "Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
+"Ssebded Flatpak s uḍfar n yiwellihen deg tansa https://flatpak.org/setup/."
 
 #: ../../source/install.rst:31
 msgid "Add the Flathub repository by running ``flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo``. Even though you won't be downloading OnionShare from Flathub, OnionShare depends on some packages that are only available there."
@@ -146,7 +149,7 @@ msgstr ""
 
 #: ../../source/install.rst:74
 msgid "Signatures"
-msgstr ""
+msgstr "Izmulen"
 
 #: ../../source/install.rst:76
 msgid "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare. You can also find them on the `GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
