@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-02-24 22:01+0000\n"
+"PO-Revision-Date: 2024-03-22 16:07+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -36,42 +37,48 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Mobile"
-msgstr ""
+msgstr "Móvil"
 
 #: ../../source/install.rst:14
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr ""
+"Puede descargar OnionShare para dispositivos móviles desde los siguientes "
+"enlaces"
 
 #: ../../source/install.rst:18
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
 "Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
 "android"
 msgstr ""
+"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
+"android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
-msgstr ""
+msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
 #: ../../source/install.rst:24
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #: ../../source/install.rst:21
 msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
-msgstr ""
+msgstr "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
 
 #: ../../source/install.rst:22
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"Descarga directa del IPA: https://github.com/onionshare/onionshare-ios/"
+"releases"
 
 #: ../../source/install.rst:23
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "Testflight: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
@@ -251,7 +258,7 @@ msgstr ""
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #: ../../source/install.rst:77
 msgid ""
@@ -261,6 +268,12 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
+"Aunque no se ha desarrollado oficialmente para esta plataforma, OnionShare "
+"también puede instalarse en `FreeBSD <https://freebsd.org/>`_. Está "
+"disponible a través de su colección de puertos o como paquete preconstruido. "
+"Si opta por instalar y utilizar OnionShare en un sistema operativo FreeBSD, "
+"tenga en cuenta que **NO** está soportado oficialmente por el proyecto "
+"OnionShare."
 
 #: ../../source/install.rst:79
 msgid ""
@@ -271,19 +284,24 @@ msgid ""
 "you wish to check changes related to this platform, please refer to the "
 "following resources:"
 msgstr ""
+"Aunque no son ofrecidos ni mantenidos oficialmente por los desarrolladores "
+"de OnionShare, los paquetes y adaptaciones de FreeBSD obtienen y verifican "
+"los códigos fuente del repositorio oficial de OnionShare (o sus paquetes de "
+"lanzamiento oficiales de `PyPI <https://pypi.org/project/onionshare-cli/>`_)"
+". Si desea consultar los cambios relacionados con esta plataforma, consulte "
+"los siguientes recursos:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
-msgstr ""
+msgstr "https://cgit.freebsd.org/ports/log/www/onionshare"
 
 #: ../../source/install.rst:82
 msgid "https://www.freshports.org/www/onionshare"
-msgstr ""
+msgstr "https://www.freshports.org/www/onionshare"
 
 #: ../../source/install.rst:85
-#, fuzzy
 msgid "Manual pkg Installation"
-msgstr "Instalación manual con Flatpak"
+msgstr "Instalación manual del pkg"
 
 #: ../../source/install.rst:87
 msgid ""
@@ -291,6 +309,9 @@ msgid ""
 "``pyXY`` specifying the version of Python the package was built for. So, in "
 "order to install OnionShare for Python 3.9, use::"
 msgstr ""
+"Para instalar el paquete binario, use ``pkg install pyXY-onionshare``, con "
+"``pyXY`` especificando la versión de Python para la que se compiló el "
+"paquete. Por lo tanto, para instalar OnionShare para Python 3.9, use::"
 
 #: ../../source/install.rst:91
 msgid ""
@@ -298,6 +319,9 @@ msgid ""
 "built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
 "want to install that version."
 msgstr ""
+"También hay una versión **sólo línea de comandos** de OnionShare disponible "
+"como paquete pre-compilado. Reemplace ``py39-onionshare`` con ``py39"
+"-onionshare-cli`` si desea instalar esa versión."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -305,11 +329,13 @@ msgid ""
 "please refer to its `official Handbook section about pkg <https://docs."
 "freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
+"Para obtener información adicional y detalles sobre los paquetes "
+"prediseñados de FreeBSD, consulte su ` Sección oficial del manual sobre el "
+"paquete <https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_ ."
 
 #: ../../source/install.rst:96
-#, fuzzy
 msgid "Manual port Installation"
-msgstr "Instalación manual de Snapcraft"
+msgstr "Instalación manual del puerto"
 
 #: ../../source/install.rst:98
 msgid ""
@@ -317,6 +343,9 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
+"Para instalar el puerto de FreeBSD, cambie de directorio a la `colección de "
+"puertos <https://freebsd.org/ports/>`_ que habrá comprobado antes y ejecute "
+"lo siguiente::"
 
 #: ../../source/install.rst:102
 msgid ""
@@ -324,6 +353,9 @@ msgid ""
 "only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
 "cli`` if you want to install that version."
 msgstr ""
+"La colección de puertos también ofrece un puerto dedicado para la versión **"
+"Sólo línea de comandos** de OnionShare. Sustituye ``www/onionshare`` por ``"
+"www/onionshare-cli`` si quieres instalar esa versión."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -331,6 +363,9 @@ msgid ""
 "please refer to its `official Handbook section about ports <https://docs."
 "freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
+"Para más información y detalles sobre la colección de puertos de FreeBSD, "
+"consulte su `sección oficial del manual de puertos <https://docs.freebsd.org/"
+"en/books/handbook/ports/#ports-using>`_."
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
@@ -360,37 +395,41 @@ msgid ""
 "particular release. Following are the informations of the core developers of "
 "OnionShare:"
 msgstr ""
+"Los paquetes están firmados por el desarrollador responsable de cada "
+"versión. A continuación se muestra la información de los desarrolladores "
+"principales de OnionShare:"
 
 #: ../../source/install.rst:122
 msgid "Micah Lee:"
-msgstr ""
+msgstr "Micah Lee:"
 
 #: ../../source/install.rst:121
 msgid ""
 "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 msgstr ""
+"Huella digital de la clave pública PGP "
+"``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
-#, fuzzy
 msgid ""
 "You can download Micah's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Los paquetes están firmados por Micah Lee, el desarrollador principal, "
-"usando su clave pública PGP con huella digital "
-"``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Puedes descargar la clave de "
-"Micah `desde el servidor de llaves keys.openpgp.org <https://keys.openpgp."
-"org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Puedes descargar la clave de Micah `desde el servidor de claves "
+"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:126
 msgid "Saptak Sengupta:"
-msgstr ""
+msgstr "Saptak Sengupta:"
 
 #: ../../source/install.rst:125
 msgid ""
 "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 msgstr ""
+"Huella digital de la clave pública PGP "
+"``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
 msgid ""
@@ -398,6 +437,9 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
+"Puede descargar la clave de Saptak `desde el servidor de claves "
+"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
 msgid ""
@@ -431,15 +473,14 @@ msgid "Verifying"
 msgstr "Verificando"
 
 #: ../../source/install.rst:139
-#, fuzzy
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
-"Una vez que hayas importado la clave pública de Micah en tu llavero de "
-"GnuPG, descargado el binario y la firma ``.asc``, puedes verificar el "
-"binario en un terminal como este:"
+"Una vez que haya importado las claves públicas de los desarrolladores del "
+"núcleo en su llavero GnuPG, descargado el binario y la firma ``.asc``, puede "
+"verificar el binario en un terminal como este:"
 
 #: ../../source/install.rst:141
 msgid "For Windows::"
