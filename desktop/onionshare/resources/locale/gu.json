@@ -35,5 +35,6 @@
     "gui_close_tab_warning_cancel": "રદ કરો",
     "gui_quit_warning_cancel": "રદ કરો",
     "gui_settings_theme_light": "પ્રકાશ",
-    "gui_settings_theme_dark": "અંધારિયું"
+    "gui_settings_theme_dark": "અંધારિયું",
+    "gui_hide": "છુપાવો"
 }

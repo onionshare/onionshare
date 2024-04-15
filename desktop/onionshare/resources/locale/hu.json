@@ -107,5 +107,6 @@
     "gui_tab_name_share": "Megosztás",
     "mode_settings_receive_data_dir_browse_button": "Tallózás",
     "gui_settings_theme_label": "Téma",
-    "gui_settings_theme_dark": "Sötét"
+    "gui_settings_theme_dark": "Sötét",
+    "gui_settings_socks_label": "SOCKS port"
 }

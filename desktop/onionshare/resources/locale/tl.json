@@ -21,5 +21,7 @@
     "gui_settings_authenticate_password_option": "Password",
     "gui_settings_password_label": "Password",
     "gui_settings_theme_light": "Maliwanag na tema",
-    "gui_tab_name_website": "Pook-sapot"
+    "gui_tab_name_website": "Pook-sapot",
+    "gui_tor_connection_ask_open_settings": "Oo",
+    "moat_captcha_reload": "Reload"
 }

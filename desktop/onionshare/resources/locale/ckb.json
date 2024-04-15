@@ -189,5 +189,7 @@
     "gui_website_url_public_description": "<b>Her kesî</b> bi vê malpera OnionShare dikare <b>were li ser</b> malpera te <b>dema TorBrowser bikar tîne</b>: <img src='{}' />",
     "gui_settings_theme_auto": "خۆکار",
     "moat_captcha_submit": "پێشکەشکردن",
-    "gui_general_settings_window_title": "گشتی"
+    "gui_general_settings_window_title": "گشتی",
+    "gui_hide": "Hide",
+    "moat_captcha_reload": "Reload"
 }

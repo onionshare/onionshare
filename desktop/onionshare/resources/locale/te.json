@@ -151,5 +151,9 @@
     "gui_settings_bridge_none_radio_option": "బ్రిడ్జిలు వాడవద్దు",
     "gui_settings_bridge_custom_placeholder": "type address:port (one per line)",
     "mode_settings_title_label": "శీర్షికను అనుకూలపరుచు",
-    "gui_main_page_share_button": "పంచుకోవడం మొదలుపెట్టు"
+    "gui_main_page_share_button": "పంచుకోవడం మొదలుపెట్టు",
+    "moat_captcha_reload": "Reload",
+    "gui_settings_theme_light": "Light",
+    "gui_stop_server_autostop_timer_tooltip": "స్వీయ నియంత్రణ సమయం అయిపోయినది",
+    "gui_start_server_autostart_timer_tooltip": "స్వీయ నియంత్రణ సమయం అయిపోయినది"
 }

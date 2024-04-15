@@ -19,5 +19,14 @@
     "gui_settings_theme_dark": "Tamna",
     "systray_menu_exit": "Odustani",
     "gui_quit_warning_quit": "Odustani",
-    "moat_captcha_submit": "podnijeti"
+    "moat_captcha_submit": "podnijeti",
+    "gui_all_modes_history": "Historija",
+    "gui_settings_button_save": "Sačuvaj",
+    "gui_canceled": "Canceled",
+    "moat_captcha_reload": "Reload",
+    "gui_settings_autoupdate_timestamp_never": "Never",
+    "gui_hide": "Hide",
+    "gui_settings_language_label": "Language",
+    "gui_settings_theme_light": "Light",
+    "gui_tab_name_share": "Share"
 }

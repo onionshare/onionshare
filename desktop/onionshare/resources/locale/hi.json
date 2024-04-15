@@ -135,5 +135,6 @@
     "gui_settings_theme_auto": "ऑटो",
     "moat_captcha_label": "पुल का अनुरोध करने के लिए कैप्चा को हल करें।",
     "moat_solution_empty_error": "छवि से अक्षर दर्ज करें",
-    "gui_autoconnect_start": "टोर से कनेक्ट करें"
+    "gui_autoconnect_start": "टोर से कनेक्ट करें",
+    "moat_captcha_reload": "Reload"
 }
