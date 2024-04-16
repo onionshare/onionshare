@@ -6,29 +6,29 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 11:30-0700\n"
-"PO-Revision-Date: 2023-06-06 17:06+0000\n"
-"Last-Translator: emma peel <emmapeel@torproject.org>\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"PO-Revision-Date: 2024-03-24 14:01+0000\n"
+"Last-Translator: Suguru Hirahara <shirahara@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: ja <LL@li.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr "OnionShareを開発する"
+msgstr "OnionShareの開発"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr "コラボレーション"
+msgstr "作業の協力"
 
 #: ../../source/develop.rst:9
-#, fuzzy
 msgid ""
 "OnionShare has an open Keybase team to discuss the project, ask questions, "
 "share ideas and designs, and making plans for future development. (It's also "
@@ -38,34 +38,35 @@ msgid ""
 "this team <https://keybase.io/team/onionshare>`_. Within the app, go to "
 "\"Teams\", click \"Join a Team\", and type \"onionshare\"."
 msgstr ""
-"OnionShare は、プロジェクトについて議論し、質問し、アイデアやデザインを共有"
-"し、将来の開発計画を立てるために、オープンな Keybase チームを設けています。"
-"(また、OnionShareアドレスのように、OnionShareコミュニティの他の人にエンドツー"
-"エンドで暗号化されたダイレクトメッセージを簡単に送信することができま"
-"す。)Keybase を使用するには、`Keybase app <https://keybase.io/download>`_ を"
-"ダウンロードし、アカウントを作成し、`join this team <https://keybase.io/team/"
-"onionshare>`_ を作成します。アプリ内の「Teams」から「Join a Team」をクリック"
-"し、「onionshare」と入力してください。"
+"OnionShareは、プロジェクトについて議論、質問したり、アイデアやデザインを共有"
+"し、将来の開発計画を立てたりするために、公開のKeybaseチームを設けています"
+"（Keybaseでは、OnionShareアドレスのように、OnionShareコミュニティの人びとに、"
+"エンドツーエンドで暗号化されたダイレクトメッセージを簡単に送信することができ"
+"ます）。Keybaseを使用するには\\ `Keybaseのアプリケーション <https://keybase."
+"io/download>`_\\ をダウンロードし、アカウントを作成して、\\ `チームに参加して"
+"ください <https://keybase.io/team/onionshare>`_\\ 。アプリ内の「Teams」から"
+"「Join a Team」をクリックし、「onionshare」と入力して参加できます。"
 
 #: ../../source/develop.rst:12
-#, fuzzy
 msgid ""
 "OnionShare also has a `mailing list <https://lists.riseup.net/www/subscribe/"
 "onionshare-dev>`_ for developers and and designers to discuss the project."
 msgstr ""
-"また、OnionShareは、開発者やデザイナーがプロジェクトについて議論するための"
-"メーリングリスト<https://lists.riseup.net/www/subscribe/onionshare-dev>`_があ"
-"ります。"
+"OnionShareには、開発者やデザイナーがプロジェクトについて議論するための\\ `"
+"メーリングリスト <https://lists.riseup.net/www/subscribe/onionshare-dev>`_\\ "
+"もあります。"
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "コードに貢献"
 
 #: ../../source/develop.rst:17
 msgid ""
 "OnionShare source code is to be found in this Git repository: https://github."
 "com/onionshare/onionshare"
 msgstr ""
+"OnionShareのソースコードは https://github.com/onionshare/onionshare のGitレポ"
+"ジトリにあります。"
 
 #: ../../source/develop.rst:19
 msgid ""
@@ -74,6 +75,10 @@ msgid ""
 "also review all of the `open issues <https://github.com/onionshare/"
 "onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
 msgstr ""
+"OnionShareのソースコードに貢献したい場合は、Keybaseのチームに参加し、貢献しよ"
+"うと考えているものに関する質問を行うのが役立ちます。Githubにある\\ `未解決の"
+"Issue <https://github.com/onionshare/onionshare/issues>`_\\ を確認して、作業"
+"したいものが何かないかについてもご確認ください。"
 
 #: ../../source/develop.rst:22
 msgid ""
@@ -81,10 +86,13 @@ msgid ""
 "repository and one of the project maintainers will review it and possibly "
 "ask questions, request changes, reject it, or merge it into the project."
 msgstr ""
+"コードに貢献する準備ができたら、Githubレポジトリでプルリクエストを行ってくだ"
+"さい。そうすると、プロジェクトの管理者がそれをレビューして、質問や変更を要求"
+"したり、拒否したり、プロジェクトにマージしたりします。"
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
-msgstr "開発を開始する"
+msgstr "開発作業を始める"
 
 #: ../../source/develop.rst:29
 msgid ""
@@ -94,17 +102,21 @@ msgid ""
 "command-line version, and the ``desktop/README.md`` file to learn how to set "
 "up your development environment for the graphical version."
 msgstr ""
+"OnionShareはPythonで開発されています。開始するには https://github.com/"
+"onionshare/onionshare/ にあるGitレポジトリのcloneを行ってください。"
+"コマンドラインのバージョンの開発環境の設定に関しては ``cli/README.md`` を、"
+"GUIのバージョンの開発環境の設定に関しては ``desktop/README.md`` "
+"をそれぞれご確認ください。"
 
 #: ../../source/develop.rst:32
-#, fuzzy
 msgid ""
 "Those files contain the necessary technical instructions and commands "
 "install dependencies for your platform, and to run OnionShare from the "
 "source tree."
 msgstr ""
-"これらのファイルには、OnionShareをソースツリーから実行するために必要な技術的"
-"な説明と、お使いのプラットフォーム用の依存関係をインストールするためのコマン"
-"ドが含まれています。"
+"それらのファイルには、お使いのプラットフォーム用の依存パッケージをインストー"
+"ルし、OnionShareをソースツリーから実行する際に必要となる、技術的な説明とコマ"
+"ンドが記載されています。"
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
@@ -112,10 +124,9 @@ msgstr "デバッグのヒント"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "詳細モード"
 
 #: ../../source/develop.rst:40
-#, fuzzy
 msgid ""
 "When developing, it's convenient to run OnionShare from a terminal and add "
 "the ``--verbose`` (or ``-v``) flag to the command. This prints a lot of "
@@ -123,19 +134,19 @@ msgid ""
 "initialized, when events occur (like buttons clicked, settings saved or "
 "reloaded), and other debug info. For example::"
 msgstr ""
-"開発時には、ターミナルから OnionShare を実行し、コマンドに ``--verbose`` (ま"
-"たは ``-v``) フラグを追加すると便利です。これは、特定のオブジェクトが初期化さ"
-"れたとき、イベントが発生したとき（ボタンのクリック、設定の保存や再読み込みな"
-"ど）、その他のデバッグ情報など、多くの役立つメッセージをターミナルに出力しま"
-"す。たとえば、次のようになります。"
+"開発時には、ターミナルから OnionShare を実行し、コマンドに ``--verbose`` （ま"
+"たは ``-v`` ）フラグを追加すると便利です。これは、特定のオブジェクトが初期化"
+"されたとき、イベントが発生したとき（ボタンのクリック、設定の保存や再読み込み"
+"など）、その他のデバッグ情報など、多くの役立つメッセージをターミナルに出力し"
+"ます。たとえば、次のようになります。"
 
 #: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
 msgstr ""
-"``onionshare/common.py`` から ``Common.log`` メソッドを実行することで、独自の"
-"デバッグ メッセージを追加できます。例えば::"
+"``onionshare/common.py`` から ``Common.log`` メソッドを実行すると、独自のデ"
+"バッグメッセージを追加できます。例えば、以下の通りです。"
 
 #: ../../source/develop.rst:121
 msgid ""
@@ -143,10 +154,12 @@ msgid ""
 "OnionShare, or the value of certain variables before and after they are "
 "manipulated."
 msgstr ""
+"これはOnionShareを使用している際に生じるイベントのチェーン、または特定の変数"
+"の、変更以前と以後での値を取得する際に便利です。"
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr "ローカルのみ"
+msgstr "ローカル限定モード"
 
 #: ../../source/develop.rst:126
 msgid ""
@@ -154,9 +167,9 @@ msgid ""
 "altogether during development. You can do this with the ``--local-only`` "
 "flag. For example::"
 msgstr ""
-"Tor は遅いため、開発中にオニオン サービスの開始を完全にスキップすると便利な場"
-"合がよくあります。これは ``--local-only`` フラグで行うことができます。例え"
-"ば：："
+"Torは遅いため、開発中にオニオン サービスの開始を完全にスキップすると便利な場"
+"合がよくあります。これは ``--local-only`` フラグで設定できます。例えば、以下"
+"の通りです。"
 
 #: ../../source/develop.rst:165
 msgid ""
@@ -164,10 +177,13 @@ msgid ""
 "browser like Firefox, instead of using the Tor Browser. The private key is "
 "not actually needed in local-only mode, so you can ignore it."
 msgstr ""
+"この場合、Tor Browserの代わりにFirefoxのような通常のウェブブラウザーで "
+"``http://127.0.0.1:17641`` を読み込んでください。ローカル限定モードでは秘密鍵"
+"は必要ないため、無視して構いません。"
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
-msgstr "翻訳へ貢献する"
+msgstr "翻訳に貢献"
 
 #: ../../source/develop.rst:170
 msgid ""
@@ -176,20 +192,21 @@ msgid ""
 "projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, "
 "and use \"OnionShare (localname)\" if needed."
 msgstr ""
-"OnionShare をより使いやすく、より親しみやすくするために、`Hosted Weblate "
-"<https://hosted.weblate.org/projects/onionshare/>`_ で翻訳することに協力して"
-"ください。「OnionShare」は常にラテン文字で表記し、必要であれば「OnionShare "
-"(ローカル名)」を使用してください。"
+"OnionShareをより使いやすく、より親しみやすくするために、\\ `Hosted Weblate "
+"<https://hosted.weblate.org/projects/onionshare/>`_\\ での翻訳にご協力くださ"
+"い。「OnionShare」は常にラテン文字で表記し、必要であれば「OnionShare（ローカ"
+"ル名）」を使用してください。"
 
 #: ../../source/develop.rst:172
 msgid ""
 "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
-"翻訳を手伝うには、Hosted Weblateのアカウントを作り、投稿を始めてください。"
+"翻訳に協力するには、Hosted Weblateのアカウントを作成し、投稿を開始してくださ"
+"い。"
 
 #: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "英語の元の文字列に関する提案"
 
 #: ../../source/develop.rst:177
 msgid ""
@@ -197,7 +214,7 @@ msgid ""
 "application and the documentation."
 msgstr ""
 "場合によっては、元の英語の文字列が間違っていたり、アプリケーションとドキュメ"
-"ント間で一致しない場合があります。"
+"ント間で一致しなかったりする場合があります。"
 
 #: ../../source/develop.rst:179
 msgid ""
@@ -206,10 +223,15 @@ msgid ""
 "developers see the suggestion, and can potentially modify the string via the "
 "usual code review processes."
 msgstr ""
+"元の文字列に関する改善案については、Weblateでのコメントで@kinguをメンション"
+"し、これを送信してください。あるいは、GithubでIssueを作成するか、プルリクエス"
+"トを送信してください。GitHubで改善案を送信すると、全ての上流の開発者がこれを"
+"閲覧するため、普段のコードレビューのプロセスを通じて、文字列が修正される可能"
+"性があります。"
 
 #: ../../source/develop.rst:183
 msgid "Status of Translations"
-msgstr ""
+msgstr "翻訳の状況"
 
 #: ../../source/develop.rst:184
 msgid ""
@@ -217,3 +239,5 @@ msgid ""
 "language not yet started, please write to the mailing list: onionshare-"
 "dev@lists.riseup.net"
 msgstr ""
+"これは翻訳に関する現在の状況です。新たな言語に翻訳を行いたい場合は、メーリン"
+"グリスト onionshare-dev@lists.riseup.net までご一報ください。"

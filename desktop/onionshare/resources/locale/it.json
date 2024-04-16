@@ -159,7 +159,7 @@
     "gui_new_tab_website_button": "Ospita un sito web",
     "gui_quit_warning_description": "La condivisione è attiva in alcune delle tue schede. Uscendo, tutte le tue schede verranno chiuse. Sei sicuro di voler uscire?",
     "gui_quit_warning_title": "Uscire da OnionShare?",
-    "gui_close_tab_warning_close": "Chiudi",
+    "gui_close_tab_warning_close": "Ok",
     "gui_close_tab_warning_website_description": "Stai ospitando un sito web. Sei sicuro di voler chiudere questa scheda?",
     "mode_settings_website_disable_csp_checkbox": "Non inviare l'intestazione della Politica sulla Sicurezza dei Contenuti (consente al sito web di utilizzare risorse di terze parti)",
     "mode_settings_receive_data_dir_browse_button": "Naviga",

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 11:51-0700\n"
+"POT-Creation-Date: 2024-03-15 13:52+0530\n"
 "PO-Revision-Date: 2023-07-25 17:04+0000\n"
 "Last-Translator: tictactoe <phandinhminh@protonmail.ch>\n"
 "Language-Team: none\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -35,10 +35,49 @@ msgstr ""
 "OnionShare <https://onionshare.org/>`_."
 
 #: ../../source/install.rst:12
+msgid "Mobile"
+msgstr ""
+
+#: ../../source/install.rst:14
+msgid "You can download OnionShare for Mobile from the follow links"
+msgstr ""
+
+#: ../../source/install.rst:18
+msgid "Android"
+msgstr ""
+
+#: ../../source/install.rst:17
+msgid ""
+"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
+"android"
+msgstr ""
+
+#: ../../source/install.rst:18
+msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
+msgstr ""
+
+#: ../../source/install.rst:24
+msgid "iOS"
+msgstr ""
+
+#: ../../source/install.rst:21
+msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
+msgstr ""
+
+#: ../../source/install.rst:22
+msgid ""
+"Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
+msgstr ""
+
+#: ../../source/install.rst:23
+msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
+msgstr ""
+
+#: ../../source/install.rst:27
 msgid "Linux"
 msgstr "Linux"
 
-#: ../../source/install.rst:14
+#: ../../source/install.rst:29
 msgid ""
 "There are various ways to install OnionShare for Linux, but the recommended "
 "way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap "
@@ -50,7 +89,7 @@ msgstr ""
 "<https://snapcraft.io/>`_ . Flatpak và Snapcraft đảm bảo rằng bạn sẽ luôn sử "
 "dụng phiên bản mới nhất và chạy OnionShare bên trong một sandbox."
 
-#: ../../source/install.rst:17
+#: ../../source/install.rst:32
 msgid ""
 "Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak "
 "support, but which you use is up to you. Both work in all Linux "
@@ -60,7 +99,7 @@ msgstr ""
 "Flatpak, nhưng việc bạn sử dụng loại nào là tùy thuộc vào bạn. Cả hai đều "
 "hoạt động trong tất cả các bản phân phối Linux."
 
-#: ../../source/install.rst:19
+#: ../../source/install.rst:34
 msgid ""
 "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
 "onionshare.OnionShare"
@@ -68,12 +107,12 @@ msgstr ""
 "**Cài đặt OnionShare sử dụng Flatpak**: https://flathub.org/apps/details/org."
 "onionshare.OnionShare"
 
-#: ../../source/install.rst:21
+#: ../../source/install.rst:36
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
 "**Cài đặt OnionShare sử dụng Snapcraft**: https://snapcraft.io/onionshare"
 
-#: ../../source/install.rst:23
+#: ../../source/install.rst:38
 msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
@@ -81,11 +120,11 @@ msgstr ""
 "Bạn cũng có thể tải xuống và cài đặt các gói ``.flatpak`` hoặc ``.snap`` có "
 "chữ ký PGP từ https://onionshare.org/dist/ nếu bạn muốn."
 
-#: ../../source/install.rst:26
+#: ../../source/install.rst:41
 msgid "Manual Flatpak Installation"
 msgstr "Cài đặt Flatpak theo cách thủ công"
 
-#: ../../source/install.rst:28
+#: ../../source/install.rst:43
 msgid ""
 "If you'd like to install OnionShare manually with Flatpak using the PGP-"
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
@@ -95,13 +134,13 @@ msgstr ""
 "dụng `gói tập tin đơn có chữ ký PGP <https://docs.flatpak.org/en/latest/"
 "single-file-bundles.html>`_, bạn có thể thực hiện như sau:"
 
-#: ../../source/install.rst:30
+#: ../../source/install.rst:45
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
 "Cài đặt Flatpak bằng cách làm theo hướng dẫn tại https://flatpak.org/setup/."
 
-#: ../../source/install.rst:31
+#: ../../source/install.rst:46
 msgid ""
 "Add the Flathub repository by running ``flatpak remote-add --if-not-exists "
 "flathub https://flathub.org/repo/flathub.flatpakrepo``. Even though you "
@@ -113,7 +152,7 @@ msgstr ""
 "tải xuống OnionShare từ Flathub, nhưng OnionShare phụ thuộc vào một số gói "
 "package chỉ khả dụng ở đó mà thôi."
 
-#: ../../source/install.rst:32
+#: ../../source/install.rst:47
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
@@ -121,7 +160,7 @@ msgstr ""
 "Đi tới https://onionshare.org/dist/, lựa chọn phiên bản OnionShare mới nhất, "
 "và tải xuống các file tệp tin ``.flatpak`` và ``.flatpak.asc``."
 
-#: ../../source/install.rst:33
+#: ../../source/install.rst:48
 msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
@@ -129,7 +168,7 @@ msgstr ""
 "Xác minh chữ ký PGP của file tệp tin ``.flatpak``. Hãy xem :ref:"
 "`verifying_sigs` để biết thêm thông tin."
 
-#: ../../source/install.rst:34
+#: ../../source/install.rst:49
 msgid ""
 "Install the ``.flatpak`` file by running ``flatpak install OnionShare-"
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
@@ -139,16 +178,16 @@ msgstr ""
 "OnionShare-VERSION.flatpak``. Thay thế ``VERSION`` bằng số phiên bản của "
 "file tệp tin bạn đã tải xuống."
 
-#: ../../source/install.rst:36
+#: ../../source/install.rst:51
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
 msgstr ""
 "Bạn có thể chạy OnionShare với: `flatpak run org.onionshare.OnionShare`."
 
-#: ../../source/install.rst:39
+#: ../../source/install.rst:54
 msgid "Manual Snapcraft Installation"
 msgstr "Cài đặt Snapcraft theo cách thủ công"
 
-#: ../../source/install.rst:41
+#: ../../source/install.rst:56
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
@@ -156,7 +195,7 @@ msgstr ""
 "nếu như bạn muốn cài đặt OnionShare theo cách thủ công với Snapcraft bằng "
 "cách sử dụng gói package Snapcraft có chữ ký PGP, bạn có thể làm như thế này:"
 
-#: ../../source/install.rst:43
+#: ../../source/install.rst:58
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
@@ -164,7 +203,7 @@ msgstr ""
 "Cài đặt Snapcraft bằng cách làm theo các chỉ dẫn tại https://snapcraft.io/"
 "docs/installing-snapd."
 
-#: ../../source/install.rst:44
+#: ../../source/install.rst:59
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
@@ -172,7 +211,7 @@ msgstr ""
 "Đi tới https://onionshare.org/dist/, lựa chọn phiên bản mới nhất của "
 "OnionShare, và tải xuống các file tệp tin ``.snap`` và ``.snap.asc``."
 
-#: ../../source/install.rst:45
+#: ../../source/install.rst:60
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
@@ -180,7 +219,7 @@ msgstr ""
 "Xác minh chữ ký PGP của file tệp tin ``.snap``. hãy xem :ref:"
 "`verifying_sigs` để biết thêm thông tin."
 
-#: ../../source/install.rst:46
+#: ../../source/install.rst:61
 msgid ""
 "Install the ``.snap`` file by running ``snap install --dangerous "
 "onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version number "
@@ -194,15 +233,15 @@ msgstr ""
 "bởi vì gói package không được ký bởi cửa hàng Snapcraft store, tuy nhiên, "
 "bạn đã xác minh chữ ký PGP của nó, vì vậy bạn biết nó là chính chủ hợp pháp."
 
-#: ../../source/install.rst:48
+#: ../../source/install.rst:63
 msgid "You can run OnionShare with: `snap run onionshare`."
 msgstr "Bạn có thể chạy OnionShare với: `snap run onionshare`."
 
-#: ../../source/install.rst:53
+#: ../../source/install.rst:68
 msgid "Command-line only"
 msgstr "Chỉ dòng lệnh command mà thôi"
 
-#: ../../source/install.rst:55
+#: ../../source/install.rst:70
 msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
@@ -211,11 +250,94 @@ msgstr ""
 "kỳ hệ điều hành nào bằng cách sử dụng trình quản lý gói Python ``pip``. :ref:"
 "`cli` có thêm thông tin."
 
-#: ../../source/install.rst:60
+#: ../../source/install.rst:75
+msgid "FreeBSD"
+msgstr ""
+
+#: ../../source/install.rst:77
+msgid ""
+"Althought not being officially developed for this platform, OnionShare can "
+"also be installed on `FreeBSD <https://freebsd.org/>`_. It's available via "
+"its ports collection or as pre-built package. Should you opt to install and "
+"use OnionShare on a FreeBSD operating system, please be aware that it's "
+"**NOT** officially supported by the OnionShare project."
+msgstr ""
+
+#: ../../source/install.rst:79
+msgid ""
+"Though not being offered and officially maintained by the OnionShare "
+"developers, the FreeBSD packages and ports do fetch and verifies the source "
+"codes from the official OnionShare repository (or its official release "
+"packages from `PyPI <https://pypi.org/project/onionshare-cli/>`_). Should "
+"you wish to check changes related to this platform, please refer to the "
+"following resources:"
+msgstr ""
+
+#: ../../source/install.rst:81
+msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
+msgstr ""
+
+#: ../../source/install.rst:82
+msgid "https://www.freshports.org/www/onionshare"
+msgstr ""
+
+#: ../../source/install.rst:85
+#, fuzzy
+msgid "Manual pkg Installation"
+msgstr "Cài đặt Flatpak theo cách thủ công"
+
+#: ../../source/install.rst:87
+msgid ""
+"To install the binary package, use ``pkg install pyXY-onionshare``, with "
+"``pyXY`` specifying the version of Python the package was built for. So, in "
+"order to install OnionShare for Python 3.9, use::"
+msgstr ""
+
+#: ../../source/install.rst:91
+msgid ""
+"There's also a **Command-line only** version of OnionShare available as pre-"
+"built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
+"want to install that version."
+msgstr ""
+
+#: ../../source/install.rst:93
+msgid ""
+"For additional information and details about the FreeBSD pre-built packages, "
+"please refer to its `official Handbook section about pkg <https://docs."
+"freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
+msgstr ""
+
+#: ../../source/install.rst:96
+#, fuzzy
+msgid "Manual port Installation"
+msgstr "Cài đặt Snapcraft theo cách thủ công"
+
+#: ../../source/install.rst:98
+msgid ""
+"To install the FreeBSD port, change directory to the `ports collection "
+"<https://freebsd.org/ports/>`_ you must have checked out before and run the "
+"following::"
+msgstr ""
+
+#: ../../source/install.rst:102
+msgid ""
+"The ports collection also offers a dedicated port for the **Command-line "
+"only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
+"cli`` if you want to install that version."
+msgstr ""
+
+#: ../../source/install.rst:104
+msgid ""
+"For additional information and details about the FreeBSD ports collection, "
+"please refer to its `official Handbook section about ports <https://docs."
+"freebsd.org/en/books/handbook/ports/#ports-using>`_."
+msgstr ""
+
+#: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
 msgstr "Việc xác minh chữ ký PGP"
 
-#: ../../source/install.rst:62
+#: ../../source/install.rst:111
 msgid ""
 "You can verify that the package you download is legitimate and hasn't been "
 "tampered with by verifying its PGP signature. For Windows and macOS, this "
@@ -230,16 +352,31 @@ msgstr ""
 "cho hệ điều hành, và bạn có thể chỉ cần dựa vào những chữ ký đó mà thôi nếu "
 "bạn muốn."
 
-#: ../../source/install.rst:66
+#: ../../source/install.rst:115
 msgid "Signing key"
 msgstr "Khoá key chữ ký"
 
-#: ../../source/install.rst:68
+#: ../../source/install.rst:117
 msgid ""
-"Packages are signed by Micah Lee, the core developer, using his PGP public "
-"key with fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. You can "
-"download Micah's key `from the keys.openpgp.org keyserver <https://keys."
-"openpgp.org/vks/v1/by-"
+"Packages are signed by the core developer who is responsible for the "
+"particular release. Following are the informations of the core developers of "
+"OnionShare:"
+msgstr ""
+
+#: ../../source/install.rst:122
+msgid "Micah Lee:"
+msgstr ""
+
+#: ../../source/install.rst:121
+msgid ""
+"PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+msgstr ""
+
+#: ../../source/install.rst:122
+#, fuzzy
+msgid ""
+"You can download Micah's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
 "Các gói được ký bởi Micah Lee, nhà phát triển cốt lõi, sử dụng khóa key công "
@@ -248,7 +385,23 @@ msgstr ""
 "của Micah `từ máy chủ khóa key keys.openpgp.org <https://keys.openpgp.org/"
 "vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:71
+#: ../../source/install.rst:126
+msgid "Saptak Sengupta:"
+msgstr ""
+
+#: ../../source/install.rst:125
+msgid ""
+"PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
+msgstr ""
+
+#: ../../source/install.rst:126
+msgid ""
+"You can download Saptak's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+msgstr ""
+
+#: ../../source/install.rst:128
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -258,11 +411,11 @@ msgstr ""
 "bạn có thể muốn `GPGTools <https://gpgtools.org/>`_, và đối với hệ điều hành "
 "Windows, bạn có thể muốn `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:74
+#: ../../source/install.rst:131
 msgid "Signatures"
 msgstr "Các chữ ký"
 
-#: ../../source/install.rst:76
+#: ../../source/install.rst:133
 #, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
@@ -276,44 +429,44 @@ msgstr ""
 "cũng có thể tìm thấy chúng trên `trang Bản phát hành GitHub <https://github."
 "com/micahflee/onionshare/releases>`_."
 
-#: ../../source/install.rst:80
+#: ../../source/install.rst:137
 msgid "Verifying"
 msgstr "Việc xác minh"
 
-#: ../../source/install.rst:82
+#: ../../source/install.rst:139
 #, fuzzy
 msgid ""
-"Once you have imported Micah's public key into your GnuPG keychain, "
-"downloaded the binary and ``.asc`` signature, you can verify the binary in a "
-"terminal like this:"
+"Once you have imported the core developers public keys into your GnuPG "
+"keychain, downloaded the binary and ``.asc`` signature, you can verify the "
+"binary in a terminal like this:"
 msgstr ""
 "Một khi bạn đã truy nhập import khóa key công cộng của Micah vào trong chuỗi "
 "khóa keychain GnuPG của bạn, đã tải xuống nhị phân binary và chữ ký ``."
 "asc``, bạn có thể xác minh file tệp tin nhị phân binary cho macOS trong một "
 "Terminal như sau::"
 
-#: ../../source/install.rst:84
+#: ../../source/install.rst:141
 msgid "For Windows::"
 msgstr ""
 
-#: ../../source/install.rst:88
+#: ../../source/install.rst:145
 msgid "For macOS::"
 msgstr ""
 
-#: ../../source/install.rst:92
+#: ../../source/install.rst:149
 #, fuzzy
 msgid "For Linux::"
 msgstr "Linux"
 
-#: ../../source/install.rst:98
+#: ../../source/install.rst:155
 msgid "and for the source file::"
 msgstr ""
 
-#: ../../source/install.rst:102
+#: ../../source/install.rst:159
 msgid "The expected output looks like this::"
 msgstr "Đầu ra output dự kiến trông như thế này::"
 
-#: ../../source/install.rst:112
+#: ../../source/install.rst:169
 #, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
@@ -326,7 +479,7 @@ msgstr ""
 "điều đó chỉ có nghĩa là bạn chưa xác định mức độ \"tin cậy\" của khóa key "
 "PGP của Micah (nhà phát triển cốt lõi).)"
 
-#: ../../source/install.rst:114
+#: ../../source/install.rst:171
 #, fuzzy
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
@@ -339,7 +492,7 @@ msgstr ""
 "điều đó chỉ có nghĩa là bạn chưa xác định mức độ \"tin cậy\" của khóa key "
 "PGP của Micah (nhà phát triển cốt lõi).)"
 
-#: ../../source/install.rst:116
+#: ../../source/install.rst:173
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "

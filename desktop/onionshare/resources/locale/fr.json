@@ -152,7 +152,7 @@
     "gui_quit_warning_description": "Quitter et fermer tout les onglets, même si le partage est actifs pour certains d'entre eux ?",
     "gui_quit_warning_title": "Quitter OnionShare ?",
     "gui_close_tab_warning_cancel": "Annuler",
-    "gui_close_tab_warning_close": "Fermer",
+    "gui_close_tab_warning_close": "Valider",
     "gui_close_tab_warning_website_description": "Fermer l'onglet hébergeant un site web ?",
     "gui_close_tab_warning_receive_description": "Fermer l'onglet recevant des fichiers ?",
     "gui_close_tab_warning_share_description": "Fermer l'onglet envoyant des fichiers ?",
@@ -253,5 +253,6 @@
     "gui_autoconnect_configure": "Connexion réseau",
     "gui_general_settings_window_title": "Général",
     "waitress_web_server_error": "Il y a eu un problème au démarrage du serveur web",
-    "gui_close_tab_warning_chat_description": "Fermer l'onglet qui héberge un serveur de chat ?"
+    "gui_close_tab_warning_chat_description": "Fermer l’onglet qui héberge un serveur de dialogue en ligne ?",
+    "gui_chat_mode_explainer": "Le mode conversation vous permet de discuter interactivement avec d’autres dans le Navigateur Tor.br><br><b>L’historique des conversations n’est pas enregistré dans OnionShare. L’historique des conversations disparaît en cas de fermeture du Navigateur Tor.</b>"
 }

@@ -22,7 +22,10 @@ import time
 import subprocess
 import os
 from datetime import datetime
+
 from qtpy import QtCore, QtWidgets, QtGui
+from urllib.parse import unquote
+
 
 from ... import strings
 from ...widgets import Alert
@@ -464,7 +467,9 @@ class IndividualFileHistoryItem(HistoryItem):
         self.common = common
 
         self.id = id
-        self.path = path
+        # Decode and sanitize the path to remove newlines
+        decoded_path = unquote(path)
+        self.path = decoded_path.replace("\r", "").replace("\n", "")
         self.total_bytes = 0
         self.downloaded_bytes = 0
         self.started = time.time()

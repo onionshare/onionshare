@@ -203,7 +203,7 @@
     "gui_close_tab_warning_share_description": "Đóng tab đang gửi tập tin chứ?",
     "gui_close_tab_warning_receive_description": "Đóng tab đang nhận tập tin?",
     "gui_close_tab_warning_website_description": "Đóng tab đang lưu trữ host một trang web chứ?",
-    "gui_close_tab_warning_close": "Đóng",
+    "gui_close_tab_warning_close": "Đồng ý",
     "gui_close_tab_warning_cancel": "Huỷ bỏ",
     "gui_quit_warning_title": "Thoát OnionShare chứ?",
     "gui_quit_warning_description": "Thoát và đóng tất cả các tab, mặc dù tính năng chia sẻ vẫn đang hoạt động ở một số tab chứ?",
