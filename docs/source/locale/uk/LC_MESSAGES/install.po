@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-02-14 00:26+0000\n"
+"PO-Revision-Date: 2024-04-17 14:03+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -37,42 +38,46 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Mobile"
-msgstr ""
+msgstr "Для мобільного"
 
 #: ../../source/install.rst:14
 msgid "You can download OnionShare for Mobile from the follow links"
-msgstr ""
+msgstr "Ви можете завантажити OnionShare для мобільного за цими посиланнями"
 
 #: ../../source/install.rst:18
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
 "Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
 "android"
 msgstr ""
+"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
+"android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
-msgstr ""
+msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
 #: ../../source/install.rst:24
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #: ../../source/install.rst:21
 msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
-msgstr ""
+msgstr "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
 
 #: ../../source/install.rst:22
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"Безпосереднє завантаження IPA: https://github.com/onionshare/onionshare-ios/"
+"releases"
 
 #: ../../source/install.rst:23
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "Testflight: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
@@ -256,7 +261,7 @@ msgstr ""
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #: ../../source/install.rst:77
 msgid ""
@@ -279,16 +284,15 @@ msgstr ""
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
-msgstr ""
+msgstr "https://cgit.freebsd.org/ports/log/www/onionshare"
 
 #: ../../source/install.rst:82
 msgid "https://www.freshports.org/www/onionshare"
-msgstr ""
+msgstr "https://www.freshports.org/www/onionshare"
 
 #: ../../source/install.rst:85
-#, fuzzy
 msgid "Manual pkg Installation"
-msgstr "Ручне встановлення Flatpak"
+msgstr "Ручне встановлення pkg"
 
 #: ../../source/install.rst:87
 msgid ""
@@ -312,9 +316,8 @@ msgid ""
 msgstr ""
 
 #: ../../source/install.rst:96
-#, fuzzy
 msgid "Manual port Installation"
-msgstr "Ручне встановлення Snapcraft"
+msgstr "Ручне встановлення з портувань"
 
 #: ../../source/install.rst:98
 msgid ""
@@ -368,33 +371,33 @@ msgstr ""
 
 #: ../../source/install.rst:122
 msgid "Micah Lee:"
-msgstr ""
+msgstr "Micah Lee:"
 
 #: ../../source/install.rst:121
 msgid ""
 "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 msgstr ""
+"Відбиток відкритого ключа PGP ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
-#, fuzzy
 msgid ""
 "You can download Micah's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Пакунки підписує основний розробник Micah Lee своїм відкритим ключем PGP з "
-"цифровим відбитком ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Ключ Micah "
-"можна завантажити `з сервера ключів keys.openpgp.org <https://keys.openpgp."
-"org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Ви можете завантажити ключ Micah `із сервера ключів keys.openpgp.org "
+"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:126
 msgid "Saptak Sengupta:"
-msgstr ""
+msgstr "Saptak Sengupta:"
 
 #: ../../source/install.rst:125
 msgid ""
 "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 msgstr ""
+"Відбиток відкритого ключа PGP ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
 msgid ""
@@ -402,6 +405,9 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
+"Ви можете завантажити ключ Saptak `із сервера ключів keys.openpgp.org "
+"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
 msgid ""
@@ -435,15 +441,14 @@ msgid "Verifying"
 msgstr "Перевірка"
 
 #: ../../source/install.rst:139
-#, fuzzy
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
-"Після того, як відкритий ключ Micah імпортовано до вашої збірки ключів "
-"GnuPG, завантажено двійковий файл і завантажено підпис ``.asc``, ви можете "
-"перевірити двійковий файл для macOS в терміналі в такий спосіб:"
+"Після імпорту відкритих ключів основних розробників імпортовано до вашої "
+"збірки ключів GnuPG, завантажено двійковий файл і завантажено підпис ``.asc``"
+", ви можете перевірити двійковий файл у терміналі в такий спосіб:"
 
 #: ../../source/install.rst:141
 msgid "For Windows::"
