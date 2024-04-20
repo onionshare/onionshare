@@ -103,5 +103,15 @@
     "gui_status_indicator_share_working": "Մեկնարկում է…",
     "gui_status_indicator_share_started": "Տարածում",
     "gui_status_indicator_receive_working": "Մեկնարկում է…",
-    "gui_status_indicator_receive_stopped": "Պատրաստ է ստացմանը"
+    "gui_status_indicator_receive_stopped": "Պատրաստ է ստացմանը",
+    "gui_copied_client_auth_title": "Փակ բանալին պատճենված է",
+    "gui_copied_url": "OnionShare հասցեն պատճենված է սեղմատախտակին",
+    "gui_copied_client_auth": "Փակ բանալին պատճենված է սեղմատախտակին",
+    "gui_chat_stop_server": "Կասեցնել զրուցարանի սերվերը",
+    "gui_chat_start_server": "Սկսել զրուցարանի սերվերը",
+    "gui_show_qr_code": "Ցուցադրել QR ծածկագիրը",
+    "gui_autoconnect_configure": "Կապի կարգավորումներ",
+    "gui_copied_url_title": "OnionShare հասցեն պատճենված է",
+    "gui_copy_client_auth": "Պատճենել փակ բանալին",
+    "gui_qr_label_auth_string_title": "Փակ բանալի"
 }
