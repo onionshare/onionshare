@@ -253,5 +253,6 @@
     "gui_settings_tor_bridges_label": "Sillat voivat auttaa tietoliikennettäsi saavuttamaan Tor-verkon, jos Internet-yhteytesi on estetty. Eri siltojen toimivuus voi vaihdella sijainnistasi riippuen.",
     "gui_server_doesnt_support_stealth": "Valitettavasti tämä Tor-versio ei tue stealth-ominaisuutta (päätetodennus). Yritä uudelleen uudemmalla Tor-versiolla tai käytä \"julkinen\"-tilaa, jos sen ei tarvitse olla yksityinen.",
     "gui_close_tab_warning_chat_description": "Suljetaanko keskustelupalvelinta isännöivä välilehti?",
-    "waitress_web_server_error": "Verkkopalvelinta käynnistettäessä ilmeni ongelma"
+    "waitress_web_server_error": "Verkkopalvelinta käynnistettäessä ilmeni ongelma",
+    "gui_chat_mode_explainer": "Keskustelutila mahdollistaa keskustelun interaktiivisesti muiden kanssa Tor-selaimessa. <br><br><b>Keskusteluhistoria ei ole tallennettu OnionShare:en. Keskusteluhistoria katoaa kun suljet Tor-selaimen.</b>"
 }
