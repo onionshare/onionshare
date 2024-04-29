@@ -6,25 +6,29 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-04-21 10:07+0000\n"
+"Last-Translator: Jenő László <jenolaszlotamas@fiokom.hu>\n"
 "Language-Team: none\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr ""
+msgstr "Csatlakozás a Torhoz"
 
 #: ../../source/tor.rst:4
 msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect to "
 "the Tor network."
 msgstr ""
+"Az OnionShare indulásakor, megjelenik egy ablak, amelyben felkér, hogy "
+"csatlakozz a Tor hálózathoz."
 
 #: ../../source/tor.rst:8
 msgid ""
@@ -35,6 +39,13 @@ msgid ""
 "connection fails, you can still try bridges or reconfigure Tor via the "
 "\"Network Settings\" button."
 msgstr ""
+"A „Csatlakozás a Tor-hoz” gombra kattintás előtt bekapcsolhatja az „"
+"Automatikus csatlakozás a Tor-hoz” kapcsolót. Ez azt jelenti, hogy az "
+"OnionShare legközelebbi indulásakor automatikusan csatlakozik a legutóbbi "
+"munkamenet Tor kapcsolati beállításaihoz, ahelyett, hogy bemutatná a "
+"csatlakozási lehetőségeket. Ha a kapcsolat sikertelen, továbbra is "
+"próbálkozhat a híddal, vagy újrakonfigurálhatja a Tor-t a „Hálózati "
+"beállítások” gombbal."
 
 #: ../../source/tor.rst:11
 msgid ""

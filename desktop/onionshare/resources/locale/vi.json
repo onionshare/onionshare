@@ -113,7 +113,7 @@
     "gui_tor_connection_lost": "Đã ngắt kết nối từ Tor.",
     "gui_server_started_after_autostop_timer": "Đồng hồ đếm giờ tự động dừng đã hết giờ trước khi máy chủ bắt đầu. Xin vui lòng thực hiện chia sẻ mới lại.",
     "gui_server_autostop_timer_expired": "Đồng hồ đếm giờ tự động dừng đã hết giờ. Xin vui lòng điều chỉnh nó để bắt đầu chia sẻ.",
-    "gui_server_autostart_timer_expired": "Thời gian được lịch trình đã qua mất rồi. Xin vui lòng điều chỉnh nó để bắt đầu chia sẻ.",
+    "gui_server_autostart_timer_expired": "Thời gian theo như lịch trình đã định trôi qua mất rồi. Xin vui lòng điều chỉnh nó để bắt đầu chia sẻ nhé.",
     "gui_autostop_timer_cant_be_earlier_than_autostart_timer": "Thời gian tự động dừng không thể trùng khớp hoặc sớm hơn thời gian tự động bắt đầu. Xin vui lòng điều chỉnh nó để bắt đầu chia sẻ.",
     "gui_server_doesnt_support_stealth": "Xin lỗi, phiên bản này của Tor không hỗ trợ tàng hình (xác thực máy khách). Xin vui lòng thử lại với một phiên bản mới hơn của Tor, hoặc sử dụng chế độ 'công cộng' nếu nó không cần phải được riêng tư.",
     "gui_share_url_description": "<b>Bất kỳ ai</b> có địa chỉ OnionShare và khóa key cá nhân này đều có thể <b>tải xuống</b> các tệp của bạn bằng cách sử dụng <b>Trình duyệt Tor</b>: <img src='{}' />",
@@ -253,5 +253,6 @@
     "moat_solution_empty_error": "Nhập các ký tự từ hình ảnh",
     "mode_tor_not_connected_label": "OnionShare không được kết nối tới mạng lưới Tor Network",
     "waitress_web_server_error": "Đã xảy ra một sự cố khi đang khởi động máy chủ web server",
-    "gui_close_tab_warning_chat_description": "Đóng tab đang host một máy chủ trò chuyện chat server đi chứ?"
+    "gui_close_tab_warning_chat_description": "Đóng tab đang host một máy chủ trò chuyện chat server đi chứ?",
+    "gui_chat_mode_explainer": "Chế độ Chat trò chuyện cho phép bạn chat tương tác với các bên khác, trong trình duyệt Tor Browser.<br><br><b>Lịch sử Chat không được lưu trữ lại trong OnionShare. Lịch sử Chat sẽ biến mất khi bạn đóng trình duyệt Tor Browser.</b>"
 }

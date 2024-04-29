@@ -6,19 +6,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-04-21 10:07+0000\n"
+"Last-Translator: Jenő László <jenolaszlotamas@fiokom.hu>\n"
 "Language-Team: none\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
-msgstr ""
+msgstr "Hogyan működik az OnionShare"
 
 #: ../../source/features.rst:6
 msgid ""
@@ -26,10 +28,13 @@ msgid ""
 "other people as `Tor <https://www.torproject.org/>`_ `onion services "
 "<https://community.torproject.org/onion-services/>`_."
 msgstr ""
+"A webszerverek helyileg indulnak el az Ön számítógépén, és `Tor <https://www."
+"torproject.org/>`_ `onion services <https://community.torproject.org/"
+"onion-services/> néven teszik elérhetővé mások számára. `_."
 
 #: ../../source/features.rst:8
 msgid "By default, OnionShare web addresses are protected with a private key."
-msgstr ""
+msgstr "Alapértelmezés szerint az OnionShare webcímei privát kulccsal védettek."
 
 #: ../../source/features.rst:10
 msgid "OnionShare addresses look something like this::"
