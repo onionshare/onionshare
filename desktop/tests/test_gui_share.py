@@ -3,7 +3,7 @@ import requests
 import tempfile
 import zipfile
 
-from PySide6 import QtCore, QtTest
+from qtpy import QtCore, QtTest
 
 from .gui_base_test import GuiBaseTest
 
