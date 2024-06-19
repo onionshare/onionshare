@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2023-04-15 05:52+0000\n"
-"Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
+"PO-Revision-Date: 2024-05-31 19:47+0000\n"
+"Last-Translator: hugoalh <hugoalh@users.noreply.hosted.weblate.org>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -166,13 +166,11 @@ msgid ""
 msgstr ""
 
 #: ../../source/advanced.rst:84
-#, fuzzy
 msgid ""
 "If you installed OnionShare using the Snap package, you can also just run "
 "``onionshare.cli`` to access the command-line interface version."
-msgstr ""
-"如果你透過作業系統的安裝包安裝OnionShare，你可以直接在終端機上執"
-"行“onionshare”。"
+msgstr "如果你使用 Snap 軟體包安裝 OnionShare，你也可以只執行 ``onionshare.cli`` "
+"來存取命令列介面版本。"
 
 #: ../../source/advanced.rst:87
 msgid "Usage"
