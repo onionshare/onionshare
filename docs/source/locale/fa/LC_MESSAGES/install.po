@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2023-08-31 14:52+0000\n"
+"PO-Revision-Date: 2024-06-13 13:09+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -43,34 +43,37 @@ msgstr ""
 
 #: ../../source/install.rst:18
 msgid "Android"
-msgstr ""
+msgstr "اندروید"
 
 #: ../../source/install.rst:17
 msgid ""
 "Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
 "android"
 msgstr ""
+"پلی گوگل: https://play.google.com/store/apps/details?id=org.onionshare."
+"android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
-msgstr ""
+msgstr "اف‌دروید: https://github.com/onionshare/onionshare-android-nightly"
 
 #: ../../source/install.rst:24
 msgid "iOS"
-msgstr ""
+msgstr "آی‌اواس"
 
 #: ../../source/install.rst:21
 msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
-msgstr ""
+msgstr "فروشگاه کارهٔ اپل: https://apps.apple.com/app/onionshare/id1601890129"
 
 #: ../../source/install.rst:22
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"بارگیری IPA مستقیم: https://github.com/onionshare/onionshare-ios/releases"
 
 #: ../../source/install.rst:23
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "تست‌فلایت: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"

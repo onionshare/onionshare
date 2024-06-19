@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-04-19 01:03+0000\n"
+"PO-Revision-Date: 2024-05-23 13:09+0000\n"
 "Last-Translator: Jose Delvani <delvani.eletricista@gmail.com>\n"
 "Language-Team: pt_BR <LL@li.org>\n"
 "Language: pt_BR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/install.rst:2
@@ -138,7 +138,7 @@ msgstr ""
 #: ../../source/install.rst:45
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
-msgstr ""
+msgstr "Instale o Flatpak seguindo as instruções em https://flatpak.org/setup/."
 
 #: ../../source/install.rst:46
 msgid ""

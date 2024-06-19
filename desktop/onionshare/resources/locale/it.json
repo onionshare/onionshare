@@ -140,7 +140,7 @@
     "gui_tab_name_share": "Condividi",
     "gui_main_page_chat_button": "Inizia a Chattare",
     "gui_main_page_receive_button": "Inizia a Ricevere",
-    "gui_main_page_share_button": "Avvia condivisione",
+    "gui_main_page_share_button": "Inizia Condivisione",
     "gui_new_tab_chat_button": "Chatta in modo anonimo",
     "gui_new_tab_receive_button": "Ricevi File",
     "gui_new_tab_share_button": "Condividi Files",
@@ -253,5 +253,6 @@
     "gui_settings_tor_bridges_label": "I bridge consentono al tuo traffico di entrare nella rete Tor se l'accesso a Tor è bloccato. A seconda di dove ti connetti, un bridge potrebbe funzionare meglio di un altro.",
     "gui_status_indicator_chat_started": "\"In chat\"",
     "mode_settings_receive_disable_text_checkbox": "\"Disabilita l'invio di testo\"",
-    "gui_server_doesnt_support_stealth": "Spiacenti, questa versione di Tor non supporta la modalità stealth (autenticazione del client). Prova con una versione più recente di Tor o utilizza la modalità 'pubblica' se non è necessario che sia privata."
+    "gui_server_doesnt_support_stealth": "Spiacenti, questa versione di Tor non supporta la modalità stealth (autenticazione del client). Prova con una versione più recente di Tor o utilizza la modalità 'pubblica' se non è necessario che sia privata.",
+    "gui_chat_mode_explainer": "La modalità chat ti consente di chattare in modo interattivo con gli altri, in Tor Browser.<br><br><b>La cronologia chat non viene archiviata in OnionShare. La cronologia della chat scomparirà quando chiudi Tor Browser.</b>"
 }
