@@ -22,7 +22,7 @@ from PySide6 import QtCore
 import datetime
 import re
 import socks
-from distutils.version import LooseVersion as Version
+from packaging import version as Version
 
 from onionshare_cli.settings import Settings
 

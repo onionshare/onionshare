@@ -33,7 +33,7 @@ import tempfile
 import time
 import traceback
 
-from distutils.version import LooseVersion as Version
+from packaging import version as Version
 
 
 class TorErrorAutomatic(Exception):
