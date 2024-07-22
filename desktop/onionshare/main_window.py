@@ -314,6 +314,6 @@ class MainWindow(QtWidgets.QMainWindow):
         # Wait 1 second for threads to close gracefully, so tests finally pass
         time.sleep(1)
 
-    def resizeEvent(self, event):
+    def resizeEvent(self, event: QtGui.QResizeEvent):
         self.window_resized.emit()
         return super(MainWindow, self).resizeEvent(event)
