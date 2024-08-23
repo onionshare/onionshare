@@ -216,8 +216,6 @@ jobs:
         run: |
           cd desktop
           ~/Library/Application\ Support/pypoetry/venv/bin/poetry run python ./setup-freeze.py bdist_mac
-          rm -rf build/OnionShare.app/Contents/Resources/lib
-          mv build/exe.macosx-10.9-universal2-3.11/lib build/OnionShare.app/Contents/Resources/
           ~/Library/Application\ Support/pypoetry/venv/bin/poetry run python ./scripts/build-macos.py cleanup-build
 
       - name: Compress
