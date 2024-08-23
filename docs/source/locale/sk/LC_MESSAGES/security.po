@@ -6,31 +6,37 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-06-19 13:09+0000\n"
+"Last-Translator: Jerguš Fonfer <caro.jf@protonmail.com>\n"
 "Language-Team: none\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: ../../source/security.rst:2
 msgid "Security Design"
-msgstr ""
+msgstr "Bezpečnostný design"
 
 #: ../../source/security.rst:4
 msgid "Read :ref:`how_it_works` first to get a handle on how OnionShare works."
 msgstr ""
+"Najprv si prečítajte :ref:`how_it_works`, aby ste pochopili, ako OnionShare "
+"funguje."
 
 #: ../../source/security.rst:6
 msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
 msgstr ""
+"Najprv si prečítajte :ref:`how_it_works`, aby ste pochopili, ako OnionShare "
+"funguje."
 
 #: ../../source/security.rst:9
 msgid "What OnionShare protects against"
-msgstr ""
+msgstr "Pred čím OnionShare chráni"
 
 #: ../../source/security.rst:11
 msgid ""
