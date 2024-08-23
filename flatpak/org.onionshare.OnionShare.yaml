@@ -107,7 +107,7 @@ modules:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
         commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
-        dest: src/gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib.git
+        dest: src/git.torproject.org/pluggable-transports/goptlib.git
       - type: git
         url: https://github.com/dsnet/compress
         commit: f66993602bf5da07ef49d35b08e7264ae9fe2b6e
@@ -122,7 +122,7 @@ modules:
       env:
         GOBIN: "/app/bin/"
     build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git/meek-client"
+      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install git.torproject.org/pluggable-transports/meek.git/meek-client"
     sources:
       - type: git
         url: https://go.googlesource.com/net
@@ -143,11 +143,11 @@ modules:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
         commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
-        dest: src/gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib.git
+        dest: src/git.torproject.org/pluggable-transports/goptlib.git
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek
         commit: 6600c52acb7979b08dd0916a7a779dd0e5dde0b0
-        dest: src/gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git
+        dest: src/git.torproject.org/pluggable-transports/meek.git
       - type: git
         url: https://github.com/refraction-networking/utls
         commit: 0b2885c8c0d4467cfe98136748a9d011d0b8fff0
@@ -158,7 +158,7 @@ modules:
       env:
         GOBIN: "/app/bin/"
     build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git/client"
+      - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install git.torproject.org/pluggable-transports/snowflake.git/client"
       - "mv /app/bin/client /app/bin/snowflake-client"
     sources:
       - type: git
@@ -184,11 +184,11 @@ modules:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
         commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
-        dest: src/gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib.git
+        dest: src/git.torproject.org/pluggable-transports/goptlib.git
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake
         commit: 36f03dfd4483922b3e7400dedc71df9cf2f30b6b
-        dest: src/gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
+        dest: src/git.torproject.org/pluggable-transports/snowflake.git
       - type: git
         url: https://github.com/refraction-networking/utls
         commit: 0b2885c8c0d4467cfe98136748a9d011d0b8fff0
