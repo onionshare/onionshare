@@ -98,5 +98,9 @@
     "gui_settings_theme_light": "밝음",
     "gui_settings_bridge_moat_radio_option": "torproject.org에서 브릿지 요청하기",
     "moat_captcha_submit": "제출",
-    "gui_general_settings_window_title": "일반"
+    "gui_general_settings_window_title": "일반",
+    "gui_main_page_website_button": "호스팅 시작",
+    "gui_main_page_share_button": "공유 시작",
+    "gui_new_tab_share_button": "파일 공유",
+    "mode_settings_title_label": "사용자 지정 제목"
 }

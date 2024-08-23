@@ -67,7 +67,7 @@ msgstr ""
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Повторен опит без мостове"
 
 #: ../../source/tor.rst:23
 msgid ""
@@ -177,7 +177,7 @@ msgstr ""
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Използване на вграденото в OnionShare издание на Тор"
 
 #: ../../source/tor.rst:70
 msgid ""
@@ -225,7 +225,7 @@ msgstr ""
 
 #: ../../source/tor.rst:91
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "Опитване на автоматична настройка чрез четеца Тор"
 
 #: ../../source/tor.rst:93
 msgid ""

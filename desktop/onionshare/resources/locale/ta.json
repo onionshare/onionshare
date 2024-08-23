@@ -45,5 +45,6 @@
     "systray_menu_exit": "வெளியேறு",
     "gui_all_modes_history": "வரலாறு",
     "gui_quit_warning_quit": "வெளியேறு",
-    "gui_status_indicator_share_working": "தொடங்குகிறது…"
+    "gui_status_indicator_share_working": "தொடங்குகிறது…",
+    "gui_autoconnect_configure": "பிணைய அமைப்புகள்"
 }
