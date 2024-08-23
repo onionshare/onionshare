@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-04-06 09:02+0000\n"
+"PO-Revision-Date: 2024-08-05 15:39+0000\n"
 "Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
 "Language-Team: el <LL@li.org>\n"
 "Language: el\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -374,35 +374,33 @@ msgstr ""
 
 #: ../../source/install.rst:122
 msgid "Micah Lee:"
-msgstr ""
+msgstr "Micah Lee:"
 
 #: ../../source/install.rst:121
 msgid ""
 "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 msgstr ""
+"Αποτύπωση δημόσιου κλειδιού PGP ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
-#, fuzzy
 msgid ""
 "You can download Micah's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Τα πακέτα υπογράφονται από τον Micah Lee, τον βασικό προγραμματιστή, "
-"χρησιμοποιώντας το δημόσιο κλειδί του PGP με το αποτύπωμα "
-"``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Μπορείτε να κατεβάσετε το "
-"κλειδί του Micah από το διακομιστή κλειδιών keys.openpgp.org <https://keys."
-"openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Μπορείτε να κατεβάσετε το κλειδί του Micah από το `διακομιστή κλειδιών "
+"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:126
 msgid "Saptak Sengupta:"
-msgstr ""
+msgstr "Saptak Sengupta:"
 
 #: ../../source/install.rst:125
 msgid ""
 "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 msgstr ""
+"Αποτύπωση δημόσιου κλειδιού PGP ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
 msgid ""
@@ -410,6 +408,9 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
+"Μπορείτε να κατεβάσετε το κλειδί του Saptak από το `διακομιστή κλειδιών "
+"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
 msgid ""
