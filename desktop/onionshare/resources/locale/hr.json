@@ -253,5 +253,6 @@
     "waitress_web_server_error": "Došlo je do problema pri pokretanju web servera",
     "gui_autoconnect_circumventing_censorship_starting_meek": "Uspostavljanje meek mosta za domain-fronting …",
     "gui_dragdrop_sandbox_flatpak": "Kako bi Flatpak sandbox bio sigurniji, funkcija povlačenja i ispuštanja nije podržana. Umjesto toga koristi gumbe „Dodaj datoteke” i „Dodaj mapu” za biranje datoteka.",
-    "gui_close_tab_warning_chat_description": "Zatvoriti karticu koja hostira server za razgovore?"
+    "gui_close_tab_warning_chat_description": "Zatvoriti karticu koja hostira server za razgovore?",
+    "gui_chat_mode_explainer": "Modus razgovora omogućuje interaktivni razgovor s drugima u Tor pregledniku.<br><br><b>Povijest razgovora se ne sprema u OnionShareu. Povijest razgovora će nestati kada zatvoriš Tor preglednik.</b>"
 }
