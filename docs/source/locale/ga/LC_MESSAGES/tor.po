@@ -3,30 +3,34 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2024-07-20 12:09+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :("
+"n>6 && n<11) ? 3 : 4;\n"
+"X-Generator: Weblate 5.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr ""
+msgstr "Ag nascadh le Tor"
 
 #: ../../source/tor.rst:4
 msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect to "
 "the Tor network."
 msgstr ""
+"Nuair a thosaíonn OnionShare, taispeánfaidh sé scáileán duit ag iarraidh ort "
+"ceangal le líonra Tor."
 
 #: ../../source/tor.rst:8
 msgid ""
@@ -37,6 +41,12 @@ msgid ""
 "connection fails, you can still try bridges or reconfigure Tor via the "
 "\"Network Settings\" button."
 msgstr ""
+"Is féidir leat scoránaigh ar an lasc \"Ceangail le Tor go huathoibríoch\" "
+"roimh \"Ceangail le Tor\" a chliceáil. Ciallaíonn sé seo an chéad uair eile "
+"a thosaíonn OnionShare, nascfaidh sé go huathoibríoch lena shocruithe nasc "
+"Tor ón seisiún deireanach, in ionad na roghanna ceangail a chur i láthair "
+"duit. Má theipeann ar an nasc, is féidir leat droichid a thriail go fóill nó "
+"Tor a athchumrú tríd an gcnaipe \"Socruithe Líonra\"."
 
 #: ../../source/tor.rst:11
 msgid ""
@@ -44,45 +54,59 @@ msgid ""
 "are no problems with your network, including any attempts to block your "
 "access to the Tor network, this should hopefully work the first time."
 msgstr ""
+"Is féidir leat \"Ceangail le Tor\" a chliceáil chun tús a chur leis an "
+"bpróiseas nasctha. Mura bhfuil fadhbanna ar bith le do líonra, lena n-"
+"áirítear aon iarrachtaí chun rochtain ar líonra Tor a bhlocáil, tá súil "
+"againn go n-oibreoidh sé seo den chéad uair."
 
 #: ../../source/tor.rst:13
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings before "
 "you connect, you can click \"Network Settings\"."
 msgstr ""
+"Nó, más mian leat Droichid nó socruithe Tor eile a chumrú de láimh sula "
+"ndéanann tú ceangal, is féidir leat \"Socruithe Líonra\" a chliceáil."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Imchéimniú cinsireachta uathoibríoch"
 
 #: ../../source/tor.rst:18
 msgid ""
 "When you click \"Connect to Tor\", if OnionShare fails to connect, it might "
 "be because Tor is censored in your country or on your local network."
 msgstr ""
+"Nuair a chliceálann tú \"Ceangail le Tor\", má theipeann ar OnionShare "
+"ceangal a dhéanamh, d'fhéadfadh sé tarlú go bhfuil Tor cinsireachta i do "
+"thír féin nó ar do líonra áitiúil."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "Má tharlaíonn sé seo, beidh na roghanna seo agat:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Bain triail eile as gan droichead"
 
 #: ../../source/tor.rst:23
 msgid ""
 "Automatically determine my country from my IP address for bridge settings"
 msgstr ""
+"Cinntigh go huathoibríoch mo thír ó mo sheoladh IP le haghaidh socruithe "
+"droichead"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Roghnaigh mo thír de láimh le haghaidh socruithe droichead"
 
 #: ../../source/tor.rst:28
 msgid ""
 "If you choose the \"Try again without a bridge\" option, OnionShare will "
 "retry connecting to Tor like normal, without attempting to bypass censorship."
 msgstr ""
+"Má roghnaíonn tú an rogha \"Bain triail eile as gan droichead\", bainfidh "
+"OnionShare triail eile as nascadh le Tor mar is gnách, gan iarracht a "
+"dhéanamh an chinsireacht a sheachbhóthar."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -97,6 +121,17 @@ msgid ""
 "Censorship Circumvention API. The Meek proxy hides the fact that you are "
 "trying to find a way to connect to Tor."
 msgstr ""
+"Déanfaidh an dá rogha eile iarracht an chinsireacht a sheachbhóthar go "
+"huathoibríoch ag baint úsáide as droichid Tor. Má tá do sholáthraí líonra ag "
+"cur bac ar rochtain ar líonra Tor, tá súil againn go mbeidh tú fós in ann "
+"nascadh le droichead Tor, a nascfaidh ansin le líonra Tor tú, ag dul "
+"timpeall ar an gcinsireacht. Baineann an dá rogha seo úsáid as API "
+"Circumvention Censorship Project Tor chun socruithe droichid a sholáthar "
+"duit ar cheart dóibh oibriú duit. Úsáidfidh OnionShare an seachfhreastalaí `"
+"Meek <https://gitlab.torproject.org/legacy/trac/-/wikis/doc/meek/>`_ chun "
+"nasc neamh-Tor a dhéanamh ó do ríomhaire le Cinsireacht Tor Circumvention "
+"API. Cuireann an seachfhreastalaí Meek i bhfolach go bhfuil tú ag iarraidh "
+"bealach a aimsiú chun ceangal le Tor."
 
 #: ../../source/tor.rst:36
 msgid ""
@@ -106,6 +141,11 @@ msgid ""
 "reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"Má roghnaíonn tú \"Mo thír a chinneadh go huathoibríoch ó mo sheoladh IP le "
+"haghaidh socruithe droichead\", breithneoidh an Censorship Circumvention API "
+"do sheoladh IP (tá, do sheoladh IP fíor) chun a chinneadh cén tír ina bhfuil "
+"tú i do chónaí. Bunaithe ar an bhfaisnéis faoin tír, an Déanfaidh API "
+"iarracht droichid a oireann do do shuíomh a aimsiú go huathoibríoch."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -113,10 +153,13 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"Má roghnaíonn tú \"Roghnaigh de láimh mo thír le haghaidh socruithe "
+"droichead\", gheobhaidh an API Cinsireachta na droichid a oireann don tír a "
+"shonraigh tú."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Conas a oibríonn imchéimniú cinsireachta uathoibríoch"
 
 #: ../../source/tor.rst:48
 msgid ""
@@ -125,6 +168,11 @@ msgid ""
 "does not find any bridges for your location, OnionShare will ask the API for "
 "\"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Má aimsíonn an Censorship Circumvention API droichid a chreideann sé a "
+"oireann duit, déanfaidh OnionShare iarracht athcheangal le Tor ag baint "
+"úsáide as na droichid sin. Mura bhfaighidh an API droichid ar bith do do "
+"shuíomh, iarrfaidh OnionShare roghanna \"backback\" ar an API, agus ansin "
+"déanfaidh sé iarracht iad sin a athcheangal."
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -132,6 +180,9 @@ msgid ""
 "or if the API returns an error message, OnionShare will attempt to use the "
 "obfs4 built-in bridges."
 msgstr ""
+"Más rud é ar chúis éigin nach ndéanann OnionShare ceangal leis an API "
+"Cinsireachta féin, nó má sheolann an API teachtaireacht earráide ar ais, "
+"déanfaidh OnionShare iarracht na droichid obfs4 ionsuite a úsáid."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -139,6 +190,9 @@ msgid ""
 "do not go over the Tor network (because if you could connect to Tor already, "
 "you wouldn't need to connect to the API)."
 msgstr ""
+"Tá sé tábhachtach a thabhairt faoi deara nach dtéann na hiarratais chuig an "
+"Censorship Circumvention API thar líonra Tor (mar dá bhféadfá nascadh le Tor "
+"cheana féin, ní bheadh ort ceangal leis an API)."
 
 #: ../../source/tor.rst:54
 msgid ""
@@ -148,6 +202,12 @@ msgid ""
 "to making one or two requests to the Censorship Circumvention API. Then Meek "
 "is stopped, and all further network requests happen over the Tor network."
 msgstr ""
+"Cé go bhfuil sé deacair ag namhaid a fháil amach cá bhfuil an t-iarratas "
+"Meek ag dul, d'fhéadfadh sé seo a bheith contúirteach do roinnt úsáideoirí. "
+"Mar sin, is gné rogha an diúltaithe é. Tá úsáid iarratais líonra Meek agus "
+"neamh-thorified teoranta ach amháin chun iarratas nó dhó a dhéanamh ar an "
+"Censorship Circumvention API. Stoptar Meek ansin, agus tarlaíonn gach "
+"iarratas líonra breise thar líonra Tor."
 
 #: ../../source/tor.rst:56
 msgid ""
@@ -157,10 +217,16 @@ msgid ""
 "appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Mura bhfuil tú compordach le hiarratas a dhéanamh nach dtéann thar líonra "
+"Tor, is féidir leat \"Socruithe Líonra\" a chliceáil (nó ar an deilbhín "
+"Socruithe sa chúinne ag bun ar dheis, agus an cluaisín Socruithe Tor ina "
+"dhiaidh sin sa scáileán a fheictear), agus droichid a chumrú de láimh. Tar "
+"éis duit aon socruithe droichid a shábháil, déanfaidh OnionShare iarracht na "
+"droichid sin a úsáid arís."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Cumraigh socruithe Tor de láimh"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -169,21 +235,29 @@ msgid ""
 "the application, and then switch to the Tor Settings tab in the screen that "
 "appears."
 msgstr ""
+"Is féidir leat socruithe Tor a bhaint amach trí \"Socruithe Líonra\" a "
+"chliceáil ar an scáileán fáilte, nó cliceáil ar an deilbhín \"⚙\" sa chúinne "
+"ag bun ar dheis an fheidhmchláir, agus ansin athraigh go dtí an táb "
+"Socruithe Tor sa scáileán a fheictear."
 
 #: ../../source/tor.rst:65
 msgid ""
 "Here are the different ways you can configure OnionShare to connect to Tor:"
 msgstr ""
+"Seo na bealaí éagsúla inar féidir leat OnionShare a chumrú chun ceangal le "
+"Tor:"
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Úsáid an leagan Tor atá ionsuite in OnionShare"
 
 #: ../../source/tor.rst:70
 msgid ""
 "This is the default, simplest and most reliable way that OnionShare connects "
 "to Tor. For this reason, it's recommended for most users."
 msgstr ""
+"Is é seo an bealach réamhshocraithe, is simplí agus is iontaofa a nascann "
+"OnionShare le Tor. Ar an gcúis seo, tá sé molta don chuid is mó úsáideoirí."
 
 #: ../../source/tor.rst:73
 msgid ""
@@ -192,22 +266,30 @@ msgid ""
 "``tor`` processes on your computer, so you can use the Tor Browser or the "
 "system ``tor`` on their own."
 msgstr ""
+"Nuair a osclaíonn tú OnionShare, seolann sé próiseas `` tor`` atá cumraithe "
+"cheana féin sa chúlra chun OnionShare a úsáid. Ní chuireann sé isteach ar "
+"phróisis ``tor`` eile ar do ríomhaire, mar sin is féidir leat Brabhsálaí Tor "
+"nó an córas ``tor`` a úsáid ina n-aonar."
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**Droichid a úsáid**"
 
 #: ../../source/tor.rst:78
 msgid ""
 "To use a bridge, you must select \"Use the Tor version built into "
 "OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
+"Chun droichead a úsáid, ní mór duit \"Úsáid an leagan Tor a tógadh isteach i "
+"OnionShare\" a roghnú agus an ticbhosca \"Úsáid droichead\" a sheiceáil."
 
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
 "recommended over using `meek-azure`."
 msgstr ""
+"Bain triail as droichead ionsuite a úsáid ar dtús. Moltar droichid `obfs4` "
+"nó `cáithníní sneachta` a úsáid seachas `meek-azure` a úsáid."
 
 #: ../../source/tor.rst:84
 msgid ""
@@ -216,16 +298,22 @@ msgid ""
 "bridge. (This makes it more difficult for governments or ISPs to block "
 "access to Tor bridges.)"
 msgstr ""
+"Mura n-oibríonn úsáid droichead ionsuite, is féidir leat droichead a "
+"iarraidh ó torproject.org. Beidh ort CAPTCHA a réiteach chun droichead a "
+"iarraidh. (Déanann sé seo níos deacra do rialtais nó ISPanna rochtain ar "
+"dhroichid Tor a bhac.)"
 
 #: ../../source/tor.rst:88
 msgid ""
 "You also have the option of using a bridge that you learned about from a "
 "trusted source."
 msgstr ""
+"Tá an rogha agat freisin droichead a d’fhoghlaim tú faoi ó fhoinse iontaofa "
+"a úsáid."
 
 #: ../../source/tor.rst:91
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "Déan iarracht uathchumrú le Brabhsálaí Tor"
 
 #: ../../source/tor.rst:93
 msgid ""
@@ -234,16 +322,23 @@ msgid ""
 "from the Tor Browser. Keep in mind you need to keep Tor Browser open in the "
 "background while you're using OnionShare for this to work."
 msgstr ""
+"Má tá an `Brabhsálaí Tor íoslódáilte agat <https://www.torproject.org>`_ "
+"agus mura dteastaíonn uait go mbeidh dhá phróiseas ``tor`` ag rith, is "
+"féidir leat an próiseas ``tor`` ón mBrabhsálaí Tor a úsáid. Coinnigh i "
+"gcuimhne go gcaithfidh tú an Brabhsálaí Tor a choinneáil ar oscailt sa "
+"chúlra agus tú ag úsáid OnionShare chun go n-oibreoidh sé seo."
 
 #: ../../source/tor.rst:97
 msgid "Using a system ``tor`` in Windows"
-msgstr ""
+msgstr "Ag baint úsáide as córas `` tor`` i Windows"
 
 #: ../../source/tor.rst:99
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and do "
 "stuff as an administrator."
 msgstr ""
+"Tá sé seo sách chun cinn. Beidh a fhios agat conas comhaid ghnáththéacs a "
+"chur in eagar agus rudaí a dhéanamh mar riarthóir."
 
 #: ../../source/tor.rst:101
 msgid ""
@@ -252,6 +347,10 @@ msgid ""
 "extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted "
 "folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
+"Íoslódáil Beart Saineolaithe Tor Windows `ó shuíomh Gréasáin Tor <https://www"
+".torproject.org/download/tor/>`_. Bain an comhad comhbhrúite agus cóipeáil "
+"an fillteán asbhainte go `` C: \\ Program Files (x86) \\`` Athainmnigh an "
+"fillteán a bhaintear le `` Sonraí`` agus `` Tor`` ann go `` tor-win32``."
 
 #: ../../source/tor.rst:105
 msgid ""
@@ -261,6 +360,11 @@ msgid ""
 "administrator, and use ``tor.exe --hash-password`` to generate a hash of "
 "your password. For example::"
 msgstr ""
+"Déan suas pasfhocal port rialaithe. (Úsáid 7 bhfocal i seicheamh cosúil le ``"
+" obair rummage stumble comhdhéanta avenging construct so-ghalaithe`` is "
+"smaoineamh maith é do phasfhocal.) Anois oscail ordú leid (``cmd``) mar "
+"riarthóir, agus úsáid ``tor. exe --hash-password`` chun hash de do "
+"phasfhocal a ghiniúint. Mar shampla::"
 
 #: ../../source/tor.rst:112
 msgid ""
@@ -268,6 +372,9 @@ msgid ""
 "ignore). In the case of the above example, it is "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 msgstr ""
+"Taispeántar an t-aschur pasfhocal hashed tar éis roinnt rabhaidh (ar féidir "
+"leat neamhaird a dhéanamh). I gcás an sampla thuas, is é "
+"``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
 #: ../../source/tor.rst:114
 msgid ""
@@ -275,6 +382,9 @@ msgid ""
 "and put your hashed password output in it, replacing the "
 "``HashedControlPassword`` with the one you just generated::"
 msgstr ""
+"Anois cruthaigh téacschomhad nua ag `` C: \\ Program Files (x86) \\ tor-"
+"win32 \\ torrc`` agus cuir aschur do phasfhocal hashed ann, agus cuir an "
+"ceann a ghin tú díreach in ionad an ``HashedControlPassword``::"
 
 #: ../../source/tor.rst:119
 msgid ""
@@ -282,10 +392,13 @@ msgid ""
 "appropriate ``torrc`` file you just created (as described in `<https://2019."
 "www.torproject.org/docs/faq.html.en#NTService>`_). Like this::"
 msgstr ""
+"I do leid riarthóra, suiteáil ``tor`` mar sheirbhís ag baint úsáide as an "
+"gcomhad `` torrc`` cuí a chruthaigh tú (mar a thuairiscítear in "
+"`<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). Mar seo::"
 
 #: ../../source/tor.rst:123
 msgid "You are now running a system ``tor`` process in Windows!"
-msgstr ""
+msgstr "Tá próiseas ``tor`` córais á rith agat anois i Windows!"
 
 #: ../../source/tor.rst:125
 msgid ""
@@ -297,24 +410,34 @@ msgid ""
 "Connection to Tor\" button. If all goes well, you should see \"Connected to "
 "the Tor controller\"."
 msgstr ""
+"Oscail OnionShare, cliceáil ar an deilbhín \"⚙\" ann, agus athraigh go dtí "
+"an táb Socruithe Tor. Faoi \"Conas ba chóir OnionShare nascadh le Tor?\" "
+"roghnaigh \"Ceangail ag baint úsáide as port rialaithe\", agus socraigh "
+"\"Port rialaithe\" go `` 127.0.0.1`` agus \"Port\" go `` 9051``. Faoi "
+"\"Socruithe fíordheimhnithe Tor\" roghnaigh \"Pasfhocal\" agus socraigh an "
+"focal faire chuig an pasfhocal port rialaithe a roghnaigh tú thuas. Cliceáil "
+"ar an gcnaipe \"Tástáil Ceangal le Tor\". Má théann gach rud go maith, ba "
+"cheart duit \"Ceangailte le rialtóir Tor\" a fheiceáil."
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
-msgstr ""
+msgstr "Ag baint úsáide as córas `` tor`` i macOS"
 
 #: ../../source/tor.rst:136
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, "
 "and then install Tor::"
 msgstr ""
+"Ar dtús, suiteáil `Homebrew <https://brew.sh/>`_ mura bhfuil sé agat cheana "
+"féin, agus ansin suiteáil Tor::"
 
 #: ../../source/tor.rst:140
 msgid "Now configure Tor to allow connections from OnionShare::"
-msgstr ""
+msgstr "Anois cumraigh Tor chun naisc ó OnionShare a cheadú::"
 
 #: ../../source/tor.rst:147
 msgid "And start the system Tor service::"
-msgstr ""
+msgstr "Agus cuir tús le seirbhís Tor an chórais ::"
 
 #: ../../source/tor.rst:151
 msgid ""
@@ -325,14 +448,22 @@ msgid ""
 "authentication, or cookie authentication\". Click the \"Test Connection to "
 "Tor\" button."
 msgstr ""
+"Oscail OnionShare, cliceáil ar an deilbhín \"⚙\" ann, agus athraigh go dtí "
+"an táb Socruithe Tor. Faoi \"Conas ba chóir OnionShare nascadh le Tor?\" "
+"roghnaigh \"Ceangail ag baint úsáide as comhad soicéad\", agus socraigh an "
+"comhad soicéad mar ``/usr/local/var/run/tor/control.socket``. Faoi "
+"\"Socruithe fíordheimhnithe Tor\" roghnaigh \"Gan fíordheimhniú, nó "
+"fíordheimhniú fianán\". Cliceáil ar an gcnaipe \"Tástáil Ceangal le Tor\"."
 
 #: ../../source/tor.rst:157 ../../source/tor.rst:177
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr ""
+"Má théann gach rud go maith, ba cheart duit \"Ceangailte le rialtóir Tor\" a "
+"fheiceáil."
 
 #: ../../source/tor.rst:160
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "Ag baint úsáide as córas `` tor`` i Linux"
 
 #: ../../source/tor.rst:162
 msgid ""
@@ -340,6 +471,10 @@ msgid ""
 "similar Linux distro, It is recommended to use the Tor Project's `official "
 "repository <https://support.torproject.org/apt/tor-deb-repo/>`_."
 msgstr ""
+"Gcéad dul síos, suiteáil an pacáiste `` tor``. Má tá Debian, Ubuntu, nó "
+"distro Linux comhchosúil á úsáid agat, moltar úsáid a bhaint as `stór "
+"oifigiúil Tionscadal Tor <https://support.torproject.org/apt/tor-deb-repo/"
+">`_."
 
 #: ../../source/tor.rst:164
 msgid ""
@@ -347,12 +482,17 @@ msgid ""
 "of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to connect to "
 "your system ``tor``'s control socket file."
 msgstr ""
+"Ansin, cuir d'úsáideoir leis an ngrúpa a ritheann an próiseas `` tor`` (i "
+"gcás Debian agus Ubuntu, `` debian-tor``) agus cumraigh OnionShare chun "
+"ceangal le do chóras `` tor`` rialú comhad soicéad."
 
 #: ../../source/tor.rst:166
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command (replace "
 "``username`` with your actual username)::"
 msgstr ""
+"Cuir d'úsáideoir leis an ngrúpa ``debian-tor`` tríd an ordú seo a rith (cuir "
+"d'ainm úsáideora iarbhír in ionad ``ainm úsáideora``)::"
 
 #: ../../source/tor.rst:170
 msgid ""
@@ -363,3 +503,10 @@ msgid ""
 "settings\" choose \"No authentication, or cookie authentication\". Click the "
 "\"Test Connection to Tor\" button."
 msgstr ""
+"Atosaigh do ríomhaire. Tar éis dó a bheith tosaithe arís, oscail OnionShare, "
+"cliceáil ar an deilbhín \"⚙\" ann, agus aistrigh go dtí an táb Socruithe "
+"Tor. Faoi \"Conas ba chóir OnionShare nascadh le Tor?\" roghnaigh \"Ceangail "
+"ag baint úsáide as comhad soicéad\". Socraigh an comhad soicéad mar ``/var/"
+"run/tor/control``. Faoi \"Socruithe fíordheimhnithe Tor\" roghnaigh \"Gan "
+"fíordheimhniú, nó fíordheimhniú fianán\". Cliceáil ar an gcnaipe \"Tástáil "
+"Ceangal le Tor\"."
