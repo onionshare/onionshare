@@ -5,7 +5,7 @@ OS=$(uname -s)
 
 mkdir -p ./build/meek
 cd ./build/meek
-git clone https://git.torproject.org/pluggable-transports/meek.git || echo "already cloned"
+git clone https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git || echo "already cloned"
 cd meek
 git checkout $MEEK_TAG
 
