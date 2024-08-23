@@ -5,7 +5,7 @@ OS=$(uname -s)
 
 mkdir -p ./build/snowflake
 cd ./build/snowflake
-git clone https://git.torproject.org/pluggable-transports/snowflake.git || echo "already cloned"
+git clone https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git || echo "already cloned"
 cd snowflake
 git checkout $SNOWFLAKE_TAG
 if [ "$OS" == "Darwin" ]; then

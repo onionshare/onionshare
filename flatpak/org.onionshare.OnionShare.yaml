@@ -105,7 +105,7 @@ modules:
         commit: 8c58ed0e35502a485538e4c5ec086070840f3410
         dest: src/filippo.io/edwards25519
       - type: git
-        url: https://git.torproject.org/pluggable-transports/goptlib
+        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
         commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
         dest: src/git.torproject.org/pluggable-transports/goptlib.git
       - type: git
@@ -141,11 +141,11 @@ modules:
         commit: faf0a1b62c6b439486fd1d914d8185627b99d387
         dest: src/golang.org/x/sys
       - type: git
-        url: https://git.torproject.org/pluggable-transports/goptlib
+        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
         commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
         dest: src/git.torproject.org/pluggable-transports/goptlib.git
       - type: git
-        url: https://git.torproject.org/pluggable-transports/meek
+        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek
         commit: 6600c52acb7979b08dd0916a7a779dd0e5dde0b0
         dest: src/git.torproject.org/pluggable-transports/meek.git
       - type: git
@@ -182,11 +182,11 @@ modules:
         commit: 5ec99f83aff198f5fbd629d6c8d8eb38a04218ca
         dest: src/golang.org/x/xerrors
       - type: git
-        url: https://git.torproject.org/pluggable-transports/goptlib
+        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
         commit: 13b7b3552e1eef32e4d8a2a7813f22488f91dc09
         dest: src/git.torproject.org/pluggable-transports/goptlib.git
       - type: git
-        url: https://git.torproject.org/pluggable-transports/snowflake
+        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake
         commit: 36f03dfd4483922b3e7400dedc71df9cf2f30b6b
         dest: src/git.torproject.org/pluggable-transports/snowflake.git
       - type: git
