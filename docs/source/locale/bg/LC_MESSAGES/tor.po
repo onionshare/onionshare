@@ -6,27 +6,29 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-08-15 05:09+0000\n"
+"Last-Translator: 109247019824 <stoyan@gmx.com>\n"
 "Language-Team: none\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr "Свързване към Тор"
+msgstr "Свързване с Tor"
 
 #: ../../source/tor.rst:4
 msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect to "
 "the Tor network."
 msgstr ""
+"След стартиране OnionShare показва екран, който ви приканя да се свържете с "
+"мрежата на Tor."
 
 #: ../../source/tor.rst:8
 msgid ""
@@ -67,7 +69,7 @@ msgstr ""
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr "Повторен опит без мостове"
+msgstr "Повторен опит без мост"
 
 #: ../../source/tor.rst:23
 msgid ""
