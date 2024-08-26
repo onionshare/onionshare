@@ -3,38 +3,42 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2024-07-09 19:28+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :("
+"n>6 && n<11) ? 3 : 4;\n"
+"X-Generator: Weblate 5.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/help.rst:2
 msgid "Getting Help"
-msgstr ""
+msgstr "Cabhair a Fháil"
 
 #: ../../source/help.rst:5
 msgid "Read This Website"
-msgstr ""
+msgstr "Léigh an Suíomh Gréasáin seo"
 
 #: ../../source/help.rst:7
 msgid ""
 "You will find instructions on how to use OnionShare. Look through all of the "
 "sections first to see if anything answers your questions."
 msgstr ""
+"Gheobhaidh tú treoracha maidir le conas OnionShare a úsáid. Breathnaigh trí "
+"na hailt go léir ar dtús féachaint an bhfreagraíonn aon rud do cheisteanna."
 
 #: ../../source/help.rst:10
 msgid "Check the GitHub Issues"
-msgstr ""
+msgstr "Seiceáil na Ceisteanna GitHub"
 
 #: ../../source/help.rst:12
 msgid ""
@@ -43,10 +47,14 @@ msgid ""
 "encountered the same problem and either raised it with the developers, or "
 "maybe even posted a solution."
 msgstr ""
+"Mura bhfuil sé ar an suíomh Gréasáin, seiceáil na `ceisteanna GitHub "
+"<https://github.com/onionshare/onionshare/issues>`_. Seans go bhfuil an "
+"fhadhb chéanna tar éis teacht ar dhuine eile agus gur ardaigh sé leis na "
+"forbróirí é, nó gur chuir sé réiteach ar fáil fiú."
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
-msgstr ""
+msgstr "Cuir isteach Eagrán Tú Féin"
 
 #: ../../source/help.rst:17
 msgid ""
@@ -55,13 +63,19 @@ msgid ""
 "onionshare/issues/new>`_. This requires `creating a GitHub account <https://"
 "help.github.com/articles/signing-up-for-a-new-github-account/>`_."
 msgstr ""
+"Mura bhfuil tú in ann teacht ar réiteach, nó más mian leat ceist a chur nó "
+"gné nua a mholadh, `cuir ceist isteach <https://github.com/onionshare/"
+"onionshare/issues/new>`_. Éilíonn sé seo `cuntas GitHub a chruthú "
+"<https://help.github.com/articles/signing-up-for-a-new-github-account/>`_."
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"
-msgstr ""
+msgstr "Bígí linn lenár bhFoireann Keybase"
 
 #: ../../source/help.rst:22
 msgid ""
 "See :ref:`collaborating` on how to join the Keybase team used to discuss the "
 "project."
 msgstr ""
+"Féach :tag:`comhoibriú` maidir le conas dul isteach san fhoireann Keybase a "
+"úsáidtear chun an tionscadal a phlé."

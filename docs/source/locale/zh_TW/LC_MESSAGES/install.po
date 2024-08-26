@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-04-01 12:01+0000\n"
-"Last-Translator: YongJim <skbot60@gmail.com>\n"
+"PO-Revision-Date: 2024-05-29 05:09+0000\n"
+"Last-Translator: hugoalh <hugoalh@users.noreply.hosted.weblate.org>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -332,16 +332,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/install.rst:122
-#, fuzzy
 msgid ""
 "You can download Micah's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"套件由核心開發人員 Micah Lee 的 PGP 公鑰簽署，其指紋識別碼為 "
-"``927F419D7EC82C2F149C1BD1403C2657CD994F73``。您可從密鑰伺服器 `keys.openpgp."
-"org 下載 Micah 的公鑰<https://keys.openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"你可以`從 keys.openpgp.org 金鑰伺服器 <https://keys.openpgp.org/vks/v1/"
+"by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_下載 Micah 的金鑰。"
 
 #: ../../source/install.rst:126
 msgid "Saptak Sengupta:"
