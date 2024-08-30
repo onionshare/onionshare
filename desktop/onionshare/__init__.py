@@ -26,10 +26,10 @@ import signal
 import json
 import psutil
 import getpass
-from PySide6 import QtCore, QtWidgets, QtGui
+from qtpy import QtCore, QtWidgets, QtGui
 
-from PySide6.QtCore import Slot, Qt
-from PySide6.QtGui import QPalette, QColor
+from qtpy.QtCore import Slot, Qt
+from qtpy.QtGui import QPalette, QColor
 
 from onionshare_cli.common import Common
 from onionshare_cli.settings import Settings
