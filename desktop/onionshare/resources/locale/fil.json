@@ -37,5 +37,6 @@
     "gui_status_indicator_share_started": "Nagbabahagi",
     "gui_status_indicator_receive_working": "Sinisimulan…",
     "gui_status_indicator_chat_working": "Sinisimulan…",
-    "gui_all_modes_history": "History"
+    "gui_all_modes_history": "History",
+    "gui_canceled": "Kinansela"
 }

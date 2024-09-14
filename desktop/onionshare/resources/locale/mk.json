@@ -37,5 +37,6 @@
     "gui_hide": "Skrij",
     "gui_settings_bridge_moat_radio_option": "Барање за мост од torproject.org",
     "gui_settings_bridge_custom_placeholder": "внеси адреса:порта (по една во секој ред)",
-    "moat_captcha_label": "Решете ја ЗАДАЧАТА за да побарате мост."
+    "moat_captcha_label": "Решете ја ЗАДАЧАТА за да побарате мост.",
+    "gui_settings_bridge_use_checkbox": "Користи мост"
 }

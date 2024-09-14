@@ -198,5 +198,6 @@
     "gui_hide": "Skryť",
     "gui_settings_bridge_none_radio_option": "Nepoužívať Tor bridge",
     "gui_settings_bridge_moat_radio_option": "Vyžiadať premostenie od torproject.org",
-    "gui_status_indicator_chat_working": "Začína…"
+    "gui_status_indicator_chat_working": "Začína…",
+    "gui_settings_bridge_use_checkbox": "Použiť most"
 }

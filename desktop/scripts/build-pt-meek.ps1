@@ -2,7 +2,7 @@ $env:MEEK_TAG = 'v0.38.0'
 
 New-Item -ItemType Directory -Force -Path .\build\meek
 cd .\build\meek
-git clone https://git.torproject.org/pluggable-transports/meek.git
+git clone https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git
 cd meek
 git checkout $MEEK_TAG
 go build .\meek-client

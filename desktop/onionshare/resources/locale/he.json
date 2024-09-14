@@ -55,5 +55,6 @@
     "moat_captcha_placeholder": "הכנס את התווים מהתמונה",
     "moat_captcha_reload": "טען מחדש",
     "gui_general_settings_window_title": "כללי",
-    "gui_status_indicator_chat_working": "התחלה…"
+    "gui_status_indicator_chat_working": "התחלה…",
+    "mode_settings_title_label": "כותרת מותאמת אישית"
 }

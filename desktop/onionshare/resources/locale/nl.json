@@ -207,5 +207,6 @@
     "moat_captcha_submit": "Versturen",
     "moat_solution_empty_error": "Voer de tekens van de afbeelding in",
     "gui_share_url_public_description": "Iedereen met dit  OnionShare adres kan je bestanden binnenhalen met de Tor browser.",
-    "gui_receive_url_public_description": "<b>1Iedereen</b>2 met dit OnionShare adres kan bestanden op je computer <b>3plaatsen</b>4 met de <b>5Tor Browser</b>6: <img src='{}' />7"
+    "gui_receive_url_public_description": "<b>1Iedereen</b>2 met dit OnionShare adres kan bestanden op je computer <b>3plaatsen</b>4 met de <b>5Tor Browser</b>6: <img src='{}' />7",
+    "gui_settings_bridge_use_checkbox": "Een brug gebruiken"
 }

@@ -253,5 +253,6 @@
     "gui_general_settings_window_title": "常规",
     "gui_autoconnect_circumventing_censorship": "正在解决连接问题…",
     "waitress_web_server_error": "启动 Web 服务器时出现问题",
-    "gui_close_tab_warning_chat_description": "是否关闭托管聊天服务的标签页？"
+    "gui_close_tab_warning_chat_description": "是否关闭托管聊天服务的标签页？",
+    "gui_chat_mode_explainer": "聊天模式可让您在 Tor 浏览器中与其他人进行互动聊天。<br><br><b>OnionShare 中不存储聊天记录。关闭 Tor 浏览器后，聊天记录将消失。</b>"
 }

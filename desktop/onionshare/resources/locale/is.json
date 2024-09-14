@@ -253,5 +253,6 @@
     "gui_autoconnect_try_again_without_a_bridge": "Prófa aftur án brúa",
     "gui_general_settings_window_title": "Almennt",
     "waitress_web_server_error": "Vandamál kom upp við að ræsa vefþjóninn",
-    "gui_close_tab_warning_chat_description": "Loka flipa sem hýsir spjallþjón?"
+    "gui_close_tab_warning_chat_description": "Loka flipa sem hýsir spjallþjón?",
+    "gui_chat_mode_explainer": "Spjallhamur gerir þér kleift að spjalla gagnvirkt við aðra í Tor-vafranum.<br><br><b>Spjallferillinn er ekki geymdur í OnionShare, hann mun hverfa þegar þú lokar Tor-vafranum.</b>"
 }

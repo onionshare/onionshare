@@ -100,8 +100,8 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
 
   # For each these, incorporate the output into the Flatpak manifest
   # Make sure to update the version numbers
-  ./flatpak-go-deps.py git.torproject.org/pluggable-transports/meek.git/meek-client@v0.38.0
-  ./flatpak-go-deps.py git.torproject.org/pluggable-transports/snowflake.git/client@v2.6.0
+  ./flatpak-go-deps.py gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git/meek-client@v0.38.0
+  ./flatpak-go-deps.py gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git/client@v2.6.0
   ./flatpak-go-deps.py gitlab.com/yawning/obfs4.git/obfs4proxy@obfs4proxy-0.0.14
   ```
   Merge the output of each of these commands into the Flatpak manifest.
