@@ -9,7 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
 "PO-Revision-Date: 2024-09-06 15:09+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +71,7 @@ msgstr ""
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Tentar novamente sem pontes"
 
 #: ../../source/tor.rst:23
 msgid ""
