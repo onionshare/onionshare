@@ -6,17 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2021-10-23 18:43+0000\n"
-"Last-Translator: Gabriel Cardoso <g.cardoso@mailfence.com>\n"
+"PO-Revision-Date: 2024-09-06 15:09+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.9-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/tor.rst:2
@@ -28,6 +29,8 @@ msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect to "
 "the Tor network."
 msgstr ""
+"Quando OnionShare inciar, irá mostrar um ecrã pedindo-o de conectar à rede "
+"Tor."
 
 #: ../../source/tor.rst:8
 msgid ""
@@ -68,7 +71,7 @@ msgstr ""
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Tentar novamente sem pontes"
 
 #: ../../source/tor.rst:23
 msgid ""
@@ -178,13 +181,16 @@ msgstr ""
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Use a versão do Tor que está integrada no OnionShare"
 
 #: ../../source/tor.rst:70
 msgid ""
 "This is the default, simplest and most reliable way that OnionShare connects "
 "to Tor. For this reason, it's recommended for most users."
 msgstr ""
+"Este é o padrão, maneira mais simples e confiável que o OnionShare se "
+"conecta ao Tor . Por esta razão, é recomendado para a maioria dos "
+"utilizadores."
 
 #: ../../source/tor.rst:73
 msgid ""
@@ -193,6 +199,10 @@ msgid ""
 "``tor`` processes on your computer, so you can use the Tor Browser or the "
 "system ``tor`` on their own."
 msgstr ""
+"Quando abre o OnionShare, inicia logo um processo ``tor`` já configurado em "
+"segundo plano para o OnionShare usar. Ele não interfere com outros processos "
+"``tor`` no seu computador, depois pode utilizar o Navegador Tor ou o sistema "
+"``tor`` por conta própria."
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
@@ -209,6 +219,8 @@ msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
 "recommended over using `meek-azure`."
 msgstr ""
+"Tente usar primeiro uma ponte embutida. Recomenda-se utilizar pontes `obfs4` "
+"ou `snowflake` em vez de utilizar `meek-azure`."
 
 #: ../../source/tor.rst:84
 msgid ""
@@ -217,16 +229,22 @@ msgid ""
 "bridge. (This makes it more difficult for governments or ISPs to block "
 "access to Tor bridges.)"
 msgstr ""
+"Se o uso de uma ponte integrada não funcionar, pode solicitar uma ponte ao "
+"torproject.org. Terá que resolver um CAPTCHA para poder solicitar uma ponte. "
+"(Isto torna mais difícil para os governos ou ISPs (provedores de internet) "
+"bloquearem o acesso às pontes Tor)."
 
 #: ../../source/tor.rst:88
 msgid ""
 "You also have the option of using a bridge that you learned about from a "
 "trusted source."
 msgstr ""
+"Também tem a opção de usar uma ponte que teve acesso a partir de uma fonte "
+"confiável."
 
 #: ../../source/tor.rst:91
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "Tentativa de configuração automática com o navegador Tor"
 
 #: ../../source/tor.rst:93
 msgid ""
@@ -238,13 +256,15 @@ msgstr ""
 
 #: ../../source/tor.rst:97
 msgid "Using a system ``tor`` in Windows"
-msgstr ""
+msgstr "A usar um sistema ``tor``no Windows"
 
 #: ../../source/tor.rst:99
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and do "
 "stuff as an administrator."
 msgstr ""
+"Isto é bastante avançado. Precisará saber como editar ficheiros de texto "
+"simples e fazer coisas como administrador."
 
 #: ../../source/tor.rst:101
 msgid ""
@@ -262,6 +282,11 @@ msgid ""
 "administrator, and use ``tor.exe --hash-password`` to generate a hash of "
 "your password. For example::"
 msgstr ""
+"Crie uma palavra-passe de porta de controle. (Usar 7 palavras numa sequência "
+"como `` compreendised stumble rummage work venging construct volatile`` é "
+"uma boa idéia para uma palavra-passe.) Agora abra um prompt de comando (`` "
+"cmd``) como administrador e use `` tor. exe --hash-password`` para gerar um "
+"hash da sua palavra-passe. Por exemplo::"
 
 #: ../../source/tor.rst:112
 msgid ""
@@ -269,6 +294,9 @@ msgid ""
 "ignore). In the case of the above example, it is "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 msgstr ""
+"A saída da palavra-passe com hash é exibida após alguns avisos (que pode "
+"ignorar). No caso do exemplo acima, é `` "
+"16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
 #: ../../source/tor.rst:114
 msgid ""
@@ -276,6 +304,9 @@ msgid ""
 "and put your hashed password output in it, replacing the "
 "``HashedControlPassword`` with the one you just generated::"
 msgstr ""
+"Agora crie um novo ficheiro de texto em `` C:\\Program Files (x86)\\tor-"
+"win32\\torrc`` e ponha a sua saída de palavra-passe hash nele, substituindo "
+"o `` HashedControlPassword`` pelo que acabou de gerar ::"
 
 #: ../../source/tor.rst:119
 msgid ""
@@ -283,10 +314,14 @@ msgid ""
 "appropriate ``torrc`` file you just created (as described in `<https://2019."
 "www.torproject.org/docs/faq.html.en#NTService>`_). Like this::"
 msgstr ""
+"No prompt de comando do administrador, instale `` tor`` como um serviço "
+"usando o ficheiro `` torrc`` apropriado que acabou de criar (conforme "
+"descrito em `<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_)"
+". Assim::"
 
 #: ../../source/tor.rst:123
 msgid "You are now running a system ``tor`` process in Windows!"
-msgstr ""
+msgstr "Agora executa um processo `` tor`` do sistema no Windows!"
 
 #: ../../source/tor.rst:125
 msgid ""
@@ -301,21 +336,23 @@ msgstr ""
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
-msgstr ""
+msgstr "A usar um sistema `` tor`` no macOS"
 
 #: ../../source/tor.rst:136
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, "
 "and then install Tor::"
 msgstr ""
+"Primeiro, instale o `Homebrew <https://brew.sh/>` _ se ainda não o tiver e "
+"então instale o Tor ::"
 
 #: ../../source/tor.rst:140
 msgid "Now configure Tor to allow connections from OnionShare::"
-msgstr ""
+msgstr "Agora configure o Tor para permitir conexões do OnionShare ::"
 
 #: ../../source/tor.rst:147
 msgid "And start the system Tor service::"
-msgstr ""
+msgstr "E inicie o serviço Tor do sistema ::"
 
 #: ../../source/tor.rst:151
 msgid ""
@@ -329,11 +366,11 @@ msgstr ""
 
 #: ../../source/tor.rst:157 ../../source/tor.rst:177
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
-msgstr ""
+msgstr "Se tudo correr bem, deverá ver \"Conectado ao controlador Tor\"."
 
 #: ../../source/tor.rst:160
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "A usar um sistema `` tor`` no Linux"
 
 #: ../../source/tor.rst:162
 msgid ""
@@ -341,6 +378,9 @@ msgid ""
 "similar Linux distro, It is recommended to use the Tor Project's `official "
 "repository <https://support.torproject.org/apt/tor-deb-repo/>`_."
 msgstr ""
+"Primeiro, instale o pacote `` tor``. Se estiver a usar Debian, Ubuntu ou uma "
+"distribuição Linux semelhante, é recomendado usar o `repositório oficial do "
+"Projeto Tor <https://support.torproject.org/apt/tor-deb-repo/>` _."
 
 #: ../../source/tor.rst:164
 msgid ""
@@ -348,12 +388,17 @@ msgid ""
 "of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to connect to "
 "your system ``tor``'s control socket file."
 msgstr ""
+"Em seguida, adicione o seu utilizador ao grupo que executa o processo `` "
+"tor`` (no caso do Debian e Ubuntu, `` debian-tor``) e configure o OnionShare "
+"para conectar ao ficheiro de soquete de controle do sistema `` tor``."
 
 #: ../../source/tor.rst:166
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command (replace "
 "``username`` with your actual username)::"
 msgstr ""
+"Adicione o seu utilizador ao grupo `` debian-tor`` executando este comando ("
+"substitua `` username`` pelo seu nome de utilizador real) ::"
 
 #: ../../source/tor.rst:170
 msgid ""
