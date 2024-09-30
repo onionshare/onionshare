@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
+import mimetypes
 from flask import render_template, make_response
 
 from .send_base_mode import SendBaseModeWeb
@@ -120,3 +121,52 @@ class WebsiteModeWeb(SendBaseModeWeb):
                 history_id = self.cur_history_id
                 self.cur_history_id += 1
                 return self.web.error404(history_id)
+
+    # Adding the set_file_info method with MIME type filtering
+    def set_file_info(self, filenames, processed_size_callback=None):
+        supported_file_types = ['text/html', 'image/png', 'image/jpeg', 'application/javascript', 'text/css']  # Supported MIME types
+
+        if len(filenames) == 1 and os.path.isdir(filenames[0]):
+            filenames = [
+                os.path.join(filenames[0], x) for x in os.listdir(filenames[0])
+            ]
+
+        self.files = {}
+        self.root_files = {}
+        self.cur_history_id = 0
+        self.file_info = {"files": [], "dirs": []}
+        self.gzip_individual_files = {}
+        self.init()
+
+        if self.common.platform == "Windows":
+            slash = "\\"
+        else:
+            slash = "/"
+
+        for filename in filenames:
+            basename = os.path.basename(filename.rstrip(slash))
+
+            # Add a check for the file type
+            if os.path.isfile(filename):
+                mime_type, _ = mimetypes.guess_type(filename)
+
+                # Check if the file type is supported
+                if mime_type in supported_file_types:
+                    self.files[self.fix_windows_paths(basename)] = filename
+                    self.root_files[self.fix_windows_paths(basename)] = filename
+                else:
+                    print(f"Unsupported file type: {mime_type} for {basename}")
+
+            elif os.path.isdir(filename):
+                self.root_files[self.fix_windows_paths(basename)] = filename
+                for root, _, nested_filenames in os.walk(filename):
+                    normalized_root = os.path.join(
+                        basename, root[len(filename):].lstrip(slash)
+                    ).rstrip(slash)
+                    self.files[self.fix_windows_paths(normalized_root)] = root
+                    for nested_filename in nested_filenames:
+                        self.files[
+                            self.fix_windows_paths(os.path.join(normalized_root, nested_filename))
+                        ] = os.path.join(root, nested_filename)
+
+        self.set_file_info_custom(filenames, processed_size_callback)
