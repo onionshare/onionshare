@@ -19,7 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
+from typing import Optional
 from PySide6 import QtCore, QtWidgets, QtGui
+import PySide6.QtCore
+import PySide6.QtWidgets
 
 from ... import strings
 from ...widgets import Alert, AddFileDialog
@@ -342,6 +345,14 @@ class FileList(QtWidgets.QListWidget):
 
             self.files_updated.emit()
 
+class PopUp(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        layout = QtWidgets.QVBoxLayout()
+        self.setWindowTitle(strings._("gui_accepted_files"))
+        self.label = QtWidgets.QLabel("Acceptable file formats include: HTML, CSS, JavaScript, and image files\nIf you add an index.html file, it will render when someone loads your website.\nNote that OnioneShare only supports hosting static websites.")
+        layout.addWidget(self.label)
+        self.setLayout(layout)
 
 class FileSelection(QtWidgets.QVBoxLayout):
     """
@@ -354,6 +365,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
 
         self.common = common
         self.parent = parent
+        self.popup = None
 
         self.server_on = False
 
@@ -381,6 +393,8 @@ class FileSelection(QtWidgets.QVBoxLayout):
         else:
             self.add_button = QtWidgets.QPushButton(strings._("gui_add"))
             self.add_button.clicked.connect(self.add)
+        self.accepted_button = QtWidgets.QPushButton(strings._("gui_accepted_files"))
+        self.accepted_button.clicked.connect(self.popupWindow)
         self.remove_button = QtWidgets.QPushButton(strings._("gui_remove"))
         self.remove_button.clicked.connect(self.delete)
         button_layout = QtWidgets.QHBoxLayout()
@@ -391,6 +405,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         else:
             button_layout.addWidget(self.add_button)
         button_layout.addWidget(self.remove_button)
+        button_layout.addWidget(self.accepted_button)
 
         # Add the widgets
         self.addWidget(self.file_list)
@@ -410,12 +425,14 @@ class FileSelection(QtWidgets.QVBoxLayout):
             else:
                 self.add_button.hide()
             self.remove_button.hide()
+            self.accepted_button.hide()
         else:
             if self.sandbox:
                 self.add_files_button.show()
                 self.add_folder_button.show()
             else:
                 self.add_button.show()
+            self.accepted_button.show()
 
             # Delete button should be hidden if item isn't selected
             if len(self.file_list.selectedItems()) == 0:
@@ -472,6 +489,18 @@ class FileSelection(QtWidgets.QVBoxLayout):
             self.file_list.add_file(filename)
             self.file_list.setCurrentItem(None)
             self.update()
+
+    def popupWindow(self):
+        """
+        Accepted File Types button clicked
+        """
+        self.common.log("FileSelection", "popup")
+        if self.popup is None:
+            self.popup = PopUp()
+            self.popup.show()
+        else:
+            self.popup.close()
+            self.popup = None
 
     def delete(self):
         """
