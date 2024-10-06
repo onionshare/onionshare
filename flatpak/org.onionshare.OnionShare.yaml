@@ -17,7 +17,6 @@ finish-args:
   - "--talk-name=org.freedesktop.Notifications"
   - "--talk-name=org.freedesktop.secrets"
   - "--filesystem=~/OnionShare:create"
-  - "--filesystem=xdg-config/onionshare:create"
 cleanup:
   - "/go"
   - "/bin/scripts"
