@@ -120,6 +120,13 @@ def main(cwd=None):
         help="Share files: Continue sharing after files have been sent (default is to stop sharing)",
     )
     parser.add_argument(
+        "--log-filenames",
+        action="store_true",
+        dest="log_filenames",
+        default=False,
+        help="Share files: Log individual names of shared files as they are downloaded (requires autostop sharing to be disabled)"
+    )
+    parser.add_argument(
         "--qr",
         action="store_true",
         dest="qr",
@@ -204,6 +211,7 @@ def main(cwd=None):
     disable_files = args.disable_files
     disable_csp = bool(args.disable_csp)
     custom_csp = args.custom_csp
+    log_filenames = bool(args.log_filenames)
     verbose = bool(args.verbose)
 
     # Verbose mode?
@@ -242,6 +250,7 @@ def main(cwd=None):
             mode_settings.set("persistent", "mode", mode)
         if mode == "share":
             mode_settings.set("share", "autostop_sharing", autostop_sharing)
+            mode_settings.set("share", "log_filenames", log_filenames)
         if mode == "receive":
             if data_dir:
                 mode_settings.set("receive", "data_dir", data_dir)
@@ -298,6 +307,10 @@ def main(cwd=None):
         # Save the filenames in persistent file
         if persistent_filename:
             mode_settings.set(mode, "filenames", filenames)
+
+        if autostop_sharing and log_filenames:
+            print("Autostop sharing is enabled, thus individual files cannot be downloaded (or logged). Set both --no-autostop-sharing and --log-filenames for intended functionality.")
+            sys.exit()
 
     # In receive mode, you must allows either text, files, or both
     if mode == "receive" and disable_text and disable_files:

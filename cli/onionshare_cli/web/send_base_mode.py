@@ -245,8 +245,14 @@ class SendBaseModeWeb:
                             or self.common.platform == "Linux"
                             or self.common.platform == "BSD"
                         ):
+                            if self.web.settings.get("share", "log_filenames"):
+                                filename_str = "{0} - ".format(os.path.basename(file_to_download))
+                            else:
+                                filename_str = ""
+                            
                             sys.stdout.write(
-                                "\r{0:s}, {1:.2f}%          ".format(
+                                "\r{0}{1:s}, {2:.2f}%          ".format(
+                                    filename_str,
                                     self.common.human_readable_filesize(
                                         downloaded_bytes
                                     ),
