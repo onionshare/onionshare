@@ -48,7 +48,11 @@ class ModeSettings:
                 "autostop_timer": False,
                 "service_id": None,
             },
-            "share": {"autostop_sharing": True, "filenames": []},
+            "share": {
+                "autostop_sharing": True,
+                "filenames": [],
+                "log_filenames": False,
+                },
             "receive": {
                 "data_dir": self.build_default_receive_data_dir(),
                 "webhook_url": None,
