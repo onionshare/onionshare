@@ -2,7 +2,7 @@ import sys
 import os
 from datetime import datetime, timedelta
 
-from PySide6 import QtTest
+from qtpy import QtTest
 
 
 # Force tests to look for resources in the source code tree
