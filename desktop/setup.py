@@ -8,7 +8,7 @@ version = "2.6.2"
 setuptools.setup(
     name="onionshare",
     version=version,
-    description="Securely and anonymously share files, host websites, and chat with friends using the Tor network",
+    long_description="Securely and anonymously share files, host websites, and chat with friends using the Tor network",
     author="Micah Lee",
     author_email="micah@micahflee.com",
     maintainer="Micah Lee",
