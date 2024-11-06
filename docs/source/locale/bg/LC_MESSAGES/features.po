@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-11-05 16:00+0000\n"
+"PO-Revision-Date: 2024-11-07 19:00+0000\n"
 "Last-Translator: 109247019824 <stoyan@gmx.com>\n"
 "Language-Team: none\n"
 "Language: bg\n"
@@ -429,7 +429,7 @@ msgstr ""
 
 #: ../../source/features.rst:127
 msgid "Tips for running a website service"
-msgstr ""
+msgstr "Съвети за използване на услугата за страница в интернет"
 
 #: ../../source/features.rst:129
 msgid ""
@@ -440,16 +440,24 @@ msgid ""
 "ref:`save_tabs`) so you can resume the website with the same address if you "
 "close OnionShare and re-open it later."
 msgstr ""
+"Ако искате дългосрочно да поддържате страница в интернет (не само набързо да "
+"покажете нещо на някого), ви препоръчваме да го направите на отделен "
+"компютър, който винаги е включен и свързан с интернет, а не на този, който "
+"използвате редовно. Запазете раздела (вж. ref:`save_tabs`), така че да "
+"можете да възстановите същия адрес ако се наложи да спрете OnionShare и по-"
+"късно да го пуснете отново."
 
 #: ../../source/features.rst:132
 msgid ""
 "If your website is intended for the public, you should run it as a public "
 "service (see :ref:`turn_off_private_key`)."
 msgstr ""
+"Ако страницата е предназначена за широката публика ви препоръчваме да "
+"изключите тайния ключ (вж. ref:`turn_off_private_key`)."
 
 #: ../../source/features.rst:135
 msgid "Chat Anonymously"
-msgstr ""
+msgstr "Анонимен разговор"
 
 #: ../../source/features.rst:137
 msgid ""
