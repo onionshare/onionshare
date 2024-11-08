@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2023-04-15 05:52+0000\n"
-"Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
+"PO-Revision-Date: 2024-11-01 22:00+0000\n"
+"Last-Translator: Sketch6580 <Sketch6580@users.noreply.hosted.weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -32,13 +32,15 @@ msgid ""
 "Closing OnionShare tabs you host destroys them, preventing reuse. "
 "Persistently hosted websites are available on the same address even if the "
 "computer they are shared from is rebooted."
-msgstr ""
+msgstr "关闭您托管的 OnionShare 标签页会破坏它们，防止重复使用。即使共享网站的计算机"
+"重启，永久托管的网站仍可在同一地址上使用。"
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
-msgstr ""
+msgstr "在启动服务器之前，通过选中“启动 OnionShare "
+"时始终打开此标签页”框，使任何标签页持久化。"
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -46,29 +48,33 @@ msgid ""
 "opened. Each service then can be started manually, and will be available on "
 "the same OnionShare address and be protected by the same private key."
 msgstr ""
+"打开 OnionShare "
+"时，您之前会话中保存的标签页将开始打开。然后可以手动启动每个服务，"
+"这些服务将在同一个 OnionShare 地址上可用，并受同一个私钥保护。"
 
 #: ../../source/advanced.rst:19
 msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on your "
 "computer."
-msgstr ""
+msgstr "如果您保存了一个标签页，其洋葱服务密钥的副本将存储在您的计算机上。"
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "关闭私钥"
 
 #: ../../source/advanced.rst:26
 msgid ""
 "By default, all OnionShare services are protected with a private key, which "
 "Tor calls \"client authentication\"."
-msgstr ""
+msgstr "所有 OnionShare 服务默认都使用私钥保护，Tor 称之为“客户端验证”。"
 
 #: ../../source/advanced.rst:28
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want allow the public to use your service, it's "
 "better to disable the private key altogether."
-msgstr ""
+msgstr "当您加载 OnionShare 服务时，Tor "
+"浏览器会要求您输入私钥。如果您想允许公众使用您的服务，最好完全禁用私钥。"
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -77,10 +83,13 @@ msgid ""
 "Then the server will be public and a private key is not needed to load it in "
 "the Tor Browser."
 msgstr ""
+"要关闭任何标签页的私钥，请在启动服务器之前选中“这是一项公共 OnionShare "
+"服务（禁用私钥）”框。然后服务器将公开，并且不需要私钥即可在 Tor "
+"浏览器中加载它。"
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
-msgstr ""
+msgstr "自定义标题"
 
 #: ../../source/advanced.rst:39
 msgid ""
@@ -88,12 +97,15 @@ msgid ""
 "title for each type of service. For example, the default title for chat "
 "services is \"OnionShare Chat\"."
 msgstr ""
+"当人们在 Tor 浏览器中加载 OnionShare "
+"服务时，他们会看到每种服务的默认标题。例如，聊天服务的默认标题是“OnionShare "
+"Chat”。"
 
 #: ../../source/advanced.rst:42
 msgid ""
 "If you edit the \"Custom title\" setting before starting a server you can "
 "change it."
-msgstr ""
+msgstr "如果在启动服务器之前编辑“自定义标题”设置，则可以更改它。"
 
 #: ../../source/advanced.rst:45
 msgid "Scheduled Times"
@@ -116,7 +128,8 @@ msgid ""
 "Services scheduled to start in the future display a countdown timer when "
 "when the \"Start sharing\" button is clicked. Services scheduled to stop in "
 "the future display a countdown timer when started."
-msgstr ""
+msgstr "当点击“开始分享”按钮时，计划在未来启动的服务会显示一个倒计时器，计划在未来停"
+"止的服务在启动时显示倒计时器。"
 
 #: ../../source/advanced.rst:54
 msgid ""
@@ -125,13 +138,17 @@ msgid ""
 "in the future if you are not there to prevent it. If nothing happens to you, "
 "you can cancel the service before it's scheduled to start."
 msgstr ""
+"**将 OnionShare 服务安排为自动启动可以作为一个死开关**。这意味着，如果您不在"
+"那里阻止，您的服务将在未来的某个特定时间公开。如果您没有发生任何事情，您可以"
+"在计划启动之前取消该服务。"
 
 #: ../../source/advanced.rst:60
 msgid ""
 "**Scheduling an OnionShare service to automatically stop limits its "
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
-msgstr ""
+msgstr "**安排 OnionShare 服务自动停止会限制其暴露**。如果您想分享秘密信息或一些将过"
+"期的信息，您可以在选定的有限时间内进行分享。"
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
@@ -164,12 +181,16 @@ msgid ""
 "`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
 "README.md>`_ in the Git repository."
 msgstr ""
+"有关在不同操作系统上安装它的信息可以在 Git 存储库中的 `CLI README 文件 "
+"<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
+"中找到。"
 
 #: ../../source/advanced.rst:84
 msgid ""
 "If you installed OnionShare using the Snap package, you can also just run "
 "``onionshare.cli`` to access the command-line interface version."
-msgstr ""
+msgstr "如果您使用 Snap 软件包安装了 OnionShare，您也可以运行 ``onionshare.cli`` "
+"来访问命令行界面版本。"
 
 #: ../../source/advanced.rst:87
 msgid "Usage"
@@ -178,18 +199,18 @@ msgstr "使用"
 #: ../../source/advanced.rst:89
 msgid ""
 "Browse the command-line documentation by running ``onionshare --help``::"
-msgstr ""
+msgstr "通过运行 ``onionshare --help`` 浏览命令行文档："
 
 #: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "键盘快捷键"
 
 #: ../../source/advanced.rst:153
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
-msgstr ""
+msgstr "OnionShare 桌面应用程序包含一些键盘快捷键，以方便使用和访问："
 
 #: ../../source/advanced.rst:158
 msgid "And from the main mode chooser screen::"
-msgstr ""
+msgstr "从主模式选择器屏幕："
