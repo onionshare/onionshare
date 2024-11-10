@@ -48,7 +48,7 @@ OnionShare supports scheduling exactly when a service should start and stop.
 Before starting a server, click "Show advanced settings" in its tab and then check the boxes next to either
 "Start onion service at scheduled time", "Stop onion service at scheduled time", or both, and set the respective desired dates and times.
 
-Services scheduled to start in the future display a countdown timer when when the "Start sharing" button is clicked.
+Services scheduled to start in the future display a countdown timer when the "Start sharing" button is clicked.
 Services scheduled to stop in the future display a countdown timer when started.
 
 **Scheduling an OnionShare service to automatically start can be used as a dead man's switch**.
