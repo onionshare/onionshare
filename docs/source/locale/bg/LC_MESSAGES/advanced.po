@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-11-10 21:13+0000\n"
+"PO-Revision-Date: 2024-11-13 21:58+0000\n"
 "Last-Translator: 109247019824 <stoyan@gmx.com>\n"
 "Language-Team: none\n"
 "Language: bg\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -131,6 +131,11 @@ msgid ""
 "time\", \"Stop onion service at scheduled time\", or both, and set the "
 "respective desired dates and times."
 msgstr ""
+"OnionShare поддържа точно планиране на времето, в което дадена услуга да "
+"бъде включена или изключена. Преди да включите сървъра, натиснете „Разширени "
+"настройки“ в същия раздел и след това отметнете „Включване на услугата в "
+"определен час“, „Изключване на услугата в определен час“ или и двете и "
+"задайте съответните дати и часове."
 
 #: ../../source/advanced.rst:51
 msgid ""
@@ -149,6 +154,11 @@ msgid ""
 "in the future if you are not there to prevent it. If nothing happens to you, "
 "you can cancel the service before it's scheduled to start."
 msgstr ""
+"**Насрочването на автоматично включване на услуга на OnionShare може да бъде "
+"използвано като сигнал за нередност**. Това означава, че услугата ще стане "
+"публична в даден момент в бъдещето, ако вие не сте там, за да предотвратите "
+"това. Ако нищо не се случи с вас, можете да отмените включването на "
+"услугата, преди планираното ѝ включване."
 
 #: ../../source/advanced.rst:60
 msgid ""
@@ -156,31 +166,40 @@ msgid ""
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
 msgstr ""
+"**Насрочването на автоматично спиране на услугата OnionShare ограничава "
+"излагането ѝ на риск**. Ако искате да споделите тайна информация или нещо, "
+"което ще бъде остаряло, можете да го направите за избрано ограничено време."
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
-msgstr ""
+msgstr "Интетфейс за команден ред"
 
 #: ../../source/advanced.rst:70
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
 msgstr ""
+"В допълнение към графичния интерфейс OnionShare има и интерфейс за команден "
+"ред."
 
 #: ../../source/advanced.rst:72
 msgid ""
 "You can install just the command-line version of OnionShare using ``pip3``::"
 msgstr ""
+"Можете да инсталирате само версията за команден ред на OnionShare, като "
+"използвате ``pip3``::"
 
 #: ../../source/advanced.rst:76
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr ""
+"Обърнете внимание, че е необходимо да имате инсталиран и пакета ``tor``. В "
+"macOS го инсталирайте с: ``brew install tor``"
 
 #: ../../source/advanced.rst:78
 msgid "Then run it like this::"
-msgstr ""
+msgstr "След това го извикайте по следния начин::"
 
 #: ../../source/advanced.rst:82
 msgid ""
@@ -188,25 +207,33 @@ msgid ""
 "`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
 "README.md>`_ in the Git repository."
 msgstr ""
+"Информация за инсталирането му на различни операционни системи можете да "
+"намерите във файла `CLI README <https://github.com/onionshare/onionshare/"
+"blob/develop/cli/README.md>`_ в хранилището на Git."
 
 #: ../../source/advanced.rst:84
 msgid ""
 "If you installed OnionShare using the Snap package, you can also just run "
 "``onionshare.cli`` to access the command-line interface version."
 msgstr ""
+"Ако сте инсталирали OnionShare с помощта на пакета Snap, можете също така "
+"просто да стартирате ``onionshare.cli``, за да получите достъп до версията "
+"на интерфейса на командния ред."
 
 #: ../../source/advanced.rst:87
 msgid "Usage"
-msgstr ""
+msgstr "Използване"
 
 #: ../../source/advanced.rst:89
 msgid ""
 "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
+"Прегледайте документацията за команден ред, като изпълните ``onionshare "
+"--help``::"
 
 #: ../../source/advanced.rst:151
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Клавиши конбинации"
 
 #: ../../source/advanced.rst:153
 msgid ""
