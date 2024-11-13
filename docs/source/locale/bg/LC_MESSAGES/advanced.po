@@ -6,23 +6,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-11-10 21:13+0000\n"
+"Last-Translator: 109247019824 <stoyan@gmx.com>\n"
 "Language-Team: none\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8.2\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
-msgstr ""
+msgstr "Разширени възможности"
 
 #: ../../source/advanced.rst:7
 msgid "Save Tabs"
-msgstr ""
+msgstr "Запазване на раздели"
 
 #: ../../source/advanced.rst:9
 msgid ""
@@ -30,12 +32,18 @@ msgid ""
 "Persistently hosted websites are available on the same address even if the "
 "computer they are shared from is rebooted."
 msgstr ""
+"Затварянето на разделите на OnionShare, в които има настроени услуги, ги "
+"унищожава, като предотвратява повторното им използване. Постоянните страници "
+"са достъпни на същия адрес, дори ако компютърът, от който са споделени, е "
+"рестартиран."
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"За да направите даден раздел постоянен отметнете „Отваряне на този раздел "
+"при стартиране на OnionShare“ преди да включите услугата."
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -43,22 +51,29 @@ msgid ""
 "opened. Each service then can be started manually, and will be available on "
 "the same OnionShare address and be protected by the same private key."
 msgstr ""
+"Когато отворите OnionShare, запазените раздели ще бъдат отворени. След това "
+"всяка услуга ще може да бъде ръчно включена, като ще бъде достъпна на същия "
+"адрес на OnionShare и ще бъде защитена със същия частен ключ."
 
 #: ../../source/advanced.rst:19
 msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on your "
 "computer."
 msgstr ""
+"Когато запазите даден раздел, на компютъра се запазва и копие на тайния ключ "
+"на услугата на onion."
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "Изключване на тайния ключ"
 
 #: ../../source/advanced.rst:26
 msgid ""
 "By default, all OnionShare services are protected with a private key, which "
 "Tor calls \"client authentication\"."
 msgstr ""
+"По подразбиране услугите на OnionShare са защитени с таен ключ, който Tor "
+"нарича „удостоверяване на клиента“."
 
 #: ../../source/advanced.rst:28
 msgid ""
@@ -66,6 +81,9 @@ msgid ""
 "OnionShare service. If you want allow the public to use your service, it's "
 "better to disable the private key altogether."
 msgstr ""
+"Когато отворите услуга на OnionShare Tor Browser ще поиска да въведете "
+"тайния ключ. Ако искате да разрешите публично използване на услугата, по-"
+"добре е да изключите използването на таен ключ."
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -74,10 +92,14 @@ msgid ""
 "Then the server will be public and a private key is not needed to load it in "
 "the Tor Browser."
 msgstr ""
+"За да изключите частния ключ за някой раздел, отметнете „Общодостъпна услуга "
+"на OnionShare (без частен ключ)“, преди да включите услугата. Тогава "
+"сървърът ще бъде публичен и за зареждането му в Tor Browser няма да е "
+"необходим частен ключ."
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
-msgstr ""
+msgstr "Задаване на заглавия"
 
 #: ../../source/advanced.rst:39
 msgid ""
@@ -85,16 +107,21 @@ msgid ""
 "title for each type of service. For example, the default title for chat "
 "services is \"OnionShare Chat\"."
 msgstr ""
+"Когато хората отварят услугите на OnionShare в Tor Browser, те виждат "
+"подразбираното заглавие за всеки вид услуга. Например заглавието по "
+"подразбиране за услугите за разговор е „Разговор“."
 
 #: ../../source/advanced.rst:42
 msgid ""
 "If you edit the \"Custom title\" setting before starting a server you can "
 "change it."
 msgstr ""
+"Ако промените настройката „Заглавие на раздела“ преди да включите услугата "
+"можете да го промемите."
 
 #: ../../source/advanced.rst:45
 msgid "Scheduled Times"
-msgstr ""
+msgstr "График на включване и изключване"
 
 #: ../../source/advanced.rst:47
 msgid ""
@@ -111,6 +138,9 @@ msgid ""
 "when the \"Start sharing\" button is clicked. Services scheduled to stop in "
 "the future display a countdown timer when started."
 msgstr ""
+"Услугите, планирани да бъдат включени в бъдеще, показват часовник с обратно "
+"броене при натискане на бутона „Споделяне“. Услугите, планирани да бъдат "
+"спрени в бъдеще, показват часовник с обратно броене при включване."
 
 #: ../../source/advanced.rst:54
 msgid ""

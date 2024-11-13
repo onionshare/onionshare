@@ -134,7 +134,7 @@
     "gui_qr_label_url_title": "Адрес на OnionShare",
     "gui_status_indicator_chat_working": "Включване…",
     "gui_add_files": "Добавяне на файлове",
-    "gui_waiting_to_start": "Ще бъде включен в {}. Щракнете за отменяне.",
+    "gui_waiting_to_start": "Включване след {}. Натиснете за отменяне.",
     "gui_close_tab_warning_close": "Добре",
     "gui_qr_code_dialog_title": "QR код на OnionShare",
     "gui_show_qr_code": "Показване на QR код",
