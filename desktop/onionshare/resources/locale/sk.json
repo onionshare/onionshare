@@ -25,7 +25,7 @@
     "gui_receive_flatpak_data_dir": "Pretože ste nainštalovali OnionShare pomocou Flatpak, musíte uložiť súbory do priečinka v ~/OnionShare.",
     "gui_copy_url": "Kopírovať adresu",
     "gui_canceled": "Zrušené",
-    "gui_copied_url_title": "Skopírovaná OnionShare adresa",
+    "gui_copied_url_title": "Adresa OnionShare skopírovaná",
     "gui_copied_url": "OnionShare adresa bola skopírovaná do schránky",
     "gui_show_qr_code": "Zobraziť QR kód",
     "gui_qr_code_dialog_title": "OnionShare QR kód",
@@ -199,5 +199,16 @@
     "gui_settings_bridge_none_radio_option": "Nepoužívať Tor bridge",
     "gui_settings_bridge_moat_radio_option": "Vyžiadať premostenie od torproject.org",
     "gui_status_indicator_chat_working": "Začína…",
-    "gui_settings_bridge_use_checkbox": "Použiť most"
+    "gui_settings_bridge_use_checkbox": "Použiť most",
+    "gui_autoconnect_failed_to_connect_to_tor": "Nepodarilo sa pripojiť k sieti Tor",
+    "gui_copy_client_auth": "Kopírovať súkromný kľúč",
+    "gui_copied_client_auth_title": "Súkromný kľúč skopírovaný",
+    "gui_qr_label_auth_string_title": "Súkromný kľúč",
+    "gui_qr_label_url_title": "Adresa OnionShare",
+    "gui_autoconnect_configure": "Nastavenia siete",
+    "gui_autoconnect_trying_to_connect_to_tor": "Pripájanie k sieti Tor…",
+    "gui_autoconnect_connection_error_msg": "Uistite sa, že ste pripojení na internet.",
+    "gui_copied_client_auth": "Súkromný kľúč bol skopírovaný do schránky",
+    "gui_tor_settings_window_title": "Nastavenia Tor",
+    "gui_enable_autoconnect_checkbox": "Automaticky sa pripájať k sieti Tor"
 }
