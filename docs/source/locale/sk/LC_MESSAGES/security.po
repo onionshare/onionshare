@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-11-14 00:13+0000\n"
+"PO-Revision-Date: 2024-11-14 19:42+0000\n"
 "Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: none\n"
 "Language: sk\n"
@@ -31,8 +31,7 @@ msgstr ""
 #: ../../source/security.rst:6
 msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
 msgstr ""
-"Najprv si prečítajte :ref:`how_it_works`, aby ste pochopili, ako OnionShare "
-"funguje."
+"Ako každý softvér, aj OnionShare môže obsahovať chyby alebo zraniteľnosti."
 
 #: ../../source/security.rst:9
 msgid "What OnionShare protects against"
