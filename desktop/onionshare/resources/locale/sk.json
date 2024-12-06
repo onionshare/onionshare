@@ -225,7 +225,7 @@
     "gui_settings_bridge_radio_builtin": "Vybrať zabudované premostenie",
     "gui_settings_controller_extras_label": "Nastavenia Tor",
     "gui_settings_version_label": "Používate službu OnionShare {}",
-    "gui_autoconnect_circumventing_censorship_starting_meek": "Vytváranie mosta meek pre službu domain-fronting…",
+    "gui_autoconnect_circumventing_censorship_starting_meek": "Vytváranie premostenia meek pre službu domain-fronting…",
     "gui_autoconnect_description": "OnionShare sa spolieha na sieť Tor prevádzkovanú dobrovoľníkmi.",
     "gui_color_mode_changed_notice": "Reštartujte OnionShare, aby ste videli nové farby.",
     "gui_url_instructions_public_mode": "Pošlite adresu OnionShare uvedenú nižšie:",
