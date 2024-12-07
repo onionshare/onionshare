@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\desktop",
+    "\\desktop\\onionshare",
+    "\\desktop\\onionshare\\tab",
+    "\\desktop\\onionshare\\tab\\mode",
+    "\\desktop\\onionshare\\tab\\mode\\receive_mode",
+    "\\desktop\\onionshare\\tab\\mode\\share_mode",
+    "\\desktop\\onionshare\\tab\\mode\\website_mode",
+    "\\desktop\\package",
+    "\\desktop\\scripts"
+  ],
+  "SelectedNode": "\\desktop\\onionshare\\tab\\mode\\website_mode\\__init__.py",
+  "PreviewInSolutionExplorer": false
+}

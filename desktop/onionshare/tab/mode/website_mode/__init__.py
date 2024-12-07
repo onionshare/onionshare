@@ -211,5 +211,3 @@ class WebsiteMode(Mode):
         Returns the type of mode as a string (e.g. "share", "receive", etc.)
         """
         return "website"
-
-    # Additional methods remain unchanged
