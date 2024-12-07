@@ -85,10 +85,15 @@ class ChatMode(Mode):
         chat_mode_explainer.setMinimumHeight(80)
         chat_mode_explainer.setWordWrap(True)
 
+        # Back Button
+        self.back_button = QtWidgets.QPushButton(strings._("gui_back_button"))
+        self.back_button.clicked.connect(self.go_back)  # Connect to the back action
+        self.back_button.setStyleSheet(self.common.gui.css["mode_button"])
+
         # Top bar
         top_bar_layout = QtWidgets.QHBoxLayout()
-        # Add space at the top, same height as the toggle history bar in other modes
-        top_bar_layout.addWidget(MinimumSizeWidget(0, 30))
+        top_bar_layout.addWidget(self.back_button)
+        top_bar_layout.addStretch()
 
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()
@@ -107,6 +112,14 @@ class ChatMode(Mode):
         # Content layout
         self.content_layout.addLayout(self.column_layout)
 
+    def go_back(self):
+        """
+        Handle navigation to the main menu.
+        """
+        # Logic to return to the main menu
+        main_window = self.common.gui  # Get the main window reference
+        main_window.switch_to_tab("main_menu")  # Switch back to main menu tab
+
     def get_type(self):
         """
         Returns the type of mode as a string (e.g. "share", "receive", etc.)
@@ -123,7 +136,6 @@ class ChatMode(Mode):
         """
         The auto-stop timer expired, should we stop the server? Returns a bool
         """
-
         self.server_status.stop_server()
         self.server_status_label.setText(strings._("close_on_autostop_timer"))
         return True
