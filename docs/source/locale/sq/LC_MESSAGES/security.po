@@ -6,56 +6,102 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.2\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-12-17 19:38+0000\n"
+"Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: none\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.9.2-dev\n"
 
 #: ../../source/security.rst:2
 msgid "Security Design"
-msgstr ""
+msgstr "Konceptim Sigurie"
 
 #: ../../source/security.rst:4
 msgid "Read :ref:`how_it_works` first to get a handle on how OnionShare works."
 msgstr ""
+"Së pari lexoni :ref:`how_it_works` që të keni një ide se si funksionon "
+"OnionShare-i."
 
 #: ../../source/security.rst:6
 msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
 msgstr ""
+"Si krejt software-i, OnionShare mund të përmbajë të meta ose cenueshmëri."
 
 #: ../../source/security.rst:9
 msgid "What OnionShare protects against"
-msgstr ""
+msgstr "Kundër kujt mbron OnionShare-i"
 
 #: ../../source/security.rst:11
 msgid "**Third parties don't have access to anything that happens in OnionShare.** Using OnionShare means hosting services directly on your computer. When sharing your files with OnionShare, they are not uploaded to any third-party server. If you make an OnionShare chat room, your computer acts as a server for that too. This avoids the traditional model of having to trust the computers of others."
 msgstr ""
+"**Palë të treta s’kanë hyrje te ndonjë gjë që ndodh në OnionShare.** Të "
+"përdorësh OnionShare-in do të thotë të strehoni shërbime drejt e në "
+"kompjuterin tuaj. Kur përdorni kartelat tuaja me OnionShare, atp s’ngarkohen "
+"te shërbyesit e ndonjë pale të tretë. Nëse krijoni një dhomë fjalosjeje "
+"OnionShare, kompjuteri juaj vepron si një shërbyes edhe për këtë. Kjo shmang "
+"modelin tradicional që lyp pasje besimi te kompjuterat e të tjerëve."
 
 #: ../../source/security.rst:17
 msgid "**Network eavesdroppers can't spy on anything that happens in OnionShare in transit.** The connection between the Tor onion service and Tor Browser is end-to-end encrypted. This means network attackers can't eavesdrop on anything except encrypted Tor traffic. Even if an eavesdropper is a malicious rendezvous node used to connect the Tor Browser with OnionShare's onion service, the traffic is encrypted using the onion service's private key."
 msgstr ""
+"**Përgjuesit e rrjeteve s’mund të spiunojnë ndonjë gjë që ndodh në "
+"OnionShare gjatë tranziti.** Lidhja me shërbimit Onion Tor dhe Shfletuesit "
+"Tor është e fshehtëzuar skaj-më-skaj. Kjo do të thotë se sulmuesit e "
+"rrjeteve s’mund të përgjojnë ndonjë gjë, thjesht trafik Tor të fshehtëzuar. "
+"Edhe nëse një përgjues është një nyjë dashakeqe “rendezvous” e përdorur për "
+"të lidhur Shfletuesin Torme shërbimin Onion të OnionShare-it, trafiku është "
+"i fshehtëzuar duke përdorur kyçin privat të shërbimit Onion."
 
 #: ../../source/security.rst:23
 msgid "**Anonymity of OnionShare users are protected by Tor.** OnionShare and Tor Browser protect the anonymity of the users. As long as the OnionShare user anonymously communicates the OnionShare address with the Tor Browser users, the Tor Browser users and eavesdroppers can't learn the identity of the OnionShare user."
 msgstr ""
+"**Anonimiteti i përdoruesve të OnionShare-it mbrohet nga Tor-i.** OnionShare "
+"dhe Shfletuesi Tor mbrojnë anonimitetin e përdoruesve. Për sa kohë që "
+"përdoruesi i OnionShare-it komunikon në mënyrë anonime adresën OnionShare me "
+"përdorues të Shfletuesit Tor, përdoruesit e këtij dhe përgjuesit s’mund të "
+"mësojnë identitetin e përdoruesit OnionShare."
 
 #: ../../source/security.rst:28
 msgid "**If an attacker learns about the onion service, they still can't access anything.** Prior attacks against the Tor network to enumerate onion services allowed attackers to discover private ``.onion`` addresses. To access an OnionShare service from its address, the private key used for client authentication must be guessed (unless the service is already made public by turning off the private key -- see :ref:`turn_off_private_key`)."
 msgstr ""
+"**Nëse një agresor mëson rreth shërbimit Onion, ai prapë s’mund të bëjë "
+"gjë.** Sulme të mëparshëm kundër rrjetit Tor për gjetje shërbimesh Onion u "
+"lejonin agresorëve të zbulonin adresa private ``.onion``. Për të hyrë në "
+"shërbimin OnionShare prej adresës së tij, kyçi privat i përdorur për "
+"mirëfilltësim klienti duhet hamendësuar (veç në qoftë se shërbimi është bërë "
+"tashmë publik duke çaktivizuar kyçin privat -- shihni "
+":ref:`turn_off_private_key`)."
 
 #: ../../source/security.rst:33
 msgid "What OnionShare doesn't protect against"
-msgstr ""
+msgstr "Kundër çfarë nuk mbron OnionShare-i"
 
 #: ../../source/security.rst:35
 msgid "**Communicating the OnionShare address and private key might not be secure.** Communicating the OnionShare address to people is the responsibility of the OnionShare user. If sent insecurely (such as through an e-mail message monitored by an attacker), an eavesdropper can tell that OnionShare is being used. Eavesdroppers can access services that are still up by loading their addresses and/or lost key in the Tor Browser. Avoid this by communicating the address securely, via encrypted text message (probably with disappearing messages enabled), encrypted e-mail, or in person. This isn't necessary when using OnionShare for something that isn't secret."
 msgstr ""
+"**Komunikimi i adresës dhe kyçit privat OnionShare mund të mos jetë i "
+"siguruar.** Komunikimi i adresës OnionShare të tjerëve është përgjegjësi e "
+"përdoruesit të OnionShare-it. Në u dërgoftë në mënyrë jo të siguruar (fjala "
+"vjen, përmes një adrese email të mbikëqyrur nga një agresor), një përgjues "
+"mund të kuptojë se po përdoret OnionShare. Përgjuesit mund të përdorin "
+"shërbime që janë ende në punë, përmes ngarkimi në Shfletuesin Tor të "
+"adresave dhe/ose kyçit të humbur të tyre. Shmangeni këtë duke e komunikuar "
+"adresën në mënyrë të siguruar, përmes mesazhi tekst të fshehtëzuar ("
+"mundësisht me tretje mesazhesh të aktivizuar), email të fshehtëzuar, ose "
+"personalisht. Kjo s’është e nevojshme kur OnionShare përdoret për diçka që s’"
+"është sekret."
 
 #: ../../source/security.rst:42
 msgid "**Communicating the OnionShare address and private key might not be anonymous.** Extra precaution must be taken to ensure the OnionShare address is communicated anonymously. A new e-mail or chat account, only accessed over Tor, can be used to share the address. This isn't necessary unless anonymity is a goal."
 msgstr ""
+"**Komunikimi i adresës dhe kyçit privat OnionShare mund të mos jetë anonim.**"
+" Duhet bërë kujdes i veçantë për të garantuar se adresa OnionShare "
+"komunikohet në mënyrë anonime. Për të dhënë adresën mund të përdoret një "
+"llogari e re email apo fjalosjeje, e përdorshme vetëm përmes Tor-i. Kjo s’"
+"është e nevojshme, hiq rastet kur anonimiteti është synim."
