@@ -260,7 +260,7 @@ class TestTorConnectionOnline:
 
         try:
             # Test if the Tor proxy is routing the traffic
-            response = requests.get(test_url, proxies=tor_proxy, timeout=10)
+            response = requests.get(test_url, proxies=tor_proxy, timeout=40)
             assert response.status_code == 200 and "Congratulations" in response.text, "Tor network connection is not correctly set up."
         except requests.RequestException as e:
             pytest.fail(f"Error connecting to Tor: {e}")
