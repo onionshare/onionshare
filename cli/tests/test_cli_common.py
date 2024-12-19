@@ -7,9 +7,10 @@ import socket
 import sys
 import requests
 from stem.control import Controller
-fromt onionshare_cli.common import Common
+from onionshare_cli.common import Common
 import pytest
 from onionshare_cli.onion import Onion, BundledTorTimeout, BundledTorBroken, PortNotAvailable
+from onionshare_cli.settings import Settings
 
 PASSWORD_REGEX = re.compile(r"^([a-z]+)(-[a-z]+)?-([a-z]+)(-[a-z]+)?$")
 
@@ -235,39 +236,7 @@ class TestGetTorPaths:
         )
 
 
-class TestTorConnectionOnline:
-    def setup_method(self):
-        # Setup the Onion object and connect to Tor
-        self.common = Common()  
-        self.onion = Onion(self.common, use_tmp_dir=True)
-        
-        try:
-            self.onion.connect(
-                custom_settings=False,
-                config=None,
-                connect_timeout=20,
-                local_only=False,
-            )
-        except (BundledTorTimeout, BundledTorBroken, PortNotAvailable) as e:
-            pytest.fail(f"Failed to connect to Tor: {e}")
 
-    def test_check_tor_connection(self):
-        tor_proxy = {
-            "http": "socks5h://127.0.0.1:9050",  # Default Tor proxy
-            "https": "socks5h://127.0.0.1:9050"
-        }
-        test_url = "http://check.torproject.org/"
-
-        try:
-            # Test if the Tor proxy is routing the traffic
-            response = requests.get(test_url, proxies=tor_proxy, timeout=40)
-            assert response.status_code == 200 and "Congratulations" in response.text, "Tor network connection is not correctly set up."
-        except requests.RequestException as e:
-            pytest.fail(f"Error connecting to Tor: {e}")
-
-    def test_check_tor_control_port(self):
-        # Implement the test for the Tor control port here
-        pass
 
 
 class TestHumanReadableFilesize:
@@ -308,3 +277,38 @@ class TestLog:
             and "TestModule.dummy_func" in line_two
             and "TEST_MSG" in line_two
         )
+
+class TestTorConnectionOnline:
+    def setup_method(self):
+        # Setup the Onion object and connect to Tor
+        self.common = Common()  
+        self.onion = Onion(self.common, use_tmp_dir=True)
+        self.settings = Settings(self.common)
+        
+        try:
+            self.onion.connect(
+                custom_settings=False,
+                config=self.settings.load(),
+                connect_timeout=20,
+                local_only=False,
+            )
+        except (BundledTorTimeout, BundledTorBroken, PortNotAvailable) as e:
+            pytest.fail(f"Failed to connect to Tor: {e}")
+
+    def test_check_tor_connection(self):
+        tor_proxy = {
+            "http": "socks5h://127.0.0.1:9050",  # Default Tor proxy
+            "https": "socks5h://127.0.0.1:9050"
+        }
+        test_url = "http://check.torproject.org/"
+
+        try:
+            # Test if the Tor proxy is routing the traffic
+            response = requests.get(test_url, proxies=tor_proxy, timeout=40)
+            assert response.status_code == 200 and "Congratulations" in response.text, "Tor network connection is not correctly set up."
+        except requests.RequestException as e:
+            pytest.fail(f"Error connecting to Tor: {e}")
+
+    def test_check_tor_control_port(self):
+        # Implement the test for the Tor control port here
+        pass
