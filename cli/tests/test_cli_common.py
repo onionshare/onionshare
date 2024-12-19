@@ -308,6 +308,7 @@ class TestTorConnectionOnline:
             assert response.status_code == 200 and "Congratulations" in response.text, "Tor network connection is not correctly set up."
         except requests.RequestException as e:
             pytest.fail(f"Error connecting to Tor: {e}")
+        self.onion.cleanup()
 
     def test_check_tor_control_port(self):
         # Implement the test for the Tor control port here
