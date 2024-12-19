@@ -5,6 +5,7 @@ import random
 import re
 import socket
 import sys
+import tempfile
 import requests
 from stem.control import Controller
 from onionshare_cli.common import Common
@@ -299,16 +300,18 @@ class TestTorConnectionOnline:
 
     def setup_method(self):
 
-        self.tor_process = self.start_tor_service()
+        #self.tor_process = self.start_tor_service()
         
         # Setup the Onion object and connect to Tor
+        temp_dir = tempfile.mkdtemp()
         self.common = Common()  
-        self.onion = Onion(self.common, use_tmp_dir=True)
+        self.onion = Onion(self.common, use_tmp_dir=temp_dir)
         self.settings = Settings(self.common)
-        
+        self.settings.set('socks_port', 9050)
+        self.settings.set('control_port_port', 9051)
         try:
             self.onion.connect(
-                custom_settings=False,
+                custom_settings=None,
                 config=self.settings.load(),
                 connect_timeout=40,
                 local_only=False,
@@ -316,11 +319,6 @@ class TestTorConnectionOnline:
         except (BundledTorTimeout, BundledTorBroken, PortNotAvailable) as e:
             pytest.fail(f"Failed to connect to Tor: {e}")
         
-
-    def teardown_method(self):
-        # Stop the Tor service
-        if hasattr(self, 'tor_process') and self.tor_process:
-            self.tor_process.terminate()
 
     def test_check_tor_connection(self):
         tor_proxy = {
