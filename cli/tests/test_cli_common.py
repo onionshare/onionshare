@@ -8,10 +8,12 @@ import sys
 import requests
 from stem.control import Controller
 from onionshare_cli.common import Common
+from onionshare_cli.onionshare import OnionShare
+from stem.process import launch_tor_with_config
 import pytest
 from onionshare_cli.onion import Onion, BundledTorTimeout, BundledTorBroken, PortNotAvailable
 from onionshare_cli.settings import Settings
-
+from onionshare_cli.mode_settings import ModeSettings
 PASSWORD_REGEX = re.compile(r"^([a-z]+)(-[a-z]+)?-([a-z]+)(-[a-z]+)?$")
 
 
@@ -279,7 +281,26 @@ class TestLog:
         )
 
 class TestTorConnectionOnline:
+    def start_tor_service(self):
+        # Use a writable directory for the Tor data
+        tor_data_dir = os.path.join(os.getenv('TEMP'), 'tor_data')
+
+        # Start the Tor service
+        tor_process = launch_tor_with_config(
+            config={
+                'SocksPort': '9050',
+                'ControlPort': '9051',
+                'DataDirectory': tor_data_dir,
+            },
+            init_msg_handler=lambda line: print(line) if 'Bootstrapped' in line else None,
+        )
+
+        return tor_process
+
     def setup_method(self):
+
+        self.tor_process = self.start_tor_service()
+        
         # Setup the Onion object and connect to Tor
         self.common = Common()  
         self.onion = Onion(self.common, use_tmp_dir=True)
@@ -289,11 +310,17 @@ class TestTorConnectionOnline:
             self.onion.connect(
                 custom_settings=False,
                 config=self.settings.load(),
-                connect_timeout=20,
+                connect_timeout=40,
                 local_only=False,
             )
         except (BundledTorTimeout, BundledTorBroken, PortNotAvailable) as e:
             pytest.fail(f"Failed to connect to Tor: {e}")
+        
+
+    def teardown_method(self):
+        # Stop the Tor service
+        if hasattr(self, 'tor_process') and self.tor_process:
+            self.tor_process.terminate()
 
     def test_check_tor_connection(self):
         tor_proxy = {
@@ -309,7 +336,5 @@ class TestTorConnectionOnline:
         except requests.RequestException as e:
             pytest.fail(f"Error connecting to Tor: {e}")
         self.onion.cleanup()
+        
 
-    def test_check_tor_control_port(self):
-        # Implement the test for the Tor control port here
-        pass
