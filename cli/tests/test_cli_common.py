@@ -284,13 +284,13 @@ class TestLog:
 class TestTorConnectionOnline:
     def start_tor_service(self):
         # Use a writable directory for the Tor data
-        tor_data_dir = os.path.join(os.getenv('TEMP'), 'tor_data')
+        tor_data_dir = os.path.join(tempfile.gettempdir(), 'tor_data')
 
         # Start the Tor service
         tor_process = launch_tor_with_config(
             config={
-                'SocksPort': '9050',
-                'ControlPort': '9051',
+                'SocksPort': '9050',  # Standard SocksPort
+                'ControlPort': '9051',  # Standard ControlPort
                 'DataDirectory': tor_data_dir,
             },
             init_msg_handler=lambda line: print(line) if 'Bootstrapped' in line else None,
@@ -299,26 +299,33 @@ class TestTorConnectionOnline:
         return tor_process
 
     def setup_method(self):
-
-        #self.tor_process = self.start_tor_service()
+        self.tor_process = self.start_tor_service()
         
         # Setup the Onion object and connect to Tor
         temp_dir = tempfile.mkdtemp()
         self.common = Common()  
         self.onion = Onion(self.common, use_tmp_dir=temp_dir)
         self.settings = Settings(self.common)
+        
+        # Update settings to use default ports
         self.settings.set('socks_port', 9050)
         self.settings.set('control_port_port', 9051)
+        self.settings.set('data_directory', temp_dir)
+        
         try:
             self.onion.connect(
-                custom_settings=None,
+                custom_settings=False,
                 config=self.settings.load(),
-                connect_timeout=40,
+                connect_timeout=120,
                 local_only=False,
             )
         except (BundledTorTimeout, BundledTorBroken, PortNotAvailable) as e:
             pytest.fail(f"Failed to connect to Tor: {e}")
-        
+
+    def teardown_method(self):
+        # Stop the Tor service
+        if hasattr(self, 'tor_process') and self.tor_process:
+            self.tor_process.terminate()
 
     def test_check_tor_connection(self):
         tor_proxy = {
@@ -330,9 +337,11 @@ class TestTorConnectionOnline:
         try:
             # Test if the Tor proxy is routing the traffic
             response = requests.get(test_url, proxies=tor_proxy, timeout=40)
+            
             assert response.status_code == 200 and "Congratulations" in response.text, "Tor network connection is not correctly set up."
         except requests.RequestException as e:
             pytest.fail(f"Error connecting to Tor: {e}")
-        self.onion.cleanup()
-        
 
+    #def test_check_tor_control_port(self):
+        # Implement the test for the Tor control port here
+     #   pass
