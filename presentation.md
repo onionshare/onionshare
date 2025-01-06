@@ -55,10 +55,26 @@ ADD MORE?
 
 ### What tools are used? How do they handle bugs?
 
+Automated test
+ADD MORE
+
 ### Document your testing performed.
+
+Our testing focused alot on the already created automated tests
+When we were trying to start the application we noticed that the tests
+claimed the we didnt have tor installed, even though we did, and that the program would run based on out installation, but not while running the tests.
+Thus we remade the test's, to instead of looking for a tor file in a specific folder, we use the code the program uses to start a tor servie, before making a fetch to a tor website to validate that tor is able to start and connect. We could however have seperated these tests. But in order to properly test that tor was functioning, we decided that making a request would be best fitted.
 
 ### Exploratory testing is optional, what kind of structured testing will you do?
 
+What?
+
 ### What did you do and what did you find?
 
+WIRESHARK???? FLORRIS
+
 ### Document the pre-existing tests and their results.
+
+MENTION ONCE AGAIN THE FAULTY TESTS
+MENTION THE WARNINGS FROM TESTS.
+
