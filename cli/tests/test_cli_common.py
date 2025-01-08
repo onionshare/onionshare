@@ -12,6 +12,7 @@ from onionshare_cli.common import Common
 from onionshare_cli.onionshare import OnionShare
 from stem.process import launch_tor_with_config
 import pytest
+import psutil
 from onionshare_cli.onion import Onion, BundledTorTimeout, BundledTorBroken, PortNotAvailable
 from onionshare_cli.settings import Settings
 from onionshare_cli.mode_settings import ModeSettings
@@ -205,8 +206,8 @@ class TestGetTorPaths:
             or tor_geo_ipv6_file_path == "/usr/local/share/tor/geoip6"
         )
 
-    #TODO - FIX TEST
-    @pytest.mark.skipif(sys.platform != "win33", reason="requires Windows")
+    
+    @pytest.mark.skipif(sys.platform != "win32", reason="requires Windows")
     def test_get_tor_paths_windows(self, platform_windows, common_obj, sys_frozen):
         base_path = os.path.join(
             os.path.dirname(os.path.dirname(common_obj.get_resource_path(""))),
@@ -283,10 +284,7 @@ class TestLog:
 
 class TestTorConnectionOnline:
     def start_tor_service(self):
-        # Use a writable directory for the Tor data
         tor_data_dir = os.path.join(tempfile.gettempdir(), 'tor_data')
-
-        # Start the Tor service
         tor_process = launch_tor_with_config(
             config={
                 'SocksPort': '9050',  # Standard SocksPort
@@ -295,19 +293,14 @@ class TestTorConnectionOnline:
             },
             init_msg_handler=lambda line: print(line) if 'Bootstrapped' in line else None,
         )
-
         return tor_process
 
     def setup_method(self):
-        self.tor_process = self.start_tor_service()
-        
-        # Setup the Onion object and connect to Tor
+        self.tor_process = self.start_tor_service()       
         temp_dir = tempfile.mkdtemp()
         self.common = Common()  
         self.onion = Onion(self.common, use_tmp_dir=temp_dir)
         self.settings = Settings(self.common)
-        
-        # Update settings to use default ports
         self.settings.set('socks_port', 9050)
         self.settings.set('control_port_port', 9051)
         self.settings.set('data_directory', temp_dir)
@@ -322,26 +315,24 @@ class TestTorConnectionOnline:
         except (BundledTorTimeout, BundledTorBroken, PortNotAvailable) as e:
             pytest.fail(f"Failed to connect to Tor: {e}")
 
-    def teardown_method(self):
-        # Stop the Tor service
-        if hasattr(self, 'tor_process') and self.tor_process:
-            self.tor_process.terminate()
+
+    def terminate_all_tor_processes(self):
+        for proc in psutil.process_iter(['pid', 'name']):
+            if proc.info['name'] == 'tor.exe' or proc.info['name'] == 'tor':
+                proc.terminate()
+                proc.wait()
 
     def test_check_tor_connection(self):
         tor_proxy = {
-            "http": "socks5h://127.0.0.1:9050",  # Default Tor proxy
+            "http": "socks5h://127.0.0.1:9050", 
             "https": "socks5h://127.0.0.1:9050"
         }
         test_url = "http://check.torproject.org/"
 
         try:
-            # Test if the Tor proxy is routing the traffic
             response = requests.get(test_url, proxies=tor_proxy, timeout=40)
-            
+            self.terminate_all_tor_processes()
             assert response.status_code == 200 and "Congratulations" in response.text, "Tor network connection is not correctly set up."
         except requests.RequestException as e:
             pytest.fail(f"Error connecting to Tor: {e}")
 
-    #def test_check_tor_control_port(self):
-        # Implement the test for the Tor control port here
-     #   pass
