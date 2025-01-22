@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.6.2\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2025-01-22 15:59+0000\n"
+"PO-Revision-Date: 2025-01-22 16:08+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ta\n"
@@ -227,119 +227,195 @@ msgstr ""
 #: ../../source/features.rst:92
 msgid "However, it is always safe to open text messages sent through OnionShare."
 msgstr ""
+"இருப்பினும், வெங்காயம் மூலம் அனுப்பப்பட்ட குறுஞ்செய்திகளைத் திறப்பது எப்போதும் "
+"பாதுகாப்பானது."
 
 #: ../../source/features.rst:95
 msgid "Tips for running a receive service"
-msgstr ""
+msgstr "பெறும் சேவையை இயக்குவதற்கான உதவிக்குறிப்புகள்"
 
 #: ../../source/features.rst:97
 msgid "If you want to host your own anonymous dropbox using OnionShare, it's recommended you do so on a separate, dedicated computer always powered on and connected to the internet, and not on the one you use on a regular basis."
 msgstr ""
+"வெங்காயத்தைப் பயன்படுத்தி உங்கள் சொந்த அநாமதேய டிராப்பாக்சை நீங்கள் புரவலன் செய்ய விரும்பினால்"
+", ஒரு தனி, அர்ப்பணிப்புள்ள கணினியில் எப்போதும் இயங்கும் மற்றும் இணையத்துடன் இணைக்கப்பட்டுள்ளது"
+", நீங்கள் வழக்கமான அடிப்படையில் பயன்படுத்தும் ஒன்றில் அல்ல."
 
 #: ../../source/features.rst:99
 msgid "If you intend to put the OnionShare address on your website or social media profiles, save the tab (see :ref:`save_tabs`) and run it as a public service (see :ref:`turn_off_private_key`). It's also a good idea to give it a custom title (see :ref:`custom_titles`)."
 msgstr ""
+"உங்கள் வலைத்தளம் அல்லது சமூக ஊடக சுயவிவரங்களில் வெங்காய முகவரியை வைக்க நீங்கள் விரும்பினால்"
+", தாவலைச் சேமிக்கவும் (பார்க்க: ref: `Save_tabs`) அதை பொது சேவையாக இயக்கவும் (பார்க்க:"
+" குறிப்பு:` turn_off_private_key`). தனிப்பயன் தலைப்பைக் கொடுப்பதும் நல்லது (பார்க்க: "
+"ref: `Custom_titles`)."
 
 #: ../../source/features.rst:102
 msgid "Host a Website"
-msgstr ""
+msgstr "ஒரு வலைத்தளத்தை புரவலன் செய்யுங்கள்"
 
 #: ../../source/features.rst:104
 msgid "To host a static HTML website with OnionShare, open a website tab, drag the files and folders that make up the static content there, and click \"Start sharing\" when you are ready."
 msgstr ""
+"வெங்காயர் மூலம் நிலையான உஉகுமொ வலைத்தளத்தை நடத்த, ஒரு வலைத்தள தாவலைத் திறக்கவும், அங்குள்"
+"ள நிலையான உள்ளடக்கத்தை உருவாக்கும் கோப்புகள் மற்றும் கோப்புறைகளை இழுத்து, நீங்கள் தயாராக "
+"இருக்கும்போது \"பகிர்வைத் தொடங்கு\" என்பதைக் சொடுக்கு செய்க."
 
 #: ../../source/features.rst:108
 msgid "If you add an ``index.html`` file, it will render when someone loads your website. You should also include any other HTML files, CSS files, JavaScript files, and images that make up the website. (Note that OnionShare only supports hosting *static* websites. It can't host websites that execute code or use databases. So you can't for example use WordPress.)"
 msgstr ""
+"நீங்கள் `` index.html`` கோப்பைச் சேர்த்தால், யாராவது உங்கள் வலைத்தளத்தை ஏற்றும்போது அது "
+"வழங்கப்படும். நீங்கள் வேறு எந்த உஉகுமொ கோப்புகள், சிஎச்எச் கோப்புகள், சாவாச்கிரிப்ட் கோப்புகள் "
+"மற்றும் வலைத்தளத்தை உருவாக்கும் படங்களையும் சேர்க்க வேண்டும். ."
 
 #: ../../source/features.rst:110
 msgid "If you don't have an ``index.html`` file, it will show a directory listing instead, and people loading it can look through the files and download them."
 msgstr ""
+"உங்களிடம் `` index.html`` கோப்பு இல்லையென்றால், அது அதற்கு பதிலாக ஒரு அடைவு பட்டியலைக்"
+" காண்பிக்கும், மேலும் அதை ஏற்றும் நபர்கள் கோப்புகள் வழியாகப் பார்த்து அவற்றைப் பதிவிறக்கலாம்."
 
 #: ../../source/features.rst:117
 msgid "Content Security Policy"
-msgstr ""
+msgstr "உள்ளடக்க பாதுகாப்பு கொள்கை"
 
 #: ../../source/features.rst:119
 msgid "By default OnionShare helps secure your website by setting a strict `Content Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ header. However, this prevents third-party content from loading inside the web page."
 msgstr ""
+"முன்னிருப்பாக வெங்காய பாதுகாப்புக் கொள்கையை அமைப்பதன் மூலம் உங்கள் வலைத்தளத்தைப் பாதுகாக்க "
+"வெங்காயர் உதவுகிறது <https://en.wikipedia.org/wiki/content_security_policy> `_ "
+"தலைப்பு. இருப்பினும், இது மூன்றாம் தரப்பு உள்ளடக்கத்தை வலைப்பக்கத்திற்குள் ஏற்றுவதைத் "
+"தடுக்கிறது."
 
 #: ../../source/features.rst:121
 msgid "If you want to load content from third-party websites, like assets or JavaScript libraries from CDNs, you have two options:"
 msgstr ""
+"சி.டி.என்-களில் இருந்து சொத்துக்கள் அல்லது சாவாச்கிரிப்ட் நூலகங்கள் போன்ற மூன்றாம் தரப்பு "
+"வலைத்தளங்களிலிருந்து உள்ளடக்கத்தை ஏற்ற விரும்பினால், உங்களுக்கு இரண்டு விருப்பங்கள் உள்ளன:"
 
 #: ../../source/features.rst:123
 msgid "You can disable sending a Content Security Policy header by checking the \"Don't send Content Security Policy header (allows your website to use third-party resources)\" box before starting the service."
 msgstr ""
+"சேவையைத் தொடங்குவதற்கு முன் \"உள்ளடக்க பாதுகாப்பு கொள்கை தலைப்பை அனுப்ப வேண்டாம் (உங்கள் "
+"வலைத்தளத்தை மூன்றாம் தரப்பு வளங்களைப் பயன்படுத்த அனுமதிக்கிறது)\" பெட்டியைச் சரிபார்ப்பதன் "
+"மூலம் உள்ளடக்க பாதுகாப்பு கொள்கை தலைப்பை அனுப்புவதை முடக்கலாம்."
 
 #: ../../source/features.rst:124
 msgid "You can send a custom Content Security Policy header."
-msgstr ""
+msgstr "தனிப்பயன் உள்ளடக்க பாதுகாப்பு கொள்கை தலைப்பை அனுப்பலாம்."
 
 #: ../../source/features.rst:127
 msgid "Tips for running a website service"
-msgstr ""
+msgstr "வலைத்தள சேவையை இயக்குவதற்கான உதவிக்குறிப்புகள்"
 
 #: ../../source/features.rst:129
 msgid "If you want to host a long-term website using OnionShare (meaning not just to quickly show someone something), it's recommended you do it on a separate, dedicated computer that is always powered on and connected to the internet, and not on the one you use on a regular basis. Save the tab (see :ref:`save_tabs`) so you can resume the website with the same address if you close OnionShare and re-open it later."
 msgstr ""
+"நீங்கள் வெங்காயத்தைப் பயன்படுத்தி ஒரு நீண்டகால வலைத்தளத்தை புரவலன் செய்ய விரும்பினால் (அதாவது"
+" யாரையாவது விரைவாகக் காண்பிப்பது மட்டுமல்ல), ஒரு தனி, அர்ப்பணிப்புள்ள கணினியில் இதைச் "
+"செய்ய பரிந்துரைக்கப்படுகிறது, அது எப்போதும் இயங்கும் மற்றும் இணையத்துடன் இணைக்கப்பட்டுள்ளது, "
+"ஆனால் ஒன்றல்ல நீங்கள் ஒரு வழக்கமான அடிப்படையில் பயன்படுத்துகிறீர்கள். தாவலைச் சேமிக்கவும் "
+"(பார்க்க: ref: `Save_tabs`) எனவே நீங்கள் வெங்காயத்தை மூடி பின்னர் மீண்டும் திறந்தால் அதே "
+"முகவரியுடன் வலைத்தளத்தை மீண்டும் தொடங்கலாம்."
 
 #: ../../source/features.rst:132
 msgid "If your website is intended for the public, you should run it as a public service (see :ref:`turn_off_private_key`)."
 msgstr ""
+"உங்கள் வலைத்தளம் பொதுமக்களுக்காக வடிவமைக்கப்பட்டிருந்தால், நீங்கள் அதை ஒரு பொது சேவையாக இயக்"
+"க வேண்டும் (பார்க்க: குறிப்பு: `turn_off_private_key`)."
 
 #: ../../source/features.rst:135
 msgid "Chat Anonymously"
-msgstr ""
+msgstr "அநாமதேயமாக அரட்டையடிக்கவும்"
 
 #: ../../source/features.rst:137
 msgid "You can use OnionShare to set up a private, secure chat room that doesn't log anything. Just open a chat tab and click \"Start chat server\"."
 msgstr ""
+"எதையும் உள்நுழையாத தனிப்பட்ட, பாதுகாப்பான அரட்டை அறையை அமைக்க நீங்கள் வெங்காயத்தைப் "
+"பயன்படுத்தலாம். அரட்டை தாவலைத் திறந்து \"அரட்டை சேவையகத்தைத் தொடங்கு\" என்பதைக் சொடுக்கு "
+"செய்க."
 
 #: ../../source/features.rst:141
 msgid "After you start the server, copy the OnionShare address and private key and send them to the people you want in the anonymous chat room. If it's important to limit exactly who can join, use an encrypted messaging app to send out the OnionShare address and private key."
 msgstr ""
+"நீங்கள் சேவையகத்தைத் தொடங்கிய பிறகு, வெங்காய முகவரி மற்றும் தனியார் விசையை நகலெடுத்து "
+"அநாமதேய அரட்டை அறையில் நீங்கள் விரும்பும் நபர்களுக்கு அனுப்பவும். யார் சேரலாம் என்பதை "
+"சரியாகக் கட்டுப்படுத்துவது முதன்மை என்றால், வெங்காய முகவரி மற்றும் தனியார் விசையை அனுப்ப "
+"மறைகுறியாக்கப்பட்ட செய்தியிடல் பயன்பாட்டைப் பயன்படுத்தவும்."
 
 #: ../../source/features.rst:146
 msgid "People can join the chat room by loading its OnionShare address in Tor Browser. The chat room requires JavasScript, so everyone who wants to participate must have their Tor Browser security level set to \"Standard\" or \"Safer\", instead of \"Safest\"."
 msgstr ""
+"டோர் உலாவியில் அதன் வெங்காயக் முகவரியை ஏற்றுவதன் மூலம் மக்கள் அரட்டை அறையில் சேரலாம். "
+"அரட்டை அறைக்கு சாவாச்கிரிப்ட் தேவைப்படுகிறது, எனவே பங்கேற்க விரும்பும் அனைவருக்கும் "
+"அவர்களின் டோர் உலாவி பாதுகாப்பு நிலை \"பாதுகாப்பானது\" என்பதற்கு பதிலாக \"தரநிலை\" "
+"அல்லது \"பாதுகாப்பானது\" என அமைக்கப்பட்டிருக்க வேண்டும்."
 
 #: ../../source/features.rst:149
 msgid "When someone joins the chat room they get assigned a random name. They can change their name by typing a new name in the box in the left panel and pressing ↵. Since the chat history isn't saved anywhere, it doesn't get displayed at all, even if others were already chatting in the room."
 msgstr ""
+"யாராவது அரட்டை அறையில் சேரும்போது அவர்கள் ஒரு சீரற்ற பெயரை ஒதுக்குகிறார்கள். இடது "
+"பேனலில் உள்ள பெட்டியில் ஒரு புதிய பெயரைத் தட்டச்சு செய்து ↵ அழுத்துவதன் மூலம் அவர்கள் தங்கள்"
+" பெயரை மாற்றலாம். அரட்டை வரலாறு எங்கும் சேமிக்கப்படாததால், மற்றவர்கள் ஏற்கனவே அறையில் "
+"அரட்டை அடித்துக்கொண்டிருந்தாலும் கூட, அது காண்பிக்கப்படாது."
 
 #: ../../source/features.rst:155
 msgid "In an OnionShare chat room, everyone is anonymous. Anyone can change their name to anything, and there is no way to confirm anyone's identity."
 msgstr ""
+"ஒரு வெங்காய அரட்டை அறையில், எல்லோரும் அநாமதேயர்கள். எவரும் தங்கள் பெயரை எதற்கும் மாற்றலாம்"
+", யாருடைய அடையாளத்தையும் உறுதிப்படுத்த வழி இல்லை."
 
 #: ../../source/features.rst:158
 msgid "However, if you create an OnionShare chat room and securely send the address only to a small group of trusted friends using encrypted messages, you can be reasonably confident the people joining the chat room are your friends."
 msgstr ""
+"இருப்பினும், நீங்கள் ஒரு வெங்காய அரட்டை அறையை உருவாக்கி, குறியாக்கப்பட்ட செய்திகளைப் "
+"பயன்படுத்தி நம்பகமான நண்பர்களின் ஒரு சிறிய குழுவிற்கு மட்டுமே முகவரியை பாதுகாப்பாக "
+"அனுப்பினால், அரட்டை அறையில் சேரும் நபர்கள் உங்கள் நண்பர்கள்."
 
 #: ../../source/features.rst:161
 msgid "How is this useful?"
-msgstr ""
+msgstr "இது எவ்வாறு பயனுள்ளதாக இருக்கும்?"
 
 #: ../../source/features.rst:163
 msgid "If you need to already be using an encrypted messaging app, what's the point of an OnionShare chat room to begin with? It leaves less traces."
 msgstr ""
+"நீங்கள் ஏற்கனவே மறைகுறியாக்கப்பட்ட செய்தியிடல் பயன்பாட்டைப் பயன்படுத்த வேண்டும் என்றால், ஒரு "
+"வெங்காய அரட்டை அறையின் பயன் என்ன? இது குறைந்த தடயங்களை விட்டு விடுகிறது."
 
 #: ../../source/features.rst:165
 msgid "If you for example send a message to a Signal group, a copy of your message ends up on each device (the smartphones, and computers if they set up Signal Desktop) of each member of the group. Even if disappearing messages is turned on, it's hard to confirm all copies of the messages are actually deleted from all devices, and from any other places (like notifications databases) they may have been saved to. OnionShare chat rooms don't store any messages anywhere, so the problem is reduced to a minimum."
 msgstr ""
+"நீங்கள் ஒரு சமிக்ஞை குழுவிற்கு ஒரு செய்தியை அனுப்பினால், குழுவின் ஒவ்வொரு உறுப்பினரின் "
+"ஒவ்வொரு சாதனத்திலும் (ச்மார்ட்போன்கள் மற்றும் சிக்னல் டெச்க்டாப்பை அமைத்தால் கணினிகள்) உங்கள் "
+"செய்தியின் நகல் முடிகிறது. காணாமல் போகும் செய்திகள் இயக்கப்பட்டிருந்தாலும், செய்திகளின் "
+"அனைத்து நகல்களும் உண்மையில் எல்லா சாதனங்களிலிருந்தும் நீக்கப்பட்டுள்ளன, வேறு எந்த "
+"இடங்களிலிருந்தும் (அறிவிப்புகள் தரவுத்தளங்கள் போன்றவை) அவை சேமிக்கப்பட்டிருக்கலாம் என்பதை "
+"உறுதிப்படுத்துவது கடினம். வெங்காய அரட்டை அறைகள் எந்த செய்திகளையும் எங்கும் சேமிக்காது, "
+"எனவே சிக்கல் குறைந்தபட்சமாக குறைக்கப்படுகிறது."
 
 #: ../../source/features.rst:168
 msgid "OnionShare chat rooms can also be useful for people wanting to chat anonymously and securely with someone without needing to create any accounts. For example, a source can send an OnionShare address to a journalist using a disposable email address, and then wait for the journalist to join the chat room, all without compromosing their anonymity."
 msgstr ""
+"எந்தவொரு கணக்குகளையும் உருவாக்கத் தேவையில்லாமல் ஒருவருடன் அநாமதேயமாகவும் பாதுகாப்பாகவும்"
+" அரட்டை அடிக்க விரும்பும் மக்களுக்கு வெங்காயம் அரட்டை அறைகள் பயனுள்ளதாக இருக்கும். "
+"எடுத்துக்காட்டாக, ஒரு மூலமான மின்னஞ்சல் முகவரியைப் பயன்படுத்தி ஒரு பத்திரிகையாளருக்கு "
+"ஒரு வெங்காய முகவரியை அனுப்பலாம், பின்னர் பத்திரிகையாளர் அரட்டை அறையில் சேர "
+"காத்திருக்கலாம், அனைவருமே அவர்களின் பெயர் தெரியாமல் வேறுபாடின்மை செய்யாமல்."
 
 #: ../../source/features.rst:172
 msgid "How does the encryption work?"
-msgstr ""
+msgstr "குறியாக்கம் எவ்வாறு செயல்படுகிறது?"
 
 #: ../../source/features.rst:174
 msgid "Because OnionShare relies on Tor onion services, connections between the Tor Browser and OnionShare are all end-to-end encrypted (E2EE). When someone posts a message to an OnionShare chat room, they send it to the server through the E2EE onion connection, which then sends it to all other members of the chat room using WebSockets, through their E2EE onion connections."
 msgstr ""
+"வெங்காயர் டோர் வெங்காய சேவைகளை நம்பியிருப்பதால், டோர் உலாவி மற்றும் வெங்காயர் ஆகியவற்றுக்கு"
+" இடையேயான தொடர்புகள் அனைத்தும் இறுதி முதல் இறுதி மறைகுறியாக்கப்பட்டவை (E2EE). யாரோ "
+"ஒரு வெங்காய அரட்டை அறைக்கு ஒரு செய்தியை இடுகையிடும்போது, அவர்கள் அதை E2EE வெங்காய "
+"இணைப்பு மூலம் சேவையகத்திற்கு அனுப்புகிறார்கள், பின்னர் அதை தங்கள் E2EE வெங்காய இணைப்புகள் "
+"மூலம் வெப்சாக்கெட்டுகளைப் பயன்படுத்தி அரட்டை அறையின் மற்ற அனைத்து உறுப்பினர்களுக்கும் "
+"அனுப்புகிறார்கள்."
 
 #: ../../source/features.rst:176
 msgid "OnionShare doesn't implement any chat encryption on its own. It relies on the Tor onion service's encryption instead."
 msgstr ""
+"வெங்காயர் எந்த அரட்டை குறியாக்கத்தையும் சொந்தமாக செயல்படுத்தவில்லை. இது அதற்கு பதிலாக டோர்"
+" வெங்காய சேவையின் குறியாக்கத்தை நம்பியுள்ளது."
