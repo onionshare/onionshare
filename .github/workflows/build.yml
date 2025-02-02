@@ -253,6 +253,7 @@ jobs:
 
       - name: Flatpak build
         run: |
+          sudo ufw disable
           cd flatpak
           flatpak-builder build --force-clean --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
           flatpak build-bundle ~/.local/share/flatpak/repo ~/OnionShare.flatpak org.onionshare.OnionShare --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
