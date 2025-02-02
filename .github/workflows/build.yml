@@ -107,7 +107,7 @@ jobs:
       - name: Compress
         shell: pwsh
         run: |
-          mv desktop\build\exe.win-amd64-3.11\ ~\onionshare-win64
+          mv desktop\build\exe.win-amd64-3.12\ ~\onionshare-win64
           Compress-Archive -LiteralPath ~\onionshare-win64 -DestinationPath ~\onionshare-win64.zip
 
       - uses: actions/upload-artifact@v4
