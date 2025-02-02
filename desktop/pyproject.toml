@@ -19,7 +19,7 @@ black = "*"
 pytest = "*"
 pytest-faulthandler = "*"
 pytest-qt = "*"
-cx_freeze = "*"
+cx_freeze = "7.2.9"
 importlib-metadata = "*"
 
 [build-system]
