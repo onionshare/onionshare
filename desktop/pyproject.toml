@@ -6,14 +6,14 @@ authors = ["Micah Lee <micah@micahflee.com>"]
 license = "GPLv3+"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.12"
+python = ">=3.10,<3.13"
 onionshare_cli = {path = "../cli", develop = true}
-PySide6 = "6.5.2"
+PySide6 = "6.8.2"
 qrcode = "*"
 werkzeug = "*"
 python-gnupg = "*"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 click = "*"
 black = "*"
 pytest = "*"

@@ -16,7 +16,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.12"
+python = ">=3.8,<3.13"
 click = "*"
 flask = "2.3.2"
 flask-compress = "^1.13"
@@ -41,7 +41,7 @@ cffi = "^1.15.1"
 cython = "^3.0.2"
 qrcode = "^7.4.2"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = ">=7.2.0"
 
 [tool.poetry.scripts]
