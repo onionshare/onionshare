@@ -413,8 +413,8 @@ modules:
                 url: https://files.pythonhosted.org/packages/02/cc/b7e31358aac6ed1ef2bb790a9746ac2c69bcb3c8588b41616914eb106eaf/exceptiongroup-1.2.2-py3-none-any.whl
                 sha256: 3111b9d131c238bec2f8f516e123e14ba243563fb135d3fe885990585aa7795b
               - type: file
-                url: https://files.pythonhosted.org/packages/fa/1a/f191d32818e5cd985bdd3f47a6e4f525e2db1ce5e8150045ca0c31813686/Flask-2.3.2-py3-none-any.whl
-                sha256: 77fd4e1249d8c9923de34907236b747ced06e5467ecac1a7bb7115ae0e9670b0
+                url: https://files.pythonhosted.org/packages/fd/56/26f0be8adc2b4257df20c1c4260ddd0aa396cf8e75d90ab2f7ff99bc34f9/flask-2.3.3-py3-none-any.whl
+                sha256: f69fcd559dc907ed196ab9df0e48471709175e696d6e698dd4dbe940f96ce66b
               - type: file
                 url: https://files.pythonhosted.org/packages/f7/54/ff08f947d07c0a8a5d8f1c8e57b142c97748ca912b259db6467ab35983cd/Flask_Compress-1.17-py3-none-any.whl
                 sha256: 415131f197c41109f08e8fdfc3a6628d83d81680fb5ecd0b3a97410e02397b20
