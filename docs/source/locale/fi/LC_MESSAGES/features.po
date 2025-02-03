@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3.2\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2023-03-08 06:12+0000\n"
-"Last-Translator: Oskari Lavinto <olavinto@protonmail.com>\n"
+"PO-Revision-Date: 2025-01-31 17:07+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: none\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.16.2-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/features.rst:4
@@ -34,11 +34,9 @@ msgstr ""
 "sipulipalveluina <https://community.torproject.org/onion-services/>`_."
 
 #: ../../source/features.rst:8
-#, fuzzy
 msgid "By default, OnionShare web addresses are protected with a private key."
 msgstr ""
-"Oletuksena OnionShare-verkkoosoitteet ovat suojattuna satunnaisella "
-"salasanalla. Tyypillinen OnionShare-osoite voi näyttää suurinpiirtein tältä::"
+"Oletuksena OnionShare-verkko-osoitteet ovat suojattu yksityisellä avaimella."
 
 #: ../../source/features.rst:10
 msgid "OnionShare addresses look something like this::"
@@ -49,29 +47,28 @@ msgid "And private keys might look something like this::"
 msgstr ""
 
 #: ../../source/features.rst:18
-#, fuzzy
 msgid ""
 "You're responsible for securely sharing that URL and private key using a "
 "communication channel of your choice like in an encrypted chat message, or "
 "using something less secure like unencrypted email, depending on your "
 "`threat model <https://ssd.eff.org/module/your-security-plan>`_."
 msgstr ""
-"Olet vastuussa siitä, että jaat osoitelinkin turvallisesti käyttämällä "
-"yhteydenpitokanavana valitsemaasi kryptattua chat-viestiä, tai käyttämällä "
-"vähemmän turvallista kuten salaamatonta sähköpostia, riippuen minkälainen "
-"uhkamalli sinulla on <https://ssd.eff.org/module/your-security-plan>`_."
+"Olet vastuussa URL-osoitteen ja yksityisen avaimen turvallisesta jakamisesta "
+"valitsemallasi viestintäkanavalla, kuten salatussa pikaviestissä, tai "
+"käyttämällä jotain vähemmän turvallista, kuten salaamatonta sähköpostia, "
+"riippuen `uhkamallistasi <https://ssd.eff.org/module/your-security-plan>`_."
 
 #: ../../source/features.rst:20
-#, fuzzy
 msgid ""
 "The people you send the URL to then copy and paste it into their `Tor "
 "Browser <https://www.torproject.org/>`_ to access the OnionShare service. "
 "Tor Browser will then prompt for the private key, which the people can also "
 "then copy and paste in."
 msgstr ""
-"Ihmiset, joille lähetät osoitelinkin, kopioivat kyseisen linkin ja liittävät "
-"sen heidän omaan Tor-selaimeen <https://www.torproject.org/>`_ päästäkseen "
-"OnionSharen palveluun."
+"Ihmiset, jotka lähetät URL-osoitteen kopioimaan ja liittämään sen `Tor "
+"Browser <https://www.torproject.org/>`_ päästäkseen OnionShare-palveluun. "
+"Tor Browser pyytää sitten yksityistä avainta, jonka ihmiset voivat myös "
+"kopioida ja liittää sisään."
 
 #: ../../source/features.rst:24
 #, fuzzy
@@ -230,17 +227,17 @@ msgid ""
 "service, @webhookbot will send you a message on Keybase letting you know as "
 "soon as it happens."
 msgstr ""
-"Voit raksittaa \"Käytä ilmoitusten verkkotoimintokutsua\" ja sen jälkeen "
-"valitse verkkotoimintokutsun URL, jos haluat ilmoituksen, kun joku lisää "
-"tiedostoja tai viestejä sinun OnionShare-palveluun. Jos käytät tätä "
-"ominaisuutta, OnionShare tekee HTTP POST -pyynnön tähän osoitelinkkiin aina, "
-"kun joku lisää tiedostoja tai viestejä. Esimerkiksi, jos haluat saada "
-"kryptatun tekstimuotoisen viestin viestintäsovelluksessa `Keybase <https://"
-"keybase.io/>`_, aloita keskustelu `@webhookbot <https://keybase.io/"
-"webhookbot>`_ kanssa, kirjoita ``!webhook create onionshare-alerts`, ja "
-"botti vastaa URL:lla. Käytä tätä ilmoitusten verkkotoimintokutsun "
-"osoitelinkkinä. Jos joku lähettää tiedoston sinun vastaanottopalveluun, "
-"@webhookbot lähettää sinulle viestin Keybasessa niin pian kuin mahdollista."
+"Voit valita \"Käytä ilmoitusverkkokoukkua\" ja valita sitten webhook-URL-"
+"osoitteen, jos haluat saada ilmoituksen, kun joku lähettää tiedostoja tai "
+"viestejä OnionShare-palveluusi. Jos käytät tätä ominaisuutta, OnionShare "
+"lähettää HTTP POST -pyynnön tähän URL-osoitteeseen aina, kun joku lähettää "
+"tiedostoja tai viestejä. Jos esimerkiksi haluat saada salatun tekstiviestin "
+"viestisovelluksessa `Keybase <https://keybase.io/>`_, voit aloittaa "
+"keskustelun osoitteella `@webhookbot <https://keybase.io/webhookbot >`_, "
+"kirjoita ``!webhook create onionshare-alerts``, niin se vastaa URL-"
+"osoitteella. Käytä sitä ilmoituksen webhookin URL-osoitteena. Jos joku lataa "
+"tiedoston vastaanottotilapalveluusi, @webhookbot lähettää sinulle Keybasessa "
+"viestin, joka ilmoittaa sinulle heti, kun se tapahtuu."
 
 #: ../../source/features.rst:71
 msgid ""
@@ -417,16 +414,13 @@ msgstr ""
 "osapuolen sisältöä latautumista verkkosivun sisällä."
 
 #: ../../source/features.rst:121
-#, fuzzy
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
 msgstr ""
-"Jos haluat ladata sisältöä kolmannen osapuolen verkkosivuilta, kuten "
-"resursseja tai JavaScript-kirjastoja sisällönjakeluverkosta, raksita \"Älä "
-"lähetä sisältöä koskevaa turvallisuuslinjausotsaketta (sallii sinun "
-"verkkosivun käyttää kolmannen osapuolten resursseja)\" -ruutu ennen palvelun "
-"käynnistämistä."
+"Jos haluat ladata sisältöä kolmansien osapuolien verkkosivustoilta, kuten "
+"sisältöä tai JavaScript-kirjastoja CDN-verkoista, sinulla on kaksi "
+"vaihtoehtoa:"
 
 #: ../../source/features.rst:123
 msgid ""
