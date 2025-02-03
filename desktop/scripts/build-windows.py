@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from setuptools.command.build import build
+from distutils.command.build import build
 import sys
 import os
 import inspect

@@ -33,7 +33,7 @@ import tempfile
 import time
 import traceback
 
-from packaging.version import Version
+from distutils.version import LooseVersion as Version
 
 
 class TorErrorAutomatic(Exception):
@@ -658,8 +658,7 @@ class Onion(object):
         # Does this version of Tor support next-gen ('v3') onions?
         # Note, this is the version of Tor where this bug was fixed:
         # https://trac.torproject.org/projects/tor/ticket/28619
-        cleaned_tor_version = re.sub(r"\s*\(.*\)", "", self.tor_version)
-        self.supports_v3_onions = Version(cleaned_tor_version) >= Version("0.3.5.7")
+        self.supports_v3_onions = self.tor_version >= Version("0.3.5.7")
 
         # Now that we are connected to Tor, if we are using built-in bridges,
         # update them with the latest copy available from the Tor API
