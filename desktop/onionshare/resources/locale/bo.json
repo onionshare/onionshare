@@ -32,5 +32,6 @@
     "gui_close_tab_warning_cancel": "ཕྱིར་འཐེན།",
     "gui_quit_warning_cancel": "ཕྱིར་འཐེན།",
     "gui_status_indicator_share_working": "འགོ་འཛུགས་བཞིན་པ…",
-    "gui_status_indicator_share_started": "བརྒྱུད་སྐུར།"
+    "gui_status_indicator_share_started": "བརྒྱུད་སྐུར།",
+    "gui_settings_button_help": "རོགས་རམ"
 }

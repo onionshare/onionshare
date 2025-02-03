@@ -3,28 +3,30 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2024-07-13 10:09+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :("
+"n>6 && n<11) ? 3 : 4;\n"
+"X-Generator: Weblate 5.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "OnionShare a Fhorbairt"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "Ag comhoibriú"
 
 #: ../../source/develop.rst:9
 msgid ""
@@ -36,22 +38,36 @@ msgid ""
 "this team <https://keybase.io/team/onionshare>`_. Within the app, go to "
 "\"Teams\", click \"Join a Team\", and type \"onionshare\"."
 msgstr ""
+"Tá foireann Keybase oscailte ag OnionShare chun an tionscadal a phlé, "
+"ceisteanna a chur, smaointe agus dearaí a roinnt, agus pleananna a dhéanamh "
+"le haghaidh forbartha sa todhchaí. (Is bealach éasca é freisin chun "
+"teachtaireachtaí díreacha criptithe deireadh go deireadh a sheoladh chuig "
+"daoine eile sa phobal OnionShare, cosúil le seoltaí OnionShare.) Chun "
+"Keybase a úsáid, íoslódáil an app `Keybase <https://keybase.io/download>`_ , "
+"déan cuntas, agus `bí isteach san fhoireann seo <https://keybase.io/team/"
+"onionshare>`_. Laistigh den app, téigh go dtí \"Foirne\", cliceáil \"Join a "
+"Team\", agus cineál \"onionshare\"."
 
 #: ../../source/develop.rst:12
 msgid ""
 "OnionShare also has a `mailing list <https://lists.riseup.net/www/subscribe/"
 "onionshare-dev>`_ for developers and and designers to discuss the project."
 msgstr ""
+"Tá `liosta seoltaí <https://lists.riseup.net/www/subscribe/onionshare-dev>`_ "
+"ag OnionShare freisin d'fhorbróirí agus do dhearthóirí chun an tionscadal a "
+"phlé."
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "Cód Ranníocaíochta"
 
 #: ../../source/develop.rst:17
 msgid ""
 "OnionShare source code is to be found in this Git repository: https://github."
 "com/onionshare/onionshare"
 msgstr ""
+"Tá cód foinse OnionShare le fáil sa stór Git seo: https://github.com/"
+"onionshare/onionshare"
 
 #: ../../source/develop.rst:19
 msgid ""
@@ -60,6 +76,12 @@ msgid ""
 "also review all of the `open issues <https://github.com/onionshare/"
 "onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
 msgstr ""
+"Más mian leat cód a chur le OnionShare, cabhraíonn sé le bheith ar fhoireann "
+"Keybase agus ceisteanna a chur faoi na rudaí a bhfuil tú ag smaoineamh ar "
+"oibriú air. Ba cheart duit athbhreithniú a dhéanamh freisin ar na `"
+"saincheisteanna oscailte ar fad <https://github.com/onionshare/onionshare/"
+"issues>`_ ar GitHub féachaint an bhfuil aon cheann ar mhaith leat dul i "
+"ngleic leo."
 
 #: ../../source/develop.rst:22
 msgid ""
@@ -67,10 +89,14 @@ msgid ""
 "repository and one of the project maintainers will review it and possibly "
 "ask questions, request changes, reject it, or merge it into the project."
 msgstr ""
+"Nuair a bheidh tú réidh le cód a chur leis, oscail iarratas tarraingthe i "
+"stór GitHub agus déanfaidh duine de chothabhálaithe an tionscadail é a "
+"athbhreithniú agus b'fhéidir ceisteanna a chur, athruithe a iarraidh, é a "
+"dhiúltú, nó cumasc isteach sa tionscadal é."
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
-msgstr ""
+msgstr "Forbairt Tosaigh"
 
 #: ../../source/develop.rst:29
 msgid ""
@@ -80,6 +106,11 @@ msgid ""
 "command-line version, and the ``desktop/README.md`` file to learn how to set "
 "up your development environment for the graphical version."
 msgstr ""
+"Forbraítear OnionShare i Python. Chun tús a chur leis, clónáil stór Git ag "
+"https://github.com/onionshare/onionshare/ agus ansin féach ar an gcomhad ``"
+"cli/README.md`` chun foghlaim conas do thimpeallacht forbartha a shocrú don "
+"leagan ordú-líne , agus an comhad ``desktop/README.md`` chun foghlaim conas "
+"do thimpeallacht forbartha a shocrú don leagan grafach."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -87,14 +118,17 @@ msgid ""
 "install dependencies for your platform, and to run OnionShare from the "
 "source tree."
 msgstr ""
+"Sna comhaid sin tá na treoracha agus na horduithe teicniúla is gá a "
+"shuiteáil spleáchais do d'ardán, agus chun OnionShare a rith ón gcrann "
+"foinse."
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr ""
+msgstr "Leideanna dífhabhtaithe"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "Modh briathra"
 
 #: ../../source/develop.rst:40
 msgid ""
@@ -104,12 +138,20 @@ msgid ""
 "initialized, when events occur (like buttons clicked, settings saved or "
 "reloaded), and other debug info. For example::"
 msgstr ""
+"Agus é á fhorbairt, tá sé áisiúil OnionShare a rith ó chríochfort agus an "
+"bhratach ``--verbose`` (nó `` -v``) a chur leis an ordú. Priontálann sé seo "
+"go leor teachtaireachtaí cabhrach chuig an teirminéal, mar shampla nuair a "
+"chuirtear tús le rudaí áirithe, nuair a tharlaíonn imeachtaí (cosúil le "
+"cnaipí a chliceáiltear, sábháladh nó athlódáiltear socruithe), agus faisnéis "
+"dífhabhtaithe eile. Mar shampla::"
 
 #: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
 msgstr ""
+"Is féidir leat do chuid teachtaireachtaí dífhabhtaithe féin a chur leis tríd "
+"an modh ``Common.log`` a rith ó ``onionshare/common.py``. Mar shampla::"
 
 #: ../../source/develop.rst:121
 msgid ""
@@ -117,10 +159,13 @@ msgid ""
 "OnionShare, or the value of certain variables before and after they are "
 "manipulated."
 msgstr ""
+"Is féidir é seo a bheith úsáideach agus tú ag foghlaim an tslabhra imeachtaí "
+"a tharlaíonn agus OnionShare á n-úsáid, nó luach athróg áirithe roimh agus "
+"tar éis iad a láimhseáil."
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "Áitiúil amháin"
 
 #: ../../source/develop.rst:126
 msgid ""
@@ -128,6 +173,9 @@ msgid ""
 "altogether during development. You can do this with the ``--local-only`` "
 "flag. For example::"
 msgstr ""
+"Tá Tor mall, agus is minic a bhíonn sé áisiúil tús a chur le seirbhísí "
+"oinniúin go hiomlán le linn na forbartha. Is féidir leat é seo a dhéanamh "
+"leis an mbratach ``--áitiúil-amháin``. Mar shampla::"
 
 #: ../../source/develop.rst:165
 msgid ""
@@ -135,10 +183,14 @@ msgid ""
 "browser like Firefox, instead of using the Tor Browser. The private key is "
 "not actually needed in local-only mode, so you can ignore it."
 msgstr ""
+"Sa chás seo, luchtaíonn tú an URL ``http://127.0.0.1:17641`` i "
+"ngnáthbhrabhsálaí mar Firefox, in ionad Brabhsálaí Tor a úsáid. Níl an "
+"eochair phríobháideach ag teastáil i mód áitiúil amháin, mar sin is féidir "
+"leat neamhaird a dhéanamh di."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
-msgstr ""
+msgstr "Ag Cur Aistriúcháin"
 
 #: ../../source/develop.rst:170
 msgid ""
@@ -147,21 +199,29 @@ msgid ""
 "projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, "
 "and use \"OnionShare (localname)\" if needed."
 msgstr ""
+"Cuidigh le OnionShare a dhéanamh níos fusa le húsáid agus níos eolach agus "
+"fáilteach do dhaoine trí é a aistriú ar `Hosted Weblate <https://hosted."
+"weblate.org/projects/onionshare/>`_. Coinnigh an \"OnionShare\" i litreacha "
+"Laidine i gcónaí, agus úsáid \"OnionShare (ainm áitiúil)\" más gá."
 
 #: ../../source/develop.rst:172
 msgid ""
 "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
+"Chun cabhrú leis an aistriúchán, déan cuntas Óstáil Weblate agus cuir tús le "
+"rannchuidiú."
 
 #: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "Moltaí maidir le Bunteaghráin Bhéarla"
 
 #: ../../source/develop.rst:177
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between the "
 "application and the documentation."
 msgstr ""
+"Uaireanta bíonn na teaghráin bhunaidh Bhéarla mícheart, nó ní réitíonn siad "
+"idir an t-iarratas agus an doiciméadú."
 
 #: ../../source/develop.rst:179
 msgid ""
@@ -170,10 +230,15 @@ msgid ""
 "developers see the suggestion, and can potentially modify the string via the "
 "usual code review processes."
 msgstr ""
+"Feabhsuithe ar theaghrán foinse an chomhaid trí @kingu a chur le do nóta "
+"tráchta Weblate, nó eisiúint GitHub nó iarratas tarraingthe a oscailt. "
+"Cinntíonn an dara ceann go bhfeiceann gach forbróir réamhtheachtacha an "
+"moladh, agus go bhféadfaidh siad an teaghrán a mhodhnú trí na gnáthphróisis "
+"athbhreithnithe cóid."
 
 #: ../../source/develop.rst:183
 msgid "Status of Translations"
-msgstr ""
+msgstr "Stádas an Aistriúcháin"
 
 #: ../../source/develop.rst:184
 msgid ""
@@ -181,3 +246,6 @@ msgid ""
 "language not yet started, please write to the mailing list: onionshare-"
 "dev@lists.riseup.net"
 msgstr ""
+"Seo é stádas reatha an aistriúcháin. Más mian leat aistriúchán a thosú i "
+"dteanga nach bhfuil tosaithe fós, scríobh chuig an liosta seoltaí le do "
+"thoil: onionshare-dev@lists.riseup.net"

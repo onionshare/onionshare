@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) Micah Lee, et al.
+# This file is distributed under the same license as the OnionShare package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OnionShare 2.6.2\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"PO-Revision-Date: 2025-01-22 16:08+0000\n"
+"Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
+"Language-Team: none\n"
+"Language: ta\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10-dev\n"
+
+#: ../../source/help.rst:2
+msgid "Getting Help"
+msgstr "உதவி பெறுதல்"
+
+#: ../../source/help.rst:5
+msgid "Read This Website"
+msgstr "இந்த வலைத்தளத்தைப் படியுங்கள்"
+
+#: ../../source/help.rst:7
+msgid "You will find instructions on how to use OnionShare. Look through all of the sections first to see if anything answers your questions."
+msgstr ""
+"வெங்காயத்தை எவ்வாறு பயன்படுத்துவது என்பதற்கான வழிமுறைகளை நீங்கள் காண்பீர்கள். உங்கள் "
+"கேள்விகளுக்கு ஏதாவது பதிலளிக்கிறதா என்பதைப் பார்க்க முதலில் எல்லா பிரிவுகளையும் "
+"பாருங்கள்."
+
+#: ../../source/help.rst:10
+msgid "Check the GitHub Issues"
+msgstr "அறிவிலிமையம் சிக்கல்களைச் சரிபார்க்கவும்"
+
+#: ../../source/help.rst:12
+msgid "If it isn't on the website, please check the `GitHub issues <https://github.com/onionshare/onionshare/issues>`_. It's possible someone else has encountered the same problem and either raised it with the developers, or maybe even posted a solution."
+msgstr ""
+"இது இணையதளத்தில் இல்லையென்றால், தயவுசெய்து `கிட்அப் சிக்கல்கள் <https://github.com/"
+"onionshare/onionshare/issues>` _ ஐ சரிபார்க்கவும். வேறொருவர் இதே சிக்கலை சந்தித்து "
+"டெவலப்பர்களுடன் உயர்த்தியிருக்கலாம், அல்லது ஒரு தீர்வை இடுகையிட்டிருக்கலாம்."
+
+#: ../../source/help.rst:15
+msgid "Submit an Issue Yourself"
+msgstr "ஒரு சிக்கலை நீங்களே சமர்ப்பிக்கவும்"
+
+#: ../../source/help.rst:17
+msgid "If you are unable to find a solution, or wish to ask a question or suggest a new feature, please `submit an issue <https://github.com/onionshare/onionshare/issues/new>`_. This requires `creating a GitHub account <https://help.github.com/articles/signing-up-for-a-new-github-account/>`_."
+msgstr ""
+"நீங்கள் ஒரு தீர்வைக் கண்டுபிடிக்க முடியாவிட்டால், அல்லது ஒரு கேள்வியைக் கேட்க அல்லது புதிய "
+"அம்சத்தை பரிந்துரைக்க விரும்பினால், தயவுசெய்து ஒரு சிக்கலை சமர்ப்பிக்கவும் இதற்கு `ஒரு "
+"அறிவிலிமையம் கணக்கை உருவாக்க வேண்டும் <https://help.github.com/articles/"
+"signing-for-for-a-new-github-account/>` _."
+
+#: ../../source/help.rst:20
+msgid "Join our Keybase Team"
+msgstr "எங்கள் கீபேச் குழுவில் சேரவும்"
+
+#: ../../source/help.rst:22
+msgid "See :ref:`collaborating` on how to join the Keybase team used to discuss the project."
+msgstr ""
+"காண்க: குறிப்பு: திட்டத்தைப் பற்றி விவாதிக்கப் பயன்படுத்தப்படும் கீபேச் குழுவில் எவ்வாறு "
+"சேருவது என்பது குறித்து `ஒத்துழைத்தல்`."

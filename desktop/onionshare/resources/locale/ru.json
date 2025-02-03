@@ -253,5 +253,6 @@
     "gui_autoconnect_circumventing_censorship_starting_meek": "Подключаемся к мосту meek…",
     "gui_general_settings_window_title": "Общие",
     "waitress_web_server_error": "Возникла проблема с запуском веб-сервера",
-    "gui_close_tab_warning_chat_description": "Закрыть вкладку, на которой размещен сервер чата?"
+    "gui_close_tab_warning_chat_description": "Закрыть вкладку, на которой размещен сервер чата?",
+    "gui_chat_mode_explainer": "Чат-режим позволяет вам общаться в интерактивном режиме с другими, в Tor Browser.<br><br><b> История Chat не хранится в OnionShare. История чата исчезнет, когда вы закроете Tor Browser.</b>"
 }

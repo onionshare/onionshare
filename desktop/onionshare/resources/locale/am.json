@@ -18,5 +18,7 @@
     "gui_settings_button_save": "ያስቀምጡ",
     "gui_tab_name_share": "ማጋሪያ",
     "gui_settings_authenticate_password_option": "የመግቢያ ቃል",
-    "moat_captcha_submit": "Submit"
+    "moat_captcha_submit": "Submit",
+    "gui_settings_theme_dark": "ጨለማ",
+    "gui_settings_theme_light": "ብርሃን"
 }

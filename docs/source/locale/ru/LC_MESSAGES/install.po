@@ -6,17 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2023-06-02 11:21+0000\n"
-"Last-Translator: emma peel <emmapeel@torproject.org>\n"
+"PO-Revision-Date: 2024-07-15 13:09+0000\n"
+"Last-Translator: gfbdrgng <hnaofegnp@hldrive.com>\n"
 "Language-Team: ru <LL@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.7-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -37,42 +38,45 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Mobile"
-msgstr ""
+msgstr "Мобильный"
 
 #: ../../source/install.rst:14
 msgid "You can download OnionShare for Mobile from the follow links"
-msgstr ""
+msgstr "Скачать OnionShare для мобильных устройств можно по следующим ссылкам"
 
 #: ../../source/install.rst:18
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
 "Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
 "android"
 msgstr ""
+"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
+"android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
-msgstr ""
+msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
 #: ../../source/install.rst:24
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #: ../../source/install.rst:21
 msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
-msgstr ""
+msgstr "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
 
 #: ../../source/install.rst:22
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"Прямая загрузка IPA: https://github.com/onionshare/onionshare-ios/releases"
 
 #: ../../source/install.rst:23
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "Испытательный полет: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
@@ -127,9 +131,8 @@ msgstr ""
 "org/dist/."
 
 #: ../../source/install.rst:41
-#, fuzzy
 msgid "Manual Flatpak Installation"
-msgstr "Установка"
+msgstr "Ручная установка Flatpak"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -137,11 +140,15 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
+"Если вы хотите установить OnionShare вручную с помощью Flatpak, используя "
+"подписанный PGP `single-file bundle <https://docs.flatpak.org/en/latest/"
+"single-file-bundles.html>`_, вы можете сделать это следующим образом:"
 
 #: ../../source/install.rst:45
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
+"Установите Flatpak, следуя инструкциям на сайте https://flatpak.org/setup/."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -160,12 +167,16 @@ msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
+"Перейдите на сайт https://onionshare.org/dist/, выберите последнюю версию "
+"OnionShare и загрузите файлы ``.flatpak`` и ``.flatpak.asc``."
 
 #: ../../source/install.rst:48
 msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Проверка PGP-подписи файла ``.flatpak``. Дополнительную информацию смотрите "
+"в :ref:`verifying_sigs`."
 
 #: ../../source/install.rst:49
 msgid ""
@@ -173,38 +184,50 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
+"Установите файл ``.flatpak``, выполнив команду ``flatpak install OnionShare-"
+"VERSION.flatpak``. Замените ``VERSION`` на номер версии загруженного файла."
 
 #: ../../source/install.rst:51
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
 msgstr ""
+"Запустить OnionShare можно с помощью: `flatpak run org.onionshare."
+"OnionShare`."
 
 #: ../../source/install.rst:54
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "Руководство по установке Snapcraft"
 
 #: ../../source/install.rst:56
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
+"Если вы хотите установить OnionShare вручную с помощью Snapcraft, используя "
+"пакет Snapcraft с PGP-подписью, вы можете сделать это следующим образом:"
 
 #: ../../source/install.rst:58
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
+"Установите Snapcraft, следуя инструкциям на сайте https://snapcraft.io/docs/"
+"installing-snapd."
 
 #: ../../source/install.rst:59
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
+"Перейдите на сайт https://onionshare.org/dist/, выберите последнюю версию "
+"OnionShare и загрузите файлы ``.snap`` и ``.snap.asc``."
 
 #: ../../source/install.rst:60
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Проверка PGP-подписи файла ``.snap``. Дополнительную информацию см. в "
+":ref:`verifying_sigs`."
 
 #: ../../source/install.rst:61
 msgid ""
@@ -214,10 +237,15 @@ msgid ""
 "package is not signed by the Snapcraft store, however you did verify its PGP "
 "signature, so you know it's legitimate."
 msgstr ""
+"Установите файл ``.snap``, выполнив команду ``nap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Замените ``VERSION`` на номер версии "
+"загруженного файла. Обратите внимание, что вы должны использовать "
+"`--dangerous`, потому что пакет не подписан магазином Snapcraft, однако вы "
+"проверили его PGP-подпись, поэтому вы знаете, что он легитимный."
 
 #: ../../source/install.rst:63
 msgid "You can run OnionShare with: `snap run onionshare`."
-msgstr ""
+msgstr "Вы можете запустить OnionShare с помощью: `nap run onionshare`."
 
 #: ../../source/install.rst:68
 msgid "Command-line only"
@@ -234,7 +262,7 @@ msgstr ""
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #: ../../source/install.rst:77
 msgid ""
@@ -244,6 +272,12 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
+"Несмотря на то, что OnionShare официально не разрабатывался для этой "
+"платформы, его можно установить и на `FreeBSD <https://freebsd.org/>`_. Он "
+"доступен через коллекцию портов или в виде предварительно собранного пакета. "
+"Если вы решите установить и использовать OnionShare на операционной системе "
+"FreeBSD, пожалуйста, имейте в виду, что проект OnionShare **НЕ** официально "
+"поддерживается."
 
 #: ../../source/install.rst:79
 msgid ""
@@ -254,19 +288,24 @@ msgid ""
 "you wish to check changes related to this platform, please refer to the "
 "following resources:"
 msgstr ""
+"Несмотря на то, что разработчики OnionShare не предлагают и не поддерживают "
+"ее официально, пакеты и порты FreeBSD получают и проверяют исходные коды из "
+"официального репозитория OnionShare (или ее официальных релизных пакетов из `"
+"PyPI <https://pypi.org/project/onionshare-cli/>`_). Если вы хотите проверить "
+"изменения, связанные с этой платформой, пожалуйста, обратитесь к следующим "
+"ресурсам:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
-msgstr ""
+msgstr "https://cgit.freebsd.org/ports/log/www/onionshare"
 
 #: ../../source/install.rst:82
 msgid "https://www.freshports.org/www/onionshare"
-msgstr ""
+msgstr "https://www.freshports.org/www/onionshare"
 
 #: ../../source/install.rst:85
-#, fuzzy
 msgid "Manual pkg Installation"
-msgstr "Установка"
+msgstr "Руководство по установке"
 
 #: ../../source/install.rst:87
 msgid ""
@@ -274,6 +313,9 @@ msgid ""
 "``pyXY`` specifying the version of Python the package was built for. So, in "
 "order to install OnionShare for Python 3.9, use::"
 msgstr ""
+"Чтобы поставить бинарный пакет, используйте ``pkg install pyXY-onionshare``, "
+"при этом ``pyXY`` указывает версию Python, для которой был собран пакет. "
+"Так, чтобы установить OnionShare для Python 3.9, используйте::"
 
 #: ../../source/install.rst:91
 msgid ""
@@ -281,6 +323,10 @@ msgid ""
 "built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
 "want to install that version."
 msgstr ""
+"Существует также **версия OnionShare только для командной строки**, "
+"доступная в виде предварительно собранного пакета. Замените "
+"``py39-onionshare`` на ``py39-onionshare-cli``, если вы хотите установить "
+"эту версию."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -288,11 +334,14 @@ msgid ""
 "please refer to its `official Handbook section about pkg <https://docs."
 "freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
+"Для получения дополнительной информации и подробностей о предварительно "
+"собранных пакетах FreeBSD, пожалуйста, обратитесь к разделу `официального "
+"руководства о pkg <https://docs.freebsd.org/en/books/handbook/ports/#pkgng-"
+"intro>`_."
 
 #: ../../source/install.rst:96
-#, fuzzy
 msgid "Manual port Installation"
-msgstr "Установка"
+msgstr "Установка порта вручную"
 
 #: ../../source/install.rst:98
 msgid ""
@@ -300,6 +349,9 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
+"Чтобы установить порт FreeBSD, перейдите в каталог `ports collection "
+"<https://freebsd.org/ports/>`_, который вы должны были проверить ранее, и "
+"выполните следующее::"
 
 #: ../../source/install.rst:102
 msgid ""
@@ -307,6 +359,9 @@ msgid ""
 "only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
 "cli`` if you want to install that version."
 msgstr ""
+"Коллекция портов также предлагает специальный порт для **Command-line only** "
+"версии OnionShare. Замените ``www/onionshare`` на ``www/onionshare-cli``, "
+"если вы хотите установить эту версию."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -314,6 +369,9 @@ msgid ""
 "please refer to its `official Handbook section about ports <https://docs."
 "freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
+"За дополнительной информацией и подробностями о коллекции портов FreeBSD "
+"обращайтесь к разделу `Официального справочника по портам<https://docs."
+"freebsd.org/en/books/handbook/ports/#ports-using>`_."
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
@@ -345,37 +403,38 @@ msgid ""
 "particular release. Following are the informations of the core developers of "
 "OnionShare:"
 msgstr ""
+"Пакеты подписываются разработчиком, ответственным за конкретный релиз. Ниже "
+"приведена информация об основных разработчиках OnionShare:"
 
 #: ../../source/install.rst:122
 msgid "Micah Lee:"
-msgstr ""
+msgstr "Майка Ли:"
 
 #: ../../source/install.rst:121
 msgid ""
 "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 msgstr ""
+"Отпечаток открытого ключа PGP ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
-#, fuzzy
 msgid ""
 "You can download Micah's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Пакеты подписаны основным разработчиком OnionShare Micah Lee , c "
-"использованием его публичного ключа PGP. Цифровой \"отпечаток пальца\" "
-"ключа: ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Загрузить публичный "
-"ключ Micah можно `отсюда: keys.openpgp.org keyserver <https://keys.openpgp."
-"org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Вы можете загрузить ключ Михи с сервера ключей`keys.openpgp.org <https://keys"
+".openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:126
 msgid "Saptak Sengupta:"
-msgstr ""
+msgstr "Саптак Сенгупта:"
 
 #: ../../source/install.rst:125
 msgid ""
 "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 msgstr ""
+"Отпечаток открытого ключа PGP ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
 msgid ""
@@ -383,6 +442,9 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
+"Вы можете скачать ключ Саптака с сервера ключей `keys.openpgp.org "
+"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
 msgid ""
@@ -400,81 +462,71 @@ msgid "Signatures"
 msgstr "Подписи"
 
 #: ../../source/install.rst:133
-#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
 "`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
-"Цифровые подписи в виде ``.asc``файлов, наряду с пакетами для Windows, "
-"macOS, Flatpak, Snap и исходным кодом OnionSHare можно найти на https://"
-"onionshare.org/dist/ в соответствующих директориях или на `GitHub Releases "
-"page <https://github.com/micahflee/onionshare/releases>`_."
+"Вы можете найти сигнатуры (в виде файлов ``.asc``), а также пакеты для "
+"Windows, macOS, Flatpak, Snap и исходные тексты по адресу https://onionshare."
+"org/dist/ в папках, названных для каждой версии OnionShare. Вы также можете "
+"найти их на странице `GitHub Releases <https://github.com/onionshare/"
+"onionshare/releases>`_."
 
 #: ../../source/install.rst:137
 msgid "Verifying"
 msgstr "Проверка"
 
 #: ../../source/install.rst:139
-#, fuzzy
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
-"После того, как вы импортировали открытый ключ Мики в свою связку ключей "
-"GnuPG, загрузили двоичный файл и подпись ``.asc``, вы можете проверить "
-"двоичный файл для macOS в терминале следующим образом::"
+"После того как вы импортировали открытые ключи разработчиков ядра в свою "
+"связку ключей GnuPG, загрузили бинарник и подпись ``.asc``, вы можете "
+"проверить бинарник в терминале следующим образом:"
 
 #: ../../source/install.rst:141
 msgid "For Windows::"
-msgstr ""
+msgstr "Для Windows::"
 
 #: ../../source/install.rst:145
 msgid "For macOS::"
-msgstr ""
+msgstr "Для macOS::"
 
 #: ../../source/install.rst:149
-#, fuzzy
 msgid "For Linux::"
-msgstr "Linux"
+msgstr "Для Linux::"
 
 #: ../../source/install.rst:155
 msgid "and for the source file::"
-msgstr ""
+msgstr "и для исходного файла::"
 
 #: ../../source/install.rst:159
 msgid "The expected output looks like this::"
 msgstr "Ожидаемый результат выполнения команды::"
 
 #: ../../source/install.rst:169
-#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
 "the package."
 msgstr ""
-"Если вывод команды не содержит строку ``Good signature from``, существует "
-"вероятность, что целостность пакета была нарушена (в результате "
-"злонамеренных действий третьих лиц или по техническим причинам). В таком "
-"случае нельзя производить дальнейшую установку. (Надпись \"WARNING:\" "
-"показанная выше не является проблемой. Она только означает, что пока "
-"отсутствует необходимый \"уровень доверия\" к публичному ключу PGP Micah.)"
+"Если вы не видите ``Good signature from``, возможно, существует проблема с "
+"целостностью файла (вредоносная или иная), и вам не следует устанавливать "
+"пакет."
 
 #: ../../source/install.rst:171
-#, fuzzy
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
-"Если вывод команды не содержит строку ``Good signature from``, существует "
-"вероятность, что целостность пакета была нарушена (в результате "
-"злонамеренных действий третьих лиц или по техническим причинам). В таком "
-"случае нельзя производить дальнейшую установку. (Надпись \"WARNING:\" "
-"показанная выше не является проблемой. Она только означает, что пока "
-"отсутствует необходимый \"уровень доверия\" к публичному ключу PGP Micah.)"
+"Предупреждение ``WARNING:``, показанное выше, не является проблемой с "
+"пакетом, оно лишь означает, что вы не определили уровень \"доверия\" к PGP-"
+"ключу Михи (основного разработчика)."
 
 #: ../../source/install.rst:173
 msgid ""

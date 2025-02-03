@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2023-06-07 14:30+0000\n"
-"Last-Translator: tachyglossues <tachyglossues@gmail.com>\n"
+"PO-Revision-Date: 2024-12-09 16:00+0000\n"
+"Last-Translator: AO Localisation Lab <ao@localizationlab.org>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.9-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/tor.rst:2
@@ -93,11 +93,11 @@ msgid ""
 "Automatically determine my country from my IP address for bridge settings"
 msgstr ""
 "Déterminer automatiquement mon pays à partir de mon adresse IP pour les "
-"paramètres du pont"
+"paramètres des ponts"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr "Sélectionner manuellement mon pays pour les paramètres du pont"
+msgstr "Choisir manuellement mon pays pour les paramètres des ponts"
 
 #: ../../source/tor.rst:28
 msgid ""
@@ -153,9 +153,9 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
-"Si vous choisissez \"Sélectionner manuellement mon pays pour les paramètres "
-"des ponts\", l'API relative à la censure trouvera les ponts qui conviennent "
-"au pays que vous avez spécifié."
+"Si vous choisissez « Choisir manuellement mon pays pour les paramètres des "
+"ponts », l’API de contournement de la censure trouvera les ponts qui "
+"conviennent au pays indiqué."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"

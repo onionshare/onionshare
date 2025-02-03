@@ -6,27 +6,29 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-10-20 20:15+0000\n"
+"Last-Translator: 109247019824 <stoyan@gmx.com>\n"
 "Language-Team: none\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.1-dev\n"
+"X-Generator: Weblate 5.8-rc\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr "Свързване към Тор"
+msgstr "Свързване с Tor"
 
 #: ../../source/tor.rst:4
 msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect to "
 "the Tor network."
 msgstr ""
+"След стартиране OnionShare показва екран, който ви приканя да се свържете с "
+"мрежата на Tor."
 
 #: ../../source/tor.rst:8
 msgid ""
@@ -37,6 +39,12 @@ msgid ""
 "connection fails, you can still try bridges or reconfigure Tor via the "
 "\"Network Settings\" button."
 msgstr ""
+"Можете да отметнете „Автоматично свързване с Tor“, преди да изберете „"
+"Свързване с Tor“. Това означава, че при следващото стартиране OnionShare ще "
+"се свърже автоматично с настройките за връзка с Tor от последния сеанс, "
+"вместо да ви представя диалог за свързване. Ако връзка не бъде установена "
+"можете да опитате мостове или да промените настройките на Tor чрез бутона „"
+"Настройки на мрежата“."
 
 #: ../../source/tor.rst:11
 msgid ""
@@ -44,45 +52,55 @@ msgid ""
 "are no problems with your network, including any attempts to block your "
 "access to the Tor network, this should hopefully work the first time."
 msgstr ""
+"Изберете „Свързване с Tor“, за да започне процеса на свързване. Ако няма "
+"проблеми с мрежата, включително блокиране достъп до мрежата Tor, надяваме "
+"се, че това ще се случи от първия път."
 
 #: ../../source/tor.rst:13
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings before "
 "you connect, you can click \"Network Settings\"."
 msgstr ""
+"Ако, преди да се свържете, искате ръчно да настроите мостове или други "
+"аспекти на Tor, можете да изберете „Настройки на мрежата“."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Автоматично заобикаляне на цензура"
 
 #: ../../source/tor.rst:18
 msgid ""
 "When you click \"Connect to Tor\", if OnionShare fails to connect, it might "
 "be because Tor is censored in your country or on your local network."
 msgstr ""
+"Когато щракнете върху „Свързване с Tor“, ако OnionShare не успее да се "
+"свърже, това може да се дължи на факта, че Tor е цензуриран във вашата "
+"държава или местна мрежа."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "Ако това се случи, имате следните възможности:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Повторен опит без мост"
 
 #: ../../source/tor.rst:23
 msgid ""
 "Automatically determine my country from my IP address for bridge settings"
-msgstr ""
+msgstr "Автоматично определяне на държавата от IP адреса за настройване на мост"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Ръчно избиране на държавата за настройване на мост"
 
 #: ../../source/tor.rst:28
 msgid ""
 "If you choose the \"Try again without a bridge\" option, OnionShare will "
 "retry connecting to Tor like normal, without attempting to bypass censorship."
 msgstr ""
+"Ако изберете „Повторен опит без мост“, OnionShare ще опита да се свърже с "
+"Tor както обикновено, без да заобикаля цензурата."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -97,6 +115,17 @@ msgid ""
 "Censorship Circumvention API. The Meek proxy hides the fact that you are "
 "trying to find a way to connect to Tor."
 msgstr ""
+"Другите две настройки ще се опитат автоматично да заобиколят цензурата с "
+"помощта на мостове на Tor. Ако доставчикът ви възпрепятства достъпа до "
+"мрежата на Tor, се надяваме, че все пак можете да се свържете с мост на Tor, "
+"който ще ви свърже с мрежата на Tor, заобикаляйки цензурата. И двете "
+"възможности използват API за заобикаляне на цензурата на проекта Tor, за да "
+"ви предоставят настройки на мостовете, които би трябвало да работят. "
+"OnionShare временно ще използва прокси сървъра с домейн `Meek <https://gitlab"
+".torproject.org/legacy/trac/-/wikis/doc/meek/>`_, за да осъществи връзка "
+"извън мрежата на Tor от компютъра към API за заобикаляне на цензурата на "
+"Tor. Прокси сървърът Meek скрива факта, че се опитвате да намерите начин да "
+"се свържете с Tor."
 
 #: ../../source/tor.rst:36
 msgid ""
@@ -106,6 +135,11 @@ msgid ""
 "reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"Ако изберете „Автоматично определяне на държавата от IP адреса за "
+"настройване на мост“, API за заобикаляне на цензурата ще вземе предвид вашия "
+"IP адрес (да, истинския ви IP адрес), за да определи в коя държава сте. Въз "
+"основа на тази информацията API ще се опита автоматично да намери мостове, "
+"които отговарят на вашето местоположение."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -113,10 +147,13 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"Ако изберете „Ръчно избиране на държавата за настройване на мост“, "
+"Censorship API ще намери мостовете, които отговарят на посочената от вас "
+"държава."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Как работи автоматичното заобикаляне на цензурата"
 
 #: ../../source/tor.rst:48
 msgid ""
@@ -125,6 +162,10 @@ msgid ""
 "does not find any bridges for your location, OnionShare will ask the API for "
 "\"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Ако API за заобикаляне на цензурата открие подходящи мостове, OnionShare ще "
+"се опита да се свърже отново с Tor, като ги използва. Ако API не открие "
+"мостове за вашето местоположение, OnionShare ще поиска от API резервни "
+"варианти и ще се опита да възстанови връзката, като използва тях."
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -132,6 +173,9 @@ msgid ""
 "or if the API returns an error message, OnionShare will attempt to use the "
 "obfs4 built-in bridges."
 msgstr ""
+"Ако по някаква причина OnionShare не успее да се свърже със самия API за "
+"заобикаляне на цензурата или ако API върне съобщение за грешка, OnionShare "
+"ще се опита да използва вградените мостове на obfs4."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -139,6 +183,9 @@ msgid ""
 "do not go over the Tor network (because if you could connect to Tor already, "
 "you wouldn't need to connect to the API)."
 msgstr ""
+"Важно е да се отбележи, че заявките към API за заобикаляне на цензурата не "
+"преминават през мрежата Tor (ако можехте да се свържете с Tor, нямаше да е "
+"необходимо да се свързвате с API)."
 
 #: ../../source/tor.rst:54
 msgid ""
@@ -148,6 +195,12 @@ msgid ""
 "to making one or two requests to the Censorship Circumvention API. Then Meek "
 "is stopped, and all further network requests happen over the Tor network."
 msgstr ""
+"Въпреки че за противника е трудно да открие къде отива заявката на Meek, "
+"това може да бъде рисковано за някои потребители. Поради това тази настройка "
+"е по избор. Използването на Meek и мрежови заявки извън мрежата на Tor е "
+"ограничено само до извършването на една или две заявки към API за "
+"заобикаляне на цензурата. След това Meek спира и всички по-нататъшни заявки "
+"се извършват през мрежата Tor."
 
 #: ../../source/tor.rst:56
 msgid ""
@@ -157,10 +210,15 @@ msgid ""
 "appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Ако не желаете да правите заявкаи извън мрежата Tor, можете да щракнете "
+"върху „Настройки на мрежата“ (или върху „Настройки“ в долния десен ъгъл, "
+"последвана от раздела „Настройки на Tor“ в появилия се екран) и ръчно да "
+"настроите мостове. След като запазите настройките на мостовете, OnionShare "
+"ще се опита да се свърже отново, като използва тези настройки."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Ръчна настройка на Tor"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -169,21 +227,30 @@ msgid ""
 "the application, and then switch to the Tor Settings tab in the screen that "
 "appears."
 msgstr ""
+"Можете да стигнете до настройките на Tor, като щракнете върху „Настройки на "
+"мрежата“ на началния екран или пиктограмата „⚙“ в долния десен ъгъл на "
+"приложението, след което отворите раздела „Настройки на Tor“ в появилия се "
+"екран."
 
 #: ../../source/tor.rst:65
 msgid ""
 "Here are the different ways you can configure OnionShare to connect to Tor:"
 msgstr ""
+"Ето различните начини, по които можете да настроите OnionShare да се свързва "
+"с Tor:"
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Използване на вграденото в OnionShare издание на Тор"
 
 #: ../../source/tor.rst:70
 msgid ""
 "This is the default, simplest and most reliable way that OnionShare connects "
 "to Tor. For this reason, it's recommended for most users."
 msgstr ""
+"Това е стандартният, най-простият и надежден начин за свързване на "
+"OnionShare с Tor. Поради тази причина той се препоръчва за повечето "
+"потребители."
 
 #: ../../source/tor.rst:73
 msgid ""
@@ -192,22 +259,29 @@ msgid ""
 "``tor`` processes on your computer, so you can use the Tor Browser or the "
 "system ``tor`` on their own."
 msgstr ""
+"При отваряне OnionShare стартира настроен процес на ``tor`` във фонов режим. "
+"Тези процес не пречи на останалите процеси на ``tor`` на устройството, така "
+"че Tor Browser или системният ``tor`` могат да бъдат използвани едновременно."
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**Използване на мостове**"
 
 #: ../../source/tor.rst:78
 msgid ""
 "To use a bridge, you must select \"Use the Tor version built into "
 "OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
+"За да използвате мост, трябва да изберете „Използване на вграденото в "
+"OnionShare издание на Тор“ и да изберете настройката „Използване на мост“."
 
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
 "recommended over using `meek-azure`."
 msgstr ""
+"Опитайте първо да използвате вграден мост. Препоръчва се използването на "
+"мостове `obfs4` или `snowflake` пред използването на `meek-azure`."
 
 #: ../../source/tor.rst:84
 msgid ""
@@ -216,16 +290,21 @@ msgid ""
 "bridge. (This makes it more difficult for governments or ISPs to block "
 "access to Tor bridges.)"
 msgstr ""
+"Ако използването на вграден мост не работи, можете да поискате мост от "
+"torproject.org. Ще трябва да решите CAPTCHA, за да поискате мост. (Това "
+"затруднява правителства или интернет доставчици да блокират достъпа до "
+"мостовете на Tor.)"
 
 #: ../../source/tor.rst:88
 msgid ""
 "You also have the option of using a bridge that you learned about from a "
 "trusted source."
 msgstr ""
+"Също така можете да използвате мост, за който знаете от надежден източник."
 
 #: ../../source/tor.rst:91
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "Опитване на автоматична настройка чрез четеца Тор"
 
 #: ../../source/tor.rst:93
 msgid ""
@@ -234,16 +313,22 @@ msgid ""
 "from the Tor Browser. Keep in mind you need to keep Tor Browser open in the "
 "background while you're using OnionShare for this to work."
 msgstr ""
+"Ако сте `изтеглили Tor Browser <https://www.torproject.org>`_ и не искате да "
+"имате два процеса на ``tor``, можете да използвате процеса ``tor`` от Tor "
+"Browser. Имайте предвид, че в такъв случай трябва да държите Tor Browser "
+"отворен на заден план, докато използвате OnionShare."
 
 #: ../../source/tor.rst:97
 msgid "Using a system ``tor`` in Windows"
-msgstr ""
+msgstr "Използване на системния процес на ``tor`` под Windows"
 
 #: ../../source/tor.rst:99
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and do "
 "stuff as an administrator."
 msgstr ""
+"Настройката изисква сравнително напреднали умения, като например редактиране "
+"на файлове с настройки и управление на операционната система."
 
 #: ../../source/tor.rst:101
 msgid ""
@@ -252,6 +337,11 @@ msgid ""
 "extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted "
 "folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
+"Изтеглете пакета Tor Windows Expert Bundle `от страницата на Tor <https://www"
+".torproject.org/download/tor/>`_. Разархивирайте компресирания файл и "
+"копирайте получената папка в ``C:\\Program Files (x86)\\``. Преименувайте "
+"разархивираната папка, която съдържа папките ``data`` и ``tor`` на ``tor-"
+"win32``."
 
 #: ../../source/tor.rst:105
 msgid ""
@@ -261,6 +351,11 @@ msgid ""
 "administrator, and use ``tor.exe --hash-password`` to generate a hash of "
 "your password. For example::"
 msgstr ""
+"Измислете парола за порта за управление. (Препоръчително е да използвате "
+"последователност на 7 думи, напр., ``comprised stumble rummage work avenging "
+"construct volatile``, е добра идея за парола.) След това отворете команден "
+"ред (``cmd``) като администратор и изпълнете командата ``tor.exe --hash-"
+"password``, за да създадете отпечатък на паролата. Например::"
 
 #: ../../source/tor.rst:112
 msgid ""
@@ -268,6 +363,9 @@ msgid ""
 "ignore). In the case of the above example, it is "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 msgstr ""
+"Отпечатъкът от паролата е изведен след няколко предупреждения, които можете "
+"да пренебрегнете. В примера, показан по-горе, отпечатъкът е "
+"``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
 #: ../../source/tor.rst:114
 msgid ""
@@ -275,6 +373,9 @@ msgid ""
 "and put your hashed password output in it, replacing the "
 "``HashedControlPassword`` with the one you just generated::"
 msgstr ""
+"След това създайте нов текстов файл ``C:\\Program Files (x86)\\tor-"
+"win32\\torrc`` и поставете отпечатъка от парола след "
+"``HashedControlPassword``::"
 
 #: ../../source/tor.rst:119
 msgid ""
@@ -282,10 +383,14 @@ msgid ""
 "appropriate ``torrc`` file you just created (as described in `<https://2019."
 "www.torproject.org/docs/faq.html.en#NTService>`_). Like this::"
 msgstr ""
+"В командния ред с администраторски права инсталирайте ``tor`` като услуга ("
+"както е описано в `<https://2019.www.torproject.org/docs/faq.html."
+"en#NTService>`_), използвайки файла ``torrc``, който току-що създадохте. Ето "
+"така::"
 
 #: ../../source/tor.rst:123
 msgid "You are now running a system ``tor`` process in Windows!"
-msgstr ""
+msgstr "Сега вече ``tor`` работи като услуга в Windows!"
 
 #: ../../source/tor.rst:125
 msgid ""
@@ -297,24 +402,34 @@ msgid ""
 "Connection to Tor\" button. If all goes well, you should see \"Connected to "
 "the Tor controller\"."
 msgstr ""
+"Отворете OnionShare, щракнете върху пиктограмата „⚙“ и отворете раздела „"
+"Настройки на Tor“. Под \"Как OnionShare да се свързва с мрежата на Tor?\" "
+"изберете „Свързване, чрез порт за управление“ и за полето „Порт за "
+"управление“ задайте стойността ``127.0.0.1`` и ``9051`` за – „Порт“. Махнете "
+"отметката на „Без удостоверяване, нито с бисквитка“ и в полето „Парола“ "
+"въведете изпраната по-рано парола. Щракнете върху бутона „Проверка на "
+"връзката с Тор“. Ако всичко е наред, трябва да видите „Има връзка с "
+"контролер на Tor“."
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
-msgstr ""
+msgstr "Използване на системния процес на ``tor`` в macOS"
 
 #: ../../source/tor.rst:136
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, "
 "and then install Tor::"
 msgstr ""
+"Първо инсталирайте `Homebrew <https://brew.sh/>`_, и след това инсталирайте "
+"Tor::"
 
 #: ../../source/tor.rst:140
 msgid "Now configure Tor to allow connections from OnionShare::"
-msgstr ""
+msgstr "След това настройте Tor, за да може OnionShare да го използва::"
 
 #: ../../source/tor.rst:147
 msgid "And start the system Tor service::"
-msgstr ""
+msgstr "Добавете и стартирайте услугата на Tor::"
 
 #: ../../source/tor.rst:151
 msgid ""
@@ -325,14 +440,20 @@ msgid ""
 "authentication, or cookie authentication\". Click the \"Test Connection to "
 "Tor\" button."
 msgstr ""
+"Отворете OnionShare, щракнете върху пиктограмата „⚙“ и отворете раздела „"
+"Настройки на Tor“. Под \"Как OnionShare да се свързва с мрежата на Tor?\" "
+"изберете „Свързване, чрез файл на сокет“ и за файла на сокет задайте ``/usr/"
+"local/var/run/tor/control.socket``. Махнете отметката на „Без "
+"удостоверяване, нито с бисквитка“ и в полето „Парола“ въведете изпраната по-"
+"рано парола. Щракнете върху бутона „Проверка на връзката с Тор“."
 
 #: ../../source/tor.rst:157 ../../source/tor.rst:177
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
-msgstr ""
+msgstr "Ако всичко е наред, трябва да видите „Има връзка с контролер на Tor“."
 
 #: ../../source/tor.rst:160
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "Използване на системния процес на ``tor`` в Линукс"
 
 #: ../../source/tor.rst:162
 msgid ""
@@ -340,6 +461,9 @@ msgid ""
 "similar Linux distro, It is recommended to use the Tor Project's `official "
 "repository <https://support.torproject.org/apt/tor-deb-repo/>`_."
 msgstr ""
+"Първа инсталирайте пакета ``tor``. Ако използвате Debian, Ubuntu или подобна "
+"дистрибуция на Линукс, е препоръчително да използвате `официалното хранилище "
+"на Tor Project <https://support.torproject.org/apt/tor-deb-repo/>`_."
 
 #: ../../source/tor.rst:164
 msgid ""
@@ -347,12 +471,17 @@ msgid ""
 "of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to connect to "
 "your system ``tor``'s control socket file."
 msgstr ""
+"След това добавете потребителя си в групата, която управлява процеса ``tor`` "
+"(в случая на Debian и Ubuntu, ``debian-tor``), и настройте OnionShare да се "
+"свързва с файла на контролния сокет на ``tor``."
 
 #: ../../source/tor.rst:166
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command (replace "
 "``username`` with your actual username)::"
 msgstr ""
+"Добавете потребителя си в групата ``debian-tor``, като изпълните тази "
+"команда (заменете ``username`` с потребителското си име)::"
 
 #: ../../source/tor.rst:170
 msgid ""
@@ -363,3 +492,10 @@ msgid ""
 "settings\" choose \"No authentication, or cookie authentication\". Click the "
 "\"Test Connection to Tor\" button."
 msgstr ""
+"Рестартирайте устройството. След това, отворете отново OnionShare, щракнете "
+"върху пиктограмата „⚙“ и отворете раздела „Настройки на Tor“. Под \"Как "
+"OnionShare да се свързва с мрежата на Tor?\" изберете „Свързване, чрез файл "
+"на сокет“. Задайте за файла на сокета ``/usr/local/var/run/tor/control."
+"socket``. Махнете отметката на „Без удостоверяване, нито с бисквитка“ и в "
+"полето „Парола“ въведете изпраната по-рано парола. Щракнете върху бутона „"
+"Проверка на връзката с Тор“."

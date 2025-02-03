@@ -100,21 +100,21 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
 
   # For each these, incorporate the output into the Flatpak manifest
   # Make sure to update the version numbers
-  ./flatpak-go-deps.py git.torproject.org/pluggable-transports/meek.git/meek-client@v0.38.0
-  ./flatpak-go-deps.py git.torproject.org/pluggable-transports/snowflake.git/client@v2.6.0
+  ./flatpak-go-deps.py gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git/meek-client@v0.38.0
+  ./flatpak-go-deps.py gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git/client@v2.6.0
   ./flatpak-go-deps.py gitlab.com/yawning/obfs4.git/obfs4proxy@obfs4proxy-0.0.14
   ```
   Merge the output of each of these commands into the Flatpak manifest.
-- [ ] Update the Python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) along with `flatpak/poetry-to-requirements.py`:
+- [ ] Update the Python dependencies. This is super hacky. You need to use both the poetry and pip parts of [this tool](https://github.com/flatpak/flatpak-builder-tools), but the version from [this PR](https://github.com/flatpak/flatpak-builder-tools/pull/353):
   ```sh
-  cd flatpak-build-tools/pip
-
   # get onionshare-cli dependencies
-  ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/cli/pyproject.toml)
-  ../flatpak-json2yaml.py ./python3-modules.json
-  mv python3-modules.yml onionshare-cli.yaml
+  cd flatpak-build-tools/poetry
+  ./flatpak-poetry-generator.py ../../onionshare/cli/poetry.lock --production
+  ../flatpak-json2yaml.py ./generated-poetry-sources.json
+  mv generated-poetry-sources.yml onionshare-cli.yaml
 
   # get onionshare dependencies
+  cd flatpak-build-tools/pip
   ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/desktop/pyproject.toml | grep -v PySide6)
   ../flatpak-json2yaml.py ./python3-modules.json
   mv python3-modules.yml onionshare-desktop.yaml

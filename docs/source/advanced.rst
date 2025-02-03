@@ -26,7 +26,7 @@ Turn Off Private Key
 By default, all OnionShare services are protected with a private key, which Tor calls "client authentication".
 
 The Tor Browser will ask you to enter your private key when you load an OnionShare service.
-If you want allow the public to use your service, it's better to disable the private key altogether.
+If you want to allow the public to use your service, it's better to disable the private key altogether.
 
 To turn off the private key for any tab, check the "This is a public OnionShare service (disables private key)" box before starting the server.
 Then the server will be public and a private key is not needed to load it in the Tor Browser.
@@ -48,7 +48,7 @@ OnionShare supports scheduling exactly when a service should start and stop.
 Before starting a server, click "Show advanced settings" in its tab and then check the boxes next to either
 "Start onion service at scheduled time", "Stop onion service at scheduled time", or both, and set the respective desired dates and times.
 
-Services scheduled to start in the future display a countdown timer when when the "Start sharing" button is clicked.
+Services scheduled to start in the future display a countdown timer when the "Start sharing" button is clicked.
 Services scheduled to stop in the future display a countdown timer when started.
 
 **Scheduling an OnionShare service to automatically start can be used as a dead man's switch**.
