@@ -16,7 +16,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.13"
+python = ">=3.9,<3.13"
 click = "*"
 flask = "2.3.2"
 flask-compress = "^1.13"
@@ -32,7 +32,7 @@ pynacl = "*"
 colorama = "*"
 gevent-websocket = "*"
 stem = "1.8.1"
-waitress = "^2.1.2"
+waitress = "^3.0.1"
 werkzeug = ">=2.3.4"
 packaging = ">=24"
 gevent = "^23.9.1"
