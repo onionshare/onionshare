@@ -106,7 +106,8 @@ class UpdateChecker(QtCore.QObject):
                 if force:
                     path += "?force=1"
 
-                if Version(self.onion.tor_version) >= Version("0.3.2.9"):
+                cleaned_tor_version = re.sub(r"\s*\(.*\)", "", self.onion.tor_version)
+                if Version(cleaned_tor_version) >= Version("0.3.2.9"):
                     onion_domain = (
                         "lldan5gahapx5k7iafb3s4ikijc4ni7gx5iywdflkba5y2ezyg6sjgyd.onion"
                     )
