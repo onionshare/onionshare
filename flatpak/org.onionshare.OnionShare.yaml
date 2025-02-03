@@ -17,7 +17,6 @@ finish-args:
   - "--talk-name=org.freedesktop.Notifications"
   - "--talk-name=org.freedesktop.secrets"
   - "--filesystem=~/OnionShare:create"
-  - "--filesystem=xdg-config/onionshare:create"
 cleanup:
   - "/go"
   - "/bin/scripts"
@@ -312,7 +311,7 @@ modules:
         path: ..
       # - type: git
       #   url: https://github.com/onionshare/onionshare.git
-      #   tag: v2.6
+      #   tag: v2.6.2
     modules:
       # onionshare python dependencies
       - name: python3-modules
@@ -359,7 +358,7 @@ modules:
             path: ..
         #   - type: git
         #     url: https://github.com/onionshare/onionshare.git
-        #     tag: v2.6
+        #     tag: v2.6.2
         modules:
           # onionshare-cli python dependencies
           - name: poetry-deps
