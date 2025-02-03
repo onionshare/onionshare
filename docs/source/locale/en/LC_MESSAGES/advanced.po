@@ -64,7 +64,7 @@ msgstr ""
 #: ../../source/advanced.rst:28
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
-"OnionShare service. If you want allow the public to use your service, it's "
+"OnionShare service. If you want to allow the public to use your service, it's "
 "better to disable the private key altogether."
 msgstr ""
 

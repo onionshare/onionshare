@@ -2,11 +2,11 @@
 app-id: org.onionshare.OnionShare
 command: onionshare
 runtime: org.kde.Platform
-runtime-version: "6.5"
+runtime-version: "6.8"
 sdk: org.kde.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
-  - org.freedesktop.Sdk.Extension.llvm15
+  - org.freedesktop.Sdk.Extension.llvm19
 separate-locales: false
 finish-args:
   - "--device=dri"
@@ -35,8 +35,8 @@ modules:
             --prefix=${FLATPAK_DEST} "pyside6-essentials" --no-build-isolation
         sources:
           - type: file
-            url: https://files.pythonhosted.org/packages/d0/de/9a089e91c2e0fe4f122218bba4f9dbde46338659f412739bd9db1ed9df4f/PySide6_Essentials-6.5.2-cp37-abi3-manylinux_2_28_x86_64.whl
-            sha256: 1620e82b38714a1570b142c01694d0415a25526517b24620ff9b00c9f76cfca9
+            url: https://files.pythonhosted.org/packages/f9/4c/ce3dc6a71161b6fd8c007051729914cc79c049b33f041adca1db46d31f1d/PySide6_Essentials-6.8.2-cp39-abi3-manylinux_2_28_x86_64.whl
+            sha256: 341d3023da4d74605e354974346234007065208b40740732c6f69e1d33e70835
         modules:
           - name: shiboken6
             buildsystem: simple
@@ -45,8 +45,8 @@ modules:
                 --prefix=${FLATPAK_DEST} "shiboken6" --no-build-isolation
             sources:
               - type: file
-                url: https://files.pythonhosted.org/packages/55/44/d8c366dd4f069166ab9890acb44d004c5e6122714e44c169273dcbbca897/shiboken6-6.5.2-cp37-abi3-manylinux_2_28_x86_64.whl
-                sha256: 3fbc35ff3c19e7d39433671bfc1be3d7fa9d071bfdd0ffe1c2a4d27acd6cf6a5
+                url: https://files.pythonhosted.org/packages/77/79/204d6d8d9892f36d46b40815aab770620191c141ab98851eb708683588f9/shiboken6-6.8.2-cp39-abi3-manylinux_2_28_x86_64.whl
+                sha256: 924c23bed7c0b6ff8a308f4e12e5a9681f720c22d1be339cac01591feb7ebb32
   - name: tor
     buildsystem: autotools
     sources:
@@ -314,6 +314,7 @@ modules:
       #   url: https://github.com/onionshare/onionshare.git
       #   tag: v2.6
     modules:
+      # onionshare python dependencies
       - name: python3-modules
         buildsystem: simple
         build-commands: []
@@ -325,14 +326,8 @@ modules:
                 --prefix=${FLATPAK_DEST} "qrcode" --no-build-isolation
             sources:
               - type: file
-                url: https://files.pythonhosted.org/packages/3e/b9/3766cc361d93edb2ce81e2e1f87dd98f314d7d513877a342d31b30741680/pypng-0.20220715.0-py3-none-any.whl
-                sha256: 4a43e969b8f5aaafb2a415536c1a8ec7e341cd6a3f957fd5b5f32a4cfeed902c
-              - type: file
-                url: https://files.pythonhosted.org/packages/24/79/aaf0c1c7214f2632badb2771d770b1500d3d7cbdf2590ae62e721ec50584/qrcode-7.4.2-py3-none-any.whl
-                sha256: 581dca7a029bcb2deef5d01068e39093e80ef00b4a61098a2182eac59d01643a
-              - type: file
-                url: https://files.pythonhosted.org/packages/b7/f4/6a90020cd2d93349b442bfcb657d0dc91eee65491600b2cb1d388bc98e6b/typing_extensions-4.9.0-py3-none-any.whl
-                sha256: af72aea155e91adfc61c3ae9e0e342dbc0cba726d6cba4b6c72c1f34e47291cd
+                url: https://files.pythonhosted.org/packages/74/ab/df8d889fd01139db68ae9e5cb5c8f0ea016823559a6ecb427582d52b07dc/qrcode-8.0-py3-none-any.whl
+                sha256: 9fc05f03305ad27a709eb742cf3097fa19e6f6f93bb9e2f039c0979190f6f1b1
           - name: python3-werkzeug
             buildsystem: simple
             build-commands:
@@ -340,11 +335,11 @@ modules:
                 --prefix=${FLATPAK_DEST} "werkzeug" --no-build-isolation
             sources:
               - type: file
-                url: https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz
-                sha256: d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b
+                url: https://files.pythonhosted.org/packages/b2/97/5d42485e71dfc078108a86d6de8fa46db44a1a9295e89c5d6d4a06e23a62/markupsafe-3.0.2.tar.gz
+                sha256: ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0
               - type: file
-                url: https://files.pythonhosted.org/packages/c3/fc/254c3e9b5feb89ff5b9076a23218dafbc99c96ac5941e900b71206e6313b/werkzeug-3.0.1-py3-none-any.whl
-                sha256: 90a285dc0e42ad56b34e696398b8122ee4c681833fb35b8334a095d82c56da10
+                url: https://files.pythonhosted.org/packages/52/24/ab44c871b0f07f491e5d2ad12c9bd7358e527510618cb1b803a88e986db1/werkzeug-3.1.3-py3-none-any.whl
+                sha256: 54b78bf3716d19a65be4fceccc0d1d7b89e608834989dfae50ea87564639213e
           - name: python3-python-gnupg
             buildsystem: simple
             build-commands:
@@ -352,8 +347,8 @@ modules:
                 --prefix=${FLATPAK_DEST} "python-gnupg" --no-build-isolation
             sources:
               - type: file
-                url: https://files.pythonhosted.org/packages/5f/86/18938c2378a8c8284910308b93e2bc521a965ced4ca028947e1ffa6e98dc/python_gnupg-0.5.2-py2.py3-none-any.whl
-                sha256: 72ce142af6da7f07e433fef148b445fb3e07854acd2f88739008838745c0e9f5
+                url: https://files.pythonhosted.org/packages/7b/5b/6666ed5a0d3ce4d5444af62e373d5ba8ab253a03487c86f2f9f1078e7c31/python_gnupg-0.5.4-py2.py3-none-any.whl
+                sha256: 40ce25cde9df29af91fe931ce9df3ce544e14a37f62b13ca878c897217b2de6c
       - name: onionshare-cli
         buildsystem: simple
         build-commands:
@@ -366,12 +361,12 @@ modules:
         #     url: https://github.com/onionshare/onionshare.git
         #     tag: v2.6
         modules:
+          # onionshare-cli python dependencies
           - name: poetry-deps
             buildsystem: simple
             build-commands:
-              - pip3 install --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST} --use-pep517 brotlicffi
-              - pip3 install --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
-                bidict blinker brotli certifi cffi charset-normalizer click colorama
+              - pip3 install --no-index --use-pep517 --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+                bidict blinker brotli brotlicffi certifi cffi charset-normalizer click colorama
                 cython dnspython eventlet exceptiongroup flask flask-compress flask-socketio gevent
                 gevent-websocket greenlet h11 idna importlib-metadata iniconfig itsdangerous jinja2
                 markupsafe packaging pluggy psutil pycparser pynacl pypng pysocks pytest python-engineio
@@ -457,8 +452,8 @@ modules:
                 url: https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz
                 sha256: d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b
               - type: file
-                url: https://files.pythonhosted.org/packages/ec/1a/610693ac4ee14fcdf2d9bf3c493370e4f2ef7ae2e19217d7a237ff42367d/packaging-23.2-py3-none-any.whl
-                sha256: 8c491190033a9af7e1d931d0b5dacc2ef47509b34dd0de67ed209b5203fc88c7
+                url: https://files.pythonhosted.org/packages/88/ef/eb23f262cca3c0c4eb7ab1933c3b1f03d021f2c48f54763065b6f0e321be/packaging-24.2-py3-none-any.whl
+                sha256: 09abb1bccd265c01f4a3aa3f7a7db064b36514d2cba19a2f694fe6150451a759
               - type: file
                 url: https://files.pythonhosted.org/packages/a5/5b/0cc789b59e8cc1bf288b38111d002d8c5917123194d45b29dcdac64723cc/pluggy-1.4.0-py3-none-any.whl
                 sha256: 7db9f7b503d67d1c5b95f59773ebb58a8c1c288129a88665838012cfb07b8981

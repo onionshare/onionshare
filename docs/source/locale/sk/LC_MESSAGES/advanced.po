@@ -6,23 +6,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-11-23 20:00+0000\n"
+"Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: none\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.9-dev\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
-msgstr ""
+msgstr "Pokročilé používanie"
 
 #: ../../source/advanced.rst:7
 msgid "Save Tabs"
-msgstr ""
+msgstr "Uložiť karty"
 
 #: ../../source/advanced.rst:9
 msgid ""
@@ -30,12 +32,17 @@ msgid ""
 "Persistently hosted websites are available on the same address even if the "
 "computer they are shared from is rebooted."
 msgstr ""
+"Zatvorením hostiteľských kariet OnionShare ich zničíte, čím zabránite ich "
+"opätovnému použitiu. Trvale hostované webové stránky sú dostupné na tej "
+"istej adrese, aj keď sa počítač, z ktorého sú zdieľané, reštartuje."
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"Akúkoľvek kartu môžete pred spustením servera nastaviť ako trvalú označením "
+"políčka „ Vždy otvoriť túto kartu pri spustení OnionShare“."
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -43,22 +50,30 @@ msgid ""
 "opened. Each service then can be started manually, and will be available on "
 "the same OnionShare address and be protected by the same private key."
 msgstr ""
+"Pri otvorení aplikácie OnionShare sa začnú otvárať uložené karty z "
+"predchádzajúcej relácie. Každú službu potom môžete spustiť ručne, bude "
+"dostupná na rovnakej adrese OnionShare a bude chránená rovnakým súkromným "
+"kľúčom."
 
 #: ../../source/advanced.rst:19
 msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on your "
 "computer."
 msgstr ""
+"Ak uložíte kartu, kópia jej tajného kľúča služby onion sa uloží do vášho "
+"počítača."
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "Vypnúť súkromný kľúč"
 
 #: ../../source/advanced.rst:26
 msgid ""
 "By default, all OnionShare services are protected with a private key, which "
 "Tor calls \"client authentication\"."
 msgstr ""
+"V predvolenom nastavení sú všetky služby OnionShare chránené súkromným "
+"kľúčom, ktorý Tor nazýva „overenie klienta“."
 
 #: ../../source/advanced.rst:28
 msgid ""
@@ -66,6 +81,9 @@ msgid ""
 "OnionShare service. If you want allow the public to use your service, it's "
 "better to disable the private key altogether."
 msgstr ""
+"Pri načítaní služby OnionShare vás prehliadač Tor požiada o zadanie "
+"súkromného kľúča. Ak chcete umožniť verejnosti používať vašu službu, je "
+"lepšie súkromný kľúč úplne vypnúť."
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -74,10 +92,14 @@ msgid ""
 "Then the server will be public and a private key is not needed to load it in "
 "the Tor Browser."
 msgstr ""
+"Ak chcete vypnúť súkromný kľúč pre ktorúkoľvek kartu, pred spustením servera "
+"označte políčko „Toto je verejná služba OnionShare (vypína súkromný kľúč)“. "
+"Potom bude server verejný a na jeho načítanie v prehliadači Tor nie je "
+"potrebný súkromný kľúč."
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
-msgstr ""
+msgstr "Vlastné nadpisy"
 
 #: ../../source/advanced.rst:39
 msgid ""
@@ -85,16 +107,21 @@ msgid ""
 "title for each type of service. For example, the default title for chat "
 "services is \"OnionShare Chat\"."
 msgstr ""
+"Keď ľudia načítajú služby OnionShare v prehliadači Tor Browser, vidia "
+"predvolený názov pre každý typ služby. Napríklad predvolený názov pre "
+"diskusné služby je „OnionShare Diskusia“."
 
 #: ../../source/advanced.rst:42
 msgid ""
 "If you edit the \"Custom title\" setting before starting a server you can "
 "change it."
 msgstr ""
+"Ak pred spustením servera upravíte nastavenie „Vlastný názov“, môžete ho "
+"zmeniť."
 
 #: ../../source/advanced.rst:45
 msgid "Scheduled Times"
-msgstr ""
+msgstr "Naplánované časy"
 
 #: ../../source/advanced.rst:47
 msgid ""
@@ -104,6 +131,11 @@ msgid ""
 "time\", \"Stop onion service at scheduled time\", or both, and set the "
 "respective desired dates and times."
 msgstr ""
+"Služba OnionShare podporuje presné plánovanie, kedy sa má služba spustiť a "
+"zastaviť. Pred spustením servera kliknite na „Zobraziť rozšírené nastavenia“ "
+"na jeho karte a potom označte políčka vedľa „Spustiť službu onion v "
+"plánovanom čase“, „Zastaviť službu onion v plánovanom čase“ alebo obidve a "
+"nastavte príslušné požadované dátumy a časy."
 
 #: ../../source/advanced.rst:51
 msgid ""
@@ -111,6 +143,10 @@ msgid ""
 "when the \"Start sharing\" button is clicked. Services scheduled to stop in "
 "the future display a countdown timer when started."
 msgstr ""
+"Služby naplánované na spustenie v budúcnosti zobrazujú časovač "
+"odpočítavania, keď sa po kliknutí na tlačidlo „Spustiť zdieľanie“ zobrazí "
+"časovač odpočítavania. Služby naplánované na zastavenie v budúcnosti "
+"zobrazujú časovač odpočítavania pri spustení."
 
 #: ../../source/advanced.rst:54
 msgid ""

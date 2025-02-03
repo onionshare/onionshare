@@ -6,38 +6,37 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2021-02-05 11:41+0000\n"
-"Last-Translator: Juraj Liso <lisojuraj@gmail.com>\n"
+"PO-Revision-Date: 2024-12-25 11:33+0000\n"
+"Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
 "Language-Team: none\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
 msgstr "Inštalácia"
 
 #: ../../source/install.rst:5
-#, fuzzy
 msgid "Windows or macOS"
-msgstr "Nainštalujte na Windows alebo macOS"
+msgstr "Windows alebo macOS"
 
 #: ../../source/install.rst:7
 msgid ""
 "You can download OnionShare for Windows and macOS from the `OnionShare "
 "website <https://onionshare.org/>`_."
 msgstr ""
-"OnionShare pre Windows a macOS si môžete stiahnuť z `webu OnionShare "
-"<https://onionshare.org/>`_."
+"OnionShare pre Windows a macOS si môžete stiahnuť z `webovej stránky "
+"OnionShare <https://onionshare.org/>`_."
 
 #: ../../source/install.rst:12
 msgid "Mobile"
-msgstr ""
+msgstr "Mobil"
 
 #: ../../source/install.rst:14
 msgid "You can download OnionShare for Mobile from the follow links"
@@ -45,51 +44,53 @@ msgstr ""
 
 #: ../../source/install.rst:18
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
 "Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
 "android"
 msgstr ""
+"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
+"android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
-msgstr ""
+msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
 #: ../../source/install.rst:24
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #: ../../source/install.rst:21
 msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
-msgstr ""
+msgstr "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
 
 #: ../../source/install.rst:22
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"Priame IPA stiahnutie: https://github.com/onionshare/onionshare-ios/releases"
 
 #: ../../source/install.rst:23
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "Testflight: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:29
-#, fuzzy
 msgid ""
 "There are various ways to install OnionShare for Linux, but the recommended "
 "way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap "
 "<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
-"Existujú rôzne spôsoby, ako nainštalovať OnionShare pre Linux, ale "
-"odporúčaný spôsob je použitie balíka Flatpak. Flatpak zaisťuje, že budete "
-"vždy používať najnovšie závislosti a spustí OnionShare vo vnútri izolovaného "
-"kontajnera."
+"Existujú rôzne spôsoby inštalácie OnionShare pre Linux, ale odporúčaný "
+"spôsob je použiť buď balík `Flatpak <https://flatpak.org/>`_ alebo `Snap "
+"<https://snapcraft.io/>`_. Flatpak a Snapcraft zabezpečujú, že budete vždy "
+"používať najnovšiu verziu a spúšťať OnionShare v izolovaného kontajnera."
 
 #: ../../source/install.rst:32
 msgid ""
@@ -97,30 +98,34 @@ msgid ""
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
+"Podpora Snapcraft je integrovaná v Ubuntu a Fedora je dodávaná s podporou "
+"Flatpak, ale je na vás, ktorý použijete. Obidve možnosti fungujú vo všetkých "
+"distribúciách Linuxu."
 
 #: ../../source/install.rst:34
-#, fuzzy
 msgid ""
 "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
 "onionshare.OnionShare"
 msgstr ""
-"Potom nainštalujte OnionShare z Flathubu podľa `pokynov tu <https://flathub."
-"org/apps/details/org.onionshare.OnionShare>`_."
+"**Inštalovať OnionShare pomocou balíku Flatpak**: https://flathub.org/apps/"
+"details/org.onionshare.OnionShare"
 
 #: ../../source/install.rst:36
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
+"**Inštalovať OnionShare pomocou Snapcraft**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:38
 msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"Ak chcete, môžete si stiahnuť a nainštalovať balíky ``.flatpak`` alebo ``."
+"snap`` podpísané PGP zo stránky https://onionshare.org/dist/."
 
 #: ../../source/install.rst:41
-#, fuzzy
 msgid "Manual Flatpak Installation"
-msgstr "Inštalácia"
+msgstr "Manuálna inštalácia balíka Flatpak"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -128,14 +133,16 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
+"Ak chcete nainštalovať OnionShare ručne pomocou balíka Flatpak s použitím "
+"`jedno-súborového balíka podpísaného PGP <https://docs.flatpak.org/en/latest/"
+"single-file-bundles.html>`_, môžete to urobiť takto:"
 
 #: ../../source/install.rst:45
-#, fuzzy
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
-"Potom nainštalujte OnionShare z Flathubu podľa `pokynov tu <https://flathub."
-"org/apps/details/org.onionshare.OnionShare>`_."
+"Balík Flatpak nainštalujte podľa pokynov na stránke https://flatpak.org/"
+"setup/."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -221,7 +228,7 @@ msgstr ""
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #: ../../source/install.rst:77
 msgid ""
@@ -244,16 +251,15 @@ msgstr ""
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
-msgstr ""
+msgstr "https://cgit.freebsd.org/ports/log/www/onionshare"
 
 #: ../../source/install.rst:82
 msgid "https://www.freshports.org/www/onionshare"
-msgstr ""
+msgstr "https://www.freshports.org/www/onionshare"
 
 #: ../../source/install.rst:85
-#, fuzzy
 msgid "Manual pkg Installation"
-msgstr "Inštalácia"
+msgstr "Manuálna inštalácia pkg"
 
 #: ../../source/install.rst:87
 msgid ""
@@ -277,9 +283,8 @@ msgid ""
 msgstr ""
 
 #: ../../source/install.rst:96
-#, fuzzy
 msgid "Manual port Installation"
-msgstr "Inštalácia"
+msgstr "Manuálna inštalácia portu"
 
 #: ../../source/install.rst:98
 msgid ""
@@ -307,7 +312,6 @@ msgid "Verifying PGP signatures"
 msgstr "Overovanie podpisov PGP"
 
 #: ../../source/install.rst:111
-#, fuzzy
 msgid ""
 "You can verify that the package you download is legitimate and hasn't been "
 "tampered with by verifying its PGP signature. For Windows and macOS, this "
@@ -315,11 +319,11 @@ msgid ""
 "include operating system-specific signatures, and you can just rely on those "
 "alone if you'd like."
 msgstr ""
-"Môžete overiť, či je prevzatý balík systému Windows, macOS alebo zdrojový "
-"kód legitímny a či zmanipulovaný overením jeho podpisu PGP. Pre Windows a "
-"macOS je tento krok voliteľný a poskytuje obranu do hĺbky: inštalátory tiež "
-"zahŕňajú ich operačný systém-špecifické podpisy, a môžete sa spoľahnúť len "
-"na tie, ak chcete."
+"Overením podpisu PGP si môžete overiť, či je prevzatý balík legitímny a či s "
+"ním nebolo manipulované. V prípade systémov Windows a macOS je tento krok "
+"nepovinný a poskytuje obranu do hĺbky: binárne súbory OnionShare obsahujú "
+"podpisy špecifické pre operačný systém a ak chcete, môžete sa spoľahnúť len "
+"na ne."
 
 #: ../../source/install.rst:115
 msgid "Signing key"
@@ -334,12 +338,13 @@ msgstr ""
 
 #: ../../source/install.rst:122
 msgid "Micah Lee:"
-msgstr ""
+msgstr "Micah Lee:"
 
 #: ../../source/install.rst:121
 msgid ""
 "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 msgstr ""
+"Odtlačok verejného kľúča PGP ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
 msgid ""
@@ -347,15 +352,19 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
+"Kľúč autora Micah si môžete stiahnuť `z kľúčového servera <https://keys."
+"openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:126
 msgid "Saptak Sengupta:"
-msgstr ""
+msgstr "Saptak Sengupta:"
 
 #: ../../source/install.rst:125
 msgid ""
 "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 msgstr ""
+"Odtlačok verejného kľúča PGP ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
 msgid ""
@@ -396,19 +405,19 @@ msgstr ""
 
 #: ../../source/install.rst:141
 msgid "For Windows::"
-msgstr ""
+msgstr "Pre Windows::"
 
 #: ../../source/install.rst:145
 msgid "For macOS::"
-msgstr ""
+msgstr "Pre macOS::"
 
 #: ../../source/install.rst:149
 msgid "For Linux::"
-msgstr ""
+msgstr "Pre Linux::"
 
 #: ../../source/install.rst:155
 msgid "and for the source file::"
-msgstr ""
+msgstr "a pre zdrojový súbor::"
 
 #: ../../source/install.rst:159
 msgid "The expected output looks like this::"
