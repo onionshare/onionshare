@@ -488,8 +488,8 @@ modules:
                 url: https://files.pythonhosted.org/packages/f9/9b/335f9764261e915ed497fcdeb11df5dfd6f7bf257d4a6a2a686d80da4d54/requests-2.32.3-py3-none-any.whl
                 sha256: 70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6
               - type: file
-                url: https://files.pythonhosted.org/packages/14/37/166aba5a70924e574eb0aec9f7ec227ac0d7ae72dd2f823675365172120d/setuptools-74.1.3-py3-none-any.whl
-                sha256: 1cfd66bfcf197bce344da024c8f5b35acc4dcb7ca5202246a75296b4883f6851
+                url: https://files.pythonhosted.org/packages/07/6a/0270e295bf30c37567736b7fca10167640898214ff911273af37ddb95770/setuptools-73.0.1-py3-none-any.whl
+                sha256: b208925fcb9f7af924ed2dc04708ea89791e24bde0d3020b27df0e116088b34e
               - type: file
                 url: https://files.pythonhosted.org/packages/52/59/0782e51887ac6b07ffd1570e0364cf901ebc36345fea669969d2084baebb/simple_websocket-1.1.0-py3-none-any.whl
                 sha256: 4af6069630a38ed6c561010f0e11a5bc0d4ca569b36306eb257cd9a192497c8c
