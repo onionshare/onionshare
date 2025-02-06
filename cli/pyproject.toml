@@ -16,7 +16,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.13"
+python = ">=3.9,<3.13"
 click = "*"
 flask = "2.3.2"
 flask-compress = "^1.13"
@@ -25,15 +25,15 @@ psutil = "*"
 pysocks = "*"
 requests = {extras = ["socks"], version = "*"}
 unidecode = "*"
-urllib3 = "*"
+urllib3 = "^2.2.2"
 eventlet = "*"
 setuptools = "*"
 pynacl = "*"
 colorama = "*"
 gevent-websocket = "*"
 stem = "1.8.1"
-waitress = "^2.1.2"
-werkzeug = ">=2.3.4"
+waitress = "^3.0.1"
+werkzeug = "3.0.6"
 packaging = ">=24"
 gevent = "^23.9.1"
 wheel = "^0.41.2"
