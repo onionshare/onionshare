@@ -66,7 +66,10 @@ modules:
         - --share=network
     build-commands:
       - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=on; cd desktop && ./scripts/build-pt-meek.sh && mv onionshare/resources/tor/meek-client /app/bin/meek-client"
-      - "ls -aR $FLATPAK_BUILDER_BUILDDIR"
+      # Some go deps end up with dirs chmod 555 and files chmod 444. This breaks stripping in Flatpak builds, so fix perms.
+      # See https://github.com/flatpak/flatpak/issues/469
+      - "find $FLATPAK_BUILDER_BUILDDIR -type d -perm 555 -print0 | xargs -0 -r chmod 755"
+      - "find $FLATPAK_BUILDER_BUILDDIR -type f -perm 444 -print0 | xargs -0 -r chmod 644"
     sources:
       - type: dir
         path: ..
@@ -77,7 +80,10 @@ modules:
         - --share=network
     build-commands:
       - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=on; cd desktop && ./scripts/build-pt-snowflake.sh && mv onionshare/resources/tor/snowflake-client /app/bin/snowflake-client"
-      - "ls -aR $FLATPAK_BUILDER_BUILDDIR"
+      # Some go deps end up with dirs chmod 555 and files chmod 444. This breaks stripping in Flatpak builds, so fix perms.
+      # See https://github.com/flatpak/flatpak/issues/469
+      - "find $FLATPAK_BUILDER_BUILDDIR -type d -perm 555 -print0 | xargs -0 -r chmod 755"
+      - "find $FLATPAK_BUILDER_BUILDDIR -type f -perm 444 -print0 | xargs -0 -r chmod 644"
     sources:
       - type: dir
         path: ..
@@ -88,7 +94,10 @@ modules:
         - --share=network
     build-commands:
       - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=on; cd desktop && ./scripts/build-pt-obfs4proxy.sh && mv onionshare/resources/tor/obfs4proxy /app/bin/obfs4proxy"
-      - "ls -aR $FLATPAK_BUILDER_BUILDDIR"
+      # Some go deps end up with dirs chmod 555 and files chmod 444. This breaks stripping in Flatpak builds, so fix perms.
+      # See https://github.com/flatpak/flatpak/issues/469
+      - "find $FLATPAK_BUILDER_BUILDDIR -type d -perm 555 -print0 | xargs -0 -r chmod 755"
+      - "find $FLATPAK_BUILDER_BUILDDIR -type f -perm 444 -print0 | xargs -0 -r chmod 644"
     sources:
       - type: dir
         path: ..
