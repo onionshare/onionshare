@@ -254,7 +254,7 @@ jobs:
       - name: Flatpak build
         run: |
           cd flatpak
-          flatpak-builder build --force-clean --keep-build-dirs --verbose --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
+          flatpak-builder build --force-clean --verbose --install-deps-from=flathub --install --user org.onionshare.OnionShare.yaml
           flatpak build-bundle ~/.local/share/flatpak/repo ~/OnionShare.flatpak org.onionshare.OnionShare --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
 
       - uses: actions/upload-artifact@v4
