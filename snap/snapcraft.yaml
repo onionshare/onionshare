@@ -177,8 +177,8 @@ parts:
     after: [onionshare-cli]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.8.9.tar.gz
-    source-checksum: sha256/59bb7d8890f6131b4ce5344f3dcea5deb2182b7f4f10ff0cb4e4d81f11b2cf65
+    source: https://dist.torproject.org/tor-0.4.8.13.tar.gz
+    source-checksum: sha256/9baf26c387a2820b3942da572146e6eb77c2bc66862af6297cd02a074e6fba28
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
@@ -208,7 +208,7 @@ parts:
       - go/latest/stable
     source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
     source-type: git
-    source-tag: v2.8.1
+    source-tag: v2.10.1
     organize:
       bin/client: bin/snowflake-client
 
