@@ -105,6 +105,9 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
   This will take a long time as it clones each dependency (particularly that of the snowflake-client which has a lot of dependencies).
 
   Merge the output of each of these commands into the Flatpak manifest.
+
+  Be careful, though! You still need to list each of the three pluggable transports as a 'source' in those sections, with their respective git commit hash of the respective tag.
+
 - [ ] Update the Python dependencies. This is super hacky. You need to use both the poetry and pip parts of [this tool](https://github.com/flatpak/flatpak-builder-tools), but the version from [this PR](https://github.com/flatpak/flatpak-builder-tools/pull/353):
   ```sh
   # get onionshare-cli dependencies
