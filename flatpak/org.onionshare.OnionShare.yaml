@@ -55,14 +55,11 @@ modules:
         GO11MODULE: on
         GOROOT: /usr/lib/sdk/golang
     build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh && go build -o /app/bin/snowflake-client ./client" 
+      - ". /usr/lib/sdk/golang/enable.sh && go build -mod=vendor -o /app/bin/snowflake-client ./client" 
     sources:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
         tag: v2.10.1
-      - type : file
-        path: snowflake/modules.txt
-        dest: vendor 
       - snowflake/go.mod.yml
   - name: obfs4proxy
     buildsystem: simple
@@ -73,14 +70,11 @@ modules:
         GO11MODULE: on
         GOROOT: /usr/lib/sdk/golang
     build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh && go build -o /app/bin/obfs4proxy ./obfs4proxy"
+      - ". /usr/lib/sdk/golang/enable.sh && go build -mod=vendor -o /app/bin/obfs4proxy ./obfs4proxy"
     sources:
       - type: git
         url: https://gitlab.com/yawning/obfs4.git
         tag: obfs4proxy-0.0.14
-      - type: file
-        path: obfs4proxy/modules.txt
-        dest: vendor
       - obfs4proxy/go.mod.yml
   - name: meek-client
     buildsystem: simple
@@ -95,10 +89,10 @@ modules:
     sources:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git
-        tag: main
-      - type: file
-        path: meek-client/modules.txt
-        dest: vendor
+        tag: v0.38.0
+      #- type: file
+      #  path: meek-client/modules.txt
+      #  dest: vendor
       - meek-client/go.mod.yml
   - name: tor
     buildsystem: autotools

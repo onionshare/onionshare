@@ -96,7 +96,7 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
 - [ ] Update `tor` and `libevent` 
 - [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies. To do this, clone the latest tagged release of the following repositories, into a temp directory:
   ```
-  https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git (Note: for this one, we need to check out main branch as it has an important dependency fix)
+  https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git
   https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
   https://gitlab.com/yawning/obfs4.git
   ```
@@ -114,13 +114,13 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
   modules.txt
   ```
 
-  Move these files into the respective `flatpak/snowflake`, `flatpak/obfs4proxy` and `flatpak/meek-client` folders.
+  Move the `go.mod.yml` into the respective `flatpak/snowflake`, `flatpak/obfs4proxy` and `flatpak/meek-client` folders.
 
-  Then edit the go.mod.yml in each one and remove the first entry of three lines that looks like this:
+  Then edit the go.mod.yml in each one and edit the 'path' attribute of the first entry that it has the subfolder set (below example is just the `obfs4proxy/go.mod.yml`, but you should do the same for the other two):
 
   ```
   - dest: vendor
-    path: modules.txt
+    path: obfs4proxy/modules.txt
     type: file
   ```
 
