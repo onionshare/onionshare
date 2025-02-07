@@ -55,7 +55,7 @@ modules:
         GO11MODULE: on
         GOROOT: /usr/lib/sdk/golang
     build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh && go build -mod=vendor -o /app/bin/snowflake-client ./client" 
+      - ". /usr/lib/sdk/golang/enable.sh && go build -mod=vendor -o /app/bin/snowflake-client ./client"
     sources:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
@@ -90,9 +90,6 @@ modules:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git
         tag: v0.38.0
-      #- type: file
-      #  path: meek-client/modules.txt
-      #  dest: vendor
       - meek-client/go.mod.yml
   - name: tor
     buildsystem: autotools
