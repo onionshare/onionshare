@@ -7,9 +7,10 @@ about: Use this form to submit a bug report about something not working in Onion
 
 ## Details about your operating system
 
-Operating system: (Linux / Windows)
-Version/distribution: (Ubuntu 22.04 / Debian Bookworm / macOS Ventura, etc)
+Operating system: (e.g. Linux / Windows)
+Version/distribution: (e.g. Ubuntu 22.04 / Debian Bookworm / macOS Ventura, etc)
 
+Version of Onionshare: (e.g. 2.6.2)
 
 ## How did you install OnionShare
 
