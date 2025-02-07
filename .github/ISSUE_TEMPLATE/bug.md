@@ -2,10 +2,14 @@
 name: Bug report
 about: Use this form to submit a bug report about something not working in OnionShare
 ---
+- [ ] I have already searched the issue queue for my error message or symptom
+
+
 ## Details about your operating system
 
 Operating system: (Linux / Windows)
 Version/distribution: (Ubuntu 22.04 / Debian Bookworm / macOS Ventura, etc)
+
 
 ## How did you install OnionShare
 

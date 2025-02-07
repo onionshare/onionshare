@@ -2,6 +2,7 @@
 name: Feature request
 about: Use this form to submit a suggestion about a feature you think OnionShare should have.
 ---
+- [ ] I have already searched the issue queue for my feature request
 
 ## Your feature idea
 
