@@ -94,17 +94,36 @@ With every commit to the `main` branch, Snapcraft's CI should trigger builds. Ma
 In `flatpak/org.onionshare.OnionShare.yaml`:
 
 - [ ] Update `tor` and `libevent` 
-- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies, if necessary using the script `golang-to-requirements.py` in the `flatpak` folder, like this:
-  ```sh
-  cd flatpak
-  ./golang-to-requirements.py --url gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git --name snowflake --version v2.10.1 --folder client
-  ./golang-to-requirements.py --url gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git --name meek-client --version v0.38.0 --folder meek-client
-  ./golang-to-requirements.py --url gitlab.com/yawning/obfs4.git --name obfs4proxy --version obfs4proxy-0.0.14
+- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies. To do this, clone the latest tagged release of the following repositories, into a temp directory:
+  ```
+  https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git
+  https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
+  https://gitlab.com/yawning/obfs4.git
   ```
 
-  This will take a long time as it clones each dependency (particularly that of the snowflake-client which has a lot of dependencies).
+  Enter into each directory (having checked out the correct tag) and run:
 
-  Merge the output of each of these commands into the Flatpak manifest.
+  ```sh
+  go run github.com/dennwc/flatpak-go-mod@latest .
+  ```
+
+  This will generate several files:
+
+  ```
+  go.mod.yml
+  modules.txt
+  ```
+
+  Move the `go.mod.yml` into the respective `flatpak/snowflake`, `flatpak/obfs4proxy` and `flatpak/meek-client` folders.
+
+  Then edit the go.mod.yml in each one and edit the 'path' attribute of the first entry that it has the subfolder set (below example is just the `obfs4proxy/go.mod.yml`, but you should do the same for the other two):
+
+  ```
+  - dest: vendor
+    path: obfs4proxy/modules.txt
+    type: file
+  ```
+
 - [ ] Update the Python dependencies. This is super hacky. You need to use both the poetry and pip parts of [this tool](https://github.com/flatpak/flatpak-builder-tools), but the version from [this PR](https://github.com/flatpak/flatpak-builder-tools/pull/353):
   ```sh
   # get onionshare-cli dependencies

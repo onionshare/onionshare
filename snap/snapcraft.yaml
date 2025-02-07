@@ -223,3 +223,4 @@ parts:
       cd meek-client
       mkdir -p /build/onionshare/meek-client/install/bin
       go build -o /build/onionshare/meek-client/install/bin/meek-client ./...
+      cp /build/onionshare/meek-client/install/bin/meek-client $CRAFT_PART_INSTALL/bin
