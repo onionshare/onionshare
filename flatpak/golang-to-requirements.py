@@ -68,8 +68,9 @@ def get_commit_id_from_git(
             return commit_id
 
     # If it's a GitHub URL, use the GitHub API
-    if "github.com" in git_url:
-        repo_parts = git_url.replace("https://github.com/", "").split("/")
+    parsed_url = urlparse(git_url)
+    if parsed_url.hostname == "github.com":
+        repo_parts = parsed_url.path.lstrip("/").split("/")
         if len(repo_parts) == 2:
             owner, repo = repo_parts
             tag_url = (
@@ -84,10 +85,8 @@ def get_commit_id_from_git(
                 return commit_id
 
     # If it's a GitLab URL, use the GitLab API
-    elif "gitlab.com" in git_url:
-        repo_parts = (
-            git_url.replace("https://gitlab.com/", "").rstrip(".git").split("/")
-        )
+    elif parsed_url.hostname == "gitlab.com":
+        repo_parts = parsed_url.path.lstrip("/").rstrip(".git").split("/")
         if len(repo_parts) >= 2:
             tag_url = f"https://gitlab.com/api/v4/projects/{'%2F'.join(repo_parts)}/repository/tags/{version}"
 
@@ -95,7 +94,7 @@ def get_commit_id_from_git(
             if response.status_code == 200:
                 json_data = response.json()
                 commit_id = json_data["commit"]["id"]
-                print(f"✨ Used GitHub API to find commit ID: {commit_id}")
+                print(f"✨ Used GitLab API to find commit ID: {commit_id}")
                 return commit_id
 
     # Otherwise, clone the git repo to find the commit id
