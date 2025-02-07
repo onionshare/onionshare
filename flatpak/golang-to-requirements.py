@@ -12,6 +12,7 @@ import tempfile
 import yaml
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 
 
 def parse_args():
@@ -147,16 +148,15 @@ def get_git_url(module_name):
     module_name = re.sub(r"/v\d+$", "", module_name)
 
     # Remove the subdirectory, if present (e.g. github.com/foo/bar/subdir -> github.com/foo/bar)
-    if "gitlab.com" in module_name or "github.com" in module_name:
-        url_parts = module_name.split("/")
-        if len(url_parts) > 3:
-            module_name = "/".join(url_parts[:3])
+    from urllib.parse import urlparse
+    parsed_url = urlparse(f"https://{module_name}")
+    hostname = parsed_url.hostname
 
-    if "gitlab.com" in module_name:
+    if hostname == "gitlab.com":
         return f"https://gitlab.com/{module_name.replace('gitlab.com/', '')}"
-    elif "github.com" in module_name:
+    elif hostname == "github.com":
         return f"https://github.com/{module_name.replace('github.com/', '')}"
-    elif "git.torproject.org" in module_name:
+    elif hostname == "git.torproject.org":
         return f"https://{module_name}"
     else:
         response = requests.get(f"https://{module_name}/?go-get=1")
