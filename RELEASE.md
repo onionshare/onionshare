@@ -93,17 +93,17 @@ With every commit to the `main` branch, Snapcraft's CI should trigger builds. Ma
 
 In `flatpak/org.onionshare.OnionShare.yaml`:
 
-- [ ] Update `tor` and `libevent`
-- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies, if necessary using [this tool](https://github.com/micahflee/flatpak-builder-tools/tree/fix-go/go):
+- [ ] Update `tor` and `libevent` 
+- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies, if necessary using the script `golang-to-requirements.py` in the `flatpak` folder, like this:
   ```sh
-  cd flatpak-builder-tools/go
-
-  # For each these, incorporate the output into the Flatpak manifest
-  # Make sure to update the version numbers
-  ./flatpak-go-deps.py gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git/meek-client@v0.38.0
-  ./flatpak-go-deps.py gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git/client@v2.6.0
-  ./flatpak-go-deps.py gitlab.com/yawning/obfs4.git/obfs4proxy@obfs4proxy-0.0.14
+  cd flatpak
+  ./golang-to-requirements.py --url gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git --name snowflake --version v2.10.1 --folder client
+  ./golang-to-requirements.py --url gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git --name meek-client --version v0.38.0 --folder meek-client
+  ./golang-to-requirements.py --url gitlab.com/yawning/obfs4.git --name obfs4proxy --version obfs4proxy-0.0.14
   ```
+
+  This will take a long time as it clones each dependency (particularly that of the snowflake-client which has a lot of dependencies).
+
   Merge the output of each of these commands into the Flatpak manifest.
 - [ ] Update the Python dependencies. This is super hacky. You need to use both the poetry and pip parts of [this tool](https://github.com/flatpak/flatpak-builder-tools), but the version from [this PR](https://github.com/flatpak/flatpak-builder-tools/pull/353):
   ```sh
