@@ -67,6 +67,10 @@ modules:
     build-commands:
       - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install git.torproject.org/pluggable-transports/meek.git/meek-client"
     sources:
+      - type: git
+        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek
+        commit: 3be00b7bb1fe57b795149b5eaa579c15ef039d93
+        dest: src/git.torproject.org/pluggable-transports/meek.git
       - commit: 781a46c66d2ddbc3509354ae7f1fccab74cb9927
         dest: src/git/torproject/org/pluggable-transports/goptlib/git
         type: git
@@ -115,6 +119,10 @@ modules:
     build-commands:
       - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git/snowflake.git"
     sources:
+      - type: git
+        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake
+        commit: 8b2e12c96d4a924409ba13910af2412ffbc042fc
+        dest: src/git.torproject.org/pluggable-transports/snowflake.git
       - commit: 64a2037ec6be8a4b0c1d1f706ed35b428b989239
         dest: src/cloud/google/com/go
         type: git
@@ -671,6 +679,10 @@ modules:
     build-commands:
       - ". /usr/lib/sdk/golang/enable.sh; export GOPATH=$PWD; export GO111MODULE=off; go install gitlab.com/yawning/obfs4.git/obfs4.git"
     sources:
+      - type: git
+        url: https://gitlab.com/yawning/obfs4
+        commit: 336a71d6e4cfd2d33e9c57797828007ad74975e9
+        dest: src/gitlab.com/yawning/obfs4.git
       - commit: eef06506605bda0b7e5f3ac997542150a13c22a2
         dest: src/filippo/io/edwards25519
         type: git
