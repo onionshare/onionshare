@@ -91,7 +91,7 @@ modules:
         GO11MODULE: on
         GOROOT: /usr/lib/sdk/golang
     build-commands:
-      - ". /usr/lib/sdk/golang/enable.sh && go build -o /app/bin/meek-client ./meek-client" 
+      - ". /usr/lib/sdk/golang/enable.sh && go build -mod=vendor -o /app/bin/meek-client ./meek-client"
     sources:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git
