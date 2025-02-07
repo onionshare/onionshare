@@ -70,11 +70,11 @@ modules:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek
         commit: 3be00b7bb1fe57b795149b5eaa579c15ef039d93
-        dest: src/git.torproject.org/pluggable-transports/meek
+        dest: src/gitlab.torproject.org/pluggable-transports/meek
       - commit: 781a46c66d2ddbc3509354ae7f1fccab74cb9927
-        dest: src/git.torproject.org/pluggable-transports/goptlib
+        dest: src/gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
         type: git
-        url: https://git.torproject.org/pluggable-transports/goptlib
+        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
       - commit: 1d750214c25205863625bb3eb8190a51b2cef26d
         dest: src/github.com/andybalholm/brotli
         type: git
@@ -688,9 +688,9 @@ modules:
         type: git
         url: https://github.com/FiloSottile/edwards25519
       - commit: 15f83653abbcced9003c96cc14edc5b2f82e0e0e
-        dest: src/git.torproject.org/pluggable-transports/goptlib
+        dest: src/gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
         type: git
-        url: https://git.torproject.org/pluggable-transports/goptlib
+        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
       - commit: 34f201214d993633bb24f418ba11736ab8b55aa7
         dest: src/github.com/dchest/siphash
         type: git
