@@ -70,7 +70,7 @@ modules:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek
         commit: 3be00b7bb1fe57b795149b5eaa579c15ef039d93
-        dest: src/gitlab.torproject.org/pluggable-transports/meek
+        dest: src/git.torproject.org/pluggable-transports/meek.git/meek-client
       - commit: 781a46c66d2ddbc3509354ae7f1fccab74cb9927
         dest: src/gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
         type: git
@@ -122,7 +122,7 @@ modules:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake
         commit: 8b2e12c96d4a924409ba13910af2412ffbc042fc
-        dest: src/git.torproject.org/pluggable-transports/snowflake
+        dest: src/gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake
       - commit: 64a2037ec6be8a4b0c1d1f706ed35b428b989239
         dest: src/cloud.google.com/go
         type: git
