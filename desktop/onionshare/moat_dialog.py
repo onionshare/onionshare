@@ -351,8 +351,8 @@ class MoatThread(QtCore.QThread):
                         self.captcha_error.emit(errors)
                         return
 
-                if moat_res["data"][0]["type"] != "moat-bridges":
-                    self.common.log("MoatThread", "run", f"type != moat-bridges")
+                if moat_res["data"][0]["type"] != "moat-challenge":
+                    self.common.log("MoatThread", "run", f"type != moat-challenge")
                     self.bridgedb_error.emit()
                     return
 
