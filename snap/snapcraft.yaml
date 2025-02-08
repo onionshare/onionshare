@@ -221,5 +221,4 @@ parts:
     source-tag: v0.38.0
     override-build: |
       cd meek-client
-      mkdir -p /build/onionshare/meek-client/install/bin
-      go build -o /build/onionshare/meek-client/install/bin/meek-client ./...
+      go build -o $SNAPCRAFT_PART_INSTALL/bin/meek-client ./...
