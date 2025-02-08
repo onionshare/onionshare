@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 09:35+1100\n"
+"POT-Creation-Date: 2025-02-09 09:47+1100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -211,18 +211,47 @@ msgstr ""
 msgid "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
 
-#: ../../source/advanced.rst:169
+#: ../../source/advanced.rst:171
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: ../../source/advanced.rst:171
+#: ../../source/advanced.rst:173
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
 
-#: ../../source/advanced.rst:176
+#: ../../source/advanced.rst:178
 msgid "And from the main mode chooser screen::"
+msgstr ""
+
+#: ../../source/advanced.rst:188
+msgid "Migrating your OnionShare data to another computer"
+msgstr ""
+
+#: ../../source/advanced.rst:190
+msgid ""
+"You may want to migrate your OnionShare data when switching to another "
+"computer. This is especially true if you had a 'persistent' onion address"
+" and you want to preserve it."
+msgstr ""
+
+#: ../../source/advanced.rst:192
+msgid ""
+"OnionShare stores all such data in a specific folder. Copy the relevant "
+"folder for your operating system below, to your new computer:"
+msgstr ""
+
+#: ../../source/advanced.rst:194
+msgid "Linux: ``~/.config/onionshare``"
+msgstr ""
+
+#: ../../source/advanced.rst:195
+msgid "macOS: ``~/Library/Application Support/OnionShare``"
+msgstr ""
+
+#: ../../source/advanced.rst:196
+msgid "Windows: ``%APPDATA%\\OnionShare``"
 msgstr ""
 
 #~ msgid ""
@@ -245,5 +274,11 @@ msgstr ""
 #~ " Snap package, you can also just "
 #~ "run ``onionshare.cli`` to access the "
 #~ "command-line interface version."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Linux: ``~/.config/onionshare`` macOS: "
+#~ "``~/Library/Application Support/OnionShare`` Windows: "
+#~ "``%APPDATA%\\OnionShare``"
 #~ msgstr ""
 

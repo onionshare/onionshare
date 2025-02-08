@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 09:35+1100\n"
+"POT-Creation-Date: 2025-02-09 09:47+1100\n"
 "PO-Revision-Date: 2023-12-25 11:10+0000\n"
 "Last-Translator: curtisb <curtisbaltimore@protonmail.com>\n"
 "Language: de\n"
@@ -283,11 +283,11 @@ msgstr ""
 "Die Dokumentation zur Kommandozeile kann über den Befehl ``onionshare "
 "--help`` abgerufen werden::"
 
-#: ../../source/advanced.rst:169
+#: ../../source/advanced.rst:171
 msgid "Keyboard Shortcuts"
 msgstr "Tastaturkurzbefehle"
 
-#: ../../source/advanced.rst:171
+#: ../../source/advanced.rst:173
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
@@ -295,9 +295,38 @@ msgstr ""
 "Die OnionShare-Desktop-Anwendung enthält einige Tastaturkurzbefehle, die "
 "der Bequemlichkeit und Zugänglichkeit dienen::"
 
-#: ../../source/advanced.rst:176
+#: ../../source/advanced.rst:178
 msgid "And from the main mode chooser screen::"
 msgstr "Und auf dem Hauptbildschirm für die Modusauswahl::"
+
+#: ../../source/advanced.rst:188
+msgid "Migrating your OnionShare data to another computer"
+msgstr ""
+
+#: ../../source/advanced.rst:190
+msgid ""
+"You may want to migrate your OnionShare data when switching to another "
+"computer. This is especially true if you had a 'persistent' onion address"
+" and you want to preserve it."
+msgstr ""
+
+#: ../../source/advanced.rst:192
+msgid ""
+"OnionShare stores all such data in a specific folder. Copy the relevant "
+"folder for your operating system below, to your new computer:"
+msgstr ""
+
+#: ../../source/advanced.rst:194
+msgid "Linux: ``~/.config/onionshare``"
+msgstr ""
+
+#: ../../source/advanced.rst:195
+msgid "macOS: ``~/Library/Application Support/OnionShare``"
+msgstr ""
+
+#: ../../source/advanced.rst:196
+msgid "Windows: ``%APPDATA%\\OnionShare``"
+msgstr ""
 
 #~ msgid ""
 #~ "By default, everything in OnionShare is"
@@ -654,4 +683,10 @@ msgstr "Und auf dem Hauptbildschirm für die Modusauswahl::"
 #~ "gespeicherte Tabs erhalten ein purpurfarbenen"
 #~ " Stecknadelsymbol links dem Status des "
 #~ "Dienstes."
+
+#~ msgid ""
+#~ "Linux: ``~/.config/onionshare`` macOS: "
+#~ "``~/Library/Application Support/OnionShare`` Windows: "
+#~ "``%APPDATA%\\OnionShare``"
+#~ msgstr ""
 

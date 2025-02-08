@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-09 09:35+1100\n"
+"POT-Creation-Date: 2025-02-09 09:47+1100\n"
 "PO-Revision-Date: 2024-09-23 09:55+0000\n"
 "Last-Translator: Himmel <Himmel@users.noreply.hosted.weblate.org>\n"
 "Language: ja\n"
@@ -230,19 +230,48 @@ msgstr "使い方"
 msgid "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr "コマンドラインのドキュメンテーションは ``onionshare --help`` で閲覧できます。"
 
-#: ../../source/advanced.rst:169
+#: ../../source/advanced.rst:171
 msgid "Keyboard Shortcuts"
 msgstr "キーボードのショートカット"
 
-#: ../../source/advanced.rst:171
+#: ../../source/advanced.rst:173
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr "OnionShareのデスクトップアプリケーションには、利便性とアクセシビリティーの観点から、いくつかのキーボードショートカットがあります。"
 
-#: ../../source/advanced.rst:176
+#: ../../source/advanced.rst:178
 msgid "And from the main mode chooser screen::"
 msgstr "メインモードの選択画面については、以下のショートカットがあります。"
+
+#: ../../source/advanced.rst:188
+msgid "Migrating your OnionShare data to another computer"
+msgstr ""
+
+#: ../../source/advanced.rst:190
+msgid ""
+"You may want to migrate your OnionShare data when switching to another "
+"computer. This is especially true if you had a 'persistent' onion address"
+" and you want to preserve it."
+msgstr ""
+
+#: ../../source/advanced.rst:192
+msgid ""
+"OnionShare stores all such data in a specific folder. Copy the relevant "
+"folder for your operating system below, to your new computer:"
+msgstr ""
+
+#: ../../source/advanced.rst:194
+msgid "Linux: ``~/.config/onionshare``"
+msgstr ""
+
+#: ../../source/advanced.rst:195
+msgid "macOS: ``~/Library/Application Support/OnionShare``"
+msgstr ""
+
+#: ../../source/advanced.rst:196
+msgid "Windows: ``%APPDATA%\\OnionShare``"
+msgstr ""
 
 #~ msgid ""
 #~ "Everything in OnionShare is temporary by"
@@ -295,4 +324,10 @@ msgstr "メインモードの選択画面については、以下のショート
 #~ msgstr ""
 #~ "**自動的な起動を予定することで、OnionShareのサービスを「デッドマン装置」として使えます。** "
 #~ "最悪の事態が起きた場合、特定時間にサービスは自動的に立ち上がります。何も起きなかったら、立ち上がる時点の前に停止できます。"
+
+#~ msgid ""
+#~ "Linux: ``~/.config/onionshare`` macOS: "
+#~ "``~/Library/Application Support/OnionShare`` Windows: "
+#~ "``%APPDATA%\\OnionShare``"
+#~ msgstr ""
 

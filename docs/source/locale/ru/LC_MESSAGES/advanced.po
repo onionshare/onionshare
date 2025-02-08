@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-09 09:35+1100\n"
+"POT-Creation-Date: 2025-02-09 09:47+1100\n"
 "PO-Revision-Date: 2024-05-02 15:07+0000\n"
 "Last-Translator: gfbdrgng <hnaofegnp@hldrive.com>\n"
 "Language: ru\n"
@@ -278,11 +278,11 @@ msgstr ""
 "Просмотрите документацию по командной строке, запустив ``onionshare "
 "--help``::"
 
-#: ../../source/advanced.rst:169
+#: ../../source/advanced.rst:171
 msgid "Keyboard Shortcuts"
 msgstr "Горячие клавиши"
 
-#: ../../source/advanced.rst:171
+#: ../../source/advanced.rst:173
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
@@ -290,9 +290,38 @@ msgstr ""
 "Настольное приложение OnionShare содержит несколько сочетаний клавиш для "
 "удобства и доступности::"
 
-#: ../../source/advanced.rst:176
+#: ../../source/advanced.rst:178
 msgid "And from the main mode chooser screen::"
 msgstr "А на главном экране выбора режима::"
+
+#: ../../source/advanced.rst:188
+msgid "Migrating your OnionShare data to another computer"
+msgstr ""
+
+#: ../../source/advanced.rst:190
+msgid ""
+"You may want to migrate your OnionShare data when switching to another "
+"computer. This is especially true if you had a 'persistent' onion address"
+" and you want to preserve it."
+msgstr ""
+
+#: ../../source/advanced.rst:192
+msgid ""
+"OnionShare stores all such data in a specific folder. Copy the relevant "
+"folder for your operating system below, to your new computer:"
+msgstr ""
+
+#: ../../source/advanced.rst:194
+msgid "Linux: ``~/.config/onionshare``"
+msgstr ""
+
+#: ../../source/advanced.rst:195
+msgid "macOS: ``~/Library/Application Support/OnionShare``"
+msgstr ""
+
+#: ../../source/advanced.rst:196
+msgid "Windows: ``%APPDATA%\\OnionShare``"
+msgstr ""
 
 #~ msgid "Turn Off Passwords"
 #~ msgstr "Отключение паролей"
@@ -528,4 +557,10 @@ msgstr "А на главном экране выбора режима::"
 #~ " При сохранении вкладки появится иконка "
 #~ "сиреневого цвета с изображением булавки "
 #~ "слева от статуса сервера."
+
+#~ msgid ""
+#~ "Linux: ``~/.config/onionshare`` macOS: "
+#~ "``~/Library/Application Support/OnionShare`` Windows: "
+#~ "``%APPDATA%\\OnionShare``"
+#~ msgstr ""
 

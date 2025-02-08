@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 09:35+1100\n"
+"POT-Creation-Date: 2025-02-09 09:47+1100\n"
 "PO-Revision-Date: 2023-02-22 11:40+0000\n"
 "Last-Translator: tictactoe <phandinhminh@protonmail.ch>\n"
 "Language: vi\n"
@@ -274,11 +274,11 @@ msgstr "Sử dụng"
 msgid "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr "Duyệt tài liệu dòng lệnh Command bằng cách chạy ``onionshare --help``::"
 
-#: ../../source/advanced.rst:169
+#: ../../source/advanced.rst:171
 msgid "Keyboard Shortcuts"
 msgstr "Các phím tắt bàn phím"
 
-#: ../../source/advanced.rst:171
+#: ../../source/advanced.rst:173
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
@@ -286,7 +286,42 @@ msgstr ""
 "Ứng dụng máy tính desktop OnionShare có chứa một số phím tắt bàn phím, để"
 " giúp thuận tiện và khả năng truy cập::"
 
-#: ../../source/advanced.rst:176
+#: ../../source/advanced.rst:178
 msgid "And from the main mode chooser screen::"
 msgstr "Và từ màn hình chọn chế độ chính::"
+
+#: ../../source/advanced.rst:188
+msgid "Migrating your OnionShare data to another computer"
+msgstr ""
+
+#: ../../source/advanced.rst:190
+msgid ""
+"You may want to migrate your OnionShare data when switching to another "
+"computer. This is especially true if you had a 'persistent' onion address"
+" and you want to preserve it."
+msgstr ""
+
+#: ../../source/advanced.rst:192
+msgid ""
+"OnionShare stores all such data in a specific folder. Copy the relevant "
+"folder for your operating system below, to your new computer:"
+msgstr ""
+
+#: ../../source/advanced.rst:194
+msgid "Linux: ``~/.config/onionshare``"
+msgstr ""
+
+#: ../../source/advanced.rst:195
+msgid "macOS: ``~/Library/Application Support/OnionShare``"
+msgstr ""
+
+#: ../../source/advanced.rst:196
+msgid "Windows: ``%APPDATA%\\OnionShare``"
+msgstr ""
+
+#~ msgid ""
+#~ "Linux: ``~/.config/onionshare`` macOS: "
+#~ "``~/Library/Application Support/OnionShare`` Windows: "
+#~ "``%APPDATA%\\OnionShare``"
+#~ msgstr ""
 

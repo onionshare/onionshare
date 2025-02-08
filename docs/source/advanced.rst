@@ -182,3 +182,15 @@ And from the main mode chooser screen::
     Ctrl W - Website mode
     Ctrl C - Chat mode
     Ctrl H - Settings tab
+
+
+Migrating your OnionShare data to another computer
+--------------------------------------------------
+
+You may want to migrate your OnionShare data when switching to another computer. This is especially true if you had a 'persistent' onion address and you want to preserve it.
+
+OnionShare stores all such data in a specific folder. Copy the relevant folder for your operating system below, to your new computer:
+
+ * Linux: ``~/.config/onionshare``
+ * macOS: ``~/Library/Application Support/OnionShare``
+ * Windows: ``%APPDATA%\OnionShare``
