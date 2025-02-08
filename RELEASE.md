@@ -138,7 +138,8 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
   ../flatpak-json2yaml.py ./python3-modules.json
   mv python3-modules.yml onionshare-desktop.yaml
   ```
-  Now, merge `onionshare-desktop.yaml` and `onionshare-cli.yaml` into the Flatpak manifest.
+  Now, move `onionshare-desktop.yaml` and `onionshare-cli.yaml` into the `flatpak/` folder.
+
 - [ ] Build and test the Flatpak package to ensure it works:
   ```sh
   flatpak-builder build --force-clean --jobs=$(nproc) --install-deps-from=flathub --install --user flatpak/org.onionshare.OnionShare.yaml
