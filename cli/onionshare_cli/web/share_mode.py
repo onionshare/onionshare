@@ -376,8 +376,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
         fp.close()
 
-        if self.common.platform != "Darwin":
-            sys.stdout.write("\n")
+        sys.stdout.write("\n")
 
         # Download is finished
         if self.web.settings.get("share", "autostop_sharing"):

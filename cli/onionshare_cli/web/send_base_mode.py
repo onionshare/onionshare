@@ -284,8 +284,7 @@ class SendBaseModeWeb:
 
             fp.close()
 
-            if self.common.platform != "Darwin":
-                sys.stdout.write("\n")
+            sys.stdout.write("\n")
 
         basename = os.path.basename(filesystem_path)
 
