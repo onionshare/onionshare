@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-09 09:47+1100\n"
+"POT-Creation-Date: 2025-02-09 10:21+1100\n"
 "PO-Revision-Date: 2024-05-02 15:07+0000\n"
 "Last-Translator: gfbdrgng <hnaofegnp@hldrive.com>\n"
 "Language: ru\n"
@@ -278,11 +278,106 @@ msgstr ""
 "Просмотрите документацию по командной строке, запустив ``onionshare "
 "--help``::"
 
-#: ../../source/advanced.rst:171
+#: ../../source/advanced.rst:170
+msgid "Running the CLI as a systemd unit file"
+msgstr ""
+
+#: ../../source/advanced.rst:172
+msgid ""
+"It is possible to automatically start OnionShare from the CLI using a "
+"systemd unit file."
+msgstr ""
+
+#: ../../source/advanced.rst:174
+msgid ""
+"You may find this particularly useful if you are operating in "
+"'persistent' mode, and want to start the same onion service every time "
+"your machine starts."
+msgstr ""
+
+#: ../../source/advanced.rst:176
+msgid "To do this, you need to prepare some OnionShare json config first."
+msgstr ""
+
+#: ../../source/advanced.rst:178
+msgid ""
+"Here is the main OnionShare config. In this example, it's stored in "
+"``/home/user/.config/onionshare/onionshare.json``. You may need to adjust"
+" some of the settings, but if you already have OnionShare installed, it "
+"probably looks much like this already::"
+msgstr ""
+
+#: ../../source/advanced.rst:207
+msgid ""
+"Notice the 'persistent_tabs' section. We will now create a file at "
+"``/home/user/.config/onionshare/persistent/my-persistent-onion.json``, "
+"that looks like this::"
+msgstr ""
+
+#: ../../source/advanced.rst:247
+msgid ""
+"**Don't actually use this private key, service_id or client_auth keys! "
+"They are shown only as an example. Never share the private_key with "
+"anyone.**"
+msgstr ""
+
+#: ../../source/advanced.rst:249
+msgid ""
+"The easiest way to generate the onion address and private key is to first"
+" create a 'pinned' OnionShare tab in the desktop app and started the "
+"share for the first time. This will then have saved the persistent "
+"settings to your ``.config/onionshare/persistent/`` folder with a random "
+"name. You can unpin that tab once you've generated it the first time. Or,"
+" you can leave it where it is, and use that persistent file in your "
+"systemd unit file below."
+msgstr ""
+
+#: ../../source/advanced.rst:251
+msgid ""
+"Now you can create a systemd unit file in ``/etc/systemd/system"
+"/onionshare-cli.service``. Be sure to adjust the User and Group to your "
+"own user/group, as well as changes to any paths to the onionshare-cli "
+"binary or the paths to your JSON configs and shares."
+msgstr ""
+
+#: ../../source/advanced.rst:253
+msgid "The systemd unit file should look like this::"
+msgstr ""
+
+#: ../../source/advanced.rst:268
+msgid ""
+"Note that although ``/home/user/my-shared-file.txt`` was defined in the "
+"``filenames`` section of the ``my-persistent-onion.json`` file, it's "
+"still necessary to specify it as the argument to the onionshare-cli "
+"command."
+msgstr ""
+
+#: ../../source/advanced.rst:270
+msgid ""
+"Be sure to run ``sudo systemctl daemon-reload`` after creating the unit "
+"file."
+msgstr ""
+
+#: ../../source/advanced.rst:272
+msgid ""
+"Now you can run ``sudo systemctl start onionshare-cli.service``. If you "
+"have ``journalctl`` installed, you can run ``sudo journalctl -f -t "
+"onionshare-cli``, and you should see some output of your service "
+"starting::"
+msgstr ""
+
+#: ../../source/advanced.rst:282
+msgid ""
+"If you don't want your users to use a Private Key, set ``public`` to be "
+"``true`` in the ``general`` settings of the my-persistent-onion.json "
+"file."
+msgstr ""
+
+#: ../../source/advanced.rst:286
 msgid "Keyboard Shortcuts"
 msgstr "Горячие клавиши"
 
-#: ../../source/advanced.rst:173
+#: ../../source/advanced.rst:288
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
@@ -290,36 +385,36 @@ msgstr ""
 "Настольное приложение OnionShare содержит несколько сочетаний клавиш для "
 "удобства и доступности::"
 
-#: ../../source/advanced.rst:178
+#: ../../source/advanced.rst:293
 msgid "And from the main mode chooser screen::"
 msgstr "А на главном экране выбора режима::"
 
-#: ../../source/advanced.rst:188
+#: ../../source/advanced.rst:303
 msgid "Migrating your OnionShare data to another computer"
 msgstr ""
 
-#: ../../source/advanced.rst:190
+#: ../../source/advanced.rst:305
 msgid ""
 "You may want to migrate your OnionShare data when switching to another "
 "computer. This is especially true if you had a 'persistent' onion address"
 " and you want to preserve it."
 msgstr ""
 
-#: ../../source/advanced.rst:192
+#: ../../source/advanced.rst:307
 msgid ""
 "OnionShare stores all such data in a specific folder. Copy the relevant "
 "folder for your operating system below, to your new computer:"
 msgstr ""
 
-#: ../../source/advanced.rst:194
+#: ../../source/advanced.rst:309
 msgid "Linux: ``~/.config/onionshare``"
 msgstr ""
 
-#: ../../source/advanced.rst:195
+#: ../../source/advanced.rst:310
 msgid "macOS: ``~/Library/Application Support/OnionShare``"
 msgstr ""
 
-#: ../../source/advanced.rst:196
+#: ../../source/advanced.rst:311
 msgid "Windows: ``%APPDATA%\\OnionShare``"
 msgstr ""
 
@@ -562,5 +657,13 @@ msgstr ""
 #~ "Linux: ``~/.config/onionshare`` macOS: "
 #~ "``~/Library/Application Support/OnionShare`` Windows: "
 #~ "``%APPDATA%\\OnionShare``"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "__Don't actually use this private key,"
+#~ " service_id or client_auth keys! They "
+#~ "are shown only as an example. "
+#~ "Never share the private_key with "
+#~ "anyone.__"
 #~ msgstr ""
 
