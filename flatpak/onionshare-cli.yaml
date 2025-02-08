@@ -1,7 +1,7 @@
 name: poetry-deps
 buildsystem: simple
 build-commands:
-  - pip3 install --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
+  - pip3 install --use-pep517 --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST}
     bidict blinker brotli brotlicffi certifi cffi charset-normalizer click colorama
     cython dnspython eventlet exceptiongroup flask flask-compress flask-socketio gevent
     gevent-websocket greenlet h11 idna importlib-metadata iniconfig itsdangerous jinja2

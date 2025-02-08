@@ -115,7 +115,7 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
   mv python3-modules.yml onionshare-desktop.yaml
   ```
 
-  Now, move `onionshare-desktop.yaml` and `onionshare-cli.yaml` into the `flatpak/` folder.
+  Now, move `onionshare-desktop.yaml` and `onionshare-cli.yaml` into the `flatpak/` folder. For the `onionshare-cli.yaml` file, adjust the `pip3 install` step so that it includes the `--use-pep517` argument.
 
 - [ ] Build and test the Flatpak package to ensure it works:
   ```sh
