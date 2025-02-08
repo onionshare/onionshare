@@ -130,7 +130,7 @@ Browse the command-line documentation by running ``onionshare --help``::
     ╰───────────────────────────────────────────╯
 
     usage: onionshare-cli [-h] [--receive] [--website] [--chat] [--local-only] [--connect-timeout SECONDS] [--config FILENAME] [--persistent FILENAME] [--title TITLE] [--public]
-                          [--auto-start-timer SECONDS] [--auto-stop-timer SECONDS] [--no-autostop-sharing] [--data-dir data_dir] [--webhook-url webhook_url] [--disable-text]
+                          [--auto-start-timer SECONDS] [--auto-stop-timer SECONDS] [--no-autostop-sharing] [--log-filenames] [--qr] [--data-dir data_dir] [--webhook-url webhook_url] [--disable-text]
                           [--disable-files] [--disable_csp] [--custom_csp custom_csp] [-v]
                           [filename ...]
 
@@ -154,6 +154,8 @@ Browse the command-line documentation by running ``onionshare --help``::
       --auto-stop-timer SECONDS
                                 Stop onion service at scheduled time (N seconds from now)
       --no-autostop-sharing     Share files: Continue sharing after files have been sent (the default is to stop sharing)
+      --log-filenames           Log file download activity to stdout
+      --qr                      Display a QR code in the terminal for share links
       --data-dir data_dir       Receive files: Save files received to this directory
       --webhook-url webhook_url
                                 Receive files: URL to receive webhook notifications
