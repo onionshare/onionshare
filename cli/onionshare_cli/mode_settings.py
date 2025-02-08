@@ -48,14 +48,23 @@ class ModeSettings:
                 "autostop_timer": False,
                 "service_id": None,
             },
-            "share": {"autostop_sharing": True, "filenames": []},
+            "share": {
+                "autostop_sharing": True,
+                "filenames": [],
+                "log_filenames": False,
+            },
             "receive": {
                 "data_dir": self.build_default_receive_data_dir(),
                 "webhook_url": None,
                 "disable_text": False,
                 "disable_files": False,
             },
-            "website": {"disable_csp": False, "custom_csp": None, "filenames": []},
+            "website": {
+                "disable_csp": False,
+                "custom_csp": None,
+                "log_filenames": False,
+                "filenames": []
+            },
             "chat": {},
         }
         self._settings = {}
