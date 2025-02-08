@@ -29,7 +29,7 @@ from datetime import datetime, timezone
 from flask import Response, request, render_template, make_response, abort
 from unidecode import unidecode
 from werkzeug.http import parse_date, http_date
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 from .send_base_mode import SendBaseModeWeb
 
@@ -347,7 +347,10 @@ class ShareModeWeb(SendBaseModeWeb):
                         or self.common.platform == "BSD"
                     ):
                         if self.web.settings.get("share", "log_filenames"):
-                            filename_str = f"{path} - "
+                            # Decode and sanitize the path to remove newlines
+                            decoded_path = unquote(path)
+                            decoded_path = decoded_path.replace("\r", "").replace("\n", "")
+                            filename_str = f"{decoded_path} - "
                         else:
                             filename_str = ""
 
