@@ -52,7 +52,7 @@ class ModeSettings:
                 "autostop_sharing": True,
                 "filenames": [],
                 "log_filenames": False,
-                },
+            },
             "receive": {
                 "data_dir": self.build_default_receive_data_dir(),
                 "webhook_url": None,
