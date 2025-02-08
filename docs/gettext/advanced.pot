@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"POT-Creation-Date: 2025-02-09 09:35+1100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,7 @@ msgid "By default, all OnionShare services are protected with a private key, whi
 msgstr ""
 
 #: ../../source/advanced.rst:28
-msgid "The Tor Browser will ask you to enter your private key when you load an OnionShare service. If you want allow the public to use your service, it's better to disable the private key altogether."
+msgid "The Tor Browser will ask you to enter your private key when you load an OnionShare service. If you want to allow the public to use your service, it's better to disable the private key altogether."
 msgstr ""
 
 #: ../../source/advanced.rst:31
@@ -77,7 +77,7 @@ msgid "OnionShare supports scheduling exactly when a service should start and st
 msgstr ""
 
 #: ../../source/advanced.rst:51
-msgid "Services scheduled to start in the future display a countdown timer when when the \"Start sharing\" button is clicked. Services scheduled to stop in the future display a countdown timer when started."
+msgid "Services scheduled to start in the future display a countdown timer when the \"Start sharing\" button is clicked. Services scheduled to stop in the future display a countdown timer when started."
 msgstr ""
 
 #: ../../source/advanced.rst:54
@@ -96,42 +96,70 @@ msgstr ""
 msgid "In addition to its graphical interface, OnionShare has a command-line interface."
 msgstr ""
 
-#: ../../source/advanced.rst:72
-msgid "You can install just the command-line version of OnionShare using ``pip3``::"
+#: ../../source/advanced.rst:73
+msgid "Installing the CLI version"
 msgstr ""
 
-#: ../../source/advanced.rst:76
+#: ../../source/advanced.rst:75
+msgid "If you have installed the Snap, macOS or Windows package, you already have the CLI version installed."
+msgstr ""
+
+#: ../../source/advanced.rst:77
+msgid "Alternatively, you can install just the command-line version of OnionShare using ``pip3``::"
+msgstr ""
+
+#: ../../source/advanced.rst:81
 msgid "Note that you will also need the ``tor`` package installed. In macOS, install it with: ``brew install tor``"
 msgstr ""
 
-#: ../../source/advanced.rst:78
+#: ../../source/advanced.rst:83
 msgid "Then run it like this::"
 msgstr ""
 
-#: ../../source/advanced.rst:82
+#: ../../source/advanced.rst:87
 msgid "Info about installing it on different operating systems can be found in the `CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the Git repository."
 msgstr ""
 
-#: ../../source/advanced.rst:84
-msgid "If you installed OnionShare using the Snap package, you can also just run ``onionshare.cli`` to access the command-line interface version."
+#: ../../source/advanced.rst:90
+msgid "Running the CLI from Snap"
 msgstr ""
 
-#: ../../source/advanced.rst:87
+#: ../../source/advanced.rst:92
+msgid "If you installed OnionShare using the Snap package, you can run ``onionshare.cli`` to access the command-line interface version."
+msgstr ""
+
+#: ../../source/advanced.rst:95
+msgid "Running the CLI from macOS"
+msgstr ""
+
+#: ../../source/advanced.rst:97
+msgid "From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/onionshare-cli --help``"
+msgstr ""
+
+#: ../../source/advanced.rst:100
+msgid "Running the CLI from Windows"
+msgstr ""
+
+#: ../../source/advanced.rst:102
+msgid "In the Windows installation, the executable ``onionshare-cli.exe`` is available."
+msgstr ""
+
+#: ../../source/advanced.rst:105
 msgid "Usage"
 msgstr ""
 
-#: ../../source/advanced.rst:89
+#: ../../source/advanced.rst:107
 msgid "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
 
-#: ../../source/advanced.rst:151
+#: ../../source/advanced.rst:169
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: ../../source/advanced.rst:153
+#: ../../source/advanced.rst:171
 msgid "The OnionShare desktop application contains some keyboard shortcuts, for convenience and accessibility::"
 msgstr ""
 
-#: ../../source/advanced.rst:158
+#: ../../source/advanced.rst:176
 msgid "And from the main mode chooser screen::"
 msgstr ""

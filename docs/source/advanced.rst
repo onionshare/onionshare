@@ -69,7 +69,12 @@ Command-line Interface
 
 In addition to its graphical interface, OnionShare has a command-line interface.
 
-You can install just the command-line version of OnionShare using ``pip3``::
+Installing the CLI version
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you have installed the Snap, macOS or Windows package, you already have the CLI version installed.
+
+Alternatively, you can install just the command-line version of OnionShare using ``pip3``::
 
     pip3 install --user onionshare-cli
 
@@ -81,7 +86,20 @@ Then run it like this::
 
 Info about installing it on different operating systems can be found in the `CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the Git repository.
 
-If you installed OnionShare using the Snap package, you can also just run ``onionshare.cli`` to access the command-line interface version.
+Running the CLI from Snap
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you installed OnionShare using the Snap package, you can run ``onionshare.cli`` to access the command-line interface version.
+
+Running the CLI from macOS
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/onionshare-cli --help``
+
+Running the CLI from Windows
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In the Windows installation, the executable ``onionshare-cli.exe`` is available.
 
 Usage
 ^^^^^
