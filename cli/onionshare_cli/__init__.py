@@ -124,7 +124,7 @@ def main(cwd=None):
         action="store_true",
         dest="log_filenames",
         default=False,
-        help="Share files: Log individual names of shared files as they are downloaded (requires autostop sharing to be disabled)"
+        help="Log file download activity to stdout"
     )
     parser.add_argument(
         "--qr",
@@ -307,10 +307,6 @@ def main(cwd=None):
         # Save the filenames in persistent file
         if persistent_filename:
             mode_settings.set(mode, "filenames", filenames)
-
-        if autostop_sharing and log_filenames:
-            print("Autostop sharing is enabled, thus individual files cannot be downloaded (or logged). Set both --no-autostop-sharing and --log-filenames for intended functionality.")
-            sys.exit()
 
     # In receive mode, you must allows either text, files, or both
     if mode == "receive" and disable_text and disable_files:
