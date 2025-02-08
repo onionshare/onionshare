@@ -94,34 +94,10 @@ With every commit to the `main` branch, Snapcraft's CI should trigger builds. Ma
 In `flatpak/org.onionshare.OnionShare.yaml`:
 
 - [ ] Update `tor` and `libevent` 
-- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies. To do this, clone the latest tagged release of the following repositories, into a temp directory:
-  ```
-  https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git
-  https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
-  https://gitlab.com/yawning/obfs4.git
-  ```
-
-  Enter into each directory (having checked out the correct tag) and run:
+- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies. To do this, edit the script `flatpak/generate-golang-dependencies.py` and make sure that the repository URLs and tags are the latest versions. Then run this command from the root of the onionshare repository folder:
 
   ```sh
-  go run github.com/dennwc/flatpak-go-mod@latest .
-  ```
-
-  This will generate several files:
-
-  ```
-  go.mod.yml
-  modules.txt
-  ```
-
-  Move the `go.mod.yml` into the respective `flatpak/snowflake`, `flatpak/obfs4proxy` and `flatpak/meek-client` folders.
-
-  Then edit the go.mod.yml in each one and edit the 'path' attribute of the first entry that it has the subfolder set (below example is just the `obfs4proxy/go.mod.yml`, but you should do the same for the other two):
-
-  ```
-  - dest: vendor
-    path: obfs4proxy/modules.txt
-    type: file
+  ./flatpak/generate-golang-dependencies.py
   ```
 
 - [ ] Update the Python dependencies. This is super hacky. You need to use both the poetry and pip parts of [this tool](https://github.com/flatpak/flatpak-builder-tools), but the version from [this PR](https://github.com/flatpak/flatpak-builder-tools/pull/353):
@@ -138,6 +114,7 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
   ../flatpak-json2yaml.py ./python3-modules.json
   mv python3-modules.yml onionshare-desktop.yaml
   ```
+
   Now, move `onionshare-desktop.yaml` and `onionshare-cli.yaml` into the `flatpak/` folder.
 
 - [ ] Build and test the Flatpak package to ensure it works:
