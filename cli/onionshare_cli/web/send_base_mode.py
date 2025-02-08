@@ -246,7 +246,7 @@ class SendBaseModeWeb:
                             or self.common.platform == "BSD"
                         ):
                             if self.web.settings.get("share", "log_filenames"):
-                                filename_str = "f{path} - "
+                                filename_str = f"{path} - "
                             else:
                                 filename_str = ""
                             
