@@ -59,7 +59,12 @@ class ModeSettings:
                 "disable_text": False,
                 "disable_files": False,
             },
-            "website": {"disable_csp": False, "custom_csp": None, "filenames": []},
+            "website": {
+                "disable_csp": False,
+                "custom_csp": None,
+                "log_filenames": False,
+                "filenames": []
+            },
             "chat": {},
         }
         self._settings = {}

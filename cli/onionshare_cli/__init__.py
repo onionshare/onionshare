@@ -268,6 +268,7 @@ def main(cwd=None):
             if custom_csp:
                 mode_settings.set("website", "custom_csp", custom_csp)
                 mode_settings.set("website", "disable_csp", False)
+            mode_settings.set("website", "log_filenames", log_filenames)
     else:
         # See what the persistent mode was
         mode = mode_settings.get("persistent", "mode")
