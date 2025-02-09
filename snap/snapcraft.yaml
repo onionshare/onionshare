@@ -61,6 +61,7 @@ parts:
     override-pull: |
       craftctl default
     override-build: |
+      poetry lock
       poetry install
 
   onionshare:
@@ -144,6 +145,7 @@ parts:
     override-pull: |
       craftctl default
     override-build: |
+      poetry lock
       poetry install
     after: [onionshare-cli]
 
