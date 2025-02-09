@@ -1,5 +1,5 @@
 name: onionshare
-base: core22
+base: core24
 version: "2.6.2"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
@@ -49,14 +49,21 @@ apps:
 parts:
   onionshare-cli:
     source: ./cli
-    plugin: poetry
-    after: [tor, obfs4, snowflake-client, meek-client]
+    plugin: python
+    build-packages:
+      - python3-poetry
+    build-environment:
+      - PATH: /usr/bin:$PATH
+      - PYTHONPATH: ""
     override-pull: |
       craftctl default
+    after: [tor, obfs4, snowflake-client, meek-client]
+    override-build: |
+      poetry install
 
   onionshare:
     source: ./desktop
-    plugin: poetry
+    plugin: python
     build-packages:
       - build-essential
       - libssl-dev
@@ -139,6 +146,10 @@ parts:
       - libxkbfile1
     override-pull: |
       craftctl default
+    override-build: |
+      poetry install
+      sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare
+      sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare-cli
     after: [onionshare-cli]
 
   tor:
