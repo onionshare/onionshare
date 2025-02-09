@@ -206,11 +206,12 @@ parts:
       - meek-client
     plugin: nil
     build-snaps:  # List all content-snaps and base snaps you're using here
+      - core24
       - core22
       - go/latest/stable
       - gnome-46-2404-sdk
     override-prime: |
       set -eux
-      for snap in core22 go/latest/stable gnome-46-2404-sdk; do  # List all content-snaps and base snaps you're using here
+      for snap in core24 core22 go/latest/stable gnome-46-2404-sdk; do  # List all content-snaps and base snaps you're using here
         cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$CRAFT_PRIME/{}" \;
       done
