@@ -172,7 +172,7 @@ parts:
     source: https://gitlab.com/yawning/obfs4.git
     source-type: git
     source-tag: obfs4proxy-0.0.14
-    after: tor
+    after: [tor]
 
   snowflake-client:
     plugin: go
@@ -183,7 +183,7 @@ parts:
     source-tag: v2.10.1
     organize:
       bin/client: bin/snowflake-client
-    after: obfs4
+    after: [obfs4]
 
   meek-client:
     plugin: go
@@ -195,7 +195,7 @@ parts:
     override-build: |
       cd meek-client
       go build -o $SNAPCRAFT_PART_INSTALL/bin/meek-client ./...
-    after: snowflake-client
+    after: [snowflake-client]
 
   # This part removes all the files in this snap which already exist in
   # connected content and base snaps. Since these files will be available
