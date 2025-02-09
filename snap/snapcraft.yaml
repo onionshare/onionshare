@@ -12,7 +12,6 @@ grade: stable # stable or devel
 confinement: strict
 
 platforms:
-  i386:
   amd64:
   arm64:
   armhf:
