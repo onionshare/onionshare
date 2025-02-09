@@ -49,14 +49,10 @@ apps:
 parts:
   onionshare-cli:
     source: ./cli
-    plugin: python
-    build-packages:
-      - python3-poetry
+    plugin: nil
     override-pull: |
       craftctl default
-    override-build: |
-      python3 -m venv $CRAFT_PART_INSTALL
-      pip install -r cli-requirements.txt
+      rm pyproject.toml poetry.lock
     after: [tor, obfs4, snowflake-client, meek-client]
 
   onionshare:
@@ -143,10 +139,38 @@ parts:
       - libxkbfile1
     override-pull: |
       craftctl default
+      rm pyproject.toml poetry.lock
+      cat > requirements.txt << EOF
+      # onionshare_cli
+      click
+      flask==2.3.2
+      flask-compress==1.13
+      flask-socketio==5.3.4
+      psutil
+      pysocks
+      requests[socks]
+      unidecode
+      urllib3
+      eventlet
+      setuptools
+      pynacl
+      colorama
+      gevent-websocket
+      stem==1.8.1
+      waitress
+      werkzeug==3.0.6
+      # onionshare
+      PySide6==6.5.2
+      qrcode
+      packaging
+      EOF
     override-build: |
       python3 -m venv $CRAFT_PART_INSTALL
       . $CRAFT_PART_INSTALL/bin/activate
-      pip install -r desktop-requirements.txt
+      pip install -U pip setuptools wheel
+      pip install -U -r requirements.txt
+      pip install -U ../../onionshare-cli/src
+      pip install -U .
       deactivate
       sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare
       sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare-cli
