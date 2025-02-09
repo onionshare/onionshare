@@ -129,7 +129,7 @@ parts:
     override-pull: |
       craftctl default
     override-build: |
-      chmod 755 /root/parts/onionshare/install/bin/python3
+      test -e $CRAFT_PART_INSTALL/bin/python3 && chmod 755 $CRAFT_PART_INSTALL/bin/python3 || true
       python3 -m venv $CRAFT_PART_INSTALL
       . $CRAFT_PART_INSTALL/bin/activate      
       pip install poetry==2.0.1
