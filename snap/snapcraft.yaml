@@ -1,5 +1,5 @@
 name: onionshare
-base: core22
+base: core24
 version: "2.6.2"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
@@ -11,11 +11,10 @@ description: |
 grade: stable # stable or devel
 confinement: strict
 
-architectures:
-  - build-on: i386
-  - build-on: amd64
-  - build-on: arm64
-  - build-on: armhf
+platforms:
+  amd64:
+  arm64:
+  armhf:
 
 apps:
   onionshare:
@@ -49,15 +48,7 @@ apps:
 parts:
   onionshare-cli:
     source: ./cli
-    plugin: nil
-    override-pull: |
-      craftctl default
-      rm pyproject.toml poetry.lock
-    after: [tor, obfs4, snowflake-client, meek-client]
-
-  onionshare:
-    source: ./desktop
-    plugin: python
+    plugin: poetry
     build-packages:
       - build-essential
       - libssl-dev
@@ -66,9 +57,6 @@ parts:
       - python3-pip
       - rustc
       - cargo
-    build-environment:
-      - PATH: /usr/bin:$PATH
-      - PYTHONPATH: ""
     stage-packages:
       - libasound2
       - libatk1.0-0
@@ -139,41 +127,89 @@ parts:
       - libxkbfile1
     override-pull: |
       craftctl default
-      rm pyproject.toml poetry.lock
-      cat > requirements.txt << EOF
-      # onionshare_cli
-      click
-      flask==2.3.2
-      flask-compress==1.13
-      flask-socketio==5.3.4
-      psutil
-      pysocks
-      requests[socks]
-      unidecode
-      urllib3
-      eventlet
-      setuptools
-      pynacl
-      colorama
-      gevent-websocket
-      stem==1.8.1
-      waitress
-      werkzeug==3.0.6
-      # onionshare
-      PySide6==6.5.2
-      qrcode
-      packaging
-      EOF
-    override-build: |
-      python3 -m venv $CRAFT_PART_INSTALL
-      . $CRAFT_PART_INSTALL/bin/activate
-      pip install -U pip setuptools wheel
-      pip install -U -r requirements.txt
-      pip install -U ../../onionshare-cli/src
-      pip install -U .
-      deactivate
-      sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare
-      sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare-cli
+    after: [tor, obfs4, snowflake-client, meek-client]
+
+  onionshare:
+    source: ./desktop
+    plugin: poetry
+    build-packages:
+      - build-essential
+      - libssl-dev
+      - libffi-dev
+      - python3-dev
+      - python3-pip
+      - rustc
+      - cargo
+    stage-packages:
+      - libasound2
+      - libatk1.0-0
+      - libcairo2
+      - libcairo-gobject2
+      - libcups2
+      - libdrm2
+      - libegl1
+      - libfreetype6
+      - libgdk-pixbuf2.0-0
+      - libgl1
+      - libglvnd0
+      - libglx0
+      - libgtk-3-0
+      - libharfbuzz0b
+      - libjpeg8
+      - liblcms2-2
+      - libnspr4
+      - libnss3
+      - libodbc1
+      - libpango-1.0-0
+      - libpangocairo-1.0-0
+      - libpng16-16
+      - libpq5
+      - libpulse-mainloop-glib0
+      - librsvg2-2
+      - libspeechd2
+      - libwayland-client0
+      - libwayland-cursor0
+      - libwayland-egl1
+      - libwayland-server0
+      - libx11-6
+      - libx11-xcb1
+      - libxau6
+      - libxcb1
+      - libxcb-glx0
+      - libxcb-icccm4
+      - libxcb-image0
+      - libxcb-keysyms1
+      - libxcb-render0
+      - libxcb-render-util0
+      - libxcb-shm0
+      - libxcb-sync1
+      - libxcb-xfixes0
+      - libxcb-xinerama0
+      - libxcb-xkb1
+      - libxcomposite1
+      - libxcursor1
+      - libxdamage1
+      - libxdmcp6
+      - libxext6
+      - libxfixes3
+      - libxi6
+      - libxkbcommon0
+      - libxkbcommon-x11-0
+      - libxml2
+      - libxrandr2
+      - libxrender1
+      - libxslt1.1
+      - libxtst6
+      - qtwayland5
+      - libgstreamer1.0-0
+      - libgstreamer1.0-dev
+      - libgstreamer-gl1.0-0
+      - libgstreamer-plugins-base1.0-0
+      - libmysqlclient21
+      - libxcb-cursor0
+      - libxkbfile1
+    override-pull: |
+      craftctl default
     after: [onionshare-cli]
 
   tor:
