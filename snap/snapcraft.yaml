@@ -48,89 +48,24 @@ apps:
 parts:
   onionshare-cli:
     source: ./cli
-    plugin: poetry
+    plugin: python
     build-packages:
       - build-essential
       - libssl-dev
       - libffi-dev
       - python3-dev
       - python3-pip
+      - python3-poetry
       - rustc
       - cargo
-    stage-packages:
-      - libasound2
-      - libatk1.0-0
-      - libcairo2
-      - libcairo-gobject2
-      - libcups2
-      - libdrm2
-      - libegl1
-      - libfreetype6
-      - libgdk-pixbuf2.0-0
-      - libgl1
-      - libglvnd0
-      - libglx0
-      - libgtk-3-0
-      - libharfbuzz0b
-      - libjpeg8
-      - liblcms2-2
-      - libnspr4
-      - libnss3
-      - libpango-1.0-0
-      - libpangocairo-1.0-0
-      - libpng16-16
-      - libpq5
-      - libpulse-mainloop-glib0
-      - librsvg2-2
-      - libspeechd2
-      - libwayland-client0
-      - libwayland-cursor0
-      - libwayland-egl1
-      - libwayland-server0
-      - libx11-6
-      - libx11-xcb1
-      - libxau6
-      - libxcb1
-      - libxcb-glx0
-      - libxcb-icccm4
-      - libxcb-image0
-      - libxcb-keysyms1
-      - libxcb-render0
-      - libxcb-render-util0
-      - libxcb-shm0
-      - libxcb-sync1
-      - libxcb-xfixes0
-      - libxcb-xinerama0
-      - libxcb-xkb1
-      - libxcomposite1
-      - libxcursor1
-      - libxdamage1
-      - libxdmcp6
-      - libxext6
-      - libxfixes3
-      - libxi6
-      - libxkbcommon0
-      - libxkbcommon-x11-0
-      - libxml2
-      - libxrandr2
-      - libxrender1
-      - libxslt1.1
-      - libxtst6
-      - qtwayland5
-      - libgstreamer1.0-0
-      - libgstreamer1.0-dev
-      - libgstreamer-gl1.0-0
-      - libgstreamer-plugins-base1.0-0
-      - libmysqlclient21
-      - libxcb-cursor0
-      - libxkbfile1
     override-pull: |
       craftctl default
-    after: [tor, obfs4, snowflake-client, meek-client]
+    override-build: |
+      poetry install
 
   onionshare:
     source: ./desktop
-    plugin: poetry
+    plugin: python
     build-packages:
       - build-essential
       - libssl-dev
@@ -208,6 +143,8 @@ parts:
       - libxkbfile1
     override-pull: |
       craftctl default
+    override-build: |
+      poetry install
     after: [onionshare-cli]
 
   tor:
@@ -235,6 +172,7 @@ parts:
     source: https://gitlab.com/yawning/obfs4.git
     source-type: git
     source-tag: obfs4proxy-0.0.14
+    after: tor
 
   snowflake-client:
     plugin: go
@@ -245,6 +183,7 @@ parts:
     source-tag: v2.10.1
     organize:
       bin/client: bin/snowflake-client
+    after: obfs4
 
   meek-client:
     plugin: go
@@ -256,6 +195,7 @@ parts:
     override-build: |
       cd meek-client
       go build -o $SNAPCRAFT_PART_INSTALL/bin/meek-client ./...
+    after: snowflake-client
 
   # This part removes all the files in this snap which already exist in
   # connected content and base snaps. Since these files will be available
@@ -277,9 +217,9 @@ parts:
     build-snaps:  # List all content-snaps and base snaps you're using here
       - core22
       - go/latest/stable
-      - gnome-42-2204-sdk
+      - gnome-46-2404-sdk
     override-prime: |
       set -eux
-      for snap in core22 go/latest/stable gnome-42-2204-sdk; do  # List all content-snaps and base snaps you're using here
+      for snap in core22 go/latest/stable gnome-46-2404-sdk; do  # List all content-snaps and base snaps you're using here
         cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$CRAFT_PRIME/{}" \;
       done
