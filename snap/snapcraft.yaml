@@ -1,5 +1,5 @@
 name: onionshare
-base: core22
+base: core24
 version: "2.6.2"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
@@ -11,11 +11,10 @@ description: |
 grade: stable # stable or devel
 confinement: strict
 
-architectures:
-  - build-on: i386
-  - build-on: amd64
-  - build-on: arm64
-  - build-on: armhf
+platforms:
+  amd64:
+  arm64:
+  armhf:
 
 apps:
   onionshare:
