@@ -51,6 +51,8 @@ parts:
     plugin: python
     build-packages:
       - python3-poetry
+    stage-packages:
+      - libodbc1
     override-pull: |
       craftctl default
     override-build: |
