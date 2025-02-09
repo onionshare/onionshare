@@ -76,7 +76,6 @@ parts:
       - liblcms2-2
       - libnspr4
       - libnss3
-      - libodbc1
       - libpango-1.0-0
       - libpangocairo-1.0-0
       - libpng16-16
@@ -159,7 +158,6 @@ parts:
       - liblcms2-2
       - libnspr4
       - libnss3
-      - libodbc1
       - libpango-1.0-0
       - libpangocairo-1.0-0
       - libpng16-16
