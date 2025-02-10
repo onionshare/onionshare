@@ -25,7 +25,7 @@ import mimetypes
 import gzip
 from flask import Response, request
 from unidecode import unidecode
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 
 class SendBaseModeWeb:
@@ -246,7 +246,10 @@ class SendBaseModeWeb:
                             or self.common.platform == "BSD"
                         ):
                             if self.web.settings.get(self.web.mode, "log_filenames"):
-                                filename_str = f"{path} - "
+                                # Decode and sanitize the path to remove newlines
+                                decoded_path = unquote(path)
+                                decoded_path = decoded_path.replace("\r", "").replace("\n", "")
+                                filename_str = f"{decoded_path} - "
                             else:
                                 filename_str = ""
                             
