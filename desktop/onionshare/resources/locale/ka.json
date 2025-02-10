@@ -51,5 +51,6 @@
     "gui_share_start_server": "გაზიარების დაწყება",
     "gui_settings_bridge_use_checkbox": "ხიდის გამოყენება",
     "gui_copied_url": "OnionShare-მისამართის ასლი აღებულია",
-    "gui_copy_url": "მისამართის ასლი"
+    "gui_copy_url": "მისამართის ასლი",
+    "gui_settings_bridge_radio_builtin": "აირჩიეთ ჩაშენებული ხიდი"
 }
