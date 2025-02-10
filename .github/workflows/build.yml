@@ -287,7 +287,7 @@ jobs:
           sudo ufw disable
 
       - name: Build snap
-        run: sudo snapcraft --verbosity debug
+        run: sudo snapcraft -v
 
       - name: Compress lxd directory and set proper permissions
         run: |

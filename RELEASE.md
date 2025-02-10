@@ -74,10 +74,16 @@ Update the versions of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scr
 
 ### Make sure Snapcraft packaging works
 
+Ensure you have the ability to run `poetry export`. You may need to run `poetry self add poetry-plugin-export`, as in recent versions of Poetry it is now a plugin rather than in the core.
+
+Enter the `cli` directory and run `poetry export > ../snap/local/cli-requirements.txt`
+
+Enter the `desktop` directory and run `poetry export > ../snap/local/desktop-requirements.txt`. Now edit this file and remove the first line that has a `-e` with a path to the `cli` folder - we don't want it.
+
 In `snap/snapcraft.yaml`:
 
+- [ ] Update the version number near the top of the file.
 - [ ] The `tor`, `libevent`, `obfs4`, `snowflake-client`, and `meek-client` parts should be updated if necessary
-- [ ] In the `onionshare` part, in the `override-pull` section, all of the dependencies in the `requirements.txt` file should match the dependencies listed in `cli/pyproject.toml` and `desktop/pyproject.toml`, with the exception of PySide2
 
 To test locally:
 
