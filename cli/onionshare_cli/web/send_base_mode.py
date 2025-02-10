@@ -170,18 +170,18 @@ class SendBaseModeWeb:
             if is_dir:
                 if add_trailing_slash:
                     dirs.append(
-                        {"link": os.path.join(f"/{path}", filename, ""), "basename": filename}
+                        {"link": os.path.join(f"/{path}", quote(filename), ""), "basename": filename}
                     )
                 else:
                     dirs.append(
-                        {"link": os.path.join(f"/{path}", filename), "basename": filename}
+                        {"link": os.path.join(f"/{path}", quote(filename)), "basename": filename}
                     )
             else:
                 size = os.path.getsize(this_filesystem_path)
                 size_human = self.common.human_readable_filesize(size)
                 files.append(
                     {
-                        "link": os.path.join(f"/{path}", filename),
+                        "link": os.path.join(f"/{path}", quote(filename)),
                         "basename": filename,
                         "size_human": size_human,
                     }
