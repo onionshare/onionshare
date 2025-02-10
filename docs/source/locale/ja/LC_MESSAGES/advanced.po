@@ -7,17 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"POT-Creation-Date: 2025-02-09 10:21+1100\n"
 "PO-Revision-Date: 2024-09-23 09:55+0000\n"
 "Last-Translator: Himmel <Himmel@users.noreply.hosted.weblate.org>\n"
-"Language-Team: ja <LL@li.org>\n"
 "Language: ja\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: ja <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8-dev\n"
-"Generated-By: Babel 2.10.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -30,38 +29,29 @@ msgstr "タブを保存"
 #: ../../source/advanced.rst:9
 msgid ""
 "Closing OnionShare tabs you host destroys them, preventing reuse. "
-"Persistently hosted websites are available on the same address even if the "
-"computer they are shared from is rebooted."
-msgstr ""
-"OnionShareのタブを閉じると、タブは破棄され、これを再利用することはできませ"
-"ん。固定タブでホストされているウェブサイトは、それをホストしているコンピュー"
-"ターが再起動した場合でも、同じアドレスでアクセスすることができます。"
+"Persistently hosted websites are available on the same address even if "
+"the computer they are shared from is rebooted."
+msgstr "OnionShareのタブを閉じると、タブは破棄され、これを再利用することはできません。固定タブでホストされているウェブサイトは、それをホストしているコンピューターが再起動した場合でも、同じアドレスでアクセスすることができます。"
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
-msgstr ""
-"サーバーを開始する前に「OnionShareを開始する際に、このタブを常に開く」に"
-"チェックを入れると、タブを固定することができます。"
+msgstr "サーバーを開始する前に「OnionShareを開始する際に、このタブを常に開く」にチェックを入れると、タブを固定することができます。"
 
 #: ../../source/advanced.rst:16
 msgid ""
-"When opening OnionShare, your saved tabs from the prior session will start "
-"opened. Each service then can be started manually, and will be available on "
-"the same OnionShare address and be protected by the same private key."
-msgstr ""
-"OnionShareを開くと、前回のセッションで保存したタブを開きます。その後、それぞ"
-"れのサービスを手動で開始すると、同じOnionShareのアドレスで、同一の秘密鍵で保"
-"護されたサービスが利用できるようになります。"
+"When opening OnionShare, your saved tabs from the prior session will "
+"start opened. Each service then can be started manually, and will be "
+"available on the same OnionShare address and be protected by the same "
+"private key."
+msgstr "OnionShareを開くと、前回のセッションで保存したタブを開きます。その後、それぞれのサービスを手動で開始すると、同じOnionShareのアドレスで、同一の秘密鍵で保護されたサービスが利用できるようになります。"
 
 #: ../../source/advanced.rst:19
 msgid ""
-"If you save a tab, a copy of its onion service secret key is stored on your "
-"computer."
-msgstr ""
-"タブを保存すると、そのOnion Serviceの秘密鍵のコピーがあなたのコンピューター上"
-"に保存されます。"
+"If you save a tab, a copy of its onion service secret key is stored on "
+"your computer."
+msgstr "タブを保存すると、そのOnion Serviceの秘密鍵のコピーがあなたのコンピューター上に保存されます。"
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
@@ -69,32 +59,29 @@ msgstr "秘密鍵を無効にする"
 
 #: ../../source/advanced.rst:26
 msgid ""
-"By default, all OnionShare services are protected with a private key, which "
-"Tor calls \"client authentication\"."
-msgstr ""
-"既定では、全てのOnionShareのサービスは、秘密鍵で保護されます。これはTorでは"
-"「クライアント認証」と呼ばれているものです。"
+"By default, all OnionShare services are protected with a private key, "
+"which Tor calls \"client authentication\"."
+msgstr "既定では、全てのOnionShareのサービスは、秘密鍵で保護されます。これはTorでは「クライアント認証」と呼ばれているものです。"
 
 #: ../../source/advanced.rst:28
+#, fuzzy
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
-"OnionShare service. If you want allow the public to use your service, it's "
-"better to disable the private key altogether."
+"OnionShare service. If you want to allow the public to use your service, "
+"it's better to disable the private key altogether."
 msgstr ""
-"OnionShare のサービスを読み込むと、Tor Browser は秘密鍵を入力するようリクエス"
-"トします。サービスを公開したい場合は、秘密鍵を無効にするほうがいいでしょう。"
+"OnionShare のサービスを読み込むと、Tor Browser "
+"は秘密鍵を入力するようリクエストします。サービスを公開したい場合は、秘密鍵を無効にするほうがいいでしょう。"
 
 #: ../../source/advanced.rst:31
 msgid ""
 "To turn off the private key for any tab, check the \"This is a public "
-"OnionShare service (disables private key)\" box before starting the server. "
-"Then the server will be public and a private key is not needed to load it in "
-"the Tor Browser."
+"OnionShare service (disables private key)\" box before starting the "
+"server. Then the server will be public and a private key is not needed to"
+" load it in the Tor Browser."
 msgstr ""
-"タブに関して秘密鍵を無効にするには、サーバーを開始する前に「公開のOnionShare"
-"のサービスとして設定（秘密鍵が無効となります）」にチェックを入れてください。"
-"そうすると、サーバーは公開され、Tor Browserでこれを読み込む際に秘密鍵を入力す"
-"る必要はなくなります。"
+"タブに関して秘密鍵を無効にするには、サーバーを開始する前に「公開のOnionShareのサービスとして設定（秘密鍵が無効となります）」にチェックを入れてください。そうすると、サーバーは公開され、Tor"
+" Browserでこれを読み込む際に秘密鍵を入力する必要はなくなります。"
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
@@ -102,21 +89,19 @@ msgstr "カスタムタイトル"
 
 #: ../../source/advanced.rst:39
 msgid ""
-"When people load OnionShare services in the Tor Browser they see the default "
-"title for each type of service. For example, the default title for chat "
-"services is \"OnionShare Chat\"."
+"When people load OnionShare services in the Tor Browser they see the "
+"default title for each type of service. For example, the default title "
+"for chat services is \"OnionShare Chat\"."
 msgstr ""
-"Tor BrowserでOnionShareのサービスを読み込むと、それぞれの種類のサービスに既定"
-"のタイトルが表示されます。例えば、チャットのサービスの既定のタイトルは"
-"「OnionShare Chat」です。"
+"Tor "
+"BrowserでOnionShareのサービスを読み込むと、それぞれの種類のサービスに既定のタイトルが表示されます。例えば、チャットのサービスの既定のタイトルは「OnionShare"
+" Chat」です。"
 
 #: ../../source/advanced.rst:42
 msgid ""
-"If you edit the \"Custom title\" setting before starting a server you can "
-"change it."
-msgstr ""
-"サーバーを開始する前に「カスタムタイトル」を設定すると、既定のタイトルを変更"
-"できます。"
+"If you edit the \"Custom title\" setting before starting a server you can"
+" change it."
+msgstr "サーバーを開始する前に「カスタムタイトル」を設定すると、既定のタイトルを変更できます。"
 
 #: ../../source/advanced.rst:45
 msgid "Scheduled Times"
@@ -124,48 +109,37 @@ msgstr "スケジュールの設定"
 
 #: ../../source/advanced.rst:47
 msgid ""
-"OnionShare supports scheduling exactly when a service should start and stop. "
-"Before starting a server, click \"Show advanced settings\" in its tab and "
-"then check the boxes next to either \"Start onion service at scheduled "
-"time\", \"Stop onion service at scheduled time\", or both, and set the "
-"respective desired dates and times."
+"OnionShare supports scheduling exactly when a service should start and "
+"stop. Before starting a server, click \"Show advanced settings\" in its "
+"tab and then check the boxes next to either \"Start onion service at "
+"scheduled time\", \"Stop onion service at scheduled time\", or both, and "
+"set the respective desired dates and times."
 msgstr ""
-"OnionShareでは、サービスを開始・停止する時刻を予定することができます。サー"
-"バーを開始する前に、そのタブの「詳細設定を表示」をクリックし、「指定の日時に"
-"Onion Serviceを開始」と「指定の日時にOnion Serviceを停止」の片方または両方に"
-"チェックを入れて、希望日時を入力してください。"
+"OnionShareでは、サービスを開始・停止する時刻を予定することができます。サーバーを開始する前に、そのタブの「詳細設定を表示」をクリックし、「指定の日時にOnion"
+" Serviceを開始」と「指定の日時にOnion Serviceを停止」の片方または両方にチェックを入れて、希望日時を入力してください。"
 
 #: ../../source/advanced.rst:51
+#, fuzzy
 msgid ""
 "Services scheduled to start in the future display a countdown timer when "
-"when the \"Start sharing\" button is clicked. Services scheduled to stop in "
+"the \"Start sharing\" button is clicked. Services scheduled to stop in "
 "the future display a countdown timer when started."
-msgstr ""
-"将来に開始するように予定されたサービスは、「共有を開始」ボタンをクリックする"
-"と、カウントダウンのタイマーを表示します。将来に終了するように予定されたサー"
-"ビスは、開始するとカウントダウンのタイマーを表示します。"
+msgstr "将来に開始するように予定されたサービスは、「共有を開始」ボタンをクリックすると、カウントダウンのタイマーを表示します。将来に終了するように予定されたサービスは、開始するとカウントダウンのタイマーを表示します。"
 
 #: ../../source/advanced.rst:54
 msgid ""
-"**Scheduling an OnionShare service to automatically start can be used as a "
-"dead man's switch**. This means your service is made public at a given time "
-"in the future if you are not there to prevent it. If nothing happens to you, "
-"you can cancel the service before it's scheduled to start."
-msgstr ""
-"**OnionShareの自動開始の設定は「死者のスイッチ」として使用できます**。その場"
-"合、もし将来、あなたによりOnionShareの自動開始の設定が解除されなければ、指定"
-"の日時にサービスが公開されます。何もあなたの身に起こらなければ、サービスが開"
-"始する前に、これを中止することができます。"
+"**Scheduling an OnionShare service to automatically start can be used as "
+"a dead man's switch**. This means your service is made public at a given "
+"time in the future if you are not there to prevent it. If nothing happens"
+" to you, you can cancel the service before it's scheduled to start."
+msgstr "**OnionShareの自動開始の設定は「死者のスイッチ」として使用できます**。その場合、もし将来、あなたによりOnionShareの自動開始の設定が解除されなければ、指定の日時にサービスが公開されます。何もあなたの身に起こらなければ、サービスが開始する前に、これを中止することができます。"
 
 #: ../../source/advanced.rst:60
 msgid ""
 "**Scheduling an OnionShare service to automatically stop limits its "
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
-msgstr ""
-"**OnionShareのサービスの自動終了の設定は、サービスが公開される期間を限定でき"
-"ます**。古くなってしまう秘密の情報などを共有したい場合は、期間を選択、限定し"
-"てこれを共有することができます。"
+msgstr "**OnionShareのサービスの自動終了の設定は、サービスが公開される期間を限定できます**。古くなってしまう秘密の情報などを共有したい場合は、期間を選択、限定してこれを共有することができます。"
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
@@ -175,110 +149,288 @@ msgstr "コマンドライン・インターフェース"
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
-msgstr ""
-"グラフィカル・インターフェースに加えて、OnionShareにはコマンドライン・イン"
-"ターフェースがあります。"
+msgstr "グラフィカル・インターフェースに加えて、OnionShareにはコマンドライン・インターフェースがあります。"
 
-#: ../../source/advanced.rst:72
+#: ../../source/advanced.rst:73
+msgid "Installing the CLI version"
+msgstr ""
+
+#: ../../source/advanced.rst:75
 msgid ""
-"You can install just the command-line version of OnionShare using ``pip3``::"
+"If you have installed the Snap, macOS or Windows package, you already "
+"have the CLI version installed."
 msgstr ""
-"``pip3`` を利用すると、OnionShareのコマンドライン版をインストールできます。"
 
-#: ../../source/advanced.rst:76
+#: ../../source/advanced.rst:77
+#, fuzzy
+msgid ""
+"Alternatively, you can install just the command-line version of "
+"OnionShare using ``pip3``::"
+msgstr "``pip3`` を利用すると、OnionShareのコマンドライン版をインストールできます。"
+
+#: ../../source/advanced.rst:81
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
-msgstr ""
-"``tor`` パッケージもインストールする必要があります。macOS の場合は ``brew "
-"install tor`` でインストールできます。"
+msgstr "``tor`` パッケージもインストールする必要があります。macOS の場合は ``brew install tor`` でインストールできます。"
 
-#: ../../source/advanced.rst:78
+#: ../../source/advanced.rst:83
 msgid "Then run it like this::"
 msgstr "その後、次のコマンドを実行してください。"
 
-#: ../../source/advanced.rst:82
+#: ../../source/advanced.rst:87
 msgid ""
-"Info about installing it on different operating systems can be found in the "
-"`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
-"README.md>`_ in the Git repository."
+"Info about installing it on different operating systems can be found in "
+"the `CLI README file "
+"<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
+"in the Git repository."
 msgstr ""
-"異なるOSでのインストールに関する情報については、Gitレポジトリにある\\ `コマン"
-"ドラインREADMEファイル <https://github.com/onionshare/onionshare/blob/"
-"develop/cli/README.md>`_\\ をご確認ください。"
+"異なるOSでのインストールに関する情報については、Gitレポジトリにある\\ `コマンドラインREADMEファイル "
+"<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_\\"
+" をご確認ください。"
 
-#: ../../source/advanced.rst:84
+#: ../../source/advanced.rst:90
+msgid "Running the CLI from Snap"
+msgstr ""
+
+#: ../../source/advanced.rst:92
+#, fuzzy
 msgid ""
-"If you installed OnionShare using the Snap package, you can also just run "
+"If you installed OnionShare using the Snap package, you can run "
 "``onionshare.cli`` to access the command-line interface version."
 msgstr ""
-"SnapパッケージでOnionShareをインストールした場合は、 ``onionshare.cli`` を実"
-"行するとコマンドライン・インターフェイスにアクセスできます。"
+"SnapパッケージでOnionShareをインストールした場合は、 ``onionshare.cli`` "
+"を実行するとコマンドライン・インターフェイスにアクセスできます。"
 
-#: ../../source/advanced.rst:87
+#: ../../source/advanced.rst:95
+msgid "Running the CLI from macOS"
+msgstr ""
+
+#: ../../source/advanced.rst:97
+msgid ""
+"From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS"
+"/onionshare-cli --help``"
+msgstr ""
+
+#: ../../source/advanced.rst:100
+msgid "Running the CLI from Windows"
+msgstr ""
+
+#: ../../source/advanced.rst:102
+msgid ""
+"In the Windows installation, the executable ``onionshare-cli.exe`` is "
+"available."
+msgstr ""
+
+#: ../../source/advanced.rst:105
 msgid "Usage"
 msgstr "使い方"
 
-#: ../../source/advanced.rst:89
-msgid ""
-"Browse the command-line documentation by running ``onionshare --help``::"
-msgstr ""
-"コマンドラインのドキュメンテーションは ``onionshare --help`` で閲覧できます。"
+#: ../../source/advanced.rst:107
+msgid "Browse the command-line documentation by running ``onionshare --help``::"
+msgstr "コマンドラインのドキュメンテーションは ``onionshare --help`` で閲覧できます。"
 
-#: ../../source/advanced.rst:151
+#: ../../source/advanced.rst:170
+msgid "Running the CLI as a systemd unit file"
+msgstr ""
+
+#: ../../source/advanced.rst:172
+msgid ""
+"It is possible to automatically start OnionShare from the CLI using a "
+"systemd unit file."
+msgstr ""
+
+#: ../../source/advanced.rst:174
+msgid ""
+"You may find this particularly useful if you are operating in "
+"'persistent' mode, and want to start the same onion service every time "
+"your machine starts."
+msgstr ""
+
+#: ../../source/advanced.rst:176
+msgid "To do this, you need to prepare some OnionShare json config first."
+msgstr ""
+
+#: ../../source/advanced.rst:178
+msgid ""
+"Here is the main OnionShare config. In this example, it's stored in "
+"``/home/user/.config/onionshare/onionshare.json``. You may need to adjust"
+" some of the settings, but if you already have OnionShare installed, it "
+"probably looks much like this already::"
+msgstr ""
+
+#: ../../source/advanced.rst:207
+msgid ""
+"Notice the 'persistent_tabs' section. We will now create a file at "
+"``/home/user/.config/onionshare/persistent/my-persistent-onion.json``, "
+"that looks like this::"
+msgstr ""
+
+#: ../../source/advanced.rst:247
+msgid ""
+"**Don't actually use this private key, service_id or client_auth keys! "
+"They are shown only as an example. Never share the private_key with "
+"anyone.**"
+msgstr ""
+
+#: ../../source/advanced.rst:249
+msgid ""
+"The easiest way to generate the onion address and private key is to first"
+" create a 'pinned' OnionShare tab in the desktop app and started the "
+"share for the first time. This will then have saved the persistent "
+"settings to your ``.config/onionshare/persistent/`` folder with a random "
+"name. You can unpin that tab once you've generated it the first time. Or,"
+" you can leave it where it is, and use that persistent file in your "
+"systemd unit file below."
+msgstr ""
+
+#: ../../source/advanced.rst:251
+msgid ""
+"Now you can create a systemd unit file in ``/etc/systemd/system"
+"/onionshare-cli.service``. Be sure to adjust the User and Group to your "
+"own user/group, as well as changes to any paths to the onionshare-cli "
+"binary or the paths to your JSON configs and shares."
+msgstr ""
+
+#: ../../source/advanced.rst:253
+msgid "The systemd unit file should look like this::"
+msgstr ""
+
+#: ../../source/advanced.rst:268
+msgid ""
+"Note that although ``/home/user/my-shared-file.txt`` was defined in the "
+"``filenames`` section of the ``my-persistent-onion.json`` file, it's "
+"still necessary to specify it as the argument to the onionshare-cli "
+"command."
+msgstr ""
+
+#: ../../source/advanced.rst:270
+msgid ""
+"Be sure to run ``sudo systemctl daemon-reload`` after creating the unit "
+"file."
+msgstr ""
+
+#: ../../source/advanced.rst:272
+msgid ""
+"Now you can run ``sudo systemctl start onionshare-cli.service``. If you "
+"have ``journalctl`` installed, you can run ``sudo journalctl -f -t "
+"onionshare-cli``, and you should see some output of your service "
+"starting::"
+msgstr ""
+
+#: ../../source/advanced.rst:282
+msgid ""
+"If you don't want your users to use a Private Key, set ``public`` to be "
+"``true`` in the ``general`` settings of the my-persistent-onion.json "
+"file."
+msgstr ""
+
+#: ../../source/advanced.rst:286
 msgid "Keyboard Shortcuts"
 msgstr "キーボードのショートカット"
 
-#: ../../source/advanced.rst:153
+#: ../../source/advanced.rst:288
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
-msgstr ""
-"OnionShareのデスクトップアプリケーションには、利便性とアクセシビリティーの観"
-"点から、いくつかのキーボードショートカットがあります。"
+msgstr "OnionShareのデスクトップアプリケーションには、利便性とアクセシビリティーの観点から、いくつかのキーボードショートカットがあります。"
 
-#: ../../source/advanced.rst:158
+#: ../../source/advanced.rst:293
 msgid "And from the main mode chooser screen::"
 msgstr "メインモードの選択画面については、以下のショートカットがあります。"
 
-#~ msgid ""
-#~ "Everything in OnionShare is temporary by default. If you close an "
-#~ "OnionShare tab, its address no longer exists and it can't be used again. "
-#~ "Sometimes you might want an OnionShare service to be persistent. This is "
-#~ "useful if you want to host a website available from the same OnionShare "
-#~ "address even if you reboot your computer."
-#~ msgstr ""
-#~ "OnionShareのデフォルト設定では、全ての機能は一時的です。OnionShareタブを閉"
-#~ "じると、そのアドレスは消えて再びに使えません。場合によっては永続的な"
-#~ "OnionShareサービスが必要かもしれない。例えばパソコンを再起動しても、永続的"
-#~ "なアドレスでOnionShareウェブサイトをホストしたい場合には役立つでしょう。"
+#: ../../source/advanced.rst:303
+msgid "Migrating your OnionShare data to another computer"
+msgstr ""
+
+#: ../../source/advanced.rst:305
+msgid ""
+"You may want to migrate your OnionShare data when switching to another "
+"computer. This is especially true if you had a 'persistent' onion address"
+" and you want to preserve it."
+msgstr ""
+
+#: ../../source/advanced.rst:307
+msgid ""
+"OnionShare stores all such data in a specific folder. Copy the relevant "
+"folder for your operating system below, to your new computer:"
+msgstr ""
+
+#: ../../source/advanced.rst:309
+msgid "Linux: ``~/.config/onionshare``"
+msgstr ""
+
+#: ../../source/advanced.rst:310
+msgid "macOS: ``~/Library/Application Support/OnionShare``"
+msgstr ""
+
+#: ../../source/advanced.rst:311
+msgid "Windows: ``%APPDATA%\\OnionShare``"
+msgstr ""
 
 #~ msgid ""
-#~ "To make any tab persistent, check the \"Save this tab, and automatically "
-#~ "open it when I open OnionShare\" box before starting the server. When a "
-#~ "tab is saved a purple pin icon appears to the left of its server status."
-#~ msgstr ""
-#~ "タブを永続的にするのに、サービスを実行する前に「このタブを保存し、"
-#~ "OnionShareがスタートアップの時に自動的に開く」というボックスをチェックす"
-#~ "る。保存された場合、紫色のピンはタブの左側に表示されます。"
+#~ "Everything in OnionShare is temporary by"
+#~ " default. If you close an OnionShare"
+#~ " tab, its address no longer exists"
+#~ " and it can't be used again. "
+#~ "Sometimes you might want an OnionShare"
+#~ " service to be persistent. This is"
+#~ " useful if you want to host a"
+#~ " website available from the same "
+#~ "OnionShare address even if you reboot"
+#~ " your computer."
+#~ msgstr "OnionShareのデフォルト設定では、全ての機能は一時的です。OnionShareタブを閉じると、そのアドレスは消えて再びに使えません。場合によっては永続的なOnionShareサービスが必要かもしれない。例えばパソコンを再起動しても、永続的なアドレスでOnionShareウェブサイトをホストしたい場合には役立つでしょう。"
 
 #~ msgid ""
-#~ "If you scheduled a service to start in the future, when you click the "
-#~ "\"Start sharing\" button you will see a timer counting down until it "
-#~ "starts. If you scheduled it to stop in the future, after it's started you "
-#~ "will see a timer counting down to when it will stop automatically."
-#~ msgstr ""
-#~ "サービスを将来に起動するよう設定した場合、「 共有を開始 」ボタンをクリック"
-#~ "すると開始時間までの減算カウンターが表示されます。将来に停止するよう設定し"
-#~ "た場合、「 共有を開始 」ボタンをクリックすると普通に開始して、停止する時間"
-#~ "までの減算カウンターは表示されます。"
+#~ "To make any tab persistent, check "
+#~ "the \"Save this tab, and automatically"
+#~ " open it when I open OnionShare\" "
+#~ "box before starting the server. When "
+#~ "a tab is saved a purple pin "
+#~ "icon appears to the left of its"
+#~ " server status."
+#~ msgstr "タブを永続的にするのに、サービスを実行する前に「このタブを保存し、OnionShareがスタートアップの時に自動的に開く」というボックスをチェックする。保存された場合、紫色のピンはタブの左側に表示されます。"
 
 #~ msgid ""
-#~ "**Scheduling an OnionShare service to automatically start can be used as "
-#~ "a dead man's switch**, where your service will be made public at a given "
-#~ "time in the future if anything happens to you. If nothing happens to you, "
-#~ "you can cancel the service before it's scheduled to start."
+#~ "If you scheduled a service to "
+#~ "start in the future, when you "
+#~ "click the \"Start sharing\" button you"
+#~ " will see a timer counting down "
+#~ "until it starts. If you scheduled "
+#~ "it to stop in the future, after"
+#~ " it's started you will see a "
+#~ "timer counting down to when it "
+#~ "will stop automatically."
 #~ msgstr ""
-#~ "**自動的な起動を予定することで、OnionShareのサービスを「デッドマン装置」と"
-#~ "して使えます。** 最悪の事態が起きた場合、特定時間にサービスは自動的に立ち"
-#~ "上がります。何も起きなかったら、立ち上がる時点の前に停止できます。"
+#~ "サービスを将来に起動するよう設定した場合、「 共有を開始 "
+#~ "」ボタンをクリックすると開始時間までの減算カウンターが表示されます。将来に停止するよう設定した場合、「 共有を開始 "
+#~ "」ボタンをクリックすると普通に開始して、停止する時間までの減算カウンターは表示されます。"
+
+#~ msgid ""
+#~ "**Scheduling an OnionShare service to "
+#~ "automatically start can be used as "
+#~ "a dead man's switch**, where your "
+#~ "service will be made public at a"
+#~ " given time in the future if "
+#~ "anything happens to you. If nothing "
+#~ "happens to you, you can cancel the"
+#~ " service before it's scheduled to "
+#~ "start."
+#~ msgstr ""
+#~ "**自動的な起動を予定することで、OnionShareのサービスを「デッドマン装置」として使えます。** "
+#~ "最悪の事態が起きた場合、特定時間にサービスは自動的に立ち上がります。何も起きなかったら、立ち上がる時点の前に停止できます。"
+
+#~ msgid ""
+#~ "Linux: ``~/.config/onionshare`` macOS: "
+#~ "``~/Library/Application Support/OnionShare`` Windows: "
+#~ "``%APPDATA%\\OnionShare``"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "__Don't actually use this private key,"
+#~ " service_id or client_auth keys! They "
+#~ "are shown only as an example. "
+#~ "Never share the private_key with "
+#~ "anyone.__"
+#~ msgstr ""
+

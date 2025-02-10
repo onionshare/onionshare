@@ -69,7 +69,12 @@ Command-line Interface
 
 In addition to its graphical interface, OnionShare has a command-line interface.
 
-You can install just the command-line version of OnionShare using ``pip3``::
+Installing the CLI version
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you have installed the Snap, macOS or Windows package, you already have the CLI version installed.
+
+Alternatively, you can install just the command-line version of OnionShare using ``pip3``::
 
     pip3 install --user onionshare-cli
 
@@ -81,7 +86,20 @@ Then run it like this::
 
 Info about installing it on different operating systems can be found in the `CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ in the Git repository.
 
-If you installed OnionShare using the Snap package, you can also just run ``onionshare.cli`` to access the command-line interface version.
+Running the CLI from Snap
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you installed OnionShare using the Snap package, you can run ``onionshare.cli`` to access the command-line interface version.
+
+Running the CLI from macOS
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/onionshare-cli --help``
+
+Running the CLI from Windows
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In the Windows installation, the executable ``onionshare-cli.exe`` is available.
 
 Usage
 ^^^^^
@@ -112,7 +130,7 @@ Browse the command-line documentation by running ``onionshare --help``::
     ╰───────────────────────────────────────────╯
 
     usage: onionshare-cli [-h] [--receive] [--website] [--chat] [--local-only] [--connect-timeout SECONDS] [--config FILENAME] [--persistent FILENAME] [--title TITLE] [--public]
-                          [--auto-start-timer SECONDS] [--auto-stop-timer SECONDS] [--no-autostop-sharing] [--data-dir data_dir] [--webhook-url webhook_url] [--disable-text]
+                          [--auto-start-timer SECONDS] [--auto-stop-timer SECONDS] [--no-autostop-sharing] [--log-filenames] [--qr] [--data-dir data_dir] [--webhook-url webhook_url] [--disable-text]
                           [--disable-files] [--disable_csp] [--custom_csp custom_csp] [-v]
                           [filename ...]
 
@@ -136,6 +154,8 @@ Browse the command-line documentation by running ``onionshare --help``::
       --auto-stop-timer SECONDS
                                 Stop onion service at scheduled time (N seconds from now)
       --no-autostop-sharing     Share files: Continue sharing after files have been sent (the default is to stop sharing)
+      --log-filenames           Log file download activity to stdout
+      --qr                      Display a QR code in the terminal for share links
       --data-dir data_dir       Receive files: Save files received to this directory
       --webhook-url webhook_url
                                 Receive files: URL to receive webhook notifications
@@ -145,6 +165,121 @@ Browse the command-line documentation by running ``onionshare --help``::
       --custom_csp custom_csp   Publish website: Set a custom Content Security Policy header
       -v, --verbose             Log OnionShare errors to stdout, and web errors to disk
 
+
+Running the CLI as a systemd unit file
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is possible to automatically start OnionShare from the CLI using a systemd unit file.
+
+You may find this particularly useful if you are operating in 'persistent' mode, and want to start the same onion service every time your machine starts.
+
+To do this, you need to prepare some OnionShare json config first.
+
+Here is the main OnionShare config. In this example, it's stored in ``/home/user/.config/onionshare/onionshare.json``. You may need to adjust some of the settings, but if you already have OnionShare installed, it probably looks much like this already::
+
+    {
+      "version": "2.6.2",
+      "connection_type": "bundled",
+      "control_port_address": "127.0.0.1",
+      "control_port_port": 9051,
+      "socks_address": "127.0.0.1",
+      "socks_port": 9050,
+      "socket_file_path": "/var/run/tor/control",
+      "auth_type": "no_auth",
+      "auth_password": "",
+      "auto_connect": true,
+      "use_autoupdate": true,
+      "autoupdate_timestamp": null,
+      "bridges_enabled": false,
+      "bridges_type": "built-in",
+      "bridges_builtin_pt": "obfs4",
+      "bridges_moat": "",
+      "bridges_custom": "",
+      "bridges_builtin": {},
+      "persistent_tabs": [
+          "my-persistent-onion"
+      ],
+      "locale": "en",
+      "theme": 0
+    }
+
+
+Notice the 'persistent_tabs' section. We will now create a file at ``/home/user/.config/onionshare/persistent/my-persistent-onion.json``, that looks like this::
+
+    {
+      "onion": {
+          "private_key": "UDIaZD8QgoXRP8JnAJ+pnlogQazfZ0wrfWJk5zPBGUBqg6+lozzjUJKTYWxwrxR33pDgJdTFtCUN1CX1FE22UQ==",
+          "client_auth_priv_key": "RHJSN4VI3NKGDSIWK45CCWTLYOJHA6DQQRQXUID3FXMAILYXWVUQ",
+          "client_auth_pub_key": "J4YLYAHS25UU3TZTE27H32RN3MCRGLR345U52XS2JNQ76CCHCRSQ"
+      },
+      "persistent": {
+          "mode": "share",
+          "enabled": true
+      },
+      "general": {
+          "title": null,
+          "public": false,
+          "autostart_timer": 0,
+          "autostop_timer": 0,
+          "service_id": "niktadkcp6z7rym3r5o3j2hnmis53mno5ughvur357xo7jkjvmqrchid",
+          "qr": false
+      },
+      "share": {
+         "autostop_sharing": true,
+         "filenames": [
+           "/home/user/my-shared-file.txt"
+         ]
+      },
+      "receive": {
+         "data_dir": "/home/user/OnionShare",
+         "webhook_url": null,
+         "disable_text": false,
+         "disable_files": false
+      },
+      "website": {
+         "disable_csp": false,
+         "custom_csp": null,
+         "filenames": []
+      },
+      "chat": {}
+    }
+
+**Don't actually use this private key, service_id or client_auth keys! They are shown only as an example. Never share the private_key with anyone.**
+
+The easiest way to generate the onion address and private key is to first create a 'pinned' OnionShare tab in the desktop app and started the share for the first time. This will then have saved the persistent settings to your ``.config/onionshare/persistent/`` folder with a random name. You can unpin that tab once you've generated it the first time. Or, you can leave it where it is, and use that persistent file in your systemd unit file below.
+
+Now you can create a systemd unit file in ``/etc/systemd/system/onionshare-cli.service``. Be sure to adjust the User and Group to your own user/group, as well as changes to any paths to the onionshare-cli binary or the paths to your JSON configs and shares.
+
+The systemd unit file should look like this::
+
+    [Unit]
+    Description=OnionShare CLI
+    After=network.target
+
+    [Service]
+    ExecStart=/home/user/.local/bin/onionshare-cli --persistent /home/user/.config/onionshare/persistent/my-persistent-onion.json /home/user/my-shared-file.txt
+    Restart=on-failure
+    User=user
+    Group=user
+
+    [Install]
+    WantedBy=multi-user.target
+
+Note that although ``/home/user/my-shared-file.txt`` was defined in the ``filenames`` section of the ``my-persistent-onion.json`` file, it's still necessary to specify it as the argument to the onionshare-cli command.
+
+Be sure to run ``sudo systemctl daemon-reload`` after creating the unit file.
+
+Now you can run ``sudo systemctl start onionshare-cli.service``. If you have ``journalctl`` installed, you can run ``sudo journalctl -f -t onionshare-cli``, and you should see some output of your service starting::
+
+    [...]
+    Feb 09 10:14:09 onionshare onionshare-cli[18852]: [6.5K blob data]
+    Feb 09 10:14:18 onionshare onionshare-cli[18852]: Compressing files.
+    Feb 09 10:14:18 onionshare onionshare-cli[18852]: Give this address and private key to the recipient:
+    Feb 09 10:14:18 onionshare onionshare-cli[18852]: http://niktadkcp6z7rym3r5o3j2hnmis53mno5ughvur357xo7jkjvmqrchid.onion
+    Feb 09 10:14:18 onionshare onionshare-cli[18852]: Private key: RHJSN4VI3NKGDSIWK45CCWTLYOJHA6DQQRQXUID3FXMAILYXWVUQ
+    Feb 09 10:14:18 onionshare onionshare-cli[18852]: Press Ctrl+C to stop the server
+
+If you don't want your users to use a Private Key, set ``public`` to be ``true`` in the ``general`` settings of the my-persistent-onion.json file.
 
 
 Keyboard Shortcuts
@@ -162,3 +297,15 @@ And from the main mode chooser screen::
     Ctrl W - Website mode
     Ctrl C - Chat mode
     Ctrl H - Settings tab
+
+
+Migrating your OnionShare data to another computer
+--------------------------------------------------
+
+You may want to migrate your OnionShare data when switching to another computer. This is especially true if you had a 'persistent' onion address and you want to preserve it.
+
+OnionShare stores all such data in a specific folder. Copy the relevant folder for your operating system below, to your new computer:
+
+ * Linux: ``~/.config/onionshare``
+ * macOS: ``~/Library/Application Support/OnionShare``
+ * Windows: ``%APPDATA%\OnionShare``
