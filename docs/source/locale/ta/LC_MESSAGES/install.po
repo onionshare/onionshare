@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.2\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-09 09:35+1100\n"
 "PO-Revision-Date: 2025-01-22 16:07+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: none\n"
@@ -27,7 +27,9 @@ msgid "Windows or macOS"
 msgstr "சாளரங்கள் அல்லது மேகோச்"
 
 #: ../../source/install.rst:7
-msgid "You can download OnionShare for Windows and macOS from the `OnionShare website <https://onionshare.org/>`_."
+msgid ""
+"You can download OnionShare for Windows and macOS from the `OnionShare "
+"website <https://onionshare.org/>`_."
 msgstr ""
 "சாளரங்கள் மற்றும் மேகோசிற்கான வெங்காயத்தை `வெங்காயர் வலைத்தளத்திலிருந்து <https://"
 "onionshare.org/> _ _ இலிருந்து பதிவிறக்கம் செய்யலாம்."
@@ -38,18 +40,19 @@ msgstr "மொபைல்"
 
 #: ../../source/install.rst:14
 msgid "You can download OnionShare for Mobile from the follow links"
-msgstr ""
-"பின்தொடர்தல் இணைப்புகளிலிருந்து மொபைலுக்கான வெங்காயத்தை பதிவிறக்கம் செய்யலாம்"
+msgstr "பின்தொடர்தல் இணைப்புகளிலிருந்து மொபைலுக்கான வெங்காயத்தை பதிவிறக்கம் செய்யலாம்"
 
 #: ../../source/install.rst:18
 msgid "Android"
 msgstr "ஆண்ட்ராய்டு"
 
 #: ../../source/install.rst:17
-msgid "Google Play: https://play.google.com/store/apps/details?id=org.onionshare.android"
+msgid ""
+"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
+"android"
 msgstr ""
-"கூகிள் பிளே: https://play.google.com/store/apps/"
-"details?id=org.onionshare.android"
+"கூகிள் பிளே: https://play.google.com/store/apps/details?id=org.onionshare."
+"android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
@@ -64,7 +67,8 @@ msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
 msgstr "ஆப்பிள் ஆப் ச்டோர்: https://app.apple.com/app/onionshare/id1601890129"
 
 #: ../../source/install.rst:22
-msgid "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
+msgid ""
+"Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
 "நேரடி ஐபிஏ பதிவிறக்கம்: https://github.com/onionshare/onionshare-ios/relaess"
 
@@ -77,7 +81,11 @@ msgid "Linux"
 msgstr "லினக்ச்"
 
 #: ../../source/install.rst:29
-msgid "There are various ways to install OnionShare for Linux, but the recommended way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap <https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll always use the newest version and run OnionShare inside of a sandbox."
+msgid ""
+"There are various ways to install OnionShare for Linux, but the recommended "
+"way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap "
+"<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
+"always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
 "லினக்சுக்கு வெங்காயத்தை நிறுவ பல்வேறு வழிகள் உள்ளன, ஆனால் பரிந்துரைக்கப்பட்ட வழி "
 "`பிளாட்பாக் <https://flatpak.org/> _ _ அல்லது` ச்னாப் <https://snapcraft.io/> _ "
@@ -85,46 +93,62 @@ msgstr ""
 "பதிப்பைப் பயன்படுத்துவதையும், சாண்ட்பாக்சின் உள்ளே வெங்காயத்தை இயக்குவதையும் உறுதிசெய்க."
 
 #: ../../source/install.rst:32
-msgid "Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak support, but which you use is up to you. Both work in all Linux distributions."
+msgid ""
+"Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak "
+"support, but which you use is up to you. Both work in all Linux "
+"distributions."
 msgstr ""
 "ச்னாப்ட்ரா கிராஃப்ட் உதவி உபுண்டுவுக்கு கட்டமைக்கப்பட்டுள்ளது மற்றும் ஃபெடோரா பிளாட்பாக் "
 "ஆதரவுடன் வருகிறது, ஆனால் நீங்கள் பயன்படுத்துவது உங்களுடையது. இரண்டும் அனைத்து லினக்ச் "
 "விநியோகங்களிலும் வேலை செய்கின்றன."
 
 #: ../../source/install.rst:34
-msgid "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org.onionshare.OnionShare"
+msgid ""
+"**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
+"onionshare.OnionShare"
 msgstr ""
-"**Install OnionShare using Flatpak**: https://flathub.org/apps/details/"
-"org.onionshare.OnionShare"
+"**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
+"onionshare.OnionShare"
 
 #: ../../source/install.rst:36
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
-msgstr "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
+msgstr ""
+"**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:38
-msgid "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` packages from https://onionshare.org/dist/ if you prefer."
+msgid ""
+"You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
+"packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
-"நீங்கள் விரும்பினால் https://onionshare.org/dist/ இலிருந்து PGP- கையொப்பமிடப்பட்ட `` "
-".flatpak`` அல்லது `.snap`` தொகுப்புகளையும் பதிவிறக்கம் செய்து நிறுவலாம்."
+"நீங்கள் விரும்பினால் https://onionshare.org/dist/ இலிருந்து PGP- கையொப்பமிடப்பட்ட `` ."
+"flatpak`` அல்லது `.snap`` தொகுப்புகளையும் பதிவிறக்கம் செய்து நிறுவலாம்."
 
 #: ../../source/install.rst:41
 msgid "Manual Flatpak Installation"
 msgstr "கையேடு பிளாட்பாக் நிறுவல்"
 
 #: ../../source/install.rst:43
-msgid "If you'd like to install OnionShare manually with Flatpak using the PGP-signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-bundles.html>`_, you can do so like this:"
+msgid ""
+"If you'd like to install OnionShare manually with Flatpak using the PGP-"
+"signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
+"bundles.html>`_, you can do so like this:"
 msgstr ""
 "பிசிபி-குறியிடப்பட்ட `ஒற்றை-கோப்பு மூட்டை <https://docs.flatpak.org/en/latest/"
 "single-file-pundles.html> _ _, நீங்கள் செய்ய முடியும் என்றால், நீங்கள் செய்ய முடியும் "
 "எனவே இப்படி:"
 
 #: ../../source/install.rst:45
-msgid "Install Flatpak by following the instructions at https://flatpak.org/setup/."
+msgid ""
+"Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
 "Https://flatpak.org/setup/ இல் உள்ள வழிமுறைகளைப் பின்பற்றி பிளாட்பேக்கை நிறுவவும்."
 
 #: ../../source/install.rst:46
-msgid "Add the Flathub repository by running ``flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo``. Even though you won't be downloading OnionShare from Flathub, OnionShare depends on some packages that are only available there."
+msgid ""
+"Add the Flathub repository by running ``flatpak remote-add --if-not-exists "
+"flathub https://flathub.org/repo/flathub.flatpakrepo``. Even though you "
+"won't be downloading OnionShare from Flathub, OnionShare depends on some "
+"packages that are only available there."
 msgstr ""
 "`` பிளாட்பாக் ரிமோட்-ஏட் --ஃப்-நோட்-எக்சிச்டுகள் பிளாட்டப் https: // flathub.org/repo/"
 "flathub.flatpakrepo`` ஆகியவற்றை இயக்குவதன் மூலம் பிளாட்டப் களஞ்சியத்தைச் சேர்க்கவும். "
@@ -132,58 +156,77 @@ msgstr ""
 "அங்கு கிடைக்கும் சில தொகுப்புகளைப் பொறுத்தது."
 
 #: ../../source/install.rst:47
-msgid "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, and download the ``.flatpak`` and ``.flatpak.asc`` files."
+msgid ""
+"Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
+"and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
 "Https://onionshare.org/dist/ க்குச் சென்று, வெங்காயத்தின் அண்மைக் கால பதிப்பைத் "
 "தேர்ந்தெடுத்து, `` .flatpak`` மற்றும் `` .flatpak.asc`` கோப்புகளைப் பதிவிறக்கவும்."
 
 #: ../../source/install.rst:48
-msgid "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` for more info."
+msgid ""
+"Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
+"for more info."
 msgstr ""
 "`` .Flatpak`` கோப்பின் பிசிபி கையொப்பத்தை சரிபார்க்கவும். காண்க: குறிப்பு: மேலும் "
 "தகவலுக்கு `சரிபார்ப்பு_சிக்ச்`."
 
 #: ../../source/install.rst:49
-msgid "Install the ``.flatpak`` file by running ``flatpak install OnionShare-VERSION.flatpak``. Replace ``VERSION`` with the version number of the file you downloaded."
+msgid ""
+"Install the ``.flatpak`` file by running ``flatpak install OnionShare-"
+"VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
+"you downloaded."
 msgstr ""
 "`` `` `` பிளாட்பாக் நிறுவி வெங்காயர்-அழுத்தத்தை நிறுவுவதன் மூலம் `` .flatpak`` கோப்பை "
 "நிறுவவும். நீங்கள் பதிவிறக்கிய கோப்பின் பதிப்பு எண்ணுடன் `` பதிப்பு`` ஐ மாற்றவும்."
 
 #: ../../source/install.rst:51
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
-msgstr ""
-"நீங்கள் வெங்காயத்தை இயக்கலாம்: `பிளாட்பாக் ரன் org.onionshare.onionshare`."
+msgstr "நீங்கள் வெங்காயத்தை இயக்கலாம்: `பிளாட்பாக் ரன் org.onionshare.onionshare`."
 
 #: ../../source/install.rst:54
 msgid "Manual Snapcraft Installation"
 msgstr "கையேடு ச்னாப் கிராஃப்ட் நிறுவல்"
 
 #: ../../source/install.rst:56
-msgid "If you'd like to install OnionShare manually with Snapcraft using the PGP-signed Snapcraft package, you can do so like this:"
+msgid ""
+"If you'd like to install OnionShare manually with Snapcraft using the PGP-"
+"signed Snapcraft package, you can do so like this:"
 msgstr ""
 "பிசிபி கையொப்பமிடப்பட்ட ச்னாப்கிராஃப்ட் தொகுப்பைப் பயன்படுத்தி ச்னாப் கிராஃப்ட் மூலம் "
 "கைமுறையாக வெங்காயத்தை நிறுவ விரும்பினால், நீங்கள் இதை இவ்வாறு செய்யலாம்:"
 
 #: ../../source/install.rst:58
-msgid "Install Snapcraft by following the instructions at https://snapcraft.io/docs/installing-snapd."
+msgid ""
+"Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
+"installing-snapd."
 msgstr ""
 "Https://snapcract.io/docs/installing-snapd இல் உள்ள வழிமுறைகளைப் பின்பற்றி "
 "ச்னாப்கிராஃப்ட் நிறுவவும்."
 
 #: ../../source/install.rst:59
-msgid "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, and download the ``.snap`` and ``.snap.asc`` files."
+msgid ""
+"Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
+"and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
 "Https://onionshare.org/dist/ க்குச் சென்று, வெங்காயத்தின் அண்மைக் கால பதிப்பைத் "
 "தேர்ந்தெடுத்து, `` .snap`` மற்றும் `` .snap.asc`` கோப்புகளைப் பதிவிறக்கவும்."
 
 #: ../../source/install.rst:60
-msgid "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` for more info."
+msgid ""
+"Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
+"for more info."
 msgstr ""
-"`` .Snap`` கோப்பின் பிசிபி கையொப்பத்தை சரிபார்க்கவும். காண்க: குறிப்பு: மேலும் தகவலுக்கு"
-" `சரிபார்ப்பு_சிக்ச்`."
+"`` .Snap`` கோப்பின் பிசிபி கையொப்பத்தை சரிபார்க்கவும். காண்க: குறிப்பு: மேலும் "
+"தகவலுக்கு `சரிபார்ப்பு_சிக்ச்`."
 
 #: ../../source/install.rst:61
-msgid "Install the ``.snap`` file by running ``snap install --dangerous onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version number of the file you downloaded. Note that you must use `--dangerous` because the package is not signed by the Snapcraft store, however you did verify its PGP signature, so you know it's legitimate."
+msgid ""
+"Install the ``.snap`` file by running ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Replace ``VERSION`` with the version number "
+"of the file you downloaded. Note that you must use `--dangerous` because the "
+"package is not signed by the Snapcraft store, however you did verify its PGP "
+"signature, so you know it's legitimate."
 msgstr ""
 "`` .Snap`` கோப்பை `` ச்னாப் நிறுவலை இயக்குவதன் மூலம் நிறுவவும் -ஆபத்தான "
 "வெங்காயர்_பிரெக்கம்_எம்.டி 64.SNAP``. நீங்கள் பதிவிறக்கிய கோப்பின் பதிப்பு எண்ணுடன் `` "
@@ -200,7 +243,9 @@ msgid "Command-line only"
 msgstr "கட்டளை-வரி மட்டுமே"
 
 #: ../../source/install.rst:70
-msgid "You can install just the command-line version of OnionShare on any operating system using the Python package manager ``pip``. :ref:`cli` has more info."
+msgid ""
+"You can install just the command-line version of OnionShare on any operating "
+"system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
 "பைதான் தொகுப்பு மேலாளர் `` பிப்`` ஐப் பயன்படுத்தி எந்த இயக்க முறைமையிலும் வெங்காயத்தின் "
 "கட்டளை-வரி பதிப்பை நீங்கள் நிறுவலாம். : Ref: `Cli` க்கு கூடுதல் செய்தி உள்ளது."
@@ -210,7 +255,12 @@ msgid "FreeBSD"
 msgstr "Freebsd"
 
 #: ../../source/install.rst:77
-msgid "Althought not being officially developed for this platform, OnionShare can also be installed on `FreeBSD <https://freebsd.org/>`_. It's available via its ports collection or as pre-built package. Should you opt to install and use OnionShare on a FreeBSD operating system, please be aware that it's **NOT** officially supported by the OnionShare project."
+msgid ""
+"Althought not being officially developed for this platform, OnionShare can "
+"also be installed on `FreeBSD <https://freebsd.org/>`_. It's available via "
+"its ports collection or as pre-built package. Should you opt to install and "
+"use OnionShare on a FreeBSD operating system, please be aware that it's "
+"**NOT** officially supported by the OnionShare project."
 msgstr ""
 "இந்த தளத்திற்காக அதிகாரப்பூர்வமாக உருவாக்கப்படாத, வெங்காயத்தை `FreeBSD <https://"
 "freebsd.org/> _ _ இல் நிறுவலாம். இது அதன் துறைமுக சேகரிப்பு வழியாக அல்லது முன்பே "
@@ -219,13 +269,19 @@ msgstr ""
 "ஆதரிக்கப்படுகிறது ** ** அல்ல என்பதை அறிந்து கொள்ளுங்கள்."
 
 #: ../../source/install.rst:79
-msgid "Though not being offered and officially maintained by the OnionShare developers, the FreeBSD packages and ports do fetch and verifies the source codes from the official OnionShare repository (or its official release packages from `PyPI <https://pypi.org/project/onionshare-cli/>`_). Should you wish to check changes related to this platform, please refer to the following resources:"
+msgid ""
+"Though not being offered and officially maintained by the OnionShare "
+"developers, the FreeBSD packages and ports do fetch and verifies the source "
+"codes from the official OnionShare repository (or its official release "
+"packages from `PyPI <https://pypi.org/project/onionshare-cli/>`_). Should "
+"you wish to check changes related to this platform, please refer to the "
+"following resources:"
 msgstr ""
-"வெங்காய டெவலப்பர்களால் வழங்கப்பட்டு அதிகாரப்பூர்வமாக பராமரிக்கப்படாவிட்டாலும், "
-"ஃப்ரீ.பி.எச்.டி தொகுப்புகள் மற்றும் துறைமுகங்கள் அதிகாரப்பூர்வ வெங்காய களஞ்சியத்திலிருந்து "
-"(அல்லது அதன் அதிகாரப்பூர்வ வெளியீட்டு தொகுப்புகளை `pypi <https://pypi.org/project/"
-"onionshare இலிருந்து மூலக் குறியீடுகளைப் பெறுகின்றன. -cli/> `_). இந்த தளம் தொடர்பான "
-"மாற்றங்களை நீங்கள் சரிபார்க்க விரும்பினால், தயவுசெய்து பின்வரும் ஆதாரங்களைப் பார்க்கவும்:"
+"வெங்காய டெவலப்பர்களால் வழங்கப்பட்டு அதிகாரப்பூர்வமாக பராமரிக்கப்படாவிட்டாலும், ஃப்ரீ.பி.எச்."
+"டி தொகுப்புகள் மற்றும் துறைமுகங்கள் அதிகாரப்பூர்வ வெங்காய களஞ்சியத்திலிருந்து (அல்லது அதன் "
+"அதிகாரப்பூர்வ வெளியீட்டு தொகுப்புகளை `pypi <https://pypi.org/project/onionshare "
+"இலிருந்து மூலக் குறியீடுகளைப் பெறுகின்றன. -cli/> `_). இந்த தளம் தொடர்பான மாற்றங்களை "
+"நீங்கள் சரிபார்க்க விரும்பினால், தயவுசெய்து பின்வரும் ஆதாரங்களைப் பார்க்கவும்:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
@@ -240,21 +296,30 @@ msgid "Manual pkg Installation"
 msgstr "கையேடு பி.கே.சி நிறுவல்"
 
 #: ../../source/install.rst:87
-msgid "To install the binary package, use ``pkg install pyXY-onionshare``, with ``pyXY`` specifying the version of Python the package was built for. So, in order to install OnionShare for Python 3.9, use::"
+msgid ""
+"To install the binary package, use ``pkg install pyXY-onionshare``, with "
+"``pyXY`` specifying the version of Python the package was built for. So, in "
+"order to install OnionShare for Python 3.9, use::"
 msgstr ""
-"பைனரி தொகுப்பை நிறுவ, `` pkg pyxy-onionshare`` ஐ நிறுவவும், `` pyxy`` `` pyxy``"
-" பைத்தானின் பதிப்பைக் குறிப்பிடுகிறது. எனவே, பைதான் 3.9 க்கு வெங்காயத்தை நிறுவ, "
+"பைனரி தொகுப்பை நிறுவ, `` pkg pyxy-onionshare`` ஐ நிறுவவும், `` pyxy`` `` "
+"pyxy`` பைத்தானின் பதிப்பைக் குறிப்பிடுகிறது. எனவே, பைதான் 3.9 க்கு வெங்காயத்தை நிறுவ, "
 "பயன்படுத்தவும் ::"
 
 #: ../../source/install.rst:91
-msgid "There's also a **Command-line only** version of OnionShare available as pre-built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you want to install that version."
+msgid ""
+"There's also a **Command-line only** version of OnionShare available as pre-"
+"built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
+"want to install that version."
 msgstr ""
 "வெங்காயத்தின் ** கட்டளை-வரி மட்டும் ** பதிப்பும் முன்பே கட்டப்பட்ட தொகுப்பாக கிடைக்கிறது. "
 "நீங்கள் அந்த பதிப்பை நிறுவ விரும்பினால் `` py39-onionshare`` ஆல் `` py39-onionshare-"
 "cli`` ஆல் மாற்றவும்."
 
 #: ../../source/install.rst:93
-msgid "For additional information and details about the FreeBSD pre-built packages, please refer to its `official Handbook section about pkg <https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
+msgid ""
+"For additional information and details about the FreeBSD pre-built packages, "
+"please refer to its `official Handbook section about pkg <https://docs."
+"freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
 "FreeBSD முன்பே கட்டப்பட்ட தொகுப்புகள் பற்றிய கூடுதல் தகவல்கள் மற்றும் விவரங்களுக்கு, "
 "தயவுசெய்து அதன் `PKG <https://docs.freebsd.org/en/handbook/porks/ports/#pkggng-"
@@ -265,20 +330,29 @@ msgid "Manual port Installation"
 msgstr "கையேடு துறைமுகம் நிறுவல்"
 
 #: ../../source/install.rst:98
-msgid "To install the FreeBSD port, change directory to the `ports collection <https://freebsd.org/ports/>`_ you must have checked out before and run the following::"
+msgid ""
+"To install the FreeBSD port, change directory to the `ports collection "
+"<https://freebsd.org/ports/>`_ you must have checked out before and run the "
+"following::"
 msgstr ""
 "FreeBSD போர்ட்டை நிறுவ, கோப்பகத்தை `போர்ட்ச் சேகரிப்பு <https://freebsd.org/ports/>` "
 "_ நீங்கள் முன்பு சரிபார்த்து பின்வருவனவற்றை இயக்க வேண்டும் ::"
 
 #: ../../source/install.rst:102
-msgid "The ports collection also offers a dedicated port for the **Command-line only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-cli`` if you want to install that version."
+msgid ""
+"The ports collection also offers a dedicated port for the **Command-line "
+"only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
+"cli`` if you want to install that version."
 msgstr ""
 "போர்ட்ச் சேகரிப்பு ** கட்டளை-வரி மட்டும் ** வெங்காயத்தின் பதிப்பிற்கான பிரத்யேக "
-"துறைமுகத்தையும் வழங்குகிறது. நீங்கள் அந்த பதிப்பை நிறுவ விரும்பினால் `` www/"
-"வெங்காயர்-கிளி`` ஆல் `` www/வெங்காயர்`` ஆல் மாற்றவும்."
+"துறைமுகத்தையும் வழங்குகிறது. நீங்கள் அந்த பதிப்பை நிறுவ விரும்பினால் `` www/வெங்காயர்-"
+"கிளி`` ஆல் `` www/வெங்காயர்`` ஆல் மாற்றவும்."
 
 #: ../../source/install.rst:104
-msgid "For additional information and details about the FreeBSD ports collection, please refer to its `official Handbook section about ports <https://docs.freebsd.org/en/books/handbook/ports/#ports-using>`_."
+msgid ""
+"For additional information and details about the FreeBSD ports collection, "
+"please refer to its `official Handbook section about ports <https://docs."
+"freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
 "FreeBSD போர்ட்கள் சேகரிப்பு பற்றிய கூடுதல் தகவல்கள் மற்றும் விவரங்களுக்கு, தயவுசெய்து அதன் "
 "`துறைமுகங்கள் பற்றிய அதிகாரப்பூர்வ கையேடு பிரிவைப் பார்க்கவும்"
@@ -288,11 +362,16 @@ msgid "Verifying PGP signatures"
 msgstr "பிசிபி கையொப்பங்களை சரிபார்க்கிறது"
 
 #: ../../source/install.rst:111
-msgid "You can verify that the package you download is legitimate and hasn't been tampered with by verifying its PGP signature. For Windows and macOS, this step is optional and provides defense in depth: the OnionShare binaries include operating system-specific signatures, and you can just rely on those alone if you'd like."
+msgid ""
+"You can verify that the package you download is legitimate and hasn't been "
+"tampered with by verifying its PGP signature. For Windows and macOS, this "
+"step is optional and provides defense in depth: the OnionShare binaries "
+"include operating system-specific signatures, and you can just rely on those "
+"alone if you'd like."
 msgstr ""
 "நீங்கள் பதிவிறக்கும் தொகுப்பு முறையானது மற்றும் அதன் பிசிபி கையொப்பத்தை சரிபார்ப்பதன் மூலம் "
-"சேதமடையவில்லை என்பதை நீங்கள் சரிபார்க்கலாம். சாளரங்கள் மற்றும் மேகோசைப் பொறுத்தவரை, இந்த படி"
-" விருப்பமானது மற்றும் பாதுகாப்பை ஆழமாக வழங்குகிறது: வெங்காய கைது பைனரிகளில் இயக்க "
+"சேதமடையவில்லை என்பதை நீங்கள் சரிபார்க்கலாம். சாளரங்கள் மற்றும் மேகோசைப் பொறுத்தவரை, இந்த "
+"படி விருப்பமானது மற்றும் பாதுகாப்பை ஆழமாக வழங்குகிறது: வெங்காய கைது பைனரிகளில் இயக்க "
 "முறைமை சார்ந்த கையொப்பங்கள் அடங்கும், மேலும் நீங்கள் விரும்பினால் தனியாக இருப்பவர்களை "
 "நம்பலாம்."
 
@@ -301,7 +380,10 @@ msgid "Signing key"
 msgstr "கையொப்பமிடும் விசை"
 
 #: ../../source/install.rst:117
-msgid "Packages are signed by the core developer who is responsible for the particular release. Following are the informations of the core developers of OnionShare:"
+msgid ""
+"Packages are signed by the core developer who is responsible for the "
+"particular release. Following are the informations of the core developers of "
+"OnionShare:"
 msgstr ""
 "குறிப்பிட்ட வெளியீட்டிற்கு பொறுப்பான கோர் டெவலப்பரால் தொகுப்புகள் கையொப்பமிடப்படுகின்றன. "
 "வெங்காயவாதியின் முக்கிய டெவலப்பர்களின் தகவல்கள் பின்வருமாறு:"
@@ -311,11 +393,15 @@ msgid "Micah Lee:"
 msgstr "மீகா லீ:"
 
 #: ../../source/install.rst:121
-msgid "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+msgid ""
+"PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 msgstr "பிசிபி பொது விசை கைரேகை `` 927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
-msgid "You can download Micah's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+msgid ""
+"You can download Micah's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr "விசைகளிலிருந்து நீங்கள் மைக்காவின் விசையை பதிவிறக்கம் செய்யலாம்."
 
 #: ../../source/install.rst:126
@@ -323,43 +409,57 @@ msgid "Saptak Sengupta:"
 msgstr "சப்தக் சென்குப்தா:"
 
 #: ../../source/install.rst:125
-msgid "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
+msgid ""
+"PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 msgstr "PGP பொது விசை கைரேகை `` 2AE3D40A6905C8E4E8E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
-msgid "You can download Saptak's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+msgid ""
+"You can download Saptak's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
 "நீங்கள் சாப்டக்கின் விசையை `keys.openpgp.org கீசர்வர் <https://keys.openpgp.org/vks/"
 "v1/by-fingerprint/2ae3d40a6905c8e4e8e8ed95ece46a2b977c146b >66b> ஐ"
 
 #: ../../source/install.rst:128
-msgid "You must have GnuPG installed to verify signatures. For macOS you probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want `Gpg4win <https://www.gpg4win.org/>`_."
+msgid ""
+"You must have GnuPG installed to verify signatures. For macOS you probably "
+"want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
+"`Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
 "கையொப்பங்களை சரிபார்க்க நீங்கள் gnupg நிறுவியிருக்க வேண்டும். மேகோசுக்கு நீங்கள் `gpgtools "
-"<https://gpgtools.org/> _ _, மற்றும் விண்டோசுக்கு நீங்கள்` gpg4win <https://"
-"www.gpg4win.org/> _ _."
+"<https://gpgtools.org/> _ _, மற்றும் விண்டோசுக்கு நீங்கள்` gpg4win <https://www."
+"gpg4win.org/> _ _."
 
 #: ../../source/install.rst:131
 msgid "Signatures"
 msgstr "கையொப்பங்கள்"
 
 #: ../../source/install.rst:133
-msgid "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the folders named for each version of OnionShare. You can also find them on the `GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
+msgid ""
+"You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
+"Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
+"folders named for each version of OnionShare. You can also find them on the "
+"`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "நீங்கள் கையொப்பங்களை (`` .ஆச்க்` `கோப்புகள்), அத்துடன் சாளரங்கள், மேகோச், பிளாட்பாக், ச்னாப் "
 "மற்றும் மூல தொகுப்புகள், https://onionshare.org/dist/ இல் ஒவ்வொரு பதிப்பிற்கும் "
-"பெயரிடப்பட்ட கோப்புறைகளில் காணலாம் வெங்காயம். `கிட்அப் வெளியீட்டு பக்கம் <https://"
-"github.com/onionshare/onionshare/releases> _ _ இல் அவற்றைக் காணலாம்."
+"பெயரிடப்பட்ட கோப்புறைகளில் காணலாம் வெங்காயம். `கிட்அப் வெளியீட்டு பக்கம் <https://github."
+"com/onionshare/onionshare/releases> _ _ இல் அவற்றைக் காணலாம்."
 
 #: ../../source/install.rst:137
 msgid "Verifying"
 msgstr "சரிபார்க்கும்"
 
 #: ../../source/install.rst:139
-msgid "Once you have imported the core developers public keys into your GnuPG keychain, downloaded the binary and ``.asc`` signature, you can verify the binary in a terminal like this:"
+msgid ""
+"Once you have imported the core developers public keys into your GnuPG "
+"keychain, downloaded the binary and ``.asc`` signature, you can verify the "
+"binary in a terminal like this:"
 msgstr ""
-"கோர் டெவலப்பர்களின் பொது விசைகளை உங்கள் க்னூப் கீச்சினில் இறக்குமதி செய்தவுடன், பைனரி மற்றும்"
-" `` .ஆச்`` கையொப்பத்தை பதிவிறக்கம் செய்தால், இது போன்ற ஒரு முனையத்தில் பைனரியை "
+"கோர் டெவலப்பர்களின் பொது விசைகளை உங்கள் க்னூப் கீச்சினில் இறக்குமதி செய்தவுடன், பைனரி "
+"மற்றும் `` .ஆச்`` கையொப்பத்தை பதிவிறக்கம் செய்தால், இது போன்ற ஒரு முனையத்தில் பைனரியை "
 "சரிபார்க்கலாம்:"
 
 #: ../../source/install.rst:141
@@ -383,19 +483,29 @@ msgid "The expected output looks like this::"
 msgstr "எதிர்பார்க்கப்படும் வெளியீடு இப்படி தெரிகிறது ::"
 
 #: ../../source/install.rst:169
-msgid "If you don't see ``Good signature from``, there might be a problem with the integrity of the file (malicious or otherwise), and you should not install the package."
+msgid ""
+"If you don't see ``Good signature from``, there might be a problem with the "
+"integrity of the file (malicious or otherwise), and you should not install "
+"the package."
 msgstr ""
 "`` நல்ல கையொப்பத்தை நீங்கள் காணவில்லை என்றால், கோப்பின் ஒருமைப்பாட்டில் (தீங்கிழைக்கும் அல்லது "
 "வேறுவிதமாக) சிக்கல் இருக்கலாம், மேலும் நீங்கள் தொகுப்பை நிறுவக்கூடாது."
 
 #: ../../source/install.rst:171
-msgid "The ``WARNING:`` shown above, is not a problem with the package, it only means you haven't defined a level of \"trust\" of Micah's (the core developer) PGP key."
+msgid ""
+"The ``WARNING:`` shown above, is not a problem with the package, it only "
+"means you haven't defined a level of \"trust\" of Micah's (the core "
+"developer) PGP key."
 msgstr ""
-"`` எச்சரிக்கை: `` மேலே காட்டப்பட்டுள்ளது, தொகுப்பில் ஒரு சிக்கல் இல்லை, இதன் பொருள் மீகாவின்"
-" (கோர் டெவலப்பர்) பிசிபி விசையின் \"நம்பிக்கையை\" நீங்கள் வரையறுக்கவில்லை."
+"`` எச்சரிக்கை: `` மேலே காட்டப்பட்டுள்ளது, தொகுப்பில் ஒரு சிக்கல் இல்லை, இதன் பொருள் "
+"மீகாவின் (கோர் டெவலப்பர்) பிசிபி விசையின் \"நம்பிக்கையை\" நீங்கள் வரையறுக்கவில்லை."
 
 #: ../../source/install.rst:173
-msgid "If you want to learn more about verifying PGP signatures, the guides for `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ may be useful."
+msgid ""
+"If you want to learn more about verifying PGP signatures, the guides for "
+"`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
+"the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/"
+">`_ may be useful."
 msgstr ""
 "பிசிபி கையொப்பங்களை சரிபார்ப்பது பற்றி மேலும் அறிய நீங்கள் விரும்பினால், `கியூபச் ஓஎச் "
 "<https://www.qubes-os.org/security/security-signatures/>` _ மற்றும் `TOR திட்டம் "

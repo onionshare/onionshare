@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"POT-Creation-Date: 2025-02-09 09:44+1100\n"
 "PO-Revision-Date: 2023-06-06 17:06+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: none\n"
@@ -107,7 +107,7 @@ msgstr ""
 "អ្នកអាចប្រើ OnionShare ដើម្បីផ្ញើឯកសារ និងថតឯកសារទៅកាន់មនុស្សដោយសុវត្ថិភាព និងអនាមិក។ "
 "បើកផ្ទាំងបញ្ជូន អូសឯកសារ និងថតឯកសារាដែលអ្នកចង់ចែករំលែក ហើយចុច \"ចាប់ផ្តើមបញ្ជូន\"។"
 
-#: ../../source/features.rst:35 ../../source/features.rst:112
+#: ../../source/features.rst:35 ../../source/features.rst:117
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
@@ -332,10 +332,22 @@ msgstr ""
 "`custom_titles`)។"
 
 #: ../../source/features.rst:102
+msgid "Other caveats to be aware of in Receive Mode"
+msgstr ""
+
+#: ../../source/features.rst:104
+msgid ""
+"There are reports that OnionBrowser on iOS devices are unable to upload "
+"files to an OnionShare in Receive Mode, when operating in 'Silver' security "
+"mode. Try Bronze or Gold to see if you are able to upload a message or a "
+"file."
+msgstr ""
+
+#: ../../source/features.rst:107
 msgid "Host a Website"
 msgstr "Host វេបសាយ"
 
-#: ../../source/features.rst:104
+#: ../../source/features.rst:109
 msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag the "
 "files and folders that make up the static content there, and click \"Start "
@@ -344,7 +356,7 @@ msgstr ""
 "ដើម្បីបង្ហោះវេបសាយ HTML ជាមួយ OnionShare សូមបើកផ្ទាំងវេបសាយ អូសឯកសារ "
 "និងថតឯកសារដែលបង្កើតមាតិកានៅទីនោះ ហើយចុច \"ចាប់ផ្តើមបញ្ជូន\" នៅពេលអ្នករួចរាល់។"
 
-#: ../../source/features.rst:108
+#: ../../source/features.rst:113
 msgid ""
 "If you add an ``index.html`` file, it will render when someone loads your "
 "website. You should also include any other HTML files, CSS files, JavaScript "
@@ -358,7 +370,7 @@ msgstr ""
 "*static* ប៉ុណ្ណោះ។ វាមិនអាចបង្ហោះវេបសាយដែលប្រតិបត្តិកូដ ឬប្រើមូលទិន្នន័យបានទេ។ "
 "ឧទាហរណ៍អ្នកមិនអាចប្រើ WordPress បានទេ។)"
 
-#: ../../source/features.rst:110
+#: ../../source/features.rst:115
 msgid ""
 "If you don't have an ``index.html`` file, it will show a directory listing "
 "instead, and people loading it can look through the files and download them."
@@ -366,11 +378,11 @@ msgstr ""
 "ប្រសិនបើអ្នកមិនមានឯកសារ ``index.html`` ទេ នោះវានឹងបង្ហាញបញ្ជីឈ្មោះ directory ជំនួសវិញ "
 "ហើយអ្នកដែលផ្ទុកវា អាចមើលឯកសារ និងទាញយកឯកសារទាំងនោះបាន។"
 
-#: ../../source/features.rst:117
+#: ../../source/features.rst:122
 msgid "Content Security Policy"
 msgstr "គោលការណ៍សុវត្ថិភាពមាតិកា"
 
-#: ../../source/features.rst:119
+#: ../../source/features.rst:124
 msgid ""
 "By default OnionShare helps secure your website by setting a strict `Content "
 "Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ "
@@ -381,7 +393,7 @@ msgstr ""
 "<https://en.wikipedia.org/wiki/Content_Security_Policy>`_header។ "
 "ទោះយ៉ាងណាក៏ដោយ វារារាំងមាតិកាភាគីទីបីពីការផ្ទុកនៅខាងក្នុងគេហទំព័រ។"
 
-#: ../../source/features.rst:121
+#: ../../source/features.rst:126
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
@@ -389,7 +401,7 @@ msgstr ""
 "ប្រសិនបើអ្នកចង់ផ្ទុកមាតិកាពីវេបសាយភាគីទីបី ដូចជាទ្រព្យសកម្ម ឬបណ្ណាល័យ JavaScript ពី CDNs "
 "នោះអ្នកមានជម្រើសពីរ៖"
 
-#: ../../source/features.rst:123
+#: ../../source/features.rst:128
 msgid ""
 "You can disable sending a Content Security Policy header by checking the "
 "\"Don't send Content Security Policy header (allows your website to use "
@@ -399,15 +411,15 @@ msgstr ""
 "គោលការណ៍សុវត្ថិភាពមាតិកា (អនុញ្ញាតឱ្យវេបសាយរបស់អ្នកប្រើពីប្រភពភាគីទីបី)\" "
 "មុនពេលចាប់ផ្តើមសេវាកម្ម។"
 
-#: ../../source/features.rst:124
+#: ../../source/features.rst:129
 msgid "You can send a custom Content Security Policy header."
 msgstr "អ្នកអាចផ្ញើ header គោលការណ៍សុវត្ថិភាពមាតិកាដែលអ្នកអាចកែប្រែដោយផ្ទាល់ខ្លួន។"
 
-#: ../../source/features.rst:127
+#: ../../source/features.rst:132
 msgid "Tips for running a website service"
 msgstr "ព័ត៌មានជំនួយសម្រាប់ដំណើរការសេវាកម្មវេបសាយ"
 
-#: ../../source/features.rst:129
+#: ../../source/features.rst:134
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not just "
 "to quickly show someone something), it's recommended you do it on a "
@@ -423,7 +435,7 @@ msgstr ""
 "`save_tabs`) ដូច្នេះអ្នកអាចបន្តវេបសាយដែលមានអាសយដ្ឋានដដែល ប្រសិនបើអ្នកបិទ OnionShare "
 "ហើយបើកវាឡើងវិញនៅពេលក្រោយ។"
 
-#: ../../source/features.rst:132
+#: ../../source/features.rst:137
 msgid ""
 "If your website is intended for the public, you should run it as a public "
 "service (see :ref:`turn_off_private_key`)."
@@ -431,11 +443,11 @@ msgstr ""
 "ប្រសិនបើអ្នកចង់បង្ហោះវេបសាយរបស់អ្នកសម្រាប់សាធារណជន អ្នកគួរតែដំណើរការវាជាសេវាសាធារណៈ "
 "(សូមមើល:ref:`turn_off_private_key`)។"
 
-#: ../../source/features.rst:135
+#: ../../source/features.rst:140
 msgid "Chat Anonymously"
 msgstr "ឈែតដោយអនាមិក"
 
-#: ../../source/features.rst:137
+#: ../../source/features.rst:142
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't "
 "log anything. Just open a chat tab and click \"Start chat server\"."
@@ -443,7 +455,7 @@ msgstr ""
 "អ្នក​អាច​ប្រើ OnionShare ដើម្បី​រៀបចំ​បន្ទប់​ឈែត​ឯកជន និង​សុវត្ថិភាព​ ដែល​មិន​កត់ត្រាការចូលប្រើប្រាស់​អ្វី​"
 "ទាំងអស់។ អ្នកគ្រាន់តែបើកផ្ទាំងឈែត ហើយចុច \"ចាប់ផ្តើមម៉ាស៊ីនមេឈែត\" ។"
 
-#: ../../source/features.rst:141
+#: ../../source/features.rst:146
 msgid ""
 "After you start the server, copy the OnionShare address and private key and "
 "send them to the people you want in the anonymous chat room. If it's "
@@ -455,7 +467,7 @@ msgstr ""
 "អ្នកណាអាចចូលរួមបាន សូមប្រើកម្មវិធីផ្ញើសារដែលបានធ្វើកូដនីយកម្ម ដើម្បីផ្ញើអាសយដ្ឋាន OnionShare "
 "និងកូនសោសម្ងាត់។"
 
-#: ../../source/features.rst:146
+#: ../../source/features.rst:151
 msgid ""
 "People can join the chat room by loading its OnionShare address in Tor "
 "Browser. The chat room requires JavasScript, so everyone who wants to "
@@ -467,7 +479,7 @@ msgstr ""
 "ត្រូវតែដាក់កម្រិតសុវត្ថិភាពកម្មវិធីរុករក Tor របស់ពួកគេដោយកំណត់ទៅជា \"ស្តង់ដារ\" ឬ "
 "\"សុវត្ថិភាពជាង\" ជំនួសឱ្យ \"សុវត្ថិភាពបំផុត\" ។"
 
-#: ../../source/features.rst:149
+#: ../../source/features.rst:154
 msgid ""
 "When someone joins the chat room they get assigned a random name. They can "
 "change their name by typing a new name in the box in the left panel and "
@@ -479,7 +491,7 @@ msgstr ""
 "មិនត្រូវបានរក្សាទុកនៅកន្លែងណាមួយ ហើយវាមិនត្រូវបានបង្ហាញនោះទេ "
 "ទោះបីមានអ្នកផ្សេងទៀតកំពុងជជែកនៅក្នុងបន្ទប់ឈែតរួចហើយក៏ដោយ។"
 
-#: ../../source/features.rst:155
+#: ../../source/features.rst:160
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change their "
 "name to anything, and there is no way to confirm anyone's identity."
@@ -487,7 +499,7 @@ msgstr ""
 "នៅក្នុងបន្ទប់ឈែត OnionShare អ្នកគ្រប់គ្នាសុទ្ធតែអនាមិក។ "
 "អ្នកចូលរួមអាចប្តូរឈ្មោះរបស់ពួកគេទៅជាអ្វីក៏បាន ហើយមិនមានវិធីដើម្បីបញ្ជាក់អត្តសញ្ញាណរបស់នរណាម្នាក់ឡើយ។"
 
-#: ../../source/features.rst:158
+#: ../../source/features.rst:163
 msgid ""
 "However, if you create an OnionShare chat room and securely send the address "
 "only to a small group of trusted friends using encrypted messages, you can "
@@ -498,11 +510,11 @@ msgstr ""
 "ដោយប្រើសារដែលបានធ្វើកូដនីយកម្ម នោះអ្នកអាចមានទំនុកចិត្តដោយហេតុផលថា "
 "មនុស្សដែលចូលរួមក្នុងបន្ទប់ឈែតគឺជាមិត្តរបស់អ្នក។"
 
-#: ../../source/features.rst:161
+#: ../../source/features.rst:166
 msgid "How is this useful?"
 msgstr "តើវាមានប្រយោជន៍យ៉ាងដូចម្តេច?"
 
-#: ../../source/features.rst:163
+#: ../../source/features.rst:168
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the point "
 "of an OnionShare chat room to begin with? It leaves less traces."
@@ -510,7 +522,7 @@ msgstr ""
 "ប្រសិនបើអ្នកត្រូវការប្រើកម្មវិធីផ្ញើសារដែលបានធ្វើកូដនីយកម្មរួចហើយ តើចាំបាច់ប្រើបន្ទប់ឈែត "
 "OnionShare ធ្វើអ្វី? វាទុកដានតិចជាង។"
 
-#: ../../source/features.rst:165
+#: ../../source/features.rst:170
 msgid ""
 "If you for example send a message to a Signal group, a copy of your message "
 "ends up on each device (the smartphones, and computers if they set up Signal "
@@ -528,7 +540,7 @@ msgstr ""
 "OnionShare មិនរក្សាទុកសារណាមួយនៅកន្លែងណាមួយទេ "
 "ដូច្នេះបញ្ហាត្រូវបានកាត់បន្ថយមកត្រឹមកម្រិតអប្បបរមា។"
 
-#: ../../source/features.rst:168
+#: ../../source/features.rst:173
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
@@ -542,11 +554,11 @@ msgstr ""
 "ដោយប្រើអាសយដ្ឋានអ៉ីមែលដែលអាចលុបចោលបាន ហើយបន្ទាប់មករង់ចាំអ្នកសារព័ត៌មានចូលរួមបន្ទប់ឈែត "
 "ដោយមិនមានហានិភ័យលើភាពអនាមិករបស់ពួកគេ។"
 
-#: ../../source/features.rst:172
+#: ../../source/features.rst:177
 msgid "How does the encryption work?"
 msgstr "តើកូដនីយកម្ម (ការអ៊ិនគ្រីប)ដំណើរការយ៉ាងដូចម្តេច?"
 
-#: ../../source/features.rst:174
+#: ../../source/features.rst:179
 msgid ""
 "Because OnionShare relies on Tor onion services, connections between the Tor "
 "Browser and OnionShare are all end-to-end encrypted (E2EE). When someone "
@@ -561,7 +573,7 @@ msgstr ""
 "ដែលបន្ទាប់មកផ្ញើវាទៅសមាជិកផ្សេងទៀតនៃបន្ទប់ឈែត ដោយប្រើ WebSockets តាមរយៈការតភ្ជាប់ "
 "onion E2EE របស់ពួកគេ។"
 
-#: ../../source/features.rst:176
+#: ../../source/features.rst:181
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on "
 "the Tor onion service's encryption instead."

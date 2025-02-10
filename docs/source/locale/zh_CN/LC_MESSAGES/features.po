@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-09 09:44+1100\n"
 "PO-Revision-Date: 2024-11-01 22:00+0000\n"
 "Last-Translator: Sketch6580 <Sketch6580@users.noreply.hosted.weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,9 +52,9 @@ msgid ""
 "using something less secure like unencrypted email, depending on your "
 "`threat model <https://ssd.eff.org/module/your-security-plan>`_."
 msgstr ""
-"您有责任使用您选择的通信渠道（例如加密的聊天消息）安全地分享该 URL "
-"和私钥，或者使用如未加密的电子邮件等不太安全的方式，具体取决于您的`威胁模型 "
-"<https://ssd.eff.org/module/your-security-plan>`_。"
+"您有责任使用您选择的通信渠道（例如加密的聊天消息）安全地分享该 URL 和私钥，或"
+"者使用如未加密的电子邮件等不太安全的方式，具体取决于您的`威胁模型 <https://"
+"ssd.eff.org/module/your-security-plan>`_。"
 
 #: ../../source/features.rst:20
 msgid ""
@@ -64,8 +64,8 @@ msgid ""
 "then copy and paste in."
 msgstr ""
 "然后，您发送 URL 的人会将其复制并粘贴到他们的 `Tor 浏览器 <https://www."
-"torproject.org/zh-CN/>`_ 中，以访问 OnionShare 服务。然后，Tor "
-"浏览器会提示输入私钥，人们也可以复制并粘贴私钥。"
+"torproject.org/zh-CN/>`_ 中，以访问 OnionShare 服务。然后，Tor 浏览器会提示输"
+"入私钥，人们也可以复制并粘贴私钥。"
 
 #: ../../source/features.rst:24
 msgid ""
@@ -104,7 +104,7 @@ msgstr ""
 "你可以使用 OnionShare 来安全且匿名地发送文件和文件夹给别人。打开一个共享标签"
 "页，拖入你想共享的文件和文件夹，然后点击“开始共享”。"
 
-#: ../../source/features.rst:35 ../../source/features.rst:112
+#: ../../source/features.rst:35 ../../source/features.rst:117
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
@@ -120,8 +120,8 @@ msgid ""
 "files have been sent (uncheck to allow downloading individual files)\" box."
 msgstr ""
 "一旦有人下载完您的文件，OnionShare 将自动停止服务器，将网站从互联网上移除。要"
-"允许多人下载，请取消选中“发送文件后停止分享（取消选中以允许下载单个文件）”框"
-"。"
+"允许多人下载，请取消选中“发送文件后停止分享（取消选中以允许下载单个文"
+"件）”框。"
 
 #: ../../source/features.rst:42
 msgid ""
@@ -156,8 +156,9 @@ msgid ""
 "That person then must load the address in Tor Browser. After logging in with "
 "the private key, the files can be downloaded directly from your computer by "
 "clicking the \"Download Files\" link in the corner."
-msgstr "然后，此人必须在 Tor 浏览器中加载该地址。使用私钥登录后，可以通过单击角落中的"
-"“下载文件”链接直接从您的计算机下载文件。"
+msgstr ""
+"然后，此人必须在 Tor 浏览器中加载该地址。使用私钥登录后，可以通过单击角落中"
+"的“下载文件”链接直接从您的计算机下载文件。"
 
 #: ../../source/features.rst:55
 msgid "Receive Files and Messages"
@@ -169,8 +170,8 @@ msgid ""
 "directly to your computer, essentially turning it into an anonymous dropbox. "
 "Open a receive tab and choose the settings that you want."
 msgstr ""
-"您可以使用 OnionShare 让人们匿名直接向您的计算机提交文件和消息，"
-"本质上将其变成一个匿名 Dropbox。打开接收标签页并选择所需的设置。"
+"您可以使用 OnionShare 让人们匿名直接向您的计算机提交文件和消息，本质上将其变"
+"成一个匿名 Dropbox。打开接收标签页并选择所需的设置。"
 
 #: ../../source/features.rst:62
 msgid ""
@@ -182,7 +183,8 @@ msgid ""
 "You can check \"Disable submitting text\" if want to only allow file "
 "uploads, and you can check \"Disable uploading files\" if you want to only "
 "allow submitting text messages, like for an anonymous contact form."
-msgstr "如果要只允许文件上传，可以选中“禁用提交文本”；如果要只允许提交文本消息（例如"
+msgstr ""
+"如果要只允许文件上传，可以选中“禁用提交文本”；如果要只允许提交文本消息（例如"
 "匿名联系表），可以选中“禁用上传文件”。"
 
 #: ../../source/features.rst:66
@@ -199,14 +201,14 @@ msgid ""
 "service, @webhookbot will send you a message on Keybase letting you know as "
 "soon as it happens."
 msgstr ""
-"如果您想在有人向您的 OnionShare 服务提交文件或消息时收到通知，您可以选中“"
-"使用通知 webhook”，然后选择 webhook URL。如果您使用此功能，OnionShare "
-"会在有人提交文件或消息时向此 URL 发出 HTTP POST 请求。例如，"
-"如果您想在消息应用 `Keybase <https://keybase.io/>`_ 上获取加密文本消息，"
-"您可以与 `@webhookbot <https://keybase.io/webhookbot>`_ 开始对话，输入 ``"
-"!webhook create onionshare-alerts``，它将以 URL 响应。将其用作通知 webhook "
-"URL。如果有人将文件上传到您的接收模式服务，@webhookbot 会在 Keybase "
-"上向您发送一条消息，通知您。"
+"如果您想在有人向您的 OnionShare 服务提交文件或消息时收到通知，您可以选中“使用"
+"通知 webhook”，然后选择 webhook URL。如果您使用此功能，OnionShare 会在有人提"
+"交文件或消息时向此 URL 发出 HTTP POST 请求。例如，如果您想在消息应用 "
+"`Keybase <https://keybase.io/>`_ 上获取加密文本消息，您可以与 `@webhookbot "
+"<https://keybase.io/webhookbot>`_ 开始对话，输入 ``!webhook create "
+"onionshare-alerts``，它将以 URL 响应。将其用作通知 webhook URL。如果有人将文"
+"件上传到您的接收模式服务，@webhookbot 会在 Keybase 上向您发送一条消息，通知"
+"您。"
 
 #: ../../source/features.rst:71
 msgid ""
@@ -261,8 +263,8 @@ msgid ""
 "system from malicious files."
 msgstr ""
 "就像恶意电子邮件附件一样，有人可能会尝试通过将恶意文件上传到您的 OnionShare "
-"服务来攻击您的计算机。OnionShare "
-"不会添加任何安全机制来保护您的系统免受恶意文件的攻击。"
+"服务来攻击您的计算机。OnionShare 不会添加任何安全机制来保护您的系统免受恶意文"
+"件的攻击。"
 
 #: ../../source/features.rst:90
 msgid ""
@@ -273,9 +275,9 @@ msgid ""
 "in a `Qubes <https://qubes-os.org/>`_ disposableVM."
 msgstr ""
 "如果您通过 OnionShare 收到 Office 文档或 PDF，则可以将这些文档转换为可以使用 "
-"`Dangerzone <https://dangerzone.rocks/>`_ 安全打开的 PDF。您还可以通过在 `"
-"Tails <https://tails.boum.org/>`_ 或 `Qubes <https://qubes-os.org/>`_ "
-"一次性虚拟机中打开不受信任的文档来保护自己。"
+"`Dangerzone <https://dangerzone.rocks/>`_ 安全打开的 PDF。您还可以通过在 "
+"`Tails <https://tails.boum.org/>`_ 或 `Qubes <https://qubes-os.org/>`_ 一次性"
+"虚拟机中打开不受信任的文档来保护自己。"
 
 #: ../../source/features.rst:92
 msgid ""
@@ -303,14 +305,27 @@ msgid ""
 "title (see :ref:`custom_titles`)."
 msgstr ""
 "如果您打算将 OnionShare 地址放在您的网站或社交媒体个人资料中，请保存此标签页"
-"（请参阅：ref:`save_tabs`）并将其作为公共服务运行（请参阅：ref:`turn_off_priv"
-"ate_key`）。为其指定自定义标题也是一个好主意（请参阅：ref:`custom_titles`）。"
+"（请参阅：ref:`save_tabs`）并将其作为公共服务运行（请参阅：ref:"
+"`turn_off_private_key`）。为其指定自定义标题也是一个好主意（请参阅：ref:"
+"`custom_titles`）。"
 
 #: ../../source/features.rst:102
+msgid "Other caveats to be aware of in Receive Mode"
+msgstr ""
+
+#: ../../source/features.rst:104
+msgid ""
+"There are reports that OnionBrowser on iOS devices are unable to upload "
+"files to an OnionShare in Receive Mode, when operating in 'Silver' security "
+"mode. Try Bronze or Gold to see if you are able to upload a message or a "
+"file."
+msgstr ""
+
+#: ../../source/features.rst:107
 msgid "Host a Website"
 msgstr "架设一个网站"
 
-#: ../../source/features.rst:104
+#: ../../source/features.rst:109
 msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag the "
 "files and folders that make up the static content there, and click \"Start "
@@ -319,7 +334,7 @@ msgstr ""
 "利用 OnionShare 架设静态 HTML 网站，请打开网站标签分页并将静态内容的档案与资"
 "料夹拖曳到此，就绪后就可以按下\"开始共享\"。"
 
-#: ../../source/features.rst:108
+#: ../../source/features.rst:113
 msgid ""
 "If you add an ``index.html`` file, it will render when someone loads your "
 "website. You should also include any other HTML files, CSS files, JavaScript "
@@ -331,50 +346,52 @@ msgstr ""
 "HTML files, CSS, JavaScript 与图片 (请注意 OnionShare 只支援*静态*网站，它无"
 "法托管需执行代码或使用资料库，例如不能使用 WordPress.)"
 
-#: ../../source/features.rst:110
+#: ../../source/features.rst:115
 msgid ""
 "If you don't have an ``index.html`` file, it will show a directory listing "
 "instead, and people loading it can look through the files and download them."
 msgstr "如果没有``index.html``则会显示一个目录，人们透过它可看到档案来下载。"
 
-#: ../../source/features.rst:117
+#: ../../source/features.rst:122
 msgid "Content Security Policy"
 msgstr "内容安全政策"
 
-#: ../../source/features.rst:119
+#: ../../source/features.rst:124
 msgid ""
 "By default OnionShare helps secure your website by setting a strict `Content "
 "Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ "
 "header. However, this prevents third-party content from loading inside the "
 "web page."
 msgstr ""
-"OnionShare 默认通过设置严格的`内容安全策略 <https://zh.wikipedia.org/wiki/"
-"内容安全策略>`_标头来帮助保护您的网站。但是，这会阻止第三方内容加载到网页中。"
+"OnionShare 默认通过设置严格的`内容安全策略 <https://zh.wikipedia.org/wiki/内"
+"容安全策略>`_标头来帮助保护您的网站。但是，这会阻止第三方内容加载到网页中。"
 
-#: ../../source/features.rst:121
+#: ../../source/features.rst:126
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
-msgstr "如果您想从第三方网站加载内容（如来自 CDN 的资产或 JavaScript "
-"库），则有两种选择："
+msgstr ""
+"如果您想从第三方网站加载内容（如来自 CDN 的资产或 JavaScript 库），则有两种选"
+"择："
 
-#: ../../source/features.rst:123
+#: ../../source/features.rst:128
 msgid ""
 "You can disable sending a Content Security Policy header by checking the "
 "\"Don't send Content Security Policy header (allows your website to use "
 "third-party resources)\" box before starting the service."
-msgstr "您可以在启动服务之前选中“不发送内容安全策略标头（允许您的网站使用第三方资源）"
-"”框，以禁用发送内容安全策略标头。"
+msgstr ""
+"您可以在启动服务之前选中“不发送内容安全策略标头（允许您的网站使用第三方资"
+"源）”框，以禁用发送内容安全策略标头。"
 
-#: ../../source/features.rst:124
+#: ../../source/features.rst:129
 msgid "You can send a custom Content Security Policy header."
 msgstr "您可以发送自定义内容安全策略标头。"
 
-#: ../../source/features.rst:127
+#: ../../source/features.rst:132
 msgid "Tips for running a website service"
 msgstr "营运网站服务的诀窍"
 
-#: ../../source/features.rst:129
+#: ../../source/features.rst:134
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not just "
 "to quickly show someone something), it's recommended you do it on a "
@@ -384,22 +401,23 @@ msgid ""
 "close OnionShare and re-open it later."
 msgstr ""
 "如果您想使用 OnionShare 托管一个长期网站（意味着不仅仅是快速向某人展示某些内"
-"容），建议您在单独的专用计算机上操作，该计算机始终处于开机状态并连接到互联网"
-"，而不是在您经常使用的计算机上操作。保存标签页（请参阅：ref:`save_tabs`），"
+"容），建议您在单独的专用计算机上操作，该计算机始终处于开机状态并连接到互联"
+"网，而不是在您经常使用的计算机上操作。保存标签页（请参阅：ref:`save_tabs`），"
 "这样如果您关闭 OnionShare 并稍后重新打开它，您就可以使用相同的地址恢复网站。"
 
-#: ../../source/features.rst:132
+#: ../../source/features.rst:137
 msgid ""
 "If your website is intended for the public, you should run it as a public "
 "service (see :ref:`turn_off_private_key`)."
-msgstr "如果您的网站是面向公众的，您应该将其作为公共服务运行（请参阅：ref:`turn_off_p"
-"rivate_key`）。"
+msgstr ""
+"如果您的网站是面向公众的，您应该将其作为公共服务运行（请参阅：ref:"
+"`turn_off_private_key`）。"
 
-#: ../../source/features.rst:135
+#: ../../source/features.rst:140
 msgid "Chat Anonymously"
 msgstr "匿名聊天"
 
-#: ../../source/features.rst:137
+#: ../../source/features.rst:142
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't "
 "log anything. Just open a chat tab and click \"Start chat server\"."
@@ -407,18 +425,18 @@ msgstr ""
 "可利用 OnionShare 设定私密安全的聊天室，它不会记录任何数据。请打开聊天标签分"
 "页点\"启动聊天服务器\"。"
 
-#: ../../source/features.rst:141
+#: ../../source/features.rst:146
 msgid ""
 "After you start the server, copy the OnionShare address and private key and "
 "send them to the people you want in the anonymous chat room. If it's "
 "important to limit exactly who can join, use an encrypted messaging app to "
 "send out the OnionShare address and private key."
 msgstr ""
-"启动服务器后，复制 OnionShare "
-"地址和私钥，并将其发送给匿名聊天室中您想要的人。如果必须严格限制谁可以加入，"
-"请使用加密消息应用发送 OnionShare 地址和私钥。"
+"启动服务器后，复制 OnionShare 地址和私钥，并将其发送给匿名聊天室中您想要的"
+"人。如果必须严格限制谁可以加入，请使用加密消息应用发送 OnionShare 地址和私"
+"钥。"
 
-#: ../../source/features.rst:146
+#: ../../source/features.rst:151
 msgid ""
 "People can join the chat room by loading its OnionShare address in Tor "
 "Browser. The chat room requires JavasScript, so everyone who wants to "
@@ -428,7 +446,7 @@ msgstr ""
 "别人可在 Tor 浏览器载入 OnionShare 地址加入聊天室，它需要 JavasScript 因此参"
 "与者须把 Tor 浏览器安全等级调成\"标准\"或\"更安全\"，\"最安全\"则不行。"
 
-#: ../../source/features.rst:149
+#: ../../source/features.rst:154
 msgid ""
 "When someone joins the chat room they get assigned a random name. They can "
 "change their name by typing a new name in the box in the left panel and "
@@ -439,14 +457,14 @@ msgstr ""
 "按 ↵ 送出。因为聊天记录不会留存所以根本不会显示，即便是其它已在聊天室的人也看"
 "不到。"
 
-#: ../../source/features.rst:155
+#: ../../source/features.rst:160
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change their "
 "name to anything, and there is no way to confirm anyone's identity."
 msgstr ""
 "OnionShare 聊天室成员都是匿名，人人可随时改名字，没办法确认任何人的身份。"
 
-#: ../../source/features.rst:158
+#: ../../source/features.rst:163
 msgid ""
 "However, if you create an OnionShare chat room and securely send the address "
 "only to a small group of trusted friends using encrypted messages, you can "
@@ -455,11 +473,11 @@ msgstr ""
 "开 OnionShare 聊天室并将聊天室地址讯息加密限定给一小群信任的朋友，则可合理地"
 "相信聊天室里都是认识的朋友。"
 
-#: ../../source/features.rst:161
+#: ../../source/features.rst:166
 msgid "How is this useful?"
 msgstr "对你很有用吗？"
 
-#: ../../source/features.rst:163
+#: ../../source/features.rst:168
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the point "
 "of an OnionShare chat room to begin with? It leaves less traces."
@@ -467,7 +485,7 @@ msgstr ""
 "如果已使用加密的聊天通信软件，OnionShare 聊天室有什么胜出的特点值得一试呢? 因"
 "为它不易查溯。"
 
-#: ../../source/features.rst:165
+#: ../../source/features.rst:170
 msgid ""
 "If you for example send a message to a Signal group, a copy of your message "
 "ends up on each device (the smartphones, and computers if they set up Signal "
@@ -478,12 +496,12 @@ msgid ""
 "any messages anywhere, so the problem is reduced to a minimum."
 msgstr ""
 "例如，如果您向 Signal 群聊发送消息，则该消息的副本将出现在群聊每位成员的每台"
-"设备上（智能手机和计算机，如果他们设置了 Signal 桌面版）。即使启用了“消失消息"
-"”功能，也很难确认所有消息副本是否确实从所有设备中删除，以及从可能保存消息的任"
-"何其他地方（如通知数据库）中删除。OnionShare "
-"聊天室不会在任何地方存储任何消息，因此问题被降到最低限度。"
+"设备上（智能手机和计算机，如果他们设置了 Signal 桌面版）。即使启用了“消失消"
+"息”功能，也很难确认所有消息副本是否确实从所有设备中删除，以及从可能保存消息的"
+"任何其他地方（如通知数据库）中删除。OnionShare 聊天室不会在任何地方存储任何消"
+"息，因此问题被降到最低限度。"
 
-#: ../../source/features.rst:168
+#: ../../source/features.rst:173
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
@@ -491,16 +509,15 @@ msgid ""
 "journalist using a disposable email address, and then wait for the "
 "journalist to join the chat room, all without compromosing their anonymity."
 msgstr ""
-"OnionShare "
-"聊天室对于想要匿名安全地与他人聊天而无需创建任何账号的人来说也很有用。例如，"
-"消息来源可以使用一次性电子邮件地址向记者发送 OnionShare "
-"地址，然后等待记者加入聊天室，所有这些都不会损害他们的匿名性。"
+"OnionShare 聊天室对于想要匿名安全地与他人聊天而无需创建任何账号的人来说也很有"
+"用。例如，消息来源可以使用一次性电子邮件地址向记者发送 OnionShare 地址，然后"
+"等待记者加入聊天室，所有这些都不会损害他们的匿名性。"
 
-#: ../../source/features.rst:172
+#: ../../source/features.rst:177
 msgid "How does the encryption work?"
 msgstr "加密如何运作?"
 
-#: ../../source/features.rst:174
+#: ../../source/features.rst:179
 msgid ""
 "Because OnionShare relies on Tor onion services, connections between the Tor "
 "Browser and OnionShare are all end-to-end encrypted (E2EE). When someone "
@@ -512,7 +529,7 @@ msgstr ""
 "OnionShare 聊天室送出讯息，透过 E2EE 洋葱连接送到伺服器，洋葱连接再透过 "
 "WebSockets 用各自的 E2EE 洋葱连接把讯息发给聊天室其它成员。"
 
-#: ../../source/features.rst:176
+#: ../../source/features.rst:181
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on "
 "the Tor onion service's encryption instead."

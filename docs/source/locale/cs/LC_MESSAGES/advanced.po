@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"POT-Creation-Date: 2025-02-09 10:21+1100\n"
 "PO-Revision-Date: 2023-01-24 17:48+0000\n"
 "Last-Translator: Toro <ads.verifications@pm.me>\n"
 "Language-Team: none\n"
@@ -67,8 +67,8 @@ msgstr ""
 #: ../../source/advanced.rst:28
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
-"OnionShare service. If you want allow the public to use your service, it's "
-"better to disable the private key altogether."
+"OnionShare service. If you want to allow the public to use your service, "
+"it's better to disable the private key altogether."
 msgstr ""
 
 #: ../../source/advanced.rst:31
@@ -116,9 +116,9 @@ msgstr ""
 
 #: ../../source/advanced.rst:51
 msgid ""
-"Services scheduled to start in the future display a countdown timer when "
-"when the \"Start sharing\" button is clicked. Services scheduled to stop in "
-"the future display a countdown timer when started."
+"Services scheduled to start in the future display a countdown timer when the "
+"\"Start sharing\" button is clicked. Services scheduled to stop in the "
+"future display a countdown timer when started."
 msgstr ""
 
 #: ../../source/advanced.rst:54
@@ -147,14 +147,29 @@ msgid ""
 msgstr ""
 "Kromě grafického rozhraní má OnionShare také rozhraní příkazového řádku."
 
-#: ../../source/advanced.rst:72
+#: ../../source/advanced.rst:73
+msgid "Installing the CLI version"
+msgstr ""
+
+#: ../../source/advanced.rst:75
 msgid ""
-"You can install just the command-line version of OnionShare using ``pip3``::"
+"If you have installed the Snap, macOS or Windows package, you already have "
+"the CLI version installed."
+msgstr ""
+
+#: ../../source/advanced.rst:77
+#, fuzzy
+#| msgid ""
+#| "You can install just the command-line version of OnionShare using "
+#| "``pip3``::"
+msgid ""
+"Alternatively, you can install just the command-line version of OnionShare "
+"using ``pip3``::"
 msgstr ""
 "Pomocí ``pip3`` můžete nainstalovat pouze verzi OnionShare pro příkazový "
 "řádek::"
 
-#: ../../source/advanced.rst:76
+#: ../../source/advanced.rst:81
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
@@ -162,44 +177,186 @@ msgstr ""
 "Vemte na vědomí, že budete potřebovat nainstalovaný balíček ``tor``. V "
 "systému macOS jej nainstalujte pomocí: ``brew install tor``"
 
-#: ../../source/advanced.rst:78
+#: ../../source/advanced.rst:83
 msgid "Then run it like this::"
 msgstr "Následně jej takto spusťte::"
 
-#: ../../source/advanced.rst:82
+#: ../../source/advanced.rst:87
 msgid ""
 "Info about installing it on different operating systems can be found in the "
 "`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
 "README.md>`_ in the Git repository."
 msgstr ""
 
-#: ../../source/advanced.rst:84
-msgid ""
-"If you installed OnionShare using the Snap package, you can also just run "
-"``onionshare.cli`` to access the command-line interface version."
+#: ../../source/advanced.rst:90
+msgid "Running the CLI from Snap"
 msgstr ""
 
-#: ../../source/advanced.rst:87
+#: ../../source/advanced.rst:92
+msgid ""
+"If you installed OnionShare using the Snap package, you can run ``onionshare."
+"cli`` to access the command-line interface version."
+msgstr ""
+
+#: ../../source/advanced.rst:95
+msgid "Running the CLI from macOS"
+msgstr ""
+
+#: ../../source/advanced.rst:97
+msgid ""
+"From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
+"onionshare-cli --help``"
+msgstr ""
+
+#: ../../source/advanced.rst:100
+msgid "Running the CLI from Windows"
+msgstr ""
+
+#: ../../source/advanced.rst:102
+msgid ""
+"In the Windows installation, the executable ``onionshare-cli.exe`` is "
+"available."
+msgstr ""
+
+#: ../../source/advanced.rst:105
 msgid "Usage"
 msgstr "Použití"
 
-#: ../../source/advanced.rst:89
+#: ../../source/advanced.rst:107
 msgid ""
 "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
 
-#: ../../source/advanced.rst:151
+#: ../../source/advanced.rst:170
+msgid "Running the CLI as a systemd unit file"
+msgstr ""
+
+#: ../../source/advanced.rst:172
+msgid ""
+"It is possible to automatically start OnionShare from the CLI using a "
+"systemd unit file."
+msgstr ""
+
+#: ../../source/advanced.rst:174
+msgid ""
+"You may find this particularly useful if you are operating in 'persistent' "
+"mode, and want to start the same onion service every time your machine "
+"starts."
+msgstr ""
+
+#: ../../source/advanced.rst:176
+msgid "To do this, you need to prepare some OnionShare json config first."
+msgstr ""
+
+#: ../../source/advanced.rst:178
+msgid ""
+"Here is the main OnionShare config. In this example, it's stored in ``/home/"
+"user/.config/onionshare/onionshare.json``. You may need to adjust some of "
+"the settings, but if you already have OnionShare installed, it probably "
+"looks much like this already::"
+msgstr ""
+
+#: ../../source/advanced.rst:207
+msgid ""
+"Notice the 'persistent_tabs' section. We will now create a file at ``/home/"
+"user/.config/onionshare/persistent/my-persistent-onion.json``, that looks "
+"like this::"
+msgstr ""
+
+#: ../../source/advanced.rst:247
+msgid ""
+"**Don't actually use this private key, service_id or client_auth keys! They "
+"are shown only as an example. Never share the private_key with anyone.**"
+msgstr ""
+
+#: ../../source/advanced.rst:249
+msgid ""
+"The easiest way to generate the onion address and private key is to first "
+"create a 'pinned' OnionShare tab in the desktop app and started the share "
+"for the first time. This will then have saved the persistent settings to "
+"your ``.config/onionshare/persistent/`` folder with a random name. You can "
+"unpin that tab once you've generated it the first time. Or, you can leave it "
+"where it is, and use that persistent file in your systemd unit file below."
+msgstr ""
+
+#: ../../source/advanced.rst:251
+msgid ""
+"Now you can create a systemd unit file in ``/etc/systemd/system/onionshare-"
+"cli.service``. Be sure to adjust the User and Group to your own user/group, "
+"as well as changes to any paths to the onionshare-cli binary or the paths to "
+"your JSON configs and shares."
+msgstr ""
+
+#: ../../source/advanced.rst:253
+msgid "The systemd unit file should look like this::"
+msgstr ""
+
+#: ../../source/advanced.rst:268
+msgid ""
+"Note that although ``/home/user/my-shared-file.txt`` was defined in the "
+"``filenames`` section of the ``my-persistent-onion.json`` file, it's still "
+"necessary to specify it as the argument to the onionshare-cli command."
+msgstr ""
+
+#: ../../source/advanced.rst:270
+msgid ""
+"Be sure to run ``sudo systemctl daemon-reload`` after creating the unit file."
+msgstr ""
+
+#: ../../source/advanced.rst:272
+msgid ""
+"Now you can run ``sudo systemctl start onionshare-cli.service``. If you have "
+"``journalctl`` installed, you can run ``sudo journalctl -f -t onionshare-"
+"cli``, and you should see some output of your service starting::"
+msgstr ""
+
+#: ../../source/advanced.rst:282
+msgid ""
+"If you don't want your users to use a Private Key, set ``public`` to be "
+"``true`` in the ``general`` settings of the my-persistent-onion.json file."
+msgstr ""
+
+#: ../../source/advanced.rst:286
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: ../../source/advanced.rst:153
+#: ../../source/advanced.rst:288
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
 
-#: ../../source/advanced.rst:158
+#: ../../source/advanced.rst:293
 msgid "And from the main mode chooser screen::"
+msgstr ""
+
+#: ../../source/advanced.rst:303
+msgid "Migrating your OnionShare data to another computer"
+msgstr ""
+
+#: ../../source/advanced.rst:305
+msgid ""
+"You may want to migrate your OnionShare data when switching to another "
+"computer. This is especially true if you had a 'persistent' onion address "
+"and you want to preserve it."
+msgstr ""
+
+#: ../../source/advanced.rst:307
+msgid ""
+"OnionShare stores all such data in a specific folder. Copy the relevant "
+"folder for your operating system below, to your new computer:"
+msgstr ""
+
+#: ../../source/advanced.rst:309
+msgid "Linux: ``~/.config/onionshare``"
+msgstr ""
+
+#: ../../source/advanced.rst:310
+msgid "macOS: ``~/Library/Application Support/OnionShare``"
+msgstr ""
+
+#: ../../source/advanced.rst:311
+msgid "Windows: ``%APPDATA%\\OnionShare``"
 msgstr ""
 
 #~ msgid ""

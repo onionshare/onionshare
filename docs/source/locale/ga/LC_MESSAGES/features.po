@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-09 09:44+1100\n"
 "PO-Revision-Date: 2024-07-22 09:35+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :("
-"n>6 && n<11) ? 3 : 4;\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :"
+"(n>6 && n<11) ? 3 : 4;\n"
 "X-Generator: Weblate 5.7-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
@@ -59,8 +59,8 @@ msgstr ""
 "Tá tú freagrach as an URL agus an eochair phríobháideach sin a roinnt go "
 "slán trí úsáid a bhaint as cainéal cumarsáide de do rogha féin mar atá i "
 "dteachtaireacht chomhrá criptithe, nó as rud éigin nach bhfuil chomh slán "
-"sin cosúil le ríomhphost neamhchriptithe a úsáid, ag brath ar do mhúnla `"
-"bagairt <https://ssd.eff. org/module/your-security-plan>`_."
+"sin cosúil le ríomhphost neamhchriptithe a úsáid, ag brath ar do mhúnla "
+"`bagairt <https://ssd.eff. org/module/your-security-plan>`_."
 
 #: ../../source/features.rst:20
 msgid ""
@@ -118,7 +118,7 @@ msgstr ""
 "tarraing isteach na comhaid agus na fillteáin is mian leat a roinnt, agus "
 "cliceáil \"Tosaigh ag roinnt\"."
 
-#: ../../source/features.rst:35 ../../source/features.rst:112
+#: ../../source/features.rst:35 ../../source/features.rst:117
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
@@ -136,8 +136,8 @@ msgstr ""
 "Chomh luath agus a chríochnaíonn duine do chuid comhad a íoslódáil, "
 "stopfaidh OnionShare an freastalaí go huathoibríoch, ag baint an tsuímh "
 "ghréasáin den idirlíon. Chun gur féidir le daoine iolracha iad a íoslódáil, "
-"díthiceáil an bosca \"Stop a roinnt tar éis do chomhaid a bheith seolta ("
-"díthiceáil chun comhaid aonair a íoslódáil)\"."
+"díthiceáil an bosca \"Stop a roinnt tar éis do chomhaid a bheith seolta "
+"(díthiceáil chun comhaid aonair a íoslódáil)\"."
 
 #: ../../source/features.rst:42
 msgid ""
@@ -239,8 +239,8 @@ msgstr ""
 "URL seo aon uair a chuireann duine comhaid nó teachtaireachtaí isteach. Mar "
 "shampla, más mian leat teachtaireachtaí téacs criptithe a fháil ar an aip "
 "teachtaireachtaí `Keybase <https://keybase.io/>`_, is féidir leat comhrá a "
-"thosú le `@webhookbot <https://keybase.io/webhookbot >`_, clóscríobh ``"
-"!Cruthaigh foláirimh oinniúin``, agus freagróidh sé le URL. Úsáid é sin mar "
+"thosú le `@webhookbot <https://keybase.io/webhookbot >`_, clóscríobh ``!"
+"Cruthaigh foláirimh oinniúin``, agus freagróidh sé le URL. Úsáid é sin mar "
 "URL an chuaille gréasáin fógra. Má uaslódálann duine éigin comhad chuig do "
 "sheirbhís mód glactha, seolfaidh @webhookbot teachtaireacht chugat ar "
 "Keybase ag cur in iúl duit a luaithe a tharlaíonn sé."
@@ -324,10 +324,10 @@ msgid ""
 "in a `Qubes <https://qubes-os.org/>`_ disposableVM."
 msgstr ""
 "Má fhaigheann tú doiciméad Office nó PDF trí OnionShare, is féidir leat na "
-"doiciméid seo a thiontú go PDF atá sábháilte le hoscailt ag baint úsáide as `"
-"Dangerzone <https://dangerzone.rocks/>`_. Is féidir leat tú féin a chosaint "
-"freisin agus doiciméid neamhiontaofa á n-oscailt agat trí iad a oscailt in `"
-"Tails <https://tails.boum.org/>`_ nó i `Qubes <https://qubes-os.org/>`_ "
+"doiciméid seo a thiontú go PDF atá sábháilte le hoscailt ag baint úsáide as "
+"`Dangerzone <https://dangerzone.rocks/>`_. Is féidir leat tú féin a chosaint "
+"freisin agus doiciméid neamhiontaofa á n-oscailt agat trí iad a oscailt in "
+"`Tails <https://tails.boum.org/>`_ nó i `Qubes <https://qubes-os.org/>`_ "
 "disposableVM."
 
 #: ../../source/features.rst:92
@@ -366,10 +366,22 @@ msgstr ""
 "`custom_titles`)."
 
 #: ../../source/features.rst:102
+msgid "Other caveats to be aware of in Receive Mode"
+msgstr ""
+
+#: ../../source/features.rst:104
+msgid ""
+"There are reports that OnionBrowser on iOS devices are unable to upload "
+"files to an OnionShare in Receive Mode, when operating in 'Silver' security "
+"mode. Try Bronze or Gold to see if you are able to upload a message or a "
+"file."
+msgstr ""
+
+#: ../../source/features.rst:107
 msgid "Host a Website"
 msgstr "Suíomh Gréasáin a óstáil"
 
-#: ../../source/features.rst:104
+#: ../../source/features.rst:109
 msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag the "
 "files and folders that make up the static content there, and click \"Start "
@@ -379,7 +391,7 @@ msgstr ""
 "láithreán gréasáin, tarraing na comhaid agus na fillteáin a dhéanann suas an "
 "t-ábhar statach ann, agus cliceáil \"Tosaigh a roinnt\" nuair atá tú réidh."
 
-#: ../../source/features.rst:108
+#: ../../source/features.rst:113
 msgid ""
 "If you add an ``index.html`` file, it will render when someone loads your "
 "website. You should also include any other HTML files, CSS files, JavaScript "
@@ -395,7 +407,7 @@ msgstr ""
 "ghréasáin a chuireann cód i bhfeidhm nó a úsáideann bunachair shonraí a "
 "óstáil. Mar sin ní féidir leat WordPress a úsáid mar shampla.)"
 
-#: ../../source/features.rst:110
+#: ../../source/features.rst:115
 msgid ""
 "If you don't have an ``index.html`` file, it will show a directory listing "
 "instead, and people loading it can look through the files and download them."
@@ -404,11 +416,11 @@ msgstr ""
 "ionad sin, agus is féidir le daoine atá á lódáil breathnú tríd na comhaid "
 "agus iad a íoslódáil."
 
-#: ../../source/features.rst:117
+#: ../../source/features.rst:122
 msgid "Content Security Policy"
 msgstr "Beartas Slándála Ábhar"
 
-#: ../../source/features.rst:119
+#: ../../source/features.rst:124
 msgid ""
 "By default OnionShare helps secure your website by setting a strict `Content "
 "Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ "
@@ -421,7 +433,7 @@ msgstr ""
 "cuireann sé seo cosc ar ábhar tríú páirtí ó luchtú taobh istigh den "
 "leathanach gréasáin."
 
-#: ../../source/features.rst:121
+#: ../../source/features.rst:126
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
@@ -429,7 +441,7 @@ msgstr ""
 "Más mian leat inneachar a lódáil ó shuíomhanna Gréasáin tríú páirtí, amhail "
 "sócmhainní nó leabharlanna JavaScript ó CDNanna, tá dhá rogha agat:"
 
-#: ../../source/features.rst:123
+#: ../../source/features.rst:128
 msgid ""
 "You can disable sending a Content Security Policy header by checking the "
 "\"Don't send Content Security Policy header (allows your website to use "
@@ -440,16 +452,16 @@ msgstr ""
 "láithreán gréasáin acmhainní tríú páirtí a úsáid)” a sheiceáil roimh thosú "
 "ar an tseirbhís."
 
-#: ../../source/features.rst:124
+#: ../../source/features.rst:129
 msgid "You can send a custom Content Security Policy header."
 msgstr ""
 "Is féidir leat ceanntásc saincheaptha Beartas Slándála Ábhar a sheoladh."
 
-#: ../../source/features.rst:127
+#: ../../source/features.rst:132
 msgid "Tips for running a website service"
 msgstr "Leideanna maidir le seirbhís láithreán gréasáin a reáchtáil"
 
-#: ../../source/features.rst:129
+#: ../../source/features.rst:134
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not just "
 "to quickly show someone something), it's recommended you do it on a "
@@ -462,11 +474,11 @@ msgstr ""
 "OnionShare (rud a chiallaíonn ní hamháin rud éigin a thaispeáint do dhuine "
 "éigin go tapa), moltar duit é a dhéanamh ar ríomhaire tiomnaithe ar leith "
 "atá faoi thiomáint i gcónaí agus ceangailte leis an idirlíon, agus ní ar an "
-"gceann úsáideann tú ar bhonn rialta. Sábháil an cluaisín (féach "
-":ref:`save_tabs`) ionas gur féidir leat an suíomh Gréasáin a atosú leis an "
+"gceann úsáideann tú ar bhonn rialta. Sábháil an cluaisín (féach :ref:"
+"`save_tabs`) ionas gur féidir leat an suíomh Gréasáin a atosú leis an "
 "seoladh céanna má dhúnann tú OnionShare agus é a oscailt arís níos déanaí."
 
-#: ../../source/features.rst:132
+#: ../../source/features.rst:137
 msgid ""
 "If your website is intended for the public, you should run it as a public "
 "service (see :ref:`turn_off_private_key`)."
@@ -474,11 +486,11 @@ msgstr ""
 "Má tá do shuíomh Gréasáin beartaithe don phobal, ba cheart duit é a rith mar "
 "sheirbhís phoiblí (féach :tag: `turn_off_private_key`)."
 
-#: ../../source/features.rst:135
+#: ../../source/features.rst:140
 msgid "Chat Anonymously"
 msgstr "Comhrá gan ainm"
 
-#: ../../source/features.rst:137
+#: ../../source/features.rst:142
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't "
 "log anything. Just open a chat tab and click \"Start chat server\"."
@@ -487,7 +499,7 @@ msgstr ""
 "chur ar bun nach logálann aon rud. Just a oscailt cluaisín comhrá agus "
 "cliceáil \"Start freastalaí comhrá\"."
 
-#: ../../source/features.rst:141
+#: ../../source/features.rst:146
 msgid ""
 "After you start the server, copy the OnionShare address and private key and "
 "send them to the people you want in the anonymous chat room. If it's "
@@ -500,7 +512,7 @@ msgstr ""
 "páirt a ghlacadh, bain úsáid as aip teachtaireachtaí criptithe chun an "
 "seoladh OnionShare agus an eochair phríobháideach a sheoladh amach."
 
-#: ../../source/features.rst:146
+#: ../../source/features.rst:151
 msgid ""
 "People can join the chat room by loading its OnionShare address in Tor "
 "Browser. The chat room requires JavasScript, so everyone who wants to "
@@ -513,7 +525,7 @@ msgstr ""
 "slándála Brabhsálaí Tor a shocrú go \"Caighdeánach\" nó \"Níos Sábháilte\", "
 "in ionad \"Is Sábháilte\"."
 
-#: ../../source/features.rst:149
+#: ../../source/features.rst:154
 msgid ""
 "When someone joins the chat room they get assigned a random name. They can "
 "change their name by typing a new name in the box in the left panel and "
@@ -526,7 +538,7 @@ msgstr ""
 "sábháilte in aon áit, ní thaispeántar ar chor ar bith é, fiú má bhí daoine "
 "eile ag comhrá sa seomra cheana féin."
 
-#: ../../source/features.rst:155
+#: ../../source/features.rst:160
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change their "
 "name to anything, and there is no way to confirm anyone's identity."
@@ -535,7 +547,7 @@ msgstr ""
 "bith a n-ainm a athrú go rud ar bith, agus níl aon bhealach ann chun "
 "céannacht aon duine a dhearbhú."
 
-#: ../../source/features.rst:158
+#: ../../source/features.rst:163
 msgid ""
 "However, if you create an OnionShare chat room and securely send the address "
 "only to a small group of trusted friends using encrypted messages, you can "
@@ -546,11 +558,11 @@ msgstr ""
 "teachtaireachtaí criptithe, is féidir leat a bheith réasúnta muiníneach gur "
 "cairde iad na daoine a thagann isteach sa seomra comhrá."
 
-#: ../../source/features.rst:161
+#: ../../source/features.rst:166
 msgid "How is this useful?"
 msgstr "Cén chaoi a bhfuil sé seo úsáideach?"
 
-#: ../../source/features.rst:163
+#: ../../source/features.rst:168
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the point "
 "of an OnionShare chat room to begin with? It leaves less traces."
@@ -559,7 +571,7 @@ msgstr ""
 "cheana féin, cad é an pointe a bhaineann le seomra comhrá OnionShare ar "
 "dtús? Fágann sé níos lú rianta."
 
-#: ../../source/features.rst:165
+#: ../../source/features.rst:170
 msgid ""
 "If you for example send a message to a Signal group, a copy of your message "
 "ends up on each device (the smartphones, and computers if they set up Signal "
@@ -578,7 +590,7 @@ msgstr ""
 "shábháil. Ní stórálann seomraí comhrá OnionShare teachtaireachtaí ar bith "
 "áit ar bith, mar sin laghdaítear an fhadhb chomh beag agus is féidir."
 
-#: ../../source/features.rst:168
+#: ../../source/features.rst:173
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
@@ -593,11 +605,11 @@ msgstr ""
 "ansin fanacht leis an iriseoir dul isteach sa seomra comhrá, ar fad gan cur "
 "isteach ar a anaithnideacht."
 
-#: ../../source/features.rst:172
+#: ../../source/features.rst:177
 msgid "How does the encryption work?"
 msgstr "Conas a oibríonn an criptiú?"
 
-#: ../../source/features.rst:174
+#: ../../source/features.rst:179
 msgid ""
 "Because OnionShare relies on Tor onion services, connections between the Tor "
 "Browser and OnionShare are all end-to-end encrypted (E2EE). When someone "
@@ -612,7 +624,7 @@ msgstr ""
 "ansin chuig gach ball eile den seomra comhrá ag baint úsáide as WebSockets, "
 "trína naisc oinniún E2EE."
 
-#: ../../source/features.rst:176
+#: ../../source/features.rst:181
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on "
 "the Tor onion service's encryption instead."
