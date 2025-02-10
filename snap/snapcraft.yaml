@@ -1,5 +1,5 @@
 name: onionshare
-base: core24
+base: core22
 version: "2.6.2"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
@@ -11,10 +11,11 @@ description: |
 grade: stable # stable or devel
 confinement: strict
 
-platforms:
-  amd64:
-  arm64:
-  armhf:
+architectures:
+  - build-on: i386
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: armhf
 
 apps:
   onionshare:
@@ -127,6 +128,7 @@ parts:
       - libmysqlclient21
       - libxcb-cursor0
       - libxkbfile1
+      - libodbc1
     override-pull: |
       craftctl default
     override-build: |
@@ -206,11 +208,11 @@ parts:
       - meek-client
     plugin: nil
     build-snaps:  # List all content-snaps and base snaps you're using here
-      - core24
+      - core22
       - go/latest/stable
-      - gnome-46-2404
+      - gnome-42-2204-sdk
     override-prime: |
       set -eux
-      for snap in core24 go/latest/stable gnome-46-2404; do  # List all content-snaps and base snaps you're using here
+      for snap in core22 go/latest/stable gnome-42-2204-sdk; do  # List all content-snaps and base snaps you're using here
         cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$CRAFT_PRIME/{}" \;
       done
