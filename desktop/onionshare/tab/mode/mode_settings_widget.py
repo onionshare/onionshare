@@ -39,14 +39,24 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         # Downstream Mode need to fill in this layout with its settings
         self.mode_specific_layout = QtWidgets.QVBoxLayout()
 
+        self.persistent_autostart_on_launch_checkbox = QtWidgets.QCheckBox()
+        self.persistent_autostart_on_launch_checkbox.clicked.connect(self.persistent_autostart_on_launch_checkbox_clicked)
+        self.persistent_autostart_on_launch_checkbox.setText(strings._("mode_settings_persistent_autostart_on_launch_checkbox"))
+        if self.settings.get("persistent", "autostart_on_launch"):
+            self.persistent_autostart_on_launch_checkbox.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.persistent_autostart_on_launch_checkbox.setCheckState(QtCore.Qt.Unchecked)
+
         # Persistent
         self.persistent_checkbox = QtWidgets.QCheckBox()
         self.persistent_checkbox.clicked.connect(self.persistent_checkbox_clicked)
         self.persistent_checkbox.setText(strings._("mode_settings_persistent_checkbox"))
         if self.settings.get("persistent", "enabled"):
             self.persistent_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.persistent_autostart_on_launch_checkbox.show()
         else:
             self.persistent_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.persistent_autostart_on_launch_checkbox.hide()
 
         # Public
         self.public_checkbox = QtWidgets.QCheckBox()
@@ -150,6 +160,7 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         layout = QtWidgets.QVBoxLayout()
         layout.addLayout(self.mode_specific_layout)
         layout.addWidget(self.persistent_checkbox)
+        layout.addWidget(self.persistent_autostart_on_launch_checkbox)
         layout.addWidget(self.public_checkbox)
         layout.addWidget(self.advanced_widget)
         layout.addWidget(self.toggle_advanced_button)
@@ -206,6 +217,7 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
     def persistent_checkbox_clicked(self):
         self.settings.set("persistent", "enabled", self.persistent_checkbox.isChecked())
         self.settings.set("persistent", "mode", self.tab.mode)
+        self.settings.set("persistent", "autostart_on_launch", self.persistent_autostart_on_launch_checkbox.isChecked())
         self.change_persistent.emit(
             self.tab.tab_id, self.persistent_checkbox.isChecked()
         )
@@ -213,6 +225,12 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         # If disabling persistence, delete the file from disk
         if not self.persistent_checkbox.isChecked():
             self.settings.delete()
+            self.persistent_autostart_on_launch_checkbox.hide()
+        else:
+            self.persistent_autostart_on_launch_checkbox.show()
+
+    def persistent_autostart_on_launch_checkbox_clicked(self):
+        self.settings.set("persistent", "autostart_on_launch", self.persistent_autostart_on_launch_checkbox.isChecked())
 
     def public_checkbox_clicked(self):
         self.settings.set("general", "public", self.public_checkbox.isChecked())

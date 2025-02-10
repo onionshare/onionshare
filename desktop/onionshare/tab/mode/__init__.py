@@ -568,6 +568,8 @@ class Mode(QtWidgets.QWidget):
         self.primary_action.show()
         if not self.tab.timer.isActive():
             self.tab.timer.start(500)
+        if self.settings.get("persistent", "enabled") and self.settings.get("persistent", "autostart_on_launch"):
+            self.server_status.start_server()
 
     def tor_connection_stopped(self):
         """
