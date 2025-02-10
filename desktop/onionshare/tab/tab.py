@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import queue
-from PySide6 import QtCore, QtWidgets, QtGui
+from qtpy import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.onionshare import OnionShare
 from onionshare_cli.web import Web
@@ -69,11 +69,11 @@ class NewTabButton(QtWidgets.QPushButton):
         self.title_label.setStyleSheet(self.common.gui.css["new_tab_title_text"])
         if self.title_label.sizeHint().width() >= 250:
             self.title_label.setGeometry(
-                (self.width() - 250) / 2, self.height() - 120, 250, 60
+                (self.width() - 250) // 2, self.height() - 120, 250, 60
             )
         else:
             self.title_label.setGeometry(
-                (self.width() - 250) / 2, self.height() - 100, 250, 30
+                (self.width() - 250) // 2, self.height() - 100, 250, 30
             )
         self.title_label.show()
 
@@ -82,7 +82,7 @@ class NewTabButton(QtWidgets.QPushButton):
         self.text_label.setAlignment(QtCore.Qt.AlignCenter)
         self.text_label.setStyleSheet(self.common.gui.css["new_tab_button_text"])
         self.text_label.setGeometry(
-            (self.width() - 200) / 2, self.height() - 50, 200, 30
+            (self.width() - 200) // 2, self.height() - 50, 200, 30
         )
         self.text_label.show()
 

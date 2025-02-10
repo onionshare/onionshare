@@ -22,8 +22,10 @@ import time
 import subprocess
 import os
 from datetime import datetime
-from PySide6 import QtCore, QtWidgets, QtGui
+
+from qtpy import QtCore, QtWidgets, QtGui
 from urllib.parse import unquote
+
 
 from ... import strings
 from ...widgets import Alert
@@ -122,7 +124,7 @@ class ShareHistoryItem(HistoryItem):
         self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
         self.progress_bar.setMinimum(0)
-        self.progress_bar.setMaximum(total_bytes / 1024)
+        self.progress_bar.setMaximum(total_bytes // 1024)
         self.progress_bar.setValue(0)
         self.progress_bar.setStyleSheet(
             self.common.gui.css["downloads_uploads_progress_bar"]
@@ -141,7 +143,7 @@ class ShareHistoryItem(HistoryItem):
     def update(self, downloaded_bytes):
         self.downloaded_bytes = downloaded_bytes
 
-        self.progress_bar.setValue(downloaded_bytes / 1024)
+        self.progress_bar.setValue(downloaded_bytes // 1024)
         if (downloaded_bytes / 1024) == (self.progress_bar.total_bytes / 1024):
             pb_fmt = strings._("gui_all_modes_progress_complete").format(
                 self.common.format_seconds(time.time() - self.started)
@@ -393,8 +395,8 @@ class ReceiveHistoryItem(HistoryItem):
                 total_uploaded_bytes += data["progress"][filename]["uploaded_bytes"]
 
             # Update the progress bar
-            self.progress_bar.setMaximum(self.content_length / 1024)
-            self.progress_bar.setValue(total_uploaded_bytes / 1024)
+            self.progress_bar.setMaximum(self.content_length // 1024)
+            self.progress_bar.setValue(total_uploaded_bytes // 1024)
 
             elapsed = datetime.now() - self.started
             if elapsed.seconds < 10:
@@ -529,7 +531,7 @@ class IndividualFileHistoryItem(HistoryItem):
         else:
             self.total_bytes = data["filesize"]
             self.progress_bar.setMinimum(0)
-            self.progress_bar.setMaximum(data["filesize"] / 1024)
+            self.progress_bar.setMaximum(data["filesize"] // 1024)
             self.progress_bar.total_bytes = data["filesize"]
 
         # Start at 0
@@ -538,7 +540,7 @@ class IndividualFileHistoryItem(HistoryItem):
     def update(self, downloaded_bytes):
         self.downloaded_bytes = downloaded_bytes
 
-        self.progress_bar.setValue(downloaded_bytes / 1024)
+        self.progress_bar.setValue(downloaded_bytes // 1024)
         if (downloaded_bytes / 1024) == (self.progress_bar.total_bytes / 1024):
             self.status_code_label.setText("200")
             self.status_code_label.setStyleSheet(

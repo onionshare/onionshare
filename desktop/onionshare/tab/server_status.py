@@ -18,8 +18,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import textwrap
-from PySide6 import QtCore, QtWidgets, QtGui
-from PySide6.QtCore import Qt
+from qtpy import QtCore, QtWidgets, QtGui
+from qtpy.QtCore import Qt
 
 from .. import strings
 from ..widgets import Alert
