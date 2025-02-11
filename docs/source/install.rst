@@ -114,8 +114,8 @@ For Windows and macOS, this step is optional and provides defense in depth: the 
 Signing key
 ^^^^^^^^^^^
 
-Packages are signed by the core developer who is responsible for the particular release. Following are the
-informations of the core developers of OnionShare:
+Packages are signed by the core developer who is responsible for the particular release. Here is the GPG
+key information for each of the core developers of OnionShare:
 
 * Micah Lee:
     * PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``.
@@ -124,6 +124,10 @@ informations of the core developers of OnionShare:
 * Saptak Sengupta:
     * PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``.
     * You can download Saptak's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_.
+
+* Miguel Jacq:
+    * PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``.
+    * You can download Miguel's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_.
 
 You must have GnuPG installed to verify signatures. For macOS you probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want `Gpg4win <https://www.gpg4win.org/>`_.
 
