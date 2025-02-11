@@ -568,3 +568,38 @@ class TestShare(GuiBaseTest):
         self.web_server_is_stopped(tab)
         self.server_status_indicator_says_closed(tab)
         self.close_all_tabs()
+
+
+    def test_persistent_mode_and_autostart_can_be_set(self):
+        """
+        Test the persistent autostart on launch button can be clicked,
+        and that it is not visible when persistent mode is turned off
+        """
+        tab = self.new_share_tab()
+        tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[0])
+
+        # Persistent is now visible
+        self.assertTrue(tab.get_mode().mode_settings_widget.persistent_checkbox.isVisible())
+
+        # Autostart on launch is not visible
+        self.assertFalse(tab.get_mode().mode_settings_widget.persistent_autostart_on_launch_checkbox.isVisible())
+
+        # Click on persistence
+        tab.get_mode().mode_settings_widget.persistent_checkbox.click()
+
+        # Autostart on launch is now visible
+        self.assertTrue(tab.get_mode().mode_settings_widget.persistent_autostart_on_launch_checkbox.isVisible())
+
+        # Click off persistence
+        tab.get_mode().mode_settings_widget.persistent_checkbox.click()
+
+        # Autostart on launch is not visible
+        self.assertFalse(tab.get_mode().mode_settings_widget.persistent_autostart_on_launch_checkbox.isVisible())
+
+        self.run_all_common_setup_tests()
+        self.run_all_share_mode_setup_tests(tab)
+        self.run_all_share_mode_started_tests(tab)
+        self.download_share(tab)
+        self.web_server_is_stopped(tab)
+        self.server_status_indicator_says_closed(tab)
+        self.close_all_tabs()

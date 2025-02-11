@@ -40,7 +40,11 @@ class ModeSettings:
                 "client_auth_priv_key": None,
                 "client_auth_pub_key": None,
             },
-            "persistent": {"mode": None, "enabled": False},
+            "persistent": {
+                "mode": None,
+                "enabled": False,
+                "autostart_on_launch": False
+            },
             "general": {
                 "title": None,
                 "public": False,
