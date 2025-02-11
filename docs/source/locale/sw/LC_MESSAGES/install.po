@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 09:35+1100\n"
+"POT-Creation-Date: 2025-02-11 14:47+1100\n"
 "PO-Revision-Date: 2023-06-06 12:39+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: none\n"
@@ -321,8 +321,8 @@ msgstr "Alama maalum za utambuzi za kufungulia"
 #: ../../source/install.rst:117
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
 
 #: ../../source/install.rst:122
@@ -364,7 +364,30 @@ msgid ""
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
 
-#: ../../source/install.rst:128
+#: ../../source/install.rst:130
+msgid "Miguel Jacq:"
+msgstr ""
+
+#: ../../source/install.rst:129
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+
+#: ../../source/install.rst:130
+#, fuzzy
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"Vifurushi hutolewa na Micah Lee, muanzishaji mwenza, kwa kutumia PGP alama "
+"zake za kipekee za kuingilia za wazi zafingerprint "
+"``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Unaweza kupakua alama za "
+"kipekee za utambuzi za Micah's `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -374,11 +397,11 @@ msgstr ""
 "unaweza kuhitaji `GPGTools <https://gpgtools.org/>`_, na kwa ajili ya "
 "Windows unaweza kuhitaji `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "Saini"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 #, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
@@ -392,11 +415,11 @@ msgstr ""
 "katika `GitHub Releases page <https://github.com/micahflee/onionshare/"
 "releases>`_."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Kuhakiki"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 #, fuzzy
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
@@ -407,42 +430,42 @@ msgstr ""
 "iliyopakuliwa njia mnbili na saini ya ``.asc``, unaweza kuhakiki njia mbili "
 "za macOS katika mawasiliano kama hivi::"
 
-#: ../../source/install.rst:141
+#: ../../source/install.rst:145
 msgid "For Windows::"
 msgstr ""
 
-#: ../../source/install.rst:145
+#: ../../source/install.rst:149
 msgid "For macOS::"
 msgstr ""
 
-#: ../../source/install.rst:149
+#: ../../source/install.rst:153
 #, fuzzy
 msgid "For Linux::"
 msgstr "Linux"
 
-#: ../../source/install.rst:155
+#: ../../source/install.rst:159
 msgid "and for the source file::"
 msgstr ""
 
-#: ../../source/install.rst:159
+#: ../../source/install.rst:163
 msgid "The expected output looks like this::"
 msgstr "Matokeo yanayotarajiwa kama haya::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:173
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
 "the package."
 msgstr ""
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "

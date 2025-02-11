@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 09:35+1100\n"
+"POT-Creation-Date: 2025-02-11 14:47+1100\n"
 "PO-Revision-Date: 2024-03-14 03:02+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: none\n"
@@ -369,8 +369,8 @@ msgstr "Signering av nøkkel"
 #: ../../source/install.rst:117
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
 
 #: ../../source/install.rst:122
@@ -411,7 +411,29 @@ msgid ""
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
 
-#: ../../source/install.rst:128
+#: ../../source/install.rst:130
+msgid "Miguel Jacq:"
+msgstr ""
+
+#: ../../source/install.rst:129
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+
+#: ../../source/install.rst:130
+#, fuzzy
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"Pakker signeres av Micah Lee, hovedutvikleren, ved bruk av en offentlig PGP-"
+"nøkkel som har fingeravtrykket ``927F419D7EC82C2F149C1BD1403C2657CD994F73``. "
+"Du kan laste ned Micah sin nøkkel fra `from the keys.openpgp.org keyserver "
+"<https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -421,11 +443,11 @@ msgstr ""
 "antagelig ønske å bruke `GPGTools <https://gpgtools.org/>`_, og for Windows "
 "vil du antagelig ønske å bruke `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "Signaturer"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 #, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
@@ -438,11 +460,11 @@ msgstr ""
 "navngitt for hver versjon av OnionShare. Du kan også finne dem på `GitHub-"
 "utgivelsessiden <https://github.com/micahflee/onionshare/releases>`_."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Bekreftelse"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 #, fuzzy
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
@@ -453,29 +475,29 @@ msgstr ""
 "nøkkelknippe, lastet ned binærfilen, og lastet ned ``.asc``-signaturen, kan "
 "du bekrefte den kjørbare binærfilen for macOS i en terminal slik::"
 
-#: ../../source/install.rst:141
+#: ../../source/install.rst:145
 msgid "For Windows::"
 msgstr "For Windows::"
 
-#: ../../source/install.rst:145
+#: ../../source/install.rst:149
 msgid "For macOS::"
 msgstr "For macOS::"
 
-#: ../../source/install.rst:149
+#: ../../source/install.rst:153
 #, fuzzy
 msgid "For Linux::"
 msgstr "Linux|GNU"
 
-#: ../../source/install.rst:155
+#: ../../source/install.rst:159
 #, fuzzy
 msgid "and for the source file::"
 msgstr "og for kildekodefiler::"
 
-#: ../../source/install.rst:159
+#: ../../source/install.rst:163
 msgid "The expected output looks like this::"
 msgstr "Forventet utdata ser slik ut::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:173
 #, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
@@ -487,7 +509,7 @@ msgstr ""
 "(«ADVARSEL» vist ovenfor er ikke et problem med pakken; det betyr kun at du "
 "ikke allerede har etablert et tillits-nivå til Micah sin PGP-nøkkel."
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 #, fuzzy
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
@@ -499,7 +521,7 @@ msgstr ""
 "(«ADVARSEL» vist ovenfor er ikke et problem med pakken; det betyr kun at du "
 "ikke allerede har etablert et tillits-nivå til Micah sin PGP-nøkkel."
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 #, fuzzy
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
