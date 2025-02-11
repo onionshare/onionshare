@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-09 10:21+1100\n"
-"PO-Revision-Date: 2024-11-01 22:00+0000\n"
-"Last-Translator: Sketch6580 <Sketch6580@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2025-02-11 08:02+0000\n"
+"Last-Translator: Sketch6580 <sketch6580@users.noreply.hosted.weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -70,18 +70,12 @@ msgid ""
 msgstr "所有 OnionShare 服务默认都使用私钥保护，Tor 称之为“客户端验证”。"
 
 #: ../../source/advanced.rst:28
-#, fuzzy
-#| msgid ""
-#| "The Tor Browser will ask you to enter your private key when you load an "
-#| "OnionShare service. If you want allow the public to use your service, "
-#| "it's better to disable the private key altogether."
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want to allow the public to use your service, "
 "it's better to disable the private key altogether."
-msgstr ""
-"当您加载 OnionShare 服务时，Tor 浏览器会要求您输入私钥。如果您想允许公众使用"
-"您的服务，最好完全禁用私钥。"
+msgstr "加载 OnionShare 服务时，Tor "
+"浏览器将要求您输入私钥。如果您想允许公众使用您的服务，最好完全禁用私钥。"
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -129,18 +123,12 @@ msgstr ""
 "OnionShare\" 旁边的小方块，来安排日期和时刻。"
 
 #: ../../source/advanced.rst:51
-#, fuzzy
-#| msgid ""
-#| "Services scheduled to start in the future display a countdown timer when "
-#| "when the \"Start sharing\" button is clicked. Services scheduled to stop "
-#| "in the future display a countdown timer when started."
 msgid ""
 "Services scheduled to start in the future display a countdown timer when the "
 "\"Start sharing\" button is clicked. Services scheduled to stop in the "
 "future display a countdown timer when started."
-msgstr ""
-"当点击“开始分享”按钮时，计划在未来启动的服务会显示一个倒计时器，计划在未来停"
-"止的服务在启动时显示倒计时器。"
+msgstr "当点击“开始分享”按钮时，计划在未来启动的服务会显示倒计时器。计划在未来停止的"
+"服务在启动时显示倒计时器。"
 
 #: ../../source/advanced.rst:54
 msgid ""
@@ -164,33 +152,29 @@ msgstr ""
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
-msgstr "命令列介面"
+msgstr "命令行界面"
 
 #: ../../source/advanced.rst:70
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
-msgstr "除图形介面外，OnionShare 也有命令列介面。"
+msgstr "除了图形界面外，OnionShare 还有命令行界面。"
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr ""
+msgstr "安装 CLI 版本"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
-msgstr ""
+msgstr "如果安装了 Snap、macOS 或 Windows 软件包，则已经安装了 CLI 版本。"
 
 #: ../../source/advanced.rst:77
-#, fuzzy
-#| msgid ""
-#| "You can install just the command-line version of OnionShare using "
-#| "``pip3``::"
 msgid ""
 "Alternatively, you can install just the command-line version of OnionShare "
 "using ``pip3``::"
-msgstr "可使用 ``pip3``来安装命令列版本的 OnionShare::"
+msgstr "另外，您可以使用 ``pip3`` 只安装 OnionShare 的命令行版本::"
 
 #: ../../source/advanced.rst:81
 msgid ""
@@ -214,39 +198,36 @@ msgstr ""
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
-msgstr ""
+msgstr "从 Snap 运行 CLI"
 
 #: ../../source/advanced.rst:92
-#, fuzzy
-#| msgid ""
-#| "If you installed OnionShare using the Snap package, you can also just run "
-#| "``onionshare.cli`` to access the command-line interface version."
 msgid ""
 "If you installed OnionShare using the Snap package, you can run ``onionshare."
 "cli`` to access the command-line interface version."
-msgstr ""
-"如果您使用 Snap 软件包安装了 OnionShare，您也可以运行 ``onionshare.cli`` 来访"
-"问命令行界面版本。"
+msgstr "如果使用 Snap 软件包安装了 OnionShare，可以运行 ``onionshare.cli`` "
+"来访问命令行界面版本。"
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"
-msgstr ""
+msgstr "从 macOS 运行 CLI"
 
 #: ../../source/advanced.rst:97
 msgid ""
 "From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
 "onionshare-cli --help``"
 msgstr ""
+"从终端可以运行 ``/Applications/OnionShare.app/Contents/MacOS/onionshare-cli "
+"--help``"
 
 #: ../../source/advanced.rst:100
 msgid "Running the CLI from Windows"
-msgstr ""
+msgstr "从 Windows 运行 CLI"
 
 #: ../../source/advanced.rst:102
 msgid ""
 "In the Windows installation, the executable ``onionshare-cli.exe`` is "
 "available."
-msgstr ""
+msgstr "在 Windows 安装中，可执行文件 ``onionshare-cli.exe`` 可以使用。"
 
 #: ../../source/advanced.rst:105
 msgid "Usage"
@@ -259,24 +240,25 @@ msgstr "通过运行 ``onionshare --help`` 浏览命令行文档："
 
 #: ../../source/advanced.rst:170
 msgid "Running the CLI as a systemd unit file"
-msgstr ""
+msgstr "将 CLI 作为 systemd 单元文件运行"
 
 #: ../../source/advanced.rst:172
 msgid ""
 "It is possible to automatically start OnionShare from the CLI using a "
 "systemd unit file."
-msgstr ""
+msgstr "可以使用 systemd 单元文件从 CLI 自动启动 OnionShare。"
 
 #: ../../source/advanced.rst:174
 msgid ""
 "You may find this particularly useful if you are operating in 'persistent' "
 "mode, and want to start the same onion service every time your machine "
 "starts."
-msgstr ""
+msgstr "如果您以“持久”模式运行，并且想要每次启动设备时都启动相同的洋葱服务，您可能会"
+"发现这特别有用。"
 
 #: ../../source/advanced.rst:176
 msgid "To do this, you need to prepare some OnionShare json config first."
-msgstr ""
+msgstr "为此，您需要先准备一些 OnionShare JSON 配置。"
 
 #: ../../source/advanced.rst:178
 msgid ""
@@ -285,6 +267,9 @@ msgid ""
 "the settings, but if you already have OnionShare installed, it probably "
 "looks much like this already::"
 msgstr ""
+"此处是主要的 OnionShare 配置。在此示例中，它存储在 ``/home/user/.config/"
+"onionshare/onionshare.json``。您可能需要调整其中的一些设置，"
+"但如果您已经安装了 OnionShare，它看起来可能已经和这个类似::"
 
 #: ../../source/advanced.rst:207
 msgid ""
@@ -292,12 +277,15 @@ msgid ""
 "user/.config/onionshare/persistent/my-persistent-onion.json``, that looks "
 "like this::"
 msgstr ""
+"注意“persistent_tabs”部分。现在，我们将在 ``/home/user/.config/onionshare/"
+"persistent/my-persistent-onion.json`` 创建文件，类似这样::"
 
 #: ../../source/advanced.rst:247
 msgid ""
 "**Don't actually use this private key, service_id or client_auth keys! They "
 "are shown only as an example. Never share the private_key with anyone.**"
-msgstr ""
+msgstr "**请勿实际使用此私钥、service_id 或 client_auth "
+"密钥！它们仅作为示例显示。切勿与任何人分享私钥。**"
 
 #: ../../source/advanced.rst:249
 msgid ""
@@ -308,6 +296,11 @@ msgid ""
 "unpin that tab once you've generated it the first time. Or, you can leave it "
 "where it is, and use that persistent file in your systemd unit file below."
 msgstr ""
+"生成洋葱地址和私钥的最简单方法是，先在桌面应用中创建“固定”的 OnionShare "
+"标签页，并首次启动分享。这会将持久设置以随机名称保存到 ``.config/onionshare/"
+"persistent/`` "
+"文件夹。您可以在首次生成后取消固定该标签页。或者，也可以将其留在原处，"
+"并在下方 systemd 单元文件中使用该持久文件。"
 
 #: ../../source/advanced.rst:251
 msgid ""
@@ -316,10 +309,13 @@ msgid ""
 "as well as changes to any paths to the onionshare-cli binary or the paths to "
 "your JSON configs and shares."
 msgstr ""
+"现在，您可以在 ``/etc/systemd/system/onionshare-cli.service`` 创建 systemd "
+"单元文件。请确保将用户和组调整为您自己的用户/组，并更改 onionshare-cli "
+"二进制文件的任何路径或 JSON 配置和共享的路径。"
 
 #: ../../source/advanced.rst:253
 msgid "The systemd unit file should look like this::"
-msgstr ""
+msgstr "systemd 单元文件应该类似这样::"
 
 #: ../../source/advanced.rst:268
 msgid ""
@@ -327,11 +323,14 @@ msgid ""
 "``filenames`` section of the ``my-persistent-onion.json`` file, it's still "
 "necessary to specify it as the argument to the onionshare-cli command."
 msgstr ""
+"请注意，尽管在 ``my-persistent-onion.json`` 文件的 ``filenames`` 部分定义了 "
+"``/home/user/my-shared-file.txt``，但仍有必要将其指定为 onionshare-cli "
+"命令的参数。"
 
 #: ../../source/advanced.rst:270
 msgid ""
 "Be sure to run ``sudo systemctl daemon-reload`` after creating the unit file."
-msgstr ""
+msgstr "请确保在创建单元文件后运行 ``sudo systemctl daemon-reload``。"
 
 #: ../../source/advanced.rst:272
 msgid ""
@@ -339,12 +338,17 @@ msgid ""
 "``journalctl`` installed, you can run ``sudo journalctl -f -t onionshare-"
 "cli``, and you should see some output of your service starting::"
 msgstr ""
+"现在您可以运行 ``sudo systemctl start onionshare-cli.service``。如果安装了 "
+"``journalctl``，可以运行 ``sudo journalctl -f -t onionshare-"
+"cli``，您应该看到服务启动的一些输出::"
 
 #: ../../source/advanced.rst:282
 msgid ""
 "If you don't want your users to use a Private Key, set ``public`` to be "
 "``true`` in the ``general`` settings of the my-persistent-onion.json file."
 msgstr ""
+"如果不想让用户使用私钥，可在 my-persistent-onion.json 文件的``常规``设置中将 "
+"``public`` 设为 ``true``。"
 
 #: ../../source/advanced.rst:286
 msgid "Keyboard Shortcuts"
@@ -362,29 +366,32 @@ msgstr "从主模式选择器屏幕："
 
 #: ../../source/advanced.rst:303
 msgid "Migrating your OnionShare data to another computer"
-msgstr ""
+msgstr "将 OnionShare 数据迁移到另一台计算机上"
 
 #: ../../source/advanced.rst:305
 msgid ""
 "You may want to migrate your OnionShare data when switching to another "
 "computer. This is especially true if you had a 'persistent' onion address "
 "and you want to preserve it."
-msgstr ""
+msgstr "当切换到另一台计算机时，您可能想迁移您的 OnionShare "
+"数据。如果您有“持久”的洋葱地址并想要保留它，则尤其如此。"
 
 #: ../../source/advanced.rst:307
 msgid ""
 "OnionShare stores all such data in a specific folder. Copy the relevant "
 "folder for your operating system below, to your new computer:"
-msgstr ""
+msgstr "OnionShare "
+"会将所有这些数据存储在特定文件夹中。将下方操作系统相关的文件夹复制到新计算机"
+"："
 
 #: ../../source/advanced.rst:309
 msgid "Linux: ``~/.config/onionshare``"
-msgstr ""
+msgstr "Linux: ``~/.config/onionshare``"
 
 #: ../../source/advanced.rst:310
 msgid "macOS: ``~/Library/Application Support/OnionShare``"
-msgstr ""
+msgstr "macOS: ``~/Library/Application Support/OnionShare``"
 
 #: ../../source/advanced.rst:311
 msgid "Windows: ``%APPDATA%\\OnionShare``"
-msgstr ""
+msgstr "Windows: ``%APPDATA%\\OnionShare``"

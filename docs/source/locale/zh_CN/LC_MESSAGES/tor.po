@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-09 09:35+1100\n"
-"PO-Revision-Date: 2024-11-01 22:00+0000\n"
-"Last-Translator: Sketch6580 <Sketch6580@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2025-02-11 08:02+0000\n"
+"Last-Translator: Sketch6580 <sketch6580@users.noreply.hosted.weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/tor.rst:2
@@ -78,16 +78,16 @@ msgstr "如果出现这种情况，您将有以下选择："
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr "请尝试在没有使用网桥的情况下再次连接"
+msgstr "不用网桥重试"
 
 #: ../../source/tor.rst:23
 msgid ""
 "Automatically determine my country from my IP address for bridge settings"
-msgstr "自动根据我的 IP 地址确定我的国家/地区以进行网桥设置"
+msgstr "从 IP 地址自动确定我所在国家/地区的网桥设置"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr "手动选择我的国家/地区以进行网桥设置"
+msgstr "手动选择我所在国家/地区的网桥设置"
 
 #: ../../source/tor.rst:28
 msgid ""
@@ -303,9 +303,10 @@ msgid ""
 "extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted "
 "folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
-"`从 Tor 网站 <https://www.torproject.org/download/tor/>`_ 下载 Tor Windows 专"
-"家包。解压缩文件并将解压缩的文件夹复制到 ``C:\\Program Files (x86)\\`` 中，将"
-"包含 ``Data`` 和 ``Tor`` 的解压缩文件夹重命名为 ``tor-win32``。"
+"`从 Tor 网站 <https://www.torproject.org/zh-CN/download/tor/>`_ 下载适用于 "
+"Windows 的 Tor 专家包。解压缩文件并将解压缩的文件夹复制到 ``C:\\Program "
+"Files (x86)\\`` 中，将包含 ``Data`` 和 ``Tor`` 的解压缩文件夹重命名为 ``tor-"
+"win32``。"
 
 #: ../../source/tor.rst:105
 msgid ""

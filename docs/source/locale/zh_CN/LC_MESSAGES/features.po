@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-09 09:44+1100\n"
-"PO-Revision-Date: 2024-11-01 22:00+0000\n"
-"Last-Translator: Sketch6580 <Sketch6580@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2025-02-11 08:01+0000\n"
+"Last-Translator: Sketch6580 <sketch6580@users.noreply.hosted.weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/features.rst:4
@@ -29,9 +29,9 @@ msgid ""
 "other people as `Tor <https://www.torproject.org/>`_ `onion services "
 "<https://community.torproject.org/onion-services/>`_."
 msgstr ""
-"网络服务器在你的计算机上本地启动，并作为`Tor <https://www.torproject.org/>`_ "
-"`onion services <https://community.torproject.org/onion-services/>`_ 让其他人"
-"访问。"
+"Web 服务器在计算机上本地启动，并作为 `Tor <https://www.torproject.org/zh-CN/"
+">`_ `洋葱服务<https://community.torproject.org/onion-services/"
+">`_供其他人访问。"
 
 #: ../../source/features.rst:8
 msgid "By default, OnionShare web addresses are protected with a private key."
@@ -311,7 +311,7 @@ msgstr ""
 
 #: ../../source/features.rst:102
 msgid "Other caveats to be aware of in Receive Mode"
-msgstr ""
+msgstr "接收模式中的其他注意事项"
 
 #: ../../source/features.rst:104
 msgid ""
@@ -320,6 +320,9 @@ msgid ""
 "mode. Try Bronze or Gold to see if you are able to upload a message or a "
 "file."
 msgstr ""
+"有报告称，iOS 设备上的 Onion Browser 在“白银”"
+"安全模式运行时无法在接收模式中将文件上传到 "
+"OnionShare。尝试使用青铜或黄金模式，看看您能否上传消息或文件。"
 
 #: ../../source/features.rst:107
 msgid "Host a Website"
