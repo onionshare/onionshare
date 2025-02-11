@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-11 14:47+1100\n"
-"PO-Revision-Date: 2024-03-22 16:07+0000\n"
+"PO-Revision-Date: 2025-02-11 21:35+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: pl <LL@li.org>\n"
 "Language: pl\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -392,14 +393,14 @@ msgid "Signing key"
 msgstr "Klucz podpisujący"
 
 #: ../../source/install.rst:117
-#, fuzzy
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
 msgstr ""
 "Pakiety są podpisywane przez głównego programistę, który jest odpowiedzialny "
-"za daną wersję. Poniżej znajdują się informacje głównych twórców OnionShare:"
+"za daną wersję. Oto najważniejsze informacje GPG o każdym z głównych twórców "
+"OnionShare:"
 
 #: ../../source/install.rst:122
 msgid "Micah Lee:"
@@ -445,26 +446,24 @@ msgstr ""
 
 #: ../../source/install.rst:130
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
-#, fuzzy
 msgid ""
 "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 msgstr ""
 "Odcisk palca klucza publicznego PGP "
-"``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+"``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 
 #: ../../source/install.rst:130
-#, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
-"Możesz pobrać klucz Micaha `z serwera kluczy keys.openpgp.org <https://keys."
-"openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Możesz pobrać klucz Miguela `z serwera kluczy keys.openpgp.org <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 
 #: ../../source/install.rst:132
 msgid ""
