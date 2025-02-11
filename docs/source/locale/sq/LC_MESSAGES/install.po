@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 09:35+1100\n"
+"POT-Creation-Date: 2025-02-11 14:47+1100\n"
 "PO-Revision-Date: 2024-12-17 19:38+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: none\n"
@@ -391,10 +391,11 @@ msgid "Signing key"
 msgstr "Kyç nënshkrimesh"
 
 #: ../../source/install.rst:117
+#, fuzzy
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
 "Paketat nënshkruhen nga zhvilluesi kryesor që është përgjegjës për hedhjen "
 "përkatëse në qarkullim. Sa vijon, janë hollësi të zhvilluesve bazë të "
@@ -440,7 +441,29 @@ msgstr ""
 "kyçeve <https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
-#: ../../source/install.rst:128
+#: ../../source/install.rst:130
+msgid "Miguel Jacq:"
+msgstr ""
+
+#: ../../source/install.rst:129
+#, fuzzy
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+"Shenja gishtash kyçi publik PGP ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+
+#: ../../source/install.rst:130
+#, fuzzy
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"Kyçin e Mikas mund ta shkarkoni `që nga shërbyesi keys.openpgp.org i kyçeve "
+"<https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -450,11 +473,11 @@ msgstr ""
 "gjasat janë t’ju duhet `GPGTools <https://gpgtools.org/>`_, ndërsa për "
 "Windows me gjasa ju duhet `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "Nënshkrime"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -467,11 +490,11 @@ msgstr ""
 "gjeni edhe në `faqen GitHub të Hedhjeve Në Qarkullim <https://github.com/"
 "onionshare/onionshare/releases>`_."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Po verifikohet"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
@@ -481,27 +504,27 @@ msgstr ""
 "zhvilluesve bazë, shkarkuar dyorin dhe nënshkrimin ``.asc``, mund të "
 "verifikoni dyorin në një terminal, në këtë mënyrë:"
 
-#: ../../source/install.rst:141
+#: ../../source/install.rst:145
 msgid "For Windows::"
 msgstr "Për Windows::"
 
-#: ../../source/install.rst:145
+#: ../../source/install.rst:149
 msgid "For macOS::"
 msgstr "Për macOS::"
 
-#: ../../source/install.rst:149
+#: ../../source/install.rst:153
 msgid "For Linux::"
 msgstr "Për Linux::"
 
-#: ../../source/install.rst:155
+#: ../../source/install.rst:159
 msgid "and for the source file::"
 msgstr "dhe për kartela burim::"
 
-#: ../../source/install.rst:159
+#: ../../source/install.rst:163
 msgid "The expected output looks like this::"
 msgstr "Ajo çka pritet duket pak a shumë kështu::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:173
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -511,7 +534,7 @@ msgstr ""
 "pacenueshmërinë e kartelës (dashakeqe ose jo) dhe s’duhet ta instaloni "
 "paketën."
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
@@ -521,7 +544,7 @@ msgstr ""
 "thotë se s’keni përcaktuar një shkallë “besimi”” për kyçin PGP të Mikas "
 "(zhvilluesi kryesor)."
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "

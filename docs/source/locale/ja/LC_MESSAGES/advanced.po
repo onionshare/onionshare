@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 10:21+1100\n"
-"PO-Revision-Date: 2024-09-23 09:55+0000\n"
+"POT-Creation-Date: 2025-02-11 14:47+1100\n"
+"PO-Revision-Date: 2025-02-11 08:01+0000\n"
 "Last-Translator: Himmel <Himmel@users.noreply.hosted.weblate.org>\n"
 "Language-Team: ja <LL@li.org>\n"
 "Language: ja\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/advanced.rst:2
@@ -75,14 +76,13 @@ msgstr ""
 "「クライアント認証」と呼ばれているものです。"
 
 #: ../../source/advanced.rst:28
-#, fuzzy
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want to allow the public to use your service, "
 "it's better to disable the private key altogether."
 msgstr ""
-"OnionShare のサービスを読み込むと、Tor Browser は秘密鍵を入力するようリクエス"
-"トします。サービスを公開したい場合は、秘密鍵を無効にするほうがいいでしょう。"
+"OnionShare のサービスを読み込むと、Tor Browser は秘密鍵を入力するよう要求しま"
+"す。サービスを公開したい場合は、秘密鍵を完全に無効にすることをお勧めします。"
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -136,15 +136,14 @@ msgstr ""
 "チェックを入れて、希望日時を入力してください。"
 
 #: ../../source/advanced.rst:51
-#, fuzzy
 msgid ""
 "Services scheduled to start in the future display a countdown timer when the "
 "\"Start sharing\" button is clicked. Services scheduled to stop in the "
 "future display a countdown timer when started."
 msgstr ""
-"将来に開始するように予定されたサービスは、「共有を開始」ボタンをクリックする"
-"と、カウントダウンのタイマーを表示します。将来に終了するように予定されたサー"
-"ビスは、開始するとカウントダウンのタイマーを表示します。"
+"今後開始する予定のサービスは、「共有を開始」ボタンをクリックするとカウントダ"
+"ウンタイマーが表示されます。今後停止する予定のサービスは、開始時にカウントダ"
+"ウンタイマーが表示されます。"
 
 #: ../../source/advanced.rst:54
 msgid ""
@@ -182,21 +181,23 @@ msgstr ""
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr ""
+msgstr "CLI バージョンのインストール"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
 msgstr ""
+"Snap、macOS、または Windows パッケージをインストールしている場合、CLI バー"
+"ジョンはすでにインストールされています。"
 
 #: ../../source/advanced.rst:77
-#, fuzzy
 msgid ""
 "Alternatively, you can install just the command-line version of OnionShare "
 "using ``pip3``::"
 msgstr ""
-"``pip3`` を利用すると、OnionShareのコマンドライン版をインストールできます。"
+"あるいは、``pip3`` を使って OnionShare のコマンドライン版だけをインストールす"
+"ることもできます。"
 
 #: ../../source/advanced.rst:81
 msgid ""
@@ -222,36 +223,39 @@ msgstr ""
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
-msgstr ""
+msgstr "Snap からの CLI の実行"
 
 #: ../../source/advanced.rst:92
-#, fuzzy
 msgid ""
 "If you installed OnionShare using the Snap package, you can run ``onionshare."
 "cli`` to access the command-line interface version."
 msgstr ""
-"SnapパッケージでOnionShareをインストールした場合は、 ``onionshare.cli`` を実"
-"行するとコマンドライン・インターフェイスにアクセスできます。"
+"Snap パッケージを使用して OnionShare をインストールした場合は、 ``onionshare."
+"cli`` を実行することで、コマンドラインインターフェイス版にアクセスできます。"
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"
-msgstr ""
+msgstr "macOS からの CLI の実行"
 
 #: ../../source/advanced.rst:97
 msgid ""
 "From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
 "onionshare-cli --help``"
 msgstr ""
+"ターミナルから ``/Applications/OnionShare.app/Contents/MacOS/onionshare-cli "
+"--help`` を実行します"
 
 #: ../../source/advanced.rst:100
 msgid "Running the CLI from Windows"
-msgstr ""
+msgstr "Windows からの CLI の実行"
 
 #: ../../source/advanced.rst:102
 msgid ""
 "In the Windows installation, the executable ``onionshare-cli.exe`` is "
 "available."
 msgstr ""
+"Windows でのインストールでは、実行ファイル ``onionshare-cli.exe`` が利用でき"
+"ます。"
 
 #: ../../source/advanced.rst:105
 msgid "Usage"
@@ -265,13 +269,15 @@ msgstr ""
 
 #: ../../source/advanced.rst:170
 msgid "Running the CLI as a systemd unit file"
-msgstr ""
+msgstr "systemd ユニットファイルとしての CLI の実行"
 
 #: ../../source/advanced.rst:172
 msgid ""
 "It is possible to automatically start OnionShare from the CLI using a "
 "systemd unit file."
 msgstr ""
+"systemd ユニットファイルを使用して、CLI から OnionShare を自動的に起動できま"
+"す。"
 
 #: ../../source/advanced.rst:174
 msgid ""
@@ -279,10 +285,14 @@ msgid ""
 "mode, and want to start the same onion service every time your machine "
 "starts."
 msgstr ""
+"「永続」モードで動作していて、マシンを起動するたびに同じ Onion Service を起動"
+"したい場合には特に便利です。"
 
 #: ../../source/advanced.rst:176
 msgid "To do this, you need to prepare some OnionShare json config first."
 msgstr ""
+"これを行うには、最初にいくつかの OnionShare json 構成を準備する必要がありま"
+"す。"
 
 #: ../../source/advanced.rst:178
 msgid ""
@@ -291,6 +301,10 @@ msgid ""
 "the settings, but if you already have OnionShare installed, it probably "
 "looks much like this already::"
 msgstr ""
+"これが OnionShare のメイン設定です。この例では、``/home/user/.config/"
+"onionshare/onionshare.json`` に保存されています。いくつかの設定を調整する必要"
+"があるかもしれませんが、すでに OnionShare がインストールされている場合は、お"
+"そらく以下のようになります。"
 
 #: ../../source/advanced.rst:207
 msgid ""
@@ -298,12 +312,16 @@ msgid ""
 "user/.config/onionshare/persistent/my-persistent-onion.json``, that looks "
 "like this::"
 msgstr ""
+"「persistent_tabs」セクションに注目します。以下のようなファイルを ``/home/"
+"user/.config/onionshare/persistent/my-persistent-onion.json`` に作成します。"
 
 #: ../../source/advanced.rst:247
 msgid ""
 "**Don't actually use this private key, service_id or client_auth keys! They "
 "are shown only as an example. Never share the private_key with anyone.**"
 msgstr ""
+"**この秘密鍵、service_id、client_auth 鍵を実際に使用しないでください！これら"
+"はあくまで例です。秘密鍵は絶対に誰とも共有しないでください**"
 
 #: ../../source/advanced.rst:249
 msgid ""
@@ -314,6 +332,12 @@ msgid ""
 "unpin that tab once you've generated it the first time. Or, you can leave it "
 "where it is, and use that persistent file in your systemd unit file below."
 msgstr ""
+"Onion アドレスと秘密鍵を生成する最も簡単な方法は、まずデスクトップアプリで "
+"OnionShare タブを「ピン留め」して、初めて共有を開始することです。これにより、"
+"永続的な設定が ``.config/onionshare/persistent/`` フォルダにランダムな名前で"
+"保存されます。最初に生成したタブは固定解除できます。あるいは、そのままにして"
+"おいて、以下の systemd ユニットファイルでその永続ファイルを使用することもでき"
+"ます。"
 
 #: ../../source/advanced.rst:251
 msgid ""
@@ -322,10 +346,13 @@ msgid ""
 "as well as changes to any paths to the onionshare-cli binary or the paths to "
 "your JSON configs and shares."
 msgstr ""
+"これで、``/etc/systemd/system/onionshare-cli.service`` に systemd ユニット"
+"ファイルを作成できます。User と Group を自分のユーザー/グループに調整し、"
+"onionshare-cli バイナリへのパスや JSON 設定と共有へのパスも変更してください。"
 
 #: ../../source/advanced.rst:253
 msgid "The systemd unit file should look like this::"
-msgstr ""
+msgstr "systemd ユニットファイルは以下のようになります。"
 
 #: ../../source/advanced.rst:268
 msgid ""
@@ -333,11 +360,16 @@ msgid ""
 "``filenames`` section of the ``my-persistent-onion.json`` file, it's still "
 "necessary to specify it as the argument to the onionshare-cli command."
 msgstr ""
+"``/home/user/my-shared-file.txt`` は ``my-persistent-onion.json`` ファイルの "
+"``filenames`` セクションで定義されていますが、onionshare-cli コマンドの引数と"
+"して指定する必要があります。"
 
 #: ../../source/advanced.rst:270
 msgid ""
 "Be sure to run ``sudo systemctl daemon-reload`` after creating the unit file."
 msgstr ""
+"ユニットファイルを作成した後、必ず ``sudo systemctl daemon-reload`` を実行し"
+"てください。"
 
 #: ../../source/advanced.rst:272
 msgid ""
@@ -345,12 +377,17 @@ msgid ""
 "``journalctl`` installed, you can run ``sudo journalctl -f -t onionshare-"
 "cli``, and you should see some output of your service starting::"
 msgstr ""
+"これで ``sudo systemctl start onionshare-cli.service`` を実行できます。"
+"``journalctl`` がインストールされている場合は、``sudo journalctl -f -t "
+"onionshare-cli`` を実行すると、以下のようにサービスの出力が表示されます。"
 
 #: ../../source/advanced.rst:282
 msgid ""
 "If you don't want your users to use a Private Key, set ``public`` to be "
 "``true`` in the ``general`` settings of the my-persistent-onion.json file."
 msgstr ""
+"ユーザーに秘密鍵を使わせたくない場合は、my-persistent-onion.json ファイルの "
+"``general`` 設定で ``public`` を ``true`` に設定します。"
 
 #: ../../source/advanced.rst:286
 msgid "Keyboard Shortcuts"
@@ -370,7 +407,7 @@ msgstr "メインモードの選択画面については、以下のショート
 
 #: ../../source/advanced.rst:303
 msgid "Migrating your OnionShare data to another computer"
-msgstr ""
+msgstr "OnionShare データを別のコンピューターに移行する"
 
 #: ../../source/advanced.rst:305
 msgid ""
@@ -378,24 +415,30 @@ msgid ""
 "computer. This is especially true if you had a 'persistent' onion address "
 "and you want to preserve it."
 msgstr ""
+"別のコンピューターに乗り換えるときに、OnionShare のデータを移行したい場合もあ"
+"るはずです。これは、「永続的な」Onion アドレスがあり、それを保持したい場合に"
+"特に当てはまるでしょう。"
 
 #: ../../source/advanced.rst:307
 msgid ""
 "OnionShare stores all such data in a specific folder. Copy the relevant "
 "folder for your operating system below, to your new computer:"
 msgstr ""
+"OnionShare は、このようなデータをすべて特定のフォルダーに保存します。次のオペ"
+"レーティングシステムに対応するフォルダーを新しいコンピューターにコピーしま"
+"す。"
 
 #: ../../source/advanced.rst:309
 msgid "Linux: ``~/.config/onionshare``"
-msgstr ""
+msgstr "Linux: ``~/.config/onionshare``"
 
 #: ../../source/advanced.rst:310
 msgid "macOS: ``~/Library/Application Support/OnionShare``"
-msgstr ""
+msgstr "macOS: ``~/Library/Application Support/OnionShare``"
 
 #: ../../source/advanced.rst:311
 msgid "Windows: ``%APPDATA%\\OnionShare``"
-msgstr ""
+msgstr "Windows: ``%APPDATA%\\OnionShare``"
 
 #~ msgid ""
 #~ "Everything in OnionShare is temporary by default. If you close an "

@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 10:21+1100\n"
-"PO-Revision-Date: 2024-11-14 00:13+0000\n"
-"Last-Translator: 109247019824 <stoyan@gmx.com>\n"
+"POT-Creation-Date: 2025-02-11 14:47+1100\n"
+"PO-Revision-Date: 2025-02-11 08:02+0000\n"
+"Last-Translator: 109247019824 <109247019824@users.noreply.hosted.weblate."
+"org>\n"
 "Language-Team: none\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -76,11 +77,6 @@ msgstr ""
 "нарича „удостоверяване на клиента“."
 
 #: ../../source/advanced.rst:28
-#, fuzzy
-#| msgid ""
-#| "The Tor Browser will ask you to enter your private key when you load an "
-#| "OnionShare service. If you want allow the public to use your service, "
-#| "it's better to disable the private key altogether."
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want to allow the public to use your service, "
@@ -143,11 +139,6 @@ msgstr ""
 "задайте съответните дати и часове."
 
 #: ../../source/advanced.rst:51
-#, fuzzy
-#| msgid ""
-#| "Services scheduled to start in the future display a countdown timer when "
-#| "when the \"Start sharing\" button is clicked. Services scheduled to stop "
-#| "in the future display a countdown timer when started."
 msgid ""
 "Services scheduled to start in the future display a countdown timer when the "
 "\"Start sharing\" button is clicked. Services scheduled to stop in the "
@@ -194,19 +185,17 @@ msgstr ""
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr ""
+msgstr "Инсталиране на версията за команден ред"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
 msgstr ""
+"Ако сте инсталирали пакета от Snap, за macOS или Windows вече разполагате с "
+"версията за команден ред."
 
 #: ../../source/advanced.rst:77
-#, fuzzy
-#| msgid ""
-#| "You can install just the command-line version of OnionShare using "
-#| "``pip3``::"
 msgid ""
 "Alternatively, you can install just the command-line version of OnionShare "
 "using ``pip3``::"

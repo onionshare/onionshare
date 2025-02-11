@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 09:44+1100\n"
-"PO-Revision-Date: 2024-07-22 09:35+0000\n"
+"POT-Creation-Date: 2025-02-11 14:47+1100\n"
+"PO-Revision-Date: 2025-02-11 08:01+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ga\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :"
 "(n>6 && n<11) ? 3 : 4;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/features.rst:4
@@ -367,7 +367,7 @@ msgstr ""
 
 #: ../../source/features.rst:102
 msgid "Other caveats to be aware of in Receive Mode"
-msgstr ""
+msgstr "Uaimheanna eile le bheith feasach orthu sa Mhód Faighte"
 
 #: ../../source/features.rst:104
 msgid ""
@@ -376,6 +376,10 @@ msgid ""
 "mode. Try Bronze or Gold to see if you are able to upload a message or a "
 "file."
 msgstr ""
+"Tá tuairiscí ann nach bhfuil OnionBrowser ar ghléasanna iOS in ann comhaid a "
+"uaslódáil chuig OnionShare i Mód Faighte, agus iad ag feidhmiú i mód "
+"slándála ‘Silver’. Bain triail as Cré-umha nó Ór le fáil amach an bhfuil tú "
+"in ann teachtaireacht nó comhad a uaslódáil."
 
 #: ../../source/features.rst:107
 msgid "Host a Website"

@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 10:21+1100\n"
-"PO-Revision-Date: 2023-12-25 11:10+0000\n"
-"Last-Translator: curtisb <curtisbaltimore@protonmail.com>\n"
+"POT-Creation-Date: 2025-02-11 14:47+1100\n"
+"PO-Revision-Date: 2025-02-11 08:01+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: de <LL@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/advanced.rst:2
@@ -195,7 +196,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr ""
+msgstr "Installation der Befehlszeilenversion"
 
 #: ../../source/advanced.rst:75
 msgid ""

@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 09:44+1100\n"
-"PO-Revision-Date: 2023-06-06 12:39+0000\n"
-"Last-Translator: emma peel <emmapeel@torproject.org>\n"
+"POT-Creation-Date: 2025-02-11 14:47+1100\n"
+"PO-Revision-Date: 2025-02-11 08:01+0000\n"
+"Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: pl <LL@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/features.rst:4
@@ -351,7 +352,7 @@ msgstr ""
 
 #: ../../source/features.rst:102
 msgid "Other caveats to be aware of in Receive Mode"
-msgstr ""
+msgstr "Inne ostrzeżenia, o których należy pamiętać w trybie odbierania"
 
 #: ../../source/features.rst:104
 msgid ""
@@ -360,6 +361,10 @@ msgid ""
 "mode. Try Bronze or Gold to see if you are able to upload a message or a "
 "file."
 msgstr ""
+"Istnieją doniesienia, że OnionBrowser na urządzeniach z systemem iOS nie "
+"może przesyłać plików do OnionShare w trybie odbierania, gdy działa w trybie "
+"bezpieczeństwa „Silver”. Wypróbuj tryb „Bronze” lub „Gold”, aby sprawdzić, "
+"czy możesz przesłać wiadomość lub plik."
 
 #: ../../source/features.rst:107
 msgid "Host a Website"

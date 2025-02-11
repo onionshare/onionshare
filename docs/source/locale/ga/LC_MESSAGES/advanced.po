@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 10:21+1100\n"
-"PO-Revision-Date: 2024-07-19 09:09+0000\n"
+"POT-Creation-Date: 2025-02-11 14:47+1100\n"
+"PO-Revision-Date: 2025-02-11 08:01+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ga\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :"
 "(n>6 && n<11) ? 3 : 4;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -80,11 +80,6 @@ msgstr ""
 "phríobháideach, a dtugann Tor \"fíordheimhniú cliant\" air."
 
 #: ../../source/advanced.rst:28
-#, fuzzy
-#| msgid ""
-#| "The Tor Browser will ask you to enter your private key when you load an "
-#| "OnionShare service. If you want allow the public to use your service, "
-#| "it's better to disable the private key altogether."
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want to allow the public to use your service, "
@@ -150,20 +145,15 @@ msgstr ""
 "inmhianaithe faoi seach agus amanna."
 
 #: ../../source/advanced.rst:51
-#, fuzzy
-#| msgid ""
-#| "Services scheduled to start in the future display a countdown timer when "
-#| "when the \"Start sharing\" button is clicked. Services scheduled to stop "
-#| "in the future display a countdown timer when started."
 msgid ""
 "Services scheduled to start in the future display a countdown timer when the "
 "\"Start sharing\" button is clicked. Services scheduled to stop in the "
 "future display a countdown timer when started."
 msgstr ""
-"Taispeánann seirbhísí atá le tosú amach anseo lasc ama comhaireamh síos "
-"nuair a chliceáiltear an cnaipe “Tosaigh ag roinnt”. Taispeánann seirbhísí "
-"atá sceidealaithe le stopadh sa todhchaí lasc ama comhaireamh síos nuair a "
-"chuirtear tús leo."
+"Taispeánann seirbhísí atá sceidealaithe le tosú amach anseo lasc ama "
+"comhaireamh síos nuair a chliceáiltear an cnaipe “Tosaigh ag roinnt”. "
+"Taispeánann seirbhísí atá sceidealaithe le stopadh sa todhchaí lasc ama "
+"comhaireamh síos nuair a chuirtear tús leo."
 
 #: ../../source/advanced.rst:54
 msgid ""
@@ -201,25 +191,23 @@ msgstr ""
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr ""
+msgstr "Suiteáil an leagan CLI"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
 msgstr ""
+"Má tá an pacáiste Snap, macOS nó Windows suiteáilte agat, tá an leagan CLI "
+"suiteáilte agat cheana féin."
 
 #: ../../source/advanced.rst:77
-#, fuzzy
-#| msgid ""
-#| "You can install just the command-line version of OnionShare using "
-#| "``pip3``::"
 msgid ""
 "Alternatively, you can install just the command-line version of OnionShare "
 "using ``pip3``::"
 msgstr ""
-"Is féidir leat an leagan ordú-líne de OnionShare a shuiteáil ag baint úsáide "
-"as `` pip3`` ::"
+"Nó, is féidir leat an leagan ordú-líne de OnionShare a shuiteáil ag baint "
+"úsáide as `` pip3`` ::"
 
 #: ../../source/advanced.rst:81
 msgid ""
@@ -245,40 +233,38 @@ msgstr ""
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
-msgstr ""
+msgstr "Rith an CLI ó Snap"
 
 #: ../../source/advanced.rst:92
-#, fuzzy
-#| msgid ""
-#| "If you installed OnionShare using the Snap package, you can also just run "
-#| "``onionshare.cli`` to access the command-line interface version."
 msgid ""
 "If you installed OnionShare using the Snap package, you can run ``onionshare."
 "cli`` to access the command-line interface version."
 msgstr ""
 "Má shuiteáil tú OnionShare ag baint úsáide as an bpacáiste Snap, is féidir "
-"leat ``onionshare.cli`` a rith freisin chun rochtain a fháil ar leagan an "
-"chomhéadain ordú-líne."
+"leat ``onionshare.cli`` a rith chun rochtain a fháil ar an leagan comhéadan "
+"ordú-líne."
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"
-msgstr ""
+msgstr "CLI a rith ó macOS"
 
 #: ../../source/advanced.rst:97
 msgid ""
 "From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
 "onionshare-cli --help``"
 msgstr ""
+"Ón Teirminéal, is féidir leat ``/ Applications/OnionShare.app/Contents/MacOS/"
+"onionshare-cli --help`` a rith"
 
 #: ../../source/advanced.rst:100
 msgid "Running the CLI from Windows"
-msgstr ""
+msgstr "CLI a rith ó Windows"
 
 #: ../../source/advanced.rst:102
 msgid ""
 "In the Windows installation, the executable ``onionshare-cli.exe`` is "
 "available."
-msgstr ""
+msgstr "I suiteáil Windows, tá an inrite `` onionshare-cli.exe`` ar fáil."
 
 #: ../../source/advanced.rst:105
 msgid "Usage"
@@ -292,13 +278,15 @@ msgstr ""
 
 #: ../../source/advanced.rst:170
 msgid "Running the CLI as a systemd unit file"
-msgstr ""
+msgstr "An CLI a rith mar chomhad aonaid systemd"
 
 #: ../../source/advanced.rst:172
 msgid ""
 "It is possible to automatically start OnionShare from the CLI using a "
 "systemd unit file."
 msgstr ""
+"Is féidir OnionShare a thosú go huathoibríoch ón CLI ag baint úsáide as "
+"comhad aonaid systemd."
 
 #: ../../source/advanced.rst:174
 msgid ""
@@ -306,10 +294,15 @@ msgid ""
 "mode, and want to start the same onion service every time your machine "
 "starts."
 msgstr ""
+"B’fhéidir go mbeidh sé seo an-úsáideach duit má tá tú ag feidhmiú i mód "
+"‘leanúnach’, agus más mian leat an tseirbhís oinniúin chéanna a thosú gach "
+"uair a thosaíonn do mheaisín."
 
 #: ../../source/advanced.rst:176
 msgid "To do this, you need to prepare some OnionShare json config first."
 msgstr ""
+"Chun seo a dhéanamh, ní mór duit roinnt config OnionShare json a ullmhú ar "
+"dtús."
 
 #: ../../source/advanced.rst:178
 msgid ""
@@ -318,6 +311,10 @@ msgid ""
 "the settings, but if you already have OnionShare installed, it probably "
 "looks much like this already::"
 msgstr ""
+"Seo é an príomh-chumraíocht OnionShare. Sa sampla seo, tá sé stóráilte i ``/"
+"home/user/.config/onionshare/onionshare.json``. Seans go mbeidh ort cuid de "
+"na socruithe a choigeartú, ach má tá OnionShare suiteáilte agat cheana féin, "
+"is dócha go bhfuil cuma mhaith air seo cheana féin::"
 
 #: ../../source/advanced.rst:207
 msgid ""
@@ -325,12 +322,18 @@ msgid ""
 "user/.config/onionshare/persistent/my-persistent-onion.json``, that looks "
 "like this::"
 msgstr ""
+"Tabhair faoi deara an rannán 'persistent_tabs'. Cruthóimid comhad anois ag "
+"``/home/user/.config/onionshare/persistent/my-persistent-onion.json``, a "
+"bhreathnaíonn mar seo::"
 
 #: ../../source/advanced.rst:247
 msgid ""
 "**Don't actually use this private key, service_id or client_auth keys! They "
 "are shown only as an example. Never share the private_key with anyone.**"
 msgstr ""
+"**Ná húsáid an eochair phríobháideach seo, na heochracha service_id nó "
+"client_auth! Léirítear iad mar shampla amháin. Ná roinn an "
+"eochair_phríobháideach le haon duine.**"
 
 #: ../../source/advanced.rst:249
 msgid ""
@@ -341,6 +344,14 @@ msgid ""
 "unpin that tab once you've generated it the first time. Or, you can leave it "
 "where it is, and use that persistent file in your systemd unit file below."
 msgstr ""
+"Is é an bealach is éasca chun an seoladh oinniún agus an eochair "
+"phríobháideach a ghiniúint ná cluaisín OnionShare 'pinned' a chruthú ar dtús "
+"san app deisce agus thosaigh sé ar an sciar den chéad uair. Ansin "
+"sábhálfaidh sé seo na socruithe leanúnacha chuig d'fhillteán ``.config/"
+"onionshare/persistent/`` le hainm randamach air. Is féidir leat an cluaisín "
+"sin a dhíphionnáil nuair a bheidh sé ginte agat den chéad uair. Nó, is "
+"féidir leat é a fhágáil san áit a bhfuil sé, agus an comhad leanúnach sin a "
+"úsáid i do chomhad aonaid systemd thíos."
 
 #: ../../source/advanced.rst:251
 msgid ""
@@ -349,10 +360,15 @@ msgid ""
 "as well as changes to any paths to the onionshare-cli binary or the paths to "
 "your JSON configs and shares."
 msgstr ""
+"Anois is féidir leat comhad aonaid systemd a chruthú i ``/etc/systemd/system/"
+"onionshare-cli.service``. Bí cinnte an tÚsáideoir agus an Grúpa a choigeartú "
+"do d’úsáideoir/grúpa féin, chomh maith le hathruithe ar aon chosáin chuig an "
+"dénártha onionshare-cli nó na cosáin chuig do chumraíochtaí agus scaireanna "
+"JSON."
 
 #: ../../source/advanced.rst:253
 msgid "The systemd unit file should look like this::"
-msgstr ""
+msgstr "Ba cheart go mbeadh cuma mar seo ar an gcomhad aonaid systemd::"
 
 #: ../../source/advanced.rst:268
 msgid ""
@@ -360,11 +376,16 @@ msgid ""
 "``filenames`` section of the ``my-persistent-onion.json`` file, it's still "
 "necessary to specify it as the argument to the onionshare-cli command."
 msgstr ""
+"Tabhair faoi deara, cé go raibh ``/home/user/my-shared-file.txt`` "
+"sainmhínithe sa chuid ``filenames`` den chomhad ``my-persistent-onion."
+"json``, tá sé fós riachtanach é a shonrú mar argóint don ordú onionshare-cli."
 
 #: ../../source/advanced.rst:270
 msgid ""
 "Be sure to run ``sudo systemctl daemon-reload`` after creating the unit file."
 msgstr ""
+"Bí cinnte `` sudo systemctl daemon-reload`` a rith tar éis duit an comhad "
+"aonaid a chruthú."
 
 #: ../../source/advanced.rst:272
 msgid ""
@@ -372,12 +393,19 @@ msgid ""
 "``journalctl`` installed, you can run ``sudo journalctl -f -t onionshare-"
 "cli``, and you should see some output of your service starting::"
 msgstr ""
+"Anois is féidir leat `` sudo systemctl start onionshare-cli.service`` a "
+"rith. Má tá ``journalctl`` suiteáilte agat, is féidir leat ``sudo journalctl "
+"-f -t onionshare-cli`` a rith, agus ba cheart go bhfeicfeá roinnt aschur de "
+"do sheirbhís ag tosú::"
 
 #: ../../source/advanced.rst:282
 msgid ""
 "If you don't want your users to use a Private Key, set ``public`` to be "
 "``true`` in the ``general`` settings of the my-persistent-onion.json file."
 msgstr ""
+"Mura dteastaíonn uait go n-úsáidfidh d’úsáideoirí Eochair Phríobháideach, "
+"socraigh ``public`` le bheith `` fíor`` sna socruithe ``ginearálta`` sa "
+"chomhad my-persistent-onion.json."
 
 #: ../../source/advanced.rst:286
 msgid "Keyboard Shortcuts"
@@ -397,7 +425,7 @@ msgstr "Agus ón scáileán roghnóir príomh-mhód::"
 
 #: ../../source/advanced.rst:303
 msgid "Migrating your OnionShare data to another computer"
-msgstr ""
+msgstr "Do shonraí OnionShare a ascnamh go ríomhaire eile"
 
 #: ../../source/advanced.rst:305
 msgid ""
@@ -405,21 +433,26 @@ msgid ""
 "computer. This is especially true if you had a 'persistent' onion address "
 "and you want to preserve it."
 msgstr ""
+"B’fhéidir gur mhaith leat do shonraí OnionShare a aistriú agus tú ag aistriú "
+"go ríomhaire eile. Tá sé seo fíor go háirithe má bhí seoladh oinniún "
+"'leanúnach' agat agus gur mhaith leat é a chaomhnú."
 
 #: ../../source/advanced.rst:307
 msgid ""
 "OnionShare stores all such data in a specific folder. Copy the relevant "
 "folder for your operating system below, to your new computer:"
 msgstr ""
+"Stórálann OnionShare na sonraí sin go léir i bhfillteán ar leith. Cóipeáil "
+"an fillteán ábhartha le do chóras oibriúcháin thíos, chuig do ríomhaire nua:"
 
 #: ../../source/advanced.rst:309
 msgid "Linux: ``~/.config/onionshare``"
-msgstr ""
+msgstr "Linux: ``~/.config/onionshare``"
 
 #: ../../source/advanced.rst:310
 msgid "macOS: ``~/Library/Application Support/OnionShare``"
-msgstr ""
+msgstr "macOS: ``~/Library/Application Support/OnionShare``"
 
 #: ../../source/advanced.rst:311
 msgid "Windows: ``%APPDATA%\\OnionShare``"
-msgstr ""
+msgstr "Windows: ``%APPDATA%\\OnionShare``"
