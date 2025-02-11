@@ -206,5 +206,6 @@
     "moat_solution_empty_error": "Masukkan karakter-karakter dari gambar tesebut.",
     "gui_autoconnect_trying_to_connect_to_tor": "Menghubungkan ke Tor…",
     "gui_general_settings_window_title": "Umum",
-    "gui_autoconnect_configure": "Pengaturan jaringan"
+    "gui_autoconnect_configure": "Pengaturan jaringan",
+    "gui_settings_bridge_use_checkbox": "Gunakan Jembatan"
 }

@@ -104,5 +104,6 @@
     "gui_new_tab_share_button": "파일 공유",
     "mode_settings_title_label": "커스텀 제목",
     "mode_settings_public_checkbox": "공개 OnionShare 서비스 (비밀키 비활성화)",
-    "mode_settings_persistent_checkbox": "OnionShare가 시작될 때 항상 이 탭 열기"
+    "mode_settings_persistent_checkbox": "OnionShare가 시작될 때 항상 이 탭 열기",
+    "gui_settings_bridge_use_checkbox": "브리지 사용"
 }
