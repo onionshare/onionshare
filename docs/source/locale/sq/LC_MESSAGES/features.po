@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-09 09:44+1100\n"
 "PO-Revision-Date: 2024-12-17 20:07+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: none\n"
@@ -29,8 +29,8 @@ msgid ""
 "<https://community.torproject.org/onion-services/>`_."
 msgstr ""
 "Shërbyesit nisen lokalisht, në kompjuterin tuaj dhe jepen për persona të "
-"tjerë si `shërbime Onion <https://community.torproject.org/onion-services/>`"
-"_ `Tor <https://www.torproject.org/>`_."
+"tjerë si `shërbime Onion <https://community.torproject.org/onion-services/"
+">`_ `Tor <https://www.torproject.org/>`_."
 
 #: ../../source/features.rst:8
 msgid "By default, OnionShare web addresses are protected with a private key."
@@ -65,8 +65,8 @@ msgid ""
 "Tor Browser will then prompt for the private key, which the people can also "
 "then copy and paste in."
 msgstr ""
-"Mandej personat të cilëve u dërgoni URL-në e kopjojnë dhe e hedhin te `"
-"Shfletuesi i tyre Tor <https://www.torproject.org/>`_, që të përdorin "
+"Mandej personat të cilëve u dërgoni URL-në e kopjojnë dhe e hedhin te "
+"`Shfletuesi i tyre Tor <https://www.torproject.org/>`_, që të përdorin "
 "shërbimin OnionShare. Shfletuesi Tor mandej do të kërkojë kyçin privat, të "
 "cilin personat mund ta kopjojnë dhe ngjitin te vendi përkatës."
 
@@ -94,8 +94,8 @@ msgstr ""
 "Ngaqë kompjuteri juaj është shërbyesi, *asnjë palë e tretë s’mund të fusë "
 "hundët në çfarë po ndodh në OnionShare*, as edhe zhvilluesit e OnionShare-"
 "it. Është plotësisht privat. Dhe meqë OnionShare-i bazohet në shërbime Onion "
-"Tor, mbron edhe anonimitetin tuaj. Për më tepër informacion, shihni :doc:`"
-"security design </security>` ."
+"Tor, mbron edhe anonimitetin tuaj. Për më tepër informacion, shihni :doc:"
+"`security design </security>` ."
 
 #: ../../source/features.rst:29
 msgid "Share Files"
@@ -112,7 +112,7 @@ msgstr ""
 "tërhiqni atje kartelat dhe dosjet që doni të ndani dhe klikoni “Fillo "
 "ndarjen”."
 
-#: ../../source/features.rst:35 ../../source/features.rst:112
+#: ../../source/features.rst:35 ../../source/features.rst:117
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
@@ -314,8 +314,8 @@ msgstr ""
 "shndërroni këto dokumente në PDF që janë pa rrezik për t’i hapur duke "
 "përdorur `Dangerzone <https://dangerzone.rocks/>`_. Mund edhe të mbroni "
 "veten, kur hapni dokumente që s’u zini besë, duke i hapur në `Tails <https://"
-"tails.boum.org/>`_, ose në një `Makinë Virtuale njëpërdorimshme Qubes <https"
-"://qubes-os.org/>`_."
+"tails.boum.org/>`_, ose në një `Makinë Virtuale njëpërdorimshme Qubes "
+"<https://qubes-os.org/>`_."
 
 #: ../../source/features.rst:92
 msgid ""
@@ -349,14 +349,26 @@ msgstr ""
 "Nëse keni ndërmend ta vendosni adresën OnionShare në sajtin tuaj, ose në "
 "profile mediash shoqërore, ruajeni skedën (shihni :ref:`save_tabs`) dhe "
 "xhirojeni si një shërbim publik (shihni :ref:`turn_off_private_key`). Është "
-"gjithashtu ide e mirë t’i jepni një titull të përshtatur (shihni "
-":ref:`custom_titles`)."
+"gjithashtu ide e mirë t’i jepni një titull të përshtatur (shihni :ref:"
+"`custom_titles`)."
 
 #: ../../source/features.rst:102
+msgid "Other caveats to be aware of in Receive Mode"
+msgstr ""
+
+#: ../../source/features.rst:104
+msgid ""
+"There are reports that OnionBrowser on iOS devices are unable to upload "
+"files to an OnionShare in Receive Mode, when operating in 'Silver' security "
+"mode. Try Bronze or Gold to see if you are able to upload a message or a "
+"file."
+msgstr ""
+
+#: ../../source/features.rst:107
 msgid "Host a Website"
 msgstr "Strehoni një Sajt"
 
-#: ../../source/features.rst:104
+#: ../../source/features.rst:109
 msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag the "
 "files and folders that make up the static content there, and click \"Start "
@@ -366,7 +378,7 @@ msgstr ""
 "tërhiqni kartelat dhe dosjet që përbëjnë lëndën statike dhe klikoni “Nis "
 "ndarje”, kur të jeni gati."
 
-#: ../../source/features.rst:108
+#: ../../source/features.rst:113
 msgid ""
 "If you add an ``index.html`` file, it will render when someone loads your "
 "website. You should also include any other HTML files, CSS files, JavaScript "
@@ -381,7 +393,7 @@ msgstr ""
 "strehojë sajte që ekzekutojnë kod apo përdorin baza të dhënash. Pra, s’mund "
 "të përdorni, për shembull, WordPress.)"
 
-#: ../../source/features.rst:110
+#: ../../source/features.rst:115
 msgid ""
 "If you don't have an ``index.html`` file, it will show a directory listing "
 "instead, and people loading it can look through the files and download them."
@@ -390,11 +402,11 @@ msgstr ""
 "njerëzit që e ngarkojnë sajtin mund të shohin nëpër kartela dhe t’i "
 "shkarkojnë ato."
 
-#: ../../source/features.rst:117
+#: ../../source/features.rst:122
 msgid "Content Security Policy"
 msgstr "Rregulla Sigurie Lënde"
 
-#: ../../source/features.rst:119
+#: ../../source/features.rst:124
 msgid ""
 "By default OnionShare helps secure your website by setting a strict `Content "
 "Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ "
@@ -406,7 +418,7 @@ msgstr ""
 "Content_Security_Policy>`_. Por, kjo pengon ngarkim brenda faqes web të "
 "lëndës nga palë të treta."
 
-#: ../../source/features.rst:121
+#: ../../source/features.rst:126
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
@@ -414,7 +426,7 @@ msgstr ""
 "Nëse doni të ngarkoni lëndë nga sajte palë të treta, bie fjala, burime apo "
 "biblioteka JavaScript prej CDN-sh, keni dy mundësi:"
 
-#: ../../source/features.rst:123
+#: ../../source/features.rst:128
 msgid ""
 "You can disable sending a Content Security Policy header by checking the "
 "\"Don't send Content Security Policy header (allows your website to use "
@@ -424,15 +436,15 @@ msgstr ""
 "vënë shenjë kutizës “Mos dërgo krye “Content Security Policy” (i lejon "
 "sajtit tuaj të përdorë burime palësh të treta)”, para se të nisni shërbimin."
 
-#: ../../source/features.rst:124
+#: ../../source/features.rst:129
 msgid "You can send a custom Content Security Policy header."
 msgstr "Mund të dërgoni një krye vetjake “Content Security Policy”."
 
-#: ../../source/features.rst:127
+#: ../../source/features.rst:132
 msgid "Tips for running a website service"
 msgstr "Ndihmëza për xhirimin e një shërbimi sajtesh"
 
-#: ../../source/features.rst:129
+#: ../../source/features.rst:134
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not just "
 "to quickly show someone something), it's recommended you do it on a "
@@ -441,14 +453,14 @@ msgid ""
 "ref:`save_tabs`) so you can resume the website with the same address if you "
 "close OnionShare and re-open it later."
 msgstr ""
-"Nëse doni të strehoni një sajt për afate të gjata duke përdorur OnionShare ("
-"që do të thotë, jo diçka për t’i treguar shpejt e shpejt diçka dikujt), "
+"Nëse doni të strehoni një sajt për afate të gjata duke përdorur OnionShare "
+"(që do të thotë, jo diçka për t’i treguar shpejt e shpejt diçka dikujt), "
 "rekomandohet ta bëni në një kompjuter më vete, enkas, q është përherë i "
 "ndezur dhe i lidhur në internet dhe jo në një që e përdorni për gjëra të "
 "përditshme. Ruajeni skedën (shihni :ref:`save_tabs`), që ta riktheni sajtin "
 "me të njëjtën adresë, nëse e mbyllni OnionShare-in dhe e rihapni më vonë."
 
-#: ../../source/features.rst:132
+#: ../../source/features.rst:137
 msgid ""
 "If your website is intended for the public, you should run it as a public "
 "service (see :ref:`turn_off_private_key`)."
@@ -456,11 +468,11 @@ msgstr ""
 "Nëse sajti juaj është menduar për publikun, duhet ta xhironi si një shërbim "
 "publik (shihni :ref:`turn_off_private_key`)."
 
-#: ../../source/features.rst:135
+#: ../../source/features.rst:140
 msgid "Chat Anonymously"
 msgstr "Bisedoni Në Mënyrë Anonime"
 
-#: ../../source/features.rst:137
+#: ../../source/features.rst:142
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't "
 "log anything. Just open a chat tab and click \"Start chat server\"."
@@ -469,7 +481,7 @@ msgstr ""
 "fjalosjeje, që s’regjistron gjë. Thjesht hapni një skedë fjalosjeje dhe "
 "klikoni “Nis shërbyes fjalosjeje”."
 
-#: ../../source/features.rst:141
+#: ../../source/features.rst:146
 msgid ""
 "After you start the server, copy the OnionShare address and private key and "
 "send them to the people you want in the anonymous chat room. If it's "
@@ -482,7 +494,7 @@ msgstr ""
 "aplikacion mesazhesh të fshehtëzuar për të dërguar adresën dhe kyçin privat "
 "OnionShare."
 
-#: ../../source/features.rst:146
+#: ../../source/features.rst:151
 msgid ""
 "People can join the chat room by loading its OnionShare address in Tor "
 "Browser. The chat room requires JavasScript, so everyone who wants to "
@@ -495,7 +507,7 @@ msgstr ""
 "Shfletuesit Tor si “Standarde”, ose “E parrezik”, në vend se “Më e "
 "parrezikshmja”."
 
-#: ../../source/features.rst:149
+#: ../../source/features.rst:154
 msgid ""
 "When someone joins the chat room they get assigned a random name. They can "
 "change their name by typing a new name in the box in the left panel and "
@@ -504,11 +516,11 @@ msgid ""
 msgstr ""
 "Kur dikush vjen në dhomën e fjalosjeve, atij mund t’i caktohet një emër "
 "kuturu. Ai mund ta ndryshojë emrin e vet duke shtypur një emër të ri te "
-"kuadrati te paneli majtas dhe duke shtypur ↵. Bgaqë hsitoriku i fjalosjes s’"
-"ruhet gjëkundi, nuk shfaqet aspak, edhe nëse të tjerë qenë duke biseduar në "
-"dhomë."
+"kuadrati te paneli majtas dhe duke shtypur ↵. Bgaqë hsitoriku i fjalosjes "
+"s’ruhet gjëkundi, nuk shfaqet aspak, edhe nëse të tjerë qenë duke biseduar "
+"në dhomë."
 
-#: ../../source/features.rst:155
+#: ../../source/features.rst:160
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change their "
 "name to anything, and there is no way to confirm anyone's identity."
@@ -517,7 +529,7 @@ msgstr ""
 "ndryshojë emrin e vet si të dojë dhe s’ka ndonjë rrugë për të ripohuar "
 "identitetin e kujtdo."
 
-#: ../../source/features.rst:158
+#: ../../source/features.rst:163
 msgid ""
 "However, if you create an OnionShare chat room and securely send the address "
 "only to a small group of trusted friends using encrypted messages, you can "
@@ -528,19 +540,19 @@ msgstr ""
 "të fshehtëzuar, mund të jeni në mënyrë të arsyeshme i qetë se njerëzit që "
 "vijnë në dhomën e fjalosjes janë shokët tuaj."
 
-#: ../../source/features.rst:161
+#: ../../source/features.rst:166
 msgid "How is this useful?"
 msgstr "Pse është e dobishme kjo?"
 
-#: ../../source/features.rst:163
+#: ../../source/features.rst:168
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the point "
 "of an OnionShare chat room to begin with? It leaves less traces."
 msgstr ""
-"Nëse duhet të përdorni tashmë një aplikacion mesazhesh të fshehtëzuar, ç’"
-"kuptim ka atëherë një dhomë fjalosjeje OnionShare? Lihen më pak gjurmë."
+"Nëse duhet të përdorni tashmë një aplikacion mesazhesh të fshehtëzuar, "
+"ç’kuptim ka atëherë një dhomë fjalosjeje OnionShare? Lihen më pak gjurmë."
 
-#: ../../source/features.rst:165
+#: ../../source/features.rst:170
 msgid ""
 "If you for example send a message to a Signal group, a copy of your message "
 "ends up on each device (the smartphones, and computers if they set up Signal "
@@ -559,7 +571,7 @@ msgstr ""
 "kenë qenë dërguar. Dhomat e fjalosjes OnionShare s’depozitojnë kund mesazhe, "
 "ndaj problemi është reduktuar në minimum."
 
-#: ../../source/features.rst:168
+#: ../../source/features.rst:173
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
@@ -574,11 +586,11 @@ msgstr ""
 "njëpërdorimshe dhe mandej pret që gazetari të vijë në dhomën e fjalosjes, "
 "gjithçka pa komprometuar anonimitetin e vet."
 
-#: ../../source/features.rst:172
+#: ../../source/features.rst:177
 msgid "How does the encryption work?"
 msgstr "Si funksionon fshehtëzimi?"
 
-#: ../../source/features.rst:174
+#: ../../source/features.rst:179
 msgid ""
 "Because OnionShare relies on Tor onion services, connections between the Tor "
 "Browser and OnionShare are all end-to-end encrypted (E2EE). When someone "
@@ -593,7 +605,7 @@ msgstr ""
 "anëtarët e tjerë të dhomës së fjalosjes duke përdorur WebSockets, përmes "
 "lidhjesh E2EE Onion."
 
-#: ../../source/features.rst:176
+#: ../../source/features.rst:181
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on "
 "the Tor onion service's encryption instead."
