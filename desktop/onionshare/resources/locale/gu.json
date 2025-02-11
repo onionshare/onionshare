@@ -36,5 +36,12 @@
     "gui_quit_warning_cancel": "રદ કરો",
     "gui_settings_theme_light": "પ્રકાશ",
     "gui_settings_theme_dark": "અંધારિયું",
-    "gui_hide": "છુપાવો"
+    "gui_hide": "છુપાવો",
+    "gui_autoconnect_start": "Connect to Tor",
+    "gui_status_indicator_share_working": "શરૂ થઈ રહ્યુ છે…",
+    "gui_status_indicator_chat_working": "શરૂ થઈ રહ્યુ છે…",
+    "gui_file_selection_remove_all": "Remove All",
+    "gui_status_indicator_receive_working": "શરૂ થઈ રહ્યુ છે…",
+    "gui_close_tab_warning_close": "ઠીક છે",
+    "gui_please_wait_no_button": "શરૂ થઈ રહ્યુ છે…"
 }
