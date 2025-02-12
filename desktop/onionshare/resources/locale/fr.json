@@ -145,7 +145,7 @@
     "mode_settings_receive_data_dir_label": "Enregistrer les fichiers dans",
     "mode_settings_share_autostop_sharing_checkbox": "Cesser le partage une fois que les fichiers ont été envoyés (décocher afin de permettre le téléchargement de fichiers individuels)",
     "mode_settings_public_checkbox": "Ce service OnionShare est public (il désactive la clé privée)",
-    "mode_settings_persistent_checkbox": "Toujours ouvrir cet onglet lors du démarrage d’OnionShare",
+    "mode_settings_persistent_checkbox": "Toujours ouvrir cet onglet lors du démarrage d’OnionShare (l’adresse oignon restera la même)",
     "mode_settings_advanced_toggle_hide": "Cacher les paramètres avancés",
     "mode_settings_advanced_toggle_show": "Afficher les paramètres avancés",
     "gui_quit_warning_cancel": "Annuler",
@@ -237,7 +237,7 @@
     "gui_autoconnect_failed_to_connect_to_tor": "Échec de connexion à Tor",
     "gui_autoconnect_trying_to_connect_to_tor": "Connexion à Tor…",
     "gui_autoconnect_bridge_detect_automatic": "Pour les paramètres du pont, déterminer mon pays d’après mon adresse IP",
-    "gui_autoconnect_connection_error_msg": "La connexion à Internet fonctionne-t-elle ?",
+    "gui_autoconnect_connection_error_msg": "Assurez-vous du fonctionnement de la connexion à Internet.",
     "gui_autoconnect_bridge_description": "Si votre connexion à Internet est censurée, vous pourriez vous connecter en utilisant un pont.",
     "gui_autoconnect_bridge_detect_manual": "Pour les paramètres du pont, choisir manuellement mon pays",
     "gui_autoconnect_circumventing_censorship_starting_meek": "Établissement d'un pont Meek comme domaine-écran…",
@@ -254,5 +254,6 @@
     "gui_general_settings_window_title": "Général",
     "waitress_web_server_error": "Un problème est survenu lors du démarrage du serveur Web",
     "gui_close_tab_warning_chat_description": "Fermer l’onglet qui héberge un serveur de dialogue en ligne ?",
-    "gui_chat_mode_explainer": "Le mode conversation vous permet de discuter interactivement avec d’autres dans le Navigateur Tor.br><br><b>L’historique des conversations n’est pas enregistré dans OnionShare. L’historique des conversations disparaît en cas de fermeture du Navigateur Tor.</b>"
+    "gui_chat_mode_explainer": "Le mode conversation vous permet de discuter interactivement avec d’autres dans le Navigateur Tor.br><br><b>L’historique des conversations n’est pas enregistré dans OnionShare. L’historique des conversations disparaît en cas de fermeture du Navigateur Tor.</b>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Démarrer automatiquement ce service oignon lors du démarrage d’OnionShare"
 }
