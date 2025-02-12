@@ -12,7 +12,6 @@ PySide6 = "6.8.2"
 qrcode = "*"
 werkzeug = "3.0.6"
 python-gnupg = "*"
-setuptools = "*"
 
 [tool.poetry.group.dev.dependencies]
 click = "*"
