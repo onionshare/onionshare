@@ -27,7 +27,7 @@ with open(os.path.join("onionshare_cli", "resources", "version.txt")) as f:
 setuptools.setup(
     name="onionshare-cli",
     version=version,
-    description=(
+    long_description=(
         "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, "
         "making it accessible as a Tor onion service, and generating an unguessable web address so others can "
         "download files from you, or upload files to you. It does _not_ require setting up a separate server or "
