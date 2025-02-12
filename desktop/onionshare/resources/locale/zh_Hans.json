@@ -138,7 +138,7 @@
     "mode_settings_autostop_timer_checkbox": "定时停止洋葱服务",
     "mode_settings_autostart_timer_checkbox": "定时启动洋葱服务",
     "mode_settings_public_checkbox": "这是一个公共 OnionShare 服务（禁用私钥）",
-    "mode_settings_persistent_checkbox": "OnionShare 启动时始终打开该标签页",
+    "mode_settings_persistent_checkbox": "启动 OnionShare 时始终打开此标签页（洋葱地址将保持不变）",
     "mode_settings_advanced_toggle_hide": "隐藏高级选项",
     "mode_settings_advanced_toggle_show": "显示高级选项",
     "gui_quit_warning_cancel": "取消",
@@ -254,5 +254,6 @@
     "gui_autoconnect_circumventing_censorship": "正在解决连接问题…",
     "waitress_web_server_error": "启动 Web 服务器时出现问题",
     "gui_close_tab_warning_chat_description": "是否关闭托管聊天服务的标签页？",
-    "gui_chat_mode_explainer": "聊天模式可让您在 Tor 浏览器中与其他人进行互动聊天。<br><br><b>OnionShare 中不存储聊天记录。关闭 Tor 浏览器后，聊天记录将消失。</b>"
+    "gui_chat_mode_explainer": "聊天模式可让您在 Tor 浏览器中与其他人进行互动聊天。<br><br><b>OnionShare 中不存储聊天记录。关闭 Tor 浏览器后，聊天记录将消失。</b>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "OnionShare 启动时自动启动此洋葱服务"
 }

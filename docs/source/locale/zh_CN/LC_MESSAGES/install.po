@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-11 14:47+1100\n"
-"PO-Revision-Date: 2024-11-01 22:00+0000\n"
-"Last-Translator: Sketch6580 <Sketch6580@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2025-02-12 22:02+0000\n"
+"Last-Translator: Sketch6580 <sketch6580@users.noreply.hosted.weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -364,14 +364,12 @@ msgid "Signing key"
 msgstr "签名密钥"
 
 #: ../../source/install.rst:117
-#, fuzzy
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
-msgstr ""
-"软件包由负责特定版本的核心开发人员签名。以下是 OnionShare 核心开发人员的信"
-"息："
+msgstr "软件包由负责特定版本的核心开发人员签名。以下是每个 OnionShare 核心开发人员的 "
+"GPG 密钥信息："
 
 #: ../../source/install.rst:122
 msgid "Micah Lee:"
@@ -411,23 +409,22 @@ msgstr ""
 
 #: ../../source/install.rst:130
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
-#, fuzzy
 msgid ""
 "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
-msgstr "PGP 公钥指纹 ``927F419D7EC82C2F149C1BD1403C2657CD994F73``。"
+msgstr "PGP 公钥指纹 ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``。"
 
 #: ../../source/install.rst:130
-#, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
-"您可以`从 keys.openpgp.org 密钥服务器 <https://keys.openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_下载 Micah 的密钥。"
+"您可以`从 keys.openpgp.org 密钥服务器 <https://keys.openpgp.org/vks/v1/"
+"by-fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_ 下载 Miguel "
+"的密钥。"
 
 #: ../../source/install.rst:132
 msgid ""
