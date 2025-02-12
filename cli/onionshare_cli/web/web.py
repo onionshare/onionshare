@@ -176,11 +176,17 @@ class Web:
             self.website_mode = WebsiteModeWeb(self.common, self)
         elif self.mode == "chat":
             if self.common.verbose:
-                self.socketio = SocketIO(
-                    async_mode="gevent", logger=True, engineio_logger=True
-                )
+                try:
+                    self.socketio = SocketIO(
+                        async_mode="gevent", logger=True, engineio_logger=True
+                    )
+                except ValueError:
+                    self.socketio = SocketIO(logger=True, engineio_logger=True)
             else:
-                self.socketio = SocketIO(async_mode="gevent")
+                try:
+                    self.socketio = SocketIO(async_mode="gevent")
+                except ValueError:
+                    self.socketio = SocketIO()
             self.socketio.init_app(self.app)
             self.chat_mode = ChatModeWeb(self.common, self)
 
