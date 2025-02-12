@@ -209,7 +209,7 @@
     "gui_rendezvous_cleanup": "Изчакват се веригите на Tor да затворят, за да е сигурно, че файловете са прехвърлени.\n\nМоже да отнеме минута.",
     "mode_settings_receive_data_dir_browse_button": "Избиране",
     "systray_share_completed_message": "Край на изпращане на файловете",
-    "mode_settings_persistent_checkbox": "Отваряне на този раздел при стартиране на OnionShare",
+    "mode_settings_persistent_checkbox": "Отваряне на този раздел при стартиране на OnionShare (адресът на onion ще остане същия)",
     "systray_share_started_message": "Начало на изпращане на файлове към някого",
     "waitress_web_server_error": "Грешка при стартиране на уеб сървъра",
     "gui_all_modes_progress_starting": "{0:s}, %p% (изчисляват се)",
@@ -254,5 +254,6 @@
     "systray_share_canceled_message": "Някой прекъсна изтеглянето на файловете",
     "mode_settings_website_disable_csp_checkbox": "Без изпращане на подразбираната заглавка на Content Security Policy (за използване на странични ресурси)",
     "history_receive_read_message_button": "Прочитане",
-    "gui_chat_mode_explainer": "Режимът за бързи съобщения ви дава възможност да обменяте съобщения в реално време посредством четеца Тор.<br><br><b>Хронологията на разговора не се пази в OnionShare. Тя изчезва при затваряне на четеца.<b>"
+    "gui_chat_mode_explainer": "Режимът за бързи съобщения ви дава възможност да обменяте съобщения в реално време посредством четеца Тор.<br><br><b>Хронологията на разговора не се пази в OnionShare. Тя изчезва при затваряне на четеца.<b>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Стартиране на тази услуга на Onion при отваряне на OnionShare"
 }
