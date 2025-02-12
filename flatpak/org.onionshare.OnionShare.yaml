@@ -34,8 +34,8 @@ modules:
             --prefix=${FLATPAK_DEST} "pyside6-essentials" --no-build-isolation
         sources:
           - type: file
-            url: https://files.pythonhosted.org/packages/f9/4c/ce3dc6a71161b6fd8c007051729914cc79c049b33f041adca1db46d31f1d/PySide6_Essentials-6.8.2-cp39-abi3-manylinux_2_28_x86_64.whl
-            sha256: 341d3023da4d74605e354974346234007065208b40740732c6f69e1d33e70835
+            url: https://files.pythonhosted.org/packages/d2/f9/aa4ff511ff1f3dd177f7e8f5a635e03fe578fa2045c8d6be4577e7db3b28/PySide6_Essentials-6.8.2.1-cp39-abi3-manylinux_2_28_x86_64.whl
+            sha256: 5ab31e5395a4724102edd6e8ff980fa3f7cde2aa79050763a1dcc30bb914195a
         modules:
           - name: shiboken6
             buildsystem: simple
@@ -44,8 +44,8 @@ modules:
                 --prefix=${FLATPAK_DEST} "shiboken6" --no-build-isolation
             sources:
               - type: file
-                url: https://files.pythonhosted.org/packages/77/79/204d6d8d9892f36d46b40815aab770620191c141ab98851eb708683588f9/shiboken6-6.8.2-cp39-abi3-manylinux_2_28_x86_64.whl
-                sha256: 924c23bed7c0b6ff8a308f4e12e5a9681f720c22d1be339cac01591feb7ebb32
+                url: https://files.pythonhosted.org/packages/7b/ff/ab4f287b9573e50b5a47c10e2af8feb5abecc3c7431bd5deec135efc969e/shiboken6-6.8.2.1-cp39-abi3-manylinux_2_28_x86_64.whl
+                sha256: c83e90056f13d0872cc4d2b7bf60b6d6e3b1b172f1f91910c0ba5b641af01758
   - name: snowflake-client
     buildsystem: simple
     build-options:
