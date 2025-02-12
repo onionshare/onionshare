@@ -119,7 +119,7 @@ modules:
         path: ..
       # - type: git
       #   url: https://github.com/onionshare/onionshare.git
-      #   tag: v2.6.2
+      #   tag: v2.6.3
     modules:
       - onionshare-desktop.yaml
       - name: onionshare-cli
@@ -132,6 +132,6 @@ modules:
             path: ..
         #   - type: git
         #     url: https://github.com/onionshare/onionshare.git
-        #     tag: v2.6.2
+        #     tag: v2.6.3
         modules:
           - onionshare-cli.yaml
