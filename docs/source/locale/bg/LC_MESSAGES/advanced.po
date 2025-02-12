@@ -6,11 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-11 14:47+1100\n"
-"PO-Revision-Date: 2025-02-11 08:02+0000\n"
-"Last-Translator: 109247019824 <109247019824@users.noreply.hosted.weblate."
-"org>\n"
+"PO-Revision-Date: 2025-02-12 22:02+0000\n"
+"Last-Translator: 109247019824 <109247019824@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: none\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -227,34 +227,32 @@ msgstr ""
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
-msgstr ""
+msgstr "Работа с команден ред от Snap"
 
 #: ../../source/advanced.rst:92
-#, fuzzy
-#| msgid ""
-#| "If you installed OnionShare using the Snap package, you can also just run "
-#| "``onionshare.cli`` to access the command-line interface version."
 msgid ""
 "If you installed OnionShare using the Snap package, you can run ``onionshare."
 "cli`` to access the command-line interface version."
 msgstr ""
-"Ако сте инсталирали OnionShare с помощта на пакета Snap, можете също така "
-"просто да стартирате ``onionshare.cli``, за да получите достъп до версията "
-"на интерфейса на командния ред."
+"Ако сте инсталирали OnionShare с помощта на пакета Snap, можете да изпълните "
+"``onionshare.cli``, за да получите достъп до версията на интерфейса за "
+"команднден ред."
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"
-msgstr ""
+msgstr "Работа с команден ред в macOS"
 
 #: ../../source/advanced.rst:97
 msgid ""
 "From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
 "onionshare-cli --help``"
 msgstr ""
+"От терминала изпълнете ``/Applications/OnionShare.app/Contents/MacOS/"
+"onionshare-cli --help``"
 
 #: ../../source/advanced.rst:100
 msgid "Running the CLI from Windows"
-msgstr ""
+msgstr "Работа с команден ред в Windows"
 
 #: ../../source/advanced.rst:102
 msgid ""
