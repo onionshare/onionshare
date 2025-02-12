@@ -62,10 +62,10 @@ parts:
       - PYTHONPATH: ""
     stage-packages:
       - libasound2
-      - libatk1.0-0t64
+      - libatk1.0-0
       - libcairo2
       - libcairo-gobject2
-      - libcups2t64
+      - libcups2
       - libdrm2
       - libegl1
       - libfreetype6
@@ -81,7 +81,7 @@ parts:
       - libnss3
       - libpango-1.0-0
       - libpangocairo-1.0-0
-      - libpng16-16t64
+      - libpng16-16
       - libpq5
       - libpulse-mainloop-glib0
       - librsvg2-2
