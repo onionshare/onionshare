@@ -73,7 +73,7 @@ parts:
       - libgl1
       - libglvnd0
       - libglx0
-      - libgtk-3-0t64
+      - libgtk-3-0
       - libharfbuzz0b
       - libjpeg8
       - liblcms2-2
