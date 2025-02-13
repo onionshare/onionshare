@@ -18,9 +18,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import importlib.resources as importlib_resources
 import os
 import shutil
-from pkg_resources import resource_filename
 from PySide6 import QtCore, QtWidgets, QtGui
 
 from . import strings
@@ -548,8 +548,10 @@ class GuiCommon:
         Returns the absolute path of a resource
         """
         try:
-            return resource_filename("onionshare", os.path.join("resources", filename))
-        except KeyError:
+            ref = importlib_resources.files("onionshare.resources") / filename
+            with importlib_resources.as_file(ref) as path:
+                return str(path)
+        except FileNotFoundError:
             return None
 
     @staticmethod
