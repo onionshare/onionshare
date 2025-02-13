@@ -76,7 +76,7 @@ class Settings(object):
             "el": "Ελληνικά",  # Greek
             "is": "Íslenska",  # Icelandic
             # "id": "Bahasa Indonesia",  # Indonesian
-            # "ga": "Gaeilge",  # Irish
+            "ga": "Gaeilge",  # Irish
             "it": "Italiano",  # Italian
             "ja": "日本語",  # Japanese
             "km": "ខ្មែរ",  # Khmer(Central)
@@ -91,10 +91,11 @@ class Settings(object):
             "ru": "Русский",  # Russian
             "sn": "chiShona",  # Shona
             # "sr_Latn": "Srpska (latinica)",  # Serbian (latin)
-            # "sk": "Slovenčina",  # Slovak
+            "sk": "Slovenčina",  # Slovak
             "es": "Español",  # Spanish
             "sw": "Kiswahili",  # Swahili
             "sv": "Svenska",  # Swedish
+            "ta": "Tamil",    # Tamil
             # "te": "తెలుగు",  # Telugu
             "tr": "Türkçe",  # Turkish
             "uk": "Українська",  # Ukrainian
