@@ -326,7 +326,7 @@ connection_type      ``string``  The way in which OnionShare connects to Tor. Va
 control_port_address ``string``  The IP address of Tor's Control port, if ``connection_type`` is set to 'control_port'. Default: '127.0.0.1'
 control_port_port    ``integer`` The port number of Tor's Control port, if ``connection_type`` is set to 'control_port'. Default: '9051'
 socks_address        ``string``  The IP address of Tor's SOCKS proxy, if ``connection_type`` is set to 'control_port' or 'socket_file'. Default: '127.0.0.1'
-socks_port           ``integer`` The port number of Tor's SOCKS proxy, if ``connection_type`` is set to 'control_port' or 'socket_file'. Default: '127.0.0.1'
+socks_port           ``integer`` The port number of Tor's SOCKS proxy, if ``connection_type`` is set to 'control_port' or 'socket_file'. Default: ''9050'
 socket_file_path     ``string``  The path to Tor's socket file, if ``connection_type`` is set to 'socket_file'. Default: '/var/run/tor/control'
 auth_type            ``string``  If access to Tor's control port requires a password, this can be set to 'password', otherwise 'no_auth'. Default: 'no_auth'
 auth_password        ``string``  If access to Tor's control port requires a password, and ``auth_type`` is set to 'password', specify the password here. Default: ''
@@ -412,7 +412,7 @@ persistent
 =================== =========== ===========
 Parameter           Type        Explanation
 =================== =========== ===========
-mode                ``string``  What mode this persistent onion uses. Options are "share", "receive", "website" or "chat".
+mode                ``string``  The mode used by this persistent onion. Options are "share", "receive", "website" or "chat".
 enabled             ``boolean`` Whether persistence is enabled for this onion. When the persistent option is unchecked in the desktop, this entire JSON file is deleted. Default: true
 autostart_on_launch ``boolean`` Whether to automatically start this persistent onion when OnionShare starts and once Tor is connected. Default: false
 =================== =========== ===========
@@ -425,8 +425,8 @@ Parameter       Type        Explanation
 =============== =========== ===========
 title           ``string``  An optional custom title for displaying on the onion service. Default: null ("OnionShare" will be shown instead)
 public          ``boolean`` Whether the onion service can be accessed with or without a Private Key (Client Authentication). If true, no Private Key is required.
-autostart_timer ``boolean`` Whether the onion service is configured to start at a specific time. The time can be set in the desktop app or specified in seconds with ``--auto-start-timer`` with the CLI tool.
-autostop_timer  ``boolean`` Whether the onion service is configured to stop at a specific time. The time can be set in the desktop app or specified in seconds with ``--auto-stop-timer`` with the CLI tool.
+autostart_timer ``boolean`` Whether the onion service is configured to start at a specific time. The time can be set in the desktop app or specified in seconds with ``--auto-start-timer`` with the CLI tool. Default: false
+autostop_timer  ``boolean`` Whether the onion service is configured to stop at a specific time. The time can be set in the desktop app or specified in seconds with ``--auto-stop-timer`` with the CLI tool. Default: false
 service_id      ``string``  The 32-character onion service URL, without the scheme and without the '.onion' suffix.
 =============== =========== ===========
 
