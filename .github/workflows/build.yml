@@ -123,8 +123,7 @@ jobs:
       - name: Install Python 3.12.8 (universal2)
         run: |
           curl -L https://www.python.org/ftp/python/3.12.8/python-3.12.8-macos11.pkg --output ~/Downloads/python.pkg
-          echo "c411b5372d563532f5e6b589af7eb16e95613d61bd5af7bfe78563467130bbfa  python.pkg" | shasum -a 256 --check
-          sudo installer -pkg ~/Downloads/python.pkg -target /
+          cd ~/Downloads && echo "c411b5372d563532f5e6b589af7eb16e95613d61bd5af7bfe78563467130bbfa  python.pkg" | shasum -a 256 --check && sudo installer -pkg python.pkg -target /
 
       - name: Install poetry
         run: |
