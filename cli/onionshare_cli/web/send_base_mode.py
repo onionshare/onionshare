@@ -132,6 +132,9 @@ class SendBaseModeWeb:
         self.set_file_info_custom(filenames, processed_size_callback)
 
     def directory_listing(self, filenames, path="", filesystem_path=None, add_trailing_slash=False):
+        """
+        Display the front page of a share or index.html-less website, listing the files/directories.
+        """
         # Tell the GUI about the directory listing
         history_id = self.cur_history_id
         self.cur_history_id += 1
@@ -151,6 +154,11 @@ class SendBaseModeWeb:
 
         # If filesystem_path is None, this is the root directory listing
         files, dirs = self.build_directory_listing(path, filenames, filesystem_path, add_trailing_slash)
+
+        # Mark the request as done so we know we can close the share if in auto-stop mode.
+        self.web.done = True
+
+        # Render and return the response.
         return self.directory_listing_template(
             path, files, dirs, breadcrumbs, breadcrumbs_leaf
         )
@@ -228,11 +236,11 @@ class SendBaseModeWeb:
             chunk_size = 102400  # 100kb
 
             fp = open(file_to_download, "rb")
-            done = False
-            while not done:
+            self.web.done = False
+            while not self.web.done:
                 chunk = fp.read(chunk_size)
                 if chunk == b"":
-                    done = True
+                    self.web.done = True
                 else:
                     try:
                         yield chunk
@@ -273,10 +281,10 @@ class SendBaseModeWeb:
                                 "filesize": filesize,
                             },
                         )
-                        done = False
+                        self.web.done = False
                     except Exception:
                         # Looks like the download was canceled
-                        done = True
+                        self.web.done = True
 
                         # Tell the GUI the individual file was canceled
                         self.web.add_request(
