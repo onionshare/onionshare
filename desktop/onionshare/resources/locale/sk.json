@@ -150,7 +150,7 @@
     "gui_quit_warning_cancel": "Zrušiť",
     "mode_settings_advanced_toggle_show": "Zobraziť rozšírené nastavenia",
     "mode_settings_advanced_toggle_hide": "Skryť rozšírené nastavenia",
-    "mode_settings_persistent_checkbox": "Vždy otvoriť túto kartu pri spustení OnionShare",
+    "mode_settings_persistent_checkbox": "Vždy otvoriť túto kartu pri spustení služby OnionShare (adresa onion zostane rovnaká)",
     "mode_settings_public_checkbox": "Toto je verejná služba OnionShare ( vypne súkromný kľúč)",
     "mode_settings_autostart_timer_checkbox": "Spustiť onion službu v plánovanom čase",
     "mode_settings_autostop_timer_checkbox": "Zastaviť onion službu v plánovanom čase",
@@ -254,5 +254,6 @@
     "gui_autoconnect_circumventing_censorship_got_bridges": "Premostenie vytvorené. Opätovné pripájanie k Tor…",
     "gui_close_tab_warning_chat_description": "Zatvoriť kartu, ktorá je hostiteľom diskusného servera?",
     "moat_bridgedb_error": "Nepodarilo sa kontaktovať BridgeDB.",
-    "mode_tor_not_connected_label": "Služba OnionShare nie je pripojená k sieti Tor"
+    "mode_tor_not_connected_label": "Služba OnionShare nie je pripojená k sieti Tor",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Automaticky spustiť túto službu Onion pri spustení služby OnionShare"
 }
