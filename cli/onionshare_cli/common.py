@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import base64
 import hashlib
+import importlib.resources as importlib_resources
 import os
 import platform
 import random
@@ -29,7 +30,6 @@ import threading
 import time
 import shutil
 import re
-from pkg_resources import resource_filename
 
 import colorama
 from colorama import Fore, Back, Style
@@ -313,9 +313,10 @@ class Common:
         """
         Returns the absolute path of a resource
         """
-        path = resource_filename("onionshare_cli", os.path.join("resources", filename))
-        self.log("Common", "get_resource_path", f"filename={filename}, path={path}")
-        return path
+        ref = importlib_resources.files("onionshare_cli.resources") / filename
+        with importlib_resources.as_file(ref) as path:
+            self.log("Common", "get_resource_path", f"filename={filename}, path={str(path)}")
+            return str(path)
 
     def get_tor_paths(self):
         if self.platform == "Linux":
