@@ -3,7 +3,7 @@
 import setuptools
 
 # The version must be hard-coded because Snapcraft won't have access to ../cli
-version = "2.6.2"
+version = "2.6.3"
 
 setuptools.setup(
     name="onionshare",
