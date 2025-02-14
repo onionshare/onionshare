@@ -412,7 +412,7 @@ persistent
 =================== =========== ===========
 Parameter           Type        Explanation
 =================== =========== ===========
-mode                ``string``  What mode this persistent onion uses. Options are "share", "receive", "website" or "chat".
+mode                ``string``  The mode used by this persistent onion. Options are "share", "receive", "website" or "chat".
 enabled             ``boolean`` Whether persistence is enabled for this onion. When the persistent option is unchecked in the desktop, this entire JSON file is deleted. Default: true
 autostart_on_launch ``boolean`` Whether to automatically start this persistent onion when OnionShare starts and once Tor is connected. Default: false
 =================== =========== ===========
@@ -425,8 +425,8 @@ Parameter       Type        Explanation
 =============== =========== ===========
 title           ``string``  An optional custom title for displaying on the onion service. Default: null ("OnionShare" will be shown instead)
 public          ``boolean`` Whether the onion service can be accessed with or without a Private Key (Client Authentication). If true, no Private Key is required.
-autostart_timer ``boolean`` Whether the onion service is configured to start at a specific time. The time can be set in the desktop app or specified in seconds with ``--auto-start-timer`` with the CLI tool.
-autostop_timer  ``boolean`` Whether the onion service is configured to stop at a specific time. The time can be set in the desktop app or specified in seconds with ``--auto-stop-timer`` with the CLI tool.
+autostart_timer ``boolean`` Whether the onion service is configured to start at a specific time. The time can be set in the desktop app or specified in seconds with ``--auto-start-timer`` with the CLI tool. Default: false
+autostop_timer  ``boolean`` Whether the onion service is configured to stop at a specific time. The time can be set in the desktop app or specified in seconds with ``--auto-stop-timer`` with the CLI tool. Default: false
 service_id      ``string``  The 32-character onion service URL, without the scheme and without the '.onion' suffix.
 =============== =========== ===========
 
