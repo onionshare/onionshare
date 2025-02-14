@@ -131,7 +131,7 @@
     "gui_website_mode_no_files": "Ennþá hefur engu vefsvæði verið deilt",
     "incorrect_password": "Rangt lykilorð",
     "history_requests_tooltip": "{} vefbeiðnir",
-    "mode_settings_persistent_checkbox": "Alltaf opna þennan flipa þegar OnionShare fer í gang",
+    "mode_settings_persistent_checkbox": "Alltaf opna þennan flipa þegar OnionShare fer í gang (onion-vistfangið helst það sama)",
     "gui_close_tab_warning_persistent_description": "Loka viðvarandi flipa og tapa onion-vistfanginu sem hann er að nota?",
     "gui_quit_warning_description": "Hætta og loka öllum flipum, jafnvel þó deiling sé virk í sumum þeirra?",
     "mode_settings_share_autostop_sharing_checkbox": "Hætta að deila eftir að skrár hafa verið sendar (taka merkið úr reitnum til að leyfa niðurhal á stökum skrám)",
@@ -254,5 +254,6 @@
     "gui_general_settings_window_title": "Almennt",
     "waitress_web_server_error": "Vandamál kom upp við að ræsa vefþjóninn",
     "gui_close_tab_warning_chat_description": "Loka flipa sem hýsir spjallþjón?",
-    "gui_chat_mode_explainer": "Spjallhamur gerir þér kleift að spjalla gagnvirkt við aðra í Tor-vafranum.<br><br><b>Spjallferillinn er ekki geymdur í OnionShare, hann mun hverfa þegar þú lokar Tor-vafranum.</b>"
+    "gui_chat_mode_explainer": "Spjallhamur gerir þér kleift að spjalla gagnvirkt við aðra í Tor-vafranum.<br><br><b>Spjallferillinn er ekki geymdur í OnionShare, hann mun hverfa þegar þú lokar Tor-vafranum.</b>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Ræsa sjálfkrafa þessa onion-þjónustu þegar OnionShare fer í gang"
 }

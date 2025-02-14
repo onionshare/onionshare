@@ -212,7 +212,7 @@
     "mode_settings_advanced_toggle_show": "Shfaq rregullime të mëtejshme",
     "mode_settings_advanced_toggle_hide": "Fshihi rregullimet e mëtejshme",
     "mode_settings_title_label": "Titull vetjak",
-    "mode_settings_persistent_checkbox": "Hape përherë këtë skedë, kur niset OnionShare",
+    "mode_settings_persistent_checkbox": "Hape përherë këtë skedë, kur niset OnionShare (adresa Onion do të mbetet po ajo)",
     "mode_settings_public_checkbox": "Ky është një shërbim OnionShare publik (çaktivizon kyç publik)",
     "mode_settings_autostart_timer_checkbox": "Nise shërbimin Onion në kohën e planifikuar",
     "mode_settings_autostop_timer_checkbox": "Ndale shërbimin Onion në kohën e planifikuar",
@@ -254,5 +254,6 @@
     "mode_tor_not_connected_label": "OnionShare s’është i lidhur me rrjetin Tor",
     "waitress_web_server_error": "Pati një problem me nisjen e shërbyesit",
     "gui_close_tab_warning_chat_description": "Të mbyllet skeda që strehon një shërbyes fjalosjeje?",
-    "gui_chat_mode_explainer": "Mënyra fjalosje ju lejon të bisedoni në mënyrë ndërvepruese me të tjerë, në Shfletuesin Tor.<br><br><b>Historiku i fjalosjes nuk depozitohet në OnionShare. Historiku i fjalosjes do të zhduket, kur të mbyllni Shfletuesin Tor.</b>"
+    "gui_chat_mode_explainer": "Mënyra fjalosje ju lejon të bisedoni në mënyrë ndërvepruese me të tjerë, në Shfletuesin Tor.<br><br><b>Historiku i fjalosjes nuk depozitohet në OnionShare. Historiku i fjalosjes do të zhduket, kur të mbyllni Shfletuesin Tor.</b>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Nise automatikisht këtë shërbim Onion, kur niset OnionShare"
 }
