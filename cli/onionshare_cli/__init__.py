@@ -541,6 +541,7 @@ def main(cwd=None):
     finally:
         # Shutdown
         web.cleanup()
+        t.join()
         onion.cleanup()
 
 
