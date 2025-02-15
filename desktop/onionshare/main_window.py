@@ -284,6 +284,10 @@ class MainWindow(QtWidgets.QMainWindow):
         Alert(self.common, notice, QtWidgets.QMessageBox.Information)
 
     def cleanup(self):
+        if hasattr(self, "_cleanup_in_progress") and self._cleanup_in_progress:
+            return
+        self._cleanup_in_progress = True
+
         self.common.log("MainWindow", "cleanup")
         self.tabs.cleanup()
 
@@ -313,6 +317,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Wait 1 second for threads to close gracefully, so tests finally pass
         time.sleep(1)
+
+        self._cleanup_in_progress = False
 
     def resizeEvent(self, event: QtGui.QResizeEvent):
         self.window_resized.emit()
