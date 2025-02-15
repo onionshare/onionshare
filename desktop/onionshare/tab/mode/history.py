@@ -788,10 +788,10 @@ class History(QtWidgets.QWidget):
         Update the 'completed' widget.
         """
         if self.completed_count == 0:
-            image = GuiCommon.get_resource_path("images/history_completed_none.png")
+            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_completed_none.png")
         else:
             image = GuiCommon.get_resource_path("images/history_completed.png")
-        self.completed_label.setText(f'<img src="{image}" /> {self.completed_count}')
+        self.completed_label.setText(f'<img src="{image}" height="10" /> {self.completed_count}')
         self.completed_label.setToolTip(
             strings._("history_completed_tooltip").format(self.completed_count)
         )
@@ -801,12 +801,12 @@ class History(QtWidgets.QWidget):
         Update the 'in progress' widget.
         """
         if self.in_progress_count == 0:
-            image = GuiCommon.get_resource_path("images/history_in_progress_none.png")
+            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_in_progress_none.png")
         else:
             image = GuiCommon.get_resource_path("images/history_in_progress.png")
 
         self.in_progress_label.setText(
-            f'<img src="{image}" /> {self.in_progress_count}'
+            f'<img src="{image}" height="10" /> {self.in_progress_count}'
         )
         self.in_progress_label.setToolTip(
             strings._("history_in_progress_tooltip").format(self.in_progress_count)
@@ -817,11 +817,11 @@ class History(QtWidgets.QWidget):
         Update the 'web requests' widget.
         """
         if self.requests_count == 0:
-            image = GuiCommon.get_resource_path("images/history_requests_none.png")
+            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_requests_none.png")
         else:
             image = GuiCommon.get_resource_path("images/history_requests.png")
 
-        self.requests_label.setText(f'<img src="{image}" /> {self.requests_count}')
+        self.requests_label.setText(f'<img src="{image}" height="10" /> {self.requests_count}')
         self.requests_label.setToolTip(
             strings._("history_requests_tooltip").format(self.requests_count)
         )

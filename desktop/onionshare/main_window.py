@@ -81,7 +81,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Server status indicator icons
         self.status_bar.server_status_image_stopped = QtGui.QImage(
-            GuiCommon.get_resource_path("images/server_stopped.png")
+            GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_server_stopped.png")
         )
         self.status_bar.server_status_image_working = QtGui.QImage(
             GuiCommon.get_resource_path("images/server_working.png")
