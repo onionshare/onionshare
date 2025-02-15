@@ -217,14 +217,13 @@ class Tab(QtWidgets.QWidget):
 
         # Persistent image
         self.persistent_image_label = QtWidgets.QLabel()
-        self.persistent_image_label.setPixmap(
-            QtGui.QPixmap.fromImage(
-                QtGui.QImage(
-                    GuiCommon.get_resource_path("images/persistent_enabled.png")
-                )
+        image = QtGui.QImage(
+            GuiCommon.get_resource_path(
+                f"images/{self.common.gui.color_mode}_persistent_enabled.png"
             )
         )
-        self.persistent_image_label.setFixedSize(20, 20)
+        scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
+        self.persistent_image_label.setPixmap(QtGui.QPixmap.fromImage(scaled_image))
 
         # Create the close warning dialog -- the dialog widget needs to be in the constructor
         # in order to test it
@@ -480,7 +479,9 @@ class Tab(QtWidgets.QWidget):
                 )
 
     def set_server_status_indicator_stopped(self, label_text):
-        self.change_icon.emit(self.tab_id, f"images/{self.common.gui.color_mode}_server_stopped.png")
+        self.change_icon.emit(
+            self.tab_id, f"images/{self.common.gui.color_mode}_server_stopped.png"
+        )
         image = self.status_bar.server_status_image_stopped
         scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
         self.status_bar.server_status_image_label.setPixmap(
