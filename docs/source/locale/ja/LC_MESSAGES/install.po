@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-11 14:47+1100\n"
-"PO-Revision-Date: 2024-09-23 09:55+0000\n"
+"PO-Revision-Date: 2025-02-14 00:02+0000\n"
 "Last-Translator: Himmel <Himmel@users.noreply.hosted.weblate.org>\n"
 "Language-Team: ja <LL@li.org>\n"
 "Language: ja\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.10-rc\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -385,14 +386,12 @@ msgid "Signing key"
 msgstr "署名鍵"
 
 #: ../../source/install.rst:117
-#, fuzzy
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
-msgstr ""
-"パッケージは、特定のリリースを担当するコア開発者によって署名されます。以下は "
-"OnionShare のコア開発者の署名に関する情報です。"
+msgstr "パッケージは、特定のリリースを担当するコア開発者によって署名されます。"
+"OnionShare の各コア開発者の GPG 鍵情報は次のとおりです。"
 
 #: ../../source/install.rst:122
 msgid "Micah Lee:"
@@ -436,25 +435,22 @@ msgstr ""
 
 #: ../../source/install.rst:130
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
-#, fuzzy
 msgid ""
 "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
-msgstr ""
-"PGP公開鍵のフィンガープリント ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+msgstr "PGP 公開鍵のフィンガープリント ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 
 #: ../../source/install.rst:130
-#, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
-"Micah の鍵は keys.openpgp.org の\\ `鍵サーバー<https://keys.openpgp.org/vks/"
-"v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_\\ からダウン"
-"ロードできます。"
+"Miguel の鍵は keys.openpgp.org の`鍵サーバー <https://keys.openpgp.org/vks/"
+"v1/by-fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_ "
+"からダウンロードできます。"
 
 #: ../../source/install.rst:132
 msgid ""

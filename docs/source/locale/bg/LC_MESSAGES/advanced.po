@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-11 14:47+1100\n"
-"PO-Revision-Date: 2025-02-12 22:02+0000\n"
+"PO-Revision-Date: 2025-02-14 00:02+0000\n"
 "Last-Translator: 109247019824 <109247019824@users.noreply.hosted.weblate.org>"
 "\n"
 "Language-Team: none\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.10-rc\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -234,8 +234,8 @@ msgid ""
 "If you installed OnionShare using the Snap package, you can run ``onionshare."
 "cli`` to access the command-line interface version."
 msgstr ""
-"Ако сте инсталирали OnionShare с помощта на пакета Snap, можете да изпълните "
-"``onionshare.cli``, за да получите достъп до версията на интерфейса за "
+"Ако сте инсталирали OnionShare с помощта на пакет от Snap, можете да "
+"изпълните ``onionshare.cli``, за да получите достъп до интерфейса за "
 "команднден ред."
 
 #: ../../source/advanced.rst:95
@@ -259,6 +259,7 @@ msgid ""
 "In the Windows installation, the executable ``onionshare-cli.exe`` is "
 "available."
 msgstr ""
+"В инсталацията за Windows е достъпен изпълнимият файл ``onionshare-cli.exe``."
 
 #: ../../source/advanced.rst:105
 msgid "Usage"
@@ -273,13 +274,14 @@ msgstr ""
 
 #: ../../source/advanced.rst:170
 msgid "Running the CLI as a systemd unit file"
-msgstr ""
+msgstr "Работа с команден ред като файл на systemd"
 
 #: ../../source/advanced.rst:172
 msgid ""
 "It is possible to automatically start OnionShare from the CLI using a "
 "systemd unit file."
 msgstr ""
+"Възможно е OnionShare автоматично да бъде стартиран като файл на systemd."
 
 #: ../../source/advanced.rst:174
 msgid ""
@@ -287,10 +289,13 @@ msgid ""
 "mode, and want to start the same onion service every time your machine "
 "starts."
 msgstr ""
+"Тази възможност е удачна ако целта ви е всеки път при стартиране на машината "
+"да зареждат едни и същи услуги на Onion."
 
 #: ../../source/advanced.rst:176
 msgid "To do this, you need to prepare some OnionShare json config first."
 msgstr ""
+"За целта първо трябва да подготвите някои настройки на OnionShare в JSON."
 
 #: ../../source/advanced.rst:178
 msgid ""
@@ -299,6 +304,10 @@ msgid ""
 "the settings, but if you already have OnionShare installed, it probably "
 "looks much like this already::"
 msgstr ""
+"Това е файлът с основните настройки на OnionShare. В този пример се намира в "
+"``/home/user/.config/onionshare/onionshare.json``. Може да се наложи да "
+"промените някои от настройките, но ако вече имате инсталирано приложението "
+"OnionShare, вероятно файлът много прилича на този::"
 
 #: ../../source/advanced.rst:207
 msgid ""
@@ -306,6 +315,9 @@ msgid ""
 "user/.config/onionshare/persistent/my-persistent-onion.json``, that looks "
 "like this::"
 msgstr ""
+"Забележете секцията „persistent_tabs“. Ще създадем файла ``/home/user/"
+".config/onionshare/persistent/my-persistent-onion.json`` със следното "
+"съдържание::"
 
 #: ../../source/advanced.rst:247
 msgid ""

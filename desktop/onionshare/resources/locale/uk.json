@@ -140,7 +140,7 @@
     "mode_settings_autostop_timer_checkbox": "Зупинити службу onion у запланований час",
     "mode_settings_autostart_timer_checkbox": "Запускати службу onion у запланований час",
     "mode_settings_public_checkbox": "Це загальнодоступна служба OnionShare (вимикає приватний ключ)",
-    "mode_settings_persistent_checkbox": "Завжди відкривати цю вкладку під час запуску OnionShare",
+    "mode_settings_persistent_checkbox": "Завжди відкривати цю вкладку під час запуску OnionShare (onion-адреса залишиться та ж сама)",
     "mode_settings_advanced_toggle_hide": "Сховати розширені налаштування",
     "mode_settings_advanced_toggle_show": "Показати розширені налаштування",
     "gui_quit_warning_description": "Вийти та закрити всі вкладки, навіть якщо спільний доступ активний на деяких з них?",
@@ -254,5 +254,6 @@
     "gui_autoconnect_no_bridge": "Спробувати ще раз без мосту",
     "waitress_web_server_error": "Під час запуску вебсервера сталася помилка",
     "gui_close_tab_warning_chat_description": "Закрити вкладку, на якій розміщено чат-сервер?",
-    "gui_chat_mode_explainer": "Режим бесіди дозволяє вам інтерактивно спілкуватися з іншими користувачами в Браузері Tor.<br><br><b>Історія бесід не зберігається в OnionShare. Історія бесід зникне, коли ви закриєте Браузер Tor.</b>"
+    "gui_chat_mode_explainer": "Режим бесіди дозволяє вам інтерактивно спілкуватися з іншими користувачами в Браузері Tor.<br><br><b>Історія бесід не зберігається в OnionShare. Історія бесід зникне, коли ви закриєте Браузер Tor.</b>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Автоматично запускати цю onion-службу під час запуску OnionShare"
 }

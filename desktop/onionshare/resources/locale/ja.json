@@ -138,7 +138,7 @@
     "mode_settings_autostop_timer_checkbox": "指定の日時に Onion Service を停止",
     "mode_settings_autostart_timer_checkbox": "指定の日時に Onion Service を開始",
     "mode_settings_public_checkbox": "公開の OnionShare のサービスとして設定（秘密鍵が無効となります）",
-    "mode_settings_persistent_checkbox": "OnionShare を開始する際に、このタブを常に開く",
+    "mode_settings_persistent_checkbox": "OnionShare の起動時に常にこのタブを開く (Onion アドレスは変更されません)",
     "mode_settings_advanced_toggle_hide": "詳細設定を非表示",
     "mode_settings_advanced_toggle_show": "詳細設定を表示",
     "gui_quit_warning_cancel": "キャンセル",
@@ -254,5 +254,6 @@
     "gui_general_settings_window_title": "基本設定",
     "gui_close_tab_warning_chat_description": "チャットサーバーをホスト中のタブを閉じてもよろしいですか？",
     "waitress_web_server_error": "ウェブサーバーを起動する際に問題が生じました",
-    "gui_chat_mode_explainer": "チャットモードを使用すると、Tor Browser で他のユーザーとチャットを行うことができるようになります。<br><br><b>チャットの履歴は OnionShare には保存されません。Tor Browser を終了すると、チャットの履歴は消去されます。</b>"
+    "gui_chat_mode_explainer": "チャットモードを使用すると、Tor Browser で他のユーザーとチャットを行うことができるようになります。<br><br><b>チャットの履歴は OnionShare には保存されません。Tor Browser を終了すると、チャットの履歴は消去されます。</b>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "OnionShare の起動時にこの Onion Service を自動的に開始する"
 }
