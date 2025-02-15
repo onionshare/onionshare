@@ -201,9 +201,9 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
         self.filesize_label.hide()
 
         # Folder button
-        folder_pixmap = QtGui.QPixmap.fromImage(
-            QtGui.QImage(GuiCommon.get_resource_path("images/open_folder.png"))
-        )
+        image = QtGui.QImage(GuiCommon.get_resource_path("images/open_folder.png"))
+        scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
+        folder_pixmap = QtGui.QPixmap.fromImage(scaled_image)
         folder_icon = QtGui.QIcon(folder_pixmap)
         self.folder_button = QtWidgets.QPushButton()
         self.folder_button.clicked.connect(self.open_folder)
