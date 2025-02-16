@@ -35,7 +35,12 @@ with open(os.path.join("..", "cli", "onionshare_cli", "resources", "version.txt"
         version = version[0:-5]
 
 # Build
-include_files = [(os.path.join("..", "LICENSE.txt"), "LICENSE.txt")]
+include_files = [
+    (os.path.join("..", "LICENSE.txt"), "LICENSE.txt"),
+    (os.path.join("..", "licenses", "license-obfs4.txt"), "license-obfs4.txt"),
+    (os.path.join("..", "licenses", "license-snowflake.txt"), "license-snowflake.txt"),
+    (os.path.join("..", "licenses", "license-tor.txt"), "license-tor.txt")
+]
 
 if platform.system() == "Windows":
     include_msvcr = True
