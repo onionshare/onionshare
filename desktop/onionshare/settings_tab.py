@@ -126,6 +126,11 @@ class SettingsTab(QtWidgets.QWidget):
         help_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         help_label.setOpenExternalLinks(True)
 
+        license_label = QtWidgets.QLabel(strings._("gui_settings_license_label"))
+        license_label.setAlignment(QtCore.Qt.AlignHCenter)
+        license_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        license_label.setOpenExternalLinks(True)
+
         # Buttons
         self.save_button = QtWidgets.QPushButton(strings._("gui_settings_button_save"))
         self.save_button.clicked.connect(self.save_clicked)
@@ -145,6 +150,8 @@ class SettingsTab(QtWidgets.QWidget):
         layout.addSpacing(20)
         layout.addWidget(version_label)
         layout.addWidget(help_label)
+        layout.addSpacing(20)
+        layout.addWidget(license_label)
         layout.addSpacing(20)
         layout.addLayout(buttons_layout)
         layout.addStretch()
