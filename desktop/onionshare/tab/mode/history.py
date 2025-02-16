@@ -201,7 +201,7 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
         self.filesize_label.hide()
 
         # Folder button
-        image = QtGui.QImage(GuiCommon.get_resource_path("images/open_folder.png"))
+        image = QtGui.QImage(GuiCommon.get_resource_path("images/open_folder.svg"))
         scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
         folder_pixmap = QtGui.QPixmap.fromImage(scaled_image)
         folder_icon = QtGui.QIcon(folder_pixmap)
@@ -788,9 +788,9 @@ class History(QtWidgets.QWidget):
         Update the 'completed' widget.
         """
         if self.completed_count == 0:
-            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_completed_none.png")
+            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_completed_none.svg")
         else:
-            image = GuiCommon.get_resource_path("images/history_completed.png")
+            image = GuiCommon.get_resource_path("images/history_completed.svg")
         self.completed_label.setText(f'<img src="{image}" height="10" /> {self.completed_count}')
         self.completed_label.setToolTip(
             strings._("history_completed_tooltip").format(self.completed_count)
@@ -801,9 +801,9 @@ class History(QtWidgets.QWidget):
         Update the 'in progress' widget.
         """
         if self.in_progress_count == 0:
-            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_in_progress_none.png")
+            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_in_progress_none.svg")
         else:
-            image = GuiCommon.get_resource_path("images/history_in_progress.png")
+            image = GuiCommon.get_resource_path("images/history_in_progress.svg")
 
         self.in_progress_label.setText(
             f'<img src="{image}" height="10" /> {self.in_progress_count}'
@@ -817,9 +817,9 @@ class History(QtWidgets.QWidget):
         Update the 'web requests' widget.
         """
         if self.requests_count == 0:
-            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_requests_none.png")
+            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_requests_none.svg")
         else:
-            image = GuiCommon.get_resource_path("images/history_requests.png")
+            image = GuiCommon.get_resource_path("images/history_requests.svg")
 
         self.requests_label.setText(f'<img src="{image}" height="10" /> {self.requests_count}')
         self.requests_label.setToolTip(

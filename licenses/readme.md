@@ -30,4 +30,4 @@ The Meek-lite tool is a Tor 'pluggable transport', which allows the use of meek-
 
 ## Font Awesome
 
-Some icons used in the desktop version of the OnionShare application are from the 'free' edition of Font Awesome. In some cases they have been converted from SVG to PNG, and had their colors inverted for the 'dark mode' theme.
+Some icons used in the desktop version of the OnionShare application are from the 'free' edition of Font Awesome.

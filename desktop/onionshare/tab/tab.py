@@ -219,7 +219,7 @@ class Tab(QtWidgets.QWidget):
         self.persistent_image_label = QtWidgets.QLabel()
         image = QtGui.QImage(
             GuiCommon.get_resource_path(
-                f"images/{self.common.gui.color_mode}_persistent_enabled.png"
+                f"images/{self.common.gui.color_mode}_persistent_enabled.svg"
             )
         )
         scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
@@ -480,7 +480,7 @@ class Tab(QtWidgets.QWidget):
 
     def set_server_status_indicator_stopped(self, label_text):
         self.change_icon.emit(
-            self.tab_id, f"images/{self.common.gui.color_mode}_server_stopped.png"
+            self.tab_id, f"images/{self.common.gui.color_mode}_server_stopped.svg"
         )
         image = self.status_bar.server_status_image_stopped
         scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
@@ -490,7 +490,7 @@ class Tab(QtWidgets.QWidget):
         self.status_bar.server_status_label.setText(label_text)
 
     def set_server_status_indicator_working(self, label_text):
-        self.change_icon.emit(self.tab_id, "images/server_working.png")
+        self.change_icon.emit(self.tab_id, "images/server_working.svg")
         image = self.status_bar.server_status_image_working
         scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
         self.status_bar.server_status_image_label.setPixmap(
@@ -499,7 +499,7 @@ class Tab(QtWidgets.QWidget):
         self.status_bar.server_status_label.setText(label_text)
 
     def set_server_status_indicator_started(self, label_text):
-        self.change_icon.emit(self.tab_id, "images/server_started.png")
+        self.change_icon.emit(self.tab_id, "images/server_started.svg")
         image = self.status_bar.server_status_image_started
         scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
         self.status_bar.server_status_image_label.setPixmap(
