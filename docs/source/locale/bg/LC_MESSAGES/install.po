@@ -6,11 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-11 14:47+1100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-14 19:35+1100\n"
 "PO-Revision-Date: 2025-02-11 21:35+0000\n"
-"Last-Translator: 109247019824 <109247019824@users.noreply.hosted.weblate.org>"
-"\n"
+"Last-Translator: 109247019824 <109247019824@users.noreply.hosted.weblate."
+"org>\n"
 "Language-Team: none\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Мобилно"
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr "Можете да изтеглите OnionShare за мобилни платформи от следните места"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Андроид"
 
@@ -59,7 +59,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "iOS"
 
@@ -401,7 +401,7 @@ msgstr ""
 "издание. По-долу е дадена информация за ключовете на GPG на всеки от "
 "основните разработчици на OnionShare:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "Майка Лий:"
 
@@ -422,7 +422,7 @@ msgstr ""
 "org <https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "Саптак Сенгупта:"
 
@@ -443,7 +443,7 @@ msgstr ""
 "org <https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
-#: ../../source/install.rst:130
+#: ../../source/install.rst:128
 msgid "Miguel Jacq:"
 msgstr "Мигел Жак:"
 
@@ -460,9 +460,9 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
-"Можете да изтеглите ключа на Мигел `от сървъра за ключове на "
-"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+"Можете да изтеглите ключа на Мигел `от сървъра за ключове на keys.openpgp."
+"org <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 
 #: ../../source/install.rst:132
 msgid ""

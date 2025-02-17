@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-11 14:47+1100\n"
+"POT-Creation-Date: 2025-02-14 19:35+1100\n"
 "PO-Revision-Date: 2024-06-13 13:09+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr ""
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Android"
 
@@ -55,7 +55,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr ""
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr ""
 
@@ -310,7 +310,7 @@ msgid ""
 "developers of OnionShare:"
 msgstr ""
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr ""
 
@@ -326,7 +326,7 @@ msgid ""
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr ""
 
@@ -342,7 +342,7 @@ msgid ""
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
 
-#: ../../source/install.rst:130
+#: ../../source/install.rst:128
 msgid "Miguel Jacq:"
 msgstr ""
 
