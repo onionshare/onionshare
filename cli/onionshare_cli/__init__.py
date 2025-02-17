@@ -515,7 +515,7 @@ def main(cwd=None):
                 if not app.autostop_timer_thread.is_alive():
                     if mode == "share":
                         # If there were no attempts to download the share, or all downloads are done, we can stop
-                        if web.share_mode.cur_history_id == 0 or web.done:
+                        if not web.share_mode.download_in_progress or web.share_mode.cur_history_id == 0 or web.done:
                             print("Stopped because auto-stop timer ran out")
                             web.stop(app.port)
                             break
