@@ -79,7 +79,7 @@
     "gui_status_indicator_share_stopped": "آماده هم‌رسانی",
     "gui_status_indicator_share_working": "در حال شروع…",
     "gui_status_indicator_share_started": "در حال هم‌رسانی",
-    "gui_status_indicator_receive_stopped": "آماده دریافت",
+    "gui_status_indicator_receive_stopped": "متوقف شد",
     "gui_status_indicator_receive_working": "در حال شروع…",
     "gui_status_indicator_receive_started": "درحال دریافت",
     "gui_file_info": "{} پرونده‌ها، {}",
