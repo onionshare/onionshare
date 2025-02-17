@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-11 14:47+1100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-14 19:35+1100\n"
 "PO-Revision-Date: 2025-02-12 22:02+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :("
-"n>6 && n<11) ? 3 : 4;\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :"
+"(n>6 && n<11) ? 3 : 4;\n"
 "X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
@@ -45,7 +45,7 @@ msgid "You can download OnionShare for Mobile from the follow links"
 msgstr ""
 "Is féidir leat OnionShare for Mobile a íoslódáil ó na naisc seo a leanas"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Android"
 
@@ -61,7 +61,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "iOS"
 
@@ -405,7 +405,7 @@ msgstr ""
 "pacáistí. Seo é an príomhfhaisnéis GPG do gach ceann de na forbróirí "
 "lárnacha de OnionShare:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "Micah Lee:"
 
@@ -425,7 +425,7 @@ msgstr ""
 "<https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "Saptak Sengupta:"
 
@@ -445,7 +445,7 @@ msgstr ""
 "openpgp.org <https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
-#: ../../source/install.rst:130
+#: ../../source/install.rst:128
 msgid "Miguel Jacq:"
 msgstr "Miguel Jacq:"
 
@@ -461,9 +461,9 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
-"Is féidir leat eochair Miguel `a íoslódáil ón bhfreastalaí eochracha "
-"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+"Is féidir leat eochair Miguel `a íoslódáil ón bhfreastalaí eochracha keys."
+"openpgp.org <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 
 #: ../../source/install.rst:132
 msgid ""

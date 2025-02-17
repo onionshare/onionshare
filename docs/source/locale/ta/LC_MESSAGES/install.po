@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-11 14:47+1100\n"
+"POT-Creation-Date: 2025-02-14 19:35+1100\n"
 "PO-Revision-Date: 2025-01-22 16:07+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: none\n"
@@ -42,7 +42,7 @@ msgstr "மொபைல்"
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr "பின்தொடர்தல் இணைப்புகளிலிருந்து மொபைலுக்கான வெங்காயத்தை பதிவிறக்கம் செய்யலாம்"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "ஆண்ட்ராய்டு"
 
@@ -58,7 +58,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-droid: https://github.com/onionshare/onionshare-android- இரவு"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "ஐஇமு"
 
@@ -389,7 +389,7 @@ msgstr ""
 "குறிப்பிட்ட வெளியீட்டிற்கு பொறுப்பான கோர் டெவலப்பரால் தொகுப்புகள் கையொப்பமிடப்படுகின்றன. "
 "வெங்காயவாதியின் முக்கிய டெவலப்பர்களின் தகவல்கள் பின்வருமாறு:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "மீகா லீ:"
 
@@ -405,7 +405,7 @@ msgid ""
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr "விசைகளிலிருந்து நீங்கள் மைக்காவின் விசையை பதிவிறக்கம் செய்யலாம்."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "சப்தக் சென்குப்தா:"
 
@@ -423,7 +423,7 @@ msgstr ""
 "நீங்கள் சாப்டக்கின் விசையை `keys.openpgp.org கீசர்வர் <https://keys.openpgp.org/vks/"
 "v1/by-fingerprint/2ae3d40a6905c8e4e8e8ed95ece46a2b977c146b >66b> ஐ"
 
-#: ../../source/install.rst:130
+#: ../../source/install.rst:128
 msgid "Miguel Jacq:"
 msgstr ""
 
