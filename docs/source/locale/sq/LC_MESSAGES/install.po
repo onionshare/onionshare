@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-14 19:35+1100\n"
-"PO-Revision-Date: 2025-02-14 00:02+0000\n"
+"PO-Revision-Date: 2025-02-17 07:32+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: none\n"
 "Language: sq\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-rc\n"
+"X-Generator: Weblate 5.10\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -391,15 +391,14 @@ msgid "Signing key"
 msgstr "Kyç nënshkrimesh"
 
 #: ../../source/install.rst:117
-#, fuzzy
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
 msgstr ""
-"Paketat nënshkruhen nga zhvilluesi kryesor që është përgjegjës për hedhjen "
-"përkatëse në qarkullim. Sa vijon, janë hollësi të zhvilluesve bazë të "
-"OnionShare-it:"
+"Paketat nënshkruhen nga zhvilluesi kryesor, i cili është përgjegjës për "
+"hedhjen përkatëse në qarkullim. Ja hollësi kyçesh GPG për secilin nga "
+"zhvilluesit kryesorë të OnionShare-it:"
 
 #: ../../source/install.rst:120
 msgid "Micah Lee:"
@@ -443,14 +442,13 @@ msgstr ""
 
 #: ../../source/install.rst:128
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
-#, fuzzy
 msgid ""
 "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 msgstr ""
-"Shenja gishtash kyçi publik PGP ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+"Shenja gishtash kyçi publik PGP ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 
 #: ../../source/install.rst:130
 msgid ""
@@ -458,6 +456,9 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
+"Kyçin e Migelit mund ta shkarkoni që nga shërbyesi i kyçeve keys.openpgp.org "
+"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 
 #: ../../source/install.rst:132
 msgid ""

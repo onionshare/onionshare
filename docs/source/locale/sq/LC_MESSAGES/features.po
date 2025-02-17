@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-14 19:35+1100\n"
-"PO-Revision-Date: 2024-12-17 20:07+0000\n"
+"PO-Revision-Date: 2025-02-17 07:32+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: none\n"
 "Language: sq\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2-dev\n"
+"X-Generator: Weblate 5.10\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -354,7 +354,7 @@ msgstr ""
 
 #: ../../source/features.rst:102
 msgid "Other caveats to be aware of in Receive Mode"
-msgstr ""
+msgstr "Të tjera gjëra për t’u pasur parasysh për Mënyrën Marrje"
 
 #: ../../source/features.rst:104
 msgid ""
@@ -363,6 +363,10 @@ msgid ""
 "mode. Try Bronze or Gold to see if you are able to upload a message or a "
 "file."
 msgstr ""
+"Këto janë raporte që OnionBrowser në pajisje iOS s’është në gjendje të "
+"ngarkojë kartela te një OnionShare nën Mënyrën Marrje, kur funksionon nën "
+"mënyrën e sigurisë “E argjendtë”. Provoni “Të bronztë”, ose “Të artë”, që të "
+"shihni nëse jeni në gjendje të ngarkoni një mesazh, apo një kartelë."
 
 #: ../../source/features.rst:107
 msgid "Host a Website"
