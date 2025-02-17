@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-15 09:31+1100\n"
-"PO-Revision-Date: 2024-06-14 08:17+0000\n"
+"PO-Revision-Date: 2025-02-17 14:01+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: none\n"
 "Language: hr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -101,7 +101,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:45
 msgid "Scheduled Times"
-msgstr "Planiranje"
+msgstr "Planirana vremena"
 
 #: ../../source/advanced.rst:47
 msgid ""
@@ -142,7 +142,7 @@ msgstr "Sučelje naredbenog retka"
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
-msgstr "Pored grafičkog sučelja, OnionShare ima sučelje naredbenog retka."
+msgstr "Pored grafičkog sučelja, OnionShare ima sučelje za naredbeni redak."
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
