@@ -131,15 +131,15 @@
     "gui_url_instructions": "Së pari, dërgoni adresën OnionShare më poshtë:",
     "gui_url_instructions_public_mode": "Dërgo adresën OnionShare më poshtë:",
     "gui_client_auth_instructions": "Më pas, dërgoni kyçin privat që të lejoni hyrje te shërbimi juaj OnionShare:",
-    "gui_status_indicator_share_stopped": "Gati për ndarje me të tjerë",
+    "gui_status_indicator_share_stopped": "U ndal",
     "gui_status_indicator_share_working": "Po niset…",
     "gui_status_indicator_share_scheduled": "Vënë në plan…",
     "gui_status_indicator_share_started": "Ndarje me të tjerë",
-    "gui_status_indicator_receive_stopped": "Gati për të marrë",
+    "gui_status_indicator_receive_stopped": "U ndal",
     "gui_status_indicator_receive_working": "Po niset…",
     "gui_status_indicator_receive_scheduled": "Vënë në plan…",
     "gui_status_indicator_receive_started": "Po merret",
-    "gui_status_indicator_chat_stopped": "Gati për fjalosje",
+    "gui_status_indicator_chat_stopped": "U ndal",
     "gui_status_indicator_chat_working": "Po niset…",
     "gui_status_indicator_chat_scheduled": "Vënë në plan…",
     "gui_status_indicator_chat_started": "Po fjaloset",
@@ -255,5 +255,6 @@
     "waitress_web_server_error": "Pati një problem me nisjen e shërbyesit",
     "gui_close_tab_warning_chat_description": "Të mbyllet skeda që strehon një shërbyes fjalosjeje?",
     "gui_chat_mode_explainer": "Mënyra fjalosje ju lejon të bisedoni në mënyrë ndërvepruese me të tjerë, në Shfletuesin Tor.<br><br><b>Historiku i fjalosjes nuk depozitohet në OnionShare. Historiku i fjalosjes do të zhduket, kur të mbyllni Shfletuesin Tor.</b>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "Nise automatikisht këtë shërbim Onion, kur niset OnionShare"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Nise automatikisht këtë shërbim Onion, kur niset OnionShare",
+    "gui_settings_license_label": "OnionShare licencohet sipas GPL v3.<br>Licenca palësh të treta mund të shihen këtu:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
 }

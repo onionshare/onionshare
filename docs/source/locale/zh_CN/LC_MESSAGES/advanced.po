@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-15 09:31+1100\n"
-"PO-Revision-Date: 2025-02-17 14:21+0000\n"
+"PO-Revision-Date: 2025-02-17 18:26+0000\n"
 "Last-Translator: Sketch6580 <sketch6580@users.noreply.hosted.weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
@@ -740,108 +740,112 @@ msgid ""
 "are stored in its own JSON file. The path to this file can be specified for "
 "the CLI tool with ``--persistent``."
 msgstr ""
+"如上所述，每个“持久”洋葱都有自己的参数，这些参数存储在自己的 JSON 文件中。"
+"可以使用 ``--persistent`` 为 CLI 工具指定此文件的路径。"
 
 #: ../../source/advanced.rst:353
 msgid "Here is an example persistent JSON configuration::"
-msgstr ""
+msgstr "以下是一个持久 JSON 配置示例::"
 
 #: ../../source/advanced.rst:396
 msgid ""
 "Below are the configuration file parameters for a persistent onion and what "
 "they mean, for each section in the JSON"
-msgstr ""
+msgstr "下方是持久洋葱的配置文件参数及其含义，适用于 JSON 中的每个部分"
 
 #: ../../source/advanced.rst:399
 msgid "onion"
-msgstr ""
+msgstr "洋葱"
 
 #: ../../source/advanced.rst:404
 msgid "private_key"
-msgstr ""
+msgstr "private_key"
 
 #: ../../source/advanced.rst:404
 msgid "Base64-encoded private key of the onion service"
-msgstr ""
+msgstr "Base64 编码的洋葱服务的私钥"
 
 #: ../../source/advanced.rst:405
 msgid "client_auth_priv_key"
-msgstr ""
+msgstr "client_auth_priv_key"
 
 #: ../../source/advanced.rst:405
 msgid ""
 "The private key when using Client Authentication. Send this to the user."
-msgstr ""
+msgstr "使用客户端身份验证时的私钥。将此发送给用户。"
 
 #: ../../source/advanced.rst:406
 msgid "client_auth_pub_key"
-msgstr ""
+msgstr "client_auth_pub_key"
 
 #: ../../source/advanced.rst:406
 msgid ""
 "The public key when using Client Authentication. Used on OnionShare's side."
-msgstr ""
+msgstr "使用客户端身份验证时的公钥。在 OnionShare 端使用。"
 
 #: ../../source/advanced.rst:410
 msgid "persistent"
-msgstr ""
+msgstr "持久"
 
 #: ../../source/advanced.rst:415
 msgid "mode"
-msgstr ""
+msgstr "模式"
 
 #: ../../source/advanced.rst:415
 msgid ""
 "The mode used by this persistent onion. Options are \"share\", \"receive\", "
 "\"website\" or \"chat\"."
-msgstr ""
+msgstr "此持久洋葱所使用的模式。选项包括“共享”、“接收”、“网站”或“聊天”。"
 
 #: ../../source/advanced.rst:416
 msgid "enabled"
-msgstr ""
+msgstr "已启用"
 
 #: ../../source/advanced.rst:416
 msgid ""
 "Whether persistence is enabled for this onion. When the persistent option is "
 "unchecked in the desktop, this entire JSON file is deleted. Default: true"
-msgstr ""
+msgstr "是否为此洋葱启用了持久性。当在桌面中不选中持久选项时，会删除整个 JSON "
+"文件。默认：true"
 
 #: ../../source/advanced.rst:417
 msgid "autostart_on_launch"
-msgstr ""
+msgstr "autostart_on_launch"
 
 #: ../../source/advanced.rst:417
 msgid ""
 "Whether to automatically start this persistent onion when OnionShare starts "
 "and once Tor is connected. Default: false"
-msgstr ""
+msgstr "是否在 OnionShare 启动时以及连接 Tor 后自动启动此持久洋葱。默认：false"
 
 #: ../../source/advanced.rst:421
 msgid "general"
-msgstr ""
+msgstr "常规"
 
 #: ../../source/advanced.rst:426
 msgid "title"
-msgstr ""
+msgstr "标题"
 
 #: ../../source/advanced.rst:426
 msgid ""
 "An optional custom title for displaying on the onion service. Default: null "
 "(\"OnionShare\" will be shown instead)"
-msgstr ""
+msgstr "用于在洋葱服务上显示的可选自定义标题。默认：null（将显示“OnionShare”）"
 
 #: ../../source/advanced.rst:427
 msgid "public"
-msgstr ""
+msgstr "公开"
 
 #: ../../source/advanced.rst:427
 msgid ""
 "Whether the onion service can be accessed with or without a Private Key "
 "(Client Authentication). If true, no Private Key is required."
-msgstr ""
+msgstr "是否可在有无私钥的情况下访问洋葱服务（客户端身份验证）。如果为 "
+"true，则不需要私钥。"
 
 #: ../../source/advanced.rst:428
 msgid "autostart_timer"
-msgstr ""
+msgstr "autostart_timer"
 
 #: ../../source/advanced.rst:428
 msgid ""
@@ -849,10 +853,12 @@ msgid ""
 "time can be set in the desktop app or specified in seconds with ``--auto-"
 "start-timer`` with the CLI tool. Default: false"
 msgstr ""
+"洋葱服务是否配置为在特定时间启动。可在桌面应用中设置时间，也可用 CLI 工具的 "
+"``--auto-start-timer`` 以秒为单位指定。默认：false"
 
 #: ../../source/advanced.rst:429
 msgid "autostop_timer"
-msgstr ""
+msgstr "autostop_timer"
 
 #: ../../source/advanced.rst:429
 msgid ""
@@ -860,120 +866,123 @@ msgid ""
 "can be set in the desktop app or specified in seconds with ``--auto-stop-"
 "timer`` with the CLI tool. Default: false"
 msgstr ""
+"洋葱服务是否配置为在特定时间停止。可在桌面应用中设置时间，也可用 CLI 工具的 "
+"``--auto-stop-timer`` 以秒为单位指定。默认：false"
 
 #: ../../source/advanced.rst:430
 msgid "service_id"
-msgstr ""
+msgstr "service_id"
 
 #: ../../source/advanced.rst:430
 msgid ""
 "The 32-character onion service URL, without the scheme and without the '."
 "onion' suffix."
-msgstr ""
+msgstr "32 个字符的洋葱服务 URL，没有方案，也没有 '.onion' 后缀。"
 
 #: ../../source/advanced.rst:433
 msgid ""
 "The below are settings specific to the 'mode' specified in the "
 "``persistent`` section above."
-msgstr ""
+msgstr "以下是特定于上述 ``persistent`` 部分中指定的“模式”的设置。"
 
 #: ../../source/advanced.rst:436
 msgid "share"
-msgstr ""
+msgstr "共享"
 
 #: ../../source/advanced.rst:441
 msgid "autostop_sharing"
-msgstr ""
+msgstr "autostop_sharing"
 
 #: ../../source/advanced.rst:441
 msgid ""
 "Whether to automatically stop the share once files are downloaded the first "
 "time. Default: true"
-msgstr ""
+msgstr "是否在首次下载文件后自动停止共享。默认：true"
 
 #: ../../source/advanced.rst:442 ../../source/advanced.rst:467
 msgid "filenames"
-msgstr ""
+msgstr "文件名"
 
 #: ../../source/advanced.rst:442 ../../source/advanced.rst:467
 msgid "A list of files to share. Default: []"
-msgstr ""
+msgstr "要共享的文件列表。默认：[]"
 
 #: ../../source/advanced.rst:443 ../../source/advanced.rst:466
 msgid "log_filenames"
-msgstr ""
+msgstr "log_filenames"
 
 #: ../../source/advanced.rst:443 ../../source/advanced.rst:466
 msgid ""
 "Whether to log URL requests to stdout when using the CLI tool. Default: false"
-msgstr ""
+msgstr "使用 CLI 工具时是否将 URL 请求记录到 stdout。默认：false"
 
 #: ../../source/advanced.rst:447
 msgid "receive"
-msgstr ""
+msgstr "接收"
 
 #: ../../source/advanced.rst:452
 msgid "data_dir"
-msgstr ""
+msgstr "data_dir"
 
 #: ../../source/advanced.rst:452
 msgid ""
 "The path where received files or text messages will be stored. Default: the "
 "'OnionShare' folder of the user's home directory."
-msgstr ""
+msgstr "接收到的文件或文本消息的存储路径。默认：用户主目录的“OnionShare”文件夹。"
 
 #: ../../source/advanced.rst:453
 msgid "webhook_url"
-msgstr ""
+msgstr "webhook_url"
 
 #: ../../source/advanced.rst:453
 msgid ""
 "A webhook URL that OnionShare will POST to when it receives files or text "
 "messages. Default: null"
-msgstr ""
+msgstr "OnionShare 在接收文件或文本消息时将 POST 到的 webhook URL。默认：null"
 
 #: ../../source/advanced.rst:454
 msgid "disable_text"
-msgstr ""
+msgstr "disable_text"
 
 #: ../../source/advanced.rst:454
 msgid "Whether to disable receiving text messages. Default: false"
-msgstr ""
+msgstr "是否禁用接收文本消息。默认：false"
 
 #: ../../source/advanced.rst:455
 msgid "disable_files"
-msgstr ""
+msgstr "disable_files"
 
 #: ../../source/advanced.rst:455
 msgid "Whether to disable receiving files. Default: false"
-msgstr ""
+msgstr "是否禁用接收文件。默认：false"
 
 #: ../../source/advanced.rst:459
 msgid "website"
-msgstr ""
+msgstr "网站"
 
 #: ../../source/advanced.rst:464
 msgid "disable_csp"
-msgstr ""
+msgstr "disable_csp"
 
 #: ../../source/advanced.rst:464
 msgid ""
 "If set to ``true``, OnionShare won't set its default Content Security Policy "
 "header for the website. Default: ``false``"
-msgstr ""
+msgstr "如果设置为 ``true``，OnionShare "
+"将不会为网站设置默认的内容安全策略标头。默认：``false``"
 
 #: ../../source/advanced.rst:465
 msgid "custom_csp"
-msgstr ""
+msgstr "custom_csp"
 
 #: ../../source/advanced.rst:465
 msgid "A custom Content Security Policy header to send instead of the default."
-msgstr ""
+msgstr "要发送的自定义内容安全策略标头，而不是默认标头。"
 
 #: ../../source/advanced.rst:471
 msgid "chat"
-msgstr ""
+msgstr "聊天"
 
 #: ../../source/advanced.rst:473
 msgid "There are currently no configurable settings for the Chat mode."
-msgstr ""
+msgstr "当前没有聊天模式的可配置设置。"
