@@ -238,22 +238,23 @@ class CensorshipCircumvention(object):
         bridges_ok = False
         self.settings = settings
 
-        # @TODO there might be several bridge types recommended.
-        # Should we attempt to iterate over each type if one of them fails to connect?
-        # But if so, how to stop it starting 3 separate Tor connection threads?
-        # for bridges in request_bridges["settings"]:
-        if bridge_settings["settings"]:
-            bridges = bridge_settings["settings"][0]["bridges"]
-            bridge_strings = bridges["bridge_strings"]
+        # We iterate over each group of bridges returned in settings.
+        # The first set of valid bridges are the ones we use.
+        if bridge_settings.get("settings", False):
+            for returned_bridge_settings in bridge_settings["settings"]:
+                if returned_bridge_settings.get("bridges", False):
+                    bridges = returned_bridge_settings["bridges"]
+                    bridge_strings = bridges["bridge_strings"]
 
-            self.settings.set("bridges_type", "custom")
+                    self.settings.set("bridges_type", "custom")
 
-            # Sanity check the bridges provided from the Tor API before saving
-            bridges_checked = self.common.check_bridges_valid(bridge_strings)
+                    # Sanity check the bridges provided from the Tor API before saving
+                    bridges_checked = self.common.check_bridges_valid(bridge_strings)
 
-            if bridges_checked:
-                self.settings.set("bridges_custom", "\n".join(bridges_checked))
-                bridges_ok = True
+                    if bridges_checked:
+                        self.settings.set("bridges_custom", "\n".join(bridges_checked))
+                        bridges_ok = True
+                        break
 
         # If we got any good bridges, save them to settings and return.
         if bridges_ok:
