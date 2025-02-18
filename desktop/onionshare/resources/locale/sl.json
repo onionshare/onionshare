@@ -58,5 +58,8 @@
     "moat_captcha_reload": "Ponovno naloži",
     "gui_status_indicator_share_started": "Deljenje",
     "gui_status_indicator_receive_working": "Začetek …",
-    "gui_status_indicator_chat_working": "Začetek …"
+    "gui_status_indicator_chat_working": "Začetek …",
+    "gui_status_indicator_receive_stopped": "Ustavljeno",
+    "gui_status_indicator_share_stopped": "Ustavljeno",
+    "gui_status_indicator_chat_stopped": "Ustavljeno"
 }

@@ -136,5 +136,8 @@
     "moat_captcha_label": "पुल का अनुरोध करने के लिए कैप्चा को हल करें।",
     "moat_solution_empty_error": "छवि से अक्षर दर्ज करें",
     "gui_autoconnect_start": "टोर से कनेक्ट करें",
-    "moat_captcha_reload": "Reload"
+    "moat_captcha_reload": "Reload",
+    "gui_status_indicator_share_stopped": "रुका हुआ",
+    "gui_status_indicator_receive_stopped": "रुका हुआ",
+    "gui_status_indicator_chat_stopped": "रुका हुआ"
 }

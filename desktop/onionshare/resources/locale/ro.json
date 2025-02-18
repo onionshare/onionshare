@@ -76,10 +76,10 @@
     "gui_url_label_stay_open": "Această partajare nu se va opri automat.",
     "gui_url_label_onetime": "Această partajare se va opri după prima finalizare.",
     "gui_url_label_onetime_and_persistent": "Această partajare nu se va opri automat. <br> <br> Fiecare acțiune ulterioară va reutiliza adresa. (Pentru a utiliza adrese unice, dezactivați „Utilizați adresa persistentă” din setări.)",
-    "gui_status_indicator_share_stopped": "Pregătit pentru partajare",
+    "gui_status_indicator_share_stopped": "Oprit",
     "gui_status_indicator_share_working": "Pornire…",
     "gui_status_indicator_share_started": "Partajare",
-    "gui_status_indicator_receive_stopped": "Pregătit pentru primire",
+    "gui_status_indicator_receive_stopped": "Oprit",
     "gui_status_indicator_receive_working": "Pornire…",
     "gui_status_indicator_receive_started": "Primire",
     "gui_file_info": "{} fișiere, {}",
@@ -168,5 +168,6 @@
     "moat_captcha_reload": "Reîncarcă",
     "gui_autoconnect_start": "Conectare la Tor",
     "gui_general_settings_window_title": "General",
-    "gui_share_url_public_description": "<b>Oricine</b> are această adresă OnionShare poate <b>descărca</b> fișierele dvs. folosind <b>Tor Browser</b>: <img src='{}' />"
+    "gui_share_url_public_description": "<b>Oricine</b> are această adresă OnionShare poate <b>descărca</b> fișierele dvs. folosind <b>Tor Browser</b>: <img src='{}' />",
+    "gui_status_indicator_chat_stopped": "Oprit"
 }

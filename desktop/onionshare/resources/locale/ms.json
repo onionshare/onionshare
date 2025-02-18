@@ -38,5 +38,8 @@
     "gui_settings_bridge_custom_placeholder": "taip alamat:port (satu per baris)",
     "moat_captcha_label": "Selesaikan CAPTCHA untuk meminta satu titi.",
     "moat_captcha_submit": "Serah",
-    "moat_solution_empty_error": "Masukkan aksara yang tertera dari imej"
+    "moat_solution_empty_error": "Masukkan aksara yang tertera dari imej",
+    "gui_status_indicator_receive_stopped": "Terhenti",
+    "gui_status_indicator_share_stopped": "Terhenti",
+    "gui_status_indicator_chat_stopped": "Terhenti"
 }
