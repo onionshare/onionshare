@@ -80,10 +80,10 @@
     "gui_share_url_description": "<b>Svatko</b> s ovom OnionShare adresom i privatnim ključem može <b>preuzeti</b> tvoje datoteke koristeći <b>Tor preglednik</b>: <img src='{}' />",
     "gui_website_url_description": "<b>Svatko</b> s ovom OnionShare adresom i privatnim ključem može <b>posjetiti</b> tvoju web-stranicu koristeći <b>Tor preglednik</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Svatko</b> s ovom OnionShare adresom i privatnim ključem može <b>prenijeti</b> datoteke na tvoje računalo koristeći <b>Tor preglednik</b>: <img src='{}' />",
-    "gui_url_label_persistent": "Ovo se dijeljenje neće automatski prekinuti.<br><br>Svako naredno dijeljenje koristit će istu adresu. (Za korištenje jednokratne adrese, u postavkama isključi opciju „Koristi trajnu adresu”.)",
+    "gui_url_label_persistent": "Ovo se dijeljenje neće automatski prekinuti.<br><br>Svako naredno dijeljenje ponovo koristi istu adresu. (Za korištenje jednokratne adrese, u postavkama isključi opciju „Uvijek otvori ovu karticu kad se pokrene OnionShare”.)",
     "gui_url_label_stay_open": "Ovo se dijeljenje neće automatski prekinuti.",
     "gui_url_label_onetime": "Ovo će se dijeljenje prekinuti nakon prvog završavanja.",
-    "gui_url_label_onetime_and_persistent": "Ovo se dijeljenje neće automatski prekinuti.<br><br>Svako naredno dijeljenje će koristit će istu adresu. (Za korištenje jednokratne adrese, u postavkama isključi opciju „Koristi trajnu adresu”.)",
+    "gui_url_label_onetime_and_persistent": "Ovo se dijeljenje neće automatski prekinuti.<br><br>Svako naredno dijeljenje će ponovo koristiti istu adresu. (Za korištenje jednokratne adrese, u postavkama isključi opciju „Uvijek otvori ovu karticu kad se pokrene OnionShare”.)",
     "gui_status_indicator_share_stopped": "Spremno za dijeljenje",
     "gui_status_indicator_share_working": "Pokretanje …",
     "gui_status_indicator_share_scheduled": "Planirano …",
@@ -138,7 +138,7 @@
     "mode_settings_autostop_timer_checkbox": "Prekini onion uslugu u planirano vrijeme",
     "mode_settings_autostart_timer_checkbox": "Pokreni onion uslugu u planirano vrijeme",
     "mode_settings_public_checkbox": "Ovo je javna OnionShare usluga (deaktivira privatni ključ)",
-    "mode_settings_persistent_checkbox": "Uvijek otvori ovu karticu kad se pokrene OnionShare",
+    "mode_settings_persistent_checkbox": "Uvijek otvori ovu karticu kad se pokrene OnionShare (onion adresa će ostati ista)",
     "mode_settings_advanced_toggle_hide": "Sakrij napredne postavke",
     "mode_settings_advanced_toggle_show": "Prikaži napredne postavke",
     "gui_quit_warning_cancel": "Odustani",
@@ -254,5 +254,6 @@
     "gui_autoconnect_circumventing_censorship_starting_meek": "Uspostavljanje meek mosta za domain-fronting …",
     "gui_dragdrop_sandbox_flatpak": "Kako bi Flatpak sandbox bio sigurniji, funkcija povlačenja i ispuštanja nije podržana. Umjesto toga koristi gumbe „Dodaj datoteke” i „Dodaj mapu” za biranje datoteka.",
     "gui_close_tab_warning_chat_description": "Zatvoriti karticu koja hostira server za razgovore?",
-    "gui_chat_mode_explainer": "Modus razgovora omogućuje interaktivni razgovor s drugima u Tor pregledniku.<br><br><b>Povijest razgovora se ne sprema u OnionShareu. Povijest razgovora će nestati kada zatvoriš Tor preglednik.</b>"
+    "gui_chat_mode_explainer": "Modus razgovora omogućuje interaktivni razgovor s drugima u Tor pregledniku.<br><br><b>Povijest razgovora se ne sprema u OnionShareu. Povijest razgovora će nestati kada zatvoriš Tor preglednik.</b>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Automatski pokreni ovu onion uslugu kad se pokrene OnionShare"
 }

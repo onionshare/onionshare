@@ -165,7 +165,7 @@
     "mode_settings_receive_data_dir_browse_button": "Naviga",
     "mode_settings_autostop_timer_checkbox": "Interrompere il servizio onion all'ora pianificata",
     "mode_settings_autostart_timer_checkbox": "Avviare il servizio onion all'ora pianificata",
-    "mode_settings_persistent_checkbox": "Salva questa scheda e aprirla automaticamente quando apro OnionShare",
+    "mode_settings_persistent_checkbox": "Aprire sempre questa scheda quando si avvia OnionShare (l'indirizzo Onion rimarrà lo stesso)",
     "gui_quit_warning_cancel": "Annulla",
     "gui_close_tab_warning_cancel": "Annulla",
     "gui_close_tab_warning_persistent_description": "Questa scheda è persistente. Se lo chiudi perderai l'indirizzo onion che sta usando. Sei sicuro di volerlo chiudere?",
@@ -254,5 +254,6 @@
     "gui_status_indicator_chat_started": "\"In chat\"",
     "mode_settings_receive_disable_text_checkbox": "\"Disabilita l'invio di testo\"",
     "gui_server_doesnt_support_stealth": "Spiacenti, questa versione di Tor non supporta la modalità stealth (autenticazione del client). Prova con una versione più recente di Tor o utilizza la modalità 'pubblica' se non è necessario che sia privata.",
-    "gui_chat_mode_explainer": "La modalità chat ti consente di chattare in modo interattivo con gli altri, in Tor Browser.<br><br><b>La cronologia chat non viene archiviata in OnionShare. La cronologia della chat scomparirà quando chiudi Tor Browser.</b>"
+    "gui_chat_mode_explainer": "La modalità chat ti consente di chattare in modo interattivo con gli altri, in Tor Browser.<br><br><b>La cronologia chat non viene archiviata in OnionShare. La cronologia della chat scomparirà quando chiudi Tor Browser.</b>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Avvia automaticamente questo servizio onion all'avvio di OnionShare"
 }

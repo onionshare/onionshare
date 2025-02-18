@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-11 14:47+1100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-14 19:35+1100\n"
 "PO-Revision-Date: 2025-02-12 22:02+0000\n"
 "Last-Translator: Sketch6580 <sketch6580@users.noreply.hosted.weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgstr "手机"
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr "您可以从下方链接下载 OnionShare 移动版"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Android"
 
@@ -59,7 +59,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "iOS"
 
@@ -368,10 +368,11 @@ msgid ""
 "Packages are signed by the core developer who is responsible for the "
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
-msgstr "软件包由负责特定版本的核心开发人员签名。以下是每个 OnionShare 核心开发人员的 "
+msgstr ""
+"软件包由负责特定版本的核心开发人员签名。以下是每个 OnionShare 核心开发人员的 "
 "GPG 密钥信息："
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "Micah Lee:"
 
@@ -389,7 +390,7 @@ msgstr ""
 "您可以`从 keys.openpgp.org 密钥服务器 <https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_下载 Micah 的密钥。"
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "Saptak Sengupta:"
 
@@ -407,7 +408,7 @@ msgstr ""
 "您可以`从 keys.openpgp.org 密钥服务器 <https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_下载 Saptak 的密钥。"
 
-#: ../../source/install.rst:130
+#: ../../source/install.rst:128
 msgid "Miguel Jacq:"
 msgstr "Miguel Jacq:"
 
@@ -422,9 +423,8 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
-"您可以`从 keys.openpgp.org 密钥服务器 <https://keys.openpgp.org/vks/v1/"
-"by-fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_ 下载 Miguel "
-"的密钥。"
+"您可以`从 keys.openpgp.org 密钥服务器 <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_ 下载 Miguel 的密钥。"
 
 #: ../../source/install.rst:132
 msgid ""

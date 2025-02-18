@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-11 14:47+1100\n"
-"PO-Revision-Date: 2025-02-14 00:02+0000\n"
+"POT-Creation-Date: 2025-02-14 19:35+1100\n"
+"PO-Revision-Date: 2025-02-17 07:32+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: none\n"
 "Language: sq\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-rc\n"
+"X-Generator: Weblate 5.10\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -42,7 +42,7 @@ msgstr "Celular"
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr "OnionShare për Celular mund të shkarkoni nga lidhjet vijuese"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Android"
 
@@ -58,7 +58,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "iOS"
 
@@ -391,17 +391,16 @@ msgid "Signing key"
 msgstr "Kyç nënshkrimesh"
 
 #: ../../source/install.rst:117
-#, fuzzy
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
 msgstr ""
-"Paketat nënshkruhen nga zhvilluesi kryesor që është përgjegjës për hedhjen "
-"përkatëse në qarkullim. Sa vijon, janë hollësi të zhvilluesve bazë të "
-"OnionShare-it:"
+"Paketat nënshkruhen nga zhvilluesi kryesor, i cili është përgjegjës për "
+"hedhjen përkatëse në qarkullim. Ja hollësi kyçesh GPG për secilin nga "
+"zhvilluesit kryesorë të OnionShare-it:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "Micah Lee:"
 
@@ -421,7 +420,7 @@ msgstr ""
 "<https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "Saptak Sengupta:"
 
@@ -441,16 +440,15 @@ msgstr ""
 "kyçeve <https://keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
-#: ../../source/install.rst:130
+#: ../../source/install.rst:128
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
-#, fuzzy
 msgid ""
 "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 msgstr ""
-"Shenja gishtash kyçi publik PGP ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+"Shenja gishtash kyçi publik PGP ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 
 #: ../../source/install.rst:130
 msgid ""
@@ -458,6 +456,9 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
+"Kyçin e Migelit mund ta shkarkoni që nga shërbyesi i kyçeve keys.openpgp.org "
+"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 
 #: ../../source/install.rst:132
 msgid ""
