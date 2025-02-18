@@ -39,5 +39,8 @@
     "gui_status_indicator_chat_working": "Sinisimulan…",
     "gui_all_modes_history": "History",
     "gui_canceled": "Kinansela",
-    "moat_captcha_reload": "I-restart ang laro"
+    "moat_captcha_reload": "I-restart ang laro",
+    "gui_status_indicator_share_stopped": "Inihinto",
+    "gui_status_indicator_receive_stopped": "Inihinto",
+    "gui_status_indicator_chat_stopped": "Inihinto"
 }

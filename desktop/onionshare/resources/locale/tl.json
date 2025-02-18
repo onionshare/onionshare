@@ -23,5 +23,8 @@
     "gui_settings_theme_light": "Maliwanag na tema",
     "gui_tab_name_website": "Pook-sapot",
     "gui_tor_connection_ask_open_settings": "Oo",
-    "moat_captcha_reload": "Reload"
+    "moat_captcha_reload": "Reload",
+    "gui_status_indicator_receive_stopped": "Natigil",
+    "gui_status_indicator_share_stopped": "Natigil",
+    "gui_status_indicator_chat_stopped": "Natigil"
 }
