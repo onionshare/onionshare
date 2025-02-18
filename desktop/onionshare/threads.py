@@ -106,6 +106,11 @@ class OnionThread(QtCore.QThread):
             message = self.mode.common.gui.get_translated_tor_error(e)
             self.error.emit(message)
             return
+        except Exception as e:
+            # Handle any other error that wasn't in the list above
+            message = strings._("error_generic").format(e.args[0])
+            self.error.emit(message)
+            return
 
 
 class WebThread(QtCore.QThread):

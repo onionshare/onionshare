@@ -210,6 +210,12 @@ class TorConnectionThread(QtCore.QThread):
             )
             self.error_connecting_to_tor.emit(message)
 
+        except Exception as e:
+            # Handle any other error that wasn't in the list above
+            message = strings._("error_generic").format(e.args[0])
+            self.error_connecting_to_tor.emit(message)
+            return
+
     def _tor_status_update(self, progress, summary):
         self.tor_status_update.emit(progress, summary)
 
