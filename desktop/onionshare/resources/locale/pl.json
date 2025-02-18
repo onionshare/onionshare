@@ -256,5 +256,6 @@
     "gui_close_tab_warning_chat_description": "Zamknąć kartę hostującą serwer czatu?",
     "gui_chat_mode_explainer": "Tryb czatu umożliwia interaktywną rozmowę z innymi osobami w Tor Browser.<br><br><b>Historia czatów nie jest przechowywana w OnionShare. Historia czatów zniknie, gdy zamkniesz Tor Browser.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Automatycznie uruchom tę usługę onion podczas uruchamiania OnionShare",
-    "gui_settings_license_label": "OnionShare jest licencjonowany na podstawie licencji GPL v3.<br>Licencje stron trzecich można przeglądać tutaj:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "OnionShare jest licencjonowany na podstawie licencji GPL v3.<br>Licencje stron trzecich można przeglądać tutaj:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "error_generic": "Wystąpił nieoczekiwany błąd w OnionShare:\n{}"
 }

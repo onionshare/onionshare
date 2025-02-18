@@ -71,10 +71,10 @@
     "gui_server_autostop_timer_expired": "Sjálfvirkri niðurtalningu er þegar lokið. Lagaðu hana til að hefja deilingu.",
     "gui_share_url_description": "<b>Hver sem er</b> með þetta OnionShare vistfang og þennan einkalykil getur <b>sótt</b> skrárnar þínar með því að nota <b>Tor-vafrann</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Hver sem er</b> með þetta OnionShare vistfang og einkalykil getur <b>sent skrár inn</b> á tölvuna þína með því að nota <b>Tor-vafrann</b>: <img src='{}' />",
-    "gui_url_label_persistent": "Deiling þessarar sameignar mun ekki stöðvast sjálfvirkt.<br><br>Allar deilingar sem á eftir koma munu endurnýta vistfangið. (Til að nota eins-skiptis vistföng skaltu slökkva á \"Nota viðvarandi vistföng\" í stillingunum.)",
+    "gui_url_label_persistent": "Deiling þessarar sameignar mun ekki stöðvast sjálfvirkt.<br><br>Allar deilingar sem á eftir koma munu endurnýta vistfangið. (Til að nota eins-skiptis vistföng skaltu slökkva á \"Alltaf opna þennan flipa þegar OnionShare fer í gang\" í stillingunum.)",
     "gui_url_label_stay_open": "Deiling þessarar sameignar mun ekki stöðvast sjálfvirkt.",
     "gui_url_label_onetime": "Deiling þessarar sameignar mun stöðvast eftir fyrstu klárun.",
-    "gui_url_label_onetime_and_persistent": "Deiling þessarar sameignar mun ekki stöðvast sjálfvirkt.<br><br>Allar deilingar sem á eftir koma munu endurnýta vistfangið. (Til að nota eins-skiptis vistföng skaltu slökkva á \"Nota viðvarandi vistföng\" í stillingunum.)",
+    "gui_url_label_onetime_and_persistent": "Deiling þessarar sameignar mun ekki stöðvast sjálfvirkt.<br><br>Allar deilingar sem á eftir koma munu endurnýta vistfangið. (Til að nota eins-skiptis vistföng skaltu slökkva á \"Alltaf opna þennan flipa þegar OnionShare fer í gang\" í stillingunum.)",
     "gui_status_indicator_share_stopped": "Stöðvað",
     "gui_status_indicator_share_working": "Ræsi…",
     "gui_status_indicator_share_started": "Deiling",
@@ -255,5 +255,6 @@
     "waitress_web_server_error": "Vandamál kom upp við að ræsa vefþjóninn",
     "gui_close_tab_warning_chat_description": "Loka flipa sem hýsir spjallþjón?",
     "gui_chat_mode_explainer": "Spjallhamur gerir þér kleift að spjalla gagnvirkt við aðra í Tor-vafranum.<br><br><b>Spjallferillinn er ekki geymdur í OnionShare, hann mun hverfa þegar þú lokar Tor-vafranum.</b>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "Ræsa sjálfkrafa þessa onion-þjónustu þegar OnionShare fer í gang"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Ræsa sjálfkrafa þessa onion-þjónustu þegar OnionShare fer í gang",
+    "gui_settings_license_label": "OnionShare kemur með GPL v3 notkunarleyfi.<br>Notkunarleyfi utanaðkomandi aðila má sjá hér:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
 }
