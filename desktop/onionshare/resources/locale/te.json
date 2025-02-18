@@ -79,11 +79,11 @@
     "gui_url_label_stay_open": "ఈ పంచుకొనబడిన అంశం స్వయంచాలితంగా ఆపబడదు.",
     "gui_url_label_onetime": "ఒకసారి పూర్తయిన తరువాత ఈ పంచుకొనబడిన అంశం ఆపబడుతుంది.",
     "gui_url_label_onetime_and_persistent": "ఈ పంచుకొనబడిన అంశం స్వయంచాలితంగా ఆపబడదు.<br><br>తదుపరి పంచుకోబడిన ప్రతి అంశం ఈ చిరునామాను మరల వాడుకుంటుంది. (ఒక్కసారికి మాత్రం వాడగలిగే చిరునామాలను వాడాలనుకుంటే, అమరికలలో \"నిరంతర చిరునామాను వాడు\"ని అచేతనం చేయండి.)",
-    "gui_status_indicator_share_stopped": "పంచుకోవడానికి సిద్ధం",
+    "gui_status_indicator_share_stopped": "ఆగిపోయినవి",
     "gui_status_indicator_share_working": "మొదలుపెడుతుంది…",
     "gui_status_indicator_share_scheduled": "షెడ్యూల్…",
     "gui_status_indicator_share_started": "పంచుకొంటుంది",
-    "gui_status_indicator_receive_stopped": "స్వీకరణకు సిద్ధం",
+    "gui_status_indicator_receive_stopped": "ఆగిపోయినవి",
     "gui_status_indicator_receive_working": "మొదలుపెడుతుంది…",
     "gui_status_indicator_receive_scheduled": "షెడ్యూల్…",
     "gui_status_indicator_receive_started": "స్వీకరిస్తుంది",
@@ -155,5 +155,6 @@
     "moat_captcha_reload": "Reload",
     "gui_settings_theme_light": "Light",
     "gui_stop_server_autostop_timer_tooltip": "స్వీయ నియంత్రణ సమయం అయిపోయినది",
-    "gui_start_server_autostart_timer_tooltip": "స్వీయ నియంత్రణ సమయం అయిపోయినది"
+    "gui_start_server_autostart_timer_tooltip": "స్వీయ నియంత్రణ సమయం అయిపోయినది",
+    "gui_status_indicator_chat_stopped": "ఆగిపోయినవి"
 }
