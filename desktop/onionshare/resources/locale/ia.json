@@ -34,5 +34,8 @@
     "gui_all_modes_clear_history": "Rader toto",
     "gui_new_tab": "Nove scheda",
     "gui_main_page_share_button": "Comenciar a compartir",
-    "gui_tab_name_share": "Compartir"
+    "gui_tab_name_share": "Compartir",
+    "gui_status_indicator_chat_stopped": "Stoppate",
+    "gui_status_indicator_share_stopped": "Stoppate",
+    "gui_status_indicator_receive_stopped": "Stoppate"
 }

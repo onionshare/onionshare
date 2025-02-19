@@ -50,5 +50,8 @@
     "gui_tab_name_share": "Kunhavigi",
     "gui_tab_name_receive": "Ricevi",
     "gui_tab_name_website": "Retejo",
-    "gui_tab_name_chat": "Babili"
+    "gui_tab_name_chat": "Babili",
+    "gui_status_indicator_share_stopped": "Haltita",
+    "gui_status_indicator_receive_stopped": "Haltita",
+    "gui_status_indicator_chat_stopped": "Haltita"
 }

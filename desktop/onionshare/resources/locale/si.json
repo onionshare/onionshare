@@ -28,5 +28,8 @@
     "gui_tab_name_website": "වෙබ් අඩවිය",
     "gui_tab_name_chat": "කතාබහ",
     "moat_captcha_submit": "Submit",
-    "gui_close_tab_warning_close": "හරි"
+    "gui_close_tab_warning_close": "හරි",
+    "gui_status_indicator_receive_stopped": "නවත්වා ඇත",
+    "gui_status_indicator_chat_stopped": "නවත්වා ඇත",
+    "gui_status_indicator_share_stopped": "නවත්වා ඇත"
 }

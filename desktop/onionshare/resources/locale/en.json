@@ -247,6 +247,7 @@
     "error_port_not_available": "OnionShare port not available",
     "history_receive_read_message_button": "Read Message",
     "error_tor_protocol_error": "There was an error with Tor: {}",
+    "error_generic": "There was an unexpected error with OnionShare:\n{}",
     "moat_contact_label": "Contacting BridgeDB…",
     "moat_captcha_label": "Solve the CAPTCHA to request a bridge.",
     "moat_captcha_placeholder": "Enter the characters from the image",

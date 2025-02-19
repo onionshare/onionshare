@@ -79,11 +79,11 @@
     "gui_url_label_stay_open": "Ev weşan bi xwe ve naqede.",
     "gui_url_label_onetime": "Ev weşan piştî temambûna yekemîn biqede.",
     "gui_url_label_onetime_and_persistent": "Ev weşan otomatîk nasekine.<br><br>Her weşanê bi vê ve girêdayî wê heman malper bikar bîne.(Ji bo malperekî yekcar bikar bînî \"Malperê bêdawî bikar bîne\" di ayarê de vemirîne.)",
-    "gui_status_indicator_share_stopped": "Ji bo weşanê amade",
+    "gui_status_indicator_share_stopped": "وەستێنراو",
     "gui_status_indicator_share_working": "Destpê dike…",
     "gui_status_indicator_share_scheduled": "Pilankirî…",
     "gui_status_indicator_share_started": "Diweşîne",
-    "gui_status_indicator_receive_stopped": "Amade ji bo wergirtin",
+    "gui_status_indicator_receive_stopped": "وەستێنراو",
     "gui_status_indicator_receive_working": "Destpê dike…",
     "gui_status_indicator_receive_scheduled": "Pilankirî…",
     "gui_status_indicator_receive_started": "Werdigire",
@@ -191,5 +191,6 @@
     "moat_captcha_submit": "پێشکەشکردن",
     "gui_general_settings_window_title": "گشتی",
     "gui_hide": "Hide",
-    "moat_captcha_reload": "Reload"
+    "moat_captcha_reload": "Reload",
+    "gui_status_indicator_chat_stopped": "وەستێنراو"
 }
