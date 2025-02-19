@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-15 09:31+1100\n"
-"PO-Revision-Date: 2025-02-11 08:01+0000\n"
+"PO-Revision-Date: 2025-02-19 11:29+0000\n"
 "Last-Translator: Himmel <Himmel@users.noreply.hosted.weblate.org>\n"
 "Language-Team: ja <LL@li.org>\n"
 "Language: ja\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../source/advanced.rst:2
@@ -40,9 +41,9 @@ msgstr ""
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
-msgstr ""
-"サーバーを開始する前に「OnionShareを開始する際に、このタブを常に開く」に"
-"チェックを入れると、タブを固定することができます。"
+msgstr "サーバーを開始する前に「OnionShare "
+"の起動時に常にこのタブを開く」にチェックを入れると、タブを固定することができ"
+"ます。"
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -441,7 +442,7 @@ msgstr "Windows: ``%APPDATA%\\OnionShare``"
 
 #: ../../source/advanced.rst:315
 msgid "Configuration file parameters"
-msgstr ""
+msgstr "設定ファイルのパラメーター"
 
 #: ../../source/advanced.rst:317
 msgid ""
@@ -480,7 +481,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:324
 msgid "version"
-msgstr ""
+msgstr "バージョン"
 
 #: ../../source/advanced.rst:324 ../../source/advanced.rst:325
 #: ../../source/advanced.rst:326 ../../source/advanced.rst:328
@@ -786,7 +787,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:410
 msgid "persistent"
-msgstr ""
+msgstr "永続"
 
 #: ../../source/advanced.rst:415
 msgid "mode"
@@ -834,7 +835,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:427
 msgid "public"
-msgstr ""
+msgstr "公開"
 
 #: ../../source/advanced.rst:427
 msgid ""
@@ -881,9 +882,8 @@ msgid ""
 msgstr ""
 
 #: ../../source/advanced.rst:436
-#, fuzzy
 msgid "share"
-msgstr "使い方"
+msgstr "共有"
 
 #: ../../source/advanced.rst:441
 msgid "autostop_sharing"
@@ -977,7 +977,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:471
 msgid "chat"
-msgstr ""
+msgstr "チャット"
 
 #: ../../source/advanced.rst:473
 msgid "There are currently no configurable settings for the Chat mode."

@@ -74,10 +74,10 @@
     "gui_server_autostop_timer_expired": "自動停止タイマーで設定している時間に到達しました。共有を開始するには、タイマーを調整してください。",
     "gui_share_url_description": "この OnionShare アドレスと秘密鍵を知っている人であれば<b>誰でも</b>、<b>Tor Browser</b> であなたのファイルを<b>ダウンロード</b>できます: <img src='{}' />",
     "gui_receive_url_description": "この OnionShare アドレスと秘密鍵を知っている人であれば<b>誰でも</b>、<b>Tor Browser</b> であなたのコンピューターにファイルを<b>アップロード</b>できます: <img src='{}' />",
-    "gui_url_label_persistent": "この共有は自動では停止しません。<br><br>次回以降の共有も同じアドレスを使用します。（1回限りのアドレスを使うには、設定画面で「固定アドレスを使用」を無効にしてください。）",
+    "gui_url_label_persistent": "この共有は自動では停止しません。<br><br>次回以降の共有も同じアドレスを使用します。(1回限りのアドレスを使うには、設定で「OnionShare の起動時に常にこのタブを開く」を無効にしてください。)",
     "gui_url_label_stay_open": "この共有は自動では停止しません。",
     "gui_url_label_onetime": "この共有は最初の完了後に停止します。",
-    "gui_url_label_onetime_and_persistent": "この共有は自動では停止しません。<br><br>次回以降の共有も同じアドレスを使用します。（1回限りのアドレスを使うには、設定画面で「固定アドレスを使用」を無効にしてください。）",
+    "gui_url_label_onetime_and_persistent": "この共有は自動では停止しません。<br><br>次回以降の共有も同じアドレスを使用します。(1回限りのアドレスを使うには、設定画面で「OnionShare の起動時に常にこのタブを開く」を無効にしてください。)",
     "gui_status_indicator_share_stopped": "停止中",
     "gui_status_indicator_share_working": "開始しています…",
     "gui_status_indicator_share_started": "共有しています",
@@ -255,5 +255,7 @@
     "gui_close_tab_warning_chat_description": "チャットサーバーをホスト中のタブを閉じてもよろしいですか？",
     "waitress_web_server_error": "ウェブサーバーを起動する際に問題が生じました",
     "gui_chat_mode_explainer": "チャットモードを使用すると、Tor Browser で他のユーザーとチャットを行うことができるようになります。<br><br><b>チャットの履歴は OnionShare には保存されません。Tor Browser を終了すると、チャットの履歴は消去されます。</b>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "OnionShare の起動時にこの Onion Service を自動的に開始する"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "OnionShare の起動時にこの Onion Service を自動的に開始する",
+    "error_generic": "OnionShare で予期せぬエラーが発生しました:\n{}",
+    "gui_settings_license_label": "OnionShare は GPL v3 の下でライセンスされています。<br>サードパーティのライセンスに関する情報:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
 }
