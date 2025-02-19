@@ -74,7 +74,7 @@ Update the versions of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scr
 
 ### Make sure Snapcraft packaging works
 
-Ensure you have the ability to run `poetry export`. You may need to run `poetry self add poetry-plugin-export`, as in recent versions of Poetry it is now a plugin rather than in the core.
+Ensure you have the ability to run `poetry export`. You may need to run `poetry self add poetry-plugin-export@latest`, as in recent versions of Poetry it is now a plugin rather than in the core.
 
 Enter the `cli` directory and run `poetry export > ../snap/local/cli-requirements.txt`
 
@@ -159,6 +159,7 @@ From https://snapcraft.io/onionshare/releases (you must be logged in), promote t
 - [ ] Create a new branch in https://github.com/flathub/org.onionshare.OnionShare for the version
 - [ ] Overwrite the manifest in the flathub repo with the updated version in [flatpak/org.onionshare.OnionShare.yaml](./flatpak/org.onionshare.OnionShare.yaml)
 - [ ] Edit it so that the sources for `onionshare` and `onionshare-cli` are the GitHub repo, with the correct git tag, rather than the local filesystem
+- [ ] Ensure you also copy across the `onionshare-cli.yaml`, `onionshare-desktop.yaml`, `meek-client`, `snowflake` and `obfs4proxy` from the `flatpak/` folder into the flathub repository, so that the flathub repository has all the latest dependencies.
 - [ ] Make a PR in the flathub repo, and merge it to make a release
 
 ### Windows release

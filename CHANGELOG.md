@@ -1,5 +1,24 @@
 # OnionShare Changelog
 
+## 2.6.3
+
+* Feature: It is now possible to view what URLs are visited in Share/Website mode using the CLI tool, with `--log-filenames`.
+* Feature: It is now possible to automatically start a saved persistent onion tab, once OnionShare itself starts and once Tor is connected.
+* Bug fix: It is now once again possible to request bridges and use meek as a Pluggable Transport.
+* Bug fix: Fixed a fatal error with Censorship Circumvention when no bridges are returned.
+* Bug fix: Fixed an issue with lack of gevent with SocketIO on systems that don't have it.
+* Bug fix: Fixed a thread-related race condition segfault with the CLI tool on shutdown.
+* Bug fix: Fixed an issue with the 'auto-stop timer' when the CLI tool is being used in 'Share mode' and someone has visited the share at least once. Desktop was unaffected, as were all other modes.
+* Locales: Gaeilge, Slovenčina and Tamil languages introduced, and various other translations in existing languages added or improved (thanks to the translators!)
+* Documentation: Added examples of using a systemd unit file for persistent onions, and various other clarifications.
+* Documentation: Documented all the config file parameters and what they mean, as well as that for persistent onion json files.
+* Packaging: Built the snap with a cleanup step in such a way that it should work on Ubuntu 24.04 and higher. Unfortunately, we have to drop support for armhf for now, as there are no PySide6 packages available on Pypi to install for that architecture. However, ARM64 is supported.
+* Packaging: Fixed ARM64 packaging for Flatpak.
+* Packaging: Many internal packaging improvements that make it easier for us to release snap and flatpak.
+* Miscellaneous: Many dependency updates to Python libraries, Tor, Snowflake
+* Miscellaneous: Various minor bug fixes/warning messages resolved, and minor changes to some wording for the 'Save this tab' option to make it clearer that this means 'persistent onion address'.
+* Miscellaneous: Nicer and more intuitive icons with better dark mode support.
+
 ## 2.6.2
 
 * Security fix: Removes newlines from History item path
