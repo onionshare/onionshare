@@ -256,5 +256,6 @@
     "gui_receive_url_public_description": "يمكن <b>لأي شخص</b> لديه عنوان OnionShare هذا <b>رفع</b> الملفات إلى حاسوبك باستخدام <b>متصفح تور </b>: ‏<img src='{}' />",
     "gui_chat_mode_explainer": "وضع المحادثة يتيح لك المحادثة بشكل تفاعلي مع الآخرين، في متصفح تور.<br><br><b>لا يتم تخزين سجل المحادثة في OnionShare. سوف يختفي سجل المحادثة عند إغلاق متصفح تور.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "ابدأ خدمة البصل هذه تلقائيًا عند بدء تشغيل Onionshare",
-    "gui_settings_license_label": "تم ترخيص Onionshare بموجب GPL v3.<br> يمكن الاطلاع على تراخيص الطرف الثالث هنا:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "تم ترخيص Onionshare بموجب GPL v3.<br> يمكن الاطلاع على تراخيص الطرف الثالث هنا:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "error_generic": "كان هناك خطأ غير متوقع مع OnionShare:\n{}"
 }
