@@ -46,7 +46,7 @@ then
   echo "Tag does not verify"
   exit 1
 fi
-cat ../verify.txt | grep -e "using RSA key 927F419D7EC82C2F149C1BD1403C2657CD994F73" -e "using RSA key 2E530667425F4B93874935707B7F1772C0C6FCBF"
+cat ../verify.txt | grep -e "using RSA key 927F419D7EC82C2F149C1BD1403C2657CD994F73" -e "using RSA key 2E530667425F4B93874935707B7F1772C0C6FCBF" -e "using RSA key 3804565A5EFA6C11AFDA0E5359B3F0C24135C6A9"
 if [ $? -ne 0 ]
 then
   echo "Tag signed with wrong key"
