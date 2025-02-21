@@ -10,7 +10,7 @@ languages = [
     ("English", "en"),  # English
     ("Shqip", "sq"),  # Albanian
     ("Български", "bg"),  #Bulgarian
-    ("中文 (简体)", "zh_Hans"),  # Simplified Chinese
+    ("中文 (简体)", "zh_CN"),  # Simplified Chinese
     ("Deutsch", "de"),  # German
     ("Ελληνικά", "el"),  # Greek
     ("Gaeilge", "ga"),  # Irish
