@@ -256,5 +256,6 @@
     "history_receive_read_message_button": "Прочитане",
     "gui_chat_mode_explainer": "Режимът за бързи съобщения ви дава възможност да обменяте съобщения в реално време посредством четеца Тор.<br><br><b>Хронологията на разговора не се пази в OnionShare. Тя изчезва при затваряне на четеца.<b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Стартиране на тази услуга на Onion при отваряне на OnionShare",
-    "gui_settings_license_label": "OnionShare се разпространява под GPL v3.<br>Лицензите на трети страни могат да бъдат видяни тук:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "OnionShare се разпространява под GPL v3.<br>Лицензите на трети страни могат да бъдат видяни тук:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "error_generic": "Неочаквана грешка в OnionShare:\n{}"
 }

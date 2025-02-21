@@ -60,10 +60,10 @@
     "gui_tor_connection_lost": "Vous êtes déconnecté de Tor.",
     "gui_share_url_description": "<b>Quiconque</b> disposant de cette adresse OnionShare et de cette clé privée peut <b>télécharger</b> vos fichiers en utilisant le <b>Navigateur Tor</b> : <img src='{}' />",
     "gui_receive_url_description": "<b>Quiconque</b> disposant de cette adresse OnionShare et de cette clé privée peut <b>téléverser</b> des fichiers vers votre ordinateur en utilisant le <b>Navigateur Tor</b> : <img src='{}' />",
-    "gui_url_label_persistent": "Ce partage ne s’arrêtera pas automatiquement.<br><br>Tout partage subséquent réutilisera l’adresse. (Pour des adresses qui ne peuvent être utilisées qu’une fois, désactivez « Utiliser une adresse persistante » dans les paramètres.)",
+    "gui_url_label_persistent": "Ce partage ne s’arrêtera pas automatiquement.<br><br>Tout partage subséquent réutilise l’adresse. (Pour des adresses qui ne peuvent être utilisées qu’une fois, désactivez « Toujours ouvrir cet onglet lors du démarrage d’OnionShare » dans les paramètres.)",
     "gui_url_label_stay_open": "Ce partage ne s’arrêtera pas automatiquement.",
     "gui_url_label_onetime": "Ce partage s’arrêtera une fois que le premier téléchargement sera terminé.",
-    "gui_url_label_onetime_and_persistent": "Ce partage ne s’arrêtera pas automatiquement.<br><br>Tout partage subséquent réutilisera l’adresse. (Pour des adresses qui ne peuvent être utilisées qu’une fois, désactivez « Utiliser une adresse persistante » dans les paramètres.)",
+    "gui_url_label_onetime_and_persistent": "Ce partage ne s’arrêtera pas automatiquement.<br><br>Tout partage subséquent réutilise l’adresse. (Pour des adresses qui ne peuvent être utilisées qu’une fois, désactivez « Toujours ouvrir cet onglet lors du démarrage d’OnionShare » dans les paramètres.)",
     "gui_status_indicator_share_stopped": "Arrêté",
     "gui_status_indicator_share_working": "Démarrage…",
     "gui_status_indicator_share_started": "Partage en cours",
@@ -255,5 +255,7 @@
     "waitress_web_server_error": "Un problème est survenu lors du démarrage du serveur Web",
     "gui_close_tab_warning_chat_description": "Fermer l’onglet qui héberge un serveur de dialogue en ligne ?",
     "gui_chat_mode_explainer": "Le mode conversation vous permet de discuter interactivement avec d’autres dans le Navigateur Tor.br><br><b>L’historique des conversations n’est pas enregistré dans OnionShare. L’historique des conversations disparaît en cas de fermeture du Navigateur Tor.</b>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "Démarrer automatiquement ce service oignon lors du démarrage d’OnionShare"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Démarrer automatiquement ce service oignon lors du démarrage d’OnionShare",
+    "error_generic": "Une erreur inattendue est survenue dans OnionShare :\n{}",
+    "gui_settings_license_label": "OnionShare est sous licence GPL v3.<br>Les licences des tiers peuvent être consultées ici :<br><a href=\"https://github.com/onionshare/onionshare/tree/main/licenses\">https://github.com/onionshare/onionshare/tree/main/licenses</a>"
 }
