@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-02-14 00:02+0000\n"
+"PO-Revision-Date: 2025-02-21 23:07+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../source/advanced.rst:2
@@ -447,7 +448,7 @@ msgstr "Windows: ``%APPDATA%\\OnionShare``"
 
 #: ../../source/advanced.rst:315
 msgid "Configuration file parameters"
-msgstr ""
+msgstr "Параметри конфігураційного файлу"
 
 #: ../../source/advanced.rst:317
 msgid ""
@@ -468,25 +469,25 @@ msgstr ""
 #: ../../source/advanced.rst:439 ../../source/advanced.rst:450
 #: ../../source/advanced.rst:462
 msgid "Parameter"
-msgstr ""
+msgstr "Параметр"
 
 #: ../../source/advanced.rst:322 ../../source/advanced.rst:402
 #: ../../source/advanced.rst:413 ../../source/advanced.rst:424
 #: ../../source/advanced.rst:439 ../../source/advanced.rst:450
 #: ../../source/advanced.rst:462
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: ../../source/advanced.rst:322 ../../source/advanced.rst:402
 #: ../../source/advanced.rst:413 ../../source/advanced.rst:424
 #: ../../source/advanced.rst:439 ../../source/advanced.rst:450
 #: ../../source/advanced.rst:462
 msgid "Explanation"
-msgstr ""
+msgstr "Пояснення"
 
 #: ../../source/advanced.rst:324
 msgid "version"
-msgstr ""
+msgstr "версія"
 
 #: ../../source/advanced.rst:324 ../../source/advanced.rst:325
 #: ../../source/advanced.rst:326 ../../source/advanced.rst:328
@@ -500,7 +501,7 @@ msgstr ""
 #: ../../source/advanced.rst:452 ../../source/advanced.rst:453
 #: ../../source/advanced.rst:465
 msgid "``string``"
-msgstr ""
+msgstr "``string``"
 
 #: ../../source/advanced.rst:324
 msgid ""
@@ -509,7 +510,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:325
 msgid "connection_type"
-msgstr ""
+msgstr "connection_type"
 
 #: ../../source/advanced.rst:325
 msgid ""
@@ -520,7 +521,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:326
 msgid "control_port_address"
-msgstr ""
+msgstr "control_port_address"
 
 #: ../../source/advanced.rst:326
 msgid ""
@@ -530,12 +531,12 @@ msgstr ""
 
 #: ../../source/advanced.rst:327
 msgid "control_port_port"
-msgstr ""
+msgstr "control_port_port"
 
 #: ../../source/advanced.rst:327 ../../source/advanced.rst:329
 #: ../../source/advanced.rst:335
 msgid "``integer``"
-msgstr ""
+msgstr "``integer``"
 
 #: ../../source/advanced.rst:327
 msgid ""
@@ -545,7 +546,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:328
 msgid "socks_address"
-msgstr ""
+msgstr "socks_address"
 
 #: ../../source/advanced.rst:328
 msgid ""
@@ -555,7 +556,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:329
 msgid "socks_port"
-msgstr ""
+msgstr "socks_port"
 
 #: ../../source/advanced.rst:329
 msgid ""
@@ -565,7 +566,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:330
 msgid "socket_file_path"
-msgstr ""
+msgstr "socket_file_path"
 
 #: ../../source/advanced.rst:330
 msgid ""
@@ -575,7 +576,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:331
 msgid "auth_type"
-msgstr ""
+msgstr "auth_type"
 
 #: ../../source/advanced.rst:331
 msgid ""
@@ -585,7 +586,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:332
 msgid "auth_password"
-msgstr ""
+msgstr "auth_password"
 
 #: ../../source/advanced.rst:332
 msgid ""
@@ -595,7 +596,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:333
 msgid "auto_connect"
-msgstr ""
+msgstr "auto_connect"
 
 #: ../../source/advanced.rst:333 ../../source/advanced.rst:334
 #: ../../source/advanced.rst:336 ../../source/advanced.rst:344
@@ -606,7 +607,7 @@ msgstr ""
 #: ../../source/advanced.rst:455 ../../source/advanced.rst:464
 #: ../../source/advanced.rst:466
 msgid "``boolean``"
-msgstr ""
+msgstr "``boolean``"
 
 #: ../../source/advanced.rst:333
 msgid ""
@@ -616,7 +617,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:334
 msgid "use_autoupdate"
-msgstr ""
+msgstr "use_autoupdate"
 
 #: ../../source/advanced.rst:334
 msgid ""
@@ -626,7 +627,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:335
 msgid "autoupdate_timestamp"
-msgstr ""
+msgstr "autoupdate_timestamp"
 
 #: ../../source/advanced.rst:335
 msgid "The last time OnionShare checked for updates. Default: None"
@@ -634,7 +635,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:336
 msgid "bridges_enabled"
-msgstr ""
+msgstr "bridges_enabled"
 
 #: ../../source/advanced.rst:336
 msgid "Whether to connect to Tor using bridges. Default: False"
@@ -642,7 +643,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:337
 msgid "bridges_type"
-msgstr ""
+msgstr "bridges_type"
 
 #: ../../source/advanced.rst:337
 msgid ""
@@ -654,7 +655,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:338
 msgid "bridges_builtin_pt"
-msgstr ""
+msgstr "bridges_builtin_pt"
 
 #: ../../source/advanced.rst:338
 msgid ""
@@ -665,7 +666,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:339
 msgid "bridges_moat"
-msgstr ""
+msgstr "bridges_moat"
 
 #: ../../source/advanced.rst:339
 msgid ""
@@ -675,7 +676,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:340
 msgid "bridges_custom"
-msgstr ""
+msgstr "bridges_custom"
 
 #: ../../source/advanced.rst:340
 msgid ""
@@ -686,11 +687,11 @@ msgstr ""
 
 #: ../../source/advanced.rst:341
 msgid "bridges_builtin"
-msgstr ""
+msgstr "bridges_builtin"
 
 #: ../../source/advanced.rst:341
 msgid "``dict``"
-msgstr ""
+msgstr "``dict``"
 
 #: ../../source/advanced.rst:341
 msgid ""
@@ -700,12 +701,12 @@ msgstr ""
 
 #: ../../source/advanced.rst:342
 msgid "persistent_tabs"
-msgstr ""
+msgstr "persistent_tabs"
 
 #: ../../source/advanced.rst:342 ../../source/advanced.rst:442
 #: ../../source/advanced.rst:467
 msgid "``list``"
-msgstr ""
+msgstr "``list``"
 
 #: ../../source/advanced.rst:342
 msgid ""
@@ -719,7 +720,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:343
 msgid "locale"
-msgstr ""
+msgstr "locale"
 
 #: ../../source/advanced.rst:343
 msgid ""
@@ -730,7 +731,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:344
 msgid "theme"
-msgstr ""
+msgstr "theme"
 
 #: ../../source/advanced.rst:344
 msgid ""
@@ -761,12 +762,11 @@ msgstr ""
 
 #: ../../source/advanced.rst:399
 msgid "onion"
-msgstr ""
+msgstr "onion"
 
 #: ../../source/advanced.rst:404
-#, fuzzy
 msgid "private_key"
-msgstr "Вимкнути приватний ключ"
+msgstr "private_key"
 
 #: ../../source/advanced.rst:404
 msgid "Base64-encoded private key of the onion service"
@@ -774,7 +774,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:405
 msgid "client_auth_priv_key"
-msgstr ""
+msgstr "client_auth_priv_key"
 
 #: ../../source/advanced.rst:405
 msgid ""
@@ -783,7 +783,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:406
 msgid "client_auth_pub_key"
-msgstr ""
+msgstr "client_auth_pub_key"
 
 #: ../../source/advanced.rst:406
 msgid ""
@@ -796,7 +796,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:415
 msgid "mode"
-msgstr ""
+msgstr "mode"
 
 #: ../../source/advanced.rst:415
 msgid ""
@@ -806,7 +806,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:416
 msgid "enabled"
-msgstr ""
+msgstr "enabled"
 
 #: ../../source/advanced.rst:416
 msgid ""
@@ -816,7 +816,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:417
 msgid "autostart_on_launch"
-msgstr ""
+msgstr "autostart_on_launch"
 
 #: ../../source/advanced.rst:417
 msgid ""
@@ -826,11 +826,11 @@ msgstr ""
 
 #: ../../source/advanced.rst:421
 msgid "general"
-msgstr ""
+msgstr "general"
 
 #: ../../source/advanced.rst:426
 msgid "title"
-msgstr ""
+msgstr "title"
 
 #: ../../source/advanced.rst:426
 msgid ""
@@ -840,7 +840,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:427
 msgid "public"
-msgstr ""
+msgstr "public"
 
 #: ../../source/advanced.rst:427
 msgid ""
@@ -850,7 +850,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:428
 msgid "autostart_timer"
-msgstr ""
+msgstr "autostart_timer"
 
 #: ../../source/advanced.rst:428
 msgid ""
@@ -861,7 +861,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:429
 msgid "autostop_timer"
-msgstr ""
+msgstr "autostop_timer"
 
 #: ../../source/advanced.rst:429
 msgid ""
@@ -872,7 +872,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:430
 msgid "service_id"
-msgstr ""
+msgstr "service_id"
 
 #: ../../source/advanced.rst:430
 msgid ""
@@ -887,13 +887,12 @@ msgid ""
 msgstr ""
 
 #: ../../source/advanced.rst:436
-#, fuzzy
 msgid "share"
-msgstr "Користування"
+msgstr "share"
 
 #: ../../source/advanced.rst:441
 msgid "autostop_sharing"
-msgstr ""
+msgstr "autostop_sharing"
 
 #: ../../source/advanced.rst:441
 msgid ""
@@ -903,7 +902,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:442 ../../source/advanced.rst:467
 msgid "filenames"
-msgstr ""
+msgstr "filenames"
 
 #: ../../source/advanced.rst:442 ../../source/advanced.rst:467
 msgid "A list of files to share. Default: []"
@@ -911,7 +910,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:443 ../../source/advanced.rst:466
 msgid "log_filenames"
-msgstr ""
+msgstr "log_filenames"
 
 #: ../../source/advanced.rst:443 ../../source/advanced.rst:466
 msgid ""
@@ -920,11 +919,11 @@ msgstr ""
 
 #: ../../source/advanced.rst:447
 msgid "receive"
-msgstr ""
+msgstr "receive"
 
 #: ../../source/advanced.rst:452
 msgid "data_dir"
-msgstr ""
+msgstr "data_dir"
 
 #: ../../source/advanced.rst:452
 msgid ""
@@ -934,7 +933,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:453
 msgid "webhook_url"
-msgstr ""
+msgstr "webhook_url"
 
 #: ../../source/advanced.rst:453
 msgid ""
@@ -944,7 +943,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:454
 msgid "disable_text"
-msgstr ""
+msgstr "disable_text"
 
 #: ../../source/advanced.rst:454
 msgid "Whether to disable receiving text messages. Default: false"
@@ -952,7 +951,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:455
 msgid "disable_files"
-msgstr ""
+msgstr "disable_files"
 
 #: ../../source/advanced.rst:455
 msgid "Whether to disable receiving files. Default: false"
@@ -960,11 +959,11 @@ msgstr ""
 
 #: ../../source/advanced.rst:459
 msgid "website"
-msgstr ""
+msgstr "вебсайт"
 
 #: ../../source/advanced.rst:464
 msgid "disable_csp"
-msgstr ""
+msgstr "disable_csp"
 
 #: ../../source/advanced.rst:464
 msgid ""
@@ -973,9 +972,8 @@ msgid ""
 msgstr ""
 
 #: ../../source/advanced.rst:465
-#, fuzzy
 msgid "custom_csp"
-msgstr "Власні заголовки"
+msgstr "custom_csp"
 
 #: ../../source/advanced.rst:465
 msgid "A custom Content Security Policy header to send instead of the default."
@@ -983,7 +981,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:471
 msgid "chat"
-msgstr ""
+msgstr "chat"
 
 #: ../../source/advanced.rst:473
 msgid "There are currently no configurable settings for the Chat mode."
