@@ -212,6 +212,10 @@ jobs:
           cp -r /Volumes/Postgres-2.6.5-14/Postgres.app /Applications/
           hdiutil detach /Volumes/Postgres-2.6.5-14
 
+      - name: Touch dylib file for build to finish
+        run: |
+          touch /usr/local/lib/libmimerapi.dylib
+
       - name: Build OnionShare
         run: |
           cd desktop
