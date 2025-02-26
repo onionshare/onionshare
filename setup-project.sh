@@ -2,6 +2,14 @@
 OS=$(uname -s)
 
 if [ "$OS" == "Linux" ]; then
+    # Check poetry installation and exit if no installation found.
+    if ! command -v poetry 2>&1 >/dev/null
+    then
+        echo "Could not detect Poetry installation. Please make sure you install Poetry first.
+        See https://python-poetry.org/docs/#installation or run pip3 install poetry"
+        exit 1
+    fi
+
     # setup environment
     cd cli
     poetry install
