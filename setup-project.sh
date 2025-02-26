@@ -28,6 +28,7 @@ if [ "$OS" == "Linux" ]; then
 
     # add alias
     echo "alias onionshare='cd $(pwd) && poetry run onionshare'" >> ~/.bash_aliases
+    echo "alias onionshare-cli='cd $(pwd) && poetry run onionshare-cli'" >> ~/.bash_aliases
     source ~/.bash_aliases
 
     echo "OnionShare Desktop is now installed"
