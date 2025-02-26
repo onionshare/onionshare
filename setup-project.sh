@@ -11,7 +11,7 @@ if [ "$OS" == "Linux" ]; then
 
     # setup tor
     poetry run python ./scripts/get-tor.py linux-x86_64
-    echo "Tor browser is installed"
+    echo "Tor is installed"
 
     # compile dependencies
     ./scripts/build-pt-obfs4proxy.sh
