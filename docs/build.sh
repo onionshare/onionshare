@@ -3,7 +3,7 @@
 VERSION=$(cat ../cli/onionshare_cli/resources/version.txt)
 
 # Supported locales
-LOCALES="en fr de el ja pl ru es tr uk vi"
+LOCALES="en sq bg zh_CN de el ga ja pl ru es tr uk"
 
 # Generate English .po files
 make gettext

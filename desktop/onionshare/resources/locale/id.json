@@ -76,10 +76,10 @@
     "gui_url_label_stay_open": "Pembagian ini tidak akan berhenti otomatis.",
     "gui_url_label_onetime": "Pembagian ini akan berhenti setelah penyelesaian pertama.",
     "gui_url_label_onetime_and_persistent": "Pembagian ini tidak akan berhenti otomatis.<br><br>Setiap pembagian selanjutnya akan menggunakan lagi alamat tersebut. (Untuk menggunakan alamat sekali pakai, matikan \"Gunakan alamat persisten\" di pengaturan.)",
-    "gui_status_indicator_share_stopped": "Siap untuk berbagi",
+    "gui_status_indicator_share_stopped": "Terhenti",
     "gui_status_indicator_share_working": "Memulai…",
     "gui_status_indicator_share_started": "Berbagi",
-    "gui_status_indicator_receive_stopped": "Siap untuk menerima",
+    "gui_status_indicator_receive_stopped": "Terhenti",
     "gui_status_indicator_receive_working": "Memulai…",
     "gui_status_indicator_receive_started": "Menerima",
     "gui_file_info": "{} file, {}",
@@ -186,7 +186,7 @@
     "gui_status_indicator_chat_started": "Mengobrol",
     "gui_status_indicator_chat_scheduled": "Menjadwalkan…",
     "gui_status_indicator_chat_working": "Memulai…",
-    "gui_status_indicator_chat_stopped": "Siap untuk mengobrol",
+    "gui_status_indicator_chat_stopped": "Terhenti",
     "gui_copied_client_auth_title": "Kunci Pribadi Disalin",
     "gui_copy_client_auth": "Salin Kunci Pribadi",
     "gui_hide": "Sembunyikan",
@@ -206,5 +206,6 @@
     "moat_solution_empty_error": "Masukkan karakter-karakter dari gambar tesebut.",
     "gui_autoconnect_trying_to_connect_to_tor": "Menghubungkan ke Tor…",
     "gui_general_settings_window_title": "Umum",
-    "gui_autoconnect_configure": "Pengaturan jaringan"
+    "gui_autoconnect_configure": "Pengaturan jaringan",
+    "gui_settings_bridge_use_checkbox": "Gunakan Jembatan"
 }

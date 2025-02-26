@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from distutils.command.build import build
+from setuptools.command.build import build
 import sys
 import os
 import inspect
@@ -324,7 +324,7 @@ def main():
 @main.command()
 def cleanup_build():
     """Delete unused PySide6 stuff to save space"""
-    build_path = os.path.join(desktop_dir, "build", "exe.win-amd64-3.11")
+    build_path = os.path.join(desktop_dir, "build", "exe.win-amd64-3.12")
     before_size = get_size(build_path)
 
     for dirname in ["qml"]:

@@ -1,6 +1,6 @@
 name: onionshare
-base: core22
-version: "2.6.2"
+base: core24
+version: "2.6.3"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
   OnionShare lets you securely and anonymously send and receive files. It works by starting
@@ -11,11 +11,9 @@ description: |
 grade: stable # stable or devel
 confinement: strict
 
-architectures:
-  - build-on: i386
-  - build-on: amd64
-  - build-on: arm64
-  - build-on: armhf
+platforms:
+  amd64:
+  arm64:
 
 apps:
   onionshare:
@@ -47,16 +45,8 @@ apps:
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/local/lib
 
 parts:
-  onionshare-cli:
-    source: ./cli
-    plugin: nil
-    override-pull: |
-      craftctl default
-      rm pyproject.toml poetry.lock
-    after: [tor, obfs4, snowflake-client, meek-client]
-
   onionshare:
-    source: ./desktop
+    source: .
     plugin: python
     build-packages:
       - build-essential
@@ -88,7 +78,6 @@ parts:
       - liblcms2-2
       - libnspr4
       - libnss3
-      - libodbc1
       - libpango-1.0-0
       - libpangocairo-1.0-0
       - libpng16-16
@@ -137,48 +126,22 @@ parts:
       - libmysqlclient21
       - libxcb-cursor0
       - libxkbfile1
+      - libodbc2
     override-pull: |
       craftctl default
-      rm pyproject.toml poetry.lock
-      cat > requirements.txt << EOF
-      # onionshare_cli
-      click
-      flask==2.3.2
-      flask-compress==1.13
-      flask-socketio==5.3.4
-      psutil
-      pysocks
-      requests[socks]
-      unidecode
-      urllib3
-      eventlet
-      setuptools
-      pynacl
-      colorama
-      gevent-websocket
-      stem==1.8.1
-      waitress
-      werkzeug==2.3.4
-      # onionshare
-      PySide6==6.5.2
-      qrcode
-      packaging
-      EOF
     override-build: |
+      test -e $CRAFT_PART_INSTALL/bin/python3 && chmod 755 $CRAFT_PART_INSTALL/bin/python3 || true
       python3 -m venv $CRAFT_PART_INSTALL
       . $CRAFT_PART_INSTALL/bin/activate
-      pip install -U pip setuptools wheel
-      pip install -U -r requirements.txt
-      pip install -U ../../onionshare-cli/src
-      pip install -U .
+      pip install -r snap/local/cli-requirements.txt -r snap/local/desktop-requirements.txt
+      cd desktop && pip install ../cli && pip install .
       deactivate
       sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare
       sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare-cli
-    after: [onionshare-cli]
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.8.9.tar.gz
-    source-checksum: sha256/59bb7d8890f6131b4ce5344f3dcea5deb2182b7f4f10ff0cb4e4d81f11b2cf65
+    source: https://dist.torproject.org/tor-0.4.8.14.tar.gz
+    source-checksum: sha256/5047e1ded12d9aac4eb858f7634a627714dd58ce99053d517691a4b304a66d10
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
@@ -201,6 +164,7 @@ parts:
     source: https://gitlab.com/yawning/obfs4.git
     source-type: git
     source-tag: obfs4proxy-0.0.14
+    after: [tor]
 
   snowflake-client:
     plugin: go
@@ -208,9 +172,10 @@ parts:
       - go/latest/stable
     source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
     source-type: git
-    source-tag: v2.8.1
+    source-tag: v2.10.1
     organize:
       bin/client: bin/snowflake-client
+    after: [obfs4]
 
   meek-client:
     plugin: go
@@ -221,5 +186,31 @@ parts:
     source-tag: v0.38.0
     override-build: |
       cd meek-client
-      mkdir -p /build/onionshare/meek-client/install/bin
-      go build -o /build/onionshare/meek-client/install/bin/meek-client ./...
+      go build -o $SNAPCRAFT_PART_INSTALL/bin/meek-client ./...
+    after: [snowflake-client]
+
+  # This part removes all the files in this snap which already exist in
+  # connected content and base snaps. Since these files will be available
+  # at runtime from the content and base snaps, they do not need to be
+  # included in this snap itself.
+  #
+  # More info: https://forum.snapcraft.io/t/reducing-the-size-of-desktop-snaps/17280#heading--cleanup-part
+  #
+  cleanup:
+    after:  # Make this part run last; list all your other parts here
+      - onionshare
+      - tor
+      - libevent
+      - obfs4
+      - snowflake-client
+      - meek-client
+    plugin: nil
+    build-snaps:  # List all content-snaps and base snaps you're using here
+      - core24
+      - go/latest/stable
+      - gnome-46-2404-sdk
+    override-prime: |
+      set -eux
+      for snap in core24 go/latest/stable gnome-46-2404-sdk; do  # List all content-snaps and base snaps you're using here
+        cd "/snap/$snap/current" && find . -type f,l -exec rm -f "$CRAFT_PRIME/{}" \;
+      done

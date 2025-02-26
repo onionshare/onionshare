@@ -120,6 +120,13 @@ def main(cwd=None):
         help="Share files: Continue sharing after files have been sent (default is to stop sharing)",
     )
     parser.add_argument(
+        "--log-filenames",
+        action="store_true",
+        dest="log_filenames",
+        default=False,
+        help="Log file download activity to stdout"
+    )
+    parser.add_argument(
         "--qr",
         action="store_true",
         dest="qr",
@@ -204,6 +211,7 @@ def main(cwd=None):
     disable_files = args.disable_files
     disable_csp = bool(args.disable_csp)
     custom_csp = args.custom_csp
+    log_filenames = bool(args.log_filenames)
     verbose = bool(args.verbose)
 
     # Verbose mode?
@@ -242,6 +250,7 @@ def main(cwd=None):
             mode_settings.set("persistent", "mode", mode)
         if mode == "share":
             mode_settings.set("share", "autostop_sharing", autostop_sharing)
+            mode_settings.set("share", "log_filenames", log_filenames)
         if mode == "receive":
             if data_dir:
                 mode_settings.set("receive", "data_dir", data_dir)
@@ -259,6 +268,7 @@ def main(cwd=None):
             if custom_csp:
                 mode_settings.set("website", "custom_csp", custom_csp)
                 mode_settings.set("website", "disable_csp", False)
+            mode_settings.set("website", "log_filenames", log_filenames)
     else:
         # See what the persistent mode was
         mode = mode_settings.get("persistent", "mode")
@@ -505,7 +515,7 @@ def main(cwd=None):
                 if not app.autostop_timer_thread.is_alive():
                     if mode == "share":
                         # If there were no attempts to download the share, or all downloads are done, we can stop
-                        if web.share_mode.cur_history_id == 0 or web.done:
+                        if not web.share_mode.download_in_progress or web.share_mode.cur_history_id == 0 or web.done:
                             print("Stopped because auto-stop timer ran out")
                             web.stop(app.port)
                             break
@@ -531,6 +541,7 @@ def main(cwd=None):
     finally:
         # Shutdown
         web.cleanup()
+        t.join()
         onion.cleanup()
 
 

@@ -6,18 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-07-22 09:35+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"PO-Revision-Date: 2025-02-12 22:02+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :("
-"n>6 && n<11) ? 3 : 4;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :"
+"(n>6 && n<11) ? 3 : 4;\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -45,7 +45,7 @@ msgid "You can download OnionShare for Mobile from the follow links"
 msgstr ""
 "Is féidir leat OnionShare for Mobile a íoslódáil ó na naisc seo a leanas"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Android"
 
@@ -61,7 +61,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "iOS"
 
@@ -92,10 +92,10 @@ msgid ""
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
 "Tá bealaí éagsúla ann chun OnionShare a shuiteáil le haghaidh Linux, ach is "
-"é an bealach molta ná úsáid a bhaint as an bpacáiste `Flatpak "
-"<https://flatpak.org/>`_ nó an pacáiste `Snap <https://snapcraft.io/>`_ . "
-"Cinntíonn Flatpak agus Snapcraft go mbainfidh tú úsáid as an leagan is nua i "
-"gcónaí agus OnionShare a reáchtáil taobh istigh de bhosca gainimh."
+"é an bealach molta ná úsáid a bhaint as an bpacáiste `Flatpak <https://"
+"flatpak.org/>`_ nó an pacáiste `Snap <https://snapcraft.io/>`_ . Cinntíonn "
+"Flatpak agus Snapcraft go mbainfidh tú úsáid as an leagan is nua i gcónaí "
+"agus OnionShare a reáchtáil taobh istigh de bhosca gainimh."
 
 #: ../../source/install.rst:32
 msgid ""
@@ -183,8 +183,8 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
-"Suiteáil an comhad `` .flatpak`` ag rith ``flatpak install OnionShare-VERSION"
-".flatpak``. Cuir uimhir leagain an chomhaid a d'íoslódáil tú in ionad "
+"Suiteáil an comhad `` .flatpak`` ag rith ``flatpak install OnionShare-"
+"VERSION.flatpak``. Cuir uimhir leagain an chomhaid a d'íoslódáil tú in ionad "
 "``VERSION``."
 
 #: ../../source/install.rst:51
@@ -239,8 +239,8 @@ msgid ""
 msgstr ""
 "Suiteáil an comhad ``.snap`` trí ``snap install --contúirteach "
 "onionshare_VERSION_amd64.snap`` a rith. Cuir uimhir leagain an chomhaid a "
-"d'íoslódáil tú in ionad ``VERSION``. Tabhair faoi deara go gcaithfidh tú "
-"`--chontúirteach` a úsáid toisc nach bhfuil an pacáiste sínithe ag an siopa "
+"d'íoslódáil tú in ionad ``VERSION``. Tabhair faoi deara go gcaithfidh tú `--"
+"chontúirteach` a úsáid toisc nach bhfuil an pacáiste sínithe ag an siopa "
 "Snapcraft, ach rinne tú a shíniú PGP a fhíorú, ionas go mbeidh a fhios agat "
 "go bhfuil sé dlisteanach."
 
@@ -258,8 +258,8 @@ msgid ""
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
 "Is féidir leat an leagan ordú-líne de OnionShare a shuiteáil ar aon chóras "
-"oibriúcháin ag baint úsáide as an mbainisteoir pacáiste Python `` pip``. "
-":ref: Tá tuilleadh eolais ag `cli`."
+"oibriúcháin ag baint úsáide as an mbainisteoir pacáiste Python `` pip``. :"
+"ref: Tá tuilleadh eolais ag `cli`."
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
@@ -360,8 +360,8 @@ msgid ""
 "cli`` if you want to install that version."
 msgstr ""
 "Tairgeann bailiúchán na gcalafort freisin port tiomnaithe don leagan "
-"**Command-line only** de OnionShare. Cuir ``www/onionshare-cli`` in ionad ``"
-"www/onionshare`` más mian leat an leagan sin a shuiteáil."
+"**Command-line only** de OnionShare. Cuir ``www/onionshare-cli`` in ionad "
+"``www/onionshare`` más mian leat an leagan sin a shuiteáil."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -398,13 +398,14 @@ msgstr "Eochair sínithe"
 #: ../../source/install.rst:117
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
 "Síníonn an príomhfhorbróir atá freagrach as an scaoileadh ar leith na "
-"pacáistí. Seo a leanas faisnéis na bhforbróirí lárnacha OnionShare:"
+"pacáistí. Seo é an príomhfhaisnéis GPG do gach ceann de na forbróirí "
+"lárnacha de OnionShare:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "Micah Lee:"
 
@@ -421,10 +422,10 @@ msgid ""
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
 "Is féidir leat eochair Mhicah `ó fhreastalaí eochracha keys.openpgp.org "
-"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"<https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "Saptak Sengupta:"
 
@@ -440,11 +441,31 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
-"Is féidir leat eochair Saptak `a íoslódáil ón bhfreastalaí eochracha "
-"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+"Is féidir leat eochair Saptak `a íoslódáil ón bhfreastalaí eochracha keys."
+"openpgp.org <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
+msgid "Miguel Jacq:"
+msgstr "Miguel Jacq:"
+
+#: ../../source/install.rst:129
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+"Méarloirg eochair phoiblí PGP ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+
+#: ../../source/install.rst:130
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"Is féidir leat eochair Miguel `a íoslódáil ón bhfreastalaí eochracha keys."
+"openpgp.org <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -455,11 +476,11 @@ msgstr ""
 "haghaidh Windows is dócha go dteastaíonn `Gpg4win <https://www.gpg4win.org/"
 ">`_."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "Sínithe"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -472,11 +493,11 @@ msgstr ""
 "leat iad a fháil freisin ar an leathanach `GitHub Releases <https://github."
 "com/onionshare/onionshare/releases>`_."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Ag fíorú"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
@@ -486,27 +507,27 @@ msgstr ""
 "i do eochairshlabhra GnuPG, an síniú dénártha agus ``.asc`` a íoslódáil, is "
 "féidir leat an dénártha a fhíorú i dteirminéal mar seo:"
 
-#: ../../source/install.rst:141
+#: ../../source/install.rst:145
 msgid "For Windows::"
 msgstr "Le haghaidh Windows::"
 
-#: ../../source/install.rst:145
+#: ../../source/install.rst:149
 msgid "For macOS::"
 msgstr "Le haghaidh macOS ::"
 
-#: ../../source/install.rst:149
+#: ../../source/install.rst:153
 msgid "For Linux::"
 msgstr "Le haghaidh Linux::"
 
-#: ../../source/install.rst:155
+#: ../../source/install.rst:159
 msgid "and for the source file::"
 msgstr "agus don chomhad foinse::"
 
-#: ../../source/install.rst:159
+#: ../../source/install.rst:163
 msgid "The expected output looks like this::"
 msgstr "Breathnaíonn an t-aschur ionchais mar seo::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:173
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -515,17 +536,17 @@ msgstr ""
 "Mura bhfeiceann tú ``Síniú maith ó``, seans go mbeidh fadhb ann le sláine an "
 "chomhaid (mailíseach nó eile), agus níor cheart duit an pacáiste a shuiteáil."
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
 "Ní fadhb leis an bpacáiste é an `` RABHADH:`` a thaispeántar thuas, ní "
-"chiallaíonn sé ach nach bhfuil leibhéal \"iontaobhais\" d'eochair PGP Micah ("
-"an príomhfhorbróir) sainmhínithe agat."
+"chiallaíonn sé ach nach bhfuil leibhéal \"iontaobhais\" d'eochair PGP Micah "
+"(an príomhfhorbróir) sainmhínithe agat."
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "

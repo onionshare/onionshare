@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2023-04-15 05:52+0000\n"
-"Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"PO-Revision-Date: 2025-02-17 18:26+0000\n"
+"Last-Translator: Sketch6580 <sketch6580@users.noreply.hosted.weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17-dev\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -33,12 +33,16 @@ msgid ""
 "Persistently hosted websites are available on the same address even if the "
 "computer they are shared from is rebooted."
 msgstr ""
+"关闭您托管的 OnionShare 标签页会破坏它们，防止重复使用。即使共享网站的计算机"
+"重启，永久托管的网站仍可在同一地址上使用。"
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"在启动服务器之前，通过选中“启动 OnionShare 时始终打开此标签页”框，使任何标签"
+"页持久化。"
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -46,29 +50,33 @@ msgid ""
 "opened. Each service then can be started manually, and will be available on "
 "the same OnionShare address and be protected by the same private key."
 msgstr ""
+"打开 OnionShare 时，您之前会话中保存的标签页将开始打开。然后可以手动启动每个"
+"服务，这些服务将在同一个 OnionShare 地址上可用，并受同一个私钥保护。"
 
 #: ../../source/advanced.rst:19
 msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on your "
 "computer."
-msgstr ""
+msgstr "如果您保存了一个标签页，其洋葱服务密钥的副本将存储在您的计算机上。"
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "关闭私钥"
 
 #: ../../source/advanced.rst:26
 msgid ""
 "By default, all OnionShare services are protected with a private key, which "
 "Tor calls \"client authentication\"."
-msgstr ""
+msgstr "所有 OnionShare 服务默认都使用私钥保护，Tor 称之为“客户端验证”。"
 
 #: ../../source/advanced.rst:28
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
-"OnionShare service. If you want allow the public to use your service, it's "
-"better to disable the private key altogether."
+"OnionShare service. If you want to allow the public to use your service, "
+"it's better to disable the private key altogether."
 msgstr ""
+"加载 OnionShare 服务时，Tor 浏览器将要求您输入私钥。如果您想允许公众使用您的"
+"服务，最好完全禁用私钥。"
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -77,10 +85,12 @@ msgid ""
 "Then the server will be public and a private key is not needed to load it in "
 "the Tor Browser."
 msgstr ""
+"要关闭任何标签页的私钥，请在启动服务器之前选中“这是一项公共 OnionShare 服务"
+"（禁用私钥）”框。然后服务器将公开，并且不需要私钥即可在 Tor 浏览器中加载它。"
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
-msgstr ""
+msgstr "自定义标题"
 
 #: ../../source/advanced.rst:39
 msgid ""
@@ -88,12 +98,14 @@ msgid ""
 "title for each type of service. For example, the default title for chat "
 "services is \"OnionShare Chat\"."
 msgstr ""
+"当人们在 Tor 浏览器中加载 OnionShare 服务时，他们会看到每种服务的默认标题。例"
+"如，聊天服务的默认标题是“OnionShare Chat”。"
 
 #: ../../source/advanced.rst:42
 msgid ""
 "If you edit the \"Custom title\" setting before starting a server you can "
 "change it."
-msgstr ""
+msgstr "如果在启动服务器之前编辑“自定义标题”设置，则可以更改它。"
 
 #: ../../source/advanced.rst:45
 msgid "Scheduled Times"
@@ -113,10 +125,12 @@ msgstr ""
 
 #: ../../source/advanced.rst:51
 msgid ""
-"Services scheduled to start in the future display a countdown timer when "
-"when the \"Start sharing\" button is clicked. Services scheduled to stop in "
-"the future display a countdown timer when started."
+"Services scheduled to start in the future display a countdown timer when the "
+"\"Start sharing\" button is clicked. Services scheduled to stop in the "
+"future display a countdown timer when started."
 msgstr ""
+"当点击“开始分享”按钮时，计划在未来启动的服务会显示倒计时器。计划在未来停止的"
+"服务在启动时显示倒计时器。"
 
 #: ../../source/advanced.rst:54
 msgid ""
@@ -125,6 +139,9 @@ msgid ""
 "in the future if you are not there to prevent it. If nothing happens to you, "
 "you can cancel the service before it's scheduled to start."
 msgstr ""
+"**将 OnionShare 服务安排为自动启动可以作为一个死开关**。这意味着，如果您不在"
+"那里阻止，您的服务将在未来的某个特定时间公开。如果您没有发生任何事情，您可以"
+"在计划启动之前取消该服务。"
 
 #: ../../source/advanced.rst:60
 msgid ""
@@ -132,64 +149,850 @@ msgid ""
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
 msgstr ""
+"**安排 OnionShare 服务自动停止会限制其暴露**。如果您想分享秘密信息或一些将过"
+"期的信息，您可以在选定的有限时间内进行分享。"
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
-msgstr "命令列介面"
+msgstr "命令行界面"
 
 #: ../../source/advanced.rst:70
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
-msgstr "除图形介面外，OnionShare 也有命令列介面。"
+msgstr "除了图形界面外，OnionShare 还有命令行界面。"
 
-#: ../../source/advanced.rst:72
+#: ../../source/advanced.rst:73
+msgid "Installing the CLI version"
+msgstr "安装 CLI 版本"
+
+#: ../../source/advanced.rst:75
 msgid ""
-"You can install just the command-line version of OnionShare using ``pip3``::"
-msgstr "可使用 ``pip3``来安装命令列版本的 OnionShare::"
+"If you have installed the Snap, macOS or Windows package, you already have "
+"the CLI version installed."
+msgstr "如果安装了 Snap、macOS 或 Windows 软件包，则已经安装了 CLI 版本。"
 
-#: ../../source/advanced.rst:76
+#: ../../source/advanced.rst:77
+msgid ""
+"Alternatively, you can install just the command-line version of OnionShare "
+"using ``pip3``::"
+msgstr "另外，您可以使用 ``pip3`` 只安装 OnionShare 的命令行版本::"
+
+#: ../../source/advanced.rst:81
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr "记住这需要已安装``tor``软件包，macOS 可透过 ``brew install tor``来安装"
 
-#: ../../source/advanced.rst:78
+#: ../../source/advanced.rst:83
 msgid "Then run it like this::"
 msgstr "然后像这样执行::"
 
-#: ../../source/advanced.rst:82
+#: ../../source/advanced.rst:87
 msgid ""
 "Info about installing it on different operating systems can be found in the "
 "`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
 "README.md>`_ in the Git repository."
 msgstr ""
+"有关在不同操作系统上安装它的信息可以在 Git 存储库中的 `CLI README 文件 "
+"<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ 中找"
+"到。"
 
-#: ../../source/advanced.rst:84
+#: ../../source/advanced.rst:90
+msgid "Running the CLI from Snap"
+msgstr "从 Snap 运行 CLI"
+
+#: ../../source/advanced.rst:92
 msgid ""
-"If you installed OnionShare using the Snap package, you can also just run "
-"``onionshare.cli`` to access the command-line interface version."
+"If you installed OnionShare using the Snap package, you can run ``onionshare."
+"cli`` to access the command-line interface version."
 msgstr ""
+"如果使用 Snap 软件包安装了 OnionShare，可以运行 ``onionshare.cli`` 来访问命令"
+"行界面版本。"
 
-#: ../../source/advanced.rst:87
+#: ../../source/advanced.rst:95
+msgid "Running the CLI from macOS"
+msgstr "从 macOS 运行 CLI"
+
+#: ../../source/advanced.rst:97
+msgid ""
+"From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
+"onionshare-cli --help``"
+msgstr ""
+"从终端可以运行 ``/Applications/OnionShare.app/Contents/MacOS/onionshare-cli "
+"--help``"
+
+#: ../../source/advanced.rst:100
+msgid "Running the CLI from Windows"
+msgstr "从 Windows 运行 CLI"
+
+#: ../../source/advanced.rst:102
+msgid ""
+"In the Windows installation, the executable ``onionshare-cli.exe`` is "
+"available."
+msgstr "在 Windows 安装中，可执行文件 ``onionshare-cli.exe`` 可以使用。"
+
+#: ../../source/advanced.rst:105
 msgid "Usage"
 msgstr "使用"
 
-#: ../../source/advanced.rst:89
+#: ../../source/advanced.rst:107
 msgid ""
 "Browse the command-line documentation by running ``onionshare --help``::"
-msgstr ""
+msgstr "通过运行 ``onionshare --help`` 浏览命令行文档："
 
-#: ../../source/advanced.rst:151
+#: ../../source/advanced.rst:170
+msgid "Running the CLI as a systemd unit file"
+msgstr "将 CLI 作为 systemd 单元文件运行"
+
+#: ../../source/advanced.rst:172
+msgid ""
+"It is possible to automatically start OnionShare from the CLI using a "
+"systemd unit file."
+msgstr "可以使用 systemd 单元文件从 CLI 自动启动 OnionShare。"
+
+#: ../../source/advanced.rst:174
+msgid ""
+"You may find this particularly useful if you are operating in 'persistent' "
+"mode, and want to start the same onion service every time your machine "
+"starts."
+msgstr ""
+"如果您以“持久”模式运行，并且想要每次启动设备时都启动相同的洋葱服务，您可能会"
+"发现这特别有用。"
+
+#: ../../source/advanced.rst:176
+msgid "To do this, you need to prepare some OnionShare json config first."
+msgstr "为此，您需要先准备一些 OnionShare JSON 配置。"
+
+#: ../../source/advanced.rst:178
+msgid ""
+"Here is the main OnionShare config. In this example, it's stored in ``/home/"
+"user/.config/onionshare/onionshare.json``. You may need to adjust some of "
+"the settings, but if you already have OnionShare installed, it probably "
+"looks much like this already::"
+msgstr ""
+"此处是主要的 OnionShare 配置。在此示例中，它存储在 ``/home/user/.config/"
+"onionshare/onionshare.json``。您可能需要调整其中的一些设置，但如果您已经安装"
+"了 OnionShare，它看起来可能已经和这个类似::"
+
+#: ../../source/advanced.rst:207
+msgid ""
+"Notice the 'persistent_tabs' section. We will now create a file at ``/home/"
+"user/.config/onionshare/persistent/my-persistent-onion.json``, that looks "
+"like this::"
+msgstr ""
+"注意“persistent_tabs”部分。现在，我们将在 ``/home/user/.config/onionshare/"
+"persistent/my-persistent-onion.json`` 创建文件，类似这样::"
+
+#: ../../source/advanced.rst:247
+msgid ""
+"**Don't actually use this private key, service_id or client_auth keys! They "
+"are shown only as an example. Never share the private_key with anyone.**"
+msgstr ""
+"**请勿实际使用此私钥、service_id 或 client_auth 密钥！它们仅作为示例显示。切"
+"勿与任何人分享私钥。**"
+
+#: ../../source/advanced.rst:249
+msgid ""
+"The easiest way to generate the onion address and private key is to first "
+"create a 'pinned' OnionShare tab in the desktop app and started the share "
+"for the first time. This will then have saved the persistent settings to "
+"your ``.config/onionshare/persistent/`` folder with a random name. You can "
+"unpin that tab once you've generated it the first time. Or, you can leave it "
+"where it is, and use that persistent file in your systemd unit file below."
+msgstr ""
+"生成洋葱地址和私钥的最简单方法是，先在桌面应用中创建“固定”的 OnionShare 标签"
+"页，并首次启动分享。这会将持久设置以随机名称保存到 ``.config/onionshare/"
+"persistent/`` 文件夹。您可以在首次生成后取消固定该标签页。或者，也可以将其留"
+"在原处，并在下方 systemd 单元文件中使用该持久文件。"
+
+#: ../../source/advanced.rst:251
+msgid ""
+"Now you can create a systemd unit file in ``/etc/systemd/system/onionshare-"
+"cli.service``. Be sure to adjust the User and Group to your own user/group, "
+"as well as changes to any paths to the onionshare-cli binary or the paths to "
+"your JSON configs and shares."
+msgstr ""
+"现在，您可以在 ``/etc/systemd/system/onionshare-cli.service`` 创建 systemd 单"
+"元文件。请确保将用户和组调整为您自己的用户/组，并更改 onionshare-cli 二进制文"
+"件的任何路径或 JSON 配置和共享的路径。"
+
+#: ../../source/advanced.rst:253
+msgid "The systemd unit file should look like this::"
+msgstr "systemd 单元文件应该类似这样::"
+
+#: ../../source/advanced.rst:268
+msgid ""
+"Note that although ``/home/user/my-shared-file.txt`` was defined in the "
+"``filenames`` section of the ``my-persistent-onion.json`` file, it's still "
+"necessary to specify it as the argument to the onionshare-cli command."
+msgstr ""
+"请注意，尽管在 ``my-persistent-onion.json`` 文件的 ``filenames`` 部分定义了 "
+"``/home/user/my-shared-file.txt``，但仍有必要将其指定为 onionshare-cli 命令的"
+"参数。"
+
+#: ../../source/advanced.rst:270
+msgid ""
+"Be sure to run ``sudo systemctl daemon-reload`` after creating the unit file."
+msgstr "请确保在创建单元文件后运行 ``sudo systemctl daemon-reload``。"
+
+#: ../../source/advanced.rst:272
+msgid ""
+"Now you can run ``sudo systemctl start onionshare-cli.service``. If you have "
+"``journalctl`` installed, you can run ``sudo journalctl -f -t onionshare-"
+"cli``, and you should see some output of your service starting::"
+msgstr ""
+"现在您可以运行 ``sudo systemctl start onionshare-cli.service``。如果安装了 "
+"``journalctl``，可以运行 ``sudo journalctl -f -t onionshare-cli``，您应该看到"
+"服务启动的一些输出::"
+
+#: ../../source/advanced.rst:282
+msgid ""
+"If you don't want your users to use a Private Key, set ``public`` to be "
+"``true`` in the ``general`` settings of the my-persistent-onion.json file."
+msgstr ""
+"如果不想让用户使用私钥，可在 my-persistent-onion.json 文件的``常规``设置中将 "
+"``public`` 设为 ``true``。"
+
+#: ../../source/advanced.rst:286
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "键盘快捷键"
 
-#: ../../source/advanced.rst:153
+#: ../../source/advanced.rst:288
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
-msgstr ""
+msgstr "OnionShare 桌面应用程序包含一些键盘快捷键，以方便使用和访问："
 
-#: ../../source/advanced.rst:158
+#: ../../source/advanced.rst:293
 msgid "And from the main mode chooser screen::"
+msgstr "从主模式选择器屏幕："
+
+#: ../../source/advanced.rst:303
+msgid "Migrating your OnionShare data to another computer"
+msgstr "将 OnionShare 数据迁移到另一台计算机上"
+
+#: ../../source/advanced.rst:305
+msgid ""
+"You may want to migrate your OnionShare data when switching to another "
+"computer. This is especially true if you had a 'persistent' onion address "
+"and you want to preserve it."
 msgstr ""
+"当切换到另一台计算机时，您可能想迁移您的 OnionShare 数据。如果您有“持久”的洋"
+"葱地址并想要保留它，则尤其如此。"
+
+#: ../../source/advanced.rst:307
+msgid ""
+"OnionShare stores all such data in a specific folder. Copy the relevant "
+"folder for your operating system below, to your new computer:"
+msgstr ""
+"OnionShare 会将所有这些数据存储在特定文件夹中。将下方操作系统相关的文件夹复制"
+"到新计算机："
+
+#: ../../source/advanced.rst:309
+msgid "Linux: ``~/.config/onionshare``"
+msgstr "Linux: ``~/.config/onionshare``"
+
+#: ../../source/advanced.rst:310
+msgid "macOS: ``~/Library/Application Support/OnionShare``"
+msgstr "macOS: ``~/Library/Application Support/OnionShare``"
+
+#: ../../source/advanced.rst:311
+msgid "Windows: ``%APPDATA%\\OnionShare``"
+msgstr "Windows: ``%APPDATA%\\OnionShare``"
+
+#: ../../source/advanced.rst:315
+msgid "Configuration file parameters"
+msgstr "配置文件参数"
+
+#: ../../source/advanced.rst:317
+msgid ""
+"OnionShare stores its settings in a JSON file. Both the CLI and the Desktop "
+"versions use this configuration file. The CLI also lets you specify a path "
+"to a custom configuration file with ``--config``."
+msgstr ""
+"OnionShare 将其设置存储在 JSON 文件中。CLI 和桌面版本都使用此配置文件。CLI 还"
+"可让您使用 ``--config`` 指定自定义配置文件的路径。"
+
+#: ../../source/advanced.rst:319
+msgid ""
+"Below are the configuration file parameters and what they mean. If your "
+"configuration file has other parameters not listed here, they may be "
+"obsolete from older OnionShare versions."
+msgstr ""
+"以下是配置文件参数及其含义。如果您的配置文件中有其他未在此处列出的参数，它们"
+"可能已从旧版本的 OnionShare 中过时。"
+
+#: ../../source/advanced.rst:322 ../../source/advanced.rst:402
+#: ../../source/advanced.rst:413 ../../source/advanced.rst:424
+#: ../../source/advanced.rst:439 ../../source/advanced.rst:450
+#: ../../source/advanced.rst:462
+msgid "Parameter"
+msgstr "参数"
+
+#: ../../source/advanced.rst:322 ../../source/advanced.rst:402
+#: ../../source/advanced.rst:413 ../../source/advanced.rst:424
+#: ../../source/advanced.rst:439 ../../source/advanced.rst:450
+#: ../../source/advanced.rst:462
+msgid "Type"
+msgstr "类型"
+
+#: ../../source/advanced.rst:322 ../../source/advanced.rst:402
+#: ../../source/advanced.rst:413 ../../source/advanced.rst:424
+#: ../../source/advanced.rst:439 ../../source/advanced.rst:450
+#: ../../source/advanced.rst:462
+msgid "Explanation"
+msgstr "说明"
+
+#: ../../source/advanced.rst:324
+msgid "version"
+msgstr "版本"
+
+#: ../../source/advanced.rst:324 ../../source/advanced.rst:325
+#: ../../source/advanced.rst:326 ../../source/advanced.rst:328
+#: ../../source/advanced.rst:330 ../../source/advanced.rst:331
+#: ../../source/advanced.rst:332 ../../source/advanced.rst:337
+#: ../../source/advanced.rst:338 ../../source/advanced.rst:339
+#: ../../source/advanced.rst:340 ../../source/advanced.rst:343
+#: ../../source/advanced.rst:404 ../../source/advanced.rst:405
+#: ../../source/advanced.rst:406 ../../source/advanced.rst:415
+#: ../../source/advanced.rst:426 ../../source/advanced.rst:430
+#: ../../source/advanced.rst:452 ../../source/advanced.rst:453
+#: ../../source/advanced.rst:465
+msgid "``string``"
+msgstr "``string``"
+
+#: ../../source/advanced.rst:324
+msgid ""
+"The version of OnionShare. You should not ever need to change this value."
+msgstr "OnionShare 的版本。您永远不需要更改此值。"
+
+#: ../../source/advanced.rst:325
+msgid "connection_type"
+msgstr "connection_type"
+
+#: ../../source/advanced.rst:325
+msgid ""
+"The way in which OnionShare connects to Tor. Valid options are 'bundled', "
+"'automatic' (use Tor Browser's Tor connection), 'control_port' or "
+"'socket_file'. Default: 'bundled'"
+msgstr ""
+"OnionShare 连接到 Tor 的方式。有效选项包括 'bundled'、'automatic'（使用 Tor "
+"浏览器的 Tor 连接）、'control_port' 或 'socket_file'。默认：'bundled'"
+
+#: ../../source/advanced.rst:326
+msgid "control_port_address"
+msgstr "control_port_address"
+
+#: ../../source/advanced.rst:326
+msgid ""
+"The IP address of Tor's Control port, if ``connection_type`` is set to "
+"'control_port'. Default: '127.0.0.1'"
+msgstr ""
+"如果 ``connection_type`` 设置为 'control_port'，即 Tor 控制端口的 IP 地址。默"
+"认：'127.0.0.1'"
+
+#: ../../source/advanced.rst:327
+msgid "control_port_port"
+msgstr "control_port_port"
+
+#: ../../source/advanced.rst:327 ../../source/advanced.rst:329
+#: ../../source/advanced.rst:335
+msgid "``integer``"
+msgstr "``integer``"
+
+#: ../../source/advanced.rst:327
+msgid ""
+"The port number of Tor's Control port, if ``connection_type`` is set to "
+"'control_port'. Default: '9051'"
+msgstr ""
+"如果 ``connection_type`` 设置为 'control_port'，即 Tor 控制端口的的端口号。默"
+"认：'9051'"
+
+#: ../../source/advanced.rst:328
+msgid "socks_address"
+msgstr "socks_address"
+
+#: ../../source/advanced.rst:328
+msgid ""
+"The IP address of Tor's SOCKS proxy, if ``connection_type`` is set to "
+"'control_port' or 'socket_file'. Default: '127.0.0.1'"
+msgstr ""
+"如果 ``connection_type`` 设置为 'control_port' 或 'socket_file'，即 Tor 的 "
+"SOCKS 代理的 IP 地址。默认：'127.0.0.1'"
+
+#: ../../source/advanced.rst:329
+msgid "socks_port"
+msgstr "socks_port"
+
+#: ../../source/advanced.rst:329
+msgid ""
+"The port number of Tor's SOCKS proxy, if ``connection_type`` is set to "
+"'control_port' or 'socket_file'. Default: ''9050'"
+msgstr ""
+"如果 ``connection_type`` 设置为 'control_port' 或 'socket_file'，即 Tor 的 "
+"SOCKS 代理的端口号。默认：''9050'"
+
+#: ../../source/advanced.rst:330
+msgid "socket_file_path"
+msgstr "socket_file_path"
+
+#: ../../source/advanced.rst:330
+msgid ""
+"The path to Tor's socket file, if ``connection_type`` is set to "
+"'socket_file'. Default: '/var/run/tor/control'"
+msgstr ""
+"如果 ``connection_type`` 设置为 'socket_file'，即 Tor 的 Socket 文件路径。默"
+"认：'/var/run/tor/control'"
+
+#: ../../source/advanced.rst:331
+msgid "auth_type"
+msgstr "auth_type"
+
+#: ../../source/advanced.rst:331
+msgid ""
+"If access to Tor's control port requires a password, this can be set to "
+"'password', otherwise 'no_auth'. Default: 'no_auth'"
+msgstr ""
+"如果访问 Tor 的控制端口需要密码，则可以将其设置为 'password'，否则设置为 "
+"'no_auth'。默认：'no_auth'"
+
+#: ../../source/advanced.rst:332
+msgid "auth_password"
+msgstr "auth_password"
+
+#: ../../source/advanced.rst:332
+msgid ""
+"If access to Tor's control port requires a password, and ``auth_type`` is "
+"set to 'password', specify the password here. Default: ''"
+msgstr ""
+"如果访问 Tor 的控制端口需要密码，并且 ``auth_type`` 设置为 'password'，请在此"
+"处指定密码。默认：''"
+
+#: ../../source/advanced.rst:333
+msgid "auto_connect"
+msgstr "auto_connect"
+
+#: ../../source/advanced.rst:333 ../../source/advanced.rst:334
+#: ../../source/advanced.rst:336 ../../source/advanced.rst:344
+#: ../../source/advanced.rst:416 ../../source/advanced.rst:417
+#: ../../source/advanced.rst:427 ../../source/advanced.rst:428
+#: ../../source/advanced.rst:429 ../../source/advanced.rst:441
+#: ../../source/advanced.rst:443 ../../source/advanced.rst:454
+#: ../../source/advanced.rst:455 ../../source/advanced.rst:464
+#: ../../source/advanced.rst:466
+msgid "``boolean``"
+msgstr "``boolean``"
+
+#: ../../source/advanced.rst:333
+msgid ""
+"Whether OnionShare should automatically connect to Tor when it starts. "
+"Default: False"
+msgstr "OnionShare 启动时是否应自动连接到 Tor。默认：False"
+
+#: ../../source/advanced.rst:334
+msgid "use_autoupdate"
+msgstr "use_autoupdate"
+
+#: ../../source/advanced.rst:334
+msgid ""
+"Whether OnionShare should automatically check for updates (over Tor). This "
+"setting is only valid for MacOS or Windows installations. Default: True."
+msgstr ""
+"OnionShare 是否应自动检查更新（通过 Tor）。此设置仅适用于 MacOS 或 Windows 安"
+"装。默认：True。"
+
+#: ../../source/advanced.rst:335
+msgid "autoupdate_timestamp"
+msgstr "autoupdate_timestamp"
+
+#: ../../source/advanced.rst:335
+msgid "The last time OnionShare checked for updates. Default: None"
+msgstr "OnionShare 上次检查更新的时间。默认：None"
+
+#: ../../source/advanced.rst:336
+msgid "bridges_enabled"
+msgstr "bridges_enabled"
+
+#: ../../source/advanced.rst:336
+msgid "Whether to connect to Tor using bridges. Default: False"
+msgstr "是否使用网桥连接到 Tor。默认：False"
+
+#: ../../source/advanced.rst:337
+msgid "bridges_type"
+msgstr "bridges_type"
+
+#: ../../source/advanced.rst:337
+msgid ""
+"When ``bridges_enabled`` is True, where to load bridges from. Options are "
+"\"built-in\" (bridges shipped with OnionShare and which may get updated from "
+"Tor), \"moat\" (request bridges from Tor's Moat API), or \"custom\" (user-"
+"supplied bridges). Default: \"built-in\""
+msgstr ""
+"当 ``bridges_enabled`` 为 True 时，网桥加载来源。选项包括 \"built-"
+"in\"（OnionShare 附带的网桥，可能会从 Tor 更新）、\"moat\"（从 Tor 的 Moat "
+"API 请求网桥）或 \"custom\"（用户提供的网桥）。默认：\"built-in\""
+
+#: ../../source/advanced.rst:338
+msgid "bridges_builtin_pt"
+msgstr "bridges_builtin_pt"
+
+#: ../../source/advanced.rst:338
+msgid ""
+"When ``bridges_type`` is set to \"built-in\", this specifies which type of "
+"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"\"snowflake\". Default: \"obfs4\""
+msgstr ""
+"当 ``bridges_type`` 设置为 \"built-in\" 时，这指定了要使用哪种类型的网桥协"
+"议。选项有 \"obfs4\"、\"meek-azure\" 或 \"snowflake\"。默认：\"obfs4\""
+
+#: ../../source/advanced.rst:339
+msgid "bridges_moat"
+msgstr "bridges_moat"
+
+#: ../../source/advanced.rst:339
+msgid ""
+"When ``bridges_type`` is set to \"moat\", the bridges returned from Tor's "
+"Moat API are stored here. Default: \"\""
+msgstr ""
+"当 ``bridges_type`` 设置为 \"moat\" 时，从 Tor 的 Moat API 返回的网桥将存储在"
+"此处。默认：\"\""
+
+#: ../../source/advanced.rst:340
+msgid "bridges_custom"
+msgstr "bridges_custom"
+
+#: ../../source/advanced.rst:340
+msgid ""
+"When ``bridges_type`` is set to \"custom\", the bridges specified by the "
+"user are stored here. Separate each bridge line in the string with '\\n'. "
+"Default: \"\""
+msgstr ""
+"当 ``bridges_type`` 设置为 \"custom\" 时，用户指定的网桥将存储在此处。用 "
+"'\\n' 分隔字符串中的每个网桥行。默认：\"\""
+
+#: ../../source/advanced.rst:341
+msgid "bridges_builtin"
+msgstr "bridges_builtin"
+
+#: ../../source/advanced.rst:341
+msgid "``dict``"
+msgstr "``dict``"
+
+#: ../../source/advanced.rst:341
+msgid ""
+"When ``bridges_type`` is set to \"built-in\", OnionShare obtains the latest "
+"built-in bridges recommended by Tor and stores them here. Default: {}"
+msgstr ""
+"当 ``bridges_type`` 设置为 \"built-in\" 时，OnionShare 会获取 Tor 推荐的最新"
+"内置网桥并将其存储在此处。默认：{}"
+
+#: ../../source/advanced.rst:342
+msgid "persistent_tabs"
+msgstr "persistent_tabs"
+
+#: ../../source/advanced.rst:342 ../../source/advanced.rst:442
+#: ../../source/advanced.rst:467
+msgid "``list``"
+msgstr "``list``"
+
+#: ../../source/advanced.rst:342
+msgid ""
+"If the user has defined any tabs as 'saved' (meaning that they are "
+"persistent each time OnionShare starts, and their onion address doesn't "
+"change), these are given a random identifier which gets listed here. The "
+"persistent onion is stored as a JSON file with the same name as this "
+"identifier, in a subfolder of the OnionShare configuration folder called "
+"'persistent'. Default: []"
+msgstr ""
+"如果用户将任何标签页定义为 'saved'（这意味着在每次 OnionShare 启动时它们都是"
+"持久的，并且它们的洋葱地址不会改变），这些标签页将被赋予一个随机标识符，并在"
+"此处列出。持久洋葱以与此标识符同名的 JSON 文件存储在 OnionShare 配置文件夹中"
+"名为 'persistent' 的子文件夹中。默认：[]"
+
+#: ../../source/advanced.rst:343
+msgid "locale"
+msgstr "语言区域"
+
+#: ../../source/advanced.rst:343
+msgid ""
+"The locale used in OnionShare. Default: None (which is the same as 'en'). "
+"For valid locale codes, see 'available_locales' in https://github.com/"
+"onionshare/onionshare/blob/main/cli/onionshare_cli/settings.py"
+msgstr ""
+"OnionShare 中使用的语言区域设置。默认：None（与 'en' 相同）。有关有效的语言区"
+"域设置代码，请参阅 https://github.com/onionshare/onionshare/blob/main/cli/"
+"onionshare_cli/settings.py 中的 'available_locales'"
+
+#: ../../source/advanced.rst:344
+msgid "theme"
+msgstr "主题"
+
+#: ../../source/advanced.rst:344
+msgid ""
+"The theme for the OnionShare desktop app. Valid options are 0 (automatically "
+"detect the user's computer's light or dark theme), 1 (light) or 2 (dark)."
+msgstr ""
+"OnionShare 桌面应用的主题。有效选项有 0（自动检测用户计算机的深色或浅色主"
+"题）、1（深色）或 2（浅色）。"
+
+#: ../../source/advanced.rst:349
+msgid "Configuration file parameters for persistent onions"
+msgstr "持久洋葱的配置文件参数"
+
+#: ../../source/advanced.rst:351
+msgid ""
+"As described above, each 'persistent' onion has parameters of its own which "
+"are stored in its own JSON file. The path to this file can be specified for "
+"the CLI tool with ``--persistent``."
+msgstr ""
+"如上所述，每个“持久”洋葱都有自己的参数，这些参数存储在自己的 JSON 文件中。可"
+"以使用 ``--persistent`` 为 CLI 工具指定此文件的路径。"
+
+#: ../../source/advanced.rst:353
+msgid "Here is an example persistent JSON configuration::"
+msgstr "以下是一个持久 JSON 配置示例::"
+
+#: ../../source/advanced.rst:396
+msgid ""
+"Below are the configuration file parameters for a persistent onion and what "
+"they mean, for each section in the JSON"
+msgstr "下方是持久洋葱的配置文件参数及其含义，适用于 JSON 中的每个部分"
+
+#: ../../source/advanced.rst:399
+msgid "onion"
+msgstr "洋葱"
+
+#: ../../source/advanced.rst:404
+msgid "private_key"
+msgstr "private_key"
+
+#: ../../source/advanced.rst:404
+msgid "Base64-encoded private key of the onion service"
+msgstr "Base64 编码的洋葱服务的私钥"
+
+#: ../../source/advanced.rst:405
+msgid "client_auth_priv_key"
+msgstr "client_auth_priv_key"
+
+#: ../../source/advanced.rst:405
+msgid ""
+"The private key when using Client Authentication. Send this to the user."
+msgstr "使用客户端身份验证时的私钥。将此发送给用户。"
+
+#: ../../source/advanced.rst:406
+msgid "client_auth_pub_key"
+msgstr "client_auth_pub_key"
+
+#: ../../source/advanced.rst:406
+msgid ""
+"The public key when using Client Authentication. Used on OnionShare's side."
+msgstr "使用客户端身份验证时的公钥。在 OnionShare 端使用。"
+
+#: ../../source/advanced.rst:410
+msgid "persistent"
+msgstr "持久"
+
+#: ../../source/advanced.rst:415
+msgid "mode"
+msgstr "模式"
+
+#: ../../source/advanced.rst:415
+msgid ""
+"The mode used by this persistent onion. Options are \"share\", \"receive\", "
+"\"website\" or \"chat\"."
+msgstr "此持久洋葱所使用的模式。选项包括“共享”、“接收”、“网站”或“聊天”。"
+
+#: ../../source/advanced.rst:416
+msgid "enabled"
+msgstr "已启用"
+
+#: ../../source/advanced.rst:416
+msgid ""
+"Whether persistence is enabled for this onion. When the persistent option is "
+"unchecked in the desktop, this entire JSON file is deleted. Default: true"
+msgstr ""
+"是否为此洋葱启用了持久性。当在桌面中不选中持久选项时，会删除整个 JSON 文件。"
+"默认：true"
+
+#: ../../source/advanced.rst:417
+msgid "autostart_on_launch"
+msgstr "autostart_on_launch"
+
+#: ../../source/advanced.rst:417
+msgid ""
+"Whether to automatically start this persistent onion when OnionShare starts "
+"and once Tor is connected. Default: false"
+msgstr "是否在 OnionShare 启动时以及连接 Tor 后自动启动此持久洋葱。默认：false"
+
+#: ../../source/advanced.rst:421
+msgid "general"
+msgstr "常规"
+
+#: ../../source/advanced.rst:426
+msgid "title"
+msgstr "标题"
+
+#: ../../source/advanced.rst:426
+msgid ""
+"An optional custom title for displaying on the onion service. Default: null "
+"(\"OnionShare\" will be shown instead)"
+msgstr "用于在洋葱服务上显示的可选自定义标题。默认：null（将显示“OnionShare”）"
+
+#: ../../source/advanced.rst:427
+msgid "public"
+msgstr "公开"
+
+#: ../../source/advanced.rst:427
+msgid ""
+"Whether the onion service can be accessed with or without a Private Key "
+"(Client Authentication). If true, no Private Key is required."
+msgstr ""
+"是否可在有无私钥的情况下访问洋葱服务（客户端身份验证）。如果为 true，则不需要"
+"私钥。"
+
+#: ../../source/advanced.rst:428
+msgid "autostart_timer"
+msgstr "autostart_timer"
+
+#: ../../source/advanced.rst:428
+msgid ""
+"Whether the onion service is configured to start at a specific time. The "
+"time can be set in the desktop app or specified in seconds with ``--auto-"
+"start-timer`` with the CLI tool. Default: false"
+msgstr ""
+"洋葱服务是否配置为在特定时间启动。可在桌面应用中设置时间，也可用 CLI 工具的 "
+"``--auto-start-timer`` 以秒为单位指定。默认：false"
+
+#: ../../source/advanced.rst:429
+msgid "autostop_timer"
+msgstr "autostop_timer"
+
+#: ../../source/advanced.rst:429
+msgid ""
+"Whether the onion service is configured to stop at a specific time. The time "
+"can be set in the desktop app or specified in seconds with ``--auto-stop-"
+"timer`` with the CLI tool. Default: false"
+msgstr ""
+"洋葱服务是否配置为在特定时间停止。可在桌面应用中设置时间，也可用 CLI 工具的 "
+"``--auto-stop-timer`` 以秒为单位指定。默认：false"
+
+#: ../../source/advanced.rst:430
+msgid "service_id"
+msgstr "service_id"
+
+#: ../../source/advanced.rst:430
+msgid ""
+"The 32-character onion service URL, without the scheme and without the '."
+"onion' suffix."
+msgstr "32 个字符的洋葱服务 URL，没有方案，也没有 '.onion' 后缀。"
+
+#: ../../source/advanced.rst:433
+msgid ""
+"The below are settings specific to the 'mode' specified in the "
+"``persistent`` section above."
+msgstr "以下是特定于上述 ``persistent`` 部分中指定的“模式”的设置。"
+
+#: ../../source/advanced.rst:436
+msgid "share"
+msgstr "共享"
+
+#: ../../source/advanced.rst:441
+msgid "autostop_sharing"
+msgstr "autostop_sharing"
+
+#: ../../source/advanced.rst:441
+msgid ""
+"Whether to automatically stop the share once files are downloaded the first "
+"time. Default: true"
+msgstr "是否在首次下载文件后自动停止共享。默认：true"
+
+#: ../../source/advanced.rst:442 ../../source/advanced.rst:467
+msgid "filenames"
+msgstr "文件名"
+
+#: ../../source/advanced.rst:442 ../../source/advanced.rst:467
+msgid "A list of files to share. Default: []"
+msgstr "要共享的文件列表。默认：[]"
+
+#: ../../source/advanced.rst:443 ../../source/advanced.rst:466
+msgid "log_filenames"
+msgstr "log_filenames"
+
+#: ../../source/advanced.rst:443 ../../source/advanced.rst:466
+msgid ""
+"Whether to log URL requests to stdout when using the CLI tool. Default: false"
+msgstr "使用 CLI 工具时是否将 URL 请求记录到 stdout。默认：false"
+
+#: ../../source/advanced.rst:447
+msgid "receive"
+msgstr "接收"
+
+#: ../../source/advanced.rst:452
+msgid "data_dir"
+msgstr "data_dir"
+
+#: ../../source/advanced.rst:452
+msgid ""
+"The path where received files or text messages will be stored. Default: the "
+"'OnionShare' folder of the user's home directory."
+msgstr ""
+"接收到的文件或文本消息的存储路径。默认：用户主目录的“OnionShare”文件夹。"
+
+#: ../../source/advanced.rst:453
+msgid "webhook_url"
+msgstr "webhook_url"
+
+#: ../../source/advanced.rst:453
+msgid ""
+"A webhook URL that OnionShare will POST to when it receives files or text "
+"messages. Default: null"
+msgstr "OnionShare 在接收文件或文本消息时将 POST 到的 webhook URL。默认：null"
+
+#: ../../source/advanced.rst:454
+msgid "disable_text"
+msgstr "disable_text"
+
+#: ../../source/advanced.rst:454
+msgid "Whether to disable receiving text messages. Default: false"
+msgstr "是否禁用接收文本消息。默认：false"
+
+#: ../../source/advanced.rst:455
+msgid "disable_files"
+msgstr "disable_files"
+
+#: ../../source/advanced.rst:455
+msgid "Whether to disable receiving files. Default: false"
+msgstr "是否禁用接收文件。默认：false"
+
+#: ../../source/advanced.rst:459
+msgid "website"
+msgstr "网站"
+
+#: ../../source/advanced.rst:464
+msgid "disable_csp"
+msgstr "disable_csp"
+
+#: ../../source/advanced.rst:464
+msgid ""
+"If set to ``true``, OnionShare won't set its default Content Security Policy "
+"header for the website. Default: ``false``"
+msgstr ""
+"如果设置为 ``true``，OnionShare 将不会为网站设置默认的内容安全策略标头。默"
+"认：``false``"
+
+#: ../../source/advanced.rst:465
+msgid "custom_csp"
+msgstr "custom_csp"
+
+#: ../../source/advanced.rst:465
+msgid "A custom Content Security Policy header to send instead of the default."
+msgstr "要发送的自定义内容安全策略标头，而不是默认标头。"
+
+#: ../../source/advanced.rst:471
+msgid "chat"
+msgstr "聊天"
+
+#: ../../source/advanced.rst:473
+msgid "There are currently no configurable settings for the Chat mode."
+msgstr "当前没有聊天模式的可配置设置。"

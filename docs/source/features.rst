@@ -98,6 +98,11 @@ If you want to host your own anonymous dropbox using OnionShare, it's recommende
 
 If you intend to put the OnionShare address on your website or social media profiles, save the tab (see :ref:`save_tabs`) and run it as a public service (see :ref:`turn_off_private_key`). It's also a good idea to give it a custom title (see :ref:`custom_titles`).
 
+Other caveats to be aware of in Receive Mode
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There are reports that OnionBrowser on iOS devices are unable to upload files to an OnionShare in Receive Mode, when operating in 'Silver' security mode. Try Bronze or Gold to see if you are able to upload a message or a file.
+
 Host a Website
 --------------
 

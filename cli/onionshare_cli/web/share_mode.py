@@ -29,7 +29,7 @@ from datetime import datetime, timezone
 from flask import Response, request, render_template, make_response, abort
 from unidecode import unidecode
 from werkzeug.http import parse_date, http_date
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 from .send_base_mode import SendBaseModeWeb
 
@@ -346,8 +346,17 @@ class ShareModeWeb(SendBaseModeWeb):
                         or self.common.platform == "Linux"
                         or self.common.platform == "BSD"
                     ):
+                        if self.web.settings.get("share", "log_filenames"):
+                            # Decode and sanitize the path to remove newlines
+                            decoded_path = unquote(path)
+                            decoded_path = decoded_path.replace("\r", "").replace("\n", "")
+                            filename_str = f"{decoded_path} - "
+                        else:
+                            filename_str = ""
+
                         sys.stdout.write(
-                            "\r{0:s}, {1:.2f}%          ".format(
+                            "\r{0}{1:s}, {2:.2f}%          ".format(
+                                filename_str,
                                 self.common.human_readable_filesize(downloaded_bytes),
                                 percent,
                             )
@@ -376,8 +385,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
         fp.close()
 
-        if self.common.platform != "Darwin":
-            sys.stdout.write("\n")
+        sys.stdout.write("\n")
 
         # Download is finished
         if self.web.settings.get("share", "autostop_sharing"):

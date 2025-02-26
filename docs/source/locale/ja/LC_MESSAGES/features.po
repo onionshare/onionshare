@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-07-26 13:09+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"PO-Revision-Date: 2025-02-11 08:01+0000\n"
 "Last-Translator: Himmel <Himmel@users.noreply.hosted.weblate.org>\n"
 "Language-Team: ja <LL@li.org>\n"
 "Language: ja\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7-dev\n"
-"Generated-By: Babel 2.10.3\n"
+"X-Generator: Weblate 5.10-dev\n"
+"Generated-By: Babel 2.14.0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "OnionShareを使用すると、あなたのコンピューターで、ウェブサーバーを\\ `Tor "
 "<https://www.torproject.org/>`_\\ の\\ `Onion Service <https://community."
-"torproject.org/onion-services/>`_\\ "
-"として設定し、これに他のユーザーがアクセスできるようになります。"
+"torproject.org/onion-services/>`_\\ として設定し、これに他のユーザーがアクセ"
+"スできるようになります。"
 
 #: ../../source/features.rst:8
 msgid "By default, OnionShare web addresses are protected with a private key."
@@ -90,12 +90,11 @@ msgid ""
 "services too, it also protects your anonymity. See the :doc:`security design "
 "</security>` for more info."
 msgstr ""
-"あなたが所有するコンピューターがウェブサーバーとして機能するため、"
-"OnionShareの開発者を含む\\ "
-"*いかなる第三者も、OnionShare内のコンテンツにアクセスすることはできません。* "
-"完全にプライベートです。また、OnionShareはTorのオニオンサービスに基づいている"
-"ため、匿名性も保護されています。詳細については :doc:`"
-"セキュリティーに関する設計 </security>`\\ をご覧ください。"
+"あなたが所有するコンピューターがウェブサーバーとして機能するため、OnionShare "
+"の開発者を含む\\ *いかなる第三者も、OnionShare 内のコンテンツにアクセスするこ"
+"とはできません。* 完全にプライベートです。また、OnionShare は Tor の Onion "
+"Service に基づいているため、匿名性も保護されています。詳細については :doc:`セ"
+"キュリティに関する設計 </security>`\\ をご覧ください。"
 
 #: ../../source/features.rst:29
 msgid "Share Files"
@@ -111,7 +110,7 @@ msgstr ""
 "有タブを開き、共有したいファイルをドラッグアンドドロップして、「共有を開始」"
 "をクリックしてください。"
 
-#: ../../source/features.rst:35 ../../source/features.rst:112
+#: ../../source/features.rst:35 ../../source/features.rst:117
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
@@ -346,20 +345,36 @@ msgstr ""
 "`custom_titles`\\ ）。"
 
 #: ../../source/features.rst:102
+msgid "Other caveats to be aware of in Receive Mode"
+msgstr "受信モードにおけるその他の注意点"
+
+#: ../../source/features.rst:104
+msgid ""
+"There are reports that OnionBrowser on iOS devices are unable to upload "
+"files to an OnionShare in Receive Mode, when operating in 'Silver' security "
+"mode. Try Bronze or Gold to see if you are able to upload a message or a "
+"file."
+msgstr ""
+"「シルバー」セキュリティモードで動作している場合、iOS デバイス上の Onion "
+"Browser が受信モードの OnionShare にファイルをアップロードできないという報告"
+"があります。ブロンズまたはゴールドを試して、メッセージまたはファイルをアップ"
+"ロードできるかどうかご確認ください。"
+
+#: ../../source/features.rst:107
 msgid "Host a Website"
 msgstr "ウェブサイトをホスト"
 
-#: ../../source/features.rst:104
+#: ../../source/features.rst:109
 msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag the "
 "files and folders that make up the static content there, and click \"Start "
 "sharing\" when you are ready."
 msgstr ""
-"OnionShareでスタティック型のHTMLのウェブサイトをホストするには、ウェブサイト"
-"のタブを開き、静的コンテンツを含むファイルやフォルダーをドラッグアンドドロッ"
-"プして、「共有を開始」をクリックしてください。"
+"OnionShare で静的な HTML のウェブサイトをホストするには、ウェブサイトのタブを"
+"開き、静的コンテンツを含むファイルやフォルダーをドラッグアンドドロップして、"
+"「共有を開始」をクリックしてください。"
 
-#: ../../source/features.rst:108
+#: ../../source/features.rst:113
 msgid ""
 "If you add an ``index.html`` file, it will render when someone loads your "
 "website. You should also include any other HTML files, CSS files, JavaScript "
@@ -373,7 +388,7 @@ msgstr ""
 "みをサポートします。コードを実行したり、データベースを使用したりするウェブサ"
 "イトはホストできません。そのため、例えば、WordPressは使用できません）。"
 
-#: ../../source/features.rst:110
+#: ../../source/features.rst:115
 msgid ""
 "If you don't have an ``index.html`` file, it will show a directory listing "
 "instead, and people loading it can look through the files and download them."
@@ -382,11 +397,11 @@ msgstr ""
 "します。ウェブサイトを読み込むと、そこからファイルを閲覧したり、ダウンロード"
 "したりできます。"
 
-#: ../../source/features.rst:117
+#: ../../source/features.rst:122
 msgid "Content Security Policy"
 msgstr "コンテンツセキュリティポリシー（CSP）"
 
-#: ../../source/features.rst:119
+#: ../../source/features.rst:124
 msgid ""
 "By default OnionShare helps secure your website by setting a strict `Content "
 "Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ "
@@ -398,7 +413,7 @@ msgstr ""
 "の安全性を高めています。ただし、その設定のために、第三者が提供するリソースを"
 "ウェブページで読み込むことはできません。"
 
-#: ../../source/features.rst:121
+#: ../../source/features.rst:126
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
@@ -406,25 +421,25 @@ msgstr ""
 "第三者のウェブサイト、たとえばCDNからJavaScriptのライブラリーやデータなどを読"
 "み込みたい場合は、以下の2つの選択肢があります。"
 
-#: ../../source/features.rst:123
+#: ../../source/features.rst:128
 msgid ""
 "You can disable sending a Content Security Policy header by checking the "
 "\"Don't send Content Security Policy header (allows your website to use "
 "third-party resources)\" box before starting the service."
 msgstr ""
-"サービスを開始する前に「コンテンツセキュリティポリシーヘッダーを送信しない"
-"（ウェブサイトで第三者のリソースを使用できるようになります）」にチェックを入"
-"れると、コンテンツセキュリティーポリシーの送信を無効にできます。"
+"サービスを開始する前に「コンテンツセキュリティポリシーヘッダーを送信しない "
+"(ウェブサイトで第三者のリソースを使用できるようになります) 」にチェックを入れ"
+"ると、コンテンツセキュリティポリシーの送信を無効にできます。"
 
-#: ../../source/features.rst:124
+#: ../../source/features.rst:129
 msgid "You can send a custom Content Security Policy header."
 msgstr "カスタムのコンテンツセキュリティポリシーヘッダーを送信できます。"
 
-#: ../../source/features.rst:127
+#: ../../source/features.rst:132
 msgid "Tips for running a website service"
 msgstr "ウェブサイトのサービスを管理するアドバイス"
 
-#: ../../source/features.rst:129
+#: ../../source/features.rst:134
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not just "
 "to quickly show someone something), it's recommended you do it on a "
@@ -440,7 +455,7 @@ msgstr ""
 "ください）、OnionShareを終了し、改めて開始した場合でも、同じアドレスでウェブ"
 "サイトのホスティングを再開することができます。"
 
-#: ../../source/features.rst:132
+#: ../../source/features.rst:137
 msgid ""
 "If your website is intended for the public, you should run it as a public "
 "service (see :ref:`turn_off_private_key`)."
@@ -448,11 +463,11 @@ msgstr ""
 "ウェブサイトを公開する場合は、公開サービスとしてこれを運用してください（詳細"
 "は\\ :ref:`turn_off_private_key`\\ をご覧ください）。"
 
-#: ../../source/features.rst:135
+#: ../../source/features.rst:140
 msgid "Chat Anonymously"
 msgstr "匿名でチャット"
 
-#: ../../source/features.rst:137
+#: ../../source/features.rst:142
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't "
 "log anything. Just open a chat tab and click \"Start chat server\"."
@@ -461,7 +476,7 @@ msgstr ""
 "定できます。チャットタブを開き、「チャットサーバーを開始」をクリックしてくだ"
 "さい。"
 
-#: ../../source/features.rst:141
+#: ../../source/features.rst:146
 msgid ""
 "After you start the server, copy the OnionShare address and private key and "
 "send them to the people you want in the anonymous chat room. If it's "
@@ -473,7 +488,7 @@ msgstr ""
 "たい場合は、暗号化メッセージングアプリを使用して、アドレスと秘密鍵を送信して"
 "ください。"
 
-#: ../../source/features.rst:146
+#: ../../source/features.rst:151
 msgid ""
 "People can join the chat room by loading its OnionShare address in Tor "
 "Browser. The chat room requires JavasScript, so everyone who wants to "
@@ -485,7 +500,7 @@ msgstr ""
 "Tor Browserのセキュリティレベルを「最も安全」ではなく「標準」または「より安"
 "全」に設定する必要があります。"
 
-#: ../../source/features.rst:149
+#: ../../source/features.rst:154
 msgid ""
 "When someone joins the chat room they get assigned a random name. They can "
 "change their name by typing a new name in the box in the left panel and "
@@ -497,7 +512,7 @@ msgstr ""
 "できます。チャットの履歴はどこにも保存されないため、既に他のユーザー同士が"
 "チャットを行っている場合でも、履歴は表示されません。"
 
-#: ../../source/features.rst:155
+#: ../../source/features.rst:160
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change their "
 "name to anything, and there is no way to confirm anyone's identity."
@@ -505,7 +520,7 @@ msgstr ""
 "OnionShareのチャットルームでは、参加者は全員匿名です。誰でも自由にユーザー名"
 "を変更することができ、身元を確認するための方法は存在しません。"
 
-#: ../../source/features.rst:158
+#: ../../source/features.rst:163
 msgid ""
 "However, if you create an OnionShare chat room and securely send the address "
 "only to a small group of trusted friends using encrypted messages, you can "
@@ -515,11 +530,11 @@ msgstr ""
 "人数のグループとだけ安全な方法で共有すれば、チャットルームに入るユーザーが友"
 "人であることは、合理的な水準で確信できるはずです。"
 
-#: ../../source/features.rst:161
+#: ../../source/features.rst:166
 msgid "How is this useful?"
 msgstr "チャットの利点"
 
-#: ../../source/features.rst:163
+#: ../../source/features.rst:168
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the point "
 "of an OnionShare chat room to begin with? It leaves less traces."
@@ -528,7 +543,7 @@ msgstr ""
 "チャットルームの意味は何でしょうか？それは、より少ない痕跡しか残さないという"
 "点にあります。"
 
-#: ../../source/features.rst:165
+#: ../../source/features.rst:170
 msgid ""
 "If you for example send a message to a Signal group, a copy of your message "
 "ends up on each device (the smartphones, and computers if they set up Signal "
@@ -546,7 +561,7 @@ msgstr ""
 "に削除されたことを確かめるのは困難です。OnionShareのチャットルームはメッセー"
 "ジを一切保存しないため、この問題は最小限に抑えられます。"
 
-#: ../../source/features.rst:168
+#: ../../source/features.rst:173
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
@@ -560,11 +575,11 @@ msgstr ""
 "OnionShareのアドレスをジャーナリストに送信し、ジャーナリストがそのチャット"
 "ルームに入室するのを待つ、といった形で使用することができます。"
 
-#: ../../source/features.rst:172
+#: ../../source/features.rst:177
 msgid "How does the encryption work?"
 msgstr "暗号化の仕組み"
 
-#: ../../source/features.rst:174
+#: ../../source/features.rst:179
 msgid ""
 "Because OnionShare relies on Tor onion services, connections between the Tor "
 "Browser and OnionShare are all end-to-end encrypted (E2EE). When someone "
@@ -579,7 +594,7 @@ msgstr ""
 "末間暗号化が施されているOnion Serviceの接続を介し、WebSocketsを用いてチャット"
 "ルームの他のメンバー全員に送信するという仕組みになっています。"
 
-#: ../../source/features.rst:176
+#: ../../source/features.rst:181
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on "
 "the Tor onion service's encryption instead."

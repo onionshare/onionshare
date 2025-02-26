@@ -1,0 +1,29 @@
+# filippo.io/edwards25519 v1.0.0-rc.1.0.20210721174708-390f27c3be20
+## explicit
+filippo.io/edwards25519
+filippo.io/edwards25519/field
+# git.torproject.org/pluggable-transports/goptlib.git v1.0.0
+## explicit
+git.torproject.org/pluggable-transports/goptlib.git
+# github.com/dchest/siphash v1.2.1
+## explicit
+github.com/dchest/siphash
+# gitlab.com/yawning/edwards25519-extra.git v0.0.0-20211229043746-2f91fcc9fbdb
+## explicit
+gitlab.com/yawning/edwards25519-extra.git/elligator2
+gitlab.com/yawning/edwards25519-extra.git/internal/montgomery
+# golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97
+## explicit
+golang.org/x/crypto/curve25519
+golang.org/x/crypto/curve25519/internal/field
+golang.org/x/crypto/hkdf
+golang.org/x/crypto/internal/subtle
+golang.org/x/crypto/nacl/secretbox
+golang.org/x/crypto/poly1305
+golang.org/x/crypto/salsa20/salsa
+# golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
+## explicit
+golang.org/x/net/internal/socks
+golang.org/x/net/proxy
+# golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1
+golang.org/x/sys/cpu

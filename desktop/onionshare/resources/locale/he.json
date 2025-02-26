@@ -56,5 +56,9 @@
     "moat_captcha_reload": "טען מחדש",
     "gui_general_settings_window_title": "כללי",
     "gui_status_indicator_chat_working": "התחלה…",
-    "mode_settings_title_label": "כותרת מותאמת אישית"
+    "mode_settings_title_label": "כותרת מותאמת אישית",
+    "gui_settings_bridge_use_checkbox": "להשתמש בגשר",
+    "gui_status_indicator_receive_stopped": "נעצר",
+    "gui_status_indicator_chat_stopped": "נעצר",
+    "gui_status_indicator_share_stopped": "נעצר"
 }

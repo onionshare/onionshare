@@ -6,17 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-08-15 05:09+0000\n"
-"Last-Translator: 109247019824 <stoyan@gmx.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"PO-Revision-Date: 2025-02-11 21:35+0000\n"
+"Last-Translator: 109247019824 <109247019824@users.noreply.hosted.weblate."
+"org>\n"
 "Language-Team: none\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -42,7 +43,7 @@ msgstr "Мобилно"
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr "Можете да изтеглите OnionShare за мобилни платформи от следните места"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Андроид"
 
@@ -58,7 +59,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "iOS"
 
@@ -206,8 +207,8 @@ msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
-"Инсталирайте пакета на Snapcraft, следвайки инструкциите на https://snapcraft"
-".io/docs/installing-snapd."
+"Инсталирайте пакета на Snapcraft, следвайки инструкциите на https://"
+"snapcraft.io/docs/installing-snapd."
 
 #: ../../source/install.rst:59
 msgid ""
@@ -222,8 +223,8 @@ msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
-"Проверете подписа с PGP на файла ``.snap``. За повече информация прочетете "
-":ref:`verifying_sigs`."
+"Проверете подписа с PGP на файла ``.snap``. За повече информация прочетете :"
+"ref:`verifying_sigs`."
 
 #: ../../source/install.rst:61
 msgid ""
@@ -321,8 +322,8 @@ msgid ""
 "want to install that version."
 msgstr ""
 "Съществува и версия на OnionShare **само за команден ред**, налична като "
-"предварително подготвен пакет. Заменете ``py39-onionshare`` с ``py39"
-"-onionshare-cli``, ако искате да инсталирате тази версия."
+"предварително подготвен пакет. Заменете ``py39-onionshare`` с ``py39-"
+"onionshare-cli``, ако искате да инсталирате тази версия."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -331,8 +332,8 @@ msgid ""
 "freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
 "За допълнителна информация и подробности относно предварително подготвените "
-"пакети за FreeBSD, вижте `секция в официалното Ръководство за pkg "
-"<https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
+"пакети за FreeBSD, вижте `секция в официалното Ръководство за pkg <https://"
+"docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 
 #: ../../source/install.rst:96
 msgid "Manual port Installation"
@@ -344,8 +345,8 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
-"За да инсталирате порта за FreeBSD, преминете към директорията на `"
-"колекцията от портове <https://freebsd.org/ports/>`_, която сте извлекли "
+"За да инсталирате порта за FreeBSD, преминете към директорията на "
+"`колекцията от портове <https://freebsd.org/ports/>`_, която сте извлекли "
 "предварително, и изпълнете следното::"
 
 #: ../../source/install.rst:102
@@ -393,13 +394,14 @@ msgstr "Ключ за подписи"
 #: ../../source/install.rst:117
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
 "Покетите са подписани от основния разработчик, който отговаря за конкретното "
-"издание. По-долу е дадена информация за основните разработчици на OnionShare:"
+"издание. По-долу е дадена информация за ключовете на GPG на всеки от "
+"основните разработчици на OnionShare:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "Майка Лий:"
 
@@ -416,11 +418,11 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Можете да изтеглите ключа на Майка `от сървъра за ключове на "
-"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Можете да изтеглите ключа на Майка `от сървъра за ключове на keys.openpgp."
+"org <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "Саптак Сенгупта:"
 
@@ -437,11 +439,32 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
-"Можете да изтеглите ключа на Саптак `от сървъра за ключове на "
-"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+"Можете да изтеглите ключа на Саптак `от сървъра за ключове на keys.openpgp."
+"org <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
+msgid "Miguel Jacq:"
+msgstr "Мигел Жак:"
+
+#: ../../source/install.rst:129
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+"Отпечатък от публичния ключ на PGP "
+"``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+
+#: ../../source/install.rst:130
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"Можете да изтеглите ключа на Мигел `от сървъра за ключове на keys.openpgp."
+"org <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -451,11 +474,11 @@ msgstr ""
 "GnuPG. За macOS е препоръчително `GPGTools <https://gpgtools.org/>`_, а за "
 "Windows – `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "Подписи"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -463,46 +486,47 @@ msgid ""
 "`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
 "Можете да намерите подписите (като файлове с разширение ``.asc``), както и "
-"пакети за Windows, macOS, Flatpak, Snap и изходен код на адрес "
-"https://onionshare.org/dist/ в папки, именувани за всяко издание на "
-"OnionShare. Можете също така да ги намерите на страницата с ` издания в "
-"GitHub <https://github.com/onionshare/onionshare/releases>`_."
+"пакети за Windows, macOS, Flatpak, Snap и изходен код на адрес https://"
+"onionshare.org/dist/ в папки, именувани за всяко издание на OnionShare. "
+"Можете също така да ги намерите на страницата с ` издания в GitHub <https://"
+"github.com/onionshare/onionshare/releases>`_."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Проверяване"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
 "След като сте внесли публичните ключове на основните разработчици в "
-"хранилището за ключове на GnuPG, изтеглили сте двоичния файл и подписа във ``"
-".asc`` формат, можете да проверите двоичния файл в терминал по следния начин:"
+"хранилището за ключове на GnuPG, изтеглили сте двоичния файл и подписа във "
+"``.asc`` формат, можете да проверите двоичния файл в терминал по следния "
+"начин:"
 
-#: ../../source/install.rst:141
+#: ../../source/install.rst:145
 msgid "For Windows::"
 msgstr "За Windows::"
 
-#: ../../source/install.rst:145
+#: ../../source/install.rst:149
 msgid "For macOS::"
 msgstr "За macOS::"
 
-#: ../../source/install.rst:149
+#: ../../source/install.rst:153
 msgid "For Linux::"
 msgstr "За Linux::"
 
-#: ../../source/install.rst:155
+#: ../../source/install.rst:159
 msgid "and for the source file::"
 msgstr "и за файла с изходен код::"
 
-#: ../../source/install.rst:159
+#: ../../source/install.rst:163
 msgid "The expected output looks like this::"
 msgstr "Изведеното в резултат от командата би трябвало да изглежда така::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:173
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -511,7 +535,7 @@ msgstr ""
 "Ако не виждате ``Good signature from``, може да има проблем с целостта на "
 "файла (зловреден или друг), и не трябва да инсталирате пакета."
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
@@ -520,7 +544,7 @@ msgstr ""
 "Предупреждението ``WARNING:`` по-горе не е проблем с пакета; то означава, че "
 "не сте задали ниво на „доверие“ към ключа на Майка (основния разработчик)."
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
@@ -528,6 +552,6 @@ msgid ""
 ">`_ may be useful."
 msgstr ""
 "Ако искате да научите повече за проверката на подписи с PGP, ръководствата "
-"за `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ и `"
-"Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ "
+"за `Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ и "
+"`Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ "
 "могат да ви бъдат полезни."

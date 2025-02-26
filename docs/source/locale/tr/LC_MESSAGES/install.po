@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
 "PO-Revision-Date: 2024-03-22 16:08+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: tr <LL@li.org>\n"
@@ -16,7 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -43,7 +42,7 @@ msgstr "Mobil"
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr "Mobil için aşağıdaki bağlantılardan OnionShare indirebilirsiniz"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Android"
 
@@ -59,7 +58,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "iOS"
 
@@ -269,8 +268,8 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
-"Bu platform için resmi olarak geliştirilmemiş olmasına rağmen, OnionShare `"
-"FreeBSD <https://freebsd.org/>`_ üzerine de kurulabilir. Port koleksiyonu "
+"Bu platform için resmi olarak geliştirilmemiş olmasına rağmen, OnionShare "
+"`FreeBSD <https://freebsd.org/>`_ üzerine de kurulabilir. Port koleksiyonu "
 "aracılığıyla veya önceden oluşturulmuş paket olarak kullanılabilir. "
 "OnionShare'i bir FreeBSD işletim sistemine kurmayı ve kullanmayı tercih "
 "ederseniz, lütfen OnionShare projesi tarafından resmi olarak "
@@ -287,9 +286,9 @@ msgid ""
 msgstr ""
 "OnionShare geliştiricileri tarafından sunulmamasına ve resmi olarak "
 "sürdürülmemesine rağmen, FreeBSD paketleri ve portları kaynak kodlarını "
-"resmi OnionShare deposundan (veya `PyPI <https://pypi.org/project/"
-"onionshare-cli/>`_ üzerindeki resmi sürüm paketlerinden) alır ve doğrular. "
-"Bu platformla ilgili değişikliklere bakmak isterseniz, lütfen aşağıdaki "
+"resmi OnionShare deposundan (veya `PyPI <https://pypi.org/project/onionshare-"
+"cli/>`_ üzerindeki resmi sürüm paketlerinden) alır ve doğrular. Bu "
+"platformla ilgili değişikliklere bakmak isterseniz, lütfen aşağıdaki "
 "kaynaklara başvurun:"
 
 #: ../../source/install.rst:81
@@ -321,8 +320,8 @@ msgid ""
 "want to install that version."
 msgstr ""
 "Ayrıca OnionShare'in önceden oluşturulmuş paket olarak **yalnızca komut "
-"satırı** sürümü de bulunur. Bu sürümü kurmak istiyorsanız ``py39-onionshare``"
-" yerine ``py39-onionshare-cli`` yazın."
+"satırı** sürümü de bulunur. Bu sürümü kurmak istiyorsanız ``py39-"
+"onionshare`` yerine ``py39-onionshare-cli`` yazın."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -391,16 +390,17 @@ msgid "Signing key"
 msgstr "İmzalama anahtarı"
 
 #: ../../source/install.rst:117
+#, fuzzy
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
 "Paketler, söz konusu sürümden sorumlu olan ana geliştirici tarafından "
 "imzalanır. Aşağıda OnionShare'in ana geliştiricilerinin bilgileri yer "
 "almaktadır:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "Micah Lee:"
 
@@ -418,10 +418,10 @@ msgid ""
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
 "Micah'ın anahtarını `keys.openpgp.org anahtar sunucusundan <https://keys."
-"openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`"
-"_ indirebilirsiniz."
+"openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_ indirebilirsiniz."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "Saptak Sengupta:"
 
@@ -439,10 +439,33 @@ msgid ""
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
 "Saptak'ın anahtarını `keys.openpgp.org anahtar sunucusundan <https://keys."
-"openpgp.org/vks/v1/by-fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`"
-"_ indirebilirsiniz."
+"openpgp.org/vks/v1/by-"
+"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_ indirebilirsiniz."
 
 #: ../../source/install.rst:128
+msgid "Miguel Jacq:"
+msgstr ""
+
+#: ../../source/install.rst:129
+#, fuzzy
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+"PGP herkese açık anahtar parmak izi "
+"``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+
+#: ../../source/install.rst:130
+#, fuzzy
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"Micah'ın anahtarını `keys.openpgp.org anahtar sunucusundan <https://keys."
+"openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_ indirebilirsiniz."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -452,11 +475,11 @@ msgstr ""
 "için `GPGTools <https://gpgtools.org/>`_, Windows için `Gpg4win <https://www."
 "gpg4win.org/>`_ kullanmak isteyebilirsiniz."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "İmzalar"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -469,11 +492,11 @@ msgstr ""
 "yayınlar sayfasında <https://github.com/onionshare/onionshare/releases>`_ "
 "bulabilirsiniz."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Doğrulama"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
@@ -483,27 +506,27 @@ msgstr ""
 "aktarıp, ikili dosyayı ve ``.asc`` imzasını indirdikten sonra, ikili dosyayı "
 "terminal üzerinde şu şekilde doğrulayabilirsiniz:"
 
-#: ../../source/install.rst:141
+#: ../../source/install.rst:145
 msgid "For Windows::"
 msgstr "Windows için::"
 
-#: ../../source/install.rst:145
+#: ../../source/install.rst:149
 msgid "For macOS::"
 msgstr "macOS için::"
 
-#: ../../source/install.rst:149
+#: ../../source/install.rst:153
 msgid "For Linux::"
 msgstr "Linux için::"
 
-#: ../../source/install.rst:155
+#: ../../source/install.rst:159
 msgid "and for the source file::"
 msgstr "ve kaynak dosyası için::"
 
-#: ../../source/install.rst:159
+#: ../../source/install.rst:163
 msgid "The expected output looks like this::"
 msgstr "Aşağıdakine benzer bir çıktı alınması beklenir::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:173
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -513,7 +536,7 @@ msgstr ""
 "ilgili bir sorun olabilir (kötü niyetli veya başka türlü). Bu durumda paketi "
 "kurmamalısınız."
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
@@ -523,7 +546,7 @@ msgstr ""
 "Micah (ana geliştirici) PGP anahtarının \"güven\" düzeyini tanımlamadığınız "
 "anlamına gelir."
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "

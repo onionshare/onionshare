@@ -7,18 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2022-12-17 19:48+0000\n"
-"Last-Translator: Dan <denqwerta@gmail.com>\n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"PO-Revision-Date: 2025-02-14 00:02+0000\n"
+"Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
-"Generated-By: Babel 2.9.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.10-rc\n"
+"Generated-By: Babel 2.14.0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -112,7 +112,7 @@ msgstr ""
 "та теки людям. Просто відкрийте вкладку спільного доступу, перетягніть файли "
 "та теки, якими хочете поділитися і натисніть «Розпочати надсилання»."
 
-#: ../../source/features.rst:35 ../../source/features.rst:112
+#: ../../source/features.rst:35 ../../source/features.rst:117
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
@@ -350,10 +350,26 @@ msgstr ""
 "(докладніше :ref:`custom_titles`)."
 
 #: ../../source/features.rst:102
+msgid "Other caveats to be aware of in Receive Mode"
+msgstr "Інші застереження, на які слід звернути увагу в режимі отримання"
+
+#: ../../source/features.rst:104
+msgid ""
+"There are reports that OnionBrowser on iOS devices are unable to upload "
+"files to an OnionShare in Receive Mode, when operating in 'Silver' security "
+"mode. Try Bronze or Gold to see if you are able to upload a message or a "
+"file."
+msgstr ""
+"Були повідомлення, що OnionBrowser на пристроях iOS не може завантажувати "
+"файли до OnionShare в режимі отримання, коли він працює в режимі безпеки "
+"«Срібло». Спробуйте «Бронзовий» або «Золотий», щоб перевірити, чи зможете ви "
+"завантажити повідомлення або файл."
+
+#: ../../source/features.rst:107
 msgid "Host a Website"
 msgstr "Розміщення вебсайту"
 
-#: ../../source/features.rst:104
+#: ../../source/features.rst:109
 msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag the "
 "files and folders that make up the static content there, and click \"Start "
@@ -363,7 +379,7 @@ msgstr ""
 "вкладку вебсайту, перетягніть файли та теки, що є статичним вмістом і "
 "натисніть кнопку «Розпочати надсилання», коли будете готові."
 
-#: ../../source/features.rst:108
+#: ../../source/features.rst:113
 msgid ""
 "If you add an ``index.html`` file, it will render when someone loads your "
 "website. You should also include any other HTML files, CSS files, JavaScript "
@@ -378,7 +394,7 @@ msgstr ""
 "розміщувати вебсайти, які виконують код або використовують бази даних. Тож "
 "ви не можете, наприклад, використовувати WordPress.)"
 
-#: ../../source/features.rst:110
+#: ../../source/features.rst:115
 msgid ""
 "If you don't have an ``index.html`` file, it will show a directory listing "
 "instead, and people loading it can look through the files and download them."
@@ -387,11 +403,11 @@ msgstr ""
 "каталогів, а люди, які завантажують його, зможуть оглядати файли та "
 "завантажувати їх."
 
-#: ../../source/features.rst:117
+#: ../../source/features.rst:122
 msgid "Content Security Policy"
 msgstr "Content Security Policy"
 
-#: ../../source/features.rst:119
+#: ../../source/features.rst:124
 msgid ""
 "By default OnionShare helps secure your website by setting a strict `Content "
 "Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ "
@@ -403,7 +419,7 @@ msgstr ""
 "Content_Security_Policy>`_. Однак, це запобігає завантаженню сторонніх "
 "матеріалів на вебсторінку."
 
-#: ../../source/features.rst:121
+#: ../../source/features.rst:126
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
@@ -411,7 +427,7 @@ msgstr ""
 "Якщо ви хочете завантажити вміст зі сторонніх вебсайтів, як-от активи або "
 "бібліотеки JavaScript із CDN, у вас є два варіанти:"
 
-#: ../../source/features.rst:123
+#: ../../source/features.rst:128
 msgid ""
 "You can disable sending a Content Security Policy header by checking the "
 "\"Don't send Content Security Policy header (allows your website to use "
@@ -421,15 +437,15 @@ msgstr ""
 "Policy, позначивши прапорцем «Не надсилати заголовок Content Security Policy "
 "(дозволяє вебсайту використовувати сторонні ресурси)»."
 
-#: ../../source/features.rst:124
+#: ../../source/features.rst:129
 msgid "You can send a custom Content Security Policy header."
 msgstr "Ви можете надіслати власний заголовок Content Security Policy."
 
-#: ../../source/features.rst:127
+#: ../../source/features.rst:132
 msgid "Tips for running a website service"
 msgstr "Поради щодо запуску служби розміщення вебсайту"
 
-#: ../../source/features.rst:129
+#: ../../source/features.rst:134
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not just "
 "to quickly show someone something), it's recommended you do it on a "
@@ -445,7 +461,7 @@ msgstr ""
 "(подробиці про :ref:`save_tabs`), щоб ви могли відновити вебсайт з тією ж "
 "адресою, якщо закриєте OnionShare і знову відкриєте його пізніше."
 
-#: ../../source/features.rst:132
+#: ../../source/features.rst:137
 msgid ""
 "If your website is intended for the public, you should run it as a public "
 "service (see :ref:`turn_off_private_key`)."
@@ -454,11 +470,11 @@ msgstr ""
 "запустити його загальнодоступною службою (подробиці :ref:"
 "`turn_off_private_key`)."
 
-#: ../../source/features.rst:135
+#: ../../source/features.rst:140
 msgid "Chat Anonymously"
 msgstr "Спілкуйтеся таємно"
 
-#: ../../source/features.rst:137
+#: ../../source/features.rst:142
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't "
 "log anything. Just open a chat tab and click \"Start chat server\"."
@@ -467,7 +483,7 @@ msgstr ""
 "кімнати чату, яка нічого не реєструє. Просто відкрийте вкладку чату та "
 "натисніть «Запустити сервер чату»."
 
-#: ../../source/features.rst:141
+#: ../../source/features.rst:146
 msgid ""
 "After you start the server, copy the OnionShare address and private key and "
 "send them to the people you want in the anonymous chat room. If it's "
@@ -480,7 +496,7 @@ msgstr ""
 "обміну зашифрованими повідомленнями для надсилання адреси й приватного ключа "
 "OnionShare."
 
-#: ../../source/features.rst:146
+#: ../../source/features.rst:151
 msgid ""
 "People can join the chat room by loading its OnionShare address in Tor "
 "Browser. The chat room requires JavasScript, so everyone who wants to "
@@ -492,7 +508,7 @@ msgstr ""
 "повинні встановити рівень безпеки на «Стандартний» або «Безпечніший» замість "
 "«Найбезпечніший»."
 
-#: ../../source/features.rst:149
+#: ../../source/features.rst:154
 msgid ""
 "When someone joins the chat room they get assigned a random name. They can "
 "change their name by typing a new name in the box in the left panel and "
@@ -504,7 +520,7 @@ msgstr ""
 "натиснувши ↵. Попередні повідомлення взагалі не з'являться, навіть якщо інші "
 "вже спілкувалися в чаті, оскільки історія чату ніде не зберігається."
 
-#: ../../source/features.rst:155
+#: ../../source/features.rst:160
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change their "
 "name to anything, and there is no way to confirm anyone's identity."
@@ -512,7 +528,7 @@ msgstr ""
 "У чаті OnionShare всі анонімні. Будь-хто може змінити своє ім'я на яке "
 "завгодно і жодного способу підтвердження особи не існує."
 
-#: ../../source/features.rst:158
+#: ../../source/features.rst:163
 msgid ""
 "However, if you create an OnionShare chat room and securely send the address "
 "only to a small group of trusted friends using encrypted messages, you can "
@@ -523,11 +539,11 @@ msgstr ""
 "можете бути обґрунтовано впевнені, що люди, які приєднуються до чату, є "
 "вашими друзями."
 
-#: ../../source/features.rst:161
+#: ../../source/features.rst:166
 msgid "How is this useful?"
 msgstr "Чим це корисно?"
 
-#: ../../source/features.rst:163
+#: ../../source/features.rst:168
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the point "
 "of an OnionShare chat room to begin with? It leaves less traces."
@@ -536,7 +552,7 @@ msgstr ""
 "повідомленнями, то який сенс спілкування в OnionShare? Він залишає менше "
 "слідів."
 
-#: ../../source/features.rst:165
+#: ../../source/features.rst:170
 msgid ""
 "If you for example send a message to a Signal group, a copy of your message "
 "ends up on each device (the smartphones, and computers if they set up Signal "
@@ -554,7 +570,7 @@ msgstr ""
 "сповіщень), до яких, можливо, їх було збережено. Кімнати бесід OnionShare "
 "ніде не зберігають жодних повідомлень, тому проблема зводиться до мінімуму."
 
-#: ../../source/features.rst:168
+#: ../../source/features.rst:173
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
@@ -568,11 +584,11 @@ msgstr ""
 "допомогою одноразової адреси електронної пошти, а потім зачекати, поки "
 "журналіст приєднається до бесіди й усе це без шкоди їхній анонімності."
 
-#: ../../source/features.rst:172
+#: ../../source/features.rst:177
 msgid "How does the encryption work?"
 msgstr "Як працює шифрування?"
 
-#: ../../source/features.rst:174
+#: ../../source/features.rst:179
 msgid ""
 "Because OnionShare relies on Tor onion services, connections between the Tor "
 "Browser and OnionShare are all end-to-end encrypted (E2EE). When someone "
@@ -586,7 +602,7 @@ msgstr ""
 "через E2EE onion з'єднання, який потім надсилає його всім іншим учасникам "
 "чату за допомогою WebSockets через їхні E2EE onion з'єднання."
 
-#: ../../source/features.rst:176
+#: ../../source/features.rst:181
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on "
 "the Tor onion service's encryption instead."

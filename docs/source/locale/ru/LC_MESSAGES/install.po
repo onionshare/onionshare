@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
 "PO-Revision-Date: 2024-07-15 13:09+0000\n"
 "Last-Translator: gfbdrgng <hnaofegnp@hldrive.com>\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -44,7 +43,7 @@ msgstr "Мобильный"
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr "Скачать OnionShare для мобильных устройств можно по следующим ссылкам"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Android"
 
@@ -60,7 +59,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "iOS"
 
@@ -226,8 +225,8 @@ msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
-"Проверка PGP-подписи файла ``.snap``. Дополнительную информацию см. в "
-":ref:`verifying_sigs`."
+"Проверка PGP-подписи файла ``.snap``. Дополнительную информацию см. в :ref:"
+"`verifying_sigs`."
 
 #: ../../source/install.rst:61
 msgid ""
@@ -239,8 +238,8 @@ msgid ""
 msgstr ""
 "Установите файл ``.snap``, выполнив команду ``nap install --dangerous "
 "onionshare_VERSION_amd64.snap``. Замените ``VERSION`` на номер версии "
-"загруженного файла. Обратите внимание, что вы должны использовать "
-"`--dangerous`, потому что пакет не подписан магазином Snapcraft, однако вы "
+"загруженного файла. Обратите внимание, что вы должны использовать `--"
+"dangerous`, потому что пакет не подписан магазином Snapcraft, однако вы "
 "проверили его PGP-подпись, поэтому вы знаете, что он легитимный."
 
 #: ../../source/install.rst:63
@@ -290,10 +289,10 @@ msgid ""
 msgstr ""
 "Несмотря на то, что разработчики OnionShare не предлагают и не поддерживают "
 "ее официально, пакеты и порты FreeBSD получают и проверяют исходные коды из "
-"официального репозитория OnionShare (или ее официальных релизных пакетов из `"
-"PyPI <https://pypi.org/project/onionshare-cli/>`_). Если вы хотите проверить "
-"изменения, связанные с этой платформой, пожалуйста, обратитесь к следующим "
-"ресурсам:"
+"официального репозитория OnionShare (или ее официальных релизных пакетов из "
+"`PyPI <https://pypi.org/project/onionshare-cli/>`_). Если вы хотите "
+"проверить изменения, связанные с этой платформой, пожалуйста, обратитесь к "
+"следующим ресурсам:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
@@ -324,9 +323,9 @@ msgid ""
 "want to install that version."
 msgstr ""
 "Существует также **версия OnionShare только для командной строки**, "
-"доступная в виде предварительно собранного пакета. Замените "
-"``py39-onionshare`` на ``py39-onionshare-cli``, если вы хотите установить "
-"эту версию."
+"доступная в виде предварительно собранного пакета. Замените ``py39-"
+"onionshare`` на ``py39-onionshare-cli``, если вы хотите установить эту "
+"версию."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -398,15 +397,16 @@ msgid "Signing key"
 msgstr "Ключ подписи"
 
 #: ../../source/install.rst:117
+#, fuzzy
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
 "Пакеты подписываются разработчиком, ответственным за конкретный релиз. Ниже "
 "приведена информация об основных разработчиках OnionShare:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "Майка Ли:"
 
@@ -422,11 +422,11 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Вы можете загрузить ключ Михи с сервера ключей`keys.openpgp.org <https://keys"
-".openpgp.org/vks/v1/by-fingerprint/"
-"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Вы можете загрузить ключ Михи с сервера ключей`keys.openpgp.org <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "Саптак Сенгупта:"
 
@@ -442,11 +442,33 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
-"Вы можете скачать ключ Саптака с сервера ключей `keys.openpgp.org "
-"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+"Вы можете скачать ключ Саптака с сервера ключей `keys.openpgp.org <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
+msgid "Miguel Jacq:"
+msgstr ""
+
+#: ../../source/install.rst:129
+#, fuzzy
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+"Отпечаток открытого ключа PGP ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+
+#: ../../source/install.rst:130
+#, fuzzy
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"Вы можете загрузить ключ Михи с сервера ключей`keys.openpgp.org <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -457,11 +479,11 @@ msgstr ""
 "использовать `GPGTools <https://gpgtools.org/>`_, для Windows `Gpg4win "
 "<https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "Подписи"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -474,11 +496,11 @@ msgstr ""
 "найти их на странице `GitHub Releases <https://github.com/onionshare/"
 "onionshare/releases>`_."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Проверка"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
@@ -488,27 +510,27 @@ msgstr ""
 "связку ключей GnuPG, загрузили бинарник и подпись ``.asc``, вы можете "
 "проверить бинарник в терминале следующим образом:"
 
-#: ../../source/install.rst:141
+#: ../../source/install.rst:145
 msgid "For Windows::"
 msgstr "Для Windows::"
 
-#: ../../source/install.rst:145
+#: ../../source/install.rst:149
 msgid "For macOS::"
 msgstr "Для macOS::"
 
-#: ../../source/install.rst:149
+#: ../../source/install.rst:153
 msgid "For Linux::"
 msgstr "Для Linux::"
 
-#: ../../source/install.rst:155
+#: ../../source/install.rst:159
 msgid "and for the source file::"
 msgstr "и для исходного файла::"
 
-#: ../../source/install.rst:159
+#: ../../source/install.rst:163
 msgid "The expected output looks like this::"
 msgstr "Ожидаемый результат выполнения команды::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:173
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -518,7 +540,7 @@ msgstr ""
 "целостностью файла (вредоносная или иная), и вам не следует устанавливать "
 "пакет."
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
@@ -528,7 +550,7 @@ msgstr ""
 "пакетом, оно лишь означает, что вы не определили уровень \"доверия\" к PGP-"
 "ключу Михи (основного разработчика)."
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "

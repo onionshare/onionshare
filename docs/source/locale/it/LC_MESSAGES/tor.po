@@ -6,18 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-04-30 20:07+0000\n"
-"Last-Translator: Federico Pierantoni <F3FFO@users.noreply.hosted.weblate.org>"
-"\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"PO-Revision-Date: 2025-01-31 17:07+0000\n"
+"Last-Translator: Lupo Cosentino <boots-bounce-hazy@duck.com>\n"
 "Language-Team: it <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.3-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/tor.rst:2
@@ -138,6 +137,12 @@ msgid ""
 "reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"Se si sceglie “Determina automaticamente il mio Paese dal mio indirizzo IP "
+"per le impostazioni dei ponti”, l'API di elusione della censura prenderà in "
+"considerazione il vostro indirizzo IP (sì, il vostro vero indirizzo IP) per "
+"determinare in quale Paese potreste risiedere. In base alle informazioni sul "
+"Paese, l'API cercherà di trovare automaticamente i ponti adatti alla vostra "
+"posizione."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -151,7 +156,7 @@ msgstr ""
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Come funziona l'elusione automatica della censura"
 
 #: ../../source/tor.rst:48
 msgid ""
@@ -160,6 +165,11 @@ msgid ""
 "does not find any bridges for your location, OnionShare will ask the API for "
 "\"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Se l'API per l'elusione della censura trova ponti che ritiene adatti "
+"all'utente, OnionShare cercherà di riconnettersi a Tor utilizzando tali "
+"ponti. Se l'API non trova alcun ponte per la vostra posizione, OnionShare "
+"chiederà all'API le opzioni di “ripiego” e cercherà di riconnettersi "
+"utilizzando quelle."
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -167,6 +177,9 @@ msgid ""
 "or if the API returns an error message, OnionShare will attempt to use the "
 "obfs4 built-in bridges."
 msgstr ""
+"Se per qualche motivo OnionShare non riesce a connettersi all'API Censura o "
+"se l'API restituisce un messaggio di errore, OnionShare tenterà di "
+"utilizzare i bridge integrati in obfs4."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -174,6 +187,9 @@ msgid ""
 "do not go over the Tor network (because if you could connect to Tor already, "
 "you wouldn't need to connect to the API)."
 msgstr ""
+"È importante notare che le richieste all'API per l'elusione della censura "
+"non passano attraverso la rete Tor (perché se si potesse già collegarsi a "
+"Tor, non sarebbe necessario collegarsi all'API)."
 
 #: ../../source/tor.rst:54
 msgid ""
@@ -183,6 +199,12 @@ msgid ""
 "to making one or two requests to the Censorship Circumvention API. Then Meek "
 "is stopped, and all further network requests happen over the Tor network."
 msgstr ""
+"Anche se è difficile per un avversario scoprire la destinazione della "
+"richiesta di Meek, questo potrebbe essere rischioso per alcuni utenti. "
+"Pertanto, si tratta di una funzione opt-in. L'uso di Meek e delle richieste "
+"di rete non tormentate è limitato solo all'esecuzione di una o due richieste "
+"all'API di elusione della censura. Poi Meek viene interrotto e tutte le "
+"altre richieste di rete avvengono attraverso la rete Tor."
 
 #: ../../source/tor.rst:56
 msgid ""
@@ -192,6 +214,12 @@ msgid ""
 "appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Se non ci si sente a proprio agio nel fare una richiesta che non passa "
+"attraverso la rete Tor, è possibile fare clic su “Impostazioni di rete” (o "
+"sull'icona Impostazioni nell'angolo in basso a destra, seguita dalla scheda "
+"Impostazioni Tor nella schermata che appare) e configurare manualmente i "
+"bridge. Dopo aver salvato le impostazioni dei ponti, OnionShare proverà a "
+"riconnettersi utilizzando tali ponti."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
@@ -204,11 +232,17 @@ msgid ""
 "the application, and then switch to the Tor Settings tab in the screen that "
 "appears."
 msgstr ""
+"È possibile accedere alle impostazioni di Tor facendo clic su “Impostazioni "
+"di rete” nella schermata di benvenuto, oppure facendo clic sull'icona “⚙” "
+"nell'angolo in basso a destra dell'applicazione, per poi passare alla scheda "
+"Impostazioni Tor nella schermata visualizzata."
 
 #: ../../source/tor.rst:65
 msgid ""
 "Here are the different ways you can configure OnionShare to connect to Tor:"
 msgstr ""
+"Ecco i diversi modi in cui è possibile configurare OnionShare per "
+"connettersi a Tor:"
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
@@ -240,14 +274,13 @@ msgid "**Using bridges**"
 msgstr "**Bridge in uso**"
 
 #: ../../source/tor.rst:78
-#, fuzzy
 msgid ""
 "To use a bridge, you must select \"Use the Tor version built into "
 "OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
-"Per utilizzare un bridge, apri la scheda Impostazioni Tor. Devi selezionare "
-"\"Usa la versione Tor incorporata in OnionShare\" e selezionare la casella "
-"\"Usa un bridge\"."
+"Per utilizzare un ponte, è necessario selezionare “Usa la versione di Tor "
+"integrata in OnionShare” e selezionare la casella di controllo “Usa un "
+"ponte”."
 
 #: ../../source/tor.rst:80
 msgid ""
@@ -306,22 +339,16 @@ msgstr ""
 "di testo in chiaro e fare cose come amministratore."
 
 #: ../../source/tor.rst:101
-#, fuzzy
-#| msgid ""
-#| "Download the Tor Windows Expert Bundle `from <https://www.torproject.org/"
-#| "download/tor/>`_. Extract the compressed file and copy the extracted "
-#| "folder to ``C:\\Program Files (x86)\\`` Rename the extracted folder with "
-#| "``Data`` and ``Tor`` in it to ``tor-win32``."
 msgid ""
 "Download the Tor Windows Expert Bundle `from the Tor website <https://www."
 "torproject.org/download/tor/>`_. Extract the compressed file and copy the "
 "extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted "
 "folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
-"Scarica il Tor Windows Expert Bundle `da <https://www.torproject.org/"
-"download/tor/>`_. Estrai il file compresso e copia la cartella estratta in "
-"``C:\\Program Files (x86)\\`` Rinomina le cartella all'interno che hanno il "
-"nome ``Data`` e ``Tor`` in ``tor-win32``."
+"Scarica il Tor Windows Expert Bundle `dal sito Tor <https://www.torproject."
+"org/download/tor/>`_. Estrai il file compresso e copia la cartella estratta "
+"in ``C:\\Program Files (x86)\\`` Rinomina le cartella all'interno che hanno "
+"il nome ``Data`` e ``Tor`` in ``tor-win32``."
 
 #: ../../source/tor.rst:105
 msgid ""

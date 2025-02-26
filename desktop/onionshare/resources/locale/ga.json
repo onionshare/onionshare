@@ -228,7 +228,7 @@
     "gui_close_tab_warning_share_description": "Dún cluaisín atá ag seoladh comhaid?",
     "gui_close_tab_warning_receive_description": "An bhfuil fonn ort cluaisín a dhúnadh a bhfuil comhaid á bhfáil agat?",
     "mode_settings_advanced_toggle_hide": "Folaigh ardsocruithe",
-    "mode_settings_persistent_checkbox": "Oscail an cluaisín seo i gcónaí nuair a thosaíonn OnionShare",
+    "mode_settings_persistent_checkbox": "Oscail an cluaisín seo i gcónaí nuair a thosaíonn OnionShare (fanfaidh an seoladh oinniúin mar a chéile)",
     "mode_settings_autostop_timer_checkbox": "Cuir stop leis an tseirbhís oinniún ag an am sceidealta",
     "mode_settings_website_disable_csp_checkbox": "Ná seol ceanntásc réamhshocraithe Beartas Slándála Inneachair (a ligeann do do shuíomh Gréasáin acmhainní tríú páirtí a úsáid)",
     "gui_tor_settings_window_title": "Socruithe Tor",
@@ -254,5 +254,6 @@
     "gui_autoconnect_could_not_connect_to_tor_api": "Níorbh fhéidir ceangal leis an API Tor. Cinntigh go bhfuil tú nasctha leis an Idirlíon sula ndéanfaidh tú iarracht eile.",
     "waitress_web_server_error": "Tharla fadhb agus an freastalaí gréasáin á thosú",
     "gui_website_url_public_description": "<b>Is féidir le duine ar bith</b> a bhfuil an seoladh OnionShare seo aige <b>cuairt a thabhairt</b> ar do shuíomh Gréasáin trí úsáid a bhaint as <b>Brabhsálaí Tor</b>: <img src='{}'/>",
-    "gui_chat_mode_explainer": "Ligeann mód comhrá duit comhrá idirghníomhach a dhéanamh le daoine eile, i mBrabhsálaí Tor.<br><br><b>Ní stóráiltear stair comhrá in OnionShare. Imeoidh an stair chomhrá nuair a dhúnann tú Brabhsálaí Tor.</b>"
+    "gui_chat_mode_explainer": "Ligeann mód comhrá duit comhrá idirghníomhach a dhéanamh le daoine eile, i mBrabhsálaí Tor.<br><br><b>Ní stóráiltear stair comhrá in OnionShare. Imeoidh an stair chomhrá nuair a dhúnann tú Brabhsálaí Tor.</b>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Cuir tús leis an tseirbhís oinniúin seo go huathoibríoch nuair a thosaíonn OnionShare"
 }

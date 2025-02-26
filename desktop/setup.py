@@ -3,12 +3,12 @@
 import setuptools
 
 # The version must be hard-coded because Snapcraft won't have access to ../cli
-version = "2.6.2"
+version = "2.6.3"
 
 setuptools.setup(
     name="onionshare",
     version=version,
-    description="Securely and anonymously share files, host websites, and chat with friends using the Tor network",
+    long_description="Securely and anonymously share files, host websites, and chat with friends using the Tor network",
     author="Micah Lee",
     author_email="micah@micahflee.com",
     maintainer="Micah Lee",

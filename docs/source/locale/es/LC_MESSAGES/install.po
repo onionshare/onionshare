@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
 "PO-Revision-Date: 2024-03-22 16:07+0000\n"
 "Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: none\n"
@@ -16,7 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -45,7 +44,7 @@ msgstr ""
 "Puede descargar OnionShare para dispositivos móviles desde los siguientes "
 "enlaces"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Android"
 
@@ -61,7 +60,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "iOS"
 
@@ -287,9 +286,9 @@ msgstr ""
 "Aunque no son ofrecidos ni mantenidos oficialmente por los desarrolladores "
 "de OnionShare, los paquetes y adaptaciones de FreeBSD obtienen y verifican "
 "los códigos fuente del repositorio oficial de OnionShare (o sus paquetes de "
-"lanzamiento oficiales de `PyPI <https://pypi.org/project/onionshare-cli/>`_)"
-". Si desea consultar los cambios relacionados con esta plataforma, consulte "
-"los siguientes recursos:"
+"lanzamiento oficiales de `PyPI <https://pypi.org/project/onionshare-cli/"
+">`_). Si desea consultar los cambios relacionados con esta plataforma, "
+"consulte los siguientes recursos:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
@@ -320,8 +319,8 @@ msgid ""
 "want to install that version."
 msgstr ""
 "También hay una versión **sólo línea de comandos** de OnionShare disponible "
-"como paquete pre-compilado. Reemplace ``py39-onionshare`` con ``py39"
-"-onionshare-cli`` si desea instalar esa versión."
+"como paquete pre-compilado. Reemplace ``py39-onionshare`` con ``py39-"
+"onionshare-cli`` si desea instalar esa versión."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -353,9 +352,9 @@ msgid ""
 "only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
 "cli`` if you want to install that version."
 msgstr ""
-"La colección de puertos también ofrece un puerto dedicado para la versión **"
-"Sólo línea de comandos** de OnionShare. Sustituye ``www/onionshare`` por ``"
-"www/onionshare-cli`` si quieres instalar esa versión."
+"La colección de puertos también ofrece un puerto dedicado para la versión "
+"**Sólo línea de comandos** de OnionShare. Sustituye ``www/onionshare`` por "
+"``www/onionshare-cli`` si quieres instalar esa versión."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -390,16 +389,17 @@ msgid "Signing key"
 msgstr "Clave de firma"
 
 #: ../../source/install.rst:117
+#, fuzzy
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
 "Los paquetes están firmados por el desarrollador responsable de cada "
 "versión. A continuación se muestra la información de los desarrolladores "
 "principales de OnionShare:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "Micah Lee:"
 
@@ -416,11 +416,11 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Puedes descargar la clave de Micah `desde el servidor de claves "
-"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Puedes descargar la clave de Micah `desde el servidor de claves keys.openpgp."
+"org <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "Saptak Sengupta:"
 
@@ -437,11 +437,34 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
-"Puede descargar la clave de Saptak `desde el servidor de claves "
-"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+"Puede descargar la clave de Saptak `desde el servidor de claves keys.openpgp."
+"org <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
+msgid "Miguel Jacq:"
+msgstr ""
+
+#: ../../source/install.rst:129
+#, fuzzy
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+"Huella digital de la clave pública PGP "
+"``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+
+#: ../../source/install.rst:130
+#, fuzzy
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"Puedes descargar la clave de Micah `desde el servidor de claves keys.openpgp."
+"org <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -451,11 +474,11 @@ msgstr ""
 "quieras `GPGTools <https://gpgtools.org/>`_, y para Windows, `Gpg4win "
 "<https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "Firmas"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -468,11 +491,11 @@ msgstr ""
 "encontrarlos en la página `Publicaciones en GitHub <https://github.com/"
 "onionshare/onionshare/releases>'_."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Verificando"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
@@ -482,27 +505,27 @@ msgstr ""
 "núcleo en su llavero GnuPG, descargado el binario y la firma ``.asc``, puede "
 "verificar el binario en un terminal como este:"
 
-#: ../../source/install.rst:141
+#: ../../source/install.rst:145
 msgid "For Windows::"
 msgstr "Para Windows::"
 
-#: ../../source/install.rst:145
+#: ../../source/install.rst:149
 msgid "For macOS::"
 msgstr "Para macOS::"
 
-#: ../../source/install.rst:149
+#: ../../source/install.rst:153
 msgid "For Linux::"
 msgstr "Para Linux::"
 
-#: ../../source/install.rst:155
+#: ../../source/install.rst:159
 msgid "and for the source file::"
 msgstr "y para el archivo fuente::"
 
-#: ../../source/install.rst:159
+#: ../../source/install.rst:163
 msgid "The expected output looks like this::"
 msgstr "La salida esperada se parece a esta::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:173
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -511,7 +534,7 @@ msgstr ""
 "Si no ve ``Good signature from``, puede haber un problema con la integridad "
 "del fichero (malicioso o no), y no debería instalar el paquete."
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
@@ -521,7 +544,7 @@ msgstr ""
 "significa que no has definido un nivel de \"confianza\" de la clave PGP de "
 "Micah (el desarrollador del núcleo)."
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "

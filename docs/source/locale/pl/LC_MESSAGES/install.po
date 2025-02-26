@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-03-22 16:07+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"PO-Revision-Date: 2025-02-11 21:35+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: pl <LL@li.org>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -46,7 +46,7 @@ msgstr ""
 "Możesz pobrać OnionShare na urządzenia mobilne, korzystając z poniższych "
 "łączy"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Android"
 
@@ -62,7 +62,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "iOS"
 
@@ -333,8 +333,8 @@ msgid ""
 "freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
 "Dodatkowe informacje i szczegóły dotyczące prekompilowanych pakietów FreeBSD "
-"można znaleźć w jego `oficjalnej sekcji podręcznika na temat pkg "
-"<https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
+"można znaleźć w jego `oficjalnej sekcji podręcznika na temat pkg <https://"
+"docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 
 #: ../../source/install.rst:96
 msgid "Manual port Installation"
@@ -346,8 +346,8 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
-"Aby zainstalować port FreeBSD, zmień katalog na `kolekcję portów "
-"<https://freebsd.org/ports/>`_, które należało wcześniej sprawdzić i uruchom "
+"Aby zainstalować port FreeBSD, zmień katalog na `kolekcję portów <https://"
+"freebsd.org/ports/>`_, które należało wcześniej sprawdzić i uruchom "
 "następujące polecenie::"
 
 #: ../../source/install.rst:102
@@ -395,13 +395,14 @@ msgstr "Klucz podpisujący"
 #: ../../source/install.rst:117
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
 "Pakiety są podpisywane przez głównego programistę, który jest odpowiedzialny "
-"za daną wersję. Poniżej znajdują się informacje głównych twórców OnionShare:"
+"za daną wersję. Oto najważniejsze informacje GPG o każdym z głównych twórców "
+"OnionShare:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "Micah Lee:"
 
@@ -419,10 +420,10 @@ msgid ""
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
 "Możesz pobrać klucz Micaha `z serwera kluczy keys.openpgp.org <https://keys."
-"openpgp.org/vks/v1/by-fingerprint/"
-"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "Saptak Sengupta:"
 
@@ -440,10 +441,31 @@ msgid ""
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
 "Możesz pobrać klucz Saptaka `z serwera kluczy keys.openpgp.org <https://keys."
-"openpgp.org/vks/v1/by-fingerprint/"
-"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+"openpgp.org/vks/v1/by-"
+"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
+msgid "Miguel Jacq:"
+msgstr "Miguel Jacq:"
+
+#: ../../source/install.rst:129
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+"Odcisk palca klucza publicznego PGP "
+"``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+
+#: ../../source/install.rst:130
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"Możesz pobrać klucz Miguela `z serwera kluczy keys.openpgp.org <https://keys."
+"openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -453,11 +475,11 @@ msgstr ""
 "prawdopodobnie potrzebujesz `GPGTools <https://gpgtools.org/>`_, a dla "
 "Windows `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "Sygnatury"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -470,11 +492,11 @@ msgstr ""
 "Releases serwisu GitHub <https://github.com/onionshare/onionshare/"
 "releases>`_."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Weryfikacja"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
@@ -484,27 +506,27 @@ msgstr ""
 "GnuPG, pobraniu pliku binarnego i podpisu ``.asc``, możesz zweryfikować plik "
 "binarny w terminalu w następujący sposób:"
 
-#: ../../source/install.rst:141
+#: ../../source/install.rst:145
 msgid "For Windows::"
 msgstr "Dla Windows::"
 
-#: ../../source/install.rst:145
+#: ../../source/install.rst:149
 msgid "For macOS::"
 msgstr "Dla macOS::"
 
-#: ../../source/install.rst:149
+#: ../../source/install.rst:153
 msgid "For Linux::"
 msgstr "Dla Linuksa::"
 
-#: ../../source/install.rst:155
+#: ../../source/install.rst:159
 msgid "and for the source file::"
 msgstr "oraz dla pliku źródłowego::"
 
-#: ../../source/install.rst:159
+#: ../../source/install.rst:163
 msgid "The expected output looks like this::"
 msgstr "Oczekiwany rezultat wygląda następująco::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:173
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -513,7 +535,7 @@ msgstr ""
 "Jeśli nie widzisz ``Good signature from``, może występować problem z "
 "integralnością pliku (złośliwy lub inny) i nie należy instalować pakietu."
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
@@ -523,7 +545,7 @@ msgstr ""
 "jedynie, że nie określono poziomu „zaufania” dla klucza PGP Micaha (głównego "
 "programisty)."
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "

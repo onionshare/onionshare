@@ -1,25 +1,25 @@
 [tool.poetry]
 name = "onionshare"
-version = "2.6.2"
+version = "2.6.3"
 description = "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service."
 authors = ["Micah Lee <micah@micahflee.com>"]
 license = "GPLv3+"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.12"
+python = ">=3.10,<3.13"
 onionshare_cli = {path = "../cli", develop = true}
-PySide6 = "6.5.2"
+PySide6 = "6.8.2.1"
 qrcode = "*"
-werkzeug = "*"
+werkzeug = "3.0.6"
 python-gnupg = "*"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 click = "*"
 black = "*"
 pytest = "*"
 pytest-faulthandler = "*"
 pytest-qt = "*"
-cx_freeze = "*"
+cx_freeze = "7.2.9"
 importlib-metadata = "*"
 
 [build-system]

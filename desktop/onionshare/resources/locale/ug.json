@@ -19,5 +19,9 @@
     "gui_close_tab_warning_cancel": "ۋاز كەچ",
     "gui_quit_warning_cancel": "ۋاز كەچ",
     "mode_settings_receive_data_dir_browse_button": "كۆرۈش",
-    "gui_status_indicator_share_started": "ئورتاقلىشىش"
+    "gui_status_indicator_share_started": "ئورتاقلىشىش",
+    "gui_settings_button_help": "ياردەم",
+    "gui_status_indicator_share_stopped": "توختىدى",
+    "gui_status_indicator_receive_stopped": "توختىدى",
+    "gui_status_indicator_chat_stopped": "توختىدى"
 }

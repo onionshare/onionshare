@@ -25,7 +25,7 @@ import mimetypes
 import gzip
 from flask import Response, request
 from unidecode import unidecode
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 
 class SendBaseModeWeb:
@@ -132,6 +132,9 @@ class SendBaseModeWeb:
         self.set_file_info_custom(filenames, processed_size_callback)
 
     def directory_listing(self, filenames, path="", filesystem_path=None, add_trailing_slash=False):
+        """
+        Display the front page of a share or index.html-less website, listing the files/directories.
+        """
         # Tell the GUI about the directory listing
         history_id = self.cur_history_id
         self.cur_history_id += 1
@@ -151,6 +154,11 @@ class SendBaseModeWeb:
 
         # If filesystem_path is None, this is the root directory listing
         files, dirs = self.build_directory_listing(path, filenames, filesystem_path, add_trailing_slash)
+
+        # Mark the request as done so we know we can close the share if in auto-stop mode.
+        self.web.done = True
+
+        # Render and return the response.
         return self.directory_listing_template(
             path, files, dirs, breadcrumbs, breadcrumbs_leaf
         )
@@ -170,18 +178,18 @@ class SendBaseModeWeb:
             if is_dir:
                 if add_trailing_slash:
                     dirs.append(
-                        {"link": os.path.join(f"/{path}", filename, ""), "basename": filename}
+                        {"link": os.path.join(f"/{path}", quote(filename), ""), "basename": filename}
                     )
                 else:
                     dirs.append(
-                        {"link": os.path.join(f"/{path}", filename), "basename": filename}
+                        {"link": os.path.join(f"/{path}", quote(filename)), "basename": filename}
                     )
             else:
                 size = os.path.getsize(this_filesystem_path)
                 size_human = self.common.human_readable_filesize(size)
                 files.append(
                     {
-                        "link": os.path.join(f"/{path}", filename),
+                        "link": os.path.join(f"/{path}", quote(filename)),
                         "basename": filename,
                         "size_human": size_human,
                     }
@@ -228,11 +236,11 @@ class SendBaseModeWeb:
             chunk_size = 102400  # 100kb
 
             fp = open(file_to_download, "rb")
-            done = False
-            while not done:
+            self.web.done = False
+            while not self.web.done:
                 chunk = fp.read(chunk_size)
                 if chunk == b"":
-                    done = True
+                    self.web.done = True
                 else:
                     try:
                         yield chunk
@@ -245,8 +253,17 @@ class SendBaseModeWeb:
                             or self.common.platform == "Linux"
                             or self.common.platform == "BSD"
                         ):
+                            if self.web.settings.get(self.web.mode, "log_filenames"):
+                                # Decode and sanitize the path to remove newlines
+                                decoded_path = unquote(path)
+                                decoded_path = decoded_path.replace("\r", "").replace("\n", "")
+                                filename_str = f"{decoded_path} - "
+                            else:
+                                filename_str = ""
+                            
                             sys.stdout.write(
-                                "\r{0:s}, {1:.2f}%          ".format(
+                                "\r{0}{1:s}, {2:.2f}%          ".format(
+                                    filename_str,
                                     self.common.human_readable_filesize(
                                         downloaded_bytes
                                     ),
@@ -264,10 +281,10 @@ class SendBaseModeWeb:
                                 "filesize": filesize,
                             },
                         )
-                        done = False
+                        self.web.done = False
                     except Exception:
                         # Looks like the download was canceled
-                        done = True
+                        self.web.done = True
 
                         # Tell the GUI the individual file was canceled
                         self.web.add_request(
@@ -278,8 +295,7 @@ class SendBaseModeWeb:
 
             fp.close()
 
-            if self.common.platform != "Darwin":
-                sys.stdout.write("\n")
+            sys.stdout.write("\n")
 
         basename = os.path.basename(filesystem_path)
 

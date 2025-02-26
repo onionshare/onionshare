@@ -7,21 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2023-06-10 02:52+0000\n"
-"Last-Translator: Chris Nolan <chrisnolan@tutanota.de>\n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"PO-Revision-Date: 2025-02-11 08:02+0000\n"
+"Last-Translator: Sketch6580 <sketch6580@users.noreply.hosted.weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
-msgstr "連接到 Tor"
+msgstr "正在连接到 Tor"
 
 #: ../../source/tor.rst:4
 msgid ""
@@ -78,22 +78,24 @@ msgstr "如果出现这种情况，您将有以下选择："
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr "请尝试在没有使用网桥的情况下再次连接"
+msgstr "不用网桥重试"
 
 #: ../../source/tor.rst:23
 msgid ""
 "Automatically determine my country from my IP address for bridge settings"
-msgstr ""
+msgstr "从 IP 地址自动确定我所在国家/地区的网桥设置"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "手动选择我所在国家/地区的网桥设置"
 
 #: ../../source/tor.rst:28
 msgid ""
 "If you choose the \"Try again without a bridge\" option, OnionShare will "
 "retry connecting to Tor like normal, without attempting to bypass censorship."
 msgstr ""
+"如果您选择“不使用网桥重试”选项，OnionShare 将像平常一样重试连接到 Tor，而不会"
+"尝试绕过审查。"
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -108,6 +110,12 @@ msgid ""
 "Censorship Circumvention API. The Meek proxy hides the fact that you are "
 "trying to find a way to connect to Tor."
 msgstr ""
+"另外两个选项将尝试使用 Tor 网桥自动规避审查。如果您的网络提供者阻止访问 Tor "
+"网络，您仍有希望连接到 Tor 网桥，然后它将把您连接到 Tor 网络，从而规避审查。"
+"这两个选项都使用 Tor Project 的审查规避 API 为您提供适合您的网桥设置。"
+"OnionShare 将暂时使用 `Meek <https://gitlab.torproject.org/legacy/trac/-/"
+"wikis/doc/meek/>`_ 域前置代理从您的计算机到 Tor 的审查规避 API 建立非 Tor 连"
+"接。Meek 代理掩盖了您正在尝试找到连接到 Tor 的方法的事实。"
 
 #: ../../source/tor.rst:36
 msgid ""
@@ -117,6 +125,9 @@ msgid ""
 "reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"如果您选择“根据我的 IP 地址自动确定我的国家/地区以进行网桥设置”，则审查规避 "
+"API 将考虑您的 IP 地址（是的，您的真实 IP 地址）来确定您可能居住在哪个国家/地"
+"区。根据国家/地区信息，API 将尝试自动查找适合您所在位置的网桥。"
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -124,10 +135,12 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"如果您选择“手动选择我的国家/地区进行网桥设置”，审查 API 将找到适合您指定国家/"
+"地区的网桥。"
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "自动规避审查的工作原理"
 
 #: ../../source/tor.rst:48
 msgid ""
@@ -136,6 +149,9 @@ msgid ""
 "does not find any bridges for your location, OnionShare will ask the API for "
 "\"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"如果“审查规避 API”找到它认为适合您的网桥，OnionShare 将尝试使用这些网桥重新连"
+"接到 Tor。如果 API 未找到您所在位置的任何网桥，OnionShare 将向 API 询问“后"
+"备”选项，然后尝试使用这些选项重新连接。"
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -143,6 +159,8 @@ msgid ""
 "or if the API returns an error message, OnionShare will attempt to use the "
 "obfs4 built-in bridges."
 msgstr ""
+"如果由于某种原因 OnionShare 无法连接到审查 API 本身，或者 API 返回错误消息，"
+"OnionShare 将尝试使用 obfs4 内置网桥。"
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -150,6 +168,8 @@ msgid ""
 "do not go over the Tor network (because if you could connect to Tor already, "
 "you wouldn't need to connect to the API)."
 msgstr ""
+"值得注意的是，对审查规避 API 的请求不会通过 Tor 网络（因为如果您已经可以连接"
+"到 Tor，则不需要连接到 API）。"
 
 #: ../../source/tor.rst:54
 msgid ""
@@ -159,6 +179,9 @@ msgid ""
 "to making one or two requests to the Censorship Circumvention API. Then Meek "
 "is stopped, and all further network requests happen over the Tor network."
 msgstr ""
+"尽管攻击者很难发现 Meek 请求的去向，但对于某些用户来说，这仍然可能存在风险。"
+"因此，这是一项可选功能。使用 Meek 和非 Tor 网络请求仅限于向审查规避 API 发出"
+"一两个请求。然后 Meek 被停止，所有进一步的网络请求都通过 Tor 网络进行。"
 
 #: ../../source/tor.rst:56
 msgid ""
@@ -168,10 +191,13 @@ msgid ""
 "appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"如果您不方便发出不通过 Tor 网络的请求，您可以单击“网络设置”（或右下角的“设"
+"置”图标，然后在出现的屏幕中单击“Tor 设置”标签页），然后手动配置网桥。保存任何"
+"网桥设置后，OnionShare 将尝试使用这些网桥重新连接。"
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "手动配置 Tor 设置"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -180,15 +206,17 @@ msgid ""
 "the application, and then switch to the Tor Settings tab in the screen that "
 "appears."
 msgstr ""
+"您可以通过单击欢迎屏幕上的“网络设置”进入 Tor 设置，或者单击应用程序右下角"
+"的“⚙”图标，然后在出现的屏幕中切换到 Tor 设置标签页。"
 
 #: ../../source/tor.rst:65
 msgid ""
 "Here are the different ways you can configure OnionShare to connect to Tor:"
-msgstr ""
+msgstr "以下是配置 OnionShare 连接到 Tor 的不同方法："
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "使用 OnionShare 内置的 Tor 版本"
 
 #: ../../source/tor.rst:70
 msgid ""
@@ -209,19 +237,23 @@ msgstr ""
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**使用网桥**"
 
 #: ../../source/tor.rst:78
 msgid ""
 "To use a bridge, you must select \"Use the Tor version built into "
 "OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
+"要使用网桥，您必须选择“使用 OnionShare 内置的 Tor 版本”并选中“使用网桥”复选"
+"框。"
 
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
 "recommended over using `meek-azure`."
 msgstr ""
+"首先尝试使用内置网桥。建议使用 `obfs4` 或 `snowflake` 网桥，而不是使用 `meek-"
+"azure`。"
 
 #: ../../source/tor.rst:84
 msgid ""
@@ -230,28 +262,29 @@ msgid ""
 "bridge. (This makes it more difficult for governments or ISPs to block "
 "access to Tor bridges.)"
 msgstr ""
+"如果使用内置网桥不起作用，您可以从 torproject.org 请求网桥。您必须解决验证码"
+"才能请求网桥。（这使得政府或 ISP 更难阻止对 Tor 网桥的访问。）"
 
 #: ../../source/tor.rst:88
 msgid ""
 "You also have the option of using a bridge that you learned about from a "
 "trusted source."
-msgstr ""
+msgstr "您还可以选择使用从可靠来源了解到的网桥。"
 
 #: ../../source/tor.rst:91
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr "图试自定配置 Tor 浏览器"
+msgstr "尝试使用 Tor 浏览器进行自动配置"
 
 #: ../../source/tor.rst:93
-#, fuzzy
 msgid ""
 "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ and "
 "don't want two ``tor`` processes running, you can use the ``tor`` process "
 "from the Tor Browser. Keep in mind you need to keep Tor Browser open in the "
 "background while you're using OnionShare for this to work."
 msgstr ""
-"如已下载 Tor 浏览器 <https://www.torproject.org>`_ 不想要在系统中运行两个 "
-"``tor`` 进程，可只用 Tor 浏览器的 ``tor`` 进程。但记住在使用 OnionShare 时，"
-"必须打开 Tor 浏览器，OnionShare 才能运作。"
+"如果您`已下载 Tor 浏览器 <https://www.torproject.org>`_ 并且不想运行两个 "
+"``tor`` 进程，则可以使用 Tor 浏览器中的 ``tor`` 进程。请记住，在使用 "
+"OnionShare 时，您需要在后台保持 Tor 浏览器打开，才能实现此功能。"
 
 #: ../../source/tor.rst:97
 msgid "Using a system ``tor`` in Windows"
@@ -264,21 +297,16 @@ msgid ""
 msgstr "这非常高端，需要会编辑纯文本文件与管理员工作权限。"
 
 #: ../../source/tor.rst:101
-#, fuzzy
-#| msgid ""
-#| "Download the Tor Windows Expert Bundle `from <https://www.torproject.org/"
-#| "download/tor/>`_. Extract the compressed file and copy the extracted "
-#| "folder to ``C:\\Program Files (x86)\\`` Rename the extracted folder with "
-#| "``Data`` and ``Tor`` in it to ``tor-win32``."
 msgid ""
 "Download the Tor Windows Expert Bundle `from the Tor website <https://www."
 "torproject.org/download/tor/>`_. Extract the compressed file and copy the "
 "extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted "
 "folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
-"从 <https://www.torproject.org/download/tor/>`_下载 Tor Windows 专家包 `，解"
-"压缩文件将其文件夹拷贝到``C:\\Program Files (x86)\\``底下， 将原文件夹名称为"
-"``Data`` and ``Tor`` 重命名为 ``tor-win32``。"
+"`从 Tor 网站 <https://www.torproject.org/zh-CN/download/tor/>`_ 下载适用于 "
+"Windows 的 Tor 专家包。解压缩文件并将解压缩的文件夹复制到 ``C:\\Program "
+"Files (x86)\\`` 中，将包含 ``Data`` 和 ``Tor`` 的解压缩文件夹重命名为 ``tor-"
+"win32``。"
 
 #: ../../source/tor.rst:105
 msgid ""
@@ -333,6 +361,11 @@ msgid ""
 "Connection to Tor\" button. If all goes well, you should see \"Connected to "
 "the Tor controller\"."
 msgstr ""
+"打开 OnionShare，点击其中的“⚙”图标，切换到 Tor 设置标签页。在“OnionShare 应如"
+"何连接到 Tor？”下，选择“使用控制端口连接”，并将“控制端口”设置为 "
+"``127.0.0.1``，将“端口”设置为 ``9051``。在“Tor 验证设置”下，选择“密码”，并将"
+"密码设置为您上面选择的控制端口密码。点击“测试与 Tor 的连接”按钮。如果一切顺"
+"利，您应该会看到“已连接到 Tor 控制器”。"
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
@@ -361,6 +394,10 @@ msgid ""
 "authentication, or cookie authentication\". Click the \"Test Connection to "
 "Tor\" button."
 msgstr ""
+"打开 OnionShare，点击其中的“⚙”图标，切换到 Tor 设置标签页。在“OnionShare 应如"
+"何连接到 Tor？”下选择“使用 Socket 文件连接”，并将 Socket 文件设置为 ``/usr/"
+"local/var/run/tor/control.socket``。在“Tor 验证设置”下选择“无验证或 Cookie 验"
+"证”。点击“测试与 Tor 的连接”按钮。"
 
 #: ../../source/tor.rst:157 ../../source/tor.rst:177
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
@@ -376,9 +413,9 @@ msgid ""
 "similar Linux distro, It is recommended to use the Tor Project's `official "
 "repository <https://support.torproject.org/apt/tor-deb-repo/>`_."
 msgstr ""
-"首先安装 ``tor``包。如果操作系统为 Debian, Ubuntu 或其它相似发行版，建议使用 "
-"Tor Project 官方代码保存库 <https://support.torproject.org/apt/tor-deb-repo/"
-">`_."
+"首先，安装 ``tor`` 软件包。如果您使用的是 Debian、Ubuntu 或类似的 Linux 发行"
+"版，建议使用 Tor Project 的`官方存储库 <https://support.torproject.org/apt/"
+"tor-deb-repo/>`_。"
 
 #: ../../source/tor.rst:164
 msgid ""
@@ -406,3 +443,7 @@ msgid ""
 "settings\" choose \"No authentication, or cookie authentication\". Click the "
 "\"Test Connection to Tor\" button."
 msgstr ""
+"重启您的电脑。重启后，打开 OnionShare，点击其中的“⚙”图标，切换到 Tor 设置标签"
+"页。在“OnionShare 应如何连接到 Tor？”下，选择“使用 Socket 文件连接”。将 "
+"Socket 文件设置为 ``/var/run/tor/control``。在“Tor 验证设置”下，选择“无验证"
+"或 Cookie 验证”。点击“测试与 Tor 的连接”按钮。"

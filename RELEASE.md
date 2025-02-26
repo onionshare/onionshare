@@ -74,10 +74,16 @@ Update the versions of `meek`, `obfs4proxy`, and `snowflake` in the `desktop/scr
 
 ### Make sure Snapcraft packaging works
 
+Ensure you have the ability to run `poetry export`. You may need to run `poetry self add poetry-plugin-export@latest`, as in recent versions of Poetry it is now a plugin rather than in the core.
+
+Enter the `cli` directory and run `poetry export > ../snap/local/cli-requirements.txt`
+
+Enter the `desktop` directory and run `poetry export > ../snap/local/desktop-requirements.txt`. Now edit this file and remove the first line that has a `-e` with a path to the `cli` folder - we don't want it.
+
 In `snap/snapcraft.yaml`:
 
+- [ ] Update the version number near the top of the file.
 - [ ] The `tor`, `libevent`, `obfs4`, `snowflake-client`, and `meek-client` parts should be updated if necessary
-- [ ] In the `onionshare` part, in the `override-pull` section, all of the dependencies in the `requirements.txt` file should match the dependencies listed in `cli/pyproject.toml` and `desktop/pyproject.toml`, with the exception of PySide2
 
 To test locally:
 
@@ -93,33 +99,30 @@ With every commit to the `main` branch, Snapcraft's CI should trigger builds. Ma
 
 In `flatpak/org.onionshare.OnionShare.yaml`:
 
-- [ ] Update `tor` and `libevent`
-- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies, if necessary using [this tool](https://github.com/micahflee/flatpak-builder-tools/tree/fix-go/go):
-  ```sh
-  cd flatpak-builder-tools/go
+- [ ] Update `tor` and `libevent` 
+- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies. To do this, edit the script `flatpak/generate-golang-dependencies.py` and make sure that the repository URLs and tags are the latest versions. Then run this command from the root of the onionshare repository folder:
 
-  # For each these, incorporate the output into the Flatpak manifest
-  # Make sure to update the version numbers
-  ./flatpak-go-deps.py gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git/meek-client@v0.38.0
-  ./flatpak-go-deps.py gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git/client@v2.6.0
-  ./flatpak-go-deps.py gitlab.com/yawning/obfs4.git/obfs4proxy@obfs4proxy-0.0.14
+  ```sh
+  ./flatpak/generate-golang-dependencies.py
   ```
-  Merge the output of each of these commands into the Flatpak manifest.
-- [ ] Update the Python dependencies using [this tool](https://github.com/flatpak/flatpak-builder-tools/blob/master/pip/flatpak-pip-generator) along with `flatpak/poetry-to-requirements.py`:
-  ```sh
-  cd flatpak-build-tools/pip
 
+- [ ] Update the Python dependencies. This is super hacky. You need to use both the poetry and pip parts of [this tool](https://github.com/flatpak/flatpak-builder-tools), but the version from [this PR](https://github.com/flatpak/flatpak-builder-tools/pull/353):
+  ```sh
   # get onionshare-cli dependencies
-  ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/cli/pyproject.toml)
-  ../flatpak-json2yaml.py ./python3-modules.json
-  mv python3-modules.yml onionshare-cli.yaml
+  cd flatpak-build-tools/poetry
+  ./flatpak-poetry-generator.py ../../onionshare/cli/poetry.lock --production
+  ../flatpak-json2yaml.py ./generated-poetry-sources.json
+  mv generated-poetry-sources.yml onionshare-cli.yaml
 
   # get onionshare dependencies
+  cd flatpak-build-tools/pip
   ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/desktop/pyproject.toml | grep -v PySide6)
   ../flatpak-json2yaml.py ./python3-modules.json
   mv python3-modules.yml onionshare-desktop.yaml
   ```
-  Now, merge `onionshare-desktop.yaml` and `onionshare-cli.yaml` into the Flatpak manifest.
+
+  Now, move `onionshare-desktop.yaml` and `onionshare-cli.yaml` into the `flatpak/` folder. For the `onionshare-cli.yaml` file, adjust the `pip3 install` step so that it includes the `--use-pep517` argument.
+
 - [ ] Build and test the Flatpak package to ensure it works:
   ```sh
   flatpak-builder build --force-clean --jobs=$(nproc) --install-deps-from=flathub --install --user flatpak/org.onionshare.OnionShare.yaml
@@ -156,6 +159,7 @@ From https://snapcraft.io/onionshare/releases (you must be logged in), promote t
 - [ ] Create a new branch in https://github.com/flathub/org.onionshare.OnionShare for the version
 - [ ] Overwrite the manifest in the flathub repo with the updated version in [flatpak/org.onionshare.OnionShare.yaml](./flatpak/org.onionshare.OnionShare.yaml)
 - [ ] Edit it so that the sources for `onionshare` and `onionshare-cli` are the GitHub repo, with the correct git tag, rather than the local filesystem
+- [ ] Ensure you also copy across the `onionshare-cli.yaml`, `onionshare-desktop.yaml`, `meek-client`, `snowflake` and `obfs4proxy` from the `flatpak/` folder into the flathub repository, so that the flathub repository has all the latest dependencies.
 - [ ] Make a PR in the flathub repo, and merge it to make a release
 
 ### Windows release

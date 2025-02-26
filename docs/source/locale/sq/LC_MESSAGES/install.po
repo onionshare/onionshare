@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2023-11-04 23:32+0000\n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"PO-Revision-Date: 2025-02-17 07:32+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: none\n"
 "Language: sq\n"
@@ -16,60 +16,66 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 5.10\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
-msgstr ""
+msgstr "Instalim"
 
 #: ../../source/install.rst:5
 msgid "Windows or macOS"
-msgstr ""
+msgstr "Windows ose macOS"
 
 #: ../../source/install.rst:7
 msgid ""
 "You can download OnionShare for Windows and macOS from the `OnionShare "
 "website <https://onionshare.org/>`_."
 msgstr ""
+"OnionShare për Windows dhe macOS mund t’i shkarkoni që nga `sajti OnionShare "
+"<https://onionshare.org/>`_."
 
 #: ../../source/install.rst:12
 msgid "Mobile"
-msgstr ""
+msgstr "Celular"
 
 #: ../../source/install.rst:14
 msgid "You can download OnionShare for Mobile from the follow links"
-msgstr ""
+msgstr "OnionShare për Celular mund të shkarkoni nga lidhjet vijuese"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
 "Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
 "android"
 msgstr ""
+"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
+"android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
-msgstr ""
+msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #: ../../source/install.rst:21
 msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
-msgstr ""
+msgstr "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
 
 #: ../../source/install.rst:22
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"Shkarkim i drejtpërdrejtë IPA: https://github.com/onionshare/onionshare-ios/"
+"releases"
 
 #: ../../source/install.rst:23
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "Testflight: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
@@ -82,6 +88,11 @@ msgid ""
 "<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
+"Ka rrugë të ndryshme për të instaluar OnionShare për Linux, por rruga e "
+"rekomanduar është ose për përdoret paketa `Flatpak <https://flatpak.org/>`_, "
+"ose `Snap <https://snapcraft.io/>`_. Flatpak-u dhe Snapcraft-i garantojnë se "
+"keni përherë versionin më të ri dhe e xhironi OnionShare-in brenda një "
+"bankëprove."
 
 #: ../../source/install.rst:32
 msgid ""
@@ -89,26 +100,35 @@ msgid ""
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
+"Snapcraft-i mbulohet së brendshmi në Ubuntu dhe Fedora vjen me mbulim të "
+"Flatpak-ut, por cili të përdoret e keni ju në dorë. Që të dy funksionojë në "
+"krejt shpërndarjet Linux."
 
 #: ../../source/install.rst:34
 msgid ""
 "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
 "onionshare.OnionShare"
 msgstr ""
+"**Instaloni OnionShare-in duke përdorur Flatpak-un**: https://flathub.org/"
+"apps/details/org.onionshare.OnionShare"
 
 #: ../../source/install.rst:36
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
+"**Instaloni OnionShare-in duke përdorur Snapcraft-in**: https://snapcraft.io/"
+"onionshare"
 
 #: ../../source/install.rst:38
 msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"Mundeni edhe të shkarkoni dhe instaloni paketa ``.flatpak`` apo ``.snap`` të "
+"nënshkruara me PGP që nga https://onionshare.org/dist/, nëse doni."
 
 #: ../../source/install.rst:41
 msgid "Manual Flatpak Installation"
-msgstr ""
+msgstr "Instalim Flatpak dorazi"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -116,11 +136,15 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
+"Nëse doni ta instaloni dorazi OnionShare-in me Flatpak duke përdorur `paketë "
+"njëkartelëshe <https://docs.flatpak.org/en/latest/single-file-bundles."
+"html>`_ të nënshkruar me PGP, këtë mund ta bëni kështu:"
 
 #: ../../source/install.rst:45
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
+"Instaloni Flatpak-un duke ndjekur udhëzimet te https://flatpak.org/setup/."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -129,18 +153,26 @@ msgid ""
 "won't be downloading OnionShare from Flathub, OnionShare depends on some "
 "packages that are only available there."
 msgstr ""
+"Shtoni depon Flathub, duke ekzekutuar ``flatpak remote-add --if-not-exists "
+"flathub https://flathub.org/repo/flathub.flatpakrepo``. Edhe pse s’do ta "
+"shkarkoni OnionShare-in prej Flathub-i, OnionShare nga disa paketa që mund "
+"të kihen vetëm prej andej."
 
 #: ../../source/install.rst:47
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
+"Shkoni te https://onionshare.org/dist/, zgjidhni versionin më të ri të "
+"OnionShare-it dhe shkarkoni kartelat ``.flatpak`` dhe ``.flatpak.asc``."
 
 #: ../../source/install.rst:48
 msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Verifikoni nënshkrimin PGP të kartelës ``.flatpak``. Për më tepër hollësi, "
+"shihni :ref:`verifying_sigs`."
 
 #: ../../source/install.rst:49
 msgid ""
@@ -148,38 +180,51 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
+"Instaloni kartelën ``.flatpak`` duke kryer ``flatpak install OnionShare-"
+"VERSION.flatpak``. Zëvendësoni ``VERSION`` me numrin e versionit të kartelës "
+"që shkarkuat."
 
 #: ../../source/install.rst:51
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
 msgstr ""
+"OnionShare-in mund ta vini në funksionim përmes: `flatpak run org.onionshare."
+"OnionShare`."
 
 #: ../../source/install.rst:54
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "Instalim Snapcraft dorazi"
 
 #: ../../source/install.rst:56
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
+"Nëse doni ta instaloni OnionShare-in dorazi me Snapcraft duke përdorur "
+"paketën Snapcraft të nënshkruar me PGP, këtë mund ta bëni kështu:"
 
 #: ../../source/install.rst:58
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
+"Instaloni Snapcraft-in duke ndjekur udhëzimet te https://snapcraft.io/docs/"
+"installing-snapd."
 
 #: ../../source/install.rst:59
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
+"Shkoni te https://onionshare.org/dist/, zgjidhni versionin më të ri të "
+"OnionShare-it dhe shkarkoni kartelat ``.snap`` dhe ``.snap.asc``."
 
 #: ../../source/install.rst:60
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Verifikoni nënshkrimin PGP të kartelës ``.snap``. Për më tepër hollësi, "
+"shihni :ref:`verifying_sigs`."
 
 #: ../../source/install.rst:61
 msgid ""
@@ -189,24 +234,32 @@ msgid ""
 "package is not signed by the Snapcraft store, however you did verify its PGP "
 "signature, so you know it's legitimate."
 msgstr ""
+"Instaloni kartelën ``.snap`` duke ekzekutuar ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Zëvendësoni ``VERSION`` me numrin e "
+"versionit të kartelës që shkarkuat. Kini parasysh se duhet të përdorni `--"
+"dangerous`, ngaqë paketa s’është nënshkruar nga shitorja Snapcraft, po ju "
+"verifikuar nënshkrimin e saj PGP, pra e dini se është e ligjshme."
 
 #: ../../source/install.rst:63
 msgid "You can run OnionShare with: `snap run onionshare`."
-msgstr ""
+msgstr "OnionShare-in mund ta vini në punë me: `snap run onionshare`."
 
 #: ../../source/install.rst:68
 msgid "Command-line only"
-msgstr ""
+msgstr "Vetëm për rresht urdhrash"
 
 #: ../../source/install.rst:70
 msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
+"Mundeni të instaloni thjesht versionin “rresht urdhrash” të OnionShare-it në "
+"çfarëdo sistemi operativ, duke përdorur përgjegjësin e paketave Python, "
+"``pip``. :ref:`cli` ka më tepër informacion."
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #: ../../source/install.rst:77
 msgid ""
@@ -216,6 +269,12 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
+"Edhe pse nuk zhvillohet zyrtarisht për këtë platformë, OnionShare mund të "
+"instalohet në `FreeBSD <https://freebsd.org/>`_. Mund të kihet përmes "
+"koleksionit të bartjeve, ose si paketë e montuar paraprakisht. Nëse vendosni "
+"ta instaloni dhe përdorni OnionShare-in në një sistem operativ FreeBSD, ju "
+"lutemi, mbani parasysh se **NUK** mbulohet zyrtarisht nga projekti "
+"OnionShare."
 
 #: ../../source/install.rst:79
 msgid ""
@@ -226,18 +285,24 @@ msgid ""
 "you wish to check changes related to this platform, please refer to the "
 "following resources:"
 msgstr ""
+"Edhe pse nuk ofrohet dhe mirëmbahet zyrtarisht nga zhvilluesit e OnionShare-"
+"it, paketa dhe bartjet FreeBSD sjellin dhe verifikojnë kodet burim prej "
+"depos zyrtare OnionShare (ose paketat zyrtare të hedhjeve në qarkullim nga "
+"`PyPI <https://pypi.org/project/onionshare-cli/>`_). Nëse doni të "
+"kontrolloni ndryshime të lidhura me këtë platformë, ju lutemi, shihni "
+"burimet vijuese:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
-msgstr ""
+msgstr "https://cgit.freebsd.org/ports/log/www/onionshare"
 
 #: ../../source/install.rst:82
 msgid "https://www.freshports.org/www/onionshare"
-msgstr ""
+msgstr "https://www.freshports.org/www/onionshare"
 
 #: ../../source/install.rst:85
 msgid "Manual pkg Installation"
-msgstr ""
+msgstr "Instalim pkg dorazi"
 
 #: ../../source/install.rst:87
 msgid ""
@@ -245,6 +310,9 @@ msgid ""
 "``pyXY`` specifying the version of Python the package was built for. So, in "
 "order to install OnionShare for Python 3.9, use::"
 msgstr ""
+"Që të instaloni paketën dyore, përdorni ``pkg install pyXY-onionshare``, ku "
+"``pyXY`` specifikon versionin Python për të cilin qe montuar paketa. Pra, "
+"për të instaluar OnionShare për Python 3.9, përdorni::"
 
 #: ../../source/install.rst:91
 msgid ""
@@ -252,6 +320,9 @@ msgid ""
 "built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
 "want to install that version."
 msgstr ""
+"Ka gjithashtu një version **Vetëm për rresht urdhrash** të OnionShare-it, si "
+"paketë e paramontuar. Nëse doni të instaloni atë version, zëvendësoni ``py39-"
+"onionshare`` me ``py39-onionshare-cli``."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -259,10 +330,13 @@ msgid ""
 "please refer to its `official Handbook section about pkg <https://docs."
 "freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
+"Për informacion shtesë dhe hollësi rreth paketave të paramontuara FreeBSD, "
+"ju lutemi, shihni `te ndarja për pkg te Doracaku zyrtar <https://docs."
+"freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 
 #: ../../source/install.rst:96
 msgid "Manual port Installation"
-msgstr ""
+msgstr "Instalim bartjeje dorazi"
 
 #: ../../source/install.rst:98
 msgid ""
@@ -270,6 +344,9 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
+"Për të instaluar një bartje FreeBSD, ndryshoni drejtorinë në `ports "
+"collection <https://freebsd.org/ports/>`_ që duhet ta keni shkarkuar më parë "
+"dhe ekzekutoni sa vijon::"
 
 #: ../../source/install.rst:102
 msgid ""
@@ -277,6 +354,9 @@ msgid ""
 "only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
 "cli`` if you want to install that version."
 msgstr ""
+"Koleksioni i bartjeve ofron gjithashtu një bartje enkas për versionin "
+"**Vetëm rresht urdhrash** të OnionShare-it. Zëvendësoni ``www/onionshare`` "
+"me ``www/onionshare-cli``, nëse doni të instaloni atë version."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -284,10 +364,13 @@ msgid ""
 "please refer to its `official Handbook section about ports <https://docs."
 "freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
+"Për informacion dhe hollësi shtesë rreth koleksionit të bartjeve FreeBSD, ju "
+"lutemi, shihni `pjesën për bartje, te Doracaku zyrtar <https://docs.freebsd."
+"org/en/books/handbook/ports/#ports-using>`_."
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
-msgstr ""
+msgstr "Verifikim nënshkrimesh PGP"
 
 #: ../../source/install.rst:111
 msgid ""
@@ -297,26 +380,35 @@ msgid ""
 "include operating system-specific signatures, and you can just rely on those "
 "alone if you'd like."
 msgstr ""
+"Se paketa që shkarkoni është e ligjshme dhe s’është prekur mund ta "
+"verifikoni duke verifikuar nënshkrimin PGP për të. Për Windows dhe macOS, ky "
+"hap është opsional dhe jep mbrojtje të thelluar: dyorët OnionShare përmbajnë "
+"nënshkrime specifike për sistemin dhe mund të bazoheni thjesht në këto, nëse "
+"do të donit."
 
 #: ../../source/install.rst:115
 msgid "Signing key"
-msgstr ""
+msgstr "Kyç nënshkrimesh"
 
 #: ../../source/install.rst:117
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
+"Paketat nënshkruhen nga zhvilluesi kryesor, i cili është përgjegjës për "
+"hedhjen përkatëse në qarkullim. Ja hollësi kyçesh GPG për secilin nga "
+"zhvilluesit kryesorë të OnionShare-it:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
-msgstr ""
+msgstr "Micah Lee:"
 
 #: ../../source/install.rst:121
 msgid ""
 "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 msgstr ""
+"Shenja gishtash kyçi publik PGP ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
 msgid ""
@@ -324,15 +416,19 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
+"Kyçin e Mikas mund ta shkarkoni `që nga shërbyesi keys.openpgp.org i kyçeve "
+"<https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
-msgstr ""
+msgstr "Saptak Sengupta:"
 
 #: ../../source/install.rst:125
 msgid ""
 "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 msgstr ""
+"Shenja gishtash kyçi publik PGP ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
 msgid ""
@@ -340,76 +436,119 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
+"Kyçin e Saptakut mund ta shkarkoni `që nga shërbyesi keys.openpgp.org i "
+"kyçeve <https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
+msgid "Miguel Jacq:"
+msgstr "Miguel Jacq:"
+
+#: ../../source/install.rst:129
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+"Shenja gishtash kyçi publik PGP ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+
+#: ../../source/install.rst:130
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"Kyçin e Migelit mund ta shkarkoni që nga shërbyesi i kyçeve keys.openpgp.org "
+"<https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
 "`Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
+"Që të verifikoni nënshkrime, duhet të keni të instaluar GnuPG-në. Për macOS "
+"gjasat janë t’ju duhet `GPGTools <https://gpgtools.org/>`_, ndërsa për "
+"Windows me gjasa ju duhet `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
-msgstr ""
+msgstr "Nënshkrime"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
 "`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
+"Nënshkrimet (asi kartela ``.asc``), si dhe paketa për Windows, macOS, "
+"Flatpak, Snap dhe paketa burim mund të gjeni te https://onionshare.org/"
+"dist/ , në dosjet e emërtuara për çdo version të OnionShare-it. Mund t’i "
+"gjeni edhe në `faqen GitHub të Hedhjeve Në Qarkullim <https://github.com/"
+"onionshare/onionshare/releases>`_."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
-msgstr ""
+msgstr "Po verifikohet"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
-
-#: ../../source/install.rst:141
-msgid "For Windows::"
-msgstr ""
+"Pasi të keni importuar në vargun tuaj të kyçeve GnuPG kyçet publikë të "
+"zhvilluesve bazë, shkarkuar dyorin dhe nënshkrimin ``.asc``, mund të "
+"verifikoni dyorin në një terminal, në këtë mënyrë:"
 
 #: ../../source/install.rst:145
-msgid "For macOS::"
-msgstr ""
+msgid "For Windows::"
+msgstr "Për Windows::"
 
 #: ../../source/install.rst:149
-#, fuzzy
-msgid "For Linux::"
-msgstr "Linux"
+msgid "For macOS::"
+msgstr "Për macOS::"
 
-#: ../../source/install.rst:155
-msgid "and for the source file::"
-msgstr ""
+#: ../../source/install.rst:153
+msgid "For Linux::"
+msgstr "Për Linux::"
 
 #: ../../source/install.rst:159
-msgid "The expected output looks like this::"
-msgstr ""
+msgid "and for the source file::"
+msgstr "dhe për kartela burim::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:163
+msgid "The expected output looks like this::"
+msgstr "Ajo çka pritet duket pak a shumë kështu::"
+
+#: ../../source/install.rst:173
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
 "the package."
 msgstr ""
+"Nëse s’shihni ``Good signature from``, mund të ketë një problem me "
+"pacenueshmërinë e kartelës (dashakeqe ose jo) dhe s’duhet ta instaloni "
+"paketën."
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
+"``WARNING:`` i shfaqur më sipër s’është problem me paketën, thjesht do të "
+"thotë se s’keni përcaktuar një shkallë “besimi”” për kyçin PGP të Mikas "
+"(zhvilluesi kryesor)."
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
 "the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/"
 ">`_ may be useful."
 msgstr ""
+"Nëse doni të mësoni më tepër rreth verifikimit të nënshkrimeve PGP, mund të "
+"jenë të dobishëm udhërrëfyesit për `Qubes OS <https://www.qubes-os.org/"
+"security/verifying-signatures/>`_ dhe `Projektin Tor <https://support."
+"torproject.org/tbb/how-to-verify-signature/>`_ ."

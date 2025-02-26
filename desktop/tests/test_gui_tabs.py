@@ -132,7 +132,7 @@ class TestTabs(GuiBaseTest):
         self.assertFalse(self.gui.tabs.widget(1).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(1).share_mode.isVisible())
         self.assertEqual(
-            self.gui.status_bar.server_status_label.text(), "Ready to share"
+            self.gui.status_bar.server_status_label.text(), "Stopped"
         )
 
         # New tab, receive files
@@ -141,7 +141,7 @@ class TestTabs(GuiBaseTest):
         self.assertFalse(self.gui.tabs.widget(2).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(2).receive_mode.isVisible())
         self.assertEqual(
-            self.gui.status_bar.server_status_label.text(), "Ready to receive"
+            self.gui.status_bar.server_status_label.text(), "Stopped"
         )
 
         # New tab, publish website
@@ -150,7 +150,7 @@ class TestTabs(GuiBaseTest):
         self.assertFalse(self.gui.tabs.widget(3).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(3).website_mode.isVisible())
         self.assertEqual(
-            self.gui.status_bar.server_status_label.text(), "Ready to share"
+            self.gui.status_bar.server_status_label.text(), "Stopped"
         )
 
         # New tab, chat mode
@@ -159,7 +159,7 @@ class TestTabs(GuiBaseTest):
         self.assertFalse(self.gui.tabs.widget(4).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(4).chat_mode.isVisible())
         self.assertEqual(
-            self.gui.status_bar.server_status_label.text(), "Ready to chat"
+            self.gui.status_bar.server_status_label.text(), "Stopped"
         )
 
         # Close tabs

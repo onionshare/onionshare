@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
-"PO-Revision-Date: 2024-04-17 14:03+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"PO-Revision-Date: 2025-02-14 00:02+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.10-rc\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -44,7 +44,7 @@ msgstr "Для мобільного"
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr "Ви можете завантажити OnionShare для мобільного за цими посиланнями"
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "Android"
 
@@ -60,7 +60,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr "iOS"
 
@@ -271,6 +271,11 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
+"Хоча OnionShare офіційно не розроблено для цієї платформи, його також можна "
+"встановити на `FreeBSD <https://freebsd.org/>`_. Він доступний через "
+"портовану збірку або у вигляді готового пакунка. Якщо ви вирішите встановити "
+"й використовувати OnionShare на операційній системі FreeBSD зауважте, що "
+"вона офіційно **НЕ** підтримується проєктом OnionShare."
 
 #: ../../source/install.rst:79
 msgid ""
@@ -281,6 +286,11 @@ msgid ""
 "you wish to check changes related to this platform, please refer to the "
 "following resources:"
 msgstr ""
+"Хоча розробники OnionShare не пропонують і офіційно не підтримують пакунки "
+"та порти FreeBSD, вони отримують і перевіряють код з офіційного репозиторію "
+"OnionShare (або його офіційних випусків пакунків з `PyPI <https://pypi.org/"
+"project/onionshare-cli/>`_). Якщо ви захочете перевірити зміни, пов'язані з "
+"цією платформою зверніться до таких ресурсів:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
@@ -300,6 +310,9 @@ msgid ""
 "``pyXY`` specifying the version of Python the package was built for. So, in "
 "order to install OnionShare for Python 3.9, use::"
 msgstr ""
+"Щоб установити двійковий пакунок, використовуйте ``pkg install pyXY-"
+"onionshare``, де ``pyXY`` вказує на версію Python, для якої було зібрано "
+"пакунок. Отже, щоб встановити OnionShare для Python 3.9, використовуйте::"
 
 #: ../../source/install.rst:91
 msgid ""
@@ -307,6 +320,9 @@ msgid ""
 "built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
 "want to install that version."
 msgstr ""
+"Існує також версія OnionShare **тільки для командного рядка**, яка доступна "
+"у вигляді попередньо зібраного пакунка. Замініть ``py39-onionshare`` на "
+"``py39-onionshare-cli``, якщо ви хочете встановити цю версію."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -314,6 +330,9 @@ msgid ""
 "please refer to its `official Handbook section about pkg <https://docs."
 "freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
+"Додаткову інформацію та подробиці про попередньо зібрані пакунки FreeBSD "
+"можна знайти у розділі `official Handbook про pkg <https://docs.freebsd.org/"
+"en/books/handbook/ports/#pkgng-intro>`_."
 
 #: ../../source/install.rst:96
 msgid "Manual port Installation"
@@ -325,6 +344,9 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
+"Щоб установити порт FreeBSD, змініть каталог на `ports collection <https://"
+"freebsd.org/ports/>`_, з якого ви повинні були вийти раніше, і запустіть "
+"команду::"
 
 #: ../../source/install.rst:102
 msgid ""
@@ -332,6 +354,9 @@ msgid ""
 "only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
 "cli`` if you want to install that version."
 msgstr ""
+"У збірці портів також є спеціальний порт для версії OnionShare **Тільки для "
+"командного рядка**. Замініть ``www/onionshare`` на ``www/onionshare-cli``, "
+"якщо ви хочете встановити цю версію."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -339,6 +364,9 @@ msgid ""
 "please refer to its `official Handbook section about ports <https://docs."
 "freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
+"Додаткову інформацію про збірку портів FreeBSD можна знайти у розділі "
+"`офіційного довідника про порти <https://docs.freebsd.org/en/books/handbook/"
+"ports/#ports-using>`_."
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
@@ -365,11 +393,14 @@ msgstr "Ключ підпису"
 #: ../../source/install.rst:117
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
+"Пакунки підписуються основним розробником, який відповідає за конкретний "
+"випуск. Ось ключова інформація GPG для кожного з основних розробників "
+"OnionShare:"
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr "Micah Lee:"
 
@@ -386,10 +417,10 @@ msgid ""
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
 "Ви можете завантажити ключ Micah `із сервера ключів keys.openpgp.org "
-"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"<https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr "Saptak Sengupta:"
 
@@ -406,10 +437,30 @@ msgid ""
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
 "Ви можете завантажити ключ Saptak `із сервера ключів keys.openpgp.org "
-"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
-"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+"<https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
+msgid "Miguel Jacq:"
+msgstr "Miguel Jacq:"
+
+#: ../../source/install.rst:129
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+"Відбиток відкритого ключа PGP ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+
+#: ../../source/install.rst:130
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"Ви можете завантажити ключ Miguel `із сервера ключів keys.openpgp.org "
+"<https://keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -419,11 +470,11 @@ msgstr ""
 "захочете `GPGTools <https://gpgtools.org/>`_, а для Windows ви, ймовірно, "
 "захочете `Gpg4win <https://www.gpg4win.org/>`_."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "Підписи"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
@@ -436,41 +487,41 @@ msgstr ""
 "`сторінці випусків GitHub <https://github.com/micahflee/onionshare/"
 "releases>`_."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Перевірка"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
 "Після імпорту відкритих ключів основних розробників імпортовано до вашої "
-"збірки ключів GnuPG, завантажено двійковий файл і завантажено підпис ``.asc``"
-", ви можете перевірити двійковий файл у терміналі в такий спосіб:"
+"збірки ключів GnuPG, завантажено двійковий файл і завантажено підпис ``."
+"asc``, ви можете перевірити двійковий файл у терміналі в такий спосіб:"
 
-#: ../../source/install.rst:141
+#: ../../source/install.rst:145
 msgid "For Windows::"
 msgstr "Для Windows::"
 
-#: ../../source/install.rst:145
+#: ../../source/install.rst:149
 msgid "For macOS::"
 msgstr "Для macOS::"
 
-#: ../../source/install.rst:149
+#: ../../source/install.rst:153
 msgid "For Linux::"
 msgstr "Для Linux::"
 
-#: ../../source/install.rst:155
+#: ../../source/install.rst:159
 msgid "and for the source file::"
 msgstr "і для початкового файлу::"
 
-#: ../../source/install.rst:159
+#: ../../source/install.rst:163
 msgid "The expected output looks like this::"
 msgstr "Очікуваний результат може виглядати так::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:173
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
@@ -480,7 +531,7 @@ msgstr ""
 "цілісністю файлу (зловмисна чи інша), і, можливо, вам не слід установлювати "
 "пакунок."
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
@@ -490,7 +541,7 @@ msgstr ""
 "ви не визначили рівень «довіри» до самого ключа PGP від Micah (основного "
 "розробника)."
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "

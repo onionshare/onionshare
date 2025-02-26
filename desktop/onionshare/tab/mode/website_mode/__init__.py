@@ -157,9 +157,9 @@ class WebsiteMode(Mode):
             self.common,
             self,
             self.history,
-            QtGui.QIcon(GuiCommon.get_resource_path("images/share_icon_toggle.png")),
+            QtGui.QIcon(GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_icon_toggle.svg")),
             QtGui.QIcon(
-                GuiCommon.get_resource_path("images/share_icon_toggle_selected.png")
+                GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_icon_toggle_selected.svg")
             ),
         )
 

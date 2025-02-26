@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
 "PO-Revision-Date: 2022-01-23 09:55+0000\n"
 "Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
 "Language-Team: el <LL@li.org>\n"
@@ -16,8 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.11-dev\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.14.0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -114,7 +113,7 @@ msgstr ""
 "αρχείων, μεταφέρετε και αποθέστε αρχεία και φακέλους που θέλετε να "
 "μοιραστείτε και κάντε κλικ στην επιλογή \"Εκκίνηση διαμοιρασμού\"."
 
-#: ../../source/features.rst:35 ../../source/features.rst:112
+#: ../../source/features.rst:35 ../../source/features.rst:117
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
@@ -354,10 +353,22 @@ msgstr ""
 "Επίσης μπορείτε να προσθέσετε το δικό σας τίτλο (δείτε :ref:`custom_titles`)."
 
 #: ../../source/features.rst:102
+msgid "Other caveats to be aware of in Receive Mode"
+msgstr ""
+
+#: ../../source/features.rst:104
+msgid ""
+"There are reports that OnionBrowser on iOS devices are unable to upload "
+"files to an OnionShare in Receive Mode, when operating in 'Silver' security "
+"mode. Try Bronze or Gold to see if you are able to upload a message or a "
+"file."
+msgstr ""
+
+#: ../../source/features.rst:107
 msgid "Host a Website"
 msgstr "Φιλοξενήστε μια ιστοσελίδα"
 
-#: ../../source/features.rst:104
+#: ../../source/features.rst:109
 msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag the "
 "files and folders that make up the static content there, and click \"Start "
@@ -368,7 +379,7 @@ msgstr ""
 "στατικό περιεχόμενο και κάντε κλικ στο \"Εκκίνηση διαμοιρασμού\" όταν είστε "
 "έτοιμοι."
 
-#: ../../source/features.rst:108
+#: ../../source/features.rst:113
 msgid ""
 "If you add an ``index.html`` file, it will render when someone loads your "
 "website. You should also include any other HTML files, CSS files, JavaScript "
@@ -384,7 +395,7 @@ msgstr ""
 "χρησιμοποιούν βάσεις δεδομένων. Επομένως, δεν μπορείτε, για παράδειγμα, να "
 "χρησιμοποιήσετε το WordPress.)"
 
-#: ../../source/features.rst:110
+#: ../../source/features.rst:115
 msgid ""
 "If you don't have an ``index.html`` file, it will show a directory listing "
 "instead, and people loading it can look through the files and download them."
@@ -392,11 +403,11 @@ msgstr ""
 "Εάν δεν διαθέτετε αρχείο ``index.html``, θα εμφανιστεί μια λίστα καταλόγου "
 "οπού θα μπορεί να γίνει η λήψη του."
 
-#: ../../source/features.rst:117
+#: ../../source/features.rst:122
 msgid "Content Security Policy"
 msgstr "Πολιτική ασφάλειας περιεχομένου"
 
-#: ../../source/features.rst:119
+#: ../../source/features.rst:124
 msgid ""
 "By default OnionShare helps secure your website by setting a strict `Content "
 "Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ "
@@ -408,7 +419,7 @@ msgstr ""
 "wikipedia.org/wiki/Content_Security_Policy>`_. Ωστόσο, αυτό εμποδίζει τη "
 "φόρτωση περιεχομένου τρίτων εντός της ιστοσελίδας."
 
-#: ../../source/features.rst:121
+#: ../../source/features.rst:126
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
@@ -416,7 +427,7 @@ msgstr ""
 "Εάν θέλετε να φορτώσετε περιεχόμενο από άλλους ιστότοπους, όπως στοιχεία ή "
 "βιβλιοθήκες JavaScript από CDNs, έχετε δύο επιλογές:"
 
-#: ../../source/features.rst:123
+#: ../../source/features.rst:128
 msgid ""
 "You can disable sending a Content Security Policy header by checking the "
 "\"Don't send Content Security Policy header (allows your website to use "
@@ -427,16 +438,16 @@ msgstr ""
 "Πολιτικής Ασφάλειας Περιεχομένου (επιτρέπει στον ιστότοπό σας να "
 "χρησιμοποιεί πόρους τρίτων)\" πριν από την εκκίνηση της υπηρεσίας."
 
-#: ../../source/features.rst:124
+#: ../../source/features.rst:129
 msgid "You can send a custom Content Security Policy header."
 msgstr ""
 "Μπορείτε να στείλετε προσαρμοσμένο κείμενο Πολιτικής Ασφάλειας Περιεχομένου."
 
-#: ../../source/features.rst:127
+#: ../../source/features.rst:132
 msgid "Tips for running a website service"
 msgstr "Συμβουλές για εκτέλεση μιας υπηρεσίας ιστοσελίδας"
 
-#: ../../source/features.rst:129
+#: ../../source/features.rst:134
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not just "
 "to quickly show someone something), it's recommended you do it on a "
@@ -452,7 +463,7 @@ msgstr ""
 "βάση. Αποθηκεύστε την καρτέλα (δείτε: :ref:`save_tabs`) ώστε να μπορείτε να "
 "ξανανοίξετε την ίδια διεύθυνση εάν κλείσετε το OnionShare."
 
-#: ../../source/features.rst:132
+#: ../../source/features.rst:137
 msgid ""
 "If your website is intended for the public, you should run it as a public "
 "service (see :ref:`turn_off_private_key`)."
@@ -460,11 +471,11 @@ msgstr ""
 "Εάν η ιστοσελίδα σας προορίζεται για δημόσια χρήση, πρέπει να δηλωθεί ως "
 "δημόσια υπηρεσία (δείτε :ref:`turn_off_private_key`)."
 
-#: ../../source/features.rst:135
+#: ../../source/features.rst:140
 msgid "Chat Anonymously"
 msgstr "Συνομιλήστε ανώνυμα"
 
-#: ../../source/features.rst:137
+#: ../../source/features.rst:142
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't "
 "log anything. Just open a chat tab and click \"Start chat server\"."
@@ -473,7 +484,7 @@ msgstr ""
 "συνομιλίας που δεν καταγράφει τίποτα. Απλά ανοίξτε μια καρτέλα συνομιλίας "
 "και κάντε κλικ \"Έναρξη διακομιστή συνομιλίας\"."
 
-#: ../../source/features.rst:141
+#: ../../source/features.rst:146
 msgid ""
 "After you start the server, copy the OnionShare address and private key and "
 "send them to the people you want in the anonymous chat room. If it's "
@@ -485,7 +496,7 @@ msgstr ""
 "είναι σημαντικό να περιορίσετε ποιος μπορεί να συμμετάσχει, χρησιμοποιήστε "
 "μια εφαρμογή ανταλλαγής μηνυμάτων με κρυπτογράφηση."
 
-#: ../../source/features.rst:146
+#: ../../source/features.rst:151
 msgid ""
 "People can join the chat room by loading its OnionShare address in Tor "
 "Browser. The chat room requires JavasScript, so everyone who wants to "
@@ -497,7 +508,7 @@ msgstr ""
 "χρήση JavaScript, έτσι οι συμμετέχοντες θα πρέπει να ρυθμίσουν την ασφάλεια "
 "του Tor Browser σε \"Βασικό\" ή \"Ασφαλέστερο\" και όχι σε \"Ασφαλέστατο\"."
 
-#: ../../source/features.rst:149
+#: ../../source/features.rst:154
 msgid ""
 "When someone joins the chat room they get assigned a random name. They can "
 "change their name by typing a new name in the box in the left panel and "
@@ -509,7 +520,7 @@ msgstr ""
 "πατώντας ↵. Δεδομένου ότι το ιστορικό συνομιλιών δεν αποθηκεύεται πουθενά, "
 "δεν εμφανίζεται καθόλου ακόμα κι αν βρίσκεται συζήτηση σε εξέλιξη."
 
-#: ../../source/features.rst:155
+#: ../../source/features.rst:160
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change their "
 "name to anything, and there is no way to confirm anyone's identity."
@@ -518,7 +529,7 @@ msgstr ""
 "μπορεί να αλλάξει το όνομά του και δεν υπάρχει τρόπος επιβεβαίωσης της "
 "ταυτότητάς του."
 
-#: ../../source/features.rst:158
+#: ../../source/features.rst:163
 msgid ""
 "However, if you create an OnionShare chat room and securely send the address "
 "only to a small group of trusted friends using encrypted messages, you can "
@@ -529,11 +540,11 @@ msgstr ""
 "χρησιμοποιώντας κρυπτογραφημένα μηνύματα, μπορείτε να είστε αρκετά σίγουροι "
 "ότι τα άτομα που συμμετέχουν στην αίθουσα συνομιλίας είναι φίλοι σας."
 
-#: ../../source/features.rst:161
+#: ../../source/features.rst:166
 msgid "How is this useful?"
 msgstr "Σε τι χρησιμεύει;"
 
-#: ../../source/features.rst:163
+#: ../../source/features.rst:168
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the point "
 "of an OnionShare chat room to begin with? It leaves less traces."
@@ -543,7 +554,7 @@ msgstr ""
 "OnionShare; Τόσο λιγότερα μέσα επικοινωνίας χρησιμοποιείτε, τόσο λιγότερα "
 "ίχνη θα αφήσετε."
 
-#: ../../source/features.rst:165
+#: ../../source/features.rst:170
 msgid ""
 "If you for example send a message to a Signal group, a copy of your message "
 "ends up on each device (the smartphones, and computers if they set up Signal "
@@ -562,7 +573,7 @@ msgstr ""
 "να έχουν αποθηκευτεί. Τα δωμάτια συνομιλίας του OnionShare δεν αποθηκεύουν "
 "κανένα μήνυμα πουθενά, οπότε το πρόβλημα μειώνεται στο ελάχιστο."
 
-#: ../../source/features.rst:168
+#: ../../source/features.rst:173
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
@@ -577,11 +588,11 @@ msgstr ""
 "χρήσης και στη συνέχεια, να περιμένει τον δημοσιογράφο να συμμετάσχει στο "
 "δωμάτιο συνομιλίας, χωρίς να διακυβεύεται η ανωνυμία του."
 
-#: ../../source/features.rst:172
+#: ../../source/features.rst:177
 msgid "How does the encryption work?"
 msgstr "Πως λειτουργεί η κρυπτογράφηση του OnionShare;"
 
-#: ../../source/features.rst:174
+#: ../../source/features.rst:179
 msgid ""
 "Because OnionShare relies on Tor onion services, connections between the Tor "
 "Browser and OnionShare are all end-to-end encrypted (E2EE). When someone "
@@ -596,7 +607,7 @@ msgstr ""
 "το στέλνει σε όλα τα μέλη της συνομιλίας χρησιμοποιώντας WebSockets, μέσω "
 "των συνδέσεων onion E2EE."
 
-#: ../../source/features.rst:176
+#: ../../source/features.rst:181
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on "
 "the Tor onion service's encryption instead."

@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) Micah Lee, et al.
 # This file is distributed under the same license as the OnionShare package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
 "PO-Revision-Date: 2023-02-22 11:40+0000\n"
 "Last-Translator: tictactoe <phandinhminh@protonmail.ch>\n"
 "Language-Team: none\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"Generated-By: Babel 2.14.0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -111,7 +111,7 @@ msgstr ""
 "một cách an toàn và ẩn danh. Mở một tab chia sẻ, kéo các tệp và thư mục bạn "
 "muốn chia sẻ vào, và nhấp vào \"Bắt đầu chia sẻ\"."
 
-#: ../../source/features.rst:35 ../../source/features.rst:112
+#: ../../source/features.rst:35 ../../source/features.rst:117
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
@@ -352,10 +352,22 @@ msgstr ""
 "`custom_titles`)."
 
 #: ../../source/features.rst:102
+msgid "Other caveats to be aware of in Receive Mode"
+msgstr ""
+
+#: ../../source/features.rst:104
+msgid ""
+"There are reports that OnionBrowser on iOS devices are unable to upload "
+"files to an OnionShare in Receive Mode, when operating in 'Silver' security "
+"mode. Try Bronze or Gold to see if you are able to upload a message or a "
+"file."
+msgstr ""
+
+#: ../../source/features.rst:107
 msgid "Host a Website"
 msgstr "Host một trang Web"
 
-#: ../../source/features.rst:104
+#: ../../source/features.rst:109
 msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag the "
 "files and folders that make up the static content there, and click \"Start "
@@ -365,7 +377,7 @@ msgstr ""
 "trang web, kéo các tập tin và thư mục tạo nên nội dung tĩnh ở đó, và nhấp "
 "vào \"Bắt đầu chia sẻ\" khi bạn đã sẵn sàng."
 
-#: ../../source/features.rst:108
+#: ../../source/features.rst:113
 msgid ""
 "If you add an ``index.html`` file, it will render when someone loads your "
 "website. You should also include any other HTML files, CSS files, JavaScript "
@@ -380,7 +392,7 @@ msgstr ""
 "lưu trữ các trang web thực thi mã code hoặc sử dụng cơ sở dữ liệu. Vì vậy, "
 "bạn không thể sử dụng WordPress chẳng hạn.)"
 
-#: ../../source/features.rst:110
+#: ../../source/features.rst:115
 msgid ""
 "If you don't have an ``index.html`` file, it will show a directory listing "
 "instead, and people loading it can look through the files and download them."
@@ -389,11 +401,11 @@ msgstr ""
 "thị một danh sách thư mục, và những người đang tải nó có thể xem qua các tập "
 "tin và tải chúng xuống."
 
-#: ../../source/features.rst:117
+#: ../../source/features.rst:122
 msgid "Content Security Policy"
 msgstr "Chính sách bảo mật nội dung"
 
-#: ../../source/features.rst:119
+#: ../../source/features.rst:124
 msgid ""
 "By default OnionShare helps secure your website by setting a strict `Content "
 "Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ "
@@ -405,7 +417,7 @@ msgstr ""
 "Content_Security_Policy>`_ nghiêm ngặt. Tuy nhiên, điều này ngăn cản nội "
 "dung của bên thứ ba khỏi việc tải bên trong trang web."
 
-#: ../../source/features.rst:121
+#: ../../source/features.rst:126
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
@@ -413,7 +425,7 @@ msgstr ""
 "Nếu muốn tải nội dung từ các trang web của bên thứ ba, chẳng hạn như các nội "
 "dung asset hoặc các thư viện JavaScript từ CDN, bạn có hai lựa chọn:"
 
-#: ../../source/features.rst:123
+#: ../../source/features.rst:128
 msgid ""
 "You can disable sending a Content Security Policy header by checking the "
 "\"Don't send Content Security Policy header (allows your website to use "
@@ -423,15 +435,15 @@ msgstr ""
 "\"Không gửi tiêu đề Chính sách bảo mật nội dung (cho phép trang web của bạn "
 "sử dụng tài nguyên của bên thứ ba)\" trước khi bắt đầu dịch vụ."
 
-#: ../../source/features.rst:124
+#: ../../source/features.rst:129
 msgid "You can send a custom Content Security Policy header."
 msgstr "Bạn có thể gửi một tiêu đề Chính sách bảo mật nội dung tùy chỉnh."
 
-#: ../../source/features.rst:127
+#: ../../source/features.rst:132
 msgid "Tips for running a website service"
 msgstr "Các mẹo hay để chạy một dịch vụ trang web"
 
-#: ../../source/features.rst:129
+#: ../../source/features.rst:134
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not just "
 "to quickly show someone something), it's recommended you do it on a "
@@ -447,7 +459,7 @@ msgstr ""
 "dụng thường xuyên. Sao lưu tab (xem :ref:`save_tabs`) để bạn có thể tiếp tục "
 "trang web với cùng một địa chỉ nếu bạn đóng OnionShare và mở lại nó sau."
 
-#: ../../source/features.rst:132
+#: ../../source/features.rst:137
 msgid ""
 "If your website is intended for the public, you should run it as a public "
 "service (see :ref:`turn_off_private_key`)."
@@ -455,11 +467,11 @@ msgstr ""
 "Nếu trang web của bạn được dự định dành cho công chúng công khai, bạn nên "
 "chạy nó như một dịch vụ công cộng (xem :ref:`turn_off_private_key`)."
 
-#: ../../source/features.rst:135
+#: ../../source/features.rst:140
 msgid "Chat Anonymously"
 msgstr "Chat trò chuyện Ẩn danh"
 
-#: ../../source/features.rst:137
+#: ../../source/features.rst:142
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't "
 "log anything. Just open a chat tab and click \"Start chat server\"."
@@ -468,7 +480,7 @@ msgstr ""
 "tư, bảo mật và không sao lưu log bất kỳ thứ gì. Chỉ cần mở một tab chat trò "
 "chuyện và nhấp vào \"Khởi chạy máy chủ chat trò chuyện\"."
 
-#: ../../source/features.rst:141
+#: ../../source/features.rst:146
 msgid ""
 "After you start the server, copy the OnionShare address and private key and "
 "send them to the people you want in the anonymous chat room. If it's "
@@ -481,7 +493,7 @@ msgstr ""
 "dụng một app ứng dụng nhắn tin được mã hoá để gửi đi địa chỉ OnionShare và "
 "khoá key riêng tư."
 
-#: ../../source/features.rst:146
+#: ../../source/features.rst:151
 msgid ""
 "People can join the chat room by loading its OnionShare address in Tor "
 "Browser. The chat room requires JavasScript, so everyone who wants to "
@@ -493,7 +505,7 @@ msgstr ""
 "mọi người muốn tham gia phải có trình duyệt Tor Browser của họ đặt ở mức độ "
 "bảo mật \"Tiêu chuẩn\" hoặc \"An toàn hơn\", thay vì \"An toàn nhất\"."
 
-#: ../../source/features.rst:149
+#: ../../source/features.rst:154
 msgid ""
 "When someone joins the chat room they get assigned a random name. They can "
 "change their name by typing a new name in the box in the left panel and "
@@ -506,7 +518,7 @@ msgstr ""
 "được sao lưu ở bất kỳ đâu cả, nên nó hoàn toàn không được hiển thị, ngay cả "
 "khi những người khác đã trò chuyện trong phòng."
 
-#: ../../source/features.rst:155
+#: ../../source/features.rst:160
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change their "
 "name to anything, and there is no way to confirm anyone's identity."
@@ -515,7 +527,7 @@ msgstr ""
 "cũng có thể thay đổi tên của họ thành bất cứ thứ gì, và do đó không có cách "
 "nào để xác nhận danh tính của bất cứ ai cả."
 
-#: ../../source/features.rst:158
+#: ../../source/features.rst:163
 msgid ""
 "However, if you create an OnionShare chat room and securely send the address "
 "only to a small group of trusted friends using encrypted messages, you can "
@@ -526,11 +538,11 @@ msgstr ""
 "được mã hoá, bạn có thể tự tin một cách chính đáng rằng mọi người đang tham "
 "gia phòng chat là những người bạn của bạn."
 
-#: ../../source/features.rst:161
+#: ../../source/features.rst:166
 msgid "How is this useful?"
 msgstr "Điều này hữu ích như thế nào?"
 
-#: ../../source/features.rst:163
+#: ../../source/features.rst:168
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the point "
 "of an OnionShare chat room to begin with? It leaves less traces."
@@ -539,7 +551,7 @@ msgstr ""
 "phòng chat trò chuyện OnionShare sẽ có còn ý nghĩa gì để mà bắt đầu sử dụng "
 "nữa? Nó để lại ít dấu vết hơn."
 
-#: ../../source/features.rst:165
+#: ../../source/features.rst:170
 msgid ""
 "If you for example send a message to a Signal group, a copy of your message "
 "ends up on each device (the smartphones, and computers if they set up Signal "
@@ -558,7 +570,7 @@ msgstr ""
 "vào. Các phòng chat trò chuyện của OnionShare không lưu trữ bất kỳ tin nhắn "
 "nào ở bất kỳ đâu, vì vậy vấn đề được giảm đến mức tối thiểu."
 
-#: ../../source/features.rst:168
+#: ../../source/features.rst:173
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
@@ -573,11 +585,11 @@ msgstr ""
 "tham gia vào phòng chat trò chuyện, làm tất cả mà không hề xâm phạm tính ẩn "
 "danh của họ."
 
-#: ../../source/features.rst:172
+#: ../../source/features.rst:177
 msgid "How does the encryption work?"
 msgstr "Mã hóa hoạt động như thế nào?"
 
-#: ../../source/features.rst:174
+#: ../../source/features.rst:179
 msgid ""
 "Because OnionShare relies on Tor onion services, connections between the Tor "
 "Browser and OnionShare are all end-to-end encrypted (E2EE). When someone "
@@ -592,7 +604,7 @@ msgstr ""
 "nhắn đó đến tất cả các thành viên khác của phòng chat trò chuyện bằng "
 "WebSockets, thông qua kết nối onion E2EE của họ."
 
-#: ../../source/features.rst:176
+#: ../../source/features.rst:181
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on "
 "the Tor onion service's encryption instead."

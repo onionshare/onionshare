@@ -6,11 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2024-03-15 13:52+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 17:24+1100\n"
 "PO-Revision-Date: 2024-08-22 00:52+0000\n"
-"Last-Translator: Assem Askarova <assask499@users.noreply.hosted.weblate.org>"
-"\n"
+"Last-Translator: Assem Askarova <assask499@users.noreply.hosted.weblate."
+"org>\n"
 "Language-Team: none\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr ""
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr ""
 
-#: ../../source/install.rst:18
+#: ../../source/install.rst:16
 msgid "Android"
 msgstr "안드로이드"
 
@@ -57,7 +57,7 @@ msgstr ""
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 msgstr ""
 
-#: ../../source/install.rst:24
+#: ../../source/install.rst:20
 msgid "iOS"
 msgstr ""
 
@@ -322,11 +322,11 @@ msgstr "서명 키"
 #: ../../source/install.rst:117
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
-"particular release. Following are the informations of the core developers of "
-"OnionShare:"
+"particular release. Here is the GPG key information for each of the core "
+"developers of OnionShare:"
 msgstr ""
 
-#: ../../source/install.rst:122
+#: ../../source/install.rst:120
 msgid "Micah Lee:"
 msgstr ""
 
@@ -348,7 +348,7 @@ msgstr ""
 "openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_"
 "에서 다운로드할 수 있습니다."
 
-#: ../../source/install.rst:126
+#: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
 msgstr ""
 
@@ -365,6 +365,28 @@ msgid ""
 msgstr ""
 
 #: ../../source/install.rst:128
+msgid "Miguel Jacq:"
+msgstr ""
+
+#: ../../source/install.rst:129
+msgid ""
+"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgstr ""
+
+#: ../../source/install.rst:130
+#, fuzzy
+msgid ""
+"You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-"
+"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgstr ""
+"패키지는 핵심 개발자인 Micah Lee가 지문 "
+"``927F419D7EC82C2F149C1BD1403C2657CD994F73``을 사용하여 PGP 공개 키를 사용하"
+"여 서명했습니다. Micah의 키는 `keys.openpgp.org keyserver <https://keys."
+"openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_"
+"에서 다운로드할 수 있습니다."
+
+#: ../../source/install.rst:132
 msgid ""
 "You must have GnuPG installed to verify signatures. For macOS you probably "
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
@@ -374,11 +396,11 @@ msgstr ""
 "<https://gpgtools.org/>`_를 원할 것이고 Windows의 경우 `Gpg4win <https://www."
 "gpg4win.org/>`_를 원할 것입니다."
 
-#: ../../source/install.rst:131
+#: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "서명"
 
-#: ../../source/install.rst:133
+#: ../../source/install.rst:137
 #, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
@@ -391,11 +413,11 @@ msgstr ""
 "에서 찾을 수 있습니다. `GitHub 릴리스 페이지 <https://github.com/micahflee/"
 "onionshare/releases>`_에서도 찾을 수 있습니다."
 
-#: ../../source/install.rst:137
+#: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "검증 중"
 
-#: ../../source/install.rst:139
+#: ../../source/install.rst:143
 #, fuzzy
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
@@ -405,42 +427,42 @@ msgstr ""
 "Micah의 공개 키를 GnuPG 키체인으로 가져오고 바이너리와 ``.asc`` 서명을 다운로"
 "드하면 다음과 같이 터미널에서 macOS용 바이너리를 확인할 수 있습니다::"
 
-#: ../../source/install.rst:141
+#: ../../source/install.rst:145
 msgid "For Windows::"
 msgstr ""
 
-#: ../../source/install.rst:145
+#: ../../source/install.rst:149
 msgid "For macOS::"
 msgstr ""
 
-#: ../../source/install.rst:149
+#: ../../source/install.rst:153
 #, fuzzy
 msgid "For Linux::"
 msgstr "리눅스"
 
-#: ../../source/install.rst:155
+#: ../../source/install.rst:159
 msgid "and for the source file::"
 msgstr ""
 
-#: ../../source/install.rst:159
+#: ../../source/install.rst:163
 msgid "The expected output looks like this::"
 msgstr "예상되는 출력은 다음과 같습니다::"
 
-#: ../../source/install.rst:169
+#: ../../source/install.rst:173
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
 "the package."
 msgstr ""
 
-#: ../../source/install.rst:171
+#: ../../source/install.rst:175
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
 
-#: ../../source/install.rst:173
+#: ../../source/install.rst:177
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "

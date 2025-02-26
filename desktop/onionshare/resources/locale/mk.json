@@ -38,5 +38,8 @@
     "gui_settings_bridge_moat_radio_option": "Барање за мост од torproject.org",
     "gui_settings_bridge_custom_placeholder": "внеси адреса:порта (по една во секој ред)",
     "moat_captcha_label": "Решете ја ЗАДАЧАТА за да побарате мост.",
-    "gui_settings_bridge_use_checkbox": "Користи мост"
+    "gui_settings_bridge_use_checkbox": "Користи мост",
+    "gui_status_indicator_chat_stopped": "Запрено",
+    "gui_status_indicator_receive_stopped": "Запрено",
+    "gui_status_indicator_share_stopped": "Запрено"
 }

@@ -289,7 +289,7 @@ class MoatThread(QtCore.QThread):
                     self.bridgedb_error.emit()
                     return
                 if moat_res["data"][0]["type"] != "moat-challenge":
-                    self.common.log("MoatThread", "run", f"type != moat-challange")
+                    self.common.log("MoatThread", "run", f"type != moat-challenge")
                     self.bridgedb_error.emit()
                     return
 
