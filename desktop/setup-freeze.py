@@ -77,6 +77,7 @@ build_exe_options = {
         "shiboken6",
         "PySide6.QtCore",
         "PySide6.QtGui",
+        "PySide6.QtSvg",
         "PySide6.QtWidgets",
     ],
     "excludes": [
@@ -139,6 +140,7 @@ if platform.system() == "Darwin" and platform.processor() == "arm":
         "shiboken6",
         "PySide6.QtCore",
         "PySide6.QtGui",
+        "PySide6.QtSvg",
         "PySide6.QtWidgets",
     ]
 
