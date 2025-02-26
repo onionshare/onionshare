@@ -116,7 +116,7 @@ jobs:
           path: ~\onionshare-win64.zip
 
   build-mac-intel:
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
 
@@ -211,6 +211,10 @@ jobs:
           hdiutil attach Postgres-2.6.5-14.dmg
           cp -r /Volumes/Postgres-2.6.5-14/Postgres.app /Applications/
           hdiutil detach /Volumes/Postgres-2.6.5-14
+
+      - name: Touch dylib file for build to finish
+        run: |
+          touch /usr/local/lib/libmimerapi.dylib
 
       - name: Build OnionShare
         run: |

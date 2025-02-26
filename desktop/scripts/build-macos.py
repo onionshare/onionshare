@@ -2,6 +2,7 @@
 import os
 import inspect
 import click
+import platform
 import subprocess
 import shutil
 import glob
@@ -16,7 +17,7 @@ root = os.path.dirname(
 )
 desktop_dir = os.path.join(root, "desktop")
 
-identity_name_application = "Developer ID Application: Micah Lee (N9B95FDWH4)"
+identity_name_application = "Developer ID Application: Science & Design, Inc. (7WLJ4UBL5L)"
 entitlements_plist_path = f"{desktop_dir}/package/Entitlements.plist"
 
 
@@ -122,7 +123,6 @@ def cleanup_build():
         "QtQuickShapes",
         "QtQuickTest",
         "QtNetwork",
-        "QtSvg",
         "QtDesignerComponents",
         "QtMultimediaWidgets",
         "QtQmlModels",
@@ -227,6 +227,18 @@ def cleanup_build():
             print(f"Deleted: {filename}")
         else:
             print(f"Cannot delete, filename not found: {filename}")
+
+    # Set a symlink for Qt's platforms and imageformats plugins, which seems to be necessary only on arm
+    if platform.system() == "Darwin" and platform.processor() == "arm":
+        platforms_target_path = os.path.join("..", "Resources", "lib", "PySide6", "Qt", "plugins", "platforms")
+        platforms_symlink_path = os.path.join(app_path, "Contents", "MacOS", "platforms")
+
+        os.symlink(platforms_target_path, platforms_symlink_path)
+
+        imageformats_target_path = os.path.join("..", "Resources", "lib", "PySide6", "Qt", "plugins", "imageformats")
+        imageformats_symlink_path = os.path.join(app_path, "Contents", "MacOS", "imageformats")
+        os.symlink(imageformats_target_path, imageformats_symlink_path)
+
 
     after_size = get_size(f"{app_path}")
     freed_bytes = before_size - after_size

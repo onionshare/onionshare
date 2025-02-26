@@ -120,6 +120,9 @@ def get_tor_macos(gpg, torkey, macos_url, macos_filename, expected_macos_sig):
     dist_path = os.path.join(root_path, "onionshare", "resources", "tor")
     if not os.path.exists(dist_path):
         os.makedirs(dist_path, exist_ok=True)
+    tor_lib_dir =  os.path.join(root_path, "onionshare", "resources", "tor", "lib")
+    if not os.path.exists(tor_lib_dir):
+        os.makedirs(tor_lib_dir, exist_ok=True)
 
     # Make sure the working folder exists
     if not os.path.exists(working_path):
@@ -163,9 +166,16 @@ def get_tor_macos(gpg, torkey, macos_url, macos_filename, expected_macos_sig):
         os.path.join(dist_path, "tor"),
     )
     os.chmod(os.path.join(dist_path, "tor"), 0o755)
+    # This is necessary for cx_freeze itself to work...
     shutil.copyfile(
         os.path.join(dmg_tor_path, "MacOS", "Tor", "libevent-2.1.7.dylib"),
         os.path.join(dist_path, "libevent-2.1.7.dylib"),
+    )
+    # ...but the libevent-2.1.7.dylib now seems to also need to be in a 'lib'
+    # subfolder of the tor/ folder to work on MacOS, so copy it there too.
+    shutil.copyfile(
+        os.path.join(dmg_tor_path, "MacOS", "Tor", "libevent-2.1.7.dylib"),
+        os.path.join(tor_lib_dir, "libevent-2.1.7.dylib"),
     )
 
     # Eject dmg
