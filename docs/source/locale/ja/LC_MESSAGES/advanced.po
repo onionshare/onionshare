@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-02-19 11:29+0000\n"
-"Last-Translator: Himmel <Himmel@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2025-02-26 08:24+0000\n"
+"Last-Translator: Himmel <himmel@users.noreply.hosted.weblate.org>\n"
 "Language-Team: ja <LL@li.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.1-dev\n"
+"X-Generator: Weblate 5.10.2-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../source/advanced.rst:2
@@ -450,6 +450,9 @@ msgid ""
 "versions use this configuration file. The CLI also lets you specify a path "
 "to a custom configuration file with ``--config``."
 msgstr ""
+"OnionShare は、その設定を JSON ファイルに保存します。CLI "
+"版とデスクトップ版の両方で、この構成ファイルを使用します。CLI では、"
+"カスタム構成ファイルへのパスを ``--config`` で指定することもできます。"
 
 #: ../../source/advanced.rst:319
 msgid ""
@@ -457,27 +460,30 @@ msgid ""
 "configuration file has other parameters not listed here, they may be "
 "obsolete from older OnionShare versions."
 msgstr ""
+"構成ファイルのパラメーターとその意味を以下に示します。ここに記載されていない"
+"パラメーターが構成ファイルに含まれている場合は、古い OnionShare "
+"バージョンでは使用されていない可能性があります。"
 
 #: ../../source/advanced.rst:322 ../../source/advanced.rst:402
 #: ../../source/advanced.rst:413 ../../source/advanced.rst:424
 #: ../../source/advanced.rst:439 ../../source/advanced.rst:450
 #: ../../source/advanced.rst:462
 msgid "Parameter"
-msgstr ""
+msgstr "パラメーター"
 
 #: ../../source/advanced.rst:322 ../../source/advanced.rst:402
 #: ../../source/advanced.rst:413 ../../source/advanced.rst:424
 #: ../../source/advanced.rst:439 ../../source/advanced.rst:450
 #: ../../source/advanced.rst:462
 msgid "Type"
-msgstr ""
+msgstr "種類"
 
 #: ../../source/advanced.rst:322 ../../source/advanced.rst:402
 #: ../../source/advanced.rst:413 ../../source/advanced.rst:424
 #: ../../source/advanced.rst:439 ../../source/advanced.rst:450
 #: ../../source/advanced.rst:462
 msgid "Explanation"
-msgstr ""
+msgstr "説明"
 
 #: ../../source/advanced.rst:324
 msgid "version"
@@ -495,16 +501,16 @@ msgstr "バージョン"
 #: ../../source/advanced.rst:452 ../../source/advanced.rst:453
 #: ../../source/advanced.rst:465
 msgid "``string``"
-msgstr ""
+msgstr "``string``"
 
 #: ../../source/advanced.rst:324
 msgid ""
 "The version of OnionShare. You should not ever need to change this value."
-msgstr ""
+msgstr "OnionShare のバージョン。この値を変更する必要は一切ありません。"
 
 #: ../../source/advanced.rst:325
 msgid "connection_type"
-msgstr ""
+msgstr "connection_type"
 
 #: ../../source/advanced.rst:325
 msgid ""
@@ -512,85 +518,104 @@ msgid ""
 "'automatic' (use Tor Browser's Tor connection), 'control_port' or "
 "'socket_file'. Default: 'bundled'"
 msgstr ""
+"OnionShare が Tor に接続する方法。有効なオプションは 'bundled'、'automatic' ("
+"Tor Browser の Tor 接続を使う)、'control_port' または 'socket_file' "
+"です。デフォルト: 'bundled'"
 
 #: ../../source/advanced.rst:326
 msgid "control_port_address"
-msgstr ""
+msgstr "control_port_address"
 
 #: ../../source/advanced.rst:326
 msgid ""
 "The IP address of Tor's Control port, if ``connection_type`` is set to "
 "'control_port'. Default: '127.0.0.1'"
 msgstr ""
+"``connection_type`` が 'control_port' に設定されている場合の、Tor "
+"の制御ポートの IP アドレス。デフォルト: '127.0.0.1'"
 
 #: ../../source/advanced.rst:327
 msgid "control_port_port"
-msgstr ""
+msgstr "control_port_port"
 
 #: ../../source/advanced.rst:327 ../../source/advanced.rst:329
 #: ../../source/advanced.rst:335
 msgid "``integer``"
-msgstr ""
+msgstr "``integer``"
 
 #: ../../source/advanced.rst:327
 msgid ""
 "The port number of Tor's Control port, if ``connection_type`` is set to "
 "'control_port'. Default: '9051'"
 msgstr ""
+"``connection_type`` が 'control_port' に設定されている場合の、Tor "
+"の制御ポートのポート番号。デフォルト: '9051'"
 
 #: ../../source/advanced.rst:328
 msgid "socks_address"
-msgstr ""
+msgstr "socks_address"
 
 #: ../../source/advanced.rst:328
 msgid ""
 "The IP address of Tor's SOCKS proxy, if ``connection_type`` is set to "
 "'control_port' or 'socket_file'. Default: '127.0.0.1'"
 msgstr ""
+"``connection_type`` が 'control_port' または 'socket_file' "
+"に設定されている場合の、Tor の SOCKS プロキシの IP アドレス。デフォルト: "
+"'127.0.0.1'"
 
 #: ../../source/advanced.rst:329
 msgid "socks_port"
-msgstr ""
+msgstr "socks_port"
 
 #: ../../source/advanced.rst:329
 msgid ""
 "The port number of Tor's SOCKS proxy, if ``connection_type`` is set to "
 "'control_port' or 'socket_file'. Default: ''9050'"
 msgstr ""
+"``connection_type`` が 'control_port' または 'socket_file' "
+"に設定されている場合の、Tor の SOCKS プロキシのポート番号。デフォルト: '9050'"
 
 #: ../../source/advanced.rst:330
 msgid "socket_file_path"
-msgstr ""
+msgstr "socket_file_path"
 
 #: ../../source/advanced.rst:330
 msgid ""
 "The path to Tor's socket file, if ``connection_type`` is set to "
 "'socket_file'. Default: '/var/run/tor/control'"
 msgstr ""
+"``connection_type`` が 'socket_file' に設定されている場合の、Tor "
+"のソケットファイルへのパス。デフォルト: '/var/run/tor/control'"
 
 #: ../../source/advanced.rst:331
 msgid "auth_type"
-msgstr ""
+msgstr "auth_type"
 
 #: ../../source/advanced.rst:331
 msgid ""
 "If access to Tor's control port requires a password, this can be set to "
 "'password', otherwise 'no_auth'. Default: 'no_auth'"
 msgstr ""
+"Tor の制御ポートへのアクセスにパスワードが必要な場合は 'password'、"
+"そうでなければ 'no_auth' を設定します。デフォルト: 'no_auth'"
 
 #: ../../source/advanced.rst:332
 msgid "auth_password"
-msgstr ""
+msgstr "auth_password"
 
 #: ../../source/advanced.rst:332
 msgid ""
 "If access to Tor's control port requires a password, and ``auth_type`` is "
 "set to 'password', specify the password here. Default: ''"
 msgstr ""
+"Tor の制御ポートへのアクセスにパスワードが必要で、``auth_type`` が "
+"'password' に設定されている場合は、ここでパスワードを指定します。デフォルト: "
+"''"
 
 #: ../../source/advanced.rst:333
 msgid "auto_connect"
-msgstr ""
+msgstr "auto_connect"
 
 #: ../../source/advanced.rst:333 ../../source/advanced.rst:334
 #: ../../source/advanced.rst:336 ../../source/advanced.rst:344
@@ -601,43 +626,45 @@ msgstr ""
 #: ../../source/advanced.rst:455 ../../source/advanced.rst:464
 #: ../../source/advanced.rst:466
 msgid "``boolean``"
-msgstr ""
+msgstr "``boolean``"
 
 #: ../../source/advanced.rst:333
 msgid ""
 "Whether OnionShare should automatically connect to Tor when it starts. "
 "Default: False"
-msgstr ""
+msgstr "OnionShare の起動時に Tor に自動的に接続するかどうか。デフォルト: False"
 
 #: ../../source/advanced.rst:334
 msgid "use_autoupdate"
-msgstr ""
+msgstr "use_autoupdate"
 
 #: ../../source/advanced.rst:334
 msgid ""
 "Whether OnionShare should automatically check for updates (over Tor). This "
 "setting is only valid for MacOS or Windows installations. Default: True."
 msgstr ""
+"OnionShare が (Tor 経由で) 更新を自動的に確認するかどうか。この設定は、MacOS "
+"または Windows インストールでのみ有効です。デフォルト: True"
 
 #: ../../source/advanced.rst:335
 msgid "autoupdate_timestamp"
-msgstr ""
+msgstr "autoupdate_timestamp"
 
 #: ../../source/advanced.rst:335
 msgid "The last time OnionShare checked for updates. Default: None"
-msgstr ""
+msgstr "OnionShare が最後に更新を確認した時刻。デフォルト: None"
 
 #: ../../source/advanced.rst:336
 msgid "bridges_enabled"
-msgstr ""
+msgstr "bridges_enabled"
 
 #: ../../source/advanced.rst:336
 msgid "Whether to connect to Tor using bridges. Default: False"
-msgstr ""
+msgstr "ブリッジを使用して Tor に接続するかどうか。デフォルト: False"
 
 #: ../../source/advanced.rst:337
 msgid "bridges_type"
-msgstr ""
+msgstr "bridges_type"
 
 #: ../../source/advanced.rst:337
 msgid ""
@@ -646,10 +673,15 @@ msgid ""
 "Tor), \"moat\" (request bridges from Tor's Moat API), or \"custom\" (user-"
 "supplied bridges). Default: \"built-in\""
 msgstr ""
+"``bridges_enabled`` が True の場合、ブリッジを読み込む場所。オプションには"
+"、\"built-in\" (OnionShare に付属し、Tor "
+"から更新される可能性のあるブリッジ)、\"moat\" (Tor の Moat API "
+"からブリッジをリクエストする)、\"custom\" (ユーザーが指定するブリッジ) "
+"があります。デフォルト: \"built-in\""
 
 #: ../../source/advanced.rst:338
 msgid "bridges_builtin_pt"
-msgstr ""
+msgstr "bridges_builtin_pt"
 
 #: ../../source/advanced.rst:338
 msgid ""
@@ -657,20 +689,26 @@ msgid ""
 "bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
+"``bridges_type`` が \"built-in\" "
+"に設定されている場合、使用するブリッジプロトコルのタイプを指定します。"
+"オプションは \"obfs4\"、\"meek-azure\"、または \"snowflake\" "
+"です。デフォルト: \"obfs4\""
 
 #: ../../source/advanced.rst:339
 msgid "bridges_moat"
-msgstr ""
+msgstr "bridges_moat"
 
 #: ../../source/advanced.rst:339
 msgid ""
 "When ``bridges_type`` is set to \"moat\", the bridges returned from Tor's "
 "Moat API are stored here. Default: \"\""
 msgstr ""
+"``bridges_type`` が \"moat\" に設定されている場合、Tor の Moat API "
+"から返されたブリッジはここに保存されます。デフォルト: \"\""
 
 #: ../../source/advanced.rst:340
 msgid "bridges_custom"
-msgstr ""
+msgstr "bridges_custom"
 
 #: ../../source/advanced.rst:340
 msgid ""
@@ -678,29 +716,35 @@ msgid ""
 "user are stored here. Separate each bridge line in the string with '\\n'. "
 "Default: \"\""
 msgstr ""
+"``bridges_type`` が \"custom\" "
+"に設定されている場合、ユーザが指定したブリッジはここに保存されます。"
+"文字列内の各ブリッジラインは '\\n"
+"' で区切ります。デフォルト: \"\""
 
 #: ../../source/advanced.rst:341
 msgid "bridges_builtin"
-msgstr ""
+msgstr "bridges_builtin"
 
 #: ../../source/advanced.rst:341
 msgid "``dict``"
-msgstr ""
+msgstr "``dict``"
 
 #: ../../source/advanced.rst:341
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", OnionShare obtains the latest "
 "built-in bridges recommended by Tor and stores them here. Default: {}"
 msgstr ""
+"``bridges_type`` が \"built-in\" に設定されている場合、OnionShare は Tor "
+"が推奨する最新の内蔵ブリッジを取得し、ここに保存します。デフォルト: {}"
 
 #: ../../source/advanced.rst:342
 msgid "persistent_tabs"
-msgstr ""
+msgstr "persistent_tabs"
 
 #: ../../source/advanced.rst:342 ../../source/advanced.rst:442
 #: ../../source/advanced.rst:467
 msgid "``list``"
-msgstr ""
+msgstr "``list``"
 
 #: ../../source/advanced.rst:342
 msgid ""
@@ -711,10 +755,16 @@ msgid ""
 "identifier, in a subfolder of the OnionShare configuration folder called "
 "'persistent'. Default: []"
 msgstr ""
+"ユーザがタブを 'saved' (OnionShare が起動するたびに永続的に保存され、Onion "
+"アドレスが変更されないことを意味する) "
+"と定義した場合、これらのタブにはランダムな識別子が与えられ、ここにリストされ"
+"ます。永続 Onion は、この識別子と同じ名前の JSON ファイルとして、"
+"\"persistent\" という名前の OnionShare "
+"構成フォルダーのサブフォルダーに保存されます。デフォルト: []"
 
 #: ../../source/advanced.rst:343
 msgid "locale"
-msgstr ""
+msgstr "locale"
 
 #: ../../source/advanced.rst:343
 msgid ""
@@ -722,20 +772,27 @@ msgid ""
 "For valid locale codes, see 'available_locales' in https://github.com/"
 "onionshare/onionshare/blob/main/cli/onionshare_cli/settings.py"
 msgstr ""
+"OnionShare で使用される言語。デフォルト: なし ('en' と同じ) "
+"。有効なロケールコードについては、https://github.com/onionshare/onionshare/"
+"blob/main/cli/onionshare_cli/settings.py の 'available_locales' "
+"をご覧ください。"
 
 #: ../../source/advanced.rst:344
 msgid "theme"
-msgstr ""
+msgstr "theme"
 
 #: ../../source/advanced.rst:344
 msgid ""
 "The theme for the OnionShare desktop app. Valid options are 0 (automatically "
 "detect the user's computer's light or dark theme), 1 (light) or 2 (dark)."
 msgstr ""
+"OnionShare デスクトップアプリのテーマ。有効なオプションは、0 "
+"(ユーザーのコンピューターのライトテーマまたはダークテーマを自動的に検出)、1 "
+"(ライト)、または 2 (ダーク) です。"
 
 #: ../../source/advanced.rst:349
 msgid "Configuration file parameters for persistent onions"
-msgstr ""
+msgstr "永続 Onion の構成ファイルパラメーター"
 
 #: ../../source/advanced.rst:351
 msgid ""
@@ -743,109 +800,121 @@ msgid ""
 "are stored in its own JSON file. The path to this file can be specified for "
 "the CLI tool with ``--persistent``."
 msgstr ""
+"前述のように、各永続 Onion には独自のパラメーターがあり、独自の JSON "
+"ファイルに保存されます。このファイルへのパスは、CLI ツールで ``--persistent``"
+" を使用して指定できます。"
 
 #: ../../source/advanced.rst:353
 msgid "Here is an example persistent JSON configuration::"
-msgstr ""
+msgstr "永続的な JSON 構成の例を以下に示します。"
 
 #: ../../source/advanced.rst:396
 msgid ""
 "Below are the configuration file parameters for a persistent onion and what "
 "they mean, for each section in the JSON"
-msgstr ""
+msgstr "JSON 内の各セクションについて、永続的 Onion "
+"の構成ファイルパラメーターとその意味を以下に示します"
 
 #: ../../source/advanced.rst:399
 msgid "onion"
-msgstr ""
+msgstr "onion"
 
 #: ../../source/advanced.rst:404
-#, fuzzy
 msgid "private_key"
-msgstr "秘密鍵を無効にする"
+msgstr "private_key"
 
 #: ../../source/advanced.rst:404
 msgid "Base64-encoded private key of the onion service"
-msgstr ""
+msgstr "Onion Service の Base64 エンコードされた秘密鍵"
 
 #: ../../source/advanced.rst:405
 msgid "client_auth_priv_key"
-msgstr ""
+msgstr "client_auth_priv_key"
 
 #: ../../source/advanced.rst:405
 msgid ""
 "The private key when using Client Authentication. Send this to the user."
-msgstr ""
+msgstr "クライアント認証を使用する場合の秘密鍵。これをユーザーに送信します。"
 
 #: ../../source/advanced.rst:406
 msgid "client_auth_pub_key"
-msgstr ""
+msgstr "client_auth_pub_key"
 
 #: ../../source/advanced.rst:406
 msgid ""
 "The public key when using Client Authentication. Used on OnionShare's side."
-msgstr ""
+msgstr "クライアント認証を使用する場合の公開鍵。OnionShare 側で使用されます。"
 
 #: ../../source/advanced.rst:410
 msgid "persistent"
-msgstr "永続"
+msgstr "persistent"
 
 #: ../../source/advanced.rst:415
 msgid "mode"
-msgstr ""
+msgstr "mode"
 
 #: ../../source/advanced.rst:415
 msgid ""
 "The mode used by this persistent onion. Options are \"share\", \"receive\", "
 "\"website\" or \"chat\"."
 msgstr ""
+"この永続 Onion が使用するモード。オプションは \"share\"、\"receive\"、"
+"\"website\"、\"chat\" です。"
 
 #: ../../source/advanced.rst:416
 msgid "enabled"
-msgstr ""
+msgstr "enabled"
 
 #: ../../source/advanced.rst:416
 msgid ""
 "Whether persistence is enabled for this onion. When the persistent option is "
 "unchecked in the desktop, this entire JSON file is deleted. Default: true"
 msgstr ""
+"この Onion "
+"に対して永続性が有効かどうか。デスクトップで永続オプションをオフにすると、"
+"この JSON ファイル全体が削除されます。デフォルト: true"
 
 #: ../../source/advanced.rst:417
 msgid "autostart_on_launch"
-msgstr ""
+msgstr "autostart_on_launch"
 
 #: ../../source/advanced.rst:417
 msgid ""
 "Whether to automatically start this persistent onion when OnionShare starts "
 "and once Tor is connected. Default: false"
-msgstr ""
+msgstr "OnionShare の起動時および Tor の接続時に、この永続 Onion "
+"を自動的に開始するかどうか。デフォルト: false"
 
 #: ../../source/advanced.rst:421
 msgid "general"
-msgstr ""
+msgstr "general"
 
 #: ../../source/advanced.rst:426
 msgid "title"
-msgstr ""
+msgstr "title"
 
 #: ../../source/advanced.rst:426
 msgid ""
 "An optional custom title for displaying on the onion service. Default: null "
 "(\"OnionShare\" will be shown instead)"
 msgstr ""
+"Onion Service に表示するオプションのカスタムタイトル。デフォルト: null ("
+"代わりに \"OnionShare\" が表示されます)"
 
 #: ../../source/advanced.rst:427
 msgid "public"
-msgstr "公開"
+msgstr "public"
 
 #: ../../source/advanced.rst:427
 msgid ""
 "Whether the onion service can be accessed with or without a Private Key "
 "(Client Authentication). If true, no Private Key is required."
-msgstr ""
+msgstr "秘密鍵 (クライアント認証) を使用して Onion Service にアクセスできるかどうか。"
+"true の場合、秘密鍵は必要ありません。"
 
 #: ../../source/advanced.rst:428
 msgid "autostart_timer"
-msgstr ""
+msgstr "autostart_timer"
 
 #: ../../source/advanced.rst:428
 msgid ""
@@ -853,10 +922,14 @@ msgid ""
 "time can be set in the desktop app or specified in seconds with ``--auto-"
 "start-timer`` with the CLI tool. Default: false"
 msgstr ""
+"Onion Service "
+"が特定の時刻に開始するように構成されているかどうか。時間はデスクトップアプリ"
+"で設定するか、CLI ツールの ``--auto-start-timer`` "
+"で秒単位で指定することができます。デフォルト: false"
 
 #: ../../source/advanced.rst:429
 msgid "autostop_timer"
-msgstr ""
+msgstr "autostop_timer"
 
 #: ../../source/advanced.rst:429
 msgid ""
@@ -864,116 +937,125 @@ msgid ""
 "can be set in the desktop app or specified in seconds with ``--auto-stop-"
 "timer`` with the CLI tool. Default: false"
 msgstr ""
+"Onion Service "
+"が特定の時刻に停止するように構成されているかどうか。時間はデスクトップアプリ"
+"で設定するか、CLI ツールの ``--auto-stop-timer`` "
+"で秒単位で指定できます。デフォルト: false"
 
 #: ../../source/advanced.rst:430
 msgid "service_id"
-msgstr ""
+msgstr "service_id"
 
 #: ../../source/advanced.rst:430
 msgid ""
 "The 32-character onion service URL, without the scheme and without the '."
 "onion' suffix."
-msgstr ""
+msgstr "スキームと接尾辞「.onion」を含まない32文字の Onion Service の URL。"
 
 #: ../../source/advanced.rst:433
 msgid ""
 "The below are settings specific to the 'mode' specified in the "
 "``persistent`` section above."
-msgstr ""
+msgstr "以下は、上記の ``persistent`` セクションで指定した「mode」に固有の設定です。"
 
 #: ../../source/advanced.rst:436
 msgid "share"
-msgstr "共有"
+msgstr "share"
 
 #: ../../source/advanced.rst:441
 msgid "autostop_sharing"
-msgstr ""
+msgstr "autostop_sharing"
 
 #: ../../source/advanced.rst:441
 msgid ""
 "Whether to automatically stop the share once files are downloaded the first "
 "time. Default: true"
-msgstr ""
+msgstr "ファイルが最初にダウンロードされた際に共有を自動的に停止するかどうか。デフォ"
+"ルト: true"
 
 #: ../../source/advanced.rst:442 ../../source/advanced.rst:467
 msgid "filenames"
-msgstr ""
+msgstr "filenames"
 
 #: ../../source/advanced.rst:442 ../../source/advanced.rst:467
 msgid "A list of files to share. Default: []"
-msgstr ""
+msgstr "共有するファイルのリスト。デフォルト: []"
 
 #: ../../source/advanced.rst:443 ../../source/advanced.rst:466
 msgid "log_filenames"
-msgstr ""
+msgstr "log_filenames"
 
 #: ../../source/advanced.rst:443 ../../source/advanced.rst:466
 msgid ""
 "Whether to log URL requests to stdout when using the CLI tool. Default: false"
-msgstr ""
+msgstr "CLI ツールの使用時に URL 要求を stdout に記録するかどうか。デフォルト: false"
 
 #: ../../source/advanced.rst:447
 msgid "receive"
-msgstr ""
+msgstr "receive"
 
 #: ../../source/advanced.rst:452
 msgid "data_dir"
-msgstr ""
+msgstr "data_dir"
 
 #: ../../source/advanced.rst:452
 msgid ""
 "The path where received files or text messages will be stored. Default: the "
 "'OnionShare' folder of the user's home directory."
-msgstr ""
+msgstr "受信したファイルまたはテキストメッセージが格納されるパス。デフォルト: "
+"ユーザーのホームディレクトリーの「OnionShare」フォルダー。"
 
 #: ../../source/advanced.rst:453
 msgid "webhook_url"
-msgstr ""
+msgstr "webhook_url"
 
 #: ../../source/advanced.rst:453
 msgid ""
 "A webhook URL that OnionShare will POST to when it receives files or text "
 "messages. Default: null"
-msgstr ""
+msgstr "OnionShare がファイルまたはテキストメッセージを受信したときに POST する "
+"webhook URL。デフォルト: null"
 
 #: ../../source/advanced.rst:454
 msgid "disable_text"
-msgstr ""
+msgstr "disable_text"
 
 #: ../../source/advanced.rst:454
 msgid "Whether to disable receiving text messages. Default: false"
-msgstr ""
+msgstr "テキストメッセージの受信を無効にするかどうか。デフォルト: false"
 
 #: ../../source/advanced.rst:455
 msgid "disable_files"
-msgstr ""
+msgstr "disable_files"
 
 #: ../../source/advanced.rst:455
 msgid "Whether to disable receiving files. Default: false"
-msgstr ""
+msgstr "ファイルの受信を無効にするかどうか。デフォルト: false"
 
 #: ../../source/advanced.rst:459
 msgid "website"
-msgstr ""
+msgstr "website"
 
 #: ../../source/advanced.rst:464
 msgid "disable_csp"
-msgstr ""
+msgstr "disable_csp"
 
 #: ../../source/advanced.rst:464
 msgid ""
 "If set to ``true``, OnionShare won't set its default Content Security Policy "
 "header for the website. Default: ``false``"
 msgstr ""
+"``true`` に設定すると、OnionShare "
+"はウェブサイトのデフォルトのコンテンツセキュリティポリシーヘッダーを設定しま"
+"せん。デフォルト: ``false``"
 
 #: ../../source/advanced.rst:465
-#, fuzzy
 msgid "custom_csp"
-msgstr "カスタムタイトル"
+msgstr "custom_csp"
 
 #: ../../source/advanced.rst:465
 msgid "A custom Content Security Policy header to send instead of the default."
-msgstr ""
+msgstr "デフォルトの代わりに送信するカスタムコンテンツセキュリティポリシーヘッダー。"
 
 #: ../../source/advanced.rst:471
 msgid "chat"
@@ -981,7 +1063,7 @@ msgstr "チャット"
 
 #: ../../source/advanced.rst:473
 msgid "There are currently no configurable settings for the Chat mode."
-msgstr ""
+msgstr "現在、チャットモードの設定はありません。"
 
 #~ msgid ""
 #~ "Everything in OnionShare is temporary by default. If you close an "

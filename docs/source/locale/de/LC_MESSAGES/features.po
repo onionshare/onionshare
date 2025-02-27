@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-01-25 13:17+0000\n"
-"Last-Translator: emma peel <emma.peel@riseup.net>\n"
+"PO-Revision-Date: 2025-02-24 06:08+0000\n"
+"Last-Translator: curtisb <curtisbaltimore@protonmail.com>\n"
 "Language-Team: de <LL@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.1-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/features.rst:4
@@ -358,7 +359,7 @@ msgstr ""
 
 #: ../../source/features.rst:102
 msgid "Other caveats to be aware of in Receive Mode"
-msgstr ""
+msgstr "Weitere Vorbehalte im Empfangsmodus sind zu beachten"
 
 #: ../../source/features.rst:104
 msgid ""
@@ -367,6 +368,10 @@ msgid ""
 "mode. Try Bronze or Gold to see if you are able to upload a message or a "
 "file."
 msgstr ""
+"Es gibt Berichte, dass OnionBrowser auf iOS-Geräten nicht in der Lage ist, "
+"Dateien auf einen OnionShare im Empfangsmodus hochzuladen, wenn der "
+"Sicherheitsmodus 'Silber' eingestellt ist. Versuche Bronze oder Gold, um zu "
+"sehen, ob du eine Nachricht oder eine Datei hochladen kannst."
 
 #: ../../source/features.rst:107
 msgid "Host a Website"

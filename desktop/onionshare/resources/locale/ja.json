@@ -251,7 +251,7 @@
     "gui_autoconnect_circumventing_censorship_requesting_bridges": "Tor Censorship Circumvention API にブリッジをリクエストしています…",
     "gui_autoconnect_circumventing_censorship_got_bridges": "ブリッジを確立しました。Tor に再接続しています…",
     "gui_autoconnect_could_not_connect_to_tor_api": "Tor の API に接続できませんでした。インターネットに接続していることを確認してから再度試してください。",
-    "gui_general_settings_window_title": "基本設定",
+    "gui_general_settings_window_title": "一般",
     "gui_close_tab_warning_chat_description": "チャットサーバーをホスト中のタブを閉じてもよろしいですか？",
     "waitress_web_server_error": "ウェブサーバーを起動する際に問題が生じました",
     "gui_chat_mode_explainer": "チャットモードを使用すると、Tor Browser で他のユーザーとチャットを行うことができるようになります。<br><br><b>チャットの履歴は OnionShare には保存されません。Tor Browser を終了すると、チャットの履歴は消去されます。</b>",

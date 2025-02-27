@@ -68,7 +68,7 @@
     "gui_tor_connection_canceled": "Konnte keine Verbindung mit Tor herstellen.\n\nStelle sicher, dass du mit dem Internet verbunden bist, öffne OnionShare erneut und richte die Verbindung mit Tor ein.",
     "gui_share_url_description": "<b>Jeder</b> kann mit dieser OnionShare-Adresse und dem privaten Schlüssel deine Dateien mit dem <b>Tor-Browser</b> <b>herunterladen</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Jeder</b> mit dieser OnionShare-Adresse und dem privaten Schlüssel kann mit dem <b>Tor-Browser</b> Dateien auf deinen Computer <b>hochladen</b>: <img src='{}' />",
-    "gui_url_label_persistent": "Diese Freigabe wird nicht automatisch beendet.<br><br>Jede folgende Freigabe wird die Adresse erneut nutzen. (Um Adressen nur einmal zu nutzen, schalte „Nutze beständige Adressen“ in den Einstellungen aus.)",
+    "gui_url_label_persistent": "Diese Freigabe wird nicht automatisch beendet.<br><br>Jede folgende Freigabe wird die Adresse erneut nutzen. (Um Adressen nur einmal zu nutzen, schalte „Diese Registerkarte immer öffnen, wenn OnionShare gestartet wird“ in den Einstellungen aus.)",
     "gui_url_label_stay_open": "Diese Freigabe wird nicht automatisch beendet.",
     "gui_url_label_onetime": "Diese Freigabe wird nach dem ersten vollständigen Download beendet.",
     "gui_status_indicator_share_working": "Starte…",
@@ -91,7 +91,7 @@
     "systray_page_loaded_title": "Seite geladen",
     "gui_add_files": "Dateien hinzufügen",
     "gui_add_folder": "Ordner hinzufügen",
-    "gui_url_label_onetime_and_persistent": "Diese Freigabe wird nicht automatisch stoppen. >br><br>Jede nachfolgende Freigabe wird die gleiche Adresse nutzen. (Um jedes Mal eine andere Adresse zu nutzen, schalte „Nutze eine gleichbleibende Adresse“ in den Einstellungen aus.)",
+    "gui_url_label_onetime_and_persistent": "Diese Freigabe wird nicht automatisch stoppen. >br><br>Jede nachfolgende Freigabe wird die gleiche Adresse nutzen. (Um jedes Mal eine andere Adresse zu nutzen, schalte \"Diese Registerkarte immer öffnen, wenn OnionShare gestartet wird\" in den Einstellungen aus.)",
     "error_cannot_create_data_dir": "Der Ordner für die OnionShare-Dateien konnte nicht erstellt werden: {}",
     "systray_page_loaded_message": "OnionShare-Adresse geladen",
     "systray_share_started_title": "Freigabe gestartet",
@@ -138,7 +138,7 @@
     "mode_settings_autostop_timer_checkbox": "Onion-Dienst zu einem festgelegten Zeitpunkt stoppen",
     "mode_settings_autostart_timer_checkbox": "Onion-Dienst zu einem festgelegten Zeitpunkt starten",
     "mode_settings_public_checkbox": "Dies ist ein öffentlicher OnionShare-Dienst (deaktiviert den privaten Schlüssel)",
-    "mode_settings_persistent_checkbox": "Diesen Tab immer öffnen, wenn OnionShare gestartet wird",
+    "mode_settings_persistent_checkbox": "Diesen Tab immer öffnen, wenn OnionShare gestartet wird (die Onion-Adresse bleibt gleich)",
     "mode_settings_advanced_toggle_hide": "Erweiterte Einstellungen ausblenden",
     "mode_settings_advanced_toggle_show": "Erweiterte Einstellungen anzeigen",
     "gui_quit_warning_cancel": "Abbrechen",
@@ -254,5 +254,8 @@
     "gui_autoconnect_try_again_without_a_bridge": "Erneuter Versuch ohne Brücken",
     "waitress_web_server_error": "Beim Starten des Webservers ist ein Problem aufgetreten",
     "gui_close_tab_warning_chat_description": "Tab schließen, der einen Chat-Server hostet?",
-    "gui_chat_mode_explainer": "Im Chat-Modus kannst du interaktiv mit anderen im Tor-Browser chatten.<br><br><b>Der Chatverlauf wird nicht in OnionShare gespeichert. Der Chatverlauf verschwindet, wenn du den Tor-Browser schließt.</b>"
+    "gui_chat_mode_explainer": "Im Chat-Modus kannst du interaktiv mit anderen im Tor-Browser chatten.<br><br><b>Der Chatverlauf wird nicht in OnionShare gespeichert. Der Chatverlauf verschwindet, wenn du den Tor-Browser schließt.</b>",
+    "error_generic": "Es ist ein unerwarteter Fehler bei OnionShare aufgetreten:\n{}",
+    "gui_settings_license_label": "OnionShare ist unter der GPL v3 lizenziert.<br>Lizenzen von Drittanbietern können hier eingesehen werden:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Diesen Onion-Dienst automatisch starten, wenn OnionShare startet"
 }
