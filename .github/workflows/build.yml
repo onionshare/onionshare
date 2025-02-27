@@ -232,8 +232,9 @@ jobs:
           name: mac-intel-build
           path: ~/onionshare-macos-intel.tar.gz
 
-  build-mac-arm64:
+  build-mac-arm64-and-universal:
     runs-on: macos-15
+    needs: build-mac-intel
     steps:
       - uses: actions/checkout@v4
 
@@ -339,11 +340,32 @@ jobs:
         run: |
           cd desktop/build
           tar -czvf ~/onionshare-macos-arm64.tar.gz OnionShare.app
+          mkdir -p ~/tmp/arm64
+          cp -a OnionShare.app ~/tmp/arm64/
 
       - uses: actions/upload-artifact@v4
         with: 
           name: mac-arm64-build
           path: ~/onionshare-macos-arm64.tar.gz
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: mac-intel-build
+          path: ~/
+
+      - name: Make universal bundle
+        run: |
+          mkdir -p ~/tmp/intel ~/tmp/universal
+          tar -xzvf ~/onionshare-macos-intel.tar.gz -C ~/tmp/intel
+          cd desktop
+          ~/Library/Application\ Support/pypoetry/venv/bin/poetry run ./scripts/macos-merge-universal.py ~/tmp/intel/OnionShare.app ~/tmp/arm64/OnionShare.app ~/tmp/universal/OnionShare.app
+          cd ~/tmp/universal
+          tar -czvf ~/onionshare-macos-universal.tar.gz OnionShare.app
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mac-universal-build
+          path: ~/onionshare-macos-universal.tar.gz
 
 
   build-flatpak:
