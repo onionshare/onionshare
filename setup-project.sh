@@ -10,6 +10,14 @@ if [ "$OS" == "Linux" ]; then
         exit 1
     fi
 
+    # Check golang installation and exit if no installation found.
+    if ! command -v go 2>&1 >/dev/null
+    then
+        echo "Could not detect Go installation. Please make sure you install Go first.
+        See https://go.dev/doc/install"
+        exit 1
+    fi
+
     # setup environment
     cd cli
     poetry install
