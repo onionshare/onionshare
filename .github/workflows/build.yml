@@ -206,7 +206,7 @@ jobs:
       - name: Install cx_Freeze/PySide6 build dependencies
         run: |
           brew install libiodbc
-          curl -O -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.5/Postgres-2.6.5-14.dmg --output ~/Downloads/Postgres-2.6.5-14.dmg
+          curl -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.5/Postgres-2.6.5-14.dmg --output ~/Downloads/Postgres-2.6.5-14.dmg
           cd ~/Downloads && echo "26a2a8a877008cba735d7d8b734dd6e445b2962ce372de6f6b5add3113705920  Postgres-2.6.5-14.dmg" | shasum -a 256 --check
           hdiutil attach Postgres-2.6.5-14.dmg
           cp -r /Volumes/Postgres-2.6.5-14/Postgres.app /Applications/
@@ -323,7 +323,7 @@ jobs:
       - name: Install cx_Freeze/PySide6 build dependencies
         run: |
           brew install libiodbc
-          curl -O -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.5/Postgres-2.6.5-14.dmg --output ~/Downloads/Postgres-2.6.5-14.dmg
+          curl -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.5/Postgres-2.6.5-14.dmg --output ~/Downloads/Postgres-2.6.5-14.dmg
           cd ~/Downloads && echo "26a2a8a877008cba735d7d8b734dd6e445b2962ce372de6f6b5add3113705920  Postgres-2.6.5-14.dmg" | shasum -a 256 --check
           hdiutil attach Postgres-2.6.5-14.dmg
           cp -r /Volumes/Postgres-2.6.5-14/Postgres.app /Applications/
