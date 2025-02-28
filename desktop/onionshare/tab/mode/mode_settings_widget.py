@@ -139,31 +139,31 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         autostop_timer_layout.addWidget(self.autostop_timer_checkbox)
         autostop_timer_layout.addWidget(self.autostop_timer_widget)
 
-        # Toggle advanced settings
-        self.toggle_advanced_button = QtWidgets.QPushButton()
-        self.toggle_advanced_button.clicked.connect(self.toggle_advanced_clicked)
-        self.toggle_advanced_button.setFlat(True)
-        self.toggle_advanced_button.setStyleSheet(
-            self.common.gui.css["mode_settings_toggle_advanced"]
+        # Toggle scheduling settings
+        self.toggle_scheduling_button = QtWidgets.QPushButton()
+        self.toggle_scheduling_button.clicked.connect(self.toggle_scheduling_clicked)
+        self.toggle_scheduling_button.setFlat(True)
+        self.toggle_scheduling_button.setStyleSheet(
+            self.common.gui.css["mode_settings_toggle_scheduling"]
         )
 
-        # Advanced group itself
-        advanced_layout = QtWidgets.QVBoxLayout()
-        advanced_layout.setContentsMargins(0, 0, 0, 0)
-        advanced_layout.addLayout(title_layout)
-        advanced_layout.addLayout(autostart_timer_layout)
-        advanced_layout.addLayout(autostop_timer_layout)
-        self.advanced_widget = QtWidgets.QWidget()
-        self.advanced_widget.setLayout(advanced_layout)
-        self.advanced_widget.hide()
+        # Scheduling group itself
+        self.scheduling_layout = QtWidgets.QVBoxLayout()
+        self.scheduling_layout.setContentsMargins(0, 0, 0, 0)
+        self.scheduling_layout.addLayout(autostart_timer_layout)
+        self.scheduling_layout.addLayout(autostop_timer_layout)
+        self.scheduling_layout.addWidget(self.persistent_autostart_on_launch_checkbox)
+        self.scheduling_widget = QtWidgets.QWidget()
+        self.scheduling_widget.setLayout(self.scheduling_layout)
+        self.scheduling_widget.hide()
 
         layout = QtWidgets.QVBoxLayout()
-        layout.addLayout(self.mode_specific_layout)
+        layout.addLayout(title_layout)
         layout.addWidget(self.persistent_checkbox)
-        layout.addWidget(self.persistent_autostart_on_launch_checkbox)
         layout.addWidget(self.public_checkbox)
-        layout.addWidget(self.advanced_widget)
-        layout.addWidget(self.toggle_advanced_button)
+        layout.addLayout(self.mode_specific_layout)
+        layout.addWidget(self.scheduling_widget)
+        layout.addWidget(self.toggle_scheduling_button)
         layout.addStretch()
         main_widget = QtWidgets.QWidget()
         main_widget.setLayout(layout)
@@ -177,14 +177,14 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         self.update_ui()
 
     def update_ui(self):
-        # Update text on advanced group toggle button
-        if self.advanced_widget.isVisible():
-            self.toggle_advanced_button.setText(
-                strings._("mode_settings_advanced_toggle_hide")
+        # Update text on scheduling group toggle button
+        if self.scheduling_widget.isVisible():
+            self.toggle_scheduling_button.setText(
+                strings._("mode_settings_scheduling_toggle_hide")
             )
         else:
-            self.toggle_advanced_button.setText(
-                strings._("mode_settings_advanced_toggle_show")
+            self.toggle_scheduling_button.setText(
+                strings._("mode_settings_scheduling_toggle_show")
             )
 
     def title_editing_finished(self):
@@ -255,11 +255,11 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         else:
             self.autostop_timer_widget.hide()
 
-    def toggle_advanced_clicked(self):
-        if self.advanced_widget.isVisible():
-            self.advanced_widget.hide()
+    def toggle_scheduling_clicked(self):
+        if self.scheduling_widget.isVisible():
+            self.scheduling_widget.hide()
         else:
-            self.advanced_widget.show()
+            self.scheduling_widget.show()
 
         self.update_ui()
 

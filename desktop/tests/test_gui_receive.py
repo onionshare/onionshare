@@ -192,7 +192,7 @@ class TestReceive(GuiBaseTest):
         Test autostop timer
         """
         tab = self.new_receive_tab()
-        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.toggle_scheduling_button.click()
         tab.get_mode().mode_settings_widget.autostop_timer_checkbox.click()
 
         self.run_all_common_setup_tests()

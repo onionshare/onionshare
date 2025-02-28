@@ -222,7 +222,7 @@ class GuiCommon:
                     subcontrol-origin: margin;
                 }""",
             # Common styles between modes and their child widgets
-            "mode_settings_toggle_advanced": """
+            "mode_settings_toggle_scheduling": """
                 QPushButton {
                     color: #3f7fcf;
                     text-align: left;

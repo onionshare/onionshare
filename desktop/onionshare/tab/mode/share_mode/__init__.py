@@ -61,7 +61,7 @@ class ShareMode(Mode):
         else:
             self.autostop_sharing_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
-        self.mode_settings_widget.mode_specific_layout.addWidget(
+        self.mode_settings_widget.scheduling_layout.addWidget(
             self.autostop_sharing_checkbox
         )
 
