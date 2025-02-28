@@ -24,6 +24,7 @@ from PySide6 import QtCore, QtWidgets, QtGui
 from onionshare_cli.web import Web
 
 from ..history import History, ToggleHistory, ReceiveHistoryItem
+from ..settings_button import SettingsButton
 from .. import Mode
 from .... import strings
 from ....widgets import MinimumSizeWidget, Alert
@@ -175,10 +176,14 @@ class ReceiveMode(Mode):
         receive_warning.setMinimumHeight(80)
         receive_warning.setWordWrap(True)
 
+        # Settings button
+        self.settings_button = SettingsButton(self.common, self.tab.tab_widget)
+
         # Top bar
         top_bar_layout = QtWidgets.QHBoxLayout()
         top_bar_layout.addStretch()
         top_bar_layout.addWidget(self.toggle_history)
+        top_bar_layout.addWidget(self.settings_button)
 
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()

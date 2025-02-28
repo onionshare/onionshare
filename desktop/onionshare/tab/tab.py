@@ -102,6 +102,8 @@ class Tab(QtWidgets.QWidget):
         tab_id,
         system_tray,
         status_bar,
+        tab_widget,
+        settings_button,
         filenames=None,
     ):
         super(Tab, self).__init__()
@@ -111,6 +113,8 @@ class Tab(QtWidgets.QWidget):
         self.tab_id = tab_id
         self.system_tray = system_tray
         self.status_bar = status_bar
+        self.tab_widget = tab_widget
+        self.settings_button = settings_button
         self.filenames = filenames
 
         self.mode = None
@@ -190,7 +194,17 @@ class Tab(QtWidgets.QWidget):
         new_tab_bottom_layout.addStretch()
 
         new_tab_layout = QtWidgets.QVBoxLayout()
-        new_tab_layout.addStretch()
+
+        # Add the settings button to a new top-right layout
+        top_settings_layout = QtWidgets.QHBoxLayout()
+        top_settings_layout.addStretch()  # Move to the right
+        top_settings_layout.addWidget(self.settings_button)
+        # Ensure the settings button is always shown on the New Tab
+        # screen, including after all other tabs are closed.
+        self.new_tab_settings_button = self.settings_button
+        self.new_tab_settings_button.show()
+
+        new_tab_layout.addLayout(top_settings_layout)
         new_tab_layout.addLayout(new_tab_top_layout)
         new_tab_layout.addLayout(new_tab_bottom_layout)
         new_tab_layout.addStretch()
@@ -261,10 +275,12 @@ class Tab(QtWidgets.QWidget):
         self.common.log("Tab", "share_mode_clicked")
         self.mode = self.common.gui.MODE_SHARE
         self.new_tab.hide()
+        self.new_tab_settings_button.hide()
 
         self.share_mode = ShareMode(self)
         self.share_mode.change_persistent.connect(self.change_persistent)
 
+        # Attach the Settings icon to the top right of the mode
         self.layout.addWidget(self.share_mode)
         self.share_mode.show()
 
@@ -296,6 +312,7 @@ class Tab(QtWidgets.QWidget):
         self.common.log("Tab", "receive_mode_clicked")
         self.mode = self.common.gui.MODE_RECEIVE
         self.new_tab.hide()
+        self.new_tab_settings_button.hide()
 
         self.receive_mode = ReceiveMode(self)
         self.receive_mode.change_persistent.connect(self.change_persistent)
@@ -333,6 +350,7 @@ class Tab(QtWidgets.QWidget):
         self.common.log("Tab", "website_mode_clicked")
         self.mode = self.common.gui.MODE_WEBSITE
         self.new_tab.hide()
+        self.new_tab_settings_button.hide()
 
         self.website_mode = WebsiteMode(self)
         self.website_mode.change_persistent.connect(self.change_persistent)
@@ -370,6 +388,7 @@ class Tab(QtWidgets.QWidget):
         self.common.log("Tab", "chat_mode_clicked")
         self.mode = self.common.gui.MODE_CHAT
         self.new_tab.hide()
+        self.new_tab_settings_button.hide()
 
         self.chat_mode = ChatMode(self)
         self.chat_mode.change_persistent.connect(self.change_persistent)
