@@ -124,10 +124,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.settings_button.setAccessibleName(strings._("gui_settings_window_title"))
         self.settings_button.clicked.connect(self.open_settings)
         self.settings_button.setStyleSheet(self.common.gui.css["settings_button"])
-        self.status_bar.addPermanentWidget(self.settings_button)
+        self.settings_button.setToolTip(strings._("gui_settings_window_title"))
 
         # Tabs
-        self.tabs = TabWidget(self.common, self.system_tray, self.status_bar, self)
+        self.tabs = TabWidget(self.common, self.system_tray, self.status_bar, self, self.settings_button)
         self.tabs.bring_to_front.connect(self.bring_to_front)
 
         # If we have saved persistent tabs, try opening those

@@ -87,7 +87,7 @@
     "moat_captcha_submit": "Elküldés",
     "gui_status_indicator_chat_working": "Indítás…",
     "gui_settings_theme_auto": "Automatikus",
-    "mode_settings_advanced_toggle_show": "Speciális beállítások megjelenítése",
+    "mode_settings_scheduling_toggle_show": "Speciális beállítások megjelenítése",
     "gui_autoconnect_start": "Csatlakozás a Tor-hoz",
     "gui_quit_warning_cancel": "Mégsem",
     "gui_remove": "Eltávolítás",

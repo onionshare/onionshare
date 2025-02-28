@@ -23,6 +23,7 @@ from PySide6 import QtCore, QtWidgets, QtGui
 from onionshare_cli.web import Web
 
 from .. import Mode
+from ..settings_button import SettingsButton
 from .... import strings
 from ....widgets import MinimumSizeWidget
 from ....gui_common import GuiCommon
@@ -85,10 +86,14 @@ class ChatMode(Mode):
         chat_mode_explainer.setMinimumHeight(80)
         chat_mode_explainer.setWordWrap(True)
 
+        # Settings button
+        self.settings_button = SettingsButton(self.common, self.tab.tab_widget)
+
         # Top bar
         top_bar_layout = QtWidgets.QHBoxLayout()
         # Add space at the top, same height as the toggle history bar in other modes
         top_bar_layout.addWidget(MinimumSizeWidget(0, 30))
+        top_bar_layout.addWidget(self.settings_button)
 
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout()
