@@ -2,6 +2,10 @@
 
 ## Building OnionShare
 
+If you are running Linux, you can make use of the script `setup-project.sh` in the parent directory, which automates most of the steps below.
+
+Otherwise, please continue to read on.
+
 Start by getting the source code and changing to the `desktop` folder:
 
 ```sh
