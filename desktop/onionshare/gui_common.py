@@ -91,9 +91,10 @@ class GuiCommon:
         header_color = "#4E064F"  # purple in light
         title_color = "#333333"  # dark gray color in main window
         stop_button_color = "#d0011b"  # red button color for stopping server
-        new_tab_button_background = "#ffffff"
+        new_tab_button_background = "#dec0fc"
         new_tab_button_border = "#efeff0"
         new_tab_button_text_color = "#4e0d4e"
+        new_tab_button_checked = "#d1d1d1"
         downloads_uploads_progress_bar_border_color = "#4E064F"
         downloads_uploads_progress_bar_chunk_color = "#4E064F"
         share_zip_progess_bar_border_color = "#4E064F"
@@ -108,6 +109,7 @@ class GuiCommon:
             new_tab_button_background = "#5F5F5F"
             new_tab_button_border = "#878787"
             new_tab_button_text_color = "#FFFFFF"
+            new_tab_button_checked = "#6b6b6b"
             share_zip_progess_bar_border_color = "#F2F2F2"
             history_background_color = "#191919"
             history_label_color = "#ffffff"
@@ -115,6 +117,21 @@ class GuiCommon:
 
         return {
             # OnionShareGui styles
+            "collapsible_section": """
+                QWidget {
+                    border-color: #4E064F;
+                    border: 0.5px solid #999999;
+                    border-radius: 5px;
+                    padding: 3px;
+                    font-weight: bold;
+                    font-size: 16px;
+                }
+                QPushButton:checked {
+                    background-color: """
+            + new_tab_button_checked
+            + """;
+                }
+               """,
             "tab_widget": """
                 QTabBar::tab { width: 170px; height: 30px; }
                 """,
@@ -365,19 +382,14 @@ class GuiCommon:
             # New tab
             "new_tab_button_image": """
                 QLabel {
-                    padding: 30px;
+                    padding: 20px;
                     text-align: center;
                 }
                 """,
             "new_tab_button_text": """
-                QLabel {
-                    border: 1px solid """
-            + new_tab_button_border
-            + """;
-                    border-radius: 4px;
-                    background-color: """
-            + new_tab_button_background
-            + """;
+                QPushButton {
+                    font-weight: normal;
+                    font-size: 14px;
                     text-align: center;
                     color: """
             + new_tab_button_text_color
@@ -385,12 +397,13 @@ class GuiCommon:
                 }
                 """,
             "new_tab_title_text": """
-                QLabel {
+                QPushButton {
                     text-align: center;
                     color: """
             + title_color
             + """;
-                    font-size: 16px;
+                    font-size: 14px;
+                    font-weight: bold;
                 }
                 """,
             # Share mode and child widget styles
@@ -477,6 +490,13 @@ class GuiCommon:
                 QCheckBox:disabled {
                     color: #666666;
                 }""",
+            "download_mode_qlineedit": """
+                QLineEdit {
+                    color: """
+            + title_color
+            + """;
+                } 
+              """,
             # Tor Settings dialogs
             "tor_settings_error": """
                 QLabel {
