@@ -326,7 +326,7 @@ class ServerStatus(QtWidgets.QWidget):
         """
         self.common.log("ServerStatus", "update")
         # Set the URL fields
-        if self.status == self.STATUS_STARTED:
+        if self.status == self.STATUS_STARTED and not self.mode == self.common.gui.MODE_DOWNLOAD:
             # The backend Onion may have saved new settings, such as the private key.
             # Reload the settings before saving new ones.
             self.common.settings.load()
@@ -379,6 +379,8 @@ class ServerStatus(QtWidgets.QWidget):
                     self.server_button.setText(strings._("gui_share_start_server"))
                 elif self.mode == self.common.gui.MODE_CHAT:
                     self.server_button.setText(strings._("gui_chat_start_server"))
+                elif self.mode == self.common.gui.MODE_DOWNLOAD:
+                    self.server_button.setText(strings._("gui_download_start_server"))
                 else:
                     self.server_button.setText(strings._("gui_receive_start_server"))
                 self.server_button.setToolTip("")
@@ -393,6 +395,8 @@ class ServerStatus(QtWidgets.QWidget):
                     self.server_button.setText(strings._("gui_share_stop_server"))
                 elif self.mode == self.common.gui.MODE_CHAT:
                     self.server_button.setText(strings._("gui_chat_stop_server"))
+                elif self.mode == self.common.gui.MODE_DOWNLOAD:
+                    self.server_button.setText(strings._("gui_download_stop_server"))
                 else:
                     self.server_button.setText(strings._("gui_receive_stop_server"))
             elif self.status == self.STATUS_WORKING:
@@ -409,12 +413,18 @@ class ServerStatus(QtWidgets.QWidget):
                         )
                     )
                 else:
-                    if self.common.platform == "Windows":
-                        self.server_button.setText(strings._("gui_please_wait"))
-                    else:
+                    if self.mode == self.common.gui.MODE_DOWNLOAD:
+                        self.server_button.setEnabled(True)
                         self.server_button.setText(
-                            strings._("gui_please_wait_no_button")
+                            strings._("gui_status_indicator_download_working")
                         )
+                    else:
+                        if self.common.platform == "Windows":
+                            self.server_button.setText(strings._("gui_please_wait"))
+                        else:
+                            self.server_button.setText(
+                                strings._("gui_please_wait_no_button")
+                            )
             else:
                 self.server_button.setStyleSheet(
                     self.common.gui.css["server_status_button_working"]

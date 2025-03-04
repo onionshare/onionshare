@@ -192,8 +192,11 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
         self.started = datetime.now()
 
         # Filename label
-        self.filename_label = QtWidgets.QLabel(self.filename)
-        self.filename_label_width = self.filename_label.width()
+        self.filename_label = QtWidgets.QLabel()
+        self.filename_label.setWordWrap(True)
+        self.filename_label.setMaximumWidth(250)
+        filename_text = self.common.gui.wrap_text(self.filename_label, self.filename)
+        self.filename_label.setText(filename_text)
 
         # File size label
         self.filesize_label = QtWidgets.QLabel()
@@ -229,7 +232,8 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
 
     def rename(self, new_filename):
         self.filename = new_filename
-        self.filename_label.setText(self.filename)
+        filename_text = self.common.gui.wrap_text(self.filename_label, self.filename)
+        self.filename_label.setText(filename_text)
 
     def set_dir(self, dir):
         self.dir = dir
@@ -483,9 +487,14 @@ class IndividualFileHistoryItem(HistoryItem):
         self.timestamp_label.setStyleSheet(
             self.common.gui.css["history_individual_file_timestamp_label"]
         )
-        self.path_label = QtWidgets.QLabel(self.path)
+        self.path_label = QtWidgets.QLabel()
         self.path_label.setTextFormat(QtCore.Qt.PlainText)
         self.path_label.setStyleSheet(self.common.gui.css["history_default_label"])
+        self.path_label.setWordWrap(True)
+        self.path_label.setMaximumWidth(250)
+        path_text = self.common.gui.wrap_text(self.path_label, self.path)
+        self.path_label.setText(path_text)
+
         self.status_code_label = QtWidgets.QLabel()
 
         # Progress bar
@@ -788,10 +797,14 @@ class History(QtWidgets.QWidget):
         Update the 'completed' widget.
         """
         if self.completed_count == 0:
-            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_completed_none.svg")
+            image = GuiCommon.get_resource_path(
+                f"images/{self.common.gui.color_mode}_history_completed_none.svg"
+            )
         else:
             image = GuiCommon.get_resource_path("images/history_completed.svg")
-        self.completed_label.setText(f'<img src="{image}" height="10" /> {self.completed_count}')
+        self.completed_label.setText(
+            f'<img src="{image}" height="10" /> {self.completed_count}'
+        )
         self.completed_label.setToolTip(
             strings._("history_completed_tooltip").format(self.completed_count)
         )
@@ -801,7 +814,9 @@ class History(QtWidgets.QWidget):
         Update the 'in progress' widget.
         """
         if self.in_progress_count == 0:
-            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_in_progress_none.svg")
+            image = GuiCommon.get_resource_path(
+                f"images/{self.common.gui.color_mode}_history_in_progress_none.svg"
+            )
         else:
             image = GuiCommon.get_resource_path("images/history_in_progress.svg")
 
@@ -817,11 +832,15 @@ class History(QtWidgets.QWidget):
         Update the 'web requests' widget.
         """
         if self.requests_count == 0:
-            image = GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_requests_none.svg")
+            image = GuiCommon.get_resource_path(
+                f"images/{self.common.gui.color_mode}_history_requests_none.svg"
+            )
         else:
             image = GuiCommon.get_resource_path("images/history_requests.svg")
 
-        self.requests_label.setText(f'<img src="{image}" height="10" /> {self.requests_count}')
+        self.requests_label.setText(
+            f'<img src="{image}" height="10" /> {self.requests_count}'
+        )
         self.requests_label.setToolTip(
             strings._("history_requests_tooltip").format(self.requests_count)
         )
@@ -894,3 +913,159 @@ class ToggleHistory(QtWidgets.QPushButton):
         # Reset the indicator count
         self.indicator_count = 0
         self.update_indicator()
+
+
+class DownloadHistoryItem(HistoryItem):
+    def __init__(self, common, id, url, file_name=None, file_size=None):
+        super(DownloadHistoryItem, self).__init__()
+        self.common = common
+        self.id = id
+        self.url = url
+        self.file_name = file_name
+        self.file_size = file_size
+        self.started = datetime.now()
+        self.status = HistoryItem.STATUS_STARTED
+
+        self.common.log(
+            "DownloadHistoryItem",
+            "__init__",
+            f"id={self.id} url={self.url} file_name = {self.file_size} file_size = {self.file_size}",
+        )
+
+        # Label
+        self.label = QtWidgets.QLabel(
+            strings._("gui_all_modes_transfer_started").format(
+                self.started.strftime("%b %d, %I:%M%p")
+            )
+        )
+        self.label.setWordWrap(True)
+
+        # URL so we know which onion service we downloaded this share from
+        self.url_label = QtWidgets.QLabel()
+        self.url_label.setWordWrap(True)
+        self.url_label.setMaximumWidth(250)
+        self.url_text = self.common.gui.wrap_text(self.url_label, self.url)
+        self.url_label.setText(self.url_text)
+
+        # Progress bar
+        self.progress_bar = QtWidgets.QProgressBar()
+        self.progress_bar.setTextVisible(True)
+        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
+        self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress_bar.setMinimum(0)
+        self.progress_bar.setRange(0, 0)
+        self.progress_bar.setValue(0)
+        self.progress_bar.setStyleSheet(
+            self.common.gui.css["downloads_uploads_progress_bar"]
+        )
+
+        # This layout contains file widgets
+        self.files_layout = QtWidgets.QVBoxLayout()
+        self.files_layout.setContentsMargins(0, 0, 0, 0)
+        files_widget = QtWidgets.QWidget()
+        files_widget.setStyleSheet(self.common.gui.css["receive_file"])
+        files_widget.setLayout(self.files_layout)
+
+        # Layout
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(self.label)
+        layout.addWidget(self.url_label)
+        layout.addWidget(self.progress_bar)
+        layout.addWidget(files_widget)
+        layout.addStretch()
+        self.setLayout(layout)
+
+    def update(self, data):
+        """
+        Using the progress from Web, update the progress bar and file size labels
+        for each file
+        """
+        if data["action"] == "progress":
+            # Update the progress bar
+            self.progress_bar.setMaximum(100)
+            self.progress_bar.setValue(data["progress"])
+
+        elif data["action"] == "finished":
+            # Change the status
+            self.status = HistoryItem.STATUS_FINISHED
+
+            # Hide the progress bar
+            self.progress_bar.hide()
+
+            # Change the label
+            self.label.setText(self.get_finished_label_text(self.started))
+            self.label.setStyleSheet(self.common.gui.css["history_default_label"])
+
+            self.file_name = data["file_name"]
+            self.file_path = data["file_path"]
+            self.file_size = self.common.human_readable_filesize(data["file_size"])
+
+            # Filename label
+            self.filename_label = QtWidgets.QLabel(self.file_name)
+            self.filename_label_width = self.filename_label.width()
+
+            # File size label
+            self.filesize_label = QtWidgets.QLabel(self.file_size)
+            self.filesize_label.setStyleSheet(self.common.gui.css["receive_file_size"])
+
+            # Folder button
+            image = QtGui.QImage(GuiCommon.get_resource_path("images/open_folder.svg"))
+            scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
+            folder_pixmap = QtGui.QPixmap.fromImage(scaled_image)
+            folder_icon = QtGui.QIcon(folder_pixmap)
+            self.folder_button = QtWidgets.QPushButton()
+            self.folder_button.clicked.connect(self.open_folder)
+            self.folder_button.setIcon(folder_icon)
+            self.folder_button.setIconSize(folder_pixmap.rect().size())
+            self.folder_button.setFlat(True)
+
+            # Layouts
+            layout = QtWidgets.QHBoxLayout()
+            layout.addWidget(self.filename_label)
+            layout.addWidget(self.filesize_label)
+            layout.addStretch()
+            layout.addWidget(self.folder_button)
+
+            file_widget = QtWidgets.QWidget()
+            file_widget.setLayout(layout)
+            self.files_layout.addWidget(file_widget)
+
+        if data["action"] == "error":
+            # Change the status
+            self.status = HistoryItem.STATUS_CANCELED
+
+            # Hide the progress bar
+            self.progress_bar.hide()
+
+            # Change the label
+            error_data_formatted = data["error"]
+            self.error_data_text = self.common.gui.wrap_text(self.label, data["error"])
+            self.label.setText(
+                strings._("history_downloads_error").format(self.error_data_text)
+            )
+            self.label.setStyleSheet(self.common.gui.css["history_default_label"])
+
+    def open_folder(self):
+        """
+        Open the downloads folder, with the file selected, in a cross-platform manner
+        """
+        self.common.log("DownloadHistoryItemFile", "open_folder")
+
+        # Linux
+        if self.common.platform == "Linux" or self.common.platform == "BSD":
+            try:
+                # If nautilus is available, open it
+                subprocess.Popen(["xdg-open", self.file_path])
+            except Exception:
+                Alert(
+                    self.common,
+                    strings._("gui_open_folder_error").format(self.file_path),
+                )
+
+        # macOS
+        elif self.common.platform == "Darwin":
+            subprocess.call(["open", "-R", self.file_path])
+
+        # Windows
+        elif self.common.platform == "Windows":
+            subprocess.Popen(["explorer", f"/select,{self.file_path}"])

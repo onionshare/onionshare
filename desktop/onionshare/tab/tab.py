@@ -29,6 +29,7 @@ from .mode.share_mode import ShareMode
 from .mode.receive_mode import ReceiveMode
 from .mode.website_mode import WebsiteMode
 from .mode.chat_mode import ChatMode
+from .mode.download_mode import DownloadMode
 
 from .server_status import ServerStatus
 
@@ -133,11 +134,10 @@ class Tab(QtWidgets.QWidget):
                 )
             )
         )
-        self.image_label.setFixedSize(180, 40)
         image_layout = QtWidgets.QVBoxLayout()
         image_layout.addWidget(self.image_label)
-        image_layout.addStretch()
         self.image = QtWidgets.QWidget()
+        self.image.setFixedSize(280, 280)
         self.image.setLayout(image_layout)
 
         # New tab buttons
@@ -177,14 +177,25 @@ class Tab(QtWidgets.QWidget):
         )
         self.chat_button.clicked.connect(self.chat_mode_clicked)
 
+        self.download_button = NewTabButton(
+            self.common,
+            "images/{}_mode_new_tab_receive.png".format(self.common.gui.color_mode),
+            strings._("gui_new_tab_download_button"),
+            strings._("gui_main_page_download_button"),
+            QtCore.Qt.Key_D,
+        )
+        self.download_button.clicked.connect(self.download_mode_clicked)
+
         new_tab_top_layout = QtWidgets.QHBoxLayout()
         new_tab_top_layout.addStretch()
+        new_tab_top_layout.addWidget(self.image)
         new_tab_top_layout.addWidget(self.share_button)
         new_tab_top_layout.addWidget(self.receive_button)
         new_tab_top_layout.addStretch()
 
         new_tab_bottom_layout = QtWidgets.QHBoxLayout()
         new_tab_bottom_layout.addStretch()
+        new_tab_bottom_layout.addWidget(self.download_button)
         new_tab_bottom_layout.addWidget(self.website_button)
         new_tab_bottom_layout.addWidget(self.chat_button)
         new_tab_bottom_layout.addStretch()
@@ -195,14 +206,8 @@ class Tab(QtWidgets.QWidget):
         new_tab_layout.addLayout(new_tab_bottom_layout)
         new_tab_layout.addStretch()
 
-        new_tab_img_layout = QtWidgets.QHBoxLayout()
-        new_tab_img_layout.addWidget(self.image)
-        new_tab_img_layout.addStretch(1)
-        new_tab_img_layout.addLayout(new_tab_layout)
-        new_tab_img_layout.addStretch(2)
-
         self.new_tab = QtWidgets.QWidget()
-        self.new_tab.setLayout(new_tab_img_layout)
+        self.new_tab.setLayout(new_tab_layout)
         self.new_tab.show()
 
         # Layout
@@ -253,6 +258,8 @@ class Tab(QtWidgets.QWidget):
                 self.website_mode_clicked()
             elif mode == "chat":
                 self.chat_mode_clicked()
+            elif mode == "download":
+                self.download_mode_clicked()
         else:
             # This is a new tab
             self.settings = ModeSettings(self.common)
@@ -399,6 +406,38 @@ class Tab(QtWidgets.QWidget):
         self.update_server_status_indicator()
         self.timer.start(500)
 
+    def download_mode_clicked(self):
+        self.common.log("Tab", "download_mode_clicked")
+        self.mode = self.common.gui.MODE_DOWNLOAD
+        self.new_tab.hide()
+
+        self.download_mode = DownloadMode(self)
+
+        self.layout.addWidget(self.download_mode)
+        self.download_mode.show()
+
+        self.download_mode.init()
+        self.download_mode.server_status.server_started.connect(
+            self.update_server_status_indicator
+        )
+        self.download_mode.server_status.server_stopped.connect(
+            self.update_server_status_indicator
+        )
+        self.download_mode.start_server_finished.connect(
+            self.update_server_status_indicator
+        )
+        self.download_mode.stop_server_finished.connect(
+            self.update_server_status_indicator
+        )
+        self.download_mode.stop_server_finished.connect(self.stop_server_finished)
+        self.download_mode.start_server_finished.connect(self.clear_message)
+        self.download_mode.server_status.button_clicked.connect(self.clear_message)
+
+        self.change_title.emit(self.tab_id, strings._("gui_tab_name_download"))
+
+        self.update_server_status_indicator()
+        self.timer.start(500)
+
     def update_server_status_indicator(self):
         # Set the status image
         if self.mode == self.common.gui.MODE_SHARE:
@@ -477,6 +516,16 @@ class Tab(QtWidgets.QWidget):
                 self.set_server_status_indicator_started(
                     strings._("gui_status_indicator_chat_started")
                 )
+        elif self.mode == self.common.gui.MODE_DOWNLOAD:
+            # Download mode
+            if self.download_mode.server_status.status == ServerStatus.STATUS_STOPPED:
+                self.set_server_status_indicator_stopped(
+                    strings._("gui_status_indicator_download_stopped")
+                )
+            elif self.download_mode.server_status.status == ServerStatus.STATUS_WORKING:
+                self.set_server_status_indicator_working(
+                    strings._("gui_status_indicator_download_working")
+                )
 
     def set_server_status_indicator_stopped(self, label_text):
         self.change_icon.emit(
@@ -537,8 +586,11 @@ class Tab(QtWidgets.QWidget):
         done = False
         while not done:
             try:
-                r = mode.web.q.get(False)
-                events.append(r)
+                if mode.is_server:
+                    r = mode.web.q.get(False)
+                    events.append(r)
+                else:
+                    done = True
             except queue.Empty:
                 done = True
 
@@ -632,8 +684,12 @@ class Tab(QtWidgets.QWidget):
                 return self.receive_mode
             elif self.mode == self.common.gui.MODE_CHAT:
                 return self.chat_mode
-            else:
+            elif self.mode == self.common.gui.MODE_DOWNLOAD:
+                return self.download_mode
+            elif self.mode == self.common.gui.MODE_WEBSITE:
                 return self.website_mode
+            else:
+                return None
         else:
             return None
 
@@ -655,6 +711,10 @@ class Tab(QtWidgets.QWidget):
                     dialog_text = strings._("gui_close_tab_warning_receive_description")
                 elif self.mode == self.common.gui.MODE_CHAT:
                     dialog_text = strings._("gui_close_tab_warning_chat_description")
+                elif self.mode == self.common.gui.MODE_DOWNLOAD:
+                    dialog_text = strings._(
+                        "gui_close_tab_warning_download_description"
+                    )
                 else:
                     dialog_text = strings._("gui_close_tab_warning_website_description")
 
@@ -673,7 +733,7 @@ class Tab(QtWidgets.QWidget):
 
     def cleanup(self):
         self.common.log("Tab", "cleanup", f"tab_id={self.tab_id}")
-        if self.get_mode():
+        if self.get_mode() and self.get_mode().is_server:
             if self.get_mode().web_thread:
                 self.get_mode().web.stop(self.get_mode().app.port)
                 self.get_mode().web_thread.quit()
