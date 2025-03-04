@@ -93,7 +93,9 @@ To test locally:
 
 To test in the edge branch:
 
-With every commit to the `main` branch, Snapcraft's CI should trigger builds. Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them. You can install them with: `snap install onionshare --edge`
+With every commit to the `main` branch, Snapcraft's CI should trigger builds. If you just merged to `main` and consider this to be what will become the new version's 'tag', you can also click 'Trigger a build' in the Snapcraft.io web interface.
+
+Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (you must be logged in), and test them. You can install them with: `snap install onionshare --edge`
 
 ### Make sure the Flatpak packaging works
 
@@ -152,7 +154,7 @@ git checkout v$VERSION
 
 ### Linux Snapcraft release
 
-From https://snapcraft.io/onionshare/releases (you must be logged in), promote the release from latest/edge to latest/beta, then latest/candidate, then latest/stable.
+From https://snapcraft.io/onionshare/releases (you must be logged in), find the release that corresponds to the recent builds that ran against our `main` branch (the Build ID mentioned can be cross-referenced to the build log, as the ID appears in the log). You can then 'promote' that release from latest/edge to latest/beta, then latest/candidate, then latest/stable.
 
 ### Linux Flatpak release
 
@@ -167,7 +169,7 @@ From https://snapcraft.io/onionshare/releases (you must be logged in), promote t
 Create a Windows 11 VM, and set it up like this:
 
 - Install [git for Windows](https://git-scm.com/download/win).
-- Install the latest version of 3.11 [from python.org](https://www.python.org/downloads/).
+- Install the latest version of 3.12 [from python.org](https://www.python.org/downloads/).
 - Install [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/), making sure to check "Desktop development with C++".
 - Download and install [7-Zip (x64)](https://7-zip.org/). Add `C:\Program Files\7-Zip` to your path.
 - Download and install [gpg4win](https://gpg4win.org/). Add `C:\Program Files (x86)\GnuPG\bin` to your path.
@@ -211,7 +213,7 @@ Set up the VM like this:
 
 - Install [Homebrew](https://brew.sh/)
 - `brew install create-dmg libiodbc`
-- Install the latest Python 3.11 from https://www.python.org/downloads/
+- Install the latest Python 3.12 from https://www.python.org/downloads/
 - Install ARM64 version of Go from https://go.dev/dl/
 - Install "Postgres.app with PostgreSQL 16 (Universal)" from https://postgresapp.com/downloads.html
 
@@ -223,16 +225,16 @@ If you've used this git repo for a previous release, clean it up:
 cd desktop
 rm -rf build dist
 # Delete the old poetry environment
-poetry env remove $(poetry env list | grep "(Activated)" | cut -d" " -f1)
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry env remove $(poetry env list | grep "(Activated)" | cut -d" " -f1)
 ```
 
 Install and build dependencies:
 
 ```sh
 cd desktop
-python3 -m pip install poetry
-/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry install
-/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/get-tor.py macos
+/Library/Frameworks/Python.framework/Versions/3.12/bin/python3 -m pip install poetry
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry install
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./scripts/get-tor.py macos
 ./scripts/build-pt-obfs4proxy.sh
 ./scripts/build-pt-snowflake.sh
 ./scripts/build-pt-meek.sh
@@ -241,42 +243,62 @@ python3 -m pip install poetry
 Make the Apple Silicon app bundle:
 
 ```sh
-/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./setup-freeze.py bdist_mac
-/Library/Frameworks/Python.framework/Versions/3.11/bin/poetry run python ./scripts/build-macos.py cleanup-build
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./setup-freeze.py bdist_mac
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./scripts/build-macos.py cleanup-build
 ```
 
 The Apple Silicon app bundle will be in `build` folder called `OnionShare.app`.
 
 Github Actions will build the Intel app bundle. Find the Github Actions `build` workflow, switch to the summary tab, and download the `mac-intel-build` artifact. Extract it, and you'll get the Intel `OnionShare.app` folder.
 
+Let's create some consistent directories for the next step:
+
+```sh
+mkdir ~/tmp/intel
+mkdir ~/tmp/arm64
+mkdir ~/tmp/universal
+```
+
+Now move the `build/OnionShare.app` into `~/tmp/arm64`, and extract the Intel .app from the Github Actions build artifact above, and move it into `~/tmp/intel`.
+
 Next, merge these two app bundles into a single universal2 app bundle:
 
 ```sh
-poetry run ./scripts/macos-merge-universal.py [intel_app_path] [silicon_app_path] [universal2_app_path]
+
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run ./scripts/macos-merge-universal.py ~/tmp/intel/OnionShare.app ~/tmp/arm64/OnionShare.app ~/tmp/universal/OnionShare.app
 ```
 
-Finally, code sign and package the universal2 app bundle:
+You will need to have obtained a Developer ID Certificate from our Apple team account. The 'Development certificates' don't work for production-ready code-signing.
+
+Only Glenn as the 'Account Holder' can request Developer ID certs, so you will need to provide him a CSR to do so. Refer to https://developer.apple.com/help/account/create-certificates/create-developer-id-certificates/ and https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request/ . The private key will be in your keychain. Glenn can send you the cert once it's issued, and you should add that to your keychain too.
+
+Finally, code sign and package the universal2 app bundle.
 
 ```sh
-poetry run python ./scripts/build-macos.py codesign [universal2_app_path]
-poetry run python ./scripts/build-macos.py package [universal2_app_path]
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./scripts/build-macos.py codesign ~/tmp/universal/OnionShare.app
+/Library/Frameworks/Python.framework/Versions/3.12/bin/poetry run python ./scripts/build-macos.py package ~/tmp/universal/OnionShare.app
 ```
 
-The will create `dist/OnionShare-$VERSION.dmg`.
+The will create `dist/OnionShare-$VERSION.dmg` in the `desktop` directory that you're still cd'd into.
 
-Now, notarize the release.
+Now, notarize the release. You will need an app-specific Apple ID password set up. You will also need to change the `--apple-id` to your Apple ID email. The team ID below, however, is consistent to all of us, it's the Science & Design team ID.
 
 ```sh
-export APPLE_PASSWORD="changeme" # app-specific Apple ID password
+export APPLE_PASSWORD="changeme" # This must be an app-specific Apple ID password, not your main Apple ID password
 export VERSION=$(cat ../cli/onionshare_cli/resources/version.txt)
 
 # Notarize it
-xcrun notarytool submit --apple-id "micah@micahflee.com" --team-id N9B95FDWH4 --password "$APPLE_PASSWORD" --progress --wait dist/OnionShare-$VERSION.dmg
+xcrun notarytool submit --apple-id "you@example.com" --team-id 7WLJ4UBL5L --password "$APPLE_PASSWORD" --progress --wait dist/OnionShare-$VERSION.dmg
+```
+
+If this is your first time notarizing with this Apple ID, it can take a very long time (like 9 hours), because Apple builds up a sort of 'signature' of your request and this kind of app. All subsequent notarizations (for future releases) should be much faster (a couple of minutes).
+
+```sh
 # After it's approved, staple the ticket
 xcrun stapler staple dist/OnionShare-$VERSION.dmg
 ```
 
-This will create `desktop/dist/OnionShare-$VERSION.dmg`, signed and notarized.
+This will (re)create `desktop/dist/OnionShare-$VERSION.dmg`, signed and notarized. The dmg is now ready for release.
 
 ### Source package
 
@@ -334,6 +356,4 @@ poetry publish --build
 
 ### Update the community
 
-- Upload all 10 files to the OnionShare team Keybase filesystem
-- Email the [onionshare-dev](https://lists.riseup.net/www/subscribe/onionshare-dev) mailing list announcing the release
-- Blog, tweet, toot, etc.
+- Blog, toot, etc.
