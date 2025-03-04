@@ -38,18 +38,16 @@ from ..gui_common import GuiCommon
 from ..widgets import Alert
 
 
-class NewTabButton(QtWidgets.QPushButton):
-    def __init__(self, common, image_filename, title, text, shortcut):
-        super(NewTabButton, self).__init__()
+class CollapsibleSection(QtWidgets.QWidget):
+    def __init__(self, title, buttons, image_filename, common):
+        super().__init__()
         self.common = common
 
-        self.setFixedSize(280, 280)
+        self.setStyleSheet(self.common.gui.css["collapsible_section"])
 
-        # Keyboard shortcut, using the first letter of the mode
-        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL | shortcut)
-        self.setShortcut(sequence)
+        self.setFixedSize(280, 240)
 
-        self.setAccessibleName(title)
+        self.layout = QtWidgets.QVBoxLayout()
 
         # Image
         self.image_label = QtWidgets.QLabel(parent=self)
@@ -60,32 +58,42 @@ class NewTabButton(QtWidgets.QPushButton):
         )
         self.image_label.setAlignment(QtCore.Qt.AlignCenter)
         self.image_label.setStyleSheet(self.common.gui.css["new_tab_button_image"])
-        self.image_label.setGeometry(0, 0, self.width(), 190)
-        self.image_label.show()
+        self.image_label.setGeometry(0, 0, self.width(), 280)
 
-        # Title
-        self.title_label = QtWidgets.QLabel(title, parent=self)
-        self.title_label.setWordWrap(True)
-        self.title_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.title_label.setStyleSheet(self.common.gui.css["new_tab_title_text"])
-        if self.title_label.sizeHint().width() >= 250:
-            self.title_label.setGeometry(
-                (self.width() - 250) / 2, self.height() - 120, 250, 60
-            )
-        else:
-            self.title_label.setGeometry(
-                (self.width() - 250) / 2, self.height() - 100, 250, 30
-            )
-        self.title_label.show()
-
-        # Text
-        self.text_label = QtWidgets.QLabel(text, parent=self)
-        self.text_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.text_label.setStyleSheet(self.common.gui.css["new_tab_button_text"])
-        self.text_label.setGeometry(
+        self.toggle_button = QtWidgets.QPushButton(title)
+        self.toggle_button.setCheckable(True)
+        self.toggle_button.setStyleSheet(self.common.gui.css["new_tab_title_text"])
+        self.toggle_button.setChecked(False)
+        self.toggle_button.clicked.connect(self.toggle)
+        self.toggle_button.setGeometry(
             (self.width() - 200) / 2, self.height() - 50, 200, 30
         )
-        self.text_label.show()
+
+        self.content_widget = QtWidgets.QWidget()
+        self.content_layout = QtWidgets.QVBoxLayout()
+        for button in buttons:
+            self.content_layout.addWidget(button)
+            button.setStyleSheet(self.common.gui.css["new_tab_button_text"])
+            button.setGeometry((self.width() - 100) / 2, self.height() - 50, 200, 30)
+        self.content_widget.setLayout(self.content_layout)
+        self.content_widget.setVisible(False)
+
+        self.layout.addWidget(self.image_label)
+        self.layout.addWidget(self.toggle_button)
+        self.layout.addWidget(self.content_widget)
+        self.setLayout(self.layout)
+
+    def toggle(self):
+        expanded = self.toggle_button.isChecked()
+        self.content_widget.setVisible(expanded)
+
+        if expanded:
+            parent = self.parent()
+            if parent:
+                for child in parent.findChildren(CollapsibleSection):
+                    if child != self:
+                        child.toggle_button.setChecked(False)
+                        child.content_widget.setVisible(False)
 
 
 class Tab(QtWidgets.QWidget):
@@ -123,6 +131,8 @@ class Tab(QtWidgets.QWidget):
         self.invisible_widget = QtWidgets.QWidget()
         self.invisible_widget.setFixedSize(0, 0)
 
+        self.layout = QtWidgets.QVBoxLayout()
+
         # Onionshare logo
         self.image_label = QtWidgets.QLabel()
         self.image_label.setPixmap(
@@ -137,83 +147,83 @@ class Tab(QtWidgets.QWidget):
         image_layout = QtWidgets.QVBoxLayout()
         image_layout.addWidget(self.image_label)
         self.image = QtWidgets.QWidget()
-        self.image.setFixedSize(280, 280)
+        self.image.setFixedSize(300, 75)
         self.image.setLayout(image_layout)
 
-        # New tab buttons
-        self.share_button = NewTabButton(
-            self.common,
-            "images/{}_mode_new_tab_share.png".format(self.common.gui.color_mode),
-            strings._("gui_new_tab_share_button"),
-            strings._("gui_main_page_share_button"),
-            QtCore.Qt.Key_S,
+        # Welcome text
+        self.title_label = QtWidgets.QLabel(strings._("gui_main_page_welcome_label"))
+        self.title_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.title_label.setStyleSheet("font-size: 20px; font-weight: bold;")
+
+        self.welcome_layout = QtWidgets.QHBoxLayout()
+
+        self.welcome_layout.addWidget(self.image)
+        self.welcome_layout.addWidget(self.title_label)
+
+        self.layout.addLayout(self.welcome_layout)
+
+        # Buttons
+        self.share_button = QtWidgets.QPushButton(
+            strings._("gui_main_page_share_button")
         )
         self.share_button.clicked.connect(self.share_mode_clicked)
 
-        self.receive_button = NewTabButton(
-            self.common,
-            "images/{}_mode_new_tab_receive.png".format(self.common.gui.color_mode),
-            strings._("gui_new_tab_receive_button"),
-            strings._("gui_main_page_receive_button"),
-            QtCore.Qt.Key_R,
+        self.receive_button = QtWidgets.QPushButton(
+            strings._("gui_main_page_receive_button")
         )
         self.receive_button.clicked.connect(self.receive_mode_clicked)
 
-        self.website_button = NewTabButton(
-            self.common,
-            "images/{}_mode_new_tab_website.png".format(self.common.gui.color_mode),
-            strings._("gui_new_tab_website_button"),
-            strings._("gui_main_page_website_button"),
-            QtCore.Qt.Key_W,
-        )
-        self.website_button.clicked.connect(self.website_mode_clicked)
-
-        self.chat_button = NewTabButton(
-            self.common,
-            "images/{}_mode_new_tab_chat.png".format(self.common.gui.color_mode),
-            strings._("gui_new_tab_chat_button"),
-            strings._("gui_main_page_chat_button"),
-            QtCore.Qt.Key_C,
-        )
-        self.chat_button.clicked.connect(self.chat_mode_clicked)
-
-        self.download_button = NewTabButton(
-            self.common,
-            "images/{}_mode_new_tab_receive.png".format(self.common.gui.color_mode),
-            strings._("gui_new_tab_download_button"),
-            strings._("gui_main_page_download_button"),
-            QtCore.Qt.Key_D,
+        self.download_button = QtWidgets.QPushButton(
+            strings._("gui_new_tab_download_button")
         )
         self.download_button.clicked.connect(self.download_mode_clicked)
 
-        new_tab_top_layout = QtWidgets.QHBoxLayout()
-        new_tab_top_layout.addStretch()
-        new_tab_top_layout.addWidget(self.image)
-        new_tab_top_layout.addWidget(self.share_button)
-        new_tab_top_layout.addWidget(self.receive_button)
-        new_tab_top_layout.addStretch()
+        self.website_button = QtWidgets.QPushButton(
+            strings._("gui_main_page_website_button")
+        )
+        self.website_button.clicked.connect(self.website_mode_clicked)
 
-        new_tab_bottom_layout = QtWidgets.QHBoxLayout()
-        new_tab_bottom_layout.addStretch()
-        new_tab_bottom_layout.addWidget(self.download_button)
-        new_tab_bottom_layout.addWidget(self.website_button)
-        new_tab_bottom_layout.addWidget(self.chat_button)
-        new_tab_bottom_layout.addStretch()
+        self.chat_button = QtWidgets.QPushButton(strings._("gui_main_page_chat_button"))
+        self.chat_button.clicked.connect(self.chat_mode_clicked)
 
-        new_tab_layout = QtWidgets.QVBoxLayout()
-        new_tab_layout.addStretch()
-        new_tab_layout.addLayout(new_tab_top_layout)
-        new_tab_layout.addLayout(new_tab_bottom_layout)
-        new_tab_layout.addStretch()
+        # Collapsible Sections
 
-        self.new_tab = QtWidgets.QWidget()
-        self.new_tab.setLayout(new_tab_layout)
-        self.new_tab.show()
+        self.share_section = CollapsibleSection(
+            strings._("gui_new_tab_share_button"),
+            [self.share_button],
+            "images/{}_mode_new_tab_share.png".format(self.common.gui.color_mode),
+            self.common,
+        )
+        self.receive_section = CollapsibleSection(
+            strings._("gui_new_tab_receive_button"),
+            [self.receive_button, self.download_button],
+            "images/{}_mode_new_tab_receive.png".format(self.common.gui.color_mode),
+            self.common,
+        )
+        self.website_section = CollapsibleSection(
+            strings._("gui_new_tab_website_button"),
+            [self.website_button],
+            "images/{}_mode_new_tab_website.png".format(self.common.gui.color_mode),
+            self.common,
+        )
+        self.chat_section = CollapsibleSection(
+            strings._("gui_new_tab_chat_button"),
+            [self.chat_button],
+            "images/{}_mode_new_tab_chat.png".format(self.common.gui.color_mode),
+            self.common,
+        )
 
-        # Layout
-        self.layout = QtWidgets.QVBoxLayout()
-        self.layout.setContentsMargins(0, 0, 0, 0)
-        self.layout.addWidget(self.new_tab)
+        self.top_layout = QtWidgets.QHBoxLayout()
+        self.bottom_layout = QtWidgets.QHBoxLayout()
+
+        self.top_layout.addWidget(self.share_section)
+        self.top_layout.addWidget(self.receive_section)
+        self.bottom_layout.addWidget(self.website_section)
+        self.bottom_layout.addWidget(self.chat_section)
+
+        self.layout.addLayout(self.top_layout)
+        self.layout.addLayout(self.bottom_layout)
+
         self.setLayout(self.layout)
 
         # Create the timer
@@ -267,7 +277,13 @@ class Tab(QtWidgets.QWidget):
     def share_mode_clicked(self):
         self.common.log("Tab", "share_mode_clicked")
         self.mode = self.common.gui.MODE_SHARE
-        self.new_tab.hide()
+
+        self.image.hide()
+        self.title_label.hide()
+        self.share_section.hide()
+        self.receive_section.hide()
+        self.website_section.hide()
+        self.chat_section.hide()
 
         self.share_mode = ShareMode(self)
         self.share_mode.change_persistent.connect(self.change_persistent)
@@ -302,7 +318,13 @@ class Tab(QtWidgets.QWidget):
     def receive_mode_clicked(self):
         self.common.log("Tab", "receive_mode_clicked")
         self.mode = self.common.gui.MODE_RECEIVE
-        self.new_tab.hide()
+
+        self.image.hide()
+        self.title_label.hide()
+        self.share_section.hide()
+        self.receive_section.hide()
+        self.website_section.hide()
+        self.chat_section.hide()
 
         self.receive_mode = ReceiveMode(self)
         self.receive_mode.change_persistent.connect(self.change_persistent)
@@ -339,7 +361,13 @@ class Tab(QtWidgets.QWidget):
     def website_mode_clicked(self):
         self.common.log("Tab", "website_mode_clicked")
         self.mode = self.common.gui.MODE_WEBSITE
-        self.new_tab.hide()
+
+        self.image_label.hide()
+        self.title_label.hide()
+        self.share_section.hide()
+        self.receive_section.hide()
+        self.website_section.hide()
+        self.chat_section.hide()
 
         self.website_mode = WebsiteMode(self)
         self.website_mode.change_persistent.connect(self.change_persistent)
@@ -376,7 +404,13 @@ class Tab(QtWidgets.QWidget):
     def chat_mode_clicked(self):
         self.common.log("Tab", "chat_mode_clicked")
         self.mode = self.common.gui.MODE_CHAT
-        self.new_tab.hide()
+
+        self.image.hide()
+        self.title_label.hide()
+        self.share_section.hide()
+        self.receive_section.hide()
+        self.website_section.hide()
+        self.chat_section.hide()
 
         self.chat_mode = ChatMode(self)
         self.chat_mode.change_persistent.connect(self.change_persistent)
@@ -409,7 +443,13 @@ class Tab(QtWidgets.QWidget):
     def download_mode_clicked(self):
         self.common.log("Tab", "download_mode_clicked")
         self.mode = self.common.gui.MODE_DOWNLOAD
-        self.new_tab.hide()
+
+        self.image.hide()
+        self.title_label.hide()
+        self.share_section.hide()
+        self.receive_section.hide()
+        self.website_section.hide()
+        self.chat_section.hide()
 
         self.download_mode = DownloadMode(self)
 

@@ -94,7 +94,7 @@ class DownloadMode(Mode):
         )
         self.onionshare_url = QtWidgets.QLineEdit()
         self.onionshare_url.setStyleSheet(
-            "QLineEdit { color: black; } QLineEdit::placeholder { color: gray; }"
+            self.common.gui.css["download_mode_qlineedit"]
         )
         self.onionshare_url.setPlaceholderText(
             "http://lldan5gahapx5k7iafb3s4ikijc4ni7gx5iywdflkba5y2ezyg6sjgyd.onion"
@@ -114,7 +114,7 @@ class DownloadMode(Mode):
             strings._("mode_settings_download_onionshare_private_key")
         )
         self.onionshare_private_key.setStyleSheet(
-            "QLineEdit { color: black; } QLineEdit::placeholder { color: gray; }"
+            self.common.gui.css["download_mode_qlineedit"]
         )
         self.onionshare_private_key.hide()
 
