@@ -43,6 +43,7 @@ from onionshare_cli.onion import (
 from onionshare_cli.meek import Meek
 from onionshare_cli.web.web import WaitressException
 
+
 class GuiCommon:
     """
     The shared code for all of the OnionShare GUI.
@@ -52,6 +53,7 @@ class GuiCommon:
     MODE_RECEIVE = "receive"
     MODE_WEBSITE = "website"
     MODE_CHAT = "chat"
+    MODE_DOWNLOAD = "download"
 
     def __init__(self, common, qtapp, local_only):
         self.common = common
@@ -388,7 +390,7 @@ class GuiCommon:
                     color: """
             + title_color
             + """;
-                    font-size: 25px;
+                    font-size: 16px;
                 }
                 """,
             # Share mode and child widget styles
@@ -484,6 +486,41 @@ class GuiCommon:
                 }
                 """,
         }
+
+    def wrap_text(self, item, text):
+        """
+        Helper function to insert 'fake' line breaks in long strings
+        (such as file names or onion addresses) so that we may then
+        use the resulting string in a label with setWordWrap(True)
+        to properly wrap it.
+        """
+        # Get the font metrics of the label to calculate line breaks
+        fm = QtGui.QFontMetrics(item.font())
+
+        # Max width of the label
+        max_width = item.maximumWidth()
+
+        # Wrap the text by inserting line breaks
+        lines = []
+        current_line = ""
+
+        for char in text:
+            # Add the character to the current line
+            current_line += char
+
+            # If the line exceeds the maximum width, start a new line
+            if fm.horizontalAdvance(current_line) > max_width:
+                lines.append(
+                    current_line[:-1]
+                )  # Remove the last character and start a new line
+                current_line = char  # Start new line with the current character
+
+        # Add the last line
+        if current_line:
+            lines.append(current_line)
+
+        # Join all lines with newlines
+        return "\n".join(lines)
 
     def get_tor_paths(self):
         if self.common.platform == "Linux":
@@ -594,6 +631,7 @@ class GuiCommon:
         """
         if type(e) is WaitressException:
             return strings._("waitress_web_server_error")
+
 
 class ToggleCheckbox(QtWidgets.QCheckBox):
     def __init__(self, text):
