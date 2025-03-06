@@ -140,7 +140,7 @@ class Settings(object):
 
         # Choose the default locale based on the OS preference, and fall-back to English
         if self._settings["locale"] is None:
-            language_code, encoding = locale.getdefaultlocale()
+            language_code, encoding = locale.getlocale()
 
             # Default to English
             if not language_code:
