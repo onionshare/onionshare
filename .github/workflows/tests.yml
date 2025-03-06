@@ -34,6 +34,7 @@ jobs:
           poetry run onionshare-cli --local-only --receive --auto-stop-timer 2 --qr --verbose
           poetry run onionshare-cli --local-only --website ../docs --auto-stop-timer 2 --qr --verbose
           poetry run onionshare-cli --local-only --chat --auto-stop-timer 5 --qr --verbose
+          touch /tmp/foo{1,2} && poetry run onionshare-cli --local-only --persistent tests/persistent.json --auto-stop-timer 5 --verbose
 
   test-desktop:
     runs-on: ubuntu-latest

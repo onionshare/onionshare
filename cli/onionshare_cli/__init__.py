@@ -33,6 +33,7 @@ from .onionshare import OnionShare
 from .mode_settings import ModeSettings
 from qrcode import QRCode
 
+
 def main(cwd=None):
     """
     The main() function implements all of the logic that the command-line version of
@@ -124,7 +125,7 @@ def main(cwd=None):
         action="store_true",
         dest="log_filenames",
         default=False,
-        help="Log file download activity to stdout"
+        help="Log file download activity to stdout",
     )
     parser.add_argument(
         "--qr",
@@ -260,7 +261,9 @@ def main(cwd=None):
             mode_settings.set("receive", "disable_files", disable_files)
         if mode == "website":
             if disable_csp and custom_csp:
-                print("You cannot disable the CSP and set a custom one. Either set --disable-csp or --custom-csp but not both.")
+                print(
+                    "You cannot disable the CSP and set a custom one. Either set --disable-csp or --custom-csp but not both."
+                )
                 sys.exit()
             if disable_csp:
                 mode_settings.set("website", "disable_csp", True)
@@ -277,19 +280,18 @@ def main(cwd=None):
     if mode == "share" or mode == "website":
         # Unless you passed in a persistent filename, in which case get the filenames from
         # the mode settings
-        if (
-            persistent_filename
-            and not mode_settings.just_created
-            and len(filenames) != 0
-        ):
+        if persistent_filename and not mode_settings.just_created:
+            # The assumption is that if we didn't just create the mode settings,
+            # this persistent json file already has validated the filenames
+            # defined therein.
             filenames = mode_settings.get(mode, "filenames")
-
         else:
-            # Make sure filenames given if not using receiver mode
+            # Make sure filenames given. If it is somehow empty yet we had a persistent
+            # json file, something has gone wrong with that file, just remove it.
             if len(filenames) == 0:
                 if persistent_filename:
                     mode_settings.delete()
-
+                print("No file(s) were provided")
                 parser.print_help()
                 sys.exit()
 
@@ -515,7 +517,11 @@ def main(cwd=None):
                 if not app.autostop_timer_thread.is_alive():
                     if mode == "share":
                         # If there were no attempts to download the share, or all downloads are done, we can stop
-                        if not web.share_mode.download_in_progress or web.share_mode.cur_history_id == 0 or web.done:
+                        if (
+                            not web.share_mode.download_in_progress
+                            or web.share_mode.cur_history_id == 0
+                            or web.done
+                        ):
                             print("Stopped because auto-stop timer ran out")
                             web.stop(app.port)
                             break
