@@ -614,7 +614,7 @@ class AutoStopTimer(threading.Thread):
 
         self.common = common
 
-        self.setDaemon(True)
+        self.daemon = True
         self.time = time
 
     def run(self):
