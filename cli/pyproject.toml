@@ -1,9 +1,16 @@
-[tool.poetry]
+[project]
 name = "onionshare_cli"
 version = "2.6.3"
-description = "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service."
-authors = ["Micah Lee <micah@micahflee.com>"]
-license = "GPLv3+"
+description = "Securely and anonymously share files, host websites, and chat with friends using the Tor network"
+requires-python = ">=3.10,<3.13"
+authors = [
+    { name = "Micah Lee", email = "micah@micahflee.com" },
+]
+maintainers = [
+    { name = "Micah Lee", email = "micah@micahflee.com" },
+]
+license = { text = "GPL-3.0-or-later" }
+keywords = [ "onion", "share", "onionshare", "tor", "anonymous", "web server" ]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Framework :: Flask",
@@ -14,39 +21,58 @@ classifiers = [
     "Operating System :: OS Independent",
     "Environment :: Web Environment",
 ]
+dependencies = [
+    "click",
+    "flask == 2.3.2",
+    "flask-compress >= 1.13, < 2.0",
+    "flask-socketio == 5.3.4",
+    "psutil",
+    "pysocks",
+    "requests[socks]",
+    "unidecode",
+    "urllib3 >= 2.2.2, < 3.0",
+    "eventlet",
+    "pynacl",
+    "colorama",
+    "gevent-websocket",
+    "stem == 1.8.1",
+    "waitress >= 3.0.1, < 4.0.0",
+    "werkzeug == 3.0.6",
+    "packaging >= 24",
+    "gevent >= 23.9.1, < 24.0.0",
+    "qrcode >= 7.4.2, < 8.0.0",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.10,<3.13"
-click = "*"
-flask = "2.3.2"
-flask-compress = "^1.13"
-flask-socketio = "5.3.4"
-psutil = "*"
-pysocks = "*"
-requests = {extras = ["socks"], version = "*"}
-unidecode = "*"
-urllib3 = "^2.2.2"
-eventlet = "*"
-setuptools = ">=70.0.0"
-pynacl = "*"
-colorama = "*"
-gevent-websocket = "*"
-stem = "1.8.1"
-waitress = "^3.0.1"
-werkzeug = "3.0.6"
-packaging = ">=24"
-gevent = "^23.9.1"
-wheel = "^0.41.2"
-cffi = "^1.15.1"
-cython = "^3.0.2"
-qrcode = "^7.4.2"
+[project.urls]
+homepage = "https://onionshare.org"
+repository = "https://github.com/onionshare/onionshare"
+documentation = "https://docs.onionshare.org/"
+
+[project.scripts]
+onionshare-cli = "onionshare_cli:main"
+
+[tool.setuptools]
+packages = [
+    "onionshare_cli",
+    "onionshare_cli.web",
+]
+
+[tool.setuptools.package-data]
+onionshare_cli = [
+    "resources/*",
+    "resources/static/*",
+    "resources/static/css/*",
+    "resources/static/img/*",
+    "resources/static/js/*",
+    "resources/templates/*",
+]
 
 [tool.poetry.group.dev.dependencies]
+setuptools = ">=70.0.0"
+
+[tool.poetry.group.test.dependencies]
 pytest = ">=7.2.0"
 
-[tool.poetry.scripts]
-onionshare-cli = 'onionshare_cli:main'
-
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=$(cat ../cli/onionshare_cli/resources/version.txt)
+VERSION=$(cat ../cli/pyproject.toml | python -c 'import tomllib,sys;print(tomllib.load(sys.stdin)["project"]["version"])')
 
 # Supported locales
 LOCALES="en sq bg zh_CN de el ga ja pl ru es tr uk"
