@@ -26,9 +26,16 @@ import cx_Freeze
 from cx_Freeze import setup, Executable
 from setuptools import find_packages
 
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+
 # Discover the version
-with open(os.path.join("..", "cli", "onionshare_cli", "resources", "version.txt")) as f:
-    version = f.read().strip()
+pyproject_filename = os.path.join("..", "cli", "pyproject.toml")
+with open(pyproject_filename, "rb") as f:
+    pyproject = tomllib.load(f)
+    version = pyproject['project']['version']
     # change a version like 2.6.dev1 to just 2.6, for cx_Freeze's sake
     last_digit = version[-1]
     if version.endswith(f".dev{last_digit}"):
