@@ -51,6 +51,7 @@ class ModeSettings:
                 "autostart_timer": False,
                 "autostop_timer": False,
                 "service_id": None,
+                "qr": False
             },
             "share": {
                 "autostop_sharing": True,
