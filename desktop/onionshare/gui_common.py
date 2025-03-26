@@ -113,6 +113,16 @@ class GuiCommon:
 
         return {
             # OnionShareGui styles
+            "url_description": """
+                QLabel {
+                    margin-top: 10px;
+                    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #eaccfc, stop:1 #d3a7f0);
+                    color: #000000;
+                    border: 1px solid #DDDBDA;
+                    border-radius: 8px;
+                    padding: 16px 8px;
+                }
+                """,
             "tab_widget": """
                 QTabBar::tab { width: 170px; height: 30px; }
                 """,
@@ -222,7 +232,7 @@ class GuiCommon:
                     subcontrol-origin: margin;
                 }""",
             # Common styles between modes and their child widgets
-            "mode_settings_toggle_advanced": """
+            "mode_settings_toggle_scheduling": """
                 QPushButton {
                     color: #3f7fcf;
                     text-align: left;

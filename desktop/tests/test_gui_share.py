@@ -256,7 +256,7 @@ class TestShare(GuiBaseTest):
         If autostart timer is after autostop timer, a warning should be thrown
         """
         tab = self.new_share_tab()
-        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.toggle_scheduling_button.click()
         tab.get_mode().mode_settings_widget.autostart_timer_checkbox.click()
         tab.get_mode().mode_settings_widget.autostop_timer_checkbox.click()
 
@@ -280,7 +280,7 @@ class TestShare(GuiBaseTest):
         Autostart timer should automatically start
         """
         tab = self.new_share_tab()
-        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.toggle_scheduling_button.click()
         tab.get_mode().mode_settings_widget.autostart_timer_checkbox.click()
 
         self.run_all_common_setup_tests()
@@ -301,7 +301,7 @@ class TestShare(GuiBaseTest):
         Autostart timer should throw a warning if the scheduled time is too soon
         """
         tab = self.new_share_tab()
-        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.toggle_scheduling_button.click()
         tab.get_mode().mode_settings_widget.autostart_timer_checkbox.click()
 
         def accept_dialog():
@@ -325,7 +325,7 @@ class TestShare(GuiBaseTest):
         Test canceling a scheduled share
         """
         tab = self.new_share_tab()
-        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.toggle_scheduling_button.click()
         tab.get_mode().mode_settings_widget.autostart_timer_checkbox.click()
 
         self.run_all_common_setup_tests()
@@ -440,7 +440,7 @@ class TestShare(GuiBaseTest):
         Test the autostop timer
         """
         tab = self.new_share_tab()
-        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.toggle_scheduling_button.click()
         tab.get_mode().mode_settings_widget.autostop_timer_checkbox.click()
 
         self.run_all_common_setup_tests()
@@ -458,7 +458,7 @@ class TestShare(GuiBaseTest):
         Test the autostop timer when the timeout is too short
         """
         tab = self.new_share_tab()
-        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.toggle_scheduling_button.click()
         tab.get_mode().mode_settings_widget.autostop_timer_checkbox.click()
 
         def accept_dialog():
@@ -504,7 +504,7 @@ class TestShare(GuiBaseTest):
         clipboard contains the ClientAuth string
         """
         tab = self.new_share_tab()
-        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().mode_settings_widget.toggle_scheduling_button.click()
 
         self.run_all_common_setup_tests()
         self.run_all_share_mode_setup_tests(tab)
@@ -587,7 +587,8 @@ class TestShare(GuiBaseTest):
         # Click on persistence
         tab.get_mode().mode_settings_widget.persistent_checkbox.click()
 
-        # Autostart on launch is now visible
+        # Autostart on launch is now visible if you click the Scheduling settings
+        tab.get_mode().mode_settings_widget.toggle_scheduling_button.click()
         self.assertTrue(tab.get_mode().mode_settings_widget.persistent_autostart_on_launch_checkbox.isVisible())
 
         # Click off persistence
