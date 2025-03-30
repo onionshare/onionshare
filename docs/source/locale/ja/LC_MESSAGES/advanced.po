@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-02-26 08:24+0000\n"
+"PO-Revision-Date: 2025-03-30 03:01+0000\n"
 "Last-Translator: Himmel <himmel@users.noreply.hosted.weblate.org>\n"
 "Language-Team: ja <LL@li.org>\n"
 "Language: ja\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.2-dev\n"
+"X-Generator: Weblate 5.11-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../source/advanced.rst:2
@@ -33,9 +33,10 @@ msgid ""
 "Persistently hosted websites are available on the same address even if the "
 "computer they are shared from is rebooted."
 msgstr ""
-"OnionShareのタブを閉じると、タブは破棄され、これを再利用することはできませ"
-"ん。固定タブでホストされているウェブサイトは、それをホストしているコンピュー"
-"ターが再起動した場合でも、同じアドレスでアクセスすることができます。"
+"OnionShare "
+"のタブを閉じると、タブは破棄され、これを再利用することはできません。固定タブ"
+"でホストされているウェブサイトは、それをホストしているコンピューターが再起動"
+"した場合でも、同じアドレスでアクセスすることができます。"
 
 #: ../../source/advanced.rst:12
 msgid ""
@@ -51,17 +52,17 @@ msgid ""
 "opened. Each service then can be started manually, and will be available on "
 "the same OnionShare address and be protected by the same private key."
 msgstr ""
-"OnionShareを開くと、前回のセッションで保存したタブを開きます。その後、それぞ"
-"れのサービスを手動で開始すると、同じOnionShareのアドレスで、同一の秘密鍵で保"
-"護されたサービスが利用できるようになります。"
+"OnionShare "
+"を開くと、前回のセッションで保存したタブを開きます。その後、それぞれのサービ"
+"スを手動で開始すると、同じ OnionShare "
+"のアドレスで、同一の秘密鍵で保護されたサービスが利用できるようになります。"
 
 #: ../../source/advanced.rst:19
 msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on your "
 "computer."
-msgstr ""
-"タブを保存すると、そのOnion Serviceの秘密鍵のコピーがあなたのコンピューター上"
-"に保存されます。"
+msgstr "タブを保存すると、その Onion Service "
+"の秘密鍵のコピーがあなたのコンピューター上に保存されます。"
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
@@ -71,9 +72,8 @@ msgstr "秘密鍵を無効にする"
 msgid ""
 "By default, all OnionShare services are protected with a private key, which "
 "Tor calls \"client authentication\"."
-msgstr ""
-"既定では、全てのOnionShareのサービスは、秘密鍵で保護されます。これはTorでは"
-"「クライアント認証」と呼ばれているものです。"
+msgstr "既定では、すべての OnionShare のサービスは、秘密鍵で保護されます。これは Tor "
+"では「クライアント認証」と呼ばれているものです。"
 
 #: ../../source/advanced.rst:28
 msgid ""
@@ -91,10 +91,10 @@ msgid ""
 "Then the server will be public and a private key is not needed to load it in "
 "the Tor Browser."
 msgstr ""
-"タブに関して秘密鍵を無効にするには、サーバーを開始する前に「公開のOnionShare"
-"のサービスとして設定（秘密鍵が無効となります）」にチェックを入れてください。"
-"そうすると、サーバーは公開され、Tor Browserでこれを読み込む際に秘密鍵を入力す"
-"る必要はなくなります。"
+"タブに関して秘密鍵を無効にするには、サーバーを開始する前に「公開の "
+"OnionShare のサービスとして設定 (秘密鍵が無効となります) "
+"」にチェックを入れてください。そうすると、サーバーは公開され、Tor Browser "
+"でこれを読み込む際に秘密鍵を入力する必要はなくなります。"
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
@@ -106,9 +106,9 @@ msgid ""
 "title for each type of service. For example, the default title for chat "
 "services is \"OnionShare Chat\"."
 msgstr ""
-"Tor BrowserでOnionShareのサービスを読み込むと、それぞれの種類のサービスに既定"
-"のタイトルが表示されます。例えば、チャットのサービスの既定のタイトルは"
-"「OnionShare Chat」です。"
+"Tor Browser で OnionShare "
+"のサービスを読み込むと、それぞれの種類のサービスに既定のタイトルが表示されま"
+"す。例えば、チャットのサービスの既定のタイトルは「OnionShare Chat」です。"
 
 #: ../../source/advanced.rst:42
 msgid ""
@@ -130,10 +130,11 @@ msgid ""
 "time\", \"Stop onion service at scheduled time\", or both, and set the "
 "respective desired dates and times."
 msgstr ""
-"OnionShareでは、サービスを開始・停止する時刻を予定することができます。サー"
-"バーを開始する前に、そのタブの「詳細設定を表示」をクリックし、「指定の日時に"
-"Onion Serviceを開始」と「指定の日時にOnion Serviceを停止」の片方または両方に"
-"チェックを入れて、希望日時を入力してください。"
+"OnionShare "
+"では、サービスを開始・停止する時刻を予定することができます。サーバーを開始す"
+"る前に、そのタブの「詳細設定を表示」をクリックし、「指定の日時に Onion "
+"Service を開始」と「指定の日時に Onion Service "
+"を停止」の片方または両方にチェックを入れて、希望日時を入力してください。"
 
 #: ../../source/advanced.rst:51
 msgid ""
@@ -152,10 +153,12 @@ msgid ""
 "in the future if you are not there to prevent it. If nothing happens to you, "
 "you can cancel the service before it's scheduled to start."
 msgstr ""
-"**OnionShareの自動開始の設定は「死者のスイッチ」として使用できます**。その場"
-"合、もし将来、あなたによりOnionShareの自動開始の設定が解除されなければ、指定"
-"の日時にサービスが公開されます。何もあなたの身に起こらなければ、サービスが開"
-"始する前に、これを中止することができます。"
+"**OnionShare "
+"の自動開始の設定は「死者のスイッチ」として使用できます**。その場合、もし将来"
+"、あなたにより OnionShare "
+"の自動開始の設定が解除されなければ、指定の日時にサービスが公開されます。何も"
+"あなたの身に起こらなければ、サービスが開始する前に、これを中止することができ"
+"ます。"
 
 #: ../../source/advanced.rst:60
 msgid ""
@@ -163,9 +166,10 @@ msgid ""
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
 msgstr ""
-"**OnionShareのサービスの自動終了の設定は、サービスが公開される期間を限定でき"
-"ます**。古くなってしまう秘密の情報などを共有したい場合は、期間を選択、限定し"
-"てこれを共有することができます。"
+"**OnionShare "
+"のサービスの自動終了の設定は、サービスが公開される期間を限定できます**。古く"
+"なってしまう秘密の情報などを共有したい場合は、期間を選択、限定してこれを共有"
+"することができます。"
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
@@ -175,9 +179,8 @@ msgstr "コマンドライン・インターフェース"
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
-msgstr ""
-"グラフィカル・インターフェースに加えて、OnionShareにはコマンドライン・イン"
-"ターフェースがあります。"
+msgstr "グラフィカル・インターフェースに加えて、OnionShare "
+"にはコマンドライン・インターフェースがあります。"
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
@@ -217,9 +220,9 @@ msgid ""
 "`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
 "README.md>`_ in the Git repository."
 msgstr ""
-"異なるOSでのインストールに関する情報については、Gitレポジトリにある\\ `コマン"
-"ドラインREADMEファイル <https://github.com/onionshare/onionshare/blob/"
-"develop/cli/README.md>`_\\ をご確認ください。"
+"異なる OS でのインストールに関する情報については、Git リポジトリにある\\ `"
+"コマンドライン README ファイル <https://github.com/onionshare/onionshare/"
+"blob/develop/cli/README.md>`_\\ をご確認ください。"
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
@@ -334,10 +337,10 @@ msgid ""
 msgstr ""
 "Onion アドレスと秘密鍵を生成する最も簡単な方法は、まずデスクトップアプリで "
 "OnionShare タブを「ピン留め」して、初めて共有を開始することです。これにより、"
-"永続的な設定が ``.config/onionshare/persistent/`` フォルダにランダムな名前で"
-"保存されます。最初に生成したタブは固定解除できます。あるいは、そのままにして"
-"おいて、以下の systemd ユニットファイルでその永続ファイルを使用することもでき"
-"ます。"
+"永続的な設定が ``.config/onionshare/persistent/`` "
+"フォルダーにランダムな名前で保存されます。最初に生成したタブは固定解除できま"
+"す。あるいは、そのままにしておいて、以下の systemd "
+"ユニットファイルでその永続ファイルを使用することもできます。"
 
 #: ../../source/advanced.rst:251
 msgid ""
@@ -397,9 +400,9 @@ msgstr "キーボードのショートカット"
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
-msgstr ""
-"OnionShareのデスクトップアプリケーションには、利便性とアクセシビリティーの観"
-"点から、いくつかのキーボードショートカットがあります。"
+msgstr "OnionShare "
+"のデスクトップアプリケーションには、利便性とアクセシビリティーのために、いく"
+"つかのキーボードショートカットがあります。"
 
 #: ../../source/advanced.rst:293
 msgid "And from the main mode chooser screen::"
@@ -487,7 +490,7 @@ msgstr "説明"
 
 #: ../../source/advanced.rst:324
 msgid "version"
-msgstr "バージョン"
+msgstr "version"
 
 #: ../../source/advanced.rst:324 ../../source/advanced.rst:325
 #: ../../source/advanced.rst:326 ../../source/advanced.rst:328
@@ -847,7 +850,7 @@ msgstr "クライアント認証を使用する場合の公開鍵。OnionShare �
 
 #: ../../source/advanced.rst:410
 msgid "persistent"
-msgstr "persistent"
+msgstr "永続"
 
 #: ../../source/advanced.rst:415
 msgid "mode"
@@ -887,7 +890,7 @@ msgstr "OnionShare の起動時および Tor の接続時に、この永続 Onio
 
 #: ../../source/advanced.rst:421
 msgid "general"
-msgstr "general"
+msgstr "一般"
 
 #: ../../source/advanced.rst:426
 msgid "title"
@@ -960,7 +963,7 @@ msgstr "以下は、上記の ``persistent`` セクションで指定した「mo
 
 #: ../../source/advanced.rst:436
 msgid "share"
-msgstr "share"
+msgstr "共有"
 
 #: ../../source/advanced.rst:441
 msgid "autostop_sharing"
@@ -992,7 +995,7 @@ msgstr "CLI ツールの使用時に URL 要求を stdout に記録するかど�
 
 #: ../../source/advanced.rst:447
 msgid "receive"
-msgstr "receive"
+msgstr "受信"
 
 #: ../../source/advanced.rst:452
 msgid "data_dir"
@@ -1034,7 +1037,7 @@ msgstr "ファイルの受信を無効にするかどうか。デフォルト: f
 
 #: ../../source/advanced.rst:459
 msgid "website"
-msgstr "website"
+msgstr "ウェブサイト"
 
 #: ../../source/advanced.rst:464
 msgid "disable_csp"
