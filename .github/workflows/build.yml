@@ -41,7 +41,7 @@ jobs:
           key: ${{ runner.os }}-win64-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
 
       - name: Get tor binaries from Tor Browser (64-bit)
-        run: cd desktop && C:\hostedtoolcache\windows\Python\3.12.8\x64\Scripts\poetry run python .\scripts\get-tor.py win64
+        run: cd desktop && C:\hostedtoolcache\windows\Python\3.12.8\x64\Scripts\poetry run python .\scripts\get-tor.py windows-x86_64
 
       - name: Install Go >=1.23.5
         uses: actions/setup-go@v5
