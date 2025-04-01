@@ -26,8 +26,7 @@ working_path = os.path.join(root_path, "build", "tor")
 def get_latest_tor_version_urls(platform):
     r = requests.get(f"{torbrowser_latest_url}/download-{platform}.json")
     if r.status_code != 200:
-        print("Tor browser latest version url not working")
-        sys.exit(-1)
+        raise RuntimeError("Tor browser latest version url not working")
 
     platform_url = r.json()["binary"]
     platform_sig_url = r.json()["sig"]
