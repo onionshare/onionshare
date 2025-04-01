@@ -12,7 +12,7 @@ import tempfile
 import gnupg
 
 torbrowser_latest_url = (
-    "https://aus1.torproject.org/torbrowser/update_3/release/downloads.json"
+    "https://aus1.torproject.org/torbrowser/update_3/release"
 )
 tor_dev_fingerprint = "EF6E286DDA85EA2A4BA7DE684E2C6E8793298290"
 
@@ -24,13 +24,13 @@ working_path = os.path.join(root_path, "build", "tor")
 
 
 def get_latest_tor_version_urls(platform):
-    r = requests.get(torbrowser_latest_url)
-    if r.status_code != 200 or platform not in r.json()["downloads"]:
+    r = requests.get(f"{torbrowser_latest_url}/download-{platform}.json")
+    if r.status_code != 200:
         print("Tor browser latest version url not working")
         sys.exit(-1)
 
-    platform_url = r.json()["downloads"][platform]["ALL"]["binary"]
-    platform_sig_url = r.json()["downloads"][platform]["ALL"]["sig"]
+    platform_url = r.json()["binary"]
+    platform_sig_url = r.json()["sig"]
     platform_filename = platform_url.split("/")[-1]
 
     return platform_url, platform_filename, platform_sig_url
@@ -320,7 +320,7 @@ def main(platform):
     """
     Download Tor Browser and extract tor binaries
     """
-    valid_platforms = ["win64", "macos", "linux-x86_64"]
+    valid_platforms = ["windows-x86_64", "macos", "linux-x86_64"]
     if platform not in valid_platforms:
         click.echo(f"platform must be one of: {valid_platforms}")
         return
@@ -337,7 +337,7 @@ def main(platform):
     )
     print(f"Imported Tor GPG key: {torkey.fingerprints}")
 
-    if platform == "win64":
+    if platform == "windows-x86_64":
         get_tor_windows(
             gpg, torkey, platform_url, platform_filename, expected_platform_sig
         )

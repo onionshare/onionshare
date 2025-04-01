@@ -39,7 +39,7 @@ poetry install
 - Download and install [7-Zip (x64)](https://7-zip.org/). Add `C:\Program Files\7-Zip` to your path.
 - Download and install [gpg4win](https://gpg4win.org/). Add `C:\Program Files (x86)\GnuPG\bin` to your path.
 
-Download Tor Browser and extract the binaries for your platform. The platform must be `win64`, `macos`, or `linux-x86_64`.
+Download Tor Browser and extract the binaries for your platform. The platform must be `windows-x86_64`, `macos`, or `linux-x86_64`.
 
 ```sh
 poetry run python ./scripts/get-tor.py [platform]
