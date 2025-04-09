@@ -256,5 +256,6 @@
     "gui_close_tab_warning_chat_description": "Loka flipa sem hýsir spjallþjón?",
     "gui_chat_mode_explainer": "Spjallhamur gerir þér kleift að spjalla gagnvirkt við aðra í Tor-vafranum.<br><br><b>Spjallferillinn er ekki geymdur í OnionShare, hann mun hverfa þegar þú lokar Tor-vafranum.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Ræsa sjálfkrafa þessa onion-þjónustu þegar OnionShare fer í gang",
-    "gui_settings_license_label": "OnionShare kemur með GPL v3 notkunarleyfi.<br>Notkunarleyfi utanaðkomandi aðila má sjá hér:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "OnionShare kemur með GPL v3 notkunarleyfi.<br>Notkunarleyfi utanaðkomandi aðila má sjá hér:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "error_generic": "Upp kom óvænt villa í OnionShare:\n{}"
 }
