@@ -37,7 +37,7 @@ class TabWidget(QtWidgets.QTabWidget):
 
     bring_to_front = QtCore.Signal()
 
-    def __init__(self, common, system_tray, status_bar, window):
+    def __init__(self, common, system_tray, status_bar, window, settings_button):
         super(TabWidget, self).__init__()
         self.common = common
         self.common.log("TabWidget", "__init__")
@@ -45,6 +45,7 @@ class TabWidget(QtWidgets.QTabWidget):
         self.system_tray = system_tray
         self.status_bar = status_bar
         self.window = window
+        self.settings_button = settings_button
 
         # Keep track of tabs in a dictionary that maps tab_id to tab.
         # Each tab has a unique, auto-incremented id (tab_id). This is different than the
@@ -196,7 +197,7 @@ class TabWidget(QtWidgets.QTabWidget):
 
     def add_tab(self, mode_settings=None):
         self.common.log("TabWidget", "add_tab", f"mode_settings: {mode_settings}")
-        tab = Tab(self.common, self.current_tab_id, self.system_tray, self.status_bar)
+        tab = Tab(self.common, self.current_tab_id, self.system_tray, self.status_bar, self, self.settings_button)
         tab.change_title.connect(self.change_title)
         tab.change_icon.connect(self.change_icon)
         tab.change_persistent.connect(self.change_persistent)

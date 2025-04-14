@@ -28,6 +28,7 @@ from .threads import CompressThread
 from .. import Mode
 from ..file_selection import FileSelection
 from ..history import History, ToggleHistory, ShareHistoryItem
+from ..settings_button import SettingsButton
 from .... import strings
 from ....widgets import MinimumSizeWidget
 from ....gui_common import GuiCommon
@@ -61,7 +62,7 @@ class ShareMode(Mode):
         else:
             self.autostop_sharing_checkbox.setCheckState(QtCore.Qt.Unchecked)
 
-        self.mode_settings_widget.mode_specific_layout.addWidget(
+        self.mode_settings_widget.scheduling_layout.addWidget(
             self.autostop_sharing_checkbox
         )
 
@@ -141,12 +142,16 @@ class ShareMode(Mode):
             ),
         )
 
+        # Settings button
+        self.settings_button = SettingsButton(self.common, self.tab.tab_widget)
+
         # Top bar
         top_bar_layout = QtWidgets.QHBoxLayout()
         top_bar_layout.addWidget(self.info_label)
         top_bar_layout.addStretch()
         top_bar_layout.addWidget(self.remove_all_button)
         top_bar_layout.addWidget(self.toggle_history)
+        top_bar_layout.addWidget(self.settings_button)
 
         # Primary action layout
         self.primary_action_layout.addWidget(self.filesize_warning)

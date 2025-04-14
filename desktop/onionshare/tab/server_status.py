@@ -81,6 +81,7 @@ class ServerStatus(QtWidgets.QWidget):
         self.url_description = QtWidgets.QLabel()
         self.url_description.setWordWrap(True)
         self.url_description.setMinimumHeight(50)
+        self.url_description.setStyleSheet(self.common.gui.css["url_description"])
 
         # URL sharing instructions, above the URL and Copy Address/QR Code buttons
         self.url_instructions = QtWidgets.QLabel()
