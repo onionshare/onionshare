@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-02-11 08:01+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2025-04-13 20:55+0000\n"
+"Last-Translator: curtisb <curtisbaltimore@protonmail.com>\n"
 "Language-Team: de <LL@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../source/advanced.rst:2
@@ -78,14 +79,13 @@ msgstr ""
 "gesichert. Dies wird im Tor-Kontext \"Client-Authentifizierung\" genannt."
 
 #: ../../source/advanced.rst:28
-#, fuzzy
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want to allow the public to use your service, "
 "it's better to disable the private key altogether."
 msgstr ""
-"Der Tor-Browser wird dich auffordern, deinen privaten Schlüssel einzugeben, "
-"wenn du einen OnionShare-Dienst lädst. Wenn du der Öffentlichkeit erlauben "
+"Wenn du einen OnionShare-Dienst lädst, wird der Tor-Browser dich auffordern, "
+"deinen privaten Schlüssel einzugeben. Wenn du der Öffentlichkeit erlauben "
 "willst, deinen Dienst zu nutzen, ist es besser, den privaten Schlüssel ganz "
 "zu deaktivieren."
 
@@ -144,7 +144,6 @@ msgstr ""
 "samt Uhrzeit fest."
 
 #: ../../source/advanced.rst:51
-#, fuzzy
 msgid ""
 "Services scheduled to start in the future display a countdown timer when the "
 "\"Start sharing\" button is clicked. Services scheduled to stop in the "
@@ -202,15 +201,16 @@ msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
 msgstr ""
+"Wenn du das Snap-, macOS- oder Windows-Paket installiert hast, hast du "
+"bereits die CLI-Version installiert."
 
 #: ../../source/advanced.rst:77
-#, fuzzy
 msgid ""
 "Alternatively, you can install just the command-line version of OnionShare "
 "using ``pip3``::"
 msgstr ""
-"Du kannst eine Kommandozeilen-Version von OnionShare mit ``pip3`` "
-"installieren::"
+"Alternativ kannst du auch nur die Kommandozeilenversion von OnionShare mit "
+"``pip3``:: installieren"
 
 #: ../../source/advanced.rst:81
 msgid ""
@@ -236,16 +236,15 @@ msgstr ""
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
-msgstr ""
+msgstr "Ausführen der CLI von Snap aus"
 
 #: ../../source/advanced.rst:92
-#, fuzzy
 msgid ""
 "If you installed OnionShare using the Snap package, you can run ``onionshare."
 "cli`` to access the command-line interface version."
 msgstr ""
-"Falls du OnionShare über das Snap-Paket installiert hast, kannst du einfach "
-"``onionshare.cli`` ausführen, um zur Kommandozeilen-Version zu gelangen."
+"Wenn du OnionShare mit dem Snap-Paket installiert hast, kannst du "
+"``onionshare.cli`` ausführen, um auf die Kommandozeilenversion zuzugreifen."
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"
