@@ -124,10 +124,10 @@
     "gui_receive_url_public_description": "<b>Bất kỳ ai</b> có địa chỉ OnionShare này có thể <b>tải lên</b> các tập tin tới máy tính của bạn bằng cách sử dụng <b>Trình duyệt Tor Browser</b>: <img src='{}' />",
     "gui_chat_url_description": "<b>Bất kỳ ai</b> có địa chỉ OnionShare và khoá key cá nhân này có thể <b>tham gia vào phòng chat này</b> bằng cách sử dụng <b>Trình duyệt Tor Browser</b>: <img src='{}' />",
     "gui_chat_url_public_description": "<b>Bất kỳ ai</b> có địa chỉ OnionShare này có thể <b>tham gia phòng chat này</b> bằng cách sử dụng <b>Trình duyệt Tor Browser</b>: <img src='{}' />",
-    "gui_url_label_persistent": "Lượt chia sẻ này sẽ không tự động dừng.<br><br>Mọi lượt chia sẻ tiếp theo sẽ sử dụng lại địa chỉ. (Để sử dụng địa chỉ một lần, hãy tắt \"Sử dụng địa chỉ liên tục\" trong cài đặt.)",
+    "gui_url_label_persistent": "Chia sẻ này sẽ không tự động dừng.<br><br>Mỗi lần chia sẻ tiếp theo sẽ sử dụng lại địa chỉ. (Để sử dụng địa chỉ một lần, hãy tắt \"Luôn mở tab này khi OnionShare được khởi động\" trong cài đặt.)",
     "gui_url_label_stay_open": "Lượt chia sẻ này sẽ không tự động dừng.",
     "gui_url_label_onetime": "Lượt chia sẻ này sẽ dừng lại sau khi hoàn thành lần đầu tiên.",
-    "gui_url_label_onetime_and_persistent": "Lượt chia sẻ này sẽ không tự động dừng.<br><br>Mọi lượt chia sẻ tiếp theo sẽ sử dụng lại địa chỉ. (Để sử dụng địa chỉ một lần, hãy tắt \"Sử dụng địa chỉ liên tục\" trong cài đặt.)",
+    "gui_url_label_onetime_and_persistent": "Chia sẻ này sẽ không tự động dừng.<br><br>Mỗi lần chia sẻ tiếp theo sẽ sử dụng lại địa chỉ. (Để sử dụng địa chỉ một lần, hãy tắt \"Luôn mở tab này khi OnionShare được khởi động\" trong cài đặt.)",
     "gui_url_instructions": "Đầu tiên, hãy gửi địa chỉ OnionShare bên dưới:",
     "gui_url_instructions_public_mode": "Gửi địa chỉ OnionShare bên dưới:",
     "gui_client_auth_instructions": "Tiếp theo, gửi khóa key riêng tư để cho phép truy cập vào dịch vụ OnionShare của bạn:",
@@ -212,7 +212,7 @@
     "mode_settings_advanced_toggle_show": "Hiển thị cài đặt nâng cao",
     "mode_settings_advanced_toggle_hide": "Ẩn các cài đặt nâng cao",
     "mode_settings_title_label": "Tiêu đề tùy chỉnh",
-    "mode_settings_persistent_checkbox": "Luôn mở tab này khi khởi động OnionShare",
+    "mode_settings_persistent_checkbox": "Luôn mở tab này khi OnionShare được khởi động (địa chỉ onion sẽ giữ nguyên)",
     "mode_settings_public_checkbox": "Đây là dịch vụ OnionShare công cộng (tắt khóa key riêng tư)",
     "mode_settings_autostart_timer_checkbox": "Bắt đầu dịch vụ onion vào thời gian đã lên kế hoạch",
     "mode_settings_autostop_timer_checkbox": "Dừng dịch vụ onion vào thời gian đã lên kế hoạch",
@@ -254,5 +254,8 @@
     "mode_tor_not_connected_label": "OnionShare không được kết nối tới mạng lưới Tor Network",
     "waitress_web_server_error": "Đã xảy ra một sự cố khi đang khởi động máy chủ web server",
     "gui_close_tab_warning_chat_description": "Đóng tab đang host một máy chủ trò chuyện chat server đi chứ?",
-    "gui_chat_mode_explainer": "Chế độ Chat trò chuyện cho phép bạn chat tương tác với các bên khác, trong trình duyệt Tor Browser.<br><br><b>Lịch sử Chat không được lưu trữ lại trong OnionShare. Lịch sử Chat sẽ biến mất khi bạn đóng trình duyệt Tor Browser.</b>"
+    "gui_chat_mode_explainer": "Chế độ Chat trò chuyện cho phép bạn chat tương tác với các bên khác, trong trình duyệt Tor Browser.<br><br><b>Lịch sử Chat không được lưu trữ lại trong OnionShare. Lịch sử Chat sẽ biến mất khi bạn đóng trình duyệt Tor Browser.</b>",
+    "error_generic": "Có lỗi không mong muốn xảy ra với OnionShare:\n{}",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "‘Tự động khởi động dịch vụ onion này khi OnionShare khởi động",
+    "gui_settings_license_label": "OnionShare được cấp phép theo GPL v3.<br>Có thể xem giấy phép của bên thứ ba tại đây:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
 }
