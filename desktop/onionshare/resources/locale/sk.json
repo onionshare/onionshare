@@ -75,10 +75,10 @@
     "gui_share_url_description": "<b>Ktokoľvek</b> s touto adresou OnionShare si môže <b>stiahnuť</b> vaše súbory pomocou <b>Tor Browser</b>: <img src='{}' />",
     "gui_website_url_description": "<b>Ktokoľvek</b> s touto adresou OnionShare môže <b>navštíviť</b> váš web pomocou <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Ktokoľvek</b> s touto adresou OnionShare môže <b>nahrať</b> súbory do vášho počítača pomocou <b>Tor Browser</b>: <img src='{}' />",
-    "gui_url_label_persistent": "Toto zdieľanie sa automaticky nezastaví.<br><br>Každé ďalšie zdieľanie znova použije adresu. (Ak chcete použiť jednorazové adresy, vypnite v nastaveniach možnosť „Používať trvalú adresu“.)",
+    "gui_url_label_persistent": "Toto zdieľanie sa nezastaví automaticky.<br><br>Každé ďalšie zdieľanie znova použije tú istú adresu. (Ak chcete použiť jednorazové adresy, vypnite v nastaveniach možnosť „Vždy otvoriť túto kartu pri spustení aplikácie OnionShare“.)",
     "gui_url_label_stay_open": "Toto zdieľanie sa automaticky nezastaví.",
     "gui_url_label_onetime": "Toto zdieľanie sa zastaví po prvom dokončení.",
-    "gui_url_label_onetime_and_persistent": "Toto zdieľanie sa automaticky nezastaví.<br><br>Každé ďalšie zdieľanie znova použije adresu. (Ak chcete použiť jednorazové adresy, vypnite v nastaveniach možnosť „Používať trvalú adresu“.)",
+    "gui_url_label_onetime_and_persistent": "Toto zdieľanie sa nezastaví automaticky.<br><br>Každé ďalšie zdieľanie znova použije tu istú adresu. (Ak chcete použiť jednorazové adresy, vypnite v nastaveniach možnosť „Vždy otvoriť túto kartu pri spustení aplikácie OnionShare“.)",
     "gui_status_indicator_share_stopped": "Zastavený",
     "gui_status_indicator_share_working": "Spúšťa sa…",
     "gui_status_indicator_share_scheduled": "Naplánované…",
@@ -255,5 +255,7 @@
     "gui_close_tab_warning_chat_description": "Zatvoriť kartu, ktorá je hostiteľom diskusného servera?",
     "moat_bridgedb_error": "Nepodarilo sa kontaktovať BridgeDB.",
     "mode_tor_not_connected_label": "Služba OnionShare nie je pripojená k sieti Tor",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "Automaticky spustiť túto službu Onion pri spustení služby OnionShare"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Automaticky spustiť túto službu Onion pri spustení služby OnionShare",
+    "error_generic": "V aplikácii OnionShare došlo k neočakávanej chybe:\n{}",
+    "gui_settings_license_label": "OnionShare je licencované pod GPL v3.<br>Licencie tretích strán si môžete pozrieť tu:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
 }
