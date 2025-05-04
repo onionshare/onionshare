@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-04-03 16:01+0000\n"
-"Last-Translator: AO Localisation Lab <ao@localizationlab.org>\n"
+"PO-Revision-Date: 2025-03-15 11:02+0000\n"
+"Last-Translator: Dhjruenebdh <notconnect.chop252@passmail.net>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.11-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/features.rst:4
@@ -43,7 +44,7 @@ msgstr "Les adresses OnionShare ressemblent à quelque chose comme ça ::"
 
 #: ../../source/features.rst:14
 msgid "And private keys might look something like this::"
-msgstr "Et les clés privées ressemblent à quelque chose comme ça : :"
+msgstr "Et les clés privées ressemblent à quelque chose comme ça ::"
 
 #: ../../source/features.rst:18
 msgid ""
