@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2022-01-23 09:55+0000\n"
-"Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
+"PO-Revision-Date: 2025-04-18 17:01+0000\n"
+"Last-Translator: GiannosOB <giannos2105@gmail.com>\n"
 "Language-Team: el <LL@li.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/features.rst:4
@@ -354,7 +355,7 @@ msgstr ""
 
 #: ../../source/features.rst:102
 msgid "Other caveats to be aware of in Receive Mode"
-msgstr ""
+msgstr "Άλλες προειδοποιήσεις που πρέπει να γνωρίζετε στη λειτουργία λήψης"
 
 #: ../../source/features.rst:104
 msgid ""
@@ -363,6 +364,10 @@ msgid ""
 "mode. Try Bronze or Gold to see if you are able to upload a message or a "
 "file."
 msgstr ""
+"Υπάρχουν αναφορές ότι ο OnionBrowser σε συσκευές iOS δεν μπορεί να ανεβάσει "
+"αρχεία σε ένα OnionShare σε λειτουργία λήψης, όταν λειτουργεί σε λειτουργία "
+"ασφαλείας «Silver». Δοκιμάστε Bronze ή Gold για να δείτε αν μπορείτε να "
+"ανεβάσετε ένα μήνυμα ή ένα αρχείο."
 
 #: ../../source/features.rst:107
 msgid "Host a Website"
