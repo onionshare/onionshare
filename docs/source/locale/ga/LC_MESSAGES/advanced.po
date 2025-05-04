@@ -6,18 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-02-11 08:01+0000\n"
+"PO-Revision-Date: 2025-02-27 19:49+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :"
-"(n>6 && n<11) ? 3 : 4;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :("
+"n>6 && n<11) ? 3 : 4;\n"
+"X-Generator: Weblate 5.10.2-rc\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -459,7 +459,7 @@ msgstr "Windows: ``%APPDATA%\\OnionShare``"
 
 #: ../../source/advanced.rst:315
 msgid "Configuration file parameters"
-msgstr ""
+msgstr "Paraiméadair comhad cumra"
 
 #: ../../source/advanced.rst:317
 msgid ""
@@ -467,6 +467,9 @@ msgid ""
 "versions use this configuration file. The CLI also lets you specify a path "
 "to a custom configuration file with ``--config``."
 msgstr ""
+"Stórálann OnionShare a shocruithe i gcomhad JSON. Úsáideann na leaganacha "
+"CLI agus na Deisce araon an comhad cumraíochta seo. Ligeann an CLI duit "
+"cosán a shonrú chuig comhad cumraíochta saincheaptha le ``--config``."
 
 #: ../../source/advanced.rst:319
 msgid ""
@@ -474,31 +477,35 @@ msgid ""
 "configuration file has other parameters not listed here, they may be "
 "obsolete from older OnionShare versions."
 msgstr ""
+"Seo thíos na paraiméadair chomhaid cumraíochta agus cad a chiallaíonn siad. "
+"Má tá paraiméadair eile nach bhfuil liostaithe anseo ag do chomhad "
+"cumraíochta, d'fhéadfadh go mbeadh siad as feidhm ó leaganacha níos sine "
+"OnionShare."
 
 #: ../../source/advanced.rst:322 ../../source/advanced.rst:402
 #: ../../source/advanced.rst:413 ../../source/advanced.rst:424
 #: ../../source/advanced.rst:439 ../../source/advanced.rst:450
 #: ../../source/advanced.rst:462
 msgid "Parameter"
-msgstr ""
+msgstr "Paraiméadar"
 
 #: ../../source/advanced.rst:322 ../../source/advanced.rst:402
 #: ../../source/advanced.rst:413 ../../source/advanced.rst:424
 #: ../../source/advanced.rst:439 ../../source/advanced.rst:450
 #: ../../source/advanced.rst:462
 msgid "Type"
-msgstr ""
+msgstr "Cineál"
 
 #: ../../source/advanced.rst:322 ../../source/advanced.rst:402
 #: ../../source/advanced.rst:413 ../../source/advanced.rst:424
 #: ../../source/advanced.rst:439 ../../source/advanced.rst:450
 #: ../../source/advanced.rst:462
 msgid "Explanation"
-msgstr ""
+msgstr "Míniú"
 
 #: ../../source/advanced.rst:324
 msgid "version"
-msgstr ""
+msgstr "leagan"
 
 #: ../../source/advanced.rst:324 ../../source/advanced.rst:325
 #: ../../source/advanced.rst:326 ../../source/advanced.rst:328
@@ -512,16 +519,18 @@ msgstr ""
 #: ../../source/advanced.rst:452 ../../source/advanced.rst:453
 #: ../../source/advanced.rst:465
 msgid "``string``"
-msgstr ""
+msgstr "``sreang``"
 
 #: ../../source/advanced.rst:324
 msgid ""
 "The version of OnionShare. You should not ever need to change this value."
 msgstr ""
+"An leagan de OnionShare. Níor cheart go gcaithfidh tú an luach seo a athrú "
+"riamh."
 
 #: ../../source/advanced.rst:325
 msgid "connection_type"
-msgstr ""
+msgstr "cineál_nasc"
 
 #: ../../source/advanced.rst:325
 msgid ""
@@ -529,85 +538,104 @@ msgid ""
 "'automatic' (use Tor Browser's Tor connection), 'control_port' or "
 "'socket_file'. Default: 'bundled'"
 msgstr ""
+"An bealach a nascann OnionShare le Tor. Is iad na roghanna bailí "
+"'cuinneall', 'uathoibríoch' (bain úsáid as nasc Tor Brabhsálaí Tor), "
+"'control_port' nó 'socket_file'. Réamhshocraithe: 'cuinneáilte'"
 
 #: ../../source/advanced.rst:326
 msgid "control_port_address"
-msgstr ""
+msgstr "seoladh rialaithe_port"
 
 #: ../../source/advanced.rst:326
 msgid ""
 "The IP address of Tor's Control port, if ``connection_type`` is set to "
 "'control_port'. Default: '127.0.0.1'"
 msgstr ""
+"Seoladh IP calafort Rialaithe Tor, má tá ``connection_type`` socraithe go "
+"'control_port'. Réamhshocraithe: '127.0.0.1'"
 
 #: ../../source/advanced.rst:327
 msgid "control_port_port"
-msgstr ""
+msgstr "calafort rialaitheoireachta"
 
 #: ../../source/advanced.rst:327 ../../source/advanced.rst:329
 #: ../../source/advanced.rst:335
 msgid "``integer``"
-msgstr ""
+msgstr "``iomlána``"
 
 #: ../../source/advanced.rst:327
 msgid ""
 "The port number of Tor's Control port, if ``connection_type`` is set to "
 "'control_port'. Default: '9051'"
 msgstr ""
+"Uimhir chalafort calafort Rialaithe Tor, má tá ``connection_type`` socraithe "
+"go 'control_port'. Réamhshocraithe: '9051'"
 
 #: ../../source/advanced.rst:328
 msgid "socks_address"
-msgstr ""
+msgstr "seoladh stocks_"
 
 #: ../../source/advanced.rst:328
 msgid ""
 "The IP address of Tor's SOCKS proxy, if ``connection_type`` is set to "
 "'control_port' or 'socket_file'. Default: '127.0.0.1'"
 msgstr ""
+"Seoladh IP seachfhreastalaí SOCKS Tor, má tá ``connection_type`` socraithe "
+"go 'control_port' nó 'socket_file'. Réamhshocraithe: '127.0.0.1'"
 
 #: ../../source/advanced.rst:329
 msgid "socks_port"
-msgstr ""
+msgstr "calafort soicíní"
 
 #: ../../source/advanced.rst:329
 msgid ""
 "The port number of Tor's SOCKS proxy, if ``connection_type`` is set to "
 "'control_port' or 'socket_file'. Default: ''9050'"
 msgstr ""
+"Uimhir chalafoirt seachfhreastalaí SOCKS Tor, má tá ``connection_type`` "
+"socraithe go 'control_port' nó 'socket_file'. Réamhshocraithe: “9050'"
 
 #: ../../source/advanced.rst:330
 msgid "socket_file_path"
-msgstr ""
+msgstr "soicet_file_path"
 
 #: ../../source/advanced.rst:330
 msgid ""
 "The path to Tor's socket file, if ``connection_type`` is set to "
 "'socket_file'. Default: '/var/run/tor/control'"
 msgstr ""
+"An cosán chuig comhad soicéad Tor, má tá ``connection_type`` socraithe go "
+"'socket_file'. Réamhshocraithe: '/var/run/tor/control'"
 
 #: ../../source/advanced.rst:331
 msgid "auth_type"
-msgstr ""
+msgstr "cineál_auth_"
 
 #: ../../source/advanced.rst:331
 msgid ""
 "If access to Tor's control port requires a password, this can be set to "
 "'password', otherwise 'no_auth'. Default: 'no_auth'"
 msgstr ""
+"Má theastaíonn pasfhocal ó rochtain ar chalafort rialaithe Tor, is féidir é "
+"seo a shocrú go 'pasfhocal', ar shlí eile 'no_auth'. Réamhshocraithe: "
+"'no_auth'"
 
 #: ../../source/advanced.rst:332
 msgid "auth_password"
-msgstr ""
+msgstr "auth_password"
 
 #: ../../source/advanced.rst:332
 msgid ""
 "If access to Tor's control port requires a password, and ``auth_type`` is "
 "set to 'password', specify the password here. Default: ''"
 msgstr ""
+"Má theastaíonn pasfhocal ó rochtain ar chalafort rialaithe Tor, agus má tá "
+"``auth_type`` socraithe go 'pasfhocal', sonraigh an pasfhocal anseo. "
+"Réamhshocraithe:”"
 
 #: ../../source/advanced.rst:333
 msgid "auto_connect"
-msgstr ""
+msgstr "uath_nasc"
 
 #: ../../source/advanced.rst:333 ../../source/advanced.rst:334
 #: ../../source/advanced.rst:336 ../../source/advanced.rst:344
@@ -618,43 +646,51 @@ msgstr ""
 #: ../../source/advanced.rst:455 ../../source/advanced.rst:464
 #: ../../source/advanced.rst:466
 msgid "``boolean``"
-msgstr ""
+msgstr "``boolean``"
 
 #: ../../source/advanced.rst:333
 msgid ""
 "Whether OnionShare should automatically connect to Tor when it starts. "
 "Default: False"
 msgstr ""
+"Cibé an chóir OnionShare ceangal go huathoibríoch le Tor nuair a thosaíonn "
+"sé Réamhshocrú: Bréagach"
 
 #: ../../source/advanced.rst:334
 msgid "use_autoupdate"
-msgstr ""
+msgstr "úsáid uathoibríoch"
 
 #: ../../source/advanced.rst:334
 msgid ""
 "Whether OnionShare should automatically check for updates (over Tor). This "
 "setting is only valid for MacOS or Windows installations. Default: True."
 msgstr ""
+"Cibé an cheart OnionShare seiceáil go huathoibríoch le haghaidh "
+"nuashonruithe (thar Tor Níl an socrú seo bailí ach le haghaidh suiteálacha "
+"macOS nó Windows. Réamhshocraithe: Fíor."
 
 #: ../../source/advanced.rst:335
 msgid "autoupdate_timestamp"
-msgstr ""
+msgstr "uath_nuashonrú_stampa_ama"
 
 #: ../../source/advanced.rst:335
 msgid "The last time OnionShare checked for updates. Default: None"
 msgstr ""
+"An uair dheireanach a sheiceáil OnionShare le haghaidh nuashonruithe. "
+"Réamhshocraithe: Níl aon"
 
 #: ../../source/advanced.rst:336
 msgid "bridges_enabled"
-msgstr ""
+msgstr "bridges_cumasaithe"
 
 #: ../../source/advanced.rst:336
 msgid "Whether to connect to Tor using bridges. Default: False"
 msgstr ""
+"Cibé acu ceangail le Tor ag baint úsáide as droichid. Réamhshocrú: Bréagach"
 
 #: ../../source/advanced.rst:337
 msgid "bridges_type"
-msgstr ""
+msgstr "cineál_droidí"
 
 #: ../../source/advanced.rst:337
 msgid ""
@@ -663,10 +699,15 @@ msgid ""
 "Tor), \"moat\" (request bridges from Tor's Moat API), or \"custom\" (user-"
 "supplied bridges). Default: \"built-in\""
 msgstr ""
+"Nuair a bhíonn ``bridges_enabled`` Fíor, cá háit as droichid a luchtú. Tá na "
+"roghanna “ionsuite” (droichid a sheoltar le OnionShare agus a d'fhéadfadh a "
+"bheith nuashonraithe ó Tor), \"moat\" (iarr droichid ó API Moat Tor), nó "
+"“saincheaptha” (droichid a sholáthraíonn an úsáideoir). Réamhshocraithe: "
+"“tógtha”"
 
 #: ../../source/advanced.rst:338
 msgid "bridges_builtin_pt"
-msgstr ""
+msgstr "droidge_buntin_pt"
 
 #: ../../source/advanced.rst:338
 msgid ""
@@ -674,20 +715,25 @@ msgid ""
 "bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
+"Nuair a shocraítear ``bridges_type`` go “ionsuite”, sonraíonn sé seo cén "
+"cineál prótacal droichead atá le húsáid. Is iad na roghanna “obfs4\", “meek-"
+"azure” nó “snowflake”. Réamhshocraithe: “obfs4\""
 
 #: ../../source/advanced.rst:339
 msgid "bridges_moat"
-msgstr ""
+msgstr "droidges_moat"
 
 #: ../../source/advanced.rst:339
 msgid ""
 "When ``bridges_type`` is set to \"moat\", the bridges returned from Tor's "
 "Moat API are stored here. Default: \"\""
 msgstr ""
+"Nuair a shocraítear ``bridges_type`` go “moat”, stóráiltear na droichid ar "
+"ais ó API Moat Tor anseo. Réamhshocraithe: “”"
 
 #: ../../source/advanced.rst:340
 msgid "bridges_custom"
-msgstr ""
+msgstr "bridges_saincheaptha"
 
 #: ../../source/advanced.rst:340
 msgid ""
@@ -695,29 +741,36 @@ msgid ""
 "user are stored here. Separate each bridge line in the string with '\\n'. "
 "Default: \"\""
 msgstr ""
+"Nuair a shocraítear ``bridges_type`` go “saincheaptha”, stóráiltear na "
+"droichid a shonraíonn an t-úsáideoir anseo. Déan gach líne droichead sa "
+"sreang a scaradh le '\\n"
+"'. Réamhshocraithe: “”"
 
 #: ../../source/advanced.rst:341
 msgid "bridges_builtin"
-msgstr ""
+msgstr "droichid_builtin"
 
 #: ../../source/advanced.rst:341
 msgid "``dict``"
-msgstr ""
+msgstr "``Dict``"
 
 #: ../../source/advanced.rst:341
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", OnionShare obtains the latest "
 "built-in bridges recommended by Tor and stores them here. Default: {}"
 msgstr ""
+"Nuair a bheidh ``bridges_type`` socraithe go “ionsuite”, faigheann "
+"OnionShare na droichid ionsuite is déanaí a mholann Tor agus stóráiltear iad "
+"anseo. Réamhshocraithe: {}"
 
 #: ../../source/advanced.rst:342
 msgid "persistent_tabs"
-msgstr ""
+msgstr "cluaisíní leanúnacha"
 
 #: ../../source/advanced.rst:342 ../../source/advanced.rst:442
 #: ../../source/advanced.rst:467
 msgid "``list``"
-msgstr ""
+msgstr "``liosta``"
 
 #: ../../source/advanced.rst:342
 msgid ""
@@ -728,10 +781,16 @@ msgid ""
 "identifier, in a subfolder of the OnionShare configuration folder called "
 "'persistent'. Default: []"
 msgstr ""
+"Má shainmhíníonn an t-úsáideoir aon chluaisíní mar 'sábháilte' (rud a "
+"chiallaíonn go bhfuil siad leanúnach gach uair a thosaíonn OnionShare, agus "
+"ní athraíonn a seoladh oinniún), tugtar aitheantóir randamach dóibh seo a "
+"liostaítear anseo. Stóráiltear an oinniún leanúnach mar chomhad JSON leis an "
+"ainm céanna leis an aitheantóir seo, i bhfofhillteán den fhillteán "
+"cumraíochta OnionShare ar a dtugtar 'leanún'. Réamhshocraithe: []"
 
 #: ../../source/advanced.rst:343
 msgid "locale"
-msgstr ""
+msgstr "áitiúil"
 
 #: ../../source/advanced.rst:343
 msgid ""
@@ -739,20 +798,27 @@ msgid ""
 "For valid locale codes, see 'available_locales' in https://github.com/"
 "onionshare/onionshare/blob/main/cli/onionshare_cli/settings.py"
 msgstr ""
+"An áitiúil a úsáidtear in OnionShare. Réamhshocraithe: Níl aon (atá mar an "
+"gcéanna le 'en'). Le haghaidh cóid bailí áitiúla, féach 'available_locales' "
+"i https://github.com/onionshare/onionshare/blob/main/cli/onionshare_cli/"
+"settings.py"
 
 #: ../../source/advanced.rst:344
 msgid "theme"
-msgstr ""
+msgstr "téama"
 
 #: ../../source/advanced.rst:344
 msgid ""
 "The theme for the OnionShare desktop app. Valid options are 0 (automatically "
 "detect the user's computer's light or dark theme), 1 (light) or 2 (dark)."
 msgstr ""
+"An téama don aip deisce OnionShare. Is iad na roghanna bailí ná 0 (téama "
+"éadrom nó dorcha ríomhaire an úsáideora a bhrath go huathoibríoch), 1 (solas)"
+" nó 2 (dorcha)."
 
 #: ../../source/advanced.rst:349
 msgid "Configuration file parameters for persistent onions"
-msgstr ""
+msgstr "Paraiméadair comhad cumraíochta do oinniúin"
 
 #: ../../source/advanced.rst:351
 msgid ""
@@ -760,108 +826,129 @@ msgid ""
 "are stored in its own JSON file. The path to this file can be specified for "
 "the CLI tool with ``--persistent``."
 msgstr ""
+"Mar a thuairiscítear thuas, tá paraiméadair dá chuid féin ag gach oinniún "
+"'leanúnach' a stóráiltear ina chomhad JSON féin. Is féidir an cosán chuig an "
+"gcomhad seo a shonrú don uirlis CLI le ``--persistent``."
 
 #: ../../source/advanced.rst:353
 msgid "Here is an example persistent JSON configuration::"
-msgstr ""
+msgstr "Seo sampla cumraíocht leanúnach JSON::"
 
 #: ../../source/advanced.rst:396
 msgid ""
 "Below are the configuration file parameters for a persistent onion and what "
 "they mean, for each section in the JSON"
 msgstr ""
+"Seo thíos na paraiméadair chomhaid cumraíochta le haghaidh oinniún leanúnach "
+"agus cad a chiallaíonn siad, do gach cuid sa JSON"
 
 #: ../../source/advanced.rst:399
 msgid "onion"
-msgstr ""
+msgstr "oinniún"
 
 #: ../../source/advanced.rst:404
 msgid "private_key"
-msgstr ""
+msgstr "eochair_príobháideach"
 
 #: ../../source/advanced.rst:404
 msgid "Base64-encoded private key of the onion service"
-msgstr ""
+msgstr "Eochair phríobháideach ionchódaithe Base64 den tseirbhís"
 
 #: ../../source/advanced.rst:405
 msgid "client_auth_priv_key"
-msgstr ""
+msgstr "cliant_auth_priv_key"
 
 #: ../../source/advanced.rst:405
 msgid ""
 "The private key when using Client Authentication. Send this to the user."
 msgstr ""
+"An eochair príobháideach agus Fíordheimhniú Cliant á úsáid Seol é seo chuig "
+"an úsáideoir."
 
 #: ../../source/advanced.rst:406
 msgid "client_auth_pub_key"
-msgstr ""
+msgstr "cliant_auth_pub_key"
 
 #: ../../source/advanced.rst:406
 msgid ""
 "The public key when using Client Authentication. Used on OnionShare's side."
 msgstr ""
+"An eochair phoiblí agus Fíordheimhniú Cliant á úsáid. Úsáidtear ar thaobh "
+"OnionShare."
 
 #: ../../source/advanced.rst:410
 msgid "persistent"
-msgstr ""
+msgstr "leanúnach"
 
 #: ../../source/advanced.rst:415
 msgid "mode"
-msgstr ""
+msgstr "mód"
 
 #: ../../source/advanced.rst:415
 msgid ""
 "The mode used by this persistent onion. Options are \"share\", \"receive\", "
 "\"website\" or \"chat\"."
 msgstr ""
+"An modh a úsáideann an oinniún leanúnach seo. Is iad na roghanna “comhroinnt”"
+", “faigh”, “suíomh Gréasáin” nó “comhrá”."
 
 #: ../../source/advanced.rst:416
 msgid "enabled"
-msgstr ""
+msgstr "cumasaithe"
 
 #: ../../source/advanced.rst:416
 msgid ""
 "Whether persistence is enabled for this onion. When the persistent option is "
 "unchecked in the desktop, this entire JSON file is deleted. Default: true"
 msgstr ""
+"Cibé an bhfuil marthanacht cumasaithe don oinniún seo. Nuair a dhéantar an "
+"rogha leanúnach a sheiceáil ar an deasc, scriostar an comhad JSON iomlán "
+"seo. Réamhshocraithe: fíor"
 
 #: ../../source/advanced.rst:417
 msgid "autostart_on_launch"
-msgstr ""
+msgstr "tús_uathoibríoch_ar_lainseáil"
 
 #: ../../source/advanced.rst:417
 msgid ""
 "Whether to automatically start this persistent onion when OnionShare starts "
 "and once Tor is connected. Default: false"
 msgstr ""
+"Cibé an gcuirfear tús leis an oinniún leanúnach seo go huathoibríoch nuair a "
+"thosaíonn OnionShare agus nuair a Réamhshocraithe: bréagach"
 
 #: ../../source/advanced.rst:421
 msgid "general"
-msgstr ""
+msgstr "ginearálta"
 
 #: ../../source/advanced.rst:426
 msgid "title"
-msgstr ""
+msgstr "teideal"
 
 #: ../../source/advanced.rst:426
 msgid ""
 "An optional custom title for displaying on the onion service. Default: null "
 "(\"OnionShare\" will be shown instead)"
 msgstr ""
+"Teideal saincheaptha roghnach le taispeáint ar an tseirbhís oinniún. "
+"Réamhshocraithe: null (taispeánfar “OnionShare” ina ionad)"
 
 #: ../../source/advanced.rst:427
 msgid "public"
-msgstr ""
+msgstr "poiblí"
 
 #: ../../source/advanced.rst:427
 msgid ""
 "Whether the onion service can be accessed with or without a Private Key "
 "(Client Authentication). If true, no Private Key is required."
 msgstr ""
+"Cibé an féidir rochtain a fháil ar an tseirbhís oinniún le nó gan Eochair "
+"Phríobháideach (Fíordheimhniú Cliant). Más fíor, níl aon Eochair "
+"Príobháideach ag teastáil."
 
 #: ../../source/advanced.rst:428
 msgid "autostart_timer"
-msgstr ""
+msgstr "autostart_timer"
 
 #: ../../source/advanced.rst:428
 msgid ""
@@ -869,10 +956,13 @@ msgid ""
 "time can be set in the desktop app or specified in seconds with ``--auto-"
 "start-timer`` with the CLI tool. Default: false"
 msgstr ""
+"Cibé an bhfuil an tseirbhís oinniún cumraithe chun tosú ag am ar leith. Is "
+"féidir an t-am a shocrú san aip deisce nó a shonrú i soicindí le ``--auto-"
+"start-timer`` leis an uirlis CLI. Réamhshocraithe: bréagach"
 
 #: ../../source/advanced.rst:429
 msgid "autostop_timer"
-msgstr ""
+msgstr "uathstad_uaineadóir"
 
 #: ../../source/advanced.rst:429
 msgid ""
@@ -880,120 +970,142 @@ msgid ""
 "can be set in the desktop app or specified in seconds with ``--auto-stop-"
 "timer`` with the CLI tool. Default: false"
 msgstr ""
+"Cibé an bhfuil an tseirbhís oinniún cumraithe chun stopadh ag am ar leith. "
+"Is féidir an t-am a shocrú san aip deisce nó a shonrú i soicindí le ``--auto-"
+"stop-timer`` leis an uirlis CLI. Réamhshocraithe: bréagach"
 
 #: ../../source/advanced.rst:430
 msgid "service_id"
-msgstr ""
+msgstr "service_id"
 
 #: ../../source/advanced.rst:430
 msgid ""
 "The 32-character onion service URL, without the scheme and without the '."
 "onion' suffix."
 msgstr ""
+"URL seirbhíse oinniúin 32 carachtar, gan an scéim agus gan an iarmhír "
+"'.onion'."
 
 #: ../../source/advanced.rst:433
 msgid ""
 "The below are settings specific to the 'mode' specified in the "
 "``persistent`` section above."
 msgstr ""
+"Is iad seo thíos socruithe atá sonrach don 'modh' a shonraítear sa chuid "
+"``leanún`` thuas."
 
 #: ../../source/advanced.rst:436
 msgid "share"
-msgstr ""
+msgstr "comhroinn"
 
 #: ../../source/advanced.rst:441
 msgid "autostop_sharing"
-msgstr ""
+msgstr "uathstop_roinnt"
 
 #: ../../source/advanced.rst:441
 msgid ""
 "Whether to automatically stop the share once files are downloaded the first "
 "time. Default: true"
 msgstr ""
+"Cibé acu an scair a stopadh go huathoibríoch nuair a íoslódálfar comhaid an "
+"chéad uair Réamhshocraithe: fíor"
 
 #: ../../source/advanced.rst:442 ../../source/advanced.rst:467
 msgid "filenames"
-msgstr ""
+msgstr "ainmneacha comhaid"
 
 #: ../../source/advanced.rst:442 ../../source/advanced.rst:467
 msgid "A list of files to share. Default: []"
-msgstr ""
+msgstr "Liosta de na comhaid le roinnt. Réamhshocraithe: []"
 
 #: ../../source/advanced.rst:443 ../../source/advanced.rst:466
 msgid "log_filenames"
-msgstr ""
+msgstr "log_file names"
 
 #: ../../source/advanced.rst:443 ../../source/advanced.rst:466
 msgid ""
 "Whether to log URL requests to stdout when using the CLI tool. Default: false"
 msgstr ""
+"Cibé acu iarratais URL a logáil chuig stdout agus an uirlis CLI á úsáid "
+"agat. Réamhshocraithe: bréagach"
 
 #: ../../source/advanced.rst:447
 msgid "receive"
-msgstr ""
+msgstr "glacadh"
 
 #: ../../source/advanced.rst:452
 msgid "data_dir"
-msgstr ""
+msgstr "sonraí_dir"
 
 #: ../../source/advanced.rst:452
 msgid ""
 "The path where received files or text messages will be stored. Default: the "
 "'OnionShare' folder of the user's home directory."
 msgstr ""
+"Stórálfar an cosán ina bhfuarthas comhaid nó teachtaireachtaí téacs. "
+"Réamhshocraithe: an fillteán 'OnionShare' d'eolaire baile an úsáideora."
 
 #: ../../source/advanced.rst:453
 msgid "webhook_url"
-msgstr ""
+msgstr "cuaille_gréasáin_url"
 
 #: ../../source/advanced.rst:453
 msgid ""
 "A webhook URL that OnionShare will POST to when it receives files or text "
 "messages. Default: null"
 msgstr ""
+"URL webhook a chuirfidh OnionShare POST air nuair a fhaigheann sé comhaid nó "
+"teachtaireachtaí téacs. Réamhshocraithe: null"
 
 #: ../../source/advanced.rst:454
 msgid "disable_text"
-msgstr ""
+msgstr "téacs_míchumasaithe"
 
 #: ../../source/advanced.rst:454
 msgid "Whether to disable receiving text messages. Default: false"
 msgstr ""
+"Cibé acu teachtaireachtaí téacs a fháil a dhíchumasú Réamhshocraithe: "
+"bréagach"
 
 #: ../../source/advanced.rst:455
 msgid "disable_files"
-msgstr ""
+msgstr "comhaid neamhdhíchumasaithe"
 
 #: ../../source/advanced.rst:455
 msgid "Whether to disable receiving files. Default: false"
-msgstr ""
+msgstr "Cibé acu comhaid glacadh a dhíchumasú. Réamhshocraithe: bréagach"
 
 #: ../../source/advanced.rst:459
 msgid "website"
-msgstr ""
+msgstr "láithreán gréasáin"
 
 #: ../../source/advanced.rst:464
 msgid "disable_csp"
-msgstr ""
+msgstr "cumasach_csp"
 
 #: ../../source/advanced.rst:464
 msgid ""
 "If set to ``true``, OnionShare won't set its default Content Security Policy "
 "header for the website. Default: ``false``"
 msgstr ""
+"Má tá sé socraithe ar ``true``, ní shocróidh OnionShare a cheannteideal "
+"réamhshocraithe Polasaí Slándála Ábhar don láithreán gréasáin. "
+"Réamhshocraithe: ``bréag``"
 
 #: ../../source/advanced.rst:465
 msgid "custom_csp"
-msgstr ""
+msgstr "saincheaptha_csp"
 
 #: ../../source/advanced.rst:465
 msgid "A custom Content Security Policy header to send instead of the default."
 msgstr ""
+"Ceanntásc saincheaptha Polasaí Slándála Ábhar le seoladh in ionad an "
+"réamhshocrai."
 
 #: ../../source/advanced.rst:471
 msgid "chat"
-msgstr ""
+msgstr "comhrá"
 
 #: ../../source/advanced.rst:473
 msgid "There are currently no configurable settings for the Chat mode."
-msgstr ""
+msgstr "Faoi láthair níl aon socruithe inchumraithe don mhodh Comhrá."
