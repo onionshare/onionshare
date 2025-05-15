@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-03-22 16:08+0000\n"
-"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"PO-Revision-Date: 2025-05-15 07:04+0000\n"
+"Last-Translator: polarwood <polarwood@users.noreply.hosted.weblate.org>\n"
 "Language-Team: tr <LL@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -444,26 +445,23 @@ msgstr ""
 
 #: ../../source/install.rst:128
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
-#, fuzzy
 msgid ""
 "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 msgstr ""
-"PGP herkese açık anahtar parmak izi "
-"``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+"PGP açık anahtar parmak izi ``00AE817C24A10C2540461A9C1D7CDE0234DB458D ``."
 
 #: ../../source/install.rst:130
-#, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
-"Micah'ın anahtarını `keys.openpgp.org anahtar sunucusundan <https://keys."
-"openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_ indirebilirsiniz."
+"Micah'ın anahtarını `keys.openpgp.org anahtar sunucusundan <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_ indirebilirsiniz."
 
 #: ../../source/install.rst:132
 msgid ""
