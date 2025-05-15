@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2023-10-28 04:15+0000\n"
-"Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
+"PO-Revision-Date: 2025-04-23 00:12+0000\n"
+"Last-Translator: GiannosOB <giannos2105@gmail.com>\n"
 "Language-Team: el <LL@li.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../source/advanced.rst:2
@@ -78,16 +79,15 @@ msgstr ""
 "κλειδί, το οποίο ονομάζεται \"πιστοποίηση πελάτη\"."
 
 #: ../../source/advanced.rst:28
-#, fuzzy
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want to allow the public to use your service, "
 "it's better to disable the private key altogether."
 msgstr ""
-"Ο φυλλομετρητής Tor θα σας ζητήσει να εισαγάγετε το ιδιωτικό σας κλειδί όταν "
-"φορτώνετε μια υπηρεσία OnionShare. Αν θέλετε να επιτρέψετε να χρησιμοποιηθεί "
-"δημόσια η υπηρεσία σας, είναι καλύτερα να απενεργοποιήσετε το ιδιωτικό "
-"κλειδί."
+"Το πρόγραμμα περιήγησης Tor θα σας ζητήσει να εισαγάγετε το ιδιωτικό σας "
+"κλειδί όταν φορτώνετε μια υπηρεσία OnionShare. Αν θέλετε να επιτρέψετε στο "
+"κοινό να χρησιμοποιεί την υπηρεσία σας, είναι καλύτερο να απενεργοποιήσετε "
+"το ιδιωτικό κλειδί εντελώς."
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -144,16 +144,15 @@ msgstr ""
 "Έπειτα, ρυθμίστε την ημερομηνία και ώρα όπως θέλετε."
 
 #: ../../source/advanced.rst:51
-#, fuzzy
 msgid ""
 "Services scheduled to start in the future display a countdown timer when the "
 "\"Start sharing\" button is clicked. Services scheduled to stop in the "
 "future display a countdown timer when started."
 msgstr ""
-"Οι προγραμματισμένες υπηρεσίες έναρξης εμφανίζουν ένα χρονόμετρο αντίστροφης "
-"μέτρησης όταν κάνετε κλικ στο κουμπί \"Εναρξη κοινής χρήσης\". Οι "
-"προγραμματισμένες υπηρεσίες διακοπής εμφανίζουν ένα χρονόμετρο αντίστροφης "
-"μέτρησης μετά την έναρξη."
+"Οι υπηρεσίες που έχουν προγραμματιστεί να ξεκινήσουν στο μέλλον εμφανίζουν "
+"ένα χρονόμετρο αντίστροφης μέτρησης όταν κάνετε κλικ στο κουμπί «Έναρξη "
+"κοινής χρήσης». Οι υπηρεσίες που έχουν προγραμματιστεί να σταματήσουν στο "
+"μέλλον εμφανίζουν ένα χρονόμετρο αντίστροφης μέτρησης όταν ξεκινούν.."
 
 #: ../../source/advanced.rst:54
 msgid ""
@@ -192,13 +191,15 @@ msgstr ""
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr ""
+msgstr "Εγκατάσταση της έκδοσης CLI"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
 msgstr ""
+"Εάν έχετε εγκαταστήσει το πακέτο Snap, macOS ή Windows, έχετε ήδη "
+"εγκαταστήσει την έκδοση CLI."
 
 #: ../../source/advanced.rst:77
 #, fuzzy
@@ -449,7 +450,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:324
 msgid "version"
-msgstr ""
+msgstr "έκδοση"
 
 #: ../../source/advanced.rst:324 ../../source/advanced.rst:325
 #: ../../source/advanced.rst:326 ../../source/advanced.rst:328
