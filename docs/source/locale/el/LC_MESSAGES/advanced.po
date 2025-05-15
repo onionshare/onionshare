@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-04-23 00:12+0000\n"
-"Last-Translator: GiannosOB <giannos2105@gmail.com>\n"
+"PO-Revision-Date: 2025-05-04 12:03+0000\n"
+"Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
 "Language-Team: el <LL@li.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.1-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../source/advanced.rst:2
@@ -202,13 +202,12 @@ msgstr ""
 "εγκαταστήσει την έκδοση CLI."
 
 #: ../../source/advanced.rst:77
-#, fuzzy
 msgid ""
 "Alternatively, you can install just the command-line version of OnionShare "
 "using ``pip3``::"
 msgstr ""
-"Μπορείτε να εγκαταστήσετε την έκδοση με γραμμή εντολών του OnionShare με "
-"χρήση του ``pip3``::"
+"Εναλλακτικά, μπορείτε να εγκαταστήσετε την έκδοση με γραμμή εντολών του "
+"OnionShare με χρήση του ``pip3``::"
 
 #: ../../source/advanced.rst:81
 msgid ""
@@ -234,36 +233,40 @@ msgstr ""
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
-msgstr ""
+msgstr "Εκτέλεση του CLI από Snap"
 
 #: ../../source/advanced.rst:92
-#, fuzzy
 msgid ""
 "If you installed OnionShare using the Snap package, you can run ``onionshare."
 "cli`` to access the command-line interface version."
 msgstr ""
-"Εάν κάνετε εγκατάσταση του OnionShare με χρήση του πακέτου Snap, εκτελέστε "
-"την εντολή ``onionshare.cli`` για πρόσβαση στο περιβάλλον γραμμής εντολών."
+"Εάν κάνατε εγκατάσταση το OnionShare με χρήση του πακέτου Snap, μπορείτε να "
+"εκτελέσετε την εντολή ``onionshare.cli`` για πρόσβαση στο περιβάλλον γραμμής "
+"εντολών."
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"
-msgstr ""
+msgstr "Εκτέλεση του CLI από macOS"
 
 #: ../../source/advanced.rst:97
 msgid ""
 "From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
 "onionshare-cli --help``"
 msgstr ""
+"Από τερματικό, μπορείτε να εκτελέσετε ``/Applications/OnionShare.app/"
+"Contents/MacOS/onionshare-cli --help``"
 
 #: ../../source/advanced.rst:100
 msgid "Running the CLI from Windows"
-msgstr ""
+msgstr "Εκτέλεση του CLI από Windows"
 
 #: ../../source/advanced.rst:102
 msgid ""
 "In the Windows installation, the executable ``onionshare-cli.exe`` is "
 "available."
 msgstr ""
+"Στην εγκατάσταση Windows, είναι διαθέσιμο το εκτελέσιμο αρχείο ``onionshare-"
+"cli.exe``."
 
 #: ../../source/advanced.rst:105
 msgid "Usage"
@@ -277,13 +280,15 @@ msgstr ""
 
 #: ../../source/advanced.rst:170
 msgid "Running the CLI as a systemd unit file"
-msgstr ""
+msgstr "Εκτέλεση του CLI ως αρχείο systemd"
 
 #: ../../source/advanced.rst:172
 msgid ""
 "It is possible to automatically start OnionShare from the CLI using a "
 "systemd unit file."
 msgstr ""
+"Είναι δυνατή η αυτόματη έναρξη του OnionShare από το CLI με χρήση του "
+"αρχείου systemd."
 
 #: ../../source/advanced.rst:174
 msgid ""
