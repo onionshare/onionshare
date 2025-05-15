@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2020-11-25 18:28+0000\n"
-"Last-Translator: fadelkon <fadelkon@posteo.net>\n"
+"PO-Revision-Date: 2025-05-14 09:06+0000\n"
+"Last-Translator: Ecron <ecron_89@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -385,7 +385,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:324
 msgid "version"
-msgstr ""
+msgstr "versió"
 
 #: ../../source/advanced.rst:324 ../../source/advanced.rst:325
 #: ../../source/advanced.rst:326 ../../source/advanced.rst:328
