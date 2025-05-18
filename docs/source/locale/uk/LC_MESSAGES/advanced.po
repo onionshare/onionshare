@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-02-21 23:07+0000\n"
+"PO-Revision-Date: 2025-03-11 15:01+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
 "Language: uk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10.1-dev\n"
+"X-Generator: Weblate 5.10.3-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../source/advanced.rst:2
@@ -456,6 +456,10 @@ msgid ""
 "versions use this configuration file. The CLI also lets you specify a path "
 "to a custom configuration file with ``--config``."
 msgstr ""
+"OnionShare зберігає свої налаштування у файлі JSON. Цей конфігураційний файл "
+"використовується як у версії CLI, так і в версії для робочого столу. CLI "
+"також надає можливість вказати шлях до користувацького конфігураційного "
+"файлу за допомогою ``--config``."
 
 #: ../../source/advanced.rst:319
 msgid ""
@@ -463,6 +467,9 @@ msgid ""
 "configuration file has other parameters not listed here, they may be "
 "obsolete from older OnionShare versions."
 msgstr ""
+"Нижче наведені параметри конфігураційного файлу та їх значення. Якщо у "
+"вашому конфігураційному файлі є інші параметри, не перелічені тут, вони "
+"можуть бути застарілими зі старих версій OnionShare."
 
 #: ../../source/advanced.rst:322 ../../source/advanced.rst:402
 #: ../../source/advanced.rst:413 ../../source/advanced.rst:424
@@ -506,7 +513,7 @@ msgstr "``string``"
 #: ../../source/advanced.rst:324
 msgid ""
 "The version of OnionShare. You should not ever need to change this value."
-msgstr ""
+msgstr "Версія OnionShare. Вам ніколи не доведеться змінювати це значення."
 
 #: ../../source/advanced.rst:325
 msgid "connection_type"
@@ -518,6 +525,9 @@ msgid ""
 "'automatic' (use Tor Browser's Tor connection), 'control_port' or "
 "'socket_file'. Default: 'bundled'"
 msgstr ""
+"Спосіб під'єднання OnionShare до Tor. Допустимі варіанти: 'bundled', "
+"'automatic' (використовувати з'єднання Браузера Tor), 'control_port' або "
+"'socket_file'. Усталено: 'bundled'"
 
 #: ../../source/advanced.rst:326
 msgid "control_port_address"
@@ -528,6 +538,8 @@ msgid ""
 "The IP address of Tor's Control port, if ``connection_type`` is set to "
 "'control_port'. Default: '127.0.0.1'"
 msgstr ""
+"IP-адреса порту керування Tor, якщо ``connection_type`` встановлено на "
+"'control_port'. Усталено: '127.0.0.1'"
 
 #: ../../source/advanced.rst:327
 msgid "control_port_port"
@@ -543,6 +555,8 @@ msgid ""
 "The port number of Tor's Control port, if ``connection_type`` is set to "
 "'control_port'. Default: '9051'"
 msgstr ""
+"Номер порту керування Tor, якщо ``connection_type`` встановлено на "
+"'control_port'. Усталено: '9051'"
 
 #: ../../source/advanced.rst:328
 msgid "socks_address"
@@ -553,6 +567,8 @@ msgid ""
 "The IP address of Tor's SOCKS proxy, if ``connection_type`` is set to "
 "'control_port' or 'socket_file'. Default: '127.0.0.1'"
 msgstr ""
+"IP-адреса SOCKS-проксі Tor, якщо ``connection_type`` встановлено на "
+"'control_port' або 'socket_file'. Усталено: '127.0.0.1'"
 
 #: ../../source/advanced.rst:329
 msgid "socks_port"
@@ -563,6 +579,8 @@ msgid ""
 "The port number of Tor's SOCKS proxy, if ``connection_type`` is set to "
 "'control_port' or 'socket_file'. Default: ''9050'"
 msgstr ""
+"Номер порту SOCKS-проксі Tor, якщо ``connection_type`` встановлено на "
+"'control_port' або 'socket_file'. Усталено: '9050''"
 
 #: ../../source/advanced.rst:330
 msgid "socket_file_path"
