@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2023-06-02 11:21+0000\n"
-"Last-Translator: emma peel <emmapeel@torproject.org>\n"
+"PO-Revision-Date: 2025-05-18 16:41+0000\n"
+"Last-Translator: Manuela Silva <mmsrs@sky.com>\n"
 "Language-Team: pt_PT <LL@li.org>\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -32,51 +32,58 @@ msgid ""
 "You can download OnionShare for Windows and macOS from the `OnionShare "
 "website <https://onionshare.org/>`_."
 msgstr ""
-"Pode descarregar o OnionShare para Windows ou macOS a partir do `OnionShare "
-"website <https://onionshare.org/>`_."
+"Pode transferir o OnionShare para Windows ou macOS a partir do `Site da Web "
+"OnionShare<https://onionshare.org/>`_."
 
 #: ../../source/install.rst:12
 msgid "Mobile"
-msgstr ""
+msgstr "Móvel"
 
 #: ../../source/install.rst:14
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr ""
+"Pode transferir o OnionShare para dispositivo Móvel a partir das "
+"hiperligações seguintes"
 
 #: ../../source/install.rst:16
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
 "Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
 "android"
 msgstr ""
+"Google Play: https://play.google.com/store/apps/"
+"details?id=org.onionshare.android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
-msgstr ""
+msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
 #: ../../source/install.rst:20
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #: ../../source/install.rst:21
 msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
 msgstr ""
+"Apple - Loja de Aplicações: https://apps.apple.com/us/app/onionshare/"
+"id1601890129"
 
 #: ../../source/install.rst:22
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"Transferir Direct IPA: https://github.com/onionshare/onionshare-ios/releases"
 
 #: ../../source/install.rst:23
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "Testflight: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:29
 msgid ""
@@ -85,20 +92,20 @@ msgid ""
 "<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
-"Existem várias maneiras de instalar o OnionShare para Linux, mas a maneira "
-"recomendada é usar o pacote `Flatpak <https://flatpak.org/>`_ ou `Snapcraft "
-"<https://snapcraft.io/>`_ . Ambos asseguram que a versão usada é sempre a "
-"mais recente e correm o OnionShare dentro de uma sandbox."
+"Existem vários modos para instalar o OnionShare para Linux, mas o modo "
+"recomendado é utilizar o pacote `Flatpak <https://flatpak.org/>`_ ou `Snap "
+"<https://snapcraft.io/>`_ . Ambos asseguram que irá utilizar sempre a versão "
+"mais recente e executa o OnionShare dentro de uma ''sandbox''."
 
 #: ../../source/install.rst:32
-#, fuzzy
 msgid ""
 "Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak "
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
-"O Snapcraft vem embutido no Ubuntu e o Flatpak vem embutido na Fedora, cabe "
-"a si escolher qual usar. Ambos funcionam em todas as distribuições Linux."
+"O suporte de Snapcraft foi criado para Ubuntu e Fedora vem com suporte para "
+"Flatpak, mas cabe a si escolher qual utilizar. Ambos funcionam em todas as "
+"distribuições Linux."
 
 #: ../../source/install.rst:34
 msgid ""
@@ -109,24 +116,21 @@ msgstr ""
 "org.onionshare.OnionShare"
 
 #: ../../source/install.rst:36
-#, fuzzy
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
 "**Instalar OnionShare utilizando Snapcraft**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:38
-#, fuzzy
 msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
-"Também pode descarregar e instalar os pacotes com assinatura PGP ``."
-"flatpak`` ou ``.snap`` a partir de https://onionshare.org/dist/ se preferir."
+"Também pode transferir e instalar os pacotes assinados PGP ``.flatpak`` ou "
+"``.snap`` a partir de https://onionshare.org/dist/, se preferir."
 
 #: ../../source/install.rst:41
-#, fuzzy
 msgid "Manual Flatpak Installation"
-msgstr "Instalação"
+msgstr "Instalação Manual do Flatpak"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -134,11 +138,14 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
+"Se pretender instalar o OnionShare manualmente com o Flatpak utilizando o `"
+"pacote de ficheiro único <https://docs.flatpak.org/en/latest/single-file-"
+"bundles.html>`_ assinado PGP, pode fazer como isto:"
 
 #: ../../source/install.rst:45
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
-msgstr ""
+msgstr "Instalar Flatpak, seguindo as instruções em https://flatpak.org/setup/."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -153,12 +160,16 @@ msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
+"Vá para https://onionshare.org/dist/, escolha a versão mais recente do "
+"OnionShare, e transfira os ficheiros ``.flatpak`` e ``.flatpak.asc``."
 
 #: ../../source/install.rst:48
 msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Verifique a assinatura PGP do ficheiro ``.flatpak`` . Consulte "
+":ref:`verifying_sigs` para mais informação."
 
 #: ../../source/install.rst:49
 msgid ""
@@ -166,38 +177,49 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
+"Instale o ficheiro ``.flatpak`` executando ``instalar flatpak OnionShare-"
+"VERSION.flatpak``. Substitua ``VERSION`` com o número da versão do ficheiro "
+"que transferiu."
 
 #: ../../source/install.rst:51
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
-msgstr ""
+msgstr "Pode executar OnionShare com: `flatpak run org.onionshare.OnionShare`."
 
 #: ../../source/install.rst:54
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "Instalação Manual do Snapcraft"
 
 #: ../../source/install.rst:56
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
+"Se pretender instalar manualmente o OnionShare com o Snapcraft utilizando o "
+"pacote Snapcraft assinado com PGP, pode-o fazer como isto:"
 
 #: ../../source/install.rst:58
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
+"Instalar Snapcraft, seguindo as instruções em https://snapcraft.io/docs/"
+"installing-snapd."
 
 #: ../../source/install.rst:59
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
+"Vá para https://onionshare.org/dist/, escolha a versão mais recente do "
+"OnionShare, e transfira os ficheiros ``.snap`` e ``.snap.asc``."
 
 #: ../../source/install.rst:60
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Verifique a assinatura PGP do ficheiro ``.snap``. Consulte "
+":ref:`verifying_sigs` para mais informação."
 
 #: ../../source/install.rst:61
 msgid ""
@@ -210,21 +232,24 @@ msgstr ""
 
 #: ../../source/install.rst:63
 msgid "You can run OnionShare with: `snap run onionshare`."
-msgstr ""
+msgstr "Pode executar OnionShare com: `snap run onionshare`."
 
 #: ../../source/install.rst:68
 msgid "Command-line only"
-msgstr ""
+msgstr "Apenas linha de comandos"
 
 #: ../../source/install.rst:70
 msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
+"Pode instalar apenas a versão da linha de comandos do OnionShare em qualquer "
+"sistema operativo utilizando o gestor de pacotes do Python ``pip``. "
+":ref:`cli` tem mais informação."
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #: ../../source/install.rst:77
 msgid ""
@@ -247,16 +272,15 @@ msgstr ""
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
-msgstr ""
+msgstr "https://cgit.freebsd.org/ports/log/www/onionshare"
 
 #: ../../source/install.rst:82
 msgid "https://www.freshports.org/www/onionshare"
-msgstr ""
+msgstr "https://www.freshports.org/www/onionshare"
 
 #: ../../source/install.rst:85
-#, fuzzy
 msgid "Manual pkg Installation"
-msgstr "Instalação"
+msgstr "Instalação Manual de pkg"
 
 #: ../../source/install.rst:87
 msgid ""
@@ -264,6 +288,9 @@ msgid ""
 "``pyXY`` specifying the version of Python the package was built for. So, in "
 "order to install OnionShare for Python 3.9, use::"
 msgstr ""
+"Para instalar o pacote binário, utilize ``instalar pkg pyXY-onionshare``, "
+"com ``pyXY`` especificando a versão do Python, o pacote foi criado. Assim, "
+"para poder instalar o OnionShare para Python 3.9, utilize::"
 
 #: ../../source/install.rst:91
 msgid ""
@@ -271,6 +298,9 @@ msgid ""
 "built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
 "want to install that version."
 msgstr ""
+"Também existe uma versão de **apenas linha de comandos** do OnionShare "
+"disponível como um pacote pré-criado. Substitua ``py39-onionshare`` por "
+"``py39-onionshare-cli`` se quiser instalar essa versão."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -278,11 +308,13 @@ msgid ""
 "please refer to its `official Handbook section about pkg <https://docs."
 "freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
+"Para informação adicional e detalhes sobre os pacotes pré-criados de "
+"FreeBSD, por favor, consulte a `secção oficial do Manual sobre pkg <https://"
+"docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 
 #: ../../source/install.rst:96
-#, fuzzy
 msgid "Manual port Installation"
-msgstr "Instalação"
+msgstr "Instalação Manual da porta"
 
 #: ../../source/install.rst:98
 msgid ""
@@ -290,6 +322,8 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
+"Para instalar a porta de FreeBSD, altere a pasta para `coleção portas "
+"<https://freebsd.org/ports/>`_ que verificou antes de executar o seguinte::"
 
 #: ../../source/install.rst:102
 msgid ""
@@ -297,6 +331,9 @@ msgid ""
 "only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
 "cli`` if you want to install that version."
 msgstr ""
+"A coleção de portas também oferece uma porta dedicada para a versão de **"
+"apenas linha de comandos** do OnionShare. Substitua ``www/onionshare`` por ``"
+"www/onionshare-cli`` se quiser instalar essa versão."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -304,6 +341,9 @@ msgid ""
 "please refer to its `official Handbook section about ports <https://docs."
 "freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
+"Para informação adicional e detalhes sobre a coleção de portas de FreeBSD, "
+"por favor, consulte a `secção oficial do Manual sobre as portas <https://"
+"docs.freebsd.org/en/books/handbook/ports/#ports-using>`_."
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
@@ -333,37 +373,40 @@ msgid ""
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
 msgstr ""
+"Os pacotes são assinados pelo programador principal, que é o responsável "
+"pela versão específica. Aqui tem a informação chave do GPG para cada um dos "
+"principais programadores do OnionShare:"
 
 #: ../../source/install.rst:120
 msgid "Micah Lee:"
-msgstr ""
+msgstr "Micah Lee:"
 
 #: ../../source/install.rst:121
 msgid ""
 "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 msgstr ""
+"Impressão digital da chave pública PGP "
+"``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
-#, fuzzy
 msgid ""
 "You can download Micah's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Os pacotes são assinados pelo Micah Lee, programador principal, usando a sua "
-"chave pública PGP com fingerprint "
-"``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Pode descarregar a chave do "
-"Micah `a partir de keys.openpgp.org keyserver <https://keys.openpgp.org/vks/"
-"v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Pode transferir a chave de Micah `do servidor de chaves keys.openpgp.org "
+"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
-msgstr ""
+msgstr "Saptak Sengupta:"
 
 #: ../../source/install.rst:125
 msgid ""
 "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 msgstr ""
+"Assinatura de chave pública PGP ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
 msgid ""
@@ -371,28 +414,29 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
+"Pode transferir a chave de Saptak `do servidor de chaves keys.openpgp.org "
+"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
 msgid ""
 "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 msgstr ""
+"Assinatura de chave pública PGP ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 
 #: ../../source/install.rst:130
-#, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
-"Os pacotes são assinados pelo Micah Lee, programador principal, usando a sua "
-"chave pública PGP com fingerprint "
-"``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Pode descarregar a chave do "
-"Micah `a partir de keys.openpgp.org keyserver <https://keys.openpgp.org/vks/"
-"v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Pode transferir a chave de Micah `do servidor de chaves keys.openpgp.org "
+"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 
 #: ../../source/install.rst:132
 msgid ""
@@ -400,101 +444,91 @@ msgid ""
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
 "`Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
-"Deve ter instalado o GnuPG para verificar assinaturas. Para o macOS "
-"provavelmente prefere `GPGTools <https://gpgtools.org/>`_, e para Windows "
-"`Gpg4win <https://www.gpg4win.org/>`_."
+"Deve ter instalado o GnuPG para verificar as assinaturas. Para macOS "
+"provavelmente prefere `GPGTools <https://gpgtools.org/>`_, e para Windows `"
+"Gpg4win <https://www.gpg4win.org/>`_."
 
 #: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "Assinaturas"
 
 #: ../../source/install.rst:137
-#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
 "`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
-"Pode encontrar as assinaturas nos ficheiros (``.asc``), assim como Windows, "
-"macOS, Flatpak, Snapcraft, e pacotes fonte em https://onionshare.org/dist/ "
-"nas pastas com o nome de cada versão do OnionShare. Também as pode encontrar "
-"nas ` Páginas de lançamento do GitHub <https://github.com/micahflee/"
-"onionshare/releases>`_."
+"Pode encontrar as assinaturas (como ficheiros ``.asc``), bem como Windows, "
+"macOS, Flatpak, Snap, e pacotes fonte em https://onionshare.org/dist/ nas "
+"pastas com o nome de cada versão do OnionShare. Também as pode encontrar nas "
+"` Páginas de lançamento do GitHub <https://github.com/onionshare/onionshare/"
+"releases>`_."
 
 #: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Verificação"
 
 #: ../../source/install.rst:143
-#, fuzzy
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
-"Assim que tenha importado a chave pública do Micah para o seu chaveiro no "
-"GnuPG, descarregado o binário e a assinatura ``.asc``, pode verificar o "
-"binário para macOS no terminal desta forma::"
+"Assim que tenha importado as chaves públicas dos programadores para o seu "
+"gestor de chaves no GnuPG, transferido o binário e a assinatura ``.asc``, "
+"pode verificar o binário num terminal como este:"
 
 #: ../../source/install.rst:145
 msgid "For Windows::"
-msgstr ""
+msgstr "Para Windows::"
 
 #: ../../source/install.rst:149
 msgid "For macOS::"
-msgstr ""
+msgstr "Para macOS::"
 
 #: ../../source/install.rst:153
 msgid "For Linux::"
-msgstr ""
+msgstr "Para Linux::"
 
 #: ../../source/install.rst:159
 msgid "and for the source file::"
-msgstr ""
+msgstr "e para o ficheiro fonte::"
 
 #: ../../source/install.rst:163
 msgid "The expected output looks like this::"
-msgstr "O resultado esperado é o seguinte::"
+msgstr "O resultado esperado é parecido com isto::"
 
 #: ../../source/install.rst:173
-#, fuzzy
 msgid ""
 "If you don't see ``Good signature from``, there might be a problem with the "
 "integrity of the file (malicious or otherwise), and you should not install "
 "the package."
 msgstr ""
-"Se não vê a mensagem 'Good signature from', pode existir um problema com a "
-"integridade do ficheiro (malicioso ou de outra forma), e o pacote não deve "
-"ser instalado. (O AVISO apresentado acima, não é um problema com o pacote: "
-"Apenas significa que ainda não defeniu nenhum nível de 'confiança' com a "
-"chave PGP do Micah.)"
+"Se não vê ``Boa assinatura de``, pode existir um problema com a integridade "
+"do ficheiro (malicioso ou de outra forma), e não deverá instalar o pacote."
 
 #: ../../source/install.rst:175
-#, fuzzy
 msgid ""
 "The ``WARNING:`` shown above, is not a problem with the package, it only "
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
-"Se não vê a mensagem 'Good signature from', pode existir um problema com a "
-"integridade do ficheiro (malicioso ou de outra forma), e o pacote não deve "
-"ser instalado. (O ``AVISO`` apresentado acima, não é um problema com o "
-"pacote: Apenas significa que ainda não defeniu nenhum nível de 'confiança' "
-"com a chave PGP do Micah.)"
+"O ``AVISO:`` mostrado em cima, não é um problema com o pacote, apenas "
+"significa que ainda não definiu um nível de \"confiança\" com a chave PGP de "
+"Micah (o programador principal)."
 
 #: ../../source/install.rst:177
-#, fuzzy
 msgid ""
 "If you want to learn more about verifying PGP signatures, the guides for "
 "`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ and "
 "the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/"
 ">`_ may be useful."
 msgstr ""
-"Se quiser aprender mais sobre verificação de assinaturas PGP, os guias "
-"`Qubes OS <https://www.qubes-os.org/security/verifying-signatures/>`_ e `Tor "
-"Project <https://support.torproject.org/tbb/how-to-verify-signature/>`_ "
-"podem ajudar."
+"Se quiser saber mais sobre a verificação de assinaturas PGP, os guias `Qubes "
+"OS <https://www.qubes-os.org/security/verifying-signatures/>`_ e o `Projeto "
+"Tor <https://support.torproject.org/tbb/how-to-verify-signature/>`_ podem "
+"ajudar."
 
 #~ msgid "Or for Windows, in a command-prompt like this::"
 #~ msgstr "ou para Windows, na linha de comandos desta forma::"
