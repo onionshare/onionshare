@@ -73,10 +73,10 @@
     "gui_server_autostop_timer_expired": "Otomatik durdurma sayacı zaten sona ermiş. Paylaşımı başlatmak için sayacı ayarlayın.",
     "gui_share_url_description": "Bu OnionShare adresine ve kişisel anahtara sahip olan <b>herkes</b> <b>Tor Browser</b> kullanarak dosyalarınızı <b>indirebilir</b>: <img src='{}' />",
     "gui_receive_url_description": "Bu OnionShare adresine ve kişisel anahtara sahip olan <b>herkes</b> <b>Tor Browser</b> kullanarak dosyaları bilgisayarınıza <b>yükleyebilir</b>: <img src='{}' />",
-    "gui_url_label_persistent": "Bu paylaşım otomatik olarak durdurulmayacak.<br><br>Sonraki her paylaşımda adres yeniden kullanılır (bir kerelik adresleri kullanmak için, ayarlardan \"Kalıcı adres kullanılsın\" seçeneğini kapatın.)",
+    "gui_url_label_persistent": "Bu paylaşım otomatik olarak durdurulmayacak.<br><br>Sonraki her paylaşımda adres yeniden kullanılır (bir kerelik adresleri kullanmak için, ayarlardan \"OnionShare başlatıldığında her zaman bu sekmeyi aç\" seçeneğini kapatın.)",
     "gui_url_label_stay_open": "Bu paylaşım otomatik olarak durdurulmayacak.",
     "gui_url_label_onetime": "Bu paylaşım bir kez tamamlandıktan sonra durdurulacak.",
-    "gui_url_label_onetime_and_persistent": "Bu paylaşım otomatik olarak durdurulmayacak.<br><br>Sonraki her paylaşım adresi yeniden kullanır (bir kerelik adresleri kullanmak için, ayarlardan \"Kalıcı adres kullanılsın\" seçeneğini kapatın.)",
+    "gui_url_label_onetime_and_persistent": "Bu paylaşım otomatik olarak durdurulmayacak.<br><br>Sonraki her paylaşım adresi yeniden kullanır (bir kerelik adresleri kullanmak için, ayarlardan \"OnionShare başlatıldığında her zaman bu sekmeyi aç\" seçeneğini kapatın.)",
     "gui_status_indicator_share_stopped": "Durduruldu",
     "gui_status_indicator_share_working": "Başlatılıyor…",
     "gui_status_indicator_share_started": "Paylaşılıyor",
@@ -138,7 +138,7 @@
     "mode_settings_autostop_timer_checkbox": "Onion hizmeti şu zamanda durdurulsun",
     "mode_settings_autostart_timer_checkbox": "Onion hizmeti şu zamanda başlatılsın",
     "mode_settings_public_checkbox": "Bu, herkese açık bir OnionShare hizmetidir (kişisel anahtarı devre dışı bırakır)",
-    "mode_settings_persistent_checkbox": "OnionShare başlatıldığında her zaman bu sekmeyi aç",
+    "mode_settings_persistent_checkbox": "OnionShare başlatıldığında her zaman bu sekmeyi aç (onion adresi aynı kalacaktır)",
     "mode_settings_advanced_toggle_hide": "Gelişmiş ayarları gizle",
     "mode_settings_advanced_toggle_show": "Gelişmiş ayarları görüntüle",
     "gui_quit_warning_cancel": "İptal",
@@ -254,5 +254,8 @@
     "gui_general_settings_window_title": "Genel",
     "waitress_web_server_error": "Web sunucusu başlatılırken bir sorun oluştu",
     "gui_close_tab_warning_chat_description": "Sohbet sunucusu barındıran sekme kapatılsın mı?",
-    "gui_chat_mode_explainer": "Sohbet modu, Tor Browser'da başkalarıyla etkileşimli olarak sohbet etmenizi sağlar.<br><br><b>Sohbet geçmişi OnionShare'de saklanmaz. Tor Browser'ı kapattığınızda sohbet geçmişi kaybolacaktır.</b>"
+    "gui_chat_mode_explainer": "Sohbet modu, Tor Browser'da başkalarıyla etkileşimli olarak sohbet etmenizi sağlar.<br><br><b>Sohbet geçmişi OnionShare'de saklanmaz. Tor Browser'ı kapattığınızda sohbet geçmişi kaybolacaktır.</b>",
+    "error_generic": "Beklenmedik bir hata oluştu:\n{}",
+    "gui_settings_license_label": "OnionShare, GPL v3 altında lisanslıdır.<br>Üçüncü parti lisanslarına şuradan bakabilirsiniz:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "OnionShare başlatıldığında bu onion hizmetini otomatik olarak başlat"
 }
