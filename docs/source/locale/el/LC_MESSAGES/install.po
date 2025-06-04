@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-08-05 15:39+0000\n"
-"Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
+"PO-Revision-Date: 2025-04-23 11:56+0000\n"
+"Last-Translator: GiannosOB <giannos2105@gmail.com>\n"
 "Language-Team: el <LL@li.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.1-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -273,6 +274,12 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
+"Αν και δεν έχει αναπτυχθεί επίσημα για αυτή την πλατφόρμα, το OnionShare "
+"μπορεί επίσης να εγκατασταθεί στο `FreeBSD <https://freebsd.org/>`_. Είναι "
+"διαθέσιμο μέσω της συλλογής ports ή ως προ-δημιουργημένο πακέτο. Αν "
+"επιλέξετε να εγκαταστήσετε και να χρησιμοποιήσετε το OnionShare σε ένα "
+"λειτουργικό σύστημα FreeBSD, πρέπει να γνωρίζετε ότι δεν υποστηρίζεται "
+"**ΔΕΝ** επίσημα από το πρόγραμμα OnionShare."
 
 #: ../../source/install.rst:79
 msgid ""
@@ -283,6 +290,12 @@ msgid ""
 "you wish to check changes related to this platform, please refer to the "
 "following resources:"
 msgstr ""
+"Παρόλο που δεν προσφέρονται και δεν συντηρούνται επίσημα από τους "
+"προγραμματιστές του OnionShare, τα πακέτα και οι θύρες του FreeBSD αντλούν "
+"και επαληθεύουν τους πηγαίους κώδικες από το επίσημο αποθετήριο του "
+"OnionShare (ή τα επίσημα πακέτα έκδοσης από το `PyPI <https://pypi.org/"
+"project/onionshare-cli/>`_). Εάν επιθυμείτε να ελέγξετε τις αλλαγές που "
+"σχετίζονται με αυτή την πλατφόρμα, ανατρέξτε στους ακόλουθους πόρους:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
@@ -302,6 +315,10 @@ msgid ""
 "``pyXY`` specifying the version of Python the package was built for. So, in "
 "order to install OnionShare for Python 3.9, use::"
 msgstr ""
+"Για να εγκαταστήσετε το δυαδικό πακέτο, χρησιμοποιήστε το ``pkg install pyXY-"
+"onionshare``, με το ``pyXY`` να καθορίζει την έκδοση της Python για την "
+"οποία δημιουργήθηκε το πακέτο. Έτσι, για να εγκαταστήσετε το OnionShare για "
+"την Python 3.9, χρησιμοποιήστε::"
 
 #: ../../source/install.rst:91
 msgid ""
@@ -309,6 +326,9 @@ msgid ""
 "built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
 "want to install that version."
 msgstr ""
+"Υπάρχει επίσης μια έκδοση του OnionShare **μόνο από τη γραμμή εντολών** που "
+"διατίθεται ως προ-δημιουργημένο πακέτο. Αντικαταστήστε το ``py39-onionshare``"
+" με το ``py39-onionshare-cli`` αν θέλετε να εγκαταστήσετε αυτή την έκδοση."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -316,6 +336,9 @@ msgid ""
 "please refer to its `official Handbook section about pkg <https://docs."
 "freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
+"Για πρόσθετες πληροφορίες και λεπτομέρειες σχετικά με τα προκατασκευασμένα "
+"πακέτα του FreeBSD, ανατρέξτε στην ενότητα του `επίσημου εγχειριδίου για το "
+"pkg <https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 
 #: ../../source/install.rst:96
 msgid "Manual port Installation"
@@ -327,6 +350,9 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
+"Για να εγκαταστήσετε τη θύρα του FreeBSD, αλλάξτε κατάλογο στη συλλογή `"
+"ports collection <https://freebsd.org/ports/>`_ που πρέπει να έχετε ελέγξει "
+"πριν και εκτελέστε τα εξής::"
 
 #: ../../source/install.rst:102
 msgid ""
@@ -334,6 +360,9 @@ msgid ""
 "only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
 "cli`` if you want to install that version."
 msgstr ""
+"Η συλλογή θυρών προσφέρει επίσης μια ειδική θύρα για την έκδοση **Command-"
+"line only** του OnionShare. Αντικαταστήστε το ``www/onionshare`` με το ``www/"
+"onionshare-cli`` αν θέλετε να εγκαταστήσετε αυτή την έκδοση."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -341,6 +370,9 @@ msgid ""
 "please refer to its `official Handbook section about ports <https://docs."
 "freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
+"Για πρόσθετες πληροφορίες και λεπτομέρειες σχετικά με τη συλλογή λιμένων "
+"FreeBSD, ανατρέξτε στην ενότητα του `επίσημου εγχειριδίου για τις θύρες "
+"<https://docs.freebsd.org/en/books/handbook/ports/#ports-using>`_."
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
@@ -370,6 +402,9 @@ msgid ""
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
 msgstr ""
+"Τα πακέτα υπογράφονται από τον κύριο προγραμματιστή που είναι υπεύθυνος για "
+"τη συγκεκριμένη έκδοση. Εδώ είναι οι πληροφορίες κλειδιού GPG για κάθε έναν "
+"από τους βασικούς προγραμματιστές του OnionShare:"
 
 #: ../../source/install.rst:120
 msgid "Micah Lee:"
@@ -413,25 +448,23 @@ msgstr ""
 
 #: ../../source/install.rst:128
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
-#, fuzzy
 msgid ""
 "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 msgstr ""
-"Αποτύπωση δημόσιου κλειδιού PGP ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+"Αποτύπωμα δημόσιου κλειδιού PGP ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 
 #: ../../source/install.rst:130
-#, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
-"Μπορείτε να κατεβάσετε το κλειδί του Micah από το `διακομιστή κλειδιών keys."
-"openpgp.org <https://keys.openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Μπορείτε να κατεβάσετε το κλειδί του Miguel `από τον διακομιστή κλειδιών "
+"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 
 #: ../../source/install.rst:132
 msgid ""
@@ -465,15 +498,15 @@ msgid "Verifying"
 msgstr "Επιβεβαίωση"
 
 #: ../../source/install.rst:143
-#, fuzzy
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
-"Με την εισαγωγή του δημόσιου κλειδιού του Micah στο GnuPG keychain, με τη "
-"λήψη του δυαδικού και της υπογραφής ``.asc``, μπορείτε να επιβεβαιώσετε το "
-"δυαδικό σύστημα για macOS σε ένα τερματικό όπως:"
+"Αφού εισαγάγετε τα δημόσια κλειδιά των προγραμματιστών του πυρήνα στην "
+"αλυσίδα κλειδιών GnuPG, κατεβάσετε το δυαδικό αρχείο και την υπογραφή "
+"``.asc``, μπορείτε να επαληθεύσετε το δυαδικό αρχείο σε ένα τερματικό ως "
+"εξής:"
 
 #: ../../source/install.rst:145
 msgid "For Windows::"

@@ -72,10 +72,10 @@
     "gui_server_autostop_timer_expired": "El temporitzador de finalització automàtica ja s'ha acabat. Ajusteu-lo per a poder compartir.",
     "gui_share_url_description": "<b>Qualsevol persona</b> amb aquesta adreça d'OnionShare pot <b>baixar</b> els vostres fitxers fent servir el <b>Navegador Tor</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Qualsevol persona</b> amb aquesta adreça d'OnionShare pot <b>pujar</b> fitxers al vostre ordinador fent servir el <b>Navegador Tor</b>: <img src='{}' />",
-    "gui_url_label_persistent": "Aquest recurs no es tancarà automàticament.<br><br>Cada recurs compartit reutilitzarà aquesta mateixa adreça. (Si voleu crear una adreça diferent per a cada recurs, desactiveu l'opció «Utilitza una adreça persistent» a les opcions.)",
+    "gui_url_label_persistent": "Aquest recurs no es tancarà automàticament.<br><br>Cada recurs compartit reutilitzarà aquesta mateixa adreça (si voleu crear una adreça diferent per a cada recurs, desactiveu l'opció «Obre aquesta pestanya automàticament en iniciar l'OnionShare» a les opcions.)",
     "gui_url_label_stay_open": "Aquest recurs no es tancarà automàticament.",
     "gui_url_label_onetime": "Aquest recurs deixarà de compartir-se després de la primera baixada.",
-    "gui_url_label_onetime_and_persistent": "Aquest recurs no es tancarà ell sol.<br><br>Cada recurs compartit reutilitzarà aquesta mateixa adreça. (Si voleu crear una adreça diferent per a cada recurs, desactiveu l'opció «Utilitza una adreça persistent».)",
+    "gui_url_label_onetime_and_persistent": "Aquest recurs no es tancarà automàticament.<br><br>Cada recurs compartit reutilitzarà aquesta adreça (si voleu crear una adreça diferent per a cada recurs, desactiveu l'opció «Obre aquesta pestanya automàticament en iniciar l'OnionShare» a les opcions.)",
     "gui_status_indicator_share_stopped": "Aturat",
     "gui_status_indicator_share_working": "S'està iniciant…",
     "gui_status_indicator_share_started": "S'està compartint",
@@ -141,7 +141,7 @@
     "mode_settings_autostop_timer_checkbox": "Atura el servei onion a una hora programada",
     "mode_settings_autostart_timer_checkbox": "Inicia el servei onion a una hora programada",
     "mode_settings_public_checkbox": "Aquest és un servei públic d'OnionShare (desactiva la clau privada)",
-    "mode_settings_persistent_checkbox": "Obre aquesta pestanya automàticament en iniciar l'OnionShare",
+    "mode_settings_persistent_checkbox": "Obre aquesta pestanya automàticament en iniciar l'OnionShare (l'adreça onion romandrà igual)",
     "mode_settings_advanced_toggle_hide": "Amaga la configuració avançada",
     "mode_settings_advanced_toggle_show": "Mostra la configuració avançada",
     "gui_quit_warning_cancel": "Cancel·la",
@@ -254,5 +254,8 @@
     "gui_general_settings_window_title": "General",
     "gui_close_tab_warning_chat_description": "Voleu tancar la pestanya que allotja un servidor de xat?",
     "waitress_web_server_error": "Hi ha hagut un problema en iniciar el servidor web",
-    "gui_chat_mode_explainer": "El mode de xat us permet xatejar de manera interactiva amb altres persones al Navegador Tor.<br><br><b>L'historial de xat no s'emmagatzema a OnionShare. L'historial de xat desapareixerà quan tanqueu el Navegador Tor.</b>"
+    "gui_chat_mode_explainer": "El mode de xat us permet xatejar de manera interactiva amb altres persones al Navegador Tor.<br><br><b>L'historial de xat no s'emmagatzema a OnionShare. L'historial de xat desapareixerà quan tanqueu el Navegador Tor.</b>",
+    "error_generic": "S'ha produït un error inesperat a l'OnionShare:\n{}",
+    "gui_settings_license_label": "L'OnionShare es publica sota la llicència GPL v3.<br>Les llicències de tercers es poden veure aquí:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Inicia de manera automàtica aquest servei onion en iniciar l'OnionShare"
 }

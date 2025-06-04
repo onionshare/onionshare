@@ -6,15 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2025-03-12 12:31+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.3-dev\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -382,7 +384,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:324
 msgid "version"
-msgstr ""
+msgstr "ვერსია"
 
 #: ../../source/advanced.rst:324 ../../source/advanced.rst:325
 #: ../../source/advanced.rst:326 ../../source/advanced.rst:328
@@ -876,7 +878,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:471
 msgid "chat"
-msgstr ""
+msgstr "ჩატი"
 
 #: ../../source/advanced.rst:473
 msgid "There are currently no configurable settings for the Chat mode."
