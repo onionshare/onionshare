@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-06-11 17:04+0000\n"
-"Last-Translator: jelly <jellythecube@gmail.com>\n"
+"PO-Revision-Date: 2025-06-12 19:01+0000\n"
+"Last-Translator: AO Localisation Lab "
+"<ao_localization_lab@users.noreply.hosted.weblate.org>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -190,15 +191,15 @@ msgstr ""
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr "Installation de la version CLI"
+msgstr "Installer la version en ligne de commande"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
 msgstr ""
-"Si vous avez installé le package de Snap, macOS ou Windows, vous avez déjà "
-"la version CLI installée."
+"Si vous avez installé le paquet Snap, macOS ou Windows, la version en ligne "
+"de commande est déjà installée."
 
 #: ../../source/advanced.rst:77
 #, fuzzy
@@ -233,7 +234,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
-msgstr "Lancer la CLI via Snap"
+msgstr "Lancer la ligne de commande avec Snap"
 
 #: ../../source/advanced.rst:92
 #, fuzzy
@@ -247,27 +248,27 @@ msgstr ""
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"
-msgstr "Lancer la CLI sur macOS"
+msgstr "Lancer la ligne de commande sous macOS"
 
 #: ../../source/advanced.rst:97
 msgid ""
 "From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
 "onionshare-cli --help``"
 msgstr ""
-"Depuis le Terminal, vous pouvez exécuter ``/Applications/OnionShare.app/"
+"Dans un terminal, vous pouvez exécuter ``/Applications/OnionShare.app/"
 "Contents/MacOS/onionshare-cli --help``"
 
 #: ../../source/advanced.rst:100
 msgid "Running the CLI from Windows"
-msgstr "Lancer le CLI sur Windows"
+msgstr "Lancer la ligne de commande sous Windows"
 
 #: ../../source/advanced.rst:102
 msgid ""
 "In the Windows installation, the executable ``onionshare-cli.exe`` is "
 "available."
 msgstr ""
-"Dans l'installation de Windows, l'exécutable ``onionshare-cli.exe`` est "
-"disponible."
+"Dans l’installation de Windows, l’exécutable ``onionshare-cli.exe`` est "
+"proposé."
 
 #: ../../source/advanced.rst:105
 msgid "Usage"
@@ -299,7 +300,7 @@ msgid ""
 "starts."
 msgstr ""
 "Cela peut être particulièrement utile si vous travaillez en mode "
-"'persistant' et que vous souhaitez démarrer le même service onion à chaque "
+"'persistant' et que vous souhaitez démarrer le même service oignon à chaque "
 "démarrage de votre machine."
 
 #: ../../source/advanced.rst:176
