@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-06-11 17:05+0000\n"
+"PO-Revision-Date: 2025-06-12 19:01+0000\n"
 "Last-Translator: AO Localisation Lab "
 "<ao_localization_lab@users.noreply.hosted.weblate.org>\n"
 "Language-Team: none\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
-msgstr "Comment fonctionne OnionShare"
+msgstr "Fonctionnement d’OnionShare"
 
 #: ../../source/features.rst:6
 msgid ""
