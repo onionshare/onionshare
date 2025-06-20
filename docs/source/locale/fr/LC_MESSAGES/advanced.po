@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-04-03 16:01+0000\n"
-"Last-Translator: AO Localisation Lab <ao@localizationlab.org>\n"
+"PO-Revision-Date: 2025-06-11 17:04+0000\n"
+"Last-Translator: jelly <jellythecube@gmail.com>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.12-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../source/advanced.rst:2
@@ -189,13 +190,15 @@ msgstr ""
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr ""
+msgstr "Installation de la version CLI"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
 msgstr ""
+"Si vous avez installé le package de Snap, macOS ou Windows, vous avez déjà "
+"la version CLI installée."
 
 #: ../../source/advanced.rst:77
 #, fuzzy
@@ -230,7 +233,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
-msgstr ""
+msgstr "Lancer la CLI via Snap"
 
 #: ../../source/advanced.rst:92
 #, fuzzy
@@ -244,23 +247,27 @@ msgstr ""
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"
-msgstr ""
+msgstr "Lancer la CLI sur macOS"
 
 #: ../../source/advanced.rst:97
 msgid ""
 "From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
 "onionshare-cli --help``"
 msgstr ""
+"Depuis le Terminal, vous pouvez exécuter ``/Applications/OnionShare.app/"
+"Contents/MacOS/onionshare-cli --help``"
 
 #: ../../source/advanced.rst:100
 msgid "Running the CLI from Windows"
-msgstr ""
+msgstr "Lancer le CLI sur Windows"
 
 #: ../../source/advanced.rst:102
 msgid ""
 "In the Windows installation, the executable ``onionshare-cli.exe`` is "
 "available."
 msgstr ""
+"Dans l'installation de Windows, l'exécutable ``onionshare-cli.exe`` est "
+"disponible."
 
 #: ../../source/advanced.rst:105
 msgid "Usage"
@@ -282,6 +289,8 @@ msgid ""
 "It is possible to automatically start OnionShare from the CLI using a "
 "systemd unit file."
 msgstr ""
+"Il est possible de démarrer automatiquement OnionShare à partir de la CLI à "
+"l'aide d'un fichier d'unité systemd."
 
 #: ../../source/advanced.rst:174
 msgid ""
@@ -289,10 +298,14 @@ msgid ""
 "mode, and want to start the same onion service every time your machine "
 "starts."
 msgstr ""
+"Cela peut être particulièrement utile si vous travaillez en mode "
+"'persistant' et que vous souhaitez démarrer le même service onion à chaque "
+"démarrage de votre machine."
 
 #: ../../source/advanced.rst:176
 msgid "To do this, you need to prepare some OnionShare json config first."
 msgstr ""
+"Pour ce faire, vous devez d’abord préparer une configuration JSON OnionShare."
 
 #: ../../source/advanced.rst:178
 msgid ""
