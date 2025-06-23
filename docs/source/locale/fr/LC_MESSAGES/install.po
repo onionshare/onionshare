@@ -6,16 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-04-06 09:02+0000\n"
-"Last-Translator: aleksej0R <omolice@hotmail.fr>\n"
+"PO-Revision-Date: 2025-06-12 19:01+0000\n"
+"Last-Translator: AO Localisation Lab "
+"<ao_localization_lab@users.noreply.hosted.weblate.org>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.12-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -71,10 +73,12 @@ msgstr "App Store d'Apple : https://apps.apple.com/app/onionshare/id1601890129
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"Téléchargement direct de l’IPA : https://github.com/onionshare/"
+"onionshare-ios/releases"
 
 #: ../../source/install.rst:23
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "TestFlight : https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
@@ -268,6 +272,12 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
+"Bien qu’il ne soit pas officiellement développé pour cette plateforme, "
+"OnionShare peut aussi être installé sur `FreeBSD <https://freebsd.org/>`_. "
+"Il est accessible par sa collection de ports ou sous forme de paquet "
+"précompilé. Si vous choisissez d’installer et d’utiliser OnionShare sur un "
+"système d’exploitation FreeBSD, sachez qu’il n’est **PAS** officiellement "
+"pris en charge par le projet OnionShare."
 
 #: ../../source/install.rst:79
 msgid ""

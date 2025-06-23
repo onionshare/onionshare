@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-03-08 14:02+0000\n"
+"PO-Revision-Date: 2025-06-12 19:01+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: none\n"
 "Language: kab\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -227,7 +227,7 @@ msgstr ""
 msgid ""
 "However, it is always safe to open text messages sent through OnionShare."
 msgstr ""
-"D acu kan, dima yelha ma yeldi yiwen iznan n yiḍrisen i d-yettwaceyyεen s "
+"D acu kan, dima yelha ma yeldi yiwen iznan n yiḍrisen i d-yettwaceyyɛen s "
 "OnionShare."
 
 #: ../../source/features.rst:95
@@ -385,7 +385,7 @@ msgstr ""
 
 #: ../../source/features.rst:166
 msgid "How is this useful?"
-msgstr "Amek yenfeε waya?"
+msgstr "Amek yenfeɛ waya?"
 
 #: ../../source/features.rst:168
 msgid ""

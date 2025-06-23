@@ -8,20 +8,21 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-03-15 11:02+0000\n"
-"Last-Translator: Dhjruenebdh <notconnect.chop252@passmail.net>\n"
+"PO-Revision-Date: 2025-06-12 19:01+0000\n"
+"Last-Translator: AO Localisation Lab "
+"<ao_localization_lab@users.noreply.hosted.weblate.org>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.12-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
-msgstr "Comment fonctionne OnionShare"
+msgstr "Fonctionnement d’OnionShare"
 
 #: ../../source/features.rst:6
 msgid ""
@@ -367,7 +368,7 @@ msgstr ""
 
 #: ../../source/features.rst:102
 msgid "Other caveats to be aware of in Receive Mode"
-msgstr ""
+msgstr "Autres éléments à prendre en compte en mode réception"
 
 #: ../../source/features.rst:104
 msgid ""
@@ -376,6 +377,10 @@ msgid ""
 "mode. Try Bronze or Gold to see if you are able to upload a message or a "
 "file."
 msgstr ""
+"Il y a été signalé que sur les appareils iOS le Navigateur Onion ne peut pas "
+"téléverser des fichiers vers un OnionShare en mode réception, s’il "
+"fonctionne en mode de sécurité Argent. Essayez Bronze ou Or pour tenter de "
+"téléverser un message ou un fichier."
 
 #: ../../source/features.rst:107
 msgid "Host a Website"

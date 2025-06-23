@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.2\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-01-22 16:08+0000\n"
+"PO-Revision-Date: 2025-06-20 17:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ta\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -51,11 +51,11 @@ msgid ""
 "using something less secure like unencrypted email, depending on your "
 "`threat model <https://ssd.eff.org/module/your-security-plan>`_."
 msgstr ""
-"உங்கள் `அச்சுறுத்தல் மாதிரி <https: //ssd.eff ஐப் பொறுத்து, மறைகுறியாக்கப்பட்ட அரட்டை "
-"செய்தியைப் போன்ற உங்கள் விருப்பப்படி ஒரு தகவல்தொடர்பு சேனலைப் பயன்படுத்தி அல்லது "
-"மறைகுறியாக்கப்படாத மின்னஞ்சலைப் போல குறைவான பாதுகாப்பான ஒன்றைப் பயன்படுத்துவதன் மூலம் "
-"அந்த முகவரி மற்றும் தனிப்பட்ட விசையை பாதுகாப்பாக பகிர்வதற்கு நீங்கள் பொறுப்பு. org/"
-"module/உங்கள் பாதுகாப்பு-திட்டம்> `_."
+"உங்கள் `அச்சுறுத்தல் மாதிரி <https://ssd.eff.org/module/your-security-plan>`_ ஐப் "
+"பொறுத்து, மறைகுறியாக்கப்பட்ட அரட்டை செய்தியைப் போன்ற உங்கள் விருப்பப்படி ஒரு தகவல்தொடர்பு "
+"சேனலைப் பயன்படுத்தி அல்லது மறைகுறியாக்கப்படாத மின்னஞ்சலைப் போலக் குறைவான பாதுகாப்பான "
+"ஒன்றைப் பயன்படுத்துவதன் மூலம் அந்த முகவரி மற்றும் தனிப்பட்ட விசையைப் பாதுகாப்பாகப் "
+"பகிர்வதற்கு நீங்கள் பொறுப்பு."
 
 #: ../../source/features.rst:20
 msgid ""
@@ -341,7 +341,7 @@ msgstr ""
 
 #: ../../source/features.rst:102
 msgid "Other caveats to be aware of in Receive Mode"
-msgstr ""
+msgstr "பெறும் பயன்முறையில் விழிப்புடன் இருக்க வேண்டிய பிற முன்ன்றிவிப்புகள்"
 
 #: ../../source/features.rst:104
 msgid ""
@@ -350,6 +350,9 @@ msgid ""
 "mode. Try Bronze or Gold to see if you are able to upload a message or a "
 "file."
 msgstr ""
+"'வெள்ளி' பாதுகாப்பு பயன்முறையில் இயங்கும்போது, ஐஓஎஸ் சாதனங்களில் வெங்காயப் பிரவுசர் பெறும்"
+" பயன்முறையில் கோப்புகளைப் பதிவேற்ற முடியாது என்ற தகவல்கள் உள்ளன. நீங்கள் ஒரு செய்தியை "
+"அல்லது கோப்பை பதிவேற்ற முடியுமா என்று பார்க்க வெண்கல அல்லது தங்கத்தை முயற்சிக்கவும்."
 
 #: ../../source/features.rst:107
 msgid "Host a Website"
