@@ -34,7 +34,6 @@ from flask import (
     abort,
     make_response,
     send_file,
-    __version__ as flask_version,
 )
 from flask_compress import Compress
 from flask_socketio import SocketIO
@@ -134,13 +133,7 @@ class Web:
             # Use a custom Request class to track upload progress
             self.app.request_class = ReceiveModeRequest
 
-        # Starting in Flask 0.11, render_template_string autoescapes template variables
-        # by default. To prevent content injection through template variables in
-        # earlier versions of Flask, we force autoescaping in the Jinja2 template
-        # engine if we detect a Flask version with insecure default behavior.
-        if Version(flask_version) < Version("0.11"):
-            # Monkey-patch in the fix from https://github.com/pallets/flask/commit/99c99c4c16b1327288fd76c44bc8635a1de452bc
-            Flask.select_jinja_autoescape = self._safe_select_jinja_autoescape
+
 
         self.security_headers = [
             ("X-Frame-Options", "DENY"),
