@@ -6,23 +6,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.2\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2025-07-10 00:01+0000\n"
+"Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr ""
+msgstr "வெங்காயத்தை உருவாக்குதல்"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "ஒத்துழைப்பு"
 
 #: ../../source/develop.rst:9
 msgid ""
@@ -34,22 +36,30 @@ msgid ""
 "this team <https://keybase.io/team/onionshare>`_. Within the app, go to "
 "\"Teams\", click \"Join a Team\", and type \"onionshare\"."
 msgstr ""
+"இந்த திட்டத்தைப் பற்றி விவாதிக்கவும், கேள்விகளைக் கேட்கவும், சிந்தனைகள் மற்றும் "
+"வடிவமைப்புகளைப் பகிர்ந்து கொள்ளவும், எதிர்கால வளர்ச்சிக்கான திட்டங்களை உருவாக்கவும் வெங்காயர்"
+" ஒரு திறந்த கீபேச் குழுவைக் கொண்டுள்ளது. . பயன்பாட்டிற்குள், \"அணிகள்\" க்குச் சென்று, "
+"\"ஒரு குழுவில் சேர\" என்பதைக் சொடுக்கு செய்து, \"வெங்காயர்\" என்று தட்டச்சு செய்க."
 
 #: ../../source/develop.rst:12
 msgid ""
 "OnionShare also has a `mailing list <https://lists.riseup.net/www/subscribe/"
 "onionshare-dev>`_ for developers and and designers to discuss the project."
 msgstr ""
+"வெங்காயத்தில் `அஞ்சல் பட்டியல் <https://lists.riseup.net/www/subscrice/onionshare-"
+"dev>` _ உருவாக்குபவர்கள் மற்றும் வடிவமைப்பாளர்கள் திட்டத்தைப் பற்றி விவாதிக்க."
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "குறியீடு பங்களிப்பு"
 
 #: ../../source/develop.rst:17
 msgid ""
 "OnionShare source code is to be found in this Git repository: https://github."
 "com/onionshare/onionshare"
 msgstr ""
+"இந்த அறிவிலி களஞ்சியத்தில் வெங்காய மூலக் குறியீடு காணப்படுகிறது: https://github.com/"
+"onionshare/onionshare"
 
 #: ../../source/develop.rst:19
 msgid ""
@@ -58,6 +68,10 @@ msgid ""
 "also review all of the `open issues <https://github.com/onionshare/"
 "onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
 msgstr ""
+"நீங்கள் வெங்காயத்தில் குறியீட்டை பங்களிக்க விரும்பினால், இது கீபேச் குழுவில் சேர உதவுகிறது "
+"மற்றும் நீங்கள் என்ன வேலை செய்கிறீர்கள் என்று கேள்விகளைக் கேட்க உதவுகிறது. நீங்கள் சமாளிக்க "
+"விரும்பும் ஏதேனும் இருக்கிறதா என்று கிதுபில் `திறந்த சிக்கல்கள் <https://github.com/"
+"onionshare/onionshare/issues> _ _."
 
 #: ../../source/develop.rst:22
 msgid ""
@@ -65,10 +79,13 @@ msgid ""
 "repository and one of the project maintainers will review it and possibly "
 "ask questions, request changes, reject it, or merge it into the project."
 msgstr ""
+"குறியீட்டை பங்களிக்க நீங்கள் தயாராக இருக்கும்போது, கிட்அப் களஞ்சியத்தில் ஒரு இழுப்பு "
+"கோரிக்கையைத் திறக்கவும், திட்ட பராமரிப்பாளர்களில் ஒருவர் அதை மதிப்பாய்வு செய்து கேள்விகளைக்"
+" கேட்பார், மாற்றங்களைக் கோருவார், அதை நிராகரிக்கலாம் அல்லது திட்டத்தில் ஒன்றிணைப்பார்."
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
-msgstr ""
+msgstr "தொடக்க வளர்ச்சி"
 
 #: ../../source/develop.rst:29
 msgid ""
@@ -78,6 +95,9 @@ msgid ""
 "command-line version, and the ``desktop/README.md`` file to learn how to set "
 "up your development environment for the graphical version."
 msgstr ""
+"வெங்காயர் பைத்தானில் உருவாக்கப்பட்டுள்ளது. தொடங்குவதற்கு, https://github.com/"
+"onionshare/onionshare/ இல் உள்ள சிஐடி களஞ்சியத்தை நகலி செய்து, பின்னர் கட்டளை-வரி "
+"பதிப்பிற்கான உங்கள் மேம்பாட்டு சூழலை எவ்வாறு அமைப்பது என்பதை அறிய `` கிளி/ரீட்மெ."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -85,14 +105,16 @@ msgid ""
 "install dependencies for your platform, and to run OnionShare from the "
 "source tree."
 msgstr ""
+"அந்த கோப்புகளில் தேவையான தொழில்நுட்ப வழிமுறைகள் மற்றும் கட்டளைகள் உங்கள் தளத்திற்கான "
+"சார்புகளை நிறுவுகின்றன, மேலும் மூல மரத்திலிருந்து வெங்காயத்தை இயக்குகின்றன."
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr ""
+msgstr "பிழைத்திருத்த உதவிக்குறிப்புகள்"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "சொற்களஞ்சிய ஃபேசன்"
 
 #: ../../source/develop.rst:40
 msgid ""
@@ -102,12 +124,19 @@ msgid ""
 "initialized, when events occur (like buttons clicked, settings saved or "
 "reloaded), and other debug info. For example::"
 msgstr ""
+"வளரும் போது, ஒரு முனையத்திலிருந்து வெங்காயத்தை இயக்குவது வசதியானது மற்றும் கட்டளையில் "
+"`` --verbose`` (அல்லது `` -v```) கொடியைச் சேர்ப்பது வசதியானது. இது முனையத்திற்கு "
+"நிறைய பயனுள்ள செய்திகளை அச்சிடுகிறது, அதாவது சில பொருள்கள் துவக்கப்படும்போது, "
+"நிகழ்வுகள் நிகழும்போது (பொத்தான்கள் சொடுக்கு செய்யப்பட்டது, அமைப்புகள் சேமிக்கப்பட்டவை அல்லது"
+" மீண்டும் ஏற்றப்பட்டன) மற்றும் பிற பிழைத்திருத்த தகவல்கள். உதாரணமாக ::"
 
 #: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
 msgstr ""
+"`` வெங்காயர்/காமன்.பை`` இலிருந்து `` காமன்.லாக்`` முறையை இயக்குவதன் மூலம் உங்கள் சொந்த "
+"பிழைத்திருத்த செய்திகளைச் சேர்க்கலாம். உதாரணமாக ::"
 
 #: ../../source/develop.rst:121
 msgid ""
@@ -115,10 +144,13 @@ msgid ""
 "OnionShare, or the value of certain variables before and after they are "
 "manipulated."
 msgstr ""
+"வெங்காயத்தைப் பயன்படுத்தும் போது நிகழும் நிகழ்வுகளின் சங்கிலியையும் அல்லது சில மாறிகள் "
+"கையாளப்படுவதற்கு முன்னும் பின்னும் அவை கையாளப்படுவதற்கு முன்னும் பின்னும் கற்றுக்கொள்ளும்போது"
+" இது பயனுள்ளதாக இருக்கும்."
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "உள்ளக மட்டும்"
 
 #: ../../source/develop.rst:126
 msgid ""
@@ -126,6 +158,8 @@ msgid ""
 "altogether during development. You can do this with the ``--local-only`` "
 "flag. For example::"
 msgstr ""
+"டோர் மெதுவாக உள்ளது, மேலும் வளர்ச்சியின் போது வெங்காய சேவைகளை முழுவதுமாகத் தவிர்ப்பது "
+"பெரும்பாலும் வசதியானது. ``-உள்ளூர்-மட்டும்`` கொடியுடன் இதைச் செய்யலாம். உதாரணமாக ::"
 
 #: ../../source/develop.rst:165
 msgid ""
@@ -133,10 +167,13 @@ msgid ""
 "browser like Firefox, instead of using the Tor Browser. The private key is "
 "not actually needed in local-only mode, so you can ignore it."
 msgstr ""
+"இந்த வழக்கில், நீங்கள் முகவரி `` http: //127.0.0.1: 17641`` ஐ டோர் உலாவியைப் "
+"பயன்படுத்துவதற்குப் பதிலாக பயர்பாக்ச் போன்ற சாதாரண வலை-உலாவியில் ஏற்றுகிறீர்கள். தனிப்பட்ட "
+"விசை உண்மையில் உள்ளக மட்டும் பயன்முறையில் தேவையில்லை, எனவே நீங்கள் அதை புறக்கணிக்கலாம்."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
-msgstr ""
+msgstr "மொழிபெயர்ப்புகள் பங்களிப்பு"
 
 #: ../../source/develop.rst:170
 msgid ""
@@ -145,21 +182,28 @@ msgid ""
 "projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, "
 "and use \"OnionShare (localname)\" if needed."
 msgstr ""
+"`ஓச்ட் செய்யப்பட்ட வலைபெயர்ப்பு <https://hosted.weblate.org/projects/onionshare/>` "
+"_ இல் மொழிபெயர்ப்பதன் மூலம் வெங்காயத்தை எளிதாகப் பயன்படுத்தவும், மிகவும் பழக்கமாகவும் "
+"வரவேற்பதையும் உதைக்க உதவுங்கள். லத்தீன் எழுத்துக்களில் எப்போதும் \"வெங்காயத்தை\" வைத்திருங்கள்"
+", தேவைப்பட்டால் \"வெங்காயம் (உள்ளூர் பெயர்)\" ஐப் பயன்படுத்தவும்."
 
 #: ../../source/develop.rst:172
 msgid ""
 "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
+"மொழிபெயர்க்க உதவ, புரவலன் செய்யப்பட்ட வலைபெயர்ப்பு கணக்கை உருவாக்கி பங்களிக்கத் தொடங்குங்கள்."
 
 #: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "அசல் ஆங்கில சரங்களுக்கான பரிந்துரைகள்"
 
 #: ../../source/develop.rst:177
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between the "
 "application and the documentation."
 msgstr ""
+"சில நேரங்களில் அசல் ஆங்கில சரங்கள் தவறானவை, அல்லது பயன்பாட்டிற்கும் ஆவணங்களுக்கும் இடையில் "
+"பொருந்தாது."
 
 #: ../../source/develop.rst:179
 msgid ""
@@ -168,10 +212,14 @@ msgid ""
 "developers see the suggestion, and can potentially modify the string via the "
 "usual code review processes."
 msgstr ""
+"உங்கள் வலைபெயர்ப்பு கருத்தில் @Kingu ஐ சேர்ப்பதன் மூலம் மூல மூல சரம் மேம்பாடுகளை கோப்பு "
+"அல்லது அறிவிலிமையம் சிக்கலைத் திறக்கவும் அல்லது கோரிக்கையை இழுக்கவும். பிந்தையது அனைத்து "
+"மேலோடை டெவலப்பர்களும் ஆலோசனையைப் பார்ப்பதை உறுதிசெய்கிறது, மேலும் வழக்கமான குறியீடு "
+"மறுஆய்வு செயல்முறைகள் வழியாக சரத்தை மாற்றியமைக்க முடியும்."
 
 #: ../../source/develop.rst:183
 msgid "Status of Translations"
-msgstr ""
+msgstr "மொழிபெயர்ப்புகளின் நிலை"
 
 #: ../../source/develop.rst:184
 msgid ""
@@ -179,3 +227,5 @@ msgid ""
 "language not yet started, please write to the mailing list: onionshare-"
 "dev@lists.riseup.net"
 msgstr ""
+"தற்போதைய மொழிபெயர்ப்பு நிலை இங்கே. இதுவரை தொடங்கப்படாத மொழியில் மொழிபெயர்ப்பைத் தொடங்க "
+"விரும்பினால், தயவுசெய்து அஞ்சல் பட்டியலில் எழுதுங்கள்: வெங்காயர்-dev@lists.riseup.net"
