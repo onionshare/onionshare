@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-06-12 19:01+0000\n"
+"PO-Revision-Date: 2025-07-11 14:01+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: none\n"
 "Language: kab\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -289,7 +289,7 @@ msgstr ""
 
 #: ../../source/features.rst:122
 msgid "Content Security Policy"
-msgstr ""
+msgstr "Tasertit n tɣellist n ugbur"
 
 #: ../../source/features.rst:124
 msgid ""
