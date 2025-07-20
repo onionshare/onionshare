@@ -20,6 +20,7 @@
     <url type="bugtracker">https://github.com/onionshare/onionshare/issues/</url>
     <url type="help">https://onionshare.org/</url>
     <url type="homepage">https://onionshare.org/</url>
+    <url type="vcs-browser">https://github.com/onionshare/onionshare</url>
     <developer_name>Micah Lee</developer_name>
     <update_contact>micah@micahflee.com</update_contact>
     <content_rating type="oars-1.1" />
