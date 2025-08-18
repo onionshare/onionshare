@@ -1,0 +1,41 @@
+{
+  "onion": {
+    "private_key": "cDGn/lagkwEa62rj+SxSXqFjfSG08fVLVDyZ8HgOS32J9JorEPPWVjDF3GRFolqDTNeUpqNDy39j0E86tqbJag==",
+    "client_auth_priv_key": "TYIU3TRRXWCQBSJYYRKOTR35M32YWNKQ3VBDGFDR74ASOW243OTA",
+    "client_auth_pub_key": "62VXAPXH5HTODLCGL7CNZHA3Q3OKJEPVLV2UGUKQUCZ5GW3YTAAQ"
+  },
+  "persistent": {
+    "mode": "share",
+    "enabled": true,
+    "autostart_on_launch": false
+  },
+  "general": {
+    "title": null,
+    "public": false,
+    "autostart_timer": false,
+    "autostop_timer": true,
+    "service_id": "frlqrdrt4arsgnp4xenzoug5osmfqaqdbniuf4ziejoiwnhju3jlazid",
+    "qr": false
+  },
+  "share": {
+    "autostop_sharing": false,
+    "filenames": [
+      "/tmp/foo1",
+      "/tmp/foo2"
+    ],
+    "log_filenames": false
+  },
+  "receive": {
+    "data_dir": "/tmp",
+    "webhook_url": null,
+    "disable_text": false,
+    "disable_files": false
+  },
+  "website": {
+    "disable_csp": false,
+    "custom_csp": null,
+    "log_filenames": false,
+    "filenames": []
+  },
+  "chat": {}
+}
