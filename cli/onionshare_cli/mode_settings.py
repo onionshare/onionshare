@@ -43,7 +43,7 @@ class ModeSettings:
             "persistent": {
                 "mode": None,
                 "enabled": False,
-                "autostart_on_launch": False
+                "autostart_on_launch": False,
             },
             "general": {
                 "title": None,
@@ -67,8 +67,9 @@ class ModeSettings:
                 "disable_csp": False,
                 "custom_csp": None,
                 "log_filenames": False,
-                "filenames": []
+                "filenames": [],
             },
+            "download": {"data_dir": self.build_default_receive_data_dir(), "poll": 0},
             "chat": {},
         }
         self._settings = {}
