@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
-import toml
+import sys
 import click
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
 
 
 def format_version(dep, version):
@@ -30,7 +35,7 @@ def format_version(dep, version):
 def poetry_to_requirements(pyproject_filename):
     """Convert poetry dependencies in a pyproject.toml to requirements format."""
     with open(pyproject_filename, "r") as f:
-        data = toml.load(f)
+        data = tomllib.load(f)
 
     dependencies = data.get("tool", {}).get("poetry", {}).get("dependencies", {})
 
@@ -48,5 +53,26 @@ def poetry_to_requirements(pyproject_filename):
         print(req)
 
 
+@click.command()
+@click.argument("pyproject_filename")
+def pyproject_to_requirements(pyproject_filename):
+    """Convert PEP 631 dependencies in a pyproject.toml to requirements format."""
+    with open(pyproject_filename, "r") as f:
+        data = tomllib.load(f)
+
+    dependencies = data.get("project", {}).get("dependencies", [])
+
+    requirements = []
+
+    for dep in dependencies:
+        if dep == "onionshare_cli":
+            continue
+
+        requirements.append(dependencies)
+
+    for req in requirements:
+        print(req)
+
+
 if __name__ == "__main__":
-    poetry_to_requirements()
+    pyproject_to_requirements()

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import sys
 import inspect
 import click
 import platform
@@ -7,6 +8,11 @@ import subprocess
 import shutil
 import glob
 import itertools
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
 
 from common import get_binary_arches
 
@@ -270,9 +276,10 @@ def package(app_path):
         return
 
     print("> Create DMG")
-    version_filename = f"{root}/cli/onionshare_cli/resources/version.txt"
-    with open(version_filename) as f:
-        version = f.read().strip()
+    pyproject_filename = f"{root}/cli/pyproject.toml"
+    with open(pyproject_filename, "rb") as f:
+        pyproject = tomllib.load(f)
+        version = pyproject['project']['version']
 
     os.makedirs(f"{desktop_dir}/dist", exist_ok=True)
     dmg_path = f"{desktop_dir}/dist/OnionShare-{version}.dmg"

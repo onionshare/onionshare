@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import base64
 import hashlib
+import importlib.metadata as importlib_metadata
 import importlib.resources as importlib_resources
 import os
 import platform
@@ -59,8 +60,7 @@ class Common:
             self.platform = "BSD"
 
         # The current version of OnionShare
-        with open(self.get_resource_path("version.txt")) as f:
-            self.version = f.read().strip()
+        self.version = importlib_metadata.version(__package__)
 
     def display_banner(self):
         """

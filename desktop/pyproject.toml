@@ -1,31 +1,78 @@
-[tool.poetry]
+[project]
 name = "onionshare"
 version = "2.6.3"
-description = "OnionShare lets you securely and anonymously send and receive files. It works by starting a web server, making it accessible as a Tor onion service, and generating an unguessable web address so others can download files from you, or upload files to you. It does _not_ require setting up a separate server or using a third party file-sharing service."
-authors = ["Micah Lee <micah@micahflee.com>"]
-license = "GPLv3+"
+requires-python = ">=3.10,<3.13"
+description = "Securely and anonymously share files, host websites, and chat with friends using the Tor network"
+authors = [
+    { name = "Micah Lee", email = "micah@micahflee.com" },
+]
+maintainers = [
+    { name = "Micah Lee", email = "micah@micahflee.com" },
+]
+license = { text = "GPL-3.0-or-later" }
+keywords = [ "onion", "share", "onionshare", "tor", "anonymous", "web server" ]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Framework :: Flask",
+    "Topic :: Communications :: File Sharing",
+    "Topic :: Security :: Cryptography",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Environment :: Web Environment",
+]
+dependencies = [
+    "PySide6 == 6.8.2.1",
+    "qrcode",
+    "werkzeug == 3.0.6",
+    "python-gnupg",
+    "onionshare_cli",
+]
+
+[project.urls]
+homepage = "https://onionshare.org"
+repository = "https://github.com/onionshare/onionshare"
+documentation = "https://docs.onionshare.org/"
+
+[project.scripts]
+onionshare = 'onionshare:main'
+onionshare-cli = "onionshare_cli:main"
+
+[tool.setuptools]
+packages = [
+    "onionshare",
+    "onionshare.tab",
+    "onionshare.tab.mode",
+    "onionshare.tab.mode.share_mode",
+    "onionshare.tab.mode.receive_mode",
+    "onionshare.tab.mode.website_mode",
+    "onionshare.tab.mode.chat_mode",
+]
+
+[tool.setuptools.package-data]
+onionshare = [
+    "resources/*",
+    "resources/images/*",
+    "resources/images/countries/*",
+    "resources/locale/*",
+    "resources/countries/*",
+]
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
-onionshare_cli = {path = "../cli", develop = true}
-PySide6 = "6.8.2.1"
-qrcode = "*"
-werkzeug = "3.0.6"
-python-gnupg = "*"
+onionshare_cli = { path = "../cli", develop = true }
 
 [tool.poetry.group.dev.dependencies]
 click = "*"
 black = "*"
+cx_freeze = "7.2.9"
+importlib-metadata = "*"
+tomli = { version = "^2.0.1", python = "<3.11" }
+
+[tool.poetry.group.test.dependencies]
 pytest = "*"
 pytest-faulthandler = "*"
 pytest-qt = "*"
-cx_freeze = "7.2.9"
-importlib-metadata = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
-onionshare = 'onionshare:main'
-onionshare-cli = 'onionshare_cli:main'
