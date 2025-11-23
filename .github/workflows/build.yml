@@ -206,8 +206,8 @@ jobs:
       - name: Install cx_Freeze/PySide6 build dependencies
         run: |
           brew install libiodbc
-          cd ~/Downloads
-          curl -O -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.5/Postgres-2.6.5-14.dmg
+          curl -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.5/Postgres-2.6.5-14.dmg --output ~/Downloads/Postgres-2.6.5-14.dmg
+          cd ~/Downloads && echo "26a2a8a877008cba735d7d8b734dd6e445b2962ce372de6f6b5add3113705920  Postgres-2.6.5-14.dmg" | shasum -a 256 --check
           hdiutil attach Postgres-2.6.5-14.dmg
           cp -r /Volumes/Postgres-2.6.5-14/Postgres.app /Applications/
           hdiutil detach /Volumes/Postgres-2.6.5-14
@@ -231,6 +231,142 @@ jobs:
         with:
           name: mac-intel-build
           path: ~/onionshare-macos-intel.tar.gz
+
+  build-mac-arm64-and-universal:
+    runs-on: macos-15
+    needs: build-mac-intel
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Python 3.12.8 (universal2)
+        run: |
+          curl -L https://www.python.org/ftp/python/3.12.8/python-3.12.8-macos11.pkg --output ~/Downloads/python.pkg
+          cd ~/Downloads && echo "c411b5372d563532f5e6b589af7eb16e95613d61bd5af7bfe78563467130bbff  python.pkg" | shasum -a 256 --check && sudo installer -pkg python.pkg -target /
+
+      - name: Install poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Restore cache - poetry
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/pypoetry/virtualenvs
+          key: ${{ runner.os }}-macos-arm-poetry-${{ hashFiles('desktop/poetry.lock') }}
+
+      - name: Install poetry dependencies
+        run: |
+          cd desktop
+          ~/Library/Application\ Support/pypoetry/venv/bin/poetry install
+
+      - name: Restore cache - tor
+        uses: actions/cache@v4
+        with:
+          path: desktop/build/tor
+          key: ${{ runner.os }}-macos-arm-tor-${{ hashFiles('desktop/scripts/get-tor.py') }}
+
+      - name: Get tor binaries from Tor Browser
+        run: |
+          cd desktop
+          ~/Library/Application\ Support/pypoetry/venv/bin/poetry run python ./scripts/get-tor.py macos
+
+      - name: Install Go >=1.23.5
+        uses: actions/setup-go@v5
+        with:
+          go-version: ">=1.23.5"
+          cache: false
+      - run: go version
+
+      - name: Restore cache - obfs4proxy
+        uses: actions/cache@v4
+        with:
+          path: desktop/onionshare/resources/tor/obfs4proxy
+          key: ${{ runner.os }}-macos-arm-obfs4proxy-${{ hashFiles('desktop/scripts/build-pt-obfs4proxy.sh') }}
+
+      - name: Build obfs4proxy
+        run: |
+          if [[ -f "desktop/onionshare/resources/tor/obfs4proxy" ]]; then
+            echo "obfs4proxy already built"
+          else
+            cd desktop
+            ./scripts/build-pt-obfs4proxy.sh
+          fi
+
+      - name: Restore cache - snowflake
+        uses: actions/cache@v4
+        with:
+          path: desktop/onionshare/resources/tor/snowflake-client
+          key: ${{ runner.os }}-macos-arm-snowflake-${{ hashFiles('desktop/scripts/build-pt-snowflake.sh') }}
+
+      - name: Build snowflake
+        run: |
+          if [[ -f "desktop/onionshare/resources/tor/snowflake-client" ]]; then
+            echo "snowflake already built"
+          else
+            cd desktop
+            ./scripts/build-pt-snowflake.sh
+          fi
+
+      - name: Restore cache - meek
+        uses: actions/cache@v4
+        with:
+          path: desktop/onionshare/resources/tor/meek-client
+          key: ${{ runner.os }}-macos-arm-meek-${{ hashFiles('desktop/scripts/build-pt-meek.sh') }}
+
+      - name: Build meek
+        run: |
+          if [[ -f "desktop/onionshare/resources/tor/meek-client" ]]; then
+            echo "meek already built"
+          else
+            cd desktop
+            ./scripts/build-pt-meek.sh
+          fi
+
+      - name: Install cx_Freeze/PySide6 build dependencies
+        run: |
+          brew install libiodbc
+          curl -L https://github.com/PostgresApp/PostgresApp/releases/download/v2.6.5/Postgres-2.6.5-14.dmg --output ~/Downloads/Postgres-2.6.5-14.dmg
+          cd ~/Downloads && echo "26a2a8a877008cba735d7d8b734dd6e445b2962ce372de6f6b5add3113705920  Postgres-2.6.5-14.dmg" | shasum -a 256 --check
+          hdiutil attach Postgres-2.6.5-14.dmg
+          cp -r /Volumes/Postgres-2.6.5-14/Postgres.app /Applications/
+          hdiutil detach /Volumes/Postgres-2.6.5-14
+
+      - name: Build OnionShare
+        run: | 
+          cd desktop
+          ~/Library/Application\ Support/pypoetry/venv/bin/poetry run python ./setup-freeze.py bdist_mac
+          ~/Library/Application\ Support/pypoetry/venv/bin/poetry run python ./scripts/build-macos.py cleanup-build
+
+      - name: Compress 
+        run: |
+          cd desktop/build
+          tar -czvf ~/onionshare-macos-arm64.tar.gz OnionShare.app
+          mkdir -p ~/tmp/arm64
+          cp -a OnionShare.app ~/tmp/arm64/
+
+      - uses: actions/upload-artifact@v4
+        with: 
+          name: mac-arm64-build
+          path: ~/onionshare-macos-arm64.tar.gz
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: mac-intel-build
+          path: ~/
+
+      - name: Make universal bundle
+        run: |
+          mkdir -p ~/tmp/intel ~/tmp/universal
+          tar -xzvf ~/onionshare-macos-intel.tar.gz -C ~/tmp/intel
+          cd desktop
+          ~/Library/Application\ Support/pypoetry/venv/bin/poetry run ./scripts/macos-merge-universal.py ~/tmp/intel/OnionShare.app ~/tmp/arm64/OnionShare.app ~/tmp/universal/OnionShare.app
+          cd ~/tmp/universal
+          tar -czvf ~/onionshare-macos-universal.tar.gz OnionShare.app
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mac-universal-build
+          path: ~/onionshare-macos-universal.tar.gz
+
 
   build-flatpak:
     runs-on: ubuntu-latest
