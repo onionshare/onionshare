@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
+import hashlib
 import inspect
 import os
-from re import M
-import sys
-import hashlib
 import shutil
 import subprocess
-import requests
+import sys
+from re import M
+
 import click
-import tempfile
 import gnupg
+import requests
 
 torbrowser_latest_url = (
     "https://aus1.torproject.org/torbrowser/update_3/release"
@@ -329,8 +329,7 @@ def main(platform):
         platform_filename,
         expected_platform_sig,
     ) = get_latest_tor_version_urls(platform)
-    tmpdir = tempfile.TemporaryDirectory()
-    gpg = gnupg.GPG(gnupghome=tmpdir.name)
+    gpg = gnupg.GPG()
     torkey = gpg.import_keys_file(
         os.path.join(root_path, "scripts", "tor-browser-devs.gpg")
     )
@@ -350,8 +349,6 @@ def main(platform):
         )
     else:
         click.echo("invalid platform")
-
-    tmpdir.cleanup()
 
 
 if __name__ == "__main__":
