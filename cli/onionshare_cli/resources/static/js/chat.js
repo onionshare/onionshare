@@ -1,67 +1,64 @@
-$(function () {
-  $(document).ready(function () {
-    $('.chat-container').removeClass('no-js');
-    var socket = io.connect(
-      'http://' + document.domain + ':' + location.port + '/chat',
-      {
-        transports: ['websocket']
+$(function() {
+  const chatContainerEls = document.getElementsByClassName("chat-container");
+  for (const chatContainerEl of chatContainerEls) {
+    chatContainerEl.classList.remove("no-js");
+  }
+
+  const socket = io(`${location.origin}/chat`, { transports: ["websocket"] });
+
+  // Store current username received from app context
+  /** @type {HTMLInputElement} */
+  const usernameEl = document.getElementById("username");
+  var current_username = usernameEl.value.trim();
+
+  // Triggered on any status change by any user, such as some
+  // user joined, or changed username, or left, etc.
+  socket.on('status', function (data) {
+    addMessageToPanel(data, current_username, 'status');
+    console.log(data, current_username);
+  });
+
+  // Triggered when message is received from a user. Even when sent
+  // by self, it get triggered after the server sends back the emit.
+  socket.on('chat_message', function (data) {
+    addMessageToPanel(data, current_username, 'chat');
+    console.log(data, current_username);
+  });
+
+  // Triggered when disconnected either by server stop or timeout
+  socket.on('disconnect', function (_reason, _details) {
+    addMessageToPanel({ 'msg': 'The chat server is disconnected.' }, current_username, 'status');
+  })
+  socket.on('connect_error', function (error) {
+    console.error(error);
+  })
+
+  // Trigger new message on enter or click of send message button.
+  document.getElementById('new-message').addEventListener('keypress', function (e) {
+    if (e.key === "Enter") {
+      emitMessage(socket);
+    }
+  });
+
+  // Keep buttons disabled unless changed or not empty
+  usernameEl.addEventListener('keyup', function (event) {
+    const username = event.currentTarget.value;
+    if (username !== '' && username !== current_username) {
+      if (event.key === "Enter") {
+        this.blur();
+        current_username = updateUsername(socket) || current_username;
       }
-    );
+    }
+  });
 
-    // Store current username received from app context
-    var current_username = $('#username').val().trim();
-
-    // Triggered on any status change by any user, such as some
-    // user joined, or changed username, or left, etc.
-    socket.on('status', function (data) {
-      addMessageToPanel(data, current_username, 'status');
-      console.log(data, current_username);
-    });
-
-    // Triggered when message is received from a user. Even when sent
-    // by self, it get triggered after the server sends back the emit.
-    socket.on('chat_message', function (data) {
-      addMessageToPanel(data, current_username, 'chat');
-      console.log(data, current_username);
-    });
-
-    // Triggered when disconnected either by server stop or timeout
-    socket.on('disconnect', function (data) {
-      addMessageToPanel({ 'msg': 'The chat server is disconnected.' }, current_username, 'status');
-    })
-    socket.on('connect_error', function (error) {
-      console.log("error");
-    })
-
-    // Trigger new message on enter or click of send message button.
-    $('#new-message').on('keypress', function (e) {
-      var code = e.keyCode || e.which;
-      if (code == 13) {
-        emitMessage(socket);
-      }
-    });
-
-    // Keep buttons disabled unless changed or not empty
-    $('#username').on('keyup', function (event) {
-      if ($('#username').val() !== '' && $('#username').val() !== current_username) {
-        if (event.keyCode == 13 || event.which == 13) {
-          this.blur();
-          current_username = updateUsername(socket) || current_username;
-        }
-      }
-    });
-
-    // Show warning of losing data
-    $(window).on('beforeunload', function (e) {
-      e.preventDefault();
-      e.returnValue = '';
-      return '';
-    });
+  // Show warning of losing data
+  window.addEventListener("beforeunload", function (e) {
+    e.preventDefault();
   });
 });
 
-var addMessageToPanel = function (data, current_username, messageType) {
-  var scrollDiff = getScrollDiffBefore();
+const addMessageToPanel = function (data, current_username, messageType) {
+  const scrollDiff = getScrollDiffBefore();
   if (messageType === 'status') {
     addStatusMessage(data.msg);
     if (data.connected_users) {
@@ -73,30 +70,42 @@ var addMessageToPanel = function (data, current_username, messageType) {
   scrollBottomMaybe(scrollDiff);
 }
 
-var emitMessage = function (socket) {
-  var text = $('#new-message').val();
-  $('#new-message').val('');
-  $('#chat').scrollTop($('#chat')[0].scrollHeight);
-  socket.emit('text', { msg: text });
+const emitMessage = function (socket) {
+  const newMessageEl = document.getElementById("new-message");
+  const newMessage = newMessageEl.value;
+  newMessageEl.value = '';
+
+  const chatEl = document.getElementById("chat");
+  // $(chatEl).scrollTop(chatEl.scrollHeight);
+  chatEl.scrollTo({top: chatEl.scrollHeight });
+
+  socket.emit('text', { msg: newMessage });
 }
 
-var updateUsername = function (socket) {
-  var username = $('#username').val();
+const updateUsername = function (socket) {
+  const username = document.getElementById("username").value;
+
   if (!checkUsernameExists(username) && !checkUsernameTooLong(username) && !checkUsernameAscii(username)) {
-    $.ajax({
-      method: 'POST',
-      url: `http://${document.domain}:${location.port}/update-session-username`,
-      contentType: 'application/json',
-      dataType: 'json',
-      data: JSON.stringify({ 'username': username })
-    }).done(function (response) {
+    fetch(`${location.origin}/update-session-username`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ 'username': username }),
+    }).then(function (response) {
+      console.log(response);
+      return response.json();
+    }).then(function (response) {
       console.log(response);
       if (response.success && response.username == username) {
         socket.emit('update_username', { username: username });
       } else {
-        addStatusMessage("Failed to update username.")
+        throw new Error("Failed to update username.");
       }
+    }).catch(function() {
+      addStatusMessage("Failed to update username.");
     });
+
     return username;
   }
   return false;
@@ -106,83 +115,123 @@ var updateUsername = function (socket) {
 /********* Util Functions ***********/
 /************************************/
 
-var createUserListHTML = function (connected_users, current_user) {
-  var userListHTML = '';
-  connected_users.sort();
-  connected_users.forEach(function (username) {
-    if (username !== current_user) {
-      userListHTML += `<li>${sanitizeHTML(username)}</li>`;
-    }
-  });
-  return userListHTML;
-}
-
-var checkUsernameAscii = function (username) {
+/**
+ * @param username {string}
+ * @returns {boolean}
+ */
+const checkUsernameAscii = function (username) {
   // ASCII characters have code points in the range U+0000-U+007F.
-  $('#username-error').text('');
+  const usernameErrorEl = document.getElementById("username-error");
+  usernameErrorEl.textContent = '';
+
   if (!/^[\u0000-\u007f]*$/.test(username)) {
-    $('#username-error').text('Non-ASCII usernames are not supported.');
+    usernameErrorEl.textContent = 'Non-ASCII usernames are not supported.';
     return true;
   }
+
   return false;
 }
 
-var checkUsernameExists = function (username) {
-  $('#username-error').text('');
-  var userMatches = $('#user-list li').filter(function () {
-    return $(this).text() === username;
+/**
+ * @param username {string}
+ * @returns {boolean}
+ */
+const checkUsernameExists = function (username) {
+  const usernameErrorEl = document.getElementById("username-error");
+  usernameErrorEl.textContent = '';
+
+  const userEls = document.querySelectorAll("#user-list li");
+  const userMatches = Array.from(userEls).some(function(el) {
+    return el.textContent === username;
   });
-  if (userMatches.length) {
-    $('#username-error').text('User with that username exists!');
-    return true;
+
+  if (userMatches) {
+    usernameErrorEl.textContent = 'User with that username exists!';
   }
-  return false;
+
+  return userMatches;
 }
 
-var checkUsernameTooLong = function (username) {
-  $('#username-error').text('');
+/**
+ * @param username {string}
+ * @returns {boolean}
+ */
+const checkUsernameTooLong = function (username) {
+  const usernameErrorEl = document.getElementById("username-error");
+  usernameErrorEl.textContent = '';
+
   if (username.length > 128) {
-    $('#username-error').text('Please choose a shorter username.');
+    usernameErrorEl.textContent = 'Please choose a shorter username.';
     return true;
   }
+
   return false;
 }
 
-var getScrollDiffBefore = function () {
-  return $('#chat').scrollTop() - ($('#chat')[0].scrollHeight - $('#chat')[0].offsetHeight);
+/**
+ * @returns {number}
+ */
+const getScrollDiffBefore = function () {
+  const chatEl = document.getElementById("chat");
+  return chatEl.scrollTop - (chatEl.scrollHeight - chatEl.offsetHeight);
 }
 
-var scrollBottomMaybe = function (scrollDiff) {
+/**
+ * @param scrollDiff {number}
+ */
+const scrollBottomMaybe = function (scrollDiff) {
   // Scrolls to bottom if the user is scrolled at bottom
   // if the user has scrolled up, it won't scroll at bottom.
   // Note: when a user themselves send a message, it will still
   // scroll to the bottom even if they had scrolled up before.
+  const chatEl = document.getElementById("chat");
   if (scrollDiff > 0) {
-    $('#chat').scrollTop($('#chat')[0].scrollHeight);
+    // $(chatEl).scrollTop(chatEl.scrollHeight);
+    chatEl.scrollTo({top: chatEl.scrollHeight });
   }
 }
 
-var addStatusMessage = function (message) {
-  $('#chat').append(
-    `<p class="status">${sanitizeHTML(message)}</p>`
-  );
+/**
+ * @param message {string}
+ */
+const addStatusMessage = function (message) {
+  const messageEl = document.createElement('p');
+  messageEl.outerHTML = `<p class="status"></p>`;
+
+  messageEl.getElementsByClassName("status")[0].textContent = message;
+
+  document.getElementById("chat").appendChild(messageEl);
 }
 
-var addChatMessage = function (username, message) {
-  $('#chat').append(`<p><span class="username">${sanitizeHTML(username)}</span><span class="message">${sanitizeHTML(message)}</span></p>`);
+/**
+ * @param username {string}
+ * @param message {string}
+ */
+const addChatMessage = function (username, message) {
+  const messageEl = document.createElement('p');
+  messageEl.outerHTML = `<p><span class="username"></span><span class="message"></span></p>`;
+
+  messageEl.getElementsByClassName("username")[0].textContent = username;
+  messageEl.getElementsByClassName("message")[0].textContent = message;
+
+  document.getElementById("chat").appendChild(messageEl);
 }
 
-var addUserList = function (connected_users, current_username) {
-  $('#user-list').html(
-    createUserListHTML(
-      connected_users,
-      current_username
-    )
-  );
-}
+/**
+ * @param connected_users {string[]}
+ * @param current_username {string}
+ */
+const addUserList = function (connected_users, current_username) {
+  connected_users.sort();
 
-var sanitizeHTML = function (str) {
-  var temp = document.createElement('span');
-  temp.textContent = str;
-  return temp.innerHTML;
-};
+  const liList = connected_users.filter(function (username) {
+    return (username !== current_username);
+  }).map(function (username) {
+    const li = document.createElement('p');
+    li.textContent = username;
+    return li;
+  });
+
+  const userListEl = document.getElementById("user-list");
+  userListEl.replaceChildren(...liList);
+}
