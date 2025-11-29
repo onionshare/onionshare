@@ -9,7 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
 "PO-Revision-Date: 2025-08-26 15:02+0000\n"
-"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
@@ -73,7 +74,7 @@ msgstr "Prófa aftur án brúa"
 #: ../../source/tor.rst:23
 msgid ""
 "Automatically determine my country from my IP address for bridge settings"
-msgstr ""
+msgstr "Ákvarða landið mitt út frá IP-vistfangi fyrir stillingar brúa"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"

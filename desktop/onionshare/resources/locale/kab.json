@@ -62,5 +62,7 @@
     "mode_settings_title_label": "Azwel udmawan",
     "gui_all_modes_transfer_canceled": "Yettwasemmet {}",
     "history_receive_read_message_button": "Ɣeṛ izen",
-    "gui_share_stop_server_autostop_timer": "Seḥbes beṭṭu ({})"
+    "gui_share_stop_server_autostop_timer": "Seḥbes beṭṭu ({})",
+    "gui_autoconnect_start": "Tuqqna ɣer Tor",
+    "gui_main_page_website_button": "Start Hosting"
 }
