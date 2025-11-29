@@ -73,10 +73,10 @@
     "gui_server_autostop_timer_expired": "Automaattinen pysäytysajastin päättyi jo. Säädä se jaon aloittamiseksi.",
     "gui_share_url_description": "<b>Kaikki</b> joilla on tämä OnionShare-osoite voivat <b>ladata</b> tiedostojasi käyttämällä <b>Tor-selainta</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Kaikki</b> joilla on tämä OnionShare-osoite voivat <b>lähettää</b>tiedostoja tietokoneellesi käyttämällä <b>Tor-selainta</b>: <img src='{}' />",
-    "gui_url_label_persistent": "Tämä jako ei pysähdy automaattisesti.<br><br>Jokainen seuraava jako käyttää osoitetta uudelleen. (Jos haluat käyttää kertaluontoisia osoitteita, sammuta \"Käytä pysyvää osoitetta\" asetuksissa.)",
+    "gui_url_label_persistent": "Tätä jakoa ei pysähdy automaattisesti.<br><br>Jokainen seuraava jako käyttää osoitetta uudelleen. (Kertakäyttöisten osoitteiden käyttämiseksi poista käytöstä asetuksista \"Avaa tämä välilehti aina, kun OnionShare käynnistetään\".)",
     "gui_url_label_stay_open": "Tämä jako ei pysähdy automaattisesti.",
     "gui_url_label_onetime": "Tämä jako lopetetaan ensimmäisen valmistumisen jälkeen.",
-    "gui_url_label_onetime_and_persistent": "Tämä jako ei pysähdy automaattisesti.<br><br>Jokainen seuraava jako käyttää osoitetta uudelleen. (Jos haluat käyttää kertaluontoisia osoitteita, sammuta \"Käytä pysyvää osoitetta\" asetuksissa.)",
+    "gui_url_label_onetime_and_persistent": "Tätä jakoa ei pysähdy automaattisesti.<br><br>Jokainen seuraava jako käyttää osoitetta uudelleen. (Kertakäyttöisten osoitteiden käyttämiseksi poista käytöstä asetuksista \"Avaa tämä välilehti aina, kun OnionShare käynnistetään\".)",
     "gui_status_indicator_share_stopped": "Pysäytetty",
     "gui_status_indicator_share_working": "Aloitetaan…",
     "gui_status_indicator_share_started": "Jakaminen",
@@ -135,7 +135,7 @@
     "mode_settings_receive_data_dir_label": "Tallenna tiedostot",
     "mode_settings_share_autostop_sharing_checkbox": "Lopeta jakaminen kun tiedostot on lähetetty (poista valinta malhdollistaaksesi yksittäisten tiedostojen jakamisen)",
     "mode_settings_public_checkbox": "Älä käytä salasanaa",
-    "mode_settings_persistent_checkbox": "Avaa tämä välilehti aina OnionSharen käynnistyessä",
+    "mode_settings_persistent_checkbox": "Avaa tämä välilehti aina, kun OnionShare käynnistetään (Onion-osoite pysyy samana)",
     "mode_settings_advanced_toggle_hide": "Piilota edistyneet asetukset",
     "mode_settings_advanced_toggle_show": "Näytä edistyneet asetukset",
     "gui_quit_warning_cancel": "Peruuta",
@@ -254,5 +254,8 @@
     "gui_server_doesnt_support_stealth": "Valitettavasti tämä Tor-versio ei tue stealth-ominaisuutta (päätetodennus). Yritä uudelleen uudemmalla Tor-versiolla tai käytä \"julkinen\"-tilaa, jos sen ei tarvitse olla yksityinen.",
     "gui_close_tab_warning_chat_description": "Suljetaanko keskustelupalvelinta isännöivä välilehti?",
     "waitress_web_server_error": "Verkkopalvelinta käynnistettäessä ilmeni ongelma",
-    "gui_chat_mode_explainer": "Keskustelutila mahdollistaa keskustelun interaktiivisesti muiden kanssa Tor-selaimessa. <br><br><b>Keskusteluhistoria ei ole tallennettu OnionShare:en. Keskusteluhistoria katoaa kun suljet Tor-selaimen.</b>"
+    "gui_chat_mode_explainer": "Keskustelutila mahdollistaa keskustelun interaktiivisesti muiden kanssa Tor-selaimessa. <br><br><b>Keskusteluhistoria ei ole tallennettu OnionShare:en. Keskusteluhistoria katoaa kun suljet Tor-selaimen.</b>",
+    "gui_settings_license_label": "OnionShare on lisensoitu GPL v3:n alaisuudessa.<br>Kolmannen osapuolen lisenssejä voi tarkastella täällä:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Käynnistä tämä Onion-palvelu automaattisesti, kun OnionShare käynnistyy",
+    "error_generic": "OnionSharessa tapahtui odottamaton virhe:\n{}"
 }
