@@ -23,5 +23,6 @@
     "gui_settings_theme_light": "ብርሃን",
     "gui_status_indicator_receive_stopped": "ቆምዋል",
     "gui_status_indicator_chat_stopped": "ቆምዋል",
-    "gui_status_indicator_share_stopped": "ቆምዋል"
+    "gui_status_indicator_share_stopped": "ቆምዋል",
+    "gui_main_page_website_button": "ማስተናገድ ይጀምሩ"
 }

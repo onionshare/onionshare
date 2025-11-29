@@ -75,10 +75,10 @@
     "gui_server_autostop_timer_expired": "Время стоп-таймера истекло. Пожалуйста, отрегулируйте его для начала отправки.",
     "gui_share_url_description": "<b>Кто угодно</b> c этим адресом OnionShare и секретным ключом может <b>скачать</b> Ваши файлы при помощи <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Кто угодно</b> c этим адресом OnionShare и секретным ключом может <b>загрузить</b> файлы на ваш компьютер с помощью<b>Tor Browser</b>: <img src='{}' />",
-    "gui_url_label_persistent": "Эта отправка не будет завершена автоматически.<br><br>Каждая последующая отправка будет повторно использовать данный адрес. (Чтобы использовать одноразовый адрес, отключите опцию \"Использовать устаревший адрес\" в настройках.)",
+    "gui_url_label_persistent": "Эта доля не будет автостопом.<br><br> Каждая последующая доля повторно использует адрес. (Для использования одноразовых адресов выключите «Всегда открывайте эту вкладку, когда OnionShare запущен» в настройках.)",
     "gui_url_label_stay_open": "Эта отправка не будет остановлена автоматически.",
     "gui_url_label_onetime": "Эта отправка будет завершена автоматически после первой загрузки.",
-    "gui_url_label_onetime_and_persistent": "Эта отправка не будет завершена автоматически.<br><br>Каждая последующая отправка будет повторно использовать этот адрес. (Чтобы использовать одноразовый адрес, отключите опцию \"Использовать устаревший адрес\" в настройках.)",
+    "gui_url_label_onetime_and_persistent": "Эта доля не будет автоматически останавливаться.<br><br> Каждая последующая доля будет повторно использовать адрес. (Для использования одноразовых адресов выключите «Всегда открывайте эту вкладку, когда OnionShare запущен» в настройках.)",
     "gui_status_indicator_share_stopped": "Остановлено",
     "gui_status_indicator_share_working": "Запуск…",
     "gui_status_indicator_receive_stopped": "Остановлено",
@@ -140,7 +140,7 @@
     "mode_settings_autostop_timer_checkbox": "Отключить onion-сервис в назначенное время",
     "mode_settings_autostart_timer_checkbox": "Запустить onion-сервис в назначенное время",
     "mode_settings_public_checkbox": "Это публичная версия сервиса OnionShare (секретный ключ не используется)",
-    "mode_settings_persistent_checkbox": "Показывать эту вкладку при запуске OnionShare",
+    "mode_settings_persistent_checkbox": "Всегда откройте эту вкладку при запуске OnionShare (адрес Onion останется прежним)",
     "mode_settings_advanced_toggle_hide": "Спрятать дополнительные настройки",
     "mode_settings_advanced_toggle_show": "Показать дополнительные настройки",
     "gui_quit_warning_cancel": "Отменить",
@@ -254,5 +254,8 @@
     "gui_general_settings_window_title": "Общие",
     "waitress_web_server_error": "Возникла проблема с запуском веб-сервера",
     "gui_close_tab_warning_chat_description": "Закрыть вкладку, на которой размещен сервер чата?",
-    "gui_chat_mode_explainer": "Чат-режим позволяет вам общаться в интерактивном режиме с другими, в Tor Browser.<br><br><b> История Chat не хранится в OnionShare. История чата исчезнет, когда вы закроете Tor Browser.</b>"
+    "gui_chat_mode_explainer": "Чат-режим позволяет вам общаться в интерактивном режиме с другими, в Tor Browser.<br><br><b> История Chat не хранится в OnionShare. История чата исчезнет, когда вы закроете Tor Browser.</b>",
+    "gui_settings_license_label": "OnionShare лицензируется по лицензии GPL v3.<br>Лицензии третьих сторон можно посмотреть здесь:<br><a href=„https://github.com/onionshare/onionshare/tree/main/licenses“>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Автоматически запустить этот сервис onion, когда OnionShare начинает",
+    "error_generic": "С OnionShare произошла неожиданная ошибка:\n{}"
 }

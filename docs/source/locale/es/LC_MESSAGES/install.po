@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-03-22 16:07+0000\n"
-"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"PO-Revision-Date: 2025-11-25 20:09+0000\n"
+"Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/install.rst:2
@@ -389,14 +390,13 @@ msgid "Signing key"
 msgstr "Clave de firma"
 
 #: ../../source/install.rst:117
-#, fuzzy
 msgid ""
 "Packages are signed by the core developer who is responsible for the "
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
 msgstr ""
-"Los paquetes están firmados por el desarrollador responsable de cada "
-"versión. A continuación se muestra la información de los desarrolladores "
+"Los paquetes están firmados por el desarrollador responsable de cada versión "
+"particular. A continuación se muestra la información de los desarrolladores "
 "principales de OnionShare:"
 
 #: ../../source/install.rst:120
@@ -443,26 +443,24 @@ msgstr ""
 
 #: ../../source/install.rst:128
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
-#, fuzzy
 msgid ""
 "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 msgstr ""
 "Huella digital de la clave pública PGP "
-"``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
+"``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 
 #: ../../source/install.rst:130
-#, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
-"Puedes descargar la clave de Micah `desde el servidor de claves keys.openpgp."
-"org <https://keys.openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Puedes descargar la clave de Miguel `desde el servidor de claves "
+"keys.openpgp.org <https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 
 #: ../../source/install.rst:132
 msgid ""
@@ -489,7 +487,7 @@ msgstr ""
 "macOS, Flatpak, Snap y paquetes fuente, en https://onionshare.org/dist/ en "
 "las carpetas nombradas para cada versión de OnionShare. También puedes "
 "encontrarlos en la página `Publicaciones en GitHub <https://github.com/"
-"onionshare/onionshare/releases>'_."
+"onionshare/onionshare/releases>`_."
 
 #: ../../source/install.rst:141
 msgid "Verifying"

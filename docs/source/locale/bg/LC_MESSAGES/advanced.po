@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-03-03 12:13+0000\n"
+"PO-Revision-Date: 2025-11-06 05:51+0000\n"
 "Last-Translator: 109247019824 <109247019824@users.noreply.hosted.weblate.org>"
 "\n"
 "Language-Team: none\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.3-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -393,7 +393,7 @@ msgstr "И на основния екран за избор на режим::"
 
 #: ../../source/advanced.rst:303
 msgid "Migrating your OnionShare data to another computer"
-msgstr ""
+msgstr "Пренасяне информацията на OnionShare на друго устройство"
 
 #: ../../source/advanced.rst:305
 msgid ""
@@ -401,6 +401,9 @@ msgid ""
 "computer. This is especially true if you had a 'persistent' onion address "
 "and you want to preserve it."
 msgstr ""
+"Можете да пренесете информацията на OnionShare, когато сменяте някое "
+"устройство. Това е от особено значрние, ако имате „постоянни“ адреси на "
+"Onion и искате да ги запазите."
 
 #: ../../source/advanced.rst:307
 msgid ""

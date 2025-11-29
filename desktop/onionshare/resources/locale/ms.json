@@ -41,5 +41,6 @@
     "moat_solution_empty_error": "Masukkan aksara yang tertera dari imej",
     "gui_status_indicator_receive_stopped": "Terhenti",
     "gui_status_indicator_share_stopped": "Terhenti",
-    "gui_status_indicator_chat_stopped": "Terhenti"
+    "gui_status_indicator_chat_stopped": "Terhenti",
+    "gui_choose_items": "Pilih"
 }

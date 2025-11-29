@@ -169,5 +169,7 @@
     "gui_autoconnect_start": "Conectare la Tor",
     "gui_general_settings_window_title": "General",
     "gui_share_url_public_description": "<b>Oricine</b> are această adresă OnionShare poate <b>descărca</b> fișierele dvs. folosind <b>Tor Browser</b>: <img src='{}' />",
-    "gui_status_indicator_chat_stopped": "Oprit"
+    "gui_status_indicator_chat_stopped": "Oprit",
+    "gui_autoconnect_configure": "Setări de rețea",
+    "mode_settings_advanced_toggle_show": "Afișați setări avansate"
 }
