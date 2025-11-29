@@ -6,16 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2023-06-03 17:52+0000\n"
-"Last-Translator: emma peel <emmapeel@torproject.org>\n"
+"PO-Revision-Date: 2025-10-20 06:17+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: tr <LL@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/features.rst:4
@@ -350,7 +351,7 @@ msgstr ""
 
 #: ../../source/features.rst:102
 msgid "Other caveats to be aware of in Receive Mode"
-msgstr ""
+msgstr "Alma Kipinde dikkat edilmesi gereken diğer noktalar"
 
 #: ../../source/features.rst:104
 msgid ""
@@ -359,6 +360,9 @@ msgid ""
 "mode. Try Bronze or Gold to see if you are able to upload a message or a "
 "file."
 msgstr ""
+"iOS aygıtlarda OnionBrowser 'Gümüş' güvenlik kipinde çalışırken Alma Kipinde "
+"OnionShare'e dosya yükleyemediği bildirilmiştir. Bronz veya Altın kipi "
+"deneyerek ileti veya dosya yükleyip yükleyemediğinize bakın."
 
 #: ../../source/features.rst:107
 msgid "Host a Website"
