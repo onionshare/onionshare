@@ -255,5 +255,7 @@
     "gui_chat_mode_explainer": "حالت گپ می‌گذارد با دیگران به صورت تعاملی در مرورگر تور گپ بزنید.<br><br><b>تاریخچهٔ گپ در OnionShare ذخیره نشده و هنگام بستن مرورگر تور ناپدید خواهد شد.</b>",
     "waitress_web_server_error": "مشکلی با آغاز کارساز وب وجود دارد",
     "gui_close_tab_warning_chat_description": "بستن زبانه‌ای که کارساز گپ را میزبانی می‌کند؟",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "آغاز خودکار این خدمت پیازی هنگام آغاز پیازرسان"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "آغاز خودکار این خدمت پیازی هنگام آغاز پیازرسان",
+    "gui_settings_license_label": "OnionShare تحت مجوز GPL نسخه ۳ منتشر شده است.مجوزهای نرم‌افزارهای شخص ثالث را می‌توانید اینجا ببینید:https://github.com/onionshare/onionshare/tree/main/licenses",
+    "error_generic": "خطای غیرمنتظره‌ای در OnionShare رخ داد:\n{}"
 }
