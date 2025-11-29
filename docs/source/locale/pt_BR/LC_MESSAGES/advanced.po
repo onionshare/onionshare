@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-11-13 21:58+0000\n"
+"PO-Revision-Date: 2025-07-11 14:01+0000\n"
 "Last-Translator: Cleverson Cândido <optimuspraimu@gmail.com>\n"
 "Language-Team: pt_BR <LL@li.org>\n"
 "Language: pt_BR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
@@ -196,13 +196,15 @@ msgstr ""
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr ""
+msgstr "Instalando a versão CLI"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
 msgstr ""
+"Se você instalou o pacote Snap, macOS ou Windows, você já tem a versão CLI "
+"instalada."
 
 #: ../../source/advanced.rst:77
 #, fuzzy
@@ -959,7 +961,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:473
 msgid "There are currently no configurable settings for the Chat mode."
-msgstr ""
+msgstr "Atualmente não há configurações configuráveis para o modo de bate-papo."
 
 #~ msgid ""
 #~ "Everything in OnionShare is temporary by default. If you close an "

@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2023-06-03 17:52+0000\n"
-"Last-Translator: emma peel <emmapeel@torproject.org>\n"
+"PO-Revision-Date: 2025-07-11 14:01+0000\n"
+"Last-Translator: Cleverson Cândido <optimuspraimu@gmail.com>\n"
 "Language-Team: pt_BR <LL@li.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/tor.rst:2
@@ -40,6 +40,12 @@ msgid ""
 "connection fails, you can still try bridges or reconfigure Tor via the "
 "\"Network Settings\" button."
 msgstr ""
+"Você pode ativar a opção \"Conectar ao Tor automaticamente\" antes de clicar "
+"em \"Conectar ao Tor\". Isso significa que, na próxima vez que o OnionShare "
+"for iniciado, ele se conectará automaticamente com as configurações de "
+"conexão do Tor da última sessão, em vez de apresentar as opções de conexão. "
+"Se a conexão falhar, você ainda pode tentar usar pontes ou reconfigurar o "
+"Tor por meio do botão \"Configurações de Rede\"."
 
 #: ../../source/tor.rst:11
 msgid ""
@@ -47,26 +53,34 @@ msgid ""
 "are no problems with your network, including any attempts to block your "
 "access to the Tor network, this should hopefully work the first time."
 msgstr ""
+"Você pode clicar em \"Conectar ao Tor\" para iniciar o processo de conexão. "
+"Se não houver problemas com sua rede, incluindo tentativas de bloquear seu "
+"acesso à rede Tor, isso deve funcionar na primeira vez."
 
 #: ../../source/tor.rst:13
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings before "
 "you connect, you can click \"Network Settings\"."
 msgstr ""
+"Ou, se quiser configurar manualmente as Bridges ou outras configurações do "
+"Tor antes de se conectar, você pode clicar em \"Configurações de rede\"."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Contorno automático da censura"
 
 #: ../../source/tor.rst:18
 msgid ""
 "When you click \"Connect to Tor\", if OnionShare fails to connect, it might "
 "be because Tor is censored in your country or on your local network."
 msgstr ""
+"Quando você clica em \"Conectar ao Tor\", se o OnionShare não conseguir se "
+"conectar, pode ser porque o Tor está censurado no seu país ou na sua rede "
+"local."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "Se isso ocorrer, você terá estas opções:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
@@ -76,16 +90,21 @@ msgstr ""
 msgid ""
 "Automatically determine my country from my IP address for bridge settings"
 msgstr ""
+"Determinar automaticamente meu país a partir do meu endereço IP para "
+"configurações de ponte"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Selecione manualmente meu país para configurações de ponte"
 
 #: ../../source/tor.rst:28
 msgid ""
 "If you choose the \"Try again without a bridge\" option, OnionShare will "
 "retry connecting to Tor like normal, without attempting to bypass censorship."
 msgstr ""
+"Se você escolher a opção \"Tentar novamente sem uma ponte\", o OnionShare "
+"tentará se conectar ao Tor novamente como normalmente, sem tentar contornar "
+"a censura."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -100,6 +119,16 @@ msgid ""
 "Censorship Circumvention API. The Meek proxy hides the fact that you are "
 "trying to find a way to connect to Tor."
 msgstr ""
+"As outras duas opções tentarão contornar a censura automaticamente usando "
+"pontes Tor. Se o seu provedor de rede estiver bloqueando o acesso à rede "
+"Tor, você ainda poderá se conectar a uma ponte Tor, que o conectará à rede "
+"Tor, contornando a censura. Ambas as opções usam a API de Contorno de "
+"Censura do Projeto Tor para fornecer configurações de ponte que devem "
+"funcionar para você. O OnionShare usará temporariamente o proxy de domínio `"
+"Meek <https://gitlab.torproject.org/legacy/trac/-/wikis/doc/meek/>`_ para "
+"estabelecer uma conexão não Tor do seu computador com a API de Contorno de "
+"Censura do Tor. O proxy Meek oculta o fato de que você está tentando "
+"encontrar uma maneira de se conectar ao Tor."
 
 #: ../../source/tor.rst:36
 msgid ""
@@ -109,6 +138,11 @@ msgid ""
 "reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"Se você escolher \"Determinar automaticamente meu país a partir do meu "
+"endereço IP para configurações de ponte\", a API de Contorno de Censura "
+"considerará seu endereço IP (sim, seu endereço IP real) para determinar em "
+"qual país você reside. Com base nas informações do país, a API tentará "
+"encontrar automaticamente pontes adequadas à sua localização."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -116,10 +150,13 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"Se você escolher "
+"\"Selecionar manualmente meu país para configurações de bridge\", a API de "
+"censura encontrará as bridges adequadas ao país especificado."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Como funciona a evasão automática da censura"
 
 #: ../../source/tor.rst:48
 msgid ""
@@ -128,6 +165,11 @@ msgid ""
 "does not find any bridges for your location, OnionShare will ask the API for "
 "\"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Se a API de Contorno de Censura encontrar pontes que considere adequadas "
+"para você, o OnionShare tentará se reconectar ao Tor usando essas pontes. Se "
+"a API não encontrar nenhuma ponte para sua localização, o OnionShare "
+"solicitará à API opções de \"fallback\" e tentará se reconectar usando essas "
+"opções."
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -135,6 +177,9 @@ msgid ""
 "or if the API returns an error message, OnionShare will attempt to use the "
 "obfs4 built-in bridges."
 msgstr ""
+"Se por algum motivo o OnionShare não conseguir se conectar à API de censura, "
+"ou se a API retornar uma mensagem de erro, o OnionShare tentará usar as "
+"pontes integradas do obfs4."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -142,6 +187,9 @@ msgid ""
 "do not go over the Tor network (because if you could connect to Tor already, "
 "you wouldn't need to connect to the API)."
 msgstr ""
+"É importante observar que as solicitações à API de Contorno de Censura não "
+"passam pela rede Tor (porque se você já pudesse se conectar ao Tor, não "
+"precisaria se conectar à API)."
 
 #: ../../source/tor.rst:54
 msgid ""
@@ -151,6 +199,12 @@ msgid ""
 "to making one or two requests to the Censorship Circumvention API. Then Meek "
 "is stopped, and all further network requests happen over the Tor network."
 msgstr ""
+"Embora seja difícil para um adversário descobrir para onde a solicitação do "
+"Meek está indo, isso ainda pode ser arriscado para alguns usuários. "
+"Portanto, é um recurso opcional. O uso do Meek e de solicitações de rede não "
+"Torificadas limita-se a apenas uma ou duas solicitações à API de Contorno de "
+"Censura. Nesse caso, o Meek é interrompido e todas as solicitações de rede "
+"subsequentes são feitas pela rede Tor."
 
 #: ../../source/tor.rst:56
 msgid ""
@@ -160,10 +214,15 @@ msgid ""
 "appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Se não se sentir confortável em fazer uma solicitação que não passe pela "
+"rede Tor, clique em \"Configurações de Rede\" (ou no ícone Configurações no "
+"canto inferior direito, seguido pela aba Configurações do Tor na tela "
+"exibida) e configure manualmente as pontes. Após salvar as configurações de "
+"ponte, o OnionShare tentará se reconectar usando essas pontes."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Configurar manualmente as configurações do Tor"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -172,6 +231,10 @@ msgid ""
 "the application, and then switch to the Tor Settings tab in the screen that "
 "appears."
 msgstr ""
+"Você pode acessar as configurações do Tor clicando em "
+"\"Configurações de rede\" na tela de boas-vindas ou clicando no ícone \"⚙\" "
+"no canto inferior direito do aplicativo e, em seguida, alternar para a guia "
+"Configurações do Tor na tela que aparece."
 
 #: ../../source/tor.rst:65
 msgid ""
