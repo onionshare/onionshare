@@ -6,21 +6,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2023-06-03 17:52+0000\n"
-"Last-Translator: emma peel <emmapeel@torproject.org>\n"
+"PO-Revision-Date: 2025-11-25 20:09+0000\n"
+"Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
-msgstr "Cómo funciona OnionShare"
+msgstr "Como funciona OnionShare"
 
 #: ../../source/features.rst:6
 msgid ""
@@ -28,14 +29,15 @@ msgid ""
 "other people as `Tor <https://www.torproject.org/>`_ `onion services "
 "<https://community.torproject.org/onion-services/>`_."
 msgstr ""
-"Mediante servidores web iniciados localmente en tu computadora, y hechos "
-"accesibles a otras personas como `servicios onion <https://community."
-"torproject.org/es/onion-services/>`_`Tor <https://www.torproject.org/es/>`_ ."
+"Mediante servidores web iniciados localmente en tu equipo, y hechos "
+"accesibles a otras personas como `servicios cebolla <https://"
+"community.torproject.org/es/onion-services/>`_`Tor <https://"
+"www.torproject.org/es/>`_ ."
 
 #: ../../source/features.rst:8
 msgid "By default, OnionShare web addresses are protected with a private key."
 msgstr ""
-"Por defecto, las direcciones web de OnionShare se protegen con una llave "
+"Por defecto, las direcciones web de OnionShare se protegen con una clave "
 "privada."
 
 #: ../../source/features.rst:10
@@ -44,7 +46,7 @@ msgstr "Los enlaces de OnionShare son algo así::"
 
 #: ../../source/features.rst:14
 msgid "And private keys might look something like this::"
-msgstr "Y las claves privadas son así::"
+msgstr "Y las claves privadas podrían verse algo como esto:"
 
 #: ../../source/features.rst:18
 msgid ""
@@ -54,9 +56,10 @@ msgid ""
 "`threat model <https://ssd.eff.org/module/your-security-plan>`_."
 msgstr ""
 "Eres responsable de compartir de forma segura la URL y la clave privada "
-"mediante un canal de comunicación de tu elección, como mensajes de chat "
-"cifrados, o usando algo menos seguro como un email sin cifrar, dependiendo "
-"de tu `modelo de amenaza <https://ssd.eff.org/module/your-security-plan>`_."
+"mediante un canal de comunicación de tu elección, como mensajes de charla "
+"cifrados, o usando algo menos seguro como un correo-e sin cifrar, "
+"dependiendo de tu `modelo de amenaza <https://ssd.eff.org/module/your-"
+"security-plan>`_."
 
 #: ../../source/features.rst:20
 msgid ""
@@ -353,7 +356,7 @@ msgstr ""
 
 #: ../../source/features.rst:102
 msgid "Other caveats to be aware of in Receive Mode"
-msgstr ""
+msgstr "Otras advertencias a tener en cuenta en el Modo de Recepción"
 
 #: ../../source/features.rst:104
 msgid ""
@@ -362,6 +365,10 @@ msgid ""
 "mode. Try Bronze or Gold to see if you are able to upload a message or a "
 "file."
 msgstr ""
+"Se ha informado que OnionBrowser en dispositivos iOS no es capaz de subir "
+"archivos a un OnionShare en Modo Recepción cuando opera en el modo de "
+"seguridad 'Plata'. Pruebe con el modo Bronce o el Oro para ver si puede "
+"subir un mensaje o un archivo."
 
 #: ../../source/features.rst:107
 msgid "Host a Website"
