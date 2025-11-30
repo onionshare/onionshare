@@ -424,7 +424,7 @@ class ShareMode(Mode):
 
 
 class ZipProgressBar(QtWidgets.QProgressBar):
-    update_processed_size_signal = QtCore.Signal(int)
+    update_processed_size_signal = QtCore.Signal(object)
 
     def __init__(self, common, total_files_size):
         super(ZipProgressBar, self).__init__()
