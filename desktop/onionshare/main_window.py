@@ -71,6 +71,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png"))
             )
         self.system_tray.setContextMenu(menu)
+        self.system_tray.activated.connect(self.systray_activated)
         self.system_tray.show()
 
         # Status bar
@@ -268,6 +269,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.system_tray.hide()
         e.accept()
+
+    def systray_activated(self, reason):
+        if reason == QtWidgets.QSystemTrayIcon.ActivationReason.Trigger:
+            if self.isVisible():
+                self.hide()
+            else:
+                self.show()
+                self.bring_to_front()
 
     def event(self, event):
         # Check if color mode switched while onionshare was open, if so, ask user to restart
