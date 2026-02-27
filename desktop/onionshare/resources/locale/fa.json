@@ -256,6 +256,6 @@
     "waitress_web_server_error": "مشکلی با شروع سرور وب وجود داشت",
     "gui_close_tab_warning_chat_description": "بستن زبانه‌ای که یک سرور گپ را میزبانی می‌کند؟",
     "mode_settings_persistent_autostart_on_launch_checkbox": "هنگام شروع OnionShare، این سرویس Onion به‌طور خودکار شروع شود",
-    "gui_settings_license_label": "OnionShare تحت پروانهٔ GPL نسخهٔ ۳ منتشر شده است.<br>پروانه‌های نرم‌افزارهای شخص ثالث را می‌توانید اینجا ببینید:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_license_label": "OnionShare تحت پروانهٔ GPL نسخهٔ ۳ منتشر شده است.<br>پروانه‌های نرم‌افزارهای شخص ثالث را می‌توانید اینجا ببینید:https://github.com/onionshare/onionshare/tree/main/licenses",
     "error_generic": "خطای غیرمنتظره‌ای در OnionShare رخ داد:\n{}"
 }

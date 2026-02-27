@@ -60,5 +60,7 @@
     "gui_settings_bridge_use_checkbox": "להשתמש בגשר",
     "gui_status_indicator_receive_stopped": "נעצר",
     "gui_status_indicator_chat_stopped": "נעצר",
-    "gui_status_indicator_share_stopped": "נעצר"
+    "gui_status_indicator_share_stopped": "נעצר",
+    "gui_autoconnect_configure": "הגדרות רשת",
+    "mode_settings_advanced_toggle_show": "הצג הגדרות מתקדמות"
 }
