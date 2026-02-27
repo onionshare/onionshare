@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-08-18 08:01+0000\n"
-"Last-Translator: Nick Wick <NickWick@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2025-08-29 14:01+0000\n"
+"Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: sv <LL@li.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.1-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
@@ -485,7 +485,7 @@ msgstr "Parameter"
 #: ../../source/advanced.rst:439 ../../source/advanced.rst:450
 #: ../../source/advanced.rst:462
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: ../../source/advanced.rst:322 ../../source/advanced.rst:402
 #: ../../source/advanced.rst:413 ../../source/advanced.rst:424
