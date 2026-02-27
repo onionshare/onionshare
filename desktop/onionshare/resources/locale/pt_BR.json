@@ -252,7 +252,7 @@
     "gui_autoconnect_bridge_detect_manual": "Selecione meu país para configurações de ponte manualmente",
     "gui_autoconnect_could_not_connect_to_tor_api": "Não foi possível conectar-se à API do Tor. Verifique se você está conectado à Internet antes de tentar novamente.",
     "gui_autoconnect_circumventing_censorship_starting_meek": "Estabelecendo uma ponte meek para fronting de domínio…",
-    "gui_close_tab_warning_chat_description": "Fechar a guia que está hospedando um servidor de bate-papo?",
+    "gui_close_tab_warning_chat_description": "Fechar a aba com o servidor de chat?",
     "waitress_web_server_error": "Ocorreu um problema ao iniciar o servidor web",
     "gui_chat_mode_explainer": "O modo de bate-papo permite que você converse interativamente com outras pessoas no navegador Tor.<br><br><b>O histórico de bate-papo não é armazenado no OnionShare. O histórico de bate-papo desaparecerá quando você fechar o Navegador Tor.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Iniciar automaticamente este serviço onion quando o OnionShare for iniciado",
