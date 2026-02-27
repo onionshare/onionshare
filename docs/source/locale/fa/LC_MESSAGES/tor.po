@@ -9,8 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
 "PO-Revision-Date: 2025-08-18 08:02+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -74,11 +73,11 @@ msgstr ""
 #: ../../source/tor.rst:23
 msgid ""
 "Automatically determine my country from my IP address for bridge settings"
-msgstr "کشورم را از روی نشانی IP من برای تنظیمات پل تعیین کن"
+msgstr "تشخیص خودکار کشورم از نشانی آی‌پیم برای تنظیمات پل"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "گزینش دستی کشورم برای تنظیمات پل"
 
 #: ../../source/tor.rst:28
 msgid ""
