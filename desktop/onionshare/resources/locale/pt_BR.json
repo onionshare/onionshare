@@ -256,5 +256,6 @@
     "waitress_web_server_error": "Ocorreu um problema ao iniciar o servidor web",
     "gui_chat_mode_explainer": "O modo de bate-papo permite que você converse interativamente com outras pessoas no navegador Tor.<br><br><b>O histórico de bate-papo não é armazenado no OnionShare. O histórico de bate-papo desaparecerá quando você fechar o Navegador Tor.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Iniciar automaticamente este serviço onion quando o OnionShare for iniciado",
-    "error_generic": "Ocorreu um erro inesperado com o OnionShare:\n{}"
+    "error_generic": "Ocorreu um erro inesperado com o OnionShare:\n{}",
+    "gui_settings_license_label": "O OnionShare está licenciado sob a GPL v3. As licenças de terceiros podem ser visualizadas aqui:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
 }
