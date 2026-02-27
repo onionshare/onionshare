@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-02-27 19:49+0000\n"
+"PO-Revision-Date: 2025-12-04 07:00+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :("
-"n>6 && n<11) ? 3 : 4;\n"
-"X-Generator: Weblate 5.10.2-rc\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :(n>"
+"6 && n<11) ? 3 : 4;\n"
+"X-Generator: Weblate 5.15-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -1035,7 +1035,7 @@ msgstr "glacadh"
 
 #: ../../source/advanced.rst:452
 msgid "data_dir"
-msgstr "sonraí_dir"
+msgstr "data_dir"
 
 #: ../../source/advanced.rst:452
 msgid ""
@@ -1081,7 +1081,7 @@ msgstr "láithreán gréasáin"
 
 #: ../../source/advanced.rst:464
 msgid "disable_csp"
-msgstr "cumasach_csp"
+msgstr "disable_csp"
 
 #: ../../source/advanced.rst:464
 msgid ""
