@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
 "PO-Revision-Date: 2025-10-08 13:07+0000\n"
-"Last-Translator: Maryam Azad <hannahperez8@protonmail.com>\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,11 @@ msgstr ""
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
-msgstr "توسعه OnionShare"
+msgstr "توسعه دادن پیازرسان"
 
 #: ../../source/develop.rst:7
 msgid "Collaborating"
-msgstr ""
+msgstr "همکاری کردن"
 
 #: ../../source/develop.rst:9
 msgid ""
