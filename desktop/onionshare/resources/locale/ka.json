@@ -52,5 +52,7 @@
     "gui_settings_bridge_use_checkbox": "ხიდის გამოყენება",
     "gui_copied_url": "OnionShare-მისამართის ასლი აღებულია",
     "gui_copy_url": "მისამართის ასლი",
-    "gui_settings_bridge_radio_builtin": "აირჩიეთ ჩაშენებული ხიდი"
+    "gui_settings_bridge_radio_builtin": "აირჩიეთ ჩაშენებული ხიდი",
+    "gui_share_url_public_description": "<b>ყველას</b>, ვისაც ეს OnionShare მისამართი აქვს, შეუძლია, <b>გადმოწეროს</b> თქვენი ფაილები <b>Tor ბრაუზერით</b>: <img src='{}' />",
+    "gui_tab_name_receive": "მიღება"
 }
