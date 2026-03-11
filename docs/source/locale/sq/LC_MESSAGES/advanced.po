@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-12-17 19:38+0000\n"
+"PO-Revision-Date: 2025-10-07 10:13+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: none\n"
 "Language: sq\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -76,11 +76,6 @@ msgstr ""
 "cilin Tor-i e quan “mirëfilltësim klienti”."
 
 #: ../../source/advanced.rst:28
-#, fuzzy
-#| msgid ""
-#| "The Tor Browser will ask you to enter your private key when you load an "
-#| "OnionShare service. If you want allow the public to use your service, "
-#| "it's better to disable the private key altogether."
 msgid ""
 "The Tor Browser will ask you to enter your private key when you load an "
 "OnionShare service. If you want to allow the public to use your service, "
@@ -143,11 +138,6 @@ msgstr ""
 "planifikuar\", ose të dyja dhe caktoni data dhe kohët e dëshiruara përkatëse."
 
 #: ../../source/advanced.rst:51
-#, fuzzy
-#| msgid ""
-#| "Services scheduled to start in the future display a countdown timer when "
-#| "when the \"Start sharing\" button is clicked. Services scheduled to stop "
-#| "in the future display a countdown timer when started."
 msgid ""
 "Services scheduled to start in the future display a countdown timer when the "
 "\"Start sharing\" button is clicked. Services scheduled to stop in the "
@@ -195,25 +185,23 @@ msgstr ""
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr ""
+msgstr "Po instalohet versioni CLI"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
 msgstr ""
+"Nëse keni instaluar paketën për Snap, macOS apo Windows, keni tashmë të "
+"instaluar versionin CLI."
 
 #: ../../source/advanced.rst:77
-#, fuzzy
-#| msgid ""
-#| "You can install just the command-line version of OnionShare using "
-#| "``pip3``::"
 msgid ""
 "Alternatively, you can install just the command-line version of OnionShare "
 "using ``pip3``::"
 msgstr ""
-"Mund të instaloni thjesht versionin “rresht urdhrash” të OnionShare-it duke "
-"përdorur ``pip3``::"
+"Ndryshe, mund të instaloni thjesht versionin “rresht urdhrash” të OnionShare-"
+"it duke përdorur ``pip3``::"
 
 #: ../../source/advanced.rst:81
 msgid ""
@@ -242,17 +230,13 @@ msgid "Running the CLI from Snap"
 msgstr ""
 
 #: ../../source/advanced.rst:92
-#, fuzzy
-#| msgid ""
-#| "If you installed OnionShare using the Snap package, you can also just run "
-#| "``onionshare.cli`` to access the command-line interface version."
 msgid ""
 "If you installed OnionShare using the Snap package, you can run ``onionshare."
 "cli`` to access the command-line interface version."
 msgstr ""
 "Nëse e instaluar OnionShare-in duke përdorur paketën Snap, mund të "
-"ekzekutoni thjesht ``onionshare.cli`` që të përdorni versionin me ndërfaqe "
-"“rresht urdhrash”."
+"ekzekutoni ``onionshare.cli`` që të përdorni versionin me ndërfaqe “rresht "
+"urdhrash”."
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"

@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-03-19 18:01+0000\n"
-"Last-Translator: emma peel <emma.peel@riseup.net>\n"
+"PO-Revision-Date: 2025-08-18 08:01+0000\n"
+"Last-Translator: Nick Wick <NickWick@users.noreply.hosted.weblate.org>\n"
 "Language-Team: sv <LL@li.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.13\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/features.rst:4
@@ -34,57 +34,54 @@ msgstr ""
 "torproject.org/onion-services/>`_."
 
 #: ../../source/features.rst:8
-#, fuzzy
 msgid "By default, OnionShare web addresses are protected with a private key."
-msgstr ""
-"Som standard skyddas OnionShare-webbadresser med ett slumpmässigt lösenord. "
-"En typisk OnionShare-adress kan se ut ungefär så här::"
+msgstr "Som standard är OnionShares webbadresser skyddade med en privat nyckel."
 
 #: ../../source/features.rst:10
 msgid "OnionShare addresses look something like this::"
-msgstr ""
+msgstr "OnionShare-adresser ser ut ungefär så här::"
 
 #: ../../source/features.rst:14
 msgid "And private keys might look something like this::"
-msgstr ""
+msgstr "Och privata nycklar kan se ut ungefär så här::"
 
 #: ../../source/features.rst:18
-#, fuzzy
 msgid ""
 "You're responsible for securely sharing that URL and private key using a "
 "communication channel of your choice like in an encrypted chat message, or "
 "using something less secure like unencrypted email, depending on your "
 "`threat model <https://ssd.eff.org/module/your-security-plan>`_."
 msgstr ""
-"Du är ansvarig för att säkert dela webbadressen med valfri "
-"kommunikationskanal som i ett krypterat chattmeddelande eller använda något "
-"mindre säkert som okrypterad e-post, beroende på din \"hotprofil <https://"
-"ssd.eff.org/module/your-security-plan>\"_."
+"Du ansvarar för att dela den URL:en och den privata nyckeln på ett säkert "
+"sätt med hjälp av en kommunikationskanal du väljer, till exempel i ett "
+"krypterat chattmeddelande, eller med något mindre säkert som okrypterad e-"
+"post, beroende på din `hotmodell <https://ssd.eff.org/module/your-security-"
+"plan>`_."
 
 #: ../../source/features.rst:20
-#, fuzzy
 msgid ""
 "The people you send the URL to then copy and paste it into their `Tor "
 "Browser <https://www.torproject.org/>`_ to access the OnionShare service. "
 "Tor Browser will then prompt for the private key, which the people can also "
 "then copy and paste in."
 msgstr ""
-"De personer du skickar webbadressen till kopierar och klistrar sedan in den "
-"i sin \"Tor Browser <https://www.torproject.org/>\"_ för att komma åt "
-"OnionShare-tjänsten."
+"De personer du skickar URL:en till kopierar och klistrar sedan in den i sin `"
+"Tor Browser <https://www.torproject.org/>`_ för att komma åt OnionShare-"
+"tjänsten. Tor Browser kommer sedan att be om den privata nyckeln, som "
+"personerna sedan också kan kopiera och klistra in."
 
 #: ../../source/features.rst:24
-#, fuzzy
 msgid ""
 "If you run OnionShare on your laptop to send someone files, and then suspend "
 "it before the files are sent, the service will not be available until your "
 "laptop is unsuspended and on the internet again. OnionShare works best when "
 "working with people in real-time."
 msgstr ""
-"Om du kör OnionShare på din bärbara dator för att skicka någon filer och "
-"sedan försätter den i vänteläge innan filerna skickats, kommer tjänsten inte "
-"att vara tillgänglig förrän din bärbara dator är aktiv och på Internet igen. "
-"OnionShare fungerar bäst när du arbetar med människor i realtid."
+"Om du kör OnionShare på din bärbara dator för att skicka filer till någon, "
+"och sedan pausar tjänsten innan filerna skickas, kommer tjänsten inte att "
+"vara tillgänglig förrän din bärbara dator har återaktiverats och är ansluten "
+"till internet. OnionShare fungerar bäst när man arbetar med människor i "
+"realtid."
 
 #: ../../source/features.rst:26
 msgid ""
@@ -123,18 +120,16 @@ msgstr ""
 "den inställning du är intresserad av innan du börjar dela."
 
 #: ../../source/features.rst:39
-#, fuzzy
 msgid ""
 "As soon as someone finishes downloading your files, OnionShare will "
 "automatically stop the server, removing the website from the internet. To "
 "allow multiple people to download them, uncheck the \"Stop sharing after "
 "files have been sent (uncheck to allow downloading individual files)\" box."
 msgstr ""
-"Så snart någon är klar med att ladda ner dina filer kommer OnionShare "
-"automatiskt att stoppa servern och ta bort webbplatsen från Internet. Om du "
-"vill tillåta flera personer att ladda ned dem avmarkerar du rutan \"Sluta "
-"dela efter att filer har skickats (avmarkera för att tillåta nedladdning av "
-"enskilda filer)\"."
+"Så snart någon har hämtat dina filer kommer OnionShare automatiskt att "
+"stoppa servern och ta bort webbplatsen från internet. För att tillåta att "
+"flera personer hämtar dem, avmarkera rutan \"Stoppa delning efter att filer "
+"har skickats (avmarkera för att tillåta hämtning av enskilda filer)\"."
 
 #: ../../source/features.rst:42
 msgid ""
@@ -160,33 +155,30 @@ msgstr ""
 "från dig."
 
 #: ../../source/features.rst:48
-#, fuzzy
 msgid ""
 "Now that you have a OnionShare, copy the address and the private key and "
 "send it to the person you want to receive the files. If the files need to "
 "stay secure, or the person is otherwise exposed to danger, use an encrypted "
 "messaging app."
 msgstr ""
-"Nu när du har en OnionShare kopierar du adressen och skickar den till den "
-"person du vill skall ta emot filerna. Om filerna behöver vara säkra, eller "
-"om personen på annat sätt utsätts för fara, använder du en krypterad "
-"meddelandeapp."
+"Nu när du har en OnionShare, kopiera adressen och den privata nyckeln och "
+"skicka den till den person du vill ska ta emot filerna. Om filerna behöver "
+"förbli säkra, eller om personen på annat sätt utsätts för fara, använd en "
+"krypterad meddelandeapp."
 
 #: ../../source/features.rst:50
-#, fuzzy
 msgid ""
 "That person then must load the address in Tor Browser. After logging in with "
 "the private key, the files can be downloaded directly from your computer by "
 "clicking the \"Download Files\" link in the corner."
 msgstr ""
-"Den personen måste sedan läsa in adressen i Tor Browser. När du har loggat "
-"in med det slumpmässiga lösenordet som ingår i webbadressen kan filerna "
-"laddas ner direkt från din dator genom att klicka på länken \"Ladda ner "
-"filer\" i hörnet."
+"Den personen måste sedan ladda adressen i Tor Browser. Efter inloggning med "
+"den privata nyckeln kan filerna hämtas direkt från din dator genom att "
+"klicka på länken \"Hämta filer\" i hörnet."
 
 #: ../../source/features.rst:55
 msgid "Receive Files and Messages"
-msgstr ""
+msgstr "Ta emot filer och meddelanden"
 
 #: ../../source/features.rst:57
 msgid ""
@@ -194,11 +186,17 @@ msgid ""
 "directly to your computer, essentially turning it into an anonymous dropbox. "
 "Open a receive tab and choose the settings that you want."
 msgstr ""
+"Du kan använda OnionShare för att låta folk anonymt skicka filer och "
+"meddelanden direkt till din dator, vilket i princip förvandlar den till en "
+"anonym dropbox. Öppna en mottagningsflik och välj de inställningar du vill "
+"ha."
 
 #: ../../source/features.rst:62
 msgid ""
 "You can browse for a folder to save messages and files that get submitted."
 msgstr ""
+"Du kan bläddra efter en mapp för att spara meddelanden och filer som skickas "
+"in."
 
 #: ../../source/features.rst:64
 msgid ""
@@ -206,6 +204,9 @@ msgid ""
 "uploads, and you can check \"Disable uploading files\" if you want to only "
 "allow submitting text messages, like for an anonymous contact form."
 msgstr ""
+"Du kan markera \"Inaktivera textöverföring\" om du bara vill tillåta "
+"filuppladdningar, och du kan markera \"Inaktivera filuppladdning\" om du "
+"bara vill tillåta textmeddelanden, som för ett anonymt kontaktformulär."
 
 #: ../../source/features.rst:66
 msgid ""
@@ -221,6 +222,17 @@ msgid ""
 "service, @webhookbot will send you a message on Keybase letting you know as "
 "soon as it happens."
 msgstr ""
+"Du kan markera \"Använd aviseringswebbhook\" och sedan välja en webhook-URL "
+"om du vill bli meddelad när någon skickar filer eller meddelanden till din "
+"OnionShare-tjänst. Om du använder den här funktionen kommer OnionShare att "
+"göra en HTTP POST-förfrågan till denna URL varje gång någon skickar filer "
+"eller meddelanden. Om du till exempel vill få ett krypterat textmeddelande i "
+"meddelandeappen `Keybase <https://keybase.io/>`_ kan du starta en "
+"konversation med `@webhookbot <https://keybase.io/webhookbot>`_, skriva ``"
+"!webhook create onionshare-alerts``, så svarar den med en URL. Använd den "
+"som URL för aviseringswebbhook. Om någon laddar upp en fil till din "
+"mottagningstjänst kommer @webhookbot att skicka ett meddelande till dig på "
+"Keybase som meddelar dig så snart det händer."
 
 #: ../../source/features.rst:71
 msgid ""
@@ -228,6 +240,9 @@ msgid ""
 "service. Anyone loading this address in their Tor Browser will be able to "
 "submit files and messages which get uploaded to your computer."
 msgstr ""
+"När du är redo klickar du på \"Starta mottagningsläge\". Detta startar "
+"OnionShare-tjänsten. Alla som laddar den här adressen i sin Tor-webbläsare "
+"kommer att kunna skicka filer och meddelanden som laddas upp till din dator."
 
 #: ../../source/features.rst:75
 msgid ""
@@ -238,9 +253,8 @@ msgstr ""
 "historiken och förloppet för personer som skickar filer till dig."
 
 #: ../../source/features.rst:77
-#, fuzzy
 msgid "Here is what it looks like for someone sending you files and messages."
-msgstr "Så här ser det ut för någon som skickar filer till dig."
+msgstr "Så här ser det ut när någon skickar filer och meddelanden till dig."
 
 #: ../../source/features.rst:81
 msgid ""
@@ -249,6 +263,10 @@ msgid ""
 "computer, automatically organized into separate subfolders based on the time "
 "that the files get uploaded."
 msgstr ""
+"När någon skickar filer eller meddelanden till din mottagningstjänst sparas "
+"de som standard i en mapp som heter ``OnionShare`` i hemmappen på din dator, "
+"automatiskt organiserad i separata undermappar baserat på den tidpunkt då "
+"filerna laddas upp."
 
 #: ../../source/features.rst:83
 msgid ""
@@ -269,14 +287,13 @@ msgid "Use at your own risk"
 msgstr "Använd på egen risk"
 
 #: ../../source/features.rst:88
-#, fuzzy
 msgid ""
 "Just like with malicious email attachments, it's possible someone could try "
 "to attack your computer by uploading a malicious file to your OnionShare "
 "service. OnionShare does not add any safety mechanisms to protect your "
 "system from malicious files."
 msgstr ""
-"Precis som med skadliga e-postbilagor är det möjligt att någon kan försöka "
+"Precis som med skadliga e-postbilagor är det möjligt att någon försöker "
 "attackera din dator genom att ladda upp en skadlig fil till din OnionShare-"
 "tjänst. OnionShare lägger inte till några säkerhetsmekanismer för att skydda "
 "ditt system från skadliga filer."
@@ -299,37 +316,38 @@ msgstr ""
 msgid ""
 "However, it is always safe to open text messages sent through OnionShare."
 msgstr ""
+"Det är dock alltid säkert att öppna textmeddelanden som skickas via "
+"OnionShare."
 
 #: ../../source/features.rst:95
 msgid "Tips for running a receive service"
 msgstr "Tips för att köra en mottagningstjänst"
 
 #: ../../source/features.rst:97
-#, fuzzy
 msgid ""
 "If you want to host your own anonymous dropbox using OnionShare, it's "
 "recommended you do so on a separate, dedicated computer always powered on "
 "and connected to the internet, and not on the one you use on a regular basis."
 msgstr ""
-"Om du vill vara värd för din egen anonyma dropbox med OnionShare "
-"rekommenderar vi att du gör det på en separat, dedikerad dator som alltid är "
-"påslagen och ansluten till Internet och inte på den du använder regelbundet."
+"Om du vill ha din egen anonyma dropbox med OnionShare rekommenderas det att "
+"du gör det på en separat, dedikerad dator som alltid är påslagen och "
+"ansluten till internet, och inte på den du använder regelbundet."
 
 #: ../../source/features.rst:99
-#, fuzzy
 msgid ""
 "If you intend to put the OnionShare address on your website or social media "
 "profiles, save the tab (see :ref:`save_tabs`) and run it as a public service "
 "(see :ref:`turn_off_private_key`). It's also a good idea to give it a custom "
 "title (see :ref:`custom_titles`)."
 msgstr ""
-"Om du tänker placera OnionShare-adressen på din webbplats eller sociala "
-"medieprofiler sparar du fliken (se :ref:`save_tabs`) och kör den som en "
-"offentlig tjänst (se :ref:`turn_off_passwords`)."
+"Om du tänker lägga till OnionShare-adressen på din webbplats eller dina "
+"profiler på sociala medier, spara fliken (se :ref:`save_tabs`) och kör den "
+"som en offentlig tjänst (se :ref:`turn_off_private_key`). Det är också en "
+"bra idé att ge den en anpassad titel (se :ref:`custom_titles`)."
 
 #: ../../source/features.rst:102
 msgid "Other caveats to be aware of in Receive Mode"
-msgstr ""
+msgstr "Andra varningar att vara medveten om i mottagningsläge"
 
 #: ../../source/features.rst:104
 msgid ""
@@ -338,6 +356,10 @@ msgid ""
 "mode. Try Bronze or Gold to see if you are able to upload a message or a "
 "file."
 msgstr ""
+"Det finns rapporter om att OnionBrowser på iOS-enheter inte kan ladda upp "
+"filer till en OnionShare i mottagningsläge, när de används i säkerhetsläge "
+"\"Silver\". Prova brons eller guld för att se om du kan ladda upp ett "
+"meddelande eller en fil."
 
 #: ../../source/features.rst:107
 msgid "Host a Website"
@@ -381,7 +403,6 @@ msgid "Content Security Policy"
 msgstr "Säkerhetsprincip för innehåll"
 
 #: ../../source/features.rst:124
-#, fuzzy
 msgid ""
 "By default OnionShare helps secure your website by setting a strict `Content "
 "Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ "
@@ -389,20 +410,17 @@ msgid ""
 "web page."
 msgstr ""
 "Som standard hjälper OnionShare till att säkra din webbplats genom att "
-"ställa in en strikt `Content Security Police <https://en.wikipedia.org/wiki/"
-"Content_Security_Policy>`_i sidhuvudet. Detta förhindrar dock att innehåll "
-"från tredje part läses in på webbsidan."
+"ställa in en strikt `Säkerhetspolicy för innehåll <https://en.wikipedia.org/"
+"wiki/Content_Security_Policy>`_-rubrik. Detta förhindrar dock att innehåll "
+"från tredje part laddas inuti webbsidan."
 
 #: ../../source/features.rst:126
-#, fuzzy
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
 msgstr ""
-"Om du vill läsa in innehåll från webbplatser från tredje part, till exempel "
-"tillgångar eller JavaScript-bibliotek från CDN,\" markerar du rutan \"Skicka "
-"inte content security policy header (tillåter din webbplats att använda "
-"resurser från tredje part)\" innan du startar tjänsten."
+"Om du vill ladda innehåll från tredjepartswebbplatser, som resurser eller "
+"JavaScript-bibliotek från CDN, har du två alternativ:"
 
 #: ../../source/features.rst:128
 msgid ""
@@ -410,17 +428,20 @@ msgid ""
 "\"Don't send Content Security Policy header (allows your website to use "
 "third-party resources)\" box before starting the service."
 msgstr ""
+"Du kan inaktivera att skicka ett rubrik för innehållssäkerhetspolicyn genom "
+"att markera rutan \"Skicka inte rubriken för innehållssäkerhetspolicyn ("
+"tillåter att din webbplats använder tredjepartsresurser)\" innan du startar "
+"tjänsten."
 
 #: ../../source/features.rst:129
 msgid "You can send a custom Content Security Policy header."
-msgstr ""
+msgstr "Du kan skicka en anpassad rubrik för innehållssäkerhetspolicyn."
 
 #: ../../source/features.rst:132
 msgid "Tips for running a website service"
 msgstr "Tips för att köra en webbplatstjänst"
 
 #: ../../source/features.rst:134
-#, fuzzy
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not just "
 "to quickly show someone something), it's recommended you do it on a "
@@ -429,21 +450,20 @@ msgid ""
 "ref:`save_tabs`) so you can resume the website with the same address if you "
 "close OnionShare and re-open it later."
 msgstr ""
-"Om du vill vara värd för en långsiktig webbplats med OnionShare (vilket "
-"betyder inte något för att snabbt visa någon något), rekommenderas att du "
-"gör det på en separat, dedikerad dator som alltid är påslagen och ansluten "
-"till Internet, och inte på den du använder regelbundet. Spara fliken (se :"
-"ref:`save_tabs`) så att du kan återuppta webbplatsen med samma adress om du "
-"stänger OnionShare och öppnar den igen senare."
+"Om du vill ha en långsiktig webbplats med hjälp av OnionShare (inte bara för "
+"att snabbt visa någon något) rekommenderas det att du gör det på en separat, "
+"dedikerad dator som alltid är påslagen och ansluten till internet, och inte "
+"på den du använder regelbundet. Spara fliken (se :ref:`save_tabs`) så att du "
+"kan återuppta webbplatsen med samma adress om du stänger OnionShare och "
+"öppnar den igen senare."
 
 #: ../../source/features.rst:137
-#, fuzzy
 msgid ""
 "If your website is intended for the public, you should run it as a public "
 "service (see :ref:`turn_off_private_key`)."
 msgstr ""
 "Om din webbplats är avsedd för allmänheten bör du köra den som en offentlig "
-"tjänst (se :ref:`turn_off_passwords`)."
+"tjänst (se :ref:`turn_off_private_key`)."
 
 #: ../../source/features.rst:140
 msgid "Chat Anonymously"
@@ -459,17 +479,17 @@ msgstr ""
 "chattserver\"."
 
 #: ../../source/features.rst:146
-#, fuzzy
 msgid ""
 "After you start the server, copy the OnionShare address and private key and "
 "send them to the people you want in the anonymous chat room. If it's "
 "important to limit exactly who can join, use an encrypted messaging app to "
 "send out the OnionShare address and private key."
 msgstr ""
-"När du har startat servern kopierar du OnionShare-adressen och skickar den "
-"till de personer du vill ha i det anonyma chattrummet. Om det är viktigt att "
-"begränsa exakt vem som kan gå med, använd en krypterad meddelandeapp för att "
-"skicka ut OnionShare-adressen."
+"När du har startat servern kopierar du OnionShare-adressen och den privata "
+"nyckeln och skickar dem till de personer du vill ha i det anonyma "
+"chattrummet. Om det är viktigt att begränsa exakt vilka som kan gå med kan "
+"du använda en krypterad meddelandeapp för att skicka ut OnionShare-adressen "
+"och den privata nyckeln."
 
 #: ../../source/features.rst:151
 msgid ""
@@ -536,9 +556,16 @@ msgid ""
 "databases) they may have been saved to. OnionShare chat rooms don't store "
 "any messages anywhere, so the problem is reduced to a minimum."
 msgstr ""
+"Om du till exempel skickar ett meddelande till en Signal-grupp hamnar en "
+"kopia av ditt meddelande på varje enhet (smartphones och datorer om de har "
+"konfigurerat Signal Desktop) för varje medlem i gruppen. Även om "
+"försvinnande meddelanden är aktiverat är det svårt att bekräfta att alla "
+"kopior av meddelandena faktiskt tas bort från alla enheter och från andra "
+"platser (som aviseringsdatabaser) där de kan ha sparats. OnionShares "
+"chattrum lagrar inga meddelanden någonstans, så problemet reduceras till ett "
+"minimum."
 
 #: ../../source/features.rst:173
-#, fuzzy
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
@@ -546,11 +573,11 @@ msgid ""
 "journalist using a disposable email address, and then wait for the "
 "journalist to join the chat room, all without compromosing their anonymity."
 msgstr ""
-"OnionShare chattrum kan också vara användbara för personer som vill chatta "
+"OnionShare-chattrum kan också vara användbara för personer som vill chatta "
 "anonymt och säkert med någon utan att behöva skapa några konton. Till "
-"exempel kan en källa skicka en OnionShare-adress till en journalist med en "
-"engångs-e-postadress och sedan vänta på att journalisten går med i "
-"chattrummet, allt utan att riskera deras anonymitet."
+"exempel kan en källa skicka en OnionShare-adress till en journalist med "
+"hjälp av en engångs-e-postadress och sedan vänta på att journalisten ska gå "
+"med i chattrummet, allt utan att kompromissa med sin anonymitet."
 
 #: ../../source/features.rst:177
 msgid "How does the encryption work?"

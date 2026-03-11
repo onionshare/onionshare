@@ -3,36 +3,39 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-07 14:10+0000\n"
+"Last-Translator: Maryam Azad <hannahperez8@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.16-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/security.rst:2
 msgid "Security Design"
-msgstr ""
+msgstr "طرّاحی امنیتی"
 
 #: ../../source/security.rst:4
 msgid "Read :ref:`how_it_works` first to get a handle on how OnionShare works."
 msgstr ""
+"ابتدا :مرجع:`چگونه کار میکند` را بخوانید تا با نحوه کار OnionShare آشنا شوید."
 
 #: ../../source/security.rst:6
 msgid "Like all software, OnionShare may contain bugs or vulnerabilities."
 msgstr ""
+"مانند همه نرم افزارها، OnionShare ممکن است دارای باگ یا آسیب پذیری باشد."
 
 #: ../../source/security.rst:9
 msgid "What OnionShare protects against"
-msgstr ""
+msgstr "آنچه که OnionShare محافظت می‌کند"
 
 #: ../../source/security.rst:11
 msgid ""
@@ -43,6 +46,12 @@ msgid ""
 "for that too. This avoids the traditional model of having to trust the "
 "computers of others."
 msgstr ""
+"**اشخاص ثالث به هیچ یک از اتفاقاتی که در OnionShare می‌افتد دسترسی ندارند.** "
+"استفاده از OnionShare به معنای میزبانی مستقیم خدمات روی رایانه شماست. هنگام "
+"اشتراک‌گذاری فایل‌های خود با OnionShare، آنها روی هیچ سرور شخص ثالثی آپلود "
+"نمی‌شوند. اگر یک اتاق گفتگوی OnionShare ایجاد کنید، رایانه شما به عنوان سرور "
+"برای آن نیز عمل می‌کند. این امر از مدل سنتی اعتماد به رایانه‌های دیگران "
+"جلوگیری می‌کند."
 
 #: ../../source/security.rst:17
 msgid ""
@@ -54,6 +63,12 @@ msgid ""
 "onion service, the traffic is encrypted using the onion service's private "
 "key."
 msgstr ""
+"**استراق سمع‌کنندگان شبکه نمی‌توانند از هر اتفاقی که در OnionShare در حال "
+"انتقال است، جاسوسی کنند.** ارتباط بین سرویس Tor Onion و مرورگر Tor به صورت "
+"سرتاسری رمزگذاری شده است. این بدان معناست که مهاجمان شبکه نمی‌توانند چیزی جز "
+"ترافیک رمزگذاری شده Tor را استراق سمع کنند. حتی اگر یک استراق سمع‌کننده یک "
+"نود ملاقات مخرب باشد که برای اتصال مرورگر Tor به سرویس onion OnionShare از آن "
+"استفاده شود، ترافیک با استفاده از کلید خصوصی سرویس onion رمزگذاری می‌شود."
 
 #: ../../source/security.rst:23
 msgid ""
@@ -63,6 +78,11 @@ msgid ""
 "the Tor Browser users and eavesdroppers can't learn the identity of the "
 "OnionShare user."
 msgstr ""
+"**ناشناس بودن کاربران OnionShare توسط Tor محافظت می‌شود.** OnionShare و "
+"مرورگر Tor از ناشناس بودن کاربران محافظت می‌کنند. تا زمانی که کاربر "
+"OnionShare به طور ناشناس آدرس OnionShare را با کاربران مرورگر Tor در میان "
+"بگذارد، کاربران مرورگر Tor و استراق سمع‌کنندگان نمی‌توانند هویت کاربر "
+"OnionShare را تشخیص دهند."
 
 #: ../../source/security.rst:28
 msgid ""
@@ -73,10 +93,16 @@ msgid ""
 "client authentication must be guessed (unless the service is already made "
 "public by turning off the private key -- see :ref:`turn_off_private_key`)."
 msgstr ""
+"**اگر مهاجمی از سرویس onion مطلع شود، همچنان نمی‌تواند به چیزی دسترسی پیدا "
+"کند.** حملات قبلی علیه شبکه Tor برای شمارش سرویس‌های onion به مهاجمان اجازه "
+"می‌داد تا آدرس‌های خصوصی ``.onion`` را کشف کنند. برای دسترسی به یک سرویس "
+"OnionShare از آدرس آن، کلید خصوصی مورد استفاده برای هویت سنجی کلاینت باید حدس "
+"زده شود (مگر اینکه سرویس با خاموش کردن کلید خصوصی از قبل عمومی شده باشد -- "
+"به :ref:`turn_off_private_key` مراجعه کنید)."
 
 #: ../../source/security.rst:33
 msgid "What OnionShare doesn't protect against"
-msgstr ""
+msgstr "آنچه OnionShare در برابر آن محافظت نمی‌کند"
 
 #: ../../source/security.rst:35
 msgid ""
@@ -90,6 +116,15 @@ msgid ""
 "messages enabled), encrypted e-mail, or in person. This isn't necessary when "
 "using OnionShare for something that isn't secret."
 msgstr ""
+"**ممکن است ارسال آدرس OnionShare و کلید خصوصی امن نباشد.** ارسال آدرس "
+"OnionShare به افراد، مسئولیت کاربر OnionShare است. اگر به صورت ناامن ارسال "
+"شود (مانند یک پیام ایمیل که توسط یک مهاجم رصد می‌شود)، یک استراق سمع کننده "
+"می‌تواند متوجه شود که OnionShare در حال استفاده است. استراق سمع کنندگان "
+"می‌توانند با بارگیری آدرس‌ها و/یا گم کردن کلید در مرورگر Tor به سرویس‌هایی که "
+"هنوز فعال هستند دسترسی پیدا کنند. با ارسال ایمن آدرس، از طریق پیام متنی "
+"رمزگذاری شده (احتمالاً با فعال کردن پیام‌های ناپدید شونده)، ایمیل رمزگذاری شده "
+"یا حضوری، از این امر جلوگیری کنید. این کار هنگام استفاده از OnionShare برای "
+"چیزی که محرمانه نیست، ضروری نیست."
 
 #: ../../source/security.rst:42
 msgid ""

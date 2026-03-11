@@ -3,38 +3,41 @@
 # This file is distributed under the same license as the OnionShare package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-07 14:10+0000\n"
+"Last-Translator: Maryam Azad <hannahperez8@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.16-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/help.rst:2
 msgid "Getting Help"
-msgstr ""
+msgstr "دریافت کمک"
 
 #: ../../source/help.rst:5
 msgid "Read This Website"
-msgstr ""
+msgstr "این وبسایت را بخوانید"
 
 #: ../../source/help.rst:7
 msgid ""
 "You will find instructions on how to use OnionShare. Look through all of the "
 "sections first to see if anything answers your questions."
 msgstr ""
+"شما دستورالعمل‌هایی در مورد نحوه استفاده از OnionShare پیدا خواهید کرد. ابتدا "
+"تمام بخش‌ها را مرور کنید تا ببینید آیا چیزی به سوالات شما پاسخ می‌دهد یا خیر."
 
 #: ../../source/help.rst:10
 msgid "Check the GitHub Issues"
-msgstr ""
+msgstr "مشکلات GitHub را بررسی کنید"
 
 #: ../../source/help.rst:12
 msgid ""
@@ -43,10 +46,13 @@ msgid ""
 "encountered the same problem and either raised it with the developers, or "
 "maybe even posted a solution."
 msgstr ""
+"اگر در وب‌سایت نیست، لطفاً 'مشکلات GitHub در <https://github.com/onionshare/"
+"onionshare/issues>' را بررسی کنید. ممکن است شخص دیگری با همین مشکل مواجه شده "
+"باشد و آن را با توسعه‌دهندگان مطرح کرده باشد، یا حتی راه‌حلی ارائه داده باشد."
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
-msgstr ""
+msgstr "خودتان یک مشکل را ارسال کنید"
 
 #: ../../source/help.rst:17
 msgid ""
@@ -55,13 +61,19 @@ msgid ""
 "onionshare/issues/new>`_. This requires `creating a GitHub account <https://"
 "help.github.com/articles/signing-up-for-a-new-github-account/>`_."
 msgstr ""
+"اگر نمی‌توانید راه‌حلی پیدا کنید، یا می‌خواهید سؤالی بپرسید یا یک ویژگی جدید "
+"پیشنهاد دهید، لطفاً `مشکل خود را ارسال کنید <https://github.com/onionshare/"
+"onionshare/issues/new>`_. این کار مستلزم `ایجاد یک حساب گیت هاب <https://"
+"help.github.com/articles/signing-up-for-a-new-github-account/>_ است."
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"
-msgstr ""
+msgstr "به تیم Keybase ما بپیوندید"
 
 #: ../../source/help.rst:22
 msgid ""
 "See :ref:`collaborating` on how to join the Keybase team used to discuss the "
 "project."
 msgstr ""
+"برای اطلاع از نحوه‌ی پیوستن به تیم Keybase که برای بحث در مورد پروژه استفاده "
+"می شود، به آدرس :ref:`collaborating` مراجعه کنید."

@@ -61,5 +61,7 @@
     "gui_status_indicator_chat_working": "Začetek …",
     "gui_status_indicator_receive_stopped": "Ustavljeno",
     "gui_status_indicator_share_stopped": "Ustavljeno",
-    "gui_status_indicator_chat_stopped": "Ustavljeno"
+    "gui_status_indicator_chat_stopped": "Ustavljeno",
+    "gui_autoconnect_configure": "Omrežne nastavitve",
+    "mode_settings_advanced_toggle_show": "Pokažite napredne nastavitve"
 }

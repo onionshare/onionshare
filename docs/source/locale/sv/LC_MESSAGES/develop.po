@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2023-06-06 17:06+0000\n"
-"Last-Translator: emma peel <emmapeel@torproject.org>\n"
+"PO-Revision-Date: 2025-08-18 08:02+0000\n"
+"Last-Translator: Nick Wick <NickWick@users.noreply.hosted.weblate.org>\n"
 "Language-Team: sv <LL@li.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18-dev\n"
+"X-Generator: Weblate 5.13\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/develop.rst:2
@@ -101,6 +101,11 @@ msgid ""
 "command-line version, and the ``desktop/README.md`` file to learn how to set "
 "up your development environment for the graphical version."
 msgstr ""
+"OnionShare är utvecklat i Python. För att komma igång, klona Git-arkivet på "
+"https://github.com/onionshare/onionshare/ och läs sedan filen ``cli/"
+"README.md`` för att lära dig hur du konfigurerar din utvecklingsmiljö för "
+"kommandoradsversionen, och filen ``desktop/README.md`` för att lära dig hur "
+"du konfigurerar din utvecklingsmiljö för den grafiska versionen."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -168,15 +173,14 @@ msgstr ""
 "\"--local-only\". Till exempel::"
 
 #: ../../source/develop.rst:165
-#, fuzzy
 msgid ""
 "In this case, you load the URL ``http://127.0.0.1:17641`` in a normal web-"
 "browser like Firefox, instead of using the Tor Browser. The private key is "
 "not actually needed in local-only mode, so you can ignore it."
 msgstr ""
-"I det här fallet laddar du url:en ''http://onionshare:train-"
-"system@127.0.0.1:17635'' i en vanlig webbläsare som Firefox, istället för "
-"att använda Tor Browser."
+"I det här fallet laddar du URL:en ``http://127.0.0.1:17641`` i en vanlig "
+"webbläsare som Firefox, istället för att använda Tor Browser. Den privata "
+"nyckeln behövs egentligen inte i lokalt läge, så du kan ignorera den."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"

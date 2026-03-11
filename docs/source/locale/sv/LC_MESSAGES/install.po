@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2024-02-12 17:11+0000\n"
-"Last-Translator: emma peel <emma.peel@riseup.net>\n"
+"PO-Revision-Date: 2025-08-18 08:02+0000\n"
+"Last-Translator: Nick Wick <NickWick@users.noreply.hosted.weblate.org>\n"
 "Language-Team: sv <LL@li.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.13\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/install.rst:2
@@ -37,49 +37,51 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Mobile"
-msgstr ""
+msgstr "Mobil"
 
 #: ../../source/install.rst:14
 msgid "You can download OnionShare for Mobile from the follow links"
-msgstr ""
+msgstr "Du kan hämta OnionShare för mobilen från följande länkar"
 
 #: ../../source/install.rst:16
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
 "Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
 "android"
 msgstr ""
+"Google Play: https://play.google.com/store/apps/"
+"details?id=org.onionshare.android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
-msgstr ""
+msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
 #: ../../source/install.rst:20
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #: ../../source/install.rst:21
 msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
-msgstr ""
+msgstr "Apples App-butik: https://apps.apple.com/app/onionshare/id1601890129"
 
 #: ../../source/install.rst:22
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"Direkt IPA-hämtning: https://github.com/onionshare/onionshare-ios/releases"
 
 #: ../../source/install.rst:23
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "Testflight: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:29
-#, fuzzy
 msgid ""
 "There are various ways to install OnionShare for Linux, but the recommended "
 "way is to use either the `Flatpak <https://flatpak.org/>`_ or the `Snap "
@@ -87,20 +89,20 @@ msgid ""
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
 "Det finns olika sätt att installera OnionShare för Linux, men det "
-"rekommenderade sättet är att använda antingen \"Flatpak <https://flatpak.org/"
-">\"_ eller \"Snap <https://snapcraft.io/>\"_-paketet. Flatpak och Snap ser "
-"till att du alltid använder den senaste versionen och kör OnionShare i en "
-"sandlåda."
+"rekommenderade sättet är att använda antingen `Flatpak <https://flatpak.org/"
+">`_ eller `Snap <https://snapcraft.io/>`_ paketet. Flatpak och Snapcraft "
+"säkerställer att du alltid använder den senaste versionen och kör OnionShare "
+"inuti en sandlåda."
 
 #: ../../source/install.rst:32
-#, fuzzy
 msgid ""
 "Snapcraft support is built-in to Ubuntu and Fedora comes with Flatpak "
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
-"Snap-stöd är inbyggt i Ubuntu och Fedora kommer med Flatpak-stöd, vilket du "
-"använder är upp till dig. Båda fungerar i alla Linux-distributioner."
+"Snapcraft-stöd är inbyggt i Ubuntu och Fedora har stöd för Flatpak, men "
+"vilket du använder är upp till dig. Båda fungerar i alla Linux-"
+"distributioner."
 
 #: ../../source/install.rst:34
 msgid ""
@@ -111,9 +113,9 @@ msgstr ""
 "onionshare.OnionShare"
 
 #: ../../source/install.rst:36
-#, fuzzy
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
-msgstr "**Installera OnionShare som Snap**: https://snapcraft.io/onionshare"
+msgstr ""
+"**Installera OnionShare med Snapcraft**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:38
 msgid ""
@@ -124,9 +126,8 @@ msgstr ""
 "snap`` från https://onionshare.org/dist/ om du föredrar det."
 
 #: ../../source/install.rst:41
-#, fuzzy
 msgid "Manual Flatpak Installation"
-msgstr "Installation"
+msgstr "Manuell Flatpak-installation"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -134,11 +135,16 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
+"Om du vill installera OnionShare manuellt med Flatpak med hjälp av det PGP-"
+"signerade `single-file bundle <https://docs.flatpak.org/en/latest/single-"
+"file-bundles.html>`_, kan du göra det så här:"
 
 #: ../../source/install.rst:45
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
+"Installera Flatpak genom att följa instruktionerna på https://flatpak.org/"
+"setup/."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -147,18 +153,26 @@ msgid ""
 "won't be downloading OnionShare from Flathub, OnionShare depends on some "
 "packages that are only available there."
 msgstr ""
+"Lägg till Flathub-arkivet genom att köra ``flatpak remote-add --if-not-"
+"exists flathub https://flathub.org/repo/flathub.flatpakrepo``. Även om du "
+"inte kommer att ladda ner OnionShare från Flathub, är OnionShare beroende av "
+"vissa paket som bara är tillgängliga där."
 
 #: ../../source/install.rst:47
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
+"Gå till https://onionshare.org/dist/, välj den senaste versionen av "
+"OnionShare och hämta filerna ``.flatpak`` och ``.flatpak.asc``."
 
 #: ../../source/install.rst:48
 msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Verifiera PGP-signaturen för ``.flatpak``-filen. Se :ref:`verifying_sigs` "
+"för mer information."
 
 #: ../../source/install.rst:49
 msgid ""
@@ -166,38 +180,48 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
+"Installera ``.flatpak``-filen genom att köra ``flatpak install OnionShare-"
+"VERSION.flatpak``. Ersätt ``VERSION`` med versionsnumret på filen du hämtade."
 
 #: ../../source/install.rst:51
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
-msgstr ""
+msgstr "Du kan köra OnionShare med: `flatpak run org.onionshare.OnionShare`."
 
 #: ../../source/install.rst:54
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "Manuell Snapcraft-installation"
 
 #: ../../source/install.rst:56
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
+"Om du vill installera OnionShare manuellt med Snapcraft med hjälp av det PGP-"
+"signerade Snapcraft-paketet kan du göra det så här:"
 
 #: ../../source/install.rst:58
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
+"Installera Snapcraft genom att följa instruktionerna på https://snapcraft.io/"
+"docs/installing-snapd."
 
 #: ../../source/install.rst:59
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
+"Gå till https://onionshare.org/dist/, välj den senaste versionen av "
+"OnionShare och hämta filerna ``.snap`` och ``.snap.asc``."
 
 #: ../../source/install.rst:60
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Verifiera PGP-signaturen för ``.snap``-filen. Se :ref:`verifying_sigs` för "
+"mer information."
 
 #: ../../source/install.rst:61
 msgid ""
@@ -207,24 +231,32 @@ msgid ""
 "package is not signed by the Snapcraft store, however you did verify its PGP "
 "signature, so you know it's legitimate."
 msgstr ""
+"Installera ``.snap``-filen genom att köra ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Ersätt ``VERSION`` med versionsnumret på "
+"filen du hämtade. Observera att du måste använda `--dangerous` eftersom "
+"paketet inte är signerat av Snapcraft-butiken, men du verifierade dess PGP-"
+"signatur, så du vet att den är legitim."
 
 #: ../../source/install.rst:63
 msgid "You can run OnionShare with: `snap run onionshare`."
-msgstr ""
+msgstr "Du kan köra OnionShare med: `snap run onionshare`."
 
 #: ../../source/install.rst:68
 msgid "Command-line only"
-msgstr ""
+msgstr "Endast kommandorad"
 
 #: ../../source/install.rst:70
 msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
+"Du kan installera kommandoradsversionen av OnionShare på vilket "
+"operativsystem som helst med hjälp av Pythons pakethanterare ``pip``. "
+":ref:`cli` har mer information."
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #: ../../source/install.rst:77
 msgid ""
@@ -234,6 +266,11 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
+"Även om det inte officiellt utvecklats för denna plattform, kan OnionShare "
+"också installeras på `FreeBSD <https://freebsd.org/>`_. Det är tillgängligt "
+"via dess portsamling eller som ett förbyggt paket. Om du väljer att "
+"installera och använda OnionShare på ett FreeBSD-operativsystem, var vänlig "
+"medveten om att det **INTE** officiellt stöds av OnionShare-projektet."
 
 #: ../../source/install.rst:79
 msgid ""
@@ -244,19 +281,23 @@ msgid ""
 "you wish to check changes related to this platform, please refer to the "
 "following resources:"
 msgstr ""
+"Även om de inte erbjuds och officiellt underhålls av OnionShare-utvecklarna, "
+"hämtar och verifierar FreeBSD-paketen och porteringarna källkoden från det "
+"officiella OnionShare-arkivet (eller dess officiella utgåvor från `PyPI "
+"<https://pypi.org/project/onionshare-cli/>`_). Om du vill kontrollera "
+"ändringar relaterade till denna plattform, se följande resurser:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
-msgstr ""
+msgstr "https://cgit.freebsd.org/ports/log/www/onionshare"
 
 #: ../../source/install.rst:82
 msgid "https://www.freshports.org/www/onionshare"
-msgstr ""
+msgstr "https://www.freshports.org/www/onionshare"
 
 #: ../../source/install.rst:85
-#, fuzzy
 msgid "Manual pkg Installation"
-msgstr "Installation"
+msgstr "Manuell pkg-installation"
 
 #: ../../source/install.rst:87
 msgid ""
@@ -264,6 +305,9 @@ msgid ""
 "``pyXY`` specifying the version of Python the package was built for. So, in "
 "order to install OnionShare for Python 3.9, use::"
 msgstr ""
+"För att installera binärpaketet, använd ``pkg install pyXY-onionshare``, där "
+"``pyXY`` anger vilken version av Python som paketet byggdes för. Så, för att "
+"installera OnionShare för Python 3.9, använd::"
 
 #: ../../source/install.rst:91
 msgid ""
@@ -271,6 +315,9 @@ msgid ""
 "built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
 "want to install that version."
 msgstr ""
+"Det finns också en version **endast kommandorad** av OnionShare tillgänglig "
+"som förbyggt paket. Ersätt ``py39-onionshare`` med ``py39-onionshare-cli`` "
+"om du vill installera den versionen."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -278,11 +325,13 @@ msgid ""
 "please refer to its `official Handbook section about pkg <https://docs."
 "freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
+"För ytterligare information och detaljer om FreeBSDs förbyggda paket, se "
+"dess `officiella handbokavsnitt om paket <https://docs.freebsd.org/en/books/"
+"handbook/ports/#pkgng-intro>`_."
 
 #: ../../source/install.rst:96
-#, fuzzy
 msgid "Manual port Installation"
-msgstr "Installation"
+msgstr "Manuell portinstallation"
 
 #: ../../source/install.rst:98
 msgid ""
@@ -290,6 +339,9 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
+"För att installera FreeBSD-porten, ändra katalogen till `portsamling "
+"<https://freebsd.org/ports/>`_ som du måste ha checkat ut tidigare och kör "
+"följande::"
 
 #: ../../source/install.rst:102
 msgid ""
@@ -297,6 +349,9 @@ msgid ""
 "only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
 "cli`` if you want to install that version."
 msgstr ""
+"Portsamlingen erbjuder också en dedikerad port för **kommandoradsversionen** "
+"av OnionShare. Ersätt ``www/onionshare`` med ``www/onionshare-cli`` om du "
+"vill installera den versionen."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -304,6 +359,9 @@ msgid ""
 "please refer to its `official Handbook section about ports <https://docs."
 "freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
+"För ytterligare information och detaljer om FreeBSD-portsamlingen, vänligen "
+"se dess `officiella handbokavsnitt om portar <https://docs.freebsd.org/en/"
+"books/handbook/ports/#ports-using>`_."
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
@@ -333,37 +391,41 @@ msgid ""
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
 msgstr ""
+"Paketen signeras av den kärnutvecklare som ansvarar för den specifika "
+"utgåvan. Här är GPG-nyckelinformationen för var och en av OnionShares "
+"kärnutvecklare:"
 
 #: ../../source/install.rst:120
 msgid "Micah Lee:"
-msgstr ""
+msgstr "Micah Lee:"
 
 #: ../../source/install.rst:121
 msgid ""
 "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 msgstr ""
+"PGP-fingeravtryck för offentlig nyckel "
+"``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
-#, fuzzy
 msgid ""
 "You can download Micah's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Paketen är signerade av Micah Lee, kärnutvecklaren, med hjälp av sin "
-"offentliga PGP-nyckel med fingeravtryck "
-"''927F419D7EC82C2F149C1BD1403C2657CD994F73''. Du kan ladda ner Micahs nyckel "
-"'från keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>'_."
+"Du kan hämta Micahs nyckel `från keys.openpgp.org nyckelserver <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
-msgstr ""
+msgstr "Saptak Sengupta:"
 
 #: ../../source/install.rst:125
 msgid ""
 "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 msgstr ""
+"PGP-fingeravtryck för offentlig nyckel "
+"``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
 msgid ""
@@ -371,28 +433,30 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
+"Du kan hämta Saptaks nyckel `från keys.openpgp.org nyckelserver <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
 msgid ""
 "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 msgstr ""
+"PGP-fingeravtryck för offentlig nyckel "
+"``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 
 #: ../../source/install.rst:130
-#, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
-"Paketen är signerade av Micah Lee, kärnutvecklaren, med hjälp av sin "
-"offentliga PGP-nyckel med fingeravtryck "
-"''927F419D7EC82C2F149C1BD1403C2657CD994F73''. Du kan ladda ner Micahs nyckel "
-"'från keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>'_."
+"Du kan ladda ner Miguels nyckel `från keys.openpgp.org nyckelserver <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 
 #: ../../source/install.rst:132
 msgid ""
@@ -409,48 +473,46 @@ msgid "Signatures"
 msgstr "Signaturer"
 
 #: ../../source/install.rst:137
-#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
 "`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
-"Du kan hitta signaturerna (som ''.asc'-filer), liksom Windows, macOS, "
-"Flatpak, Snap och källpaket, på https://onionshare.org/dist/ i mapparna som "
-"heter samma som varje version av OnionShare. Du kan också hitta dem på sidan "
-"'GitHub Releases <https://github.com/micahflee/onionshare/releases>'_."
+"Du hittar signaturerna (som ``.asc``-filer), såväl som Windows-, macOS-, "
+"Flatpak-, Snap- och källkodspaket, på https://onionshare.org/dist/ i "
+"mapparna som namnges för varje version av OnionShare. Du hittar dem också på "
+"sidan `GitHub Releases <https://github.com/onionshare/onionshare/releases>`_."
 
 #: ../../source/install.rst:141
 msgid "Verifying"
 msgstr "Verifierar"
 
 #: ../../source/install.rst:143
-#, fuzzy
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
-"När du har importerat Micahs offentliga nyckel till din GnuPG-nyckelring, "
-"laddat ner binärfilen och \"'.asc\"-signaturen kan du verifiera binärfilen "
-"för macOS i en terminal så här::"
+"När du har importerat utvecklarnas publika nycklar till din GnuPG-"
+"nyckelring, hämtat binärfilen och ``.asc``-signaturen, kan du verifiera "
+"binärfilen i en terminal så här:"
 
 #: ../../source/install.rst:145
 msgid "For Windows::"
-msgstr ""
+msgstr "För Windows::"
 
 #: ../../source/install.rst:149
 msgid "For macOS::"
-msgstr ""
+msgstr "För macOS::"
 
 #: ../../source/install.rst:153
 msgid "For Linux::"
-msgstr ""
+msgstr "För Linux::"
 
 #: ../../source/install.rst:159
 msgid "and for the source file::"
-msgstr ""
+msgstr "och för källfilen::"
 
 #: ../../source/install.rst:163
 msgid "The expected output looks like this::"
@@ -462,6 +524,8 @@ msgid ""
 "integrity of the file (malicious or otherwise), and you should not install "
 "the package."
 msgstr ""
+"Om du inte ser ``Bra signatur från`` kan det vara ett problem med filens "
+"integritet (skadlig eller annan), och du bör inte installera paketet."
 
 #: ../../source/install.rst:175
 msgid ""
@@ -469,6 +533,9 @@ msgid ""
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
+"``VARNINGEN:`` som visas ovan är inte ett problem med paketet, det betyder "
+"bara att du inte har definierat en nivå av \"tillit\" för Micahs "
+"(huvudutvecklaren) PGP-nyckel."
 
 #: ../../source/install.rst:177
 msgid ""
