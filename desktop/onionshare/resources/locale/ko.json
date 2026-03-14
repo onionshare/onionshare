@@ -108,5 +108,6 @@
     "gui_settings_bridge_use_checkbox": "브리지 사용",
     "gui_status_indicator_receive_stopped": "중지됨",
     "gui_status_indicator_share_stopped": "중지됨",
-    "gui_status_indicator_chat_stopped": "중지됨"
+    "gui_status_indicator_chat_stopped": "중지됨",
+    "gui_new_tab_tooltip": "새 탭 열기"
 }
