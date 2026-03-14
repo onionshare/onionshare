@@ -498,6 +498,7 @@ class GuiCommon:
                 obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy")
                 snowflake_file_path = os.path.join(base_path, "snowflake-client")
                 meek_client_file_path = os.path.join(base_path, "meek-client")
+                webtunnel_file_path = os.path.join(base_path, "webtunnel-client")
             else:
                 # Fallback to looking in the path
                 self.common.log("GuiCommon", "get_tor_paths", "using paths from PATH")
@@ -505,6 +506,7 @@ class GuiCommon:
                 obfs4proxy_file_path = shutil.which("obfs4proxy")
                 snowflake_file_path = shutil.which("snowflake-client")
                 meek_client_file_path = shutil.which("meek-client")
+                webtunnel_file_path = shutil.which("webtunnel-client")
                 prefix = os.path.dirname(os.path.dirname(tor_path))
                 tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
                 tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
@@ -515,6 +517,7 @@ class GuiCommon:
             obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy.exe")
             snowflake_file_path = os.path.join(base_path, "snowflake-client.exe")
             meek_client_file_path = os.path.join(base_path, "meek-client.exe")
+            webtunnel_file_path = os.path.join(base_path, "webtunnel-client.exe")
             tor_geo_ip_file_path = os.path.join(base_path, "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
         elif self.common.platform == "Darwin":
@@ -523,6 +526,7 @@ class GuiCommon:
             obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy")
             snowflake_file_path = os.path.join(base_path, "snowflake-client")
             meek_client_file_path = os.path.join(base_path, "meek-client")
+            webtunnel_file_path = os.path.join(base_path, "webtunnel-client")
             tor_geo_ip_file_path = os.path.join(base_path, "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
         elif self.common.platform == "BSD":
@@ -532,6 +536,7 @@ class GuiCommon:
             obfs4proxy_file_path = "/usr/local/bin/obfs4proxy"
             meek_client_file_path = "/usr/local/bin/meek-client"
             snowflake_file_path = "/usr/local/bin/snowflake-client"
+            webtunnel_file_path = "/usr/local/bin/webtunnel-client"
 
         return (
             tor_path,
@@ -540,6 +545,7 @@ class GuiCommon:
             obfs4proxy_file_path,
             snowflake_file_path,
             meek_client_file_path,
+            webtunnel_file_path,
         )
 
     @staticmethod

@@ -159,6 +159,7 @@ class Onion(object):
             self.obfs4proxy_file_path,
             self.snowflake_file_path,
             self.meek_client_file_path,
+            self.webtunnel_file_path,
         ) = get_tor_paths()
 
         # The tor process
@@ -316,6 +317,9 @@ class Onion(object):
             torrc_template = torrc_template.replace(
                 "{{snowflake_path}}", str(self.snowflake_file_path)
             )
+            torrc_template = torrc_template.replace(
+                "{{webtunnel_path}}", str(self.webtunnel_file_path)
+            )
 
             with open(self.tor_torrc, "w") as f:
                 self.common.log("Onion", "connect", "Writing torrc template file")
@@ -370,6 +374,19 @@ class Onion(object):
                                     )
                                 ) as o:
                                     f.write(o.read())
+                            elif builtin_bridge_type == "webtunnel":
+                                # WebTunnel bridges are not hardcoded; they are fetched
+                                # from the Tor Moat API and cached in settings after the
+                                # first successful connection.  If no bridges are cached
+                                # yet, log a warning — the user should use the Moat
+                                # option or paste custom bridges to obtain them first.
+                                self.common.log(
+                                    "Onion",
+                                    "connect",
+                                    "No cached WebTunnel bridges found. "
+                                    "Use the Moat option or paste custom WebTunnel "
+                                    "bridge lines to connect with this transport.",
+                                )
                             self.common.log(
                                 "Onion",
                                 "connect",

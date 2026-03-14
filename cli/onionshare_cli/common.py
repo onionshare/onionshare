@@ -326,6 +326,7 @@ class Common:
             obfs4proxy_file_path = shutil.which("obfs4proxy")
             snowflake_file_path = shutil.which("snowflake-client")
             meek_client_file_path = shutil.which("meek-client")
+            webtunnel_file_path = shutil.which("webtunnel-client")
             prefix = os.path.dirname(os.path.dirname(tor_path))
             tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
             tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
@@ -352,6 +353,7 @@ class Common:
             obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy.exe")
             snowflake_file_path = os.path.join(base_path, "snowflake-client.exe")
             meek_client_file_path = os.path.join(base_path, "meek-client.exe")
+            webtunnel_file_path = os.path.join(base_path, "webtunnel-client.exe")
             tor_geo_ip_file_path = os.path.join(base_path, "geoip")
             tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
 
@@ -364,6 +366,7 @@ class Common:
                 obfs4proxy_file_path = os.path.join(base_path, "obfs4proxy")
                 snowflake_file_path = os.path.join(base_path, "snowflake-client")
                 meek_client_file_path = os.path.join(base_path, "meek-client")
+                webtunnel_file_path = os.path.join(base_path, "webtunnel-client")
                 tor_geo_ip_file_path = os.path.join(base_path, "geoip")
                 tor_geo_ipv6_file_path = os.path.join(base_path, "geoip6")
             else:
@@ -375,6 +378,7 @@ class Common:
                 obfs4proxy_file_path = shutil.which("obfs4proxy")
                 snowflake_file_path = shutil.which("snowflake-client")
                 meek_client_file_path = shutil.which("meek-client")
+                webtunnel_file_path = shutil.which("webtunnel-client")
                 prefix = os.path.dirname(os.path.dirname(tor_path))
                 tor_geo_ip_file_path = os.path.join(prefix, "share/tor/geoip")
                 tor_geo_ipv6_file_path = os.path.join(prefix, "share/tor/geoip6")
@@ -386,6 +390,7 @@ class Common:
             obfs4proxy_file_path = "/usr/local/bin/obfs4proxy"
             snowflake_file_path = "/usr/local/bin/snowflake-client"
             meek_client_file_path = "/usr/local/bin/meek-client"
+            webtunnel_file_path = "/usr/local/bin/webtunnel-client"
 
         return (
             tor_path,
@@ -394,6 +399,7 @@ class Common:
             obfs4proxy_file_path,
             snowflake_file_path,
             meek_client_file_path,
+            webtunnel_file_path,
         )
 
     def build_data_dir(self):
@@ -496,11 +502,16 @@ class Common:
                 snowflake_pattern = re.compile(
                     r"(snowflake)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Z]+)"
                 )
+                # WebTunnel bridge lines: "webtunnel <IP>:<port> <fingerprint> url=https://..."
+                webtunnel_pattern = re.compile(
+                    r"(webtunnel)(\s)+([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+)(\s)+([0-9A-Fa-f]+)(\s)+url=(.+)"
+                )
                 if (
                     ipv4_pattern.match(bridge)
                     or ipv6_pattern.match(bridge)
                     or meek_lite_pattern.match(bridge)
                     or snowflake_pattern.match(bridge)
+                    or webtunnel_pattern.match(bridge)
                 ):
                     valid_bridges.append(bridge)
         if valid_bridges:
