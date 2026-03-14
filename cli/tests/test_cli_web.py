@@ -139,6 +139,24 @@ class TestWeb:
             res.get_data()
             assert res.status_code == 200
 
+    def test_receive_mode_page_has_upload_ui(self, temp_dir, common_obj):
+        """
+        The receive index page must include the #uploads container and the
+        receive.js script reference. The JS upload-progress UX (including the
+        indeterminate progress bar and the Tor-traversal warning added in
+        issue #1876) is appended into #uploads at runtime; if either element
+        is missing the warning will silently never appear.
+        """
+        web = web_obj(temp_dir, common_obj, "receive")
+        with web.app.test_client() as c:
+            res = c.get("/")
+            html = res.get_data(as_text=True)
+            assert res.status_code == 200
+            # Container where JS appends upload-progress divs
+            assert 'id="uploads"' in html
+            # Script that drives the upload progress UX
+            assert "receive.js" in html
+
     def test_receive_mode_webhook(self, temp_dir, common_obj):
         global webhook_url, webhook_data
         webhook_url = None
