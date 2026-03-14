@@ -89,6 +89,7 @@ class TorSettingsTab(QtWidgets.QWidget):
             self.obfs4proxy_file_path,
             self.snowflake_file_path,
             self.meek_client_file_path,
+            self.webtunnel_file_path,
         ) = self.common.gui.get_tor_paths()
 
         bridges_label = QtWidgets.QLabel(strings._("gui_settings_tor_bridges_label"))
@@ -115,6 +116,8 @@ class TorSettingsTab(QtWidgets.QWidget):
             self.bridge_builtin_dropdown.addItem("meek-azure")
         if self.snowflake_file_path and os.path.isfile(self.snowflake_file_path):
             self.bridge_builtin_dropdown.addItem("snowflake")
+        if self.webtunnel_file_path and os.path.isfile(self.webtunnel_file_path):
+            self.bridge_builtin_dropdown.addItem("webtunnel")
 
         # Request a bridge from torproject.org (moat)
         self.bridge_moat_radio = QtWidgets.QRadioButton(
@@ -474,6 +477,8 @@ class TorSettingsTab(QtWidgets.QWidget):
                     self.bridge_builtin_dropdown.setCurrentText("obfs4")
                 elif bridges_builtin_pt == "meek-azure":
                     self.bridge_builtin_dropdown.setCurrentText("meek-azure")
+                elif bridges_builtin_pt == "webtunnel":
+                    self.bridge_builtin_dropdown.setCurrentText("webtunnel")
                 else:
                     self.bridge_builtin_dropdown.setCurrentText("snowflake")
 
