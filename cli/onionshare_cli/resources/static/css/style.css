@@ -369,6 +369,13 @@ div#uploads .upload progress {
   height: 20px;
 }
 
+div#uploads .upload .upload-warning {
+  color: #c97000;
+  font-size: 0.85em;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
 ul.flashes {
   list-style: none;
   margin: 0;
