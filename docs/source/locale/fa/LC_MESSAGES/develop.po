@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2026-02-07 14:10+0000\n"
+"PO-Revision-Date: 2026-03-24 12:09+0000\n"
 "Last-Translator: Maryam Azad <hannahperez8@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/develop.rst:2
@@ -132,12 +132,19 @@ msgid ""
 "initialized, when events occur (like buttons clicked, settings saved or "
 "reloaded), and other debug info. For example::"
 msgstr ""
+"هنگام توسعه، اجرا کردن OnionShare از طریق ترمینال و اضافه کردن پرچم ``--"
+"verbose`` (یا``-v``) به دستور، راحت است. این کار پیام‌های مفید زیادی را در "
+"ترمینال چاپ می‌کند، مانند زمانی که برخی موارد خاص شروع میشوند، زمانی که "
+"رویدادها اتفاق میافتد (مانند کلیک شدن روی دکمه‌ها، ذخیره یا بارگذاری مجدد "
+"تنظیمات) و سایر اطلاعات اشکال‌زدایی. به عنوان مثال::"
 
 #: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
 msgstr ""
+"شما می‌توانید پیام‌های اشکال‌زدایی خودتان را با اجرای متد ``Common.log`` از "
+"``onionshare/common.py`` اضافه کنید. برای مثال:"
 
 #: ../../source/develop.rst:121
 msgid ""
@@ -145,10 +152,12 @@ msgid ""
 "OnionShare, or the value of certain variables before and after they are "
 "manipulated."
 msgstr ""
+"این می‌تواند هنگام یادگیری زنجیره رویدادهایی که هنگام استفاده از OnionShare "
+"رخ می‌دهد یا مقدار متغیرهای خاص قبل و بعد از دستکاری آنها مفید باشد."
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "فقط محلی"
 
 #: ../../source/develop.rst:126
 msgid ""
@@ -156,6 +165,9 @@ msgid ""
 "altogether during development. You can do this with the ``--local-only`` "
 "flag. For example::"
 msgstr ""
+"سرعت Tor کند است، و اغلب راحت‌تر است که در طول توسعه، از شروع سرویس‌های onion "
+"صرف نظر کنید. می‌توانید این کار را با پرچم ``--local-only`` انجام دهید. به "
+"عنوان مثال::"
 
 #: ../../source/develop.rst:165
 msgid ""
@@ -163,10 +175,14 @@ msgid ""
 "browser like Firefox, instead of using the Tor Browser. The private key is "
 "not actually needed in local-only mode, so you can ignore it."
 msgstr ""
+"در این حالت، شما آدرس اینترنتی ``http://127.0.0.1:17641`` را به جای استفاده "
+"از مرورگر Tor، در یک مرورگر وب معمولی مانند Firefox وارد می‌کنید. کلید خصوصی "
+"در حالت فقط محلی در واقع مورد نیاز نیست، بنابراین می‌توانید آن را نادیده "
+"بگیرید."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
-msgstr ""
+msgstr "ترجمه‌های مشارکتی"
 
 #: ../../source/develop.rst:170
 msgid ""
@@ -175,21 +191,29 @@ msgid ""
 "projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, "
 "and use \"OnionShare (localname)\" if needed."
 msgstr ""
+"با ترجمه‌ی OnionShare در `Hosted Weblate <https://hosted.weblate.org/projects/"
+"onionshare/>`_، به آسان‌تر شدن استفاده از آن و آشناتر و دلنشین‌تر شدن آن برای "
+"افراد کمک کنید. همیشه \"OnionShare\" را با حروف لاتین بنویسید و در صورت نیاز "
+"از \"OnionShare (localname)\" استفاده کنید."
 
 #: ../../source/develop.rst:172
 msgid ""
 "To help translate, make a Hosted Weblate account and start contributing."
 msgstr ""
+"برای کمک به ترجمه، یک حساب کاربری Hosted Weblate ایجاد کنید و شروع به مشارکت "
+"کنید."
 
 #: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "پیشنهاداتی برای رشته‌های اصلی انگلیسی"
 
 #: ../../source/develop.rst:177
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between the "
 "application and the documentation."
 msgstr ""
+"گاهی اوقات رشته‌های انگلیسی اصلی اشتباه هستند، یا بین کاربرد و مستندات مطابقت "
+"ندارند."
 
 #: ../../source/develop.rst:179
 msgid ""
@@ -198,10 +222,14 @@ msgid ""
 "developers see the suggestion, and can potentially modify the string via the "
 "usual code review processes."
 msgstr ""
+"با اضافه کردن ‎@kingu‎ به کامنت Weblate خود، یا باز کردن یک مشکل در GitHub یا "
+"درخواست pull، بهبودهای رشته منبع را ثبت کنید. مورد دوم تضمین می‌کند که همه "
+"توسعه‌دهندگان در سطح بالا پیشنهاد را می‌بینند و می‌توانند رشته را از طریق "
+"فرآیندهای معمول بررسی کد تغییر دهند."
 
 #: ../../source/develop.rst:183
 msgid "Status of Translations"
-msgstr ""
+msgstr "وضعیت ترجمه ها"
 
 #: ../../source/develop.rst:184
 msgid ""
@@ -209,3 +237,6 @@ msgid ""
 "language not yet started, please write to the mailing list: onionshare-"
 "dev@lists.riseup.net"
 msgstr ""
+"این وضعیت فعلی ترجمه است. اگر می خواهید ترجمه ای را به زبانی که هنوز شروع "
+"نشده است شروع کنید، لطفاً به لیست پست الکترونیکی بنویسید: onionshare-"
+"dev@lists.riseup.net"
