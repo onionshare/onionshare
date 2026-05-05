@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2026-02-07 14:10+0000\n"
+"PO-Revision-Date: 2026-03-28 16:09+0000\n"
 "Last-Translator: Maryam Azad <hannahperez8@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/install.rst:2
@@ -45,7 +45,7 @@ msgstr "شما می‌توانید OnionShare را برای موبایل از ل
 
 #: ../../source/install.rst:16
 msgid "Android"
-msgstr "اندروید"
+msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
@@ -79,7 +79,7 @@ msgstr "تست‌فلایت: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
-msgstr "گنو/لینوکس"
+msgstr "Linux"
 
 #: ../../source/install.rst:29
 msgid ""
@@ -88,6 +88,11 @@ msgid ""
 "<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
+"روش‌های مختلفی برای نصب OnionShare برای Linux وجود دارد، اما روش پیشنهادی "
+"استفاده از بسته‌های `Flatpak <https://flatpak.org/>`_ یا `Snap <https://"
+"snapcraft.io/>`_ است. Flatpak و Snapcraft تضمین می‌کنند که شما همیشه از "
+"جدیدترین نسخه استفاده خواهید کرد و OnionShare را در داخل یک محیط امن "
+"(sandbox) اجرا خواهید کرد."
 
 #: ../../source/install.rst:32
 msgid ""
@@ -95,26 +100,35 @@ msgid ""
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
+"پشتیبانی از Snapcraft در Ubuntu تعبیه شده است و Fedora نیز از Flatpak "
+"پشتیبانی می‌کند، اما اینکه از کدام استفاده کنید به خودتان بستگی دارد. هر دو "
+"در همه توزیع‌های Linux کار می‌کنند."
 
 #: ../../source/install.rst:34
 msgid ""
 "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
 "onionshare.OnionShare"
 msgstr ""
+"**نصب OnionShare با استفاده از Flatpk**: https://flathub.org/apps/details/"
+"org.onionshare.OnionShare"
 
 #: ../../source/install.rst:36
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
+"**OnionShare را با استفاده از Snapcraft نصب کنید**: https://snapcraft.io/"
+"onionshare"
 
 #: ../../source/install.rst:38
 msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"همچنین می‌توانید در صورت تمایل، بسته‌های ``.flatpak`` یا ``.snap`` امضا شده "
+"توسط PGP را از https://onionshare.org/dist/ دانلود و نصب کنید."
 
 #: ../../source/install.rst:41
 msgid "Manual Flatpak Installation"
-msgstr ""
+msgstr "نصب دستی Flatpak"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -122,11 +136,17 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
+"اگر می‌خواهید OnionShare را به صورت دستی با Flatpak و با استفاده از بسته تک "
+"فایلی امضا شده توسط PGP `single-file bundle <https://docs.flatpak.org/en/"
+"latest/single-file-bundles.html>`_نصب کنید، می‌توانید این کار را به صورت زیر "
+"انجام دهید:"
 
 #: ../../source/install.rst:45
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
+"با دنبال کردن دستورالعمل‌های موجود در https://flatpak.org/setup/، Flatpak را "
+"نصب کنید."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -135,18 +155,26 @@ msgid ""
 "won't be downloading OnionShare from Flathub, OnionShare depends on some "
 "packages that are only available there."
 msgstr ""
+"مخزن Flathub را با اجرای دستور ``flatpak remote-add --if-not-exists flathub "
+"https://flathub.org/repo/flathub.flatpakrepo`` اضافه کنید. اگرچه شما "
+"OnionShare را از Flathub دانلود نخواهید کرد، OnionShare به برخی از بسته‌هایی "
+"که فقط در آنجا موجود هستند، وابسته است."
 
 #: ../../source/install.rst:47
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
+"به https://onionshare.org/dist/ بروید، آخرین نسخه OnionShare را انتخاب کنید "
+"و فایل‌های ``.flatpak`` و ``.flatpak.asc`` را دانلود کنید."
 
 #: ../../source/install.rst:48
 msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"امضای PGP فایل ``.flatpak`` را تأیید کنید. برای اطلاعات بیشتر به "
+":ref:`verifying_sigs` مراجعه کنید."
 
 #: ../../source/install.rst:49
 msgid ""
@@ -154,38 +182,49 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
+"فایل``.flatpak`` را با اجرای ``flatpak install OnionShare-VERSION.flatpak`` "
+"نصب کنید. ``VERSION`` را با شماره نسخه فایلی که دانلود کردید جایگزین کنید."
 
 #: ../../source/install.rst:51
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
 msgstr ""
+"می‌توانید OnionShare را با: `flatpak run org.onionshare.OnionShare` اجرا کنید."
 
 #: ../../source/install.rst:54
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "نصب دستی Snapcraft"
 
 #: ../../source/install.rst:56
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
+"اگر می خواهید OnionShare را با استفاده از بسته Snapcraft امضا شده با PGP به "
+"صورت دستی با Snapcraft نصب کنید، می توانید این کار را به صورت زیر انجام دهید:"
 
 #: ../../source/install.rst:58
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
+"Snapcraft را با دنبال کردن دستورالعمل‌های موجود در https://snapcraft.io/docs/"
+"installing-snapd نصب کنید."
 
 #: ../../source/install.rst:59
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
+"به https://onionshare.org/dist/ بروید، آخرین نسخه OnionShare را انتخاب کنید "
+"و فایل‌های ``.snap`` و ``.snap.asc`` را دانلود کنید."
 
 #: ../../source/install.rst:60
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"امضای PGP فایل``.snap`` را تأیید کنید. برای اطلاعات بیشتر "
+"به:ref:`verifying_sigs` مراجعه کنید."
 
 #: ../../source/install.rst:61
 msgid ""
@@ -195,24 +234,31 @@ msgid ""
 "package is not signed by the Snapcraft store, however you did verify its PGP "
 "signature, so you know it's legitimate."
 msgstr ""
+"فایل ``.snap`` را با اجرای ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap`` نصب کنید. ``VERSION`` را با شماره نسخه فایلی "
+"که دانلود کردید جایگزین کنید. توجه داشته باشید که باید از `--خطرناک` استفاده "
+"کنید زیرا بسته توسط فروشگاه Snapcraft امضا نشده است، اما شما امضای PGP آن را "
+"تأیید کردید، بنابراین می دانید که قانونی است."
 
 #: ../../source/install.rst:63
 msgid "You can run OnionShare with: `snap run onionshare`."
-msgstr ""
+msgstr "می‌توانید OnionShare را با: `snap run onionshare` اجرا کنید."
 
 #: ../../source/install.rst:68
 msgid "Command-line only"
-msgstr ""
+msgstr "فقط خط-فرمان"
 
 #: ../../source/install.rst:70
 msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
+"شما می توانید فقط نسخه خط-فرمان OnionShare را روی هر سیستم عاملی با استفاده "
+"از مدیریت بسته ``Python ``pip نصب کنید. :ref:`cli` اطلاعات بیشتری دارد."
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #: ../../source/install.rst:77
 msgid ""
@@ -222,6 +268,11 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
+"اگرچه OnionShare به طور رسمی برای این پلتفرم توسعه داده نشده است، می‌توان آن "
+"را بر روی FreeBSD <https://freebsd.org/>`_ نیز نصب کرد. از طریق مجموعه پورت "
+"های آن یا به عنوان بسته از پیش ساخته شده در دسترس است. اگر تصمیم به نصب و "
+"استفاده از OnionShare بر روی یک سیستم عامل FreeBSD دارید، لطفاً توجه داشته "
+"باشید که به طور رسمی توسط پروژه OnionShare پشتیبانی** نمی شود**."
 
 #: ../../source/install.rst:79
 msgid ""
@@ -232,18 +283,23 @@ msgid ""
 "you wish to check changes related to this platform, please refer to the "
 "following resources:"
 msgstr ""
+"اگرچه بسته‌ها و پورت‌های FreeBSD به طور رسمی توسط توسعه‌دهندگان OnionShare "
+"ارائه و نگهداری نمی‌شوند، کدهای منبع را از مخزن رسمی OnionShare (یا بسته‌های "
+"انتشار رسمی آن از `PyPI <https://pypi.org/project/onionshare-cli/>`_) را "
+"واکشی و تأیید می‌کنند. اگر می خواهید تغییرات مربوط به این پلتفرم را بررسی کنید"
+"، لطفاً به منابع زیر مراجعه کنید:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
-msgstr ""
+msgstr "https://cgit.freebsd.org/ports/log/www/onionshare"
 
 #: ../../source/install.rst:82
 msgid "https://www.freshports.org/www/onionshare"
-msgstr ""
+msgstr "https://www.freshports.org/www/onionshare"
 
 #: ../../source/install.rst:85
 msgid "Manual pkg Installation"
-msgstr ""
+msgstr "نصب دستی pkg"
 
 #: ../../source/install.rst:87
 msgid ""
@@ -251,6 +307,9 @@ msgid ""
 "``pyXY`` specifying the version of Python the package was built for. So, in "
 "order to install OnionShare for Python 3.9, use::"
 msgstr ""
+"برای نصب بسته باینری، از ``pkg install pyXY-onionshare`` استفاده کنید، با "
+"``pyXY`` نسخه Python که بسته برای آن ساخته شده است را مشخص می کند. بنابراین، "
+"برای نصب OnionShare برای Python 3.9، استفاده کنید از::"
 
 #: ../../source/install.rst:91
 msgid ""
@@ -258,6 +317,9 @@ msgid ""
 "built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
 "want to install that version."
 msgstr ""
+"همچنین یک نسخه **فقط خط-فرمان** از OnionShare به عنوان بسته از پیش ساخته شده "
+"موجود است. اگر می‌خواهید آن نسخه را نصب کنید، ``py39-onionshare`` را با "
+"``py39-onionshare-cli`` جایگزین کنید."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -265,10 +327,13 @@ msgid ""
 "please refer to its `official Handbook section about pkg <https://docs."
 "freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
+"برای اطلاعات بیشتر و جزئیات بیشتر در مورد بسته های از پیش ساخته شده FreeBSD، "
+"لطفاً به بخش راهنمای رسمی آن درباره pkg <https://docs.freebsd.org/en/books/"
+"handbook/ports/#pkgng-intro>`_ مراجعه کنید."
 
 #: ../../source/install.rst:96
 msgid "Manual port Installation"
-msgstr ""
+msgstr "نصب دستی پورت"
 
 #: ../../source/install.rst:98
 msgid ""
@@ -276,6 +341,8 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
+"برای نصب پورت FreeBSD، دایرکتوری را به `مجموعه پورت‌ها <https://freebsd.org/"
+"ports/>` تغییر دهید که باید قبلاً بررسی کرده باشید و موارد زیر را اجرا کنید::"
 
 #: ../../source/install.rst:102
 msgid ""
@@ -283,6 +350,9 @@ msgid ""
 "only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
 "cli`` if you want to install that version."
 msgstr ""
+"مجموعه پورت ها همچنین یک پورت اختصاصی برای نسخه **فقط خط-فرمان** OnionShare "
+"ارائه می دهد. اگر می‌خواهید آن نسخه را نصب کنید، ``www/onionshare`` را با "
+"``www/onionshare-cli`` جایگزین کنید."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -290,10 +360,13 @@ msgid ""
 "please refer to its `official Handbook section about ports <https://docs."
 "freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
+"برای اطلاعات بیشتر و جزئیات بیشتر درباره مجموعه پورت‌های FreeBSD، لطفاً به بخش "
+"راهنمای رسمی آن درباره پورت‌ها <https://docs.freebsd.org/en/books/handbook/"
+"ports/#ports-using>`_ مراجعه کنید."
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
-msgstr ""
+msgstr "تایید امضای PGP"
 
 #: ../../source/install.rst:111
 msgid ""
@@ -303,10 +376,14 @@ msgid ""
 "include operating system-specific signatures, and you can just rely on those "
 "alone if you'd like."
 msgstr ""
+"با تأیید امضای PGP می‌توانید تأیید کنید که بسته‌ای که دانلود می‌کنید قانونی است "
+"و دستکاری نشده است. برای ویندوز و macOS، این مرحله اختیاری است و دفاع عمیقی "
+"را ارائه می‌کند: باینری‌های OnionShare شامل امضاهای خاص سیستم‌عامل هستند و در "
+"صورت تمایل می‌توانید فقط به آن‌ها تکیه کنید."
 
 #: ../../source/install.rst:115
 msgid "Signing key"
-msgstr ""
+msgstr "کلید امضا"
 
 #: ../../source/install.rst:117
 msgid ""
@@ -314,15 +391,17 @@ msgid ""
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
 msgstr ""
+"بسته ها توسط توسعه دهنده اصلی که مسئول انتشارات خاص است امضا می شوند. در "
+"اینجا اطلاعات کلیدی GPG برای هر یک از توسعه دهندگان اصلی OnionShare آمده است:"
 
 #: ../../source/install.rst:120
 msgid "Micah Lee:"
-msgstr ""
+msgstr "Micah Lee:"
 
 #: ../../source/install.rst:121
 msgid ""
 "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
-msgstr ""
+msgstr "اثر انگشت کلید PGP عمومی ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
 msgid ""
@@ -330,15 +409,18 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
+"می‌توانید کلید Micah را `از سرور keys.openpgp.org دانلود کنید <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
-msgstr ""
+msgstr "Saptak Sengupta:"
 
 #: ../../source/install.rst:125
 msgid ""
 "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
-msgstr ""
+msgstr "اثر انگشت کلیدPGP عمومی``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
 msgid ""
@@ -346,15 +428,18 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
+"می‌توانید کلید Saptak را `از سرور keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
 msgid ""
 "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
-msgstr ""
+msgstr "اثر انگشت کلید PGP عمومی ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 
 #: ../../source/install.rst:130
 msgid ""
@@ -362,6 +447,9 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-"
 "fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 msgstr ""
+"می‌توانید کلید Miguel را `از سرور keys.openpgp.org دانلود کنید <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`."
 
 #: ../../source/install.rst:132
 msgid ""
@@ -369,10 +457,13 @@ msgid ""
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
 "`Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
+"برای تأیید امضاها باید GnuPG را نصب کرده باشید. برای macOS احتمالاً `GPGTools "
+"<https://gpgtools.org/>`_ و برای ویندوز احتمالا `Gpg4win <https://"
+"www.gpg4win.org/>`_ را می خواهید."
 
 #: ../../source/install.rst:135
 msgid "Signatures"
-msgstr ""
+msgstr "امضاها"
 
 #: ../../source/install.rst:137
 msgid ""
@@ -381,10 +472,15 @@ msgid ""
 "folders named for each version of OnionShare. You can also find them on the "
 "`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
+"می‌توانید امضاها (به‌عنوان فایل‌های ``.asc``)، و همچنین بسته‌های Windows، macOS، "
+"Flatpak، Snap و منبع را در https://onionshare.org/dist/ در پوشه‌های نام‌گذاری "
+"شده برای هر نسخه OnionShare پیدا کنید. همچنین می‌توانید آنها را در `صفحه "
+"نسخه‌های GitHub <https://github.com/onionshare/onionshare/releases>`_ پیدا "
+"کنید."
 
 #: ../../source/install.rst:141
 msgid "Verifying"
-msgstr ""
+msgstr "تأیید کردن"
 
 #: ../../source/install.rst:143
 msgid ""
@@ -392,27 +488,29 @@ msgid ""
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
+"هنگامی که کلیدهای عمومی توسعه دهندگان اصلی را به زنجیره کلید GnuPG خود وارد "
+"کردید، امضای باینری و ``.asc`` را دانلود کردید، می توانید باینری را در "
+"ترمینال مانند زیر تأیید کنید:"
 
 #: ../../source/install.rst:145
 msgid "For Windows::"
-msgstr ""
+msgstr "برای ویندوز::"
 
 #: ../../source/install.rst:149
 msgid "For macOS::"
-msgstr ""
+msgstr "برای macOS ::"
 
 #: ../../source/install.rst:153
-#, fuzzy
 msgid "For Linux::"
-msgstr "گنو/لینوکس"
+msgstr "برای Linux::"
 
 #: ../../source/install.rst:159
 msgid "and for the source file::"
-msgstr ""
+msgstr "و برای فایل منبع::"
 
 #: ../../source/install.rst:163
 msgid "The expected output looks like this::"
-msgstr ""
+msgstr "خروجی مورد انتظار به این شکل است::"
 
 #: ../../source/install.rst:173
 msgid ""
@@ -420,6 +518,8 @@ msgid ""
 "integrity of the file (malicious or otherwise), and you should not install "
 "the package."
 msgstr ""
+"اگر عبارت ``امضای خوب از`` را نمی‌بینید، ممکن است مشکلی در صحت فایل (مخرب یا "
+"غیره) وجود داشته باشد و نباید بسته را نصب کنید."
 
 #: ../../source/install.rst:175
 msgid ""
@@ -427,6 +527,9 @@ msgid ""
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
+"``هشدار`` نشان داده شده در بالا، مشکل از بسته نیست، بلکه فقط به این معنی است "
+"که شما سطحی از «اعتماد» به کلید PGP Michah (توسعه‌دهنده اصلی) را تعریف "
+"نکرده‌اید."
 
 #: ../../source/install.rst:177
 msgid ""
@@ -435,3 +538,7 @@ msgid ""
 "the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/"
 ">`_ may be useful."
 msgstr ""
+"اگر می‌خواهید درباره تأیید امضاهای PGP بیشتر بدانید، راهنماهای مربوط به "
+"`سیستم عامل Qubes <https://www.qubes-os.org/security/verifying-signatures/>"
+"`_ و `پروژه Tor <https://support.torproject.org/tbb/how-to-verify-signature/>"
+"`_ ممکن است مفید باشند."
