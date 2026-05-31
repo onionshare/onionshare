@@ -43,13 +43,21 @@ class NewTabButton(QtWidgets.QPushButton):
         super(NewTabButton, self).__init__()
         self.common = common
 
-        self.setFixedSize(280, 280)
+        self.setMinimumSize(220, 220)
+        self.setMaximumSize(260, 260)
+        self.setSizePolicy(
+            QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed
+        )
 
         # Keyboard shortcut, using the first letter of the mode
         sequence = QtGui.QKeySequence(QtCore.Qt.CTRL | shortcut)
         self.setShortcut(sequence)
 
         self.setAccessibleName(title)
+
+        button_layout = QtWidgets.QVBoxLayout(self)
+        button_layout.setContentsMargins(14, 14, 14, 14)
+        button_layout.setSpacing(8)
 
         # Image
         self.image_label = QtWidgets.QLabel(parent=self)
@@ -60,32 +68,99 @@ class NewTabButton(QtWidgets.QPushButton):
         )
         self.image_label.setAlignment(QtCore.Qt.AlignCenter)
         self.image_label.setStyleSheet(self.common.gui.css["new_tab_button_image"])
-        self.image_label.setGeometry(0, 0, self.width(), 190)
-        self.image_label.show()
+        self.image_label.setMinimumHeight(105)
+        button_layout.addWidget(self.image_label)
 
         # Title
         self.title_label = QtWidgets.QLabel(title, parent=self)
         self.title_label.setWordWrap(True)
         self.title_label.setAlignment(QtCore.Qt.AlignCenter)
         self.title_label.setStyleSheet(self.common.gui.css["new_tab_title_text"])
-        if self.title_label.sizeHint().width() >= 250:
-            self.title_label.setGeometry(
-                (self.width() - 250) / 2, self.height() - 120, 250, 60
-            )
-        else:
-            self.title_label.setGeometry(
-                (self.width() - 250) / 2, self.height() - 100, 250, 30
-            )
-        self.title_label.show()
+        self.title_label.setMinimumHeight(44)
+        button_layout.addWidget(self.title_label)
 
         # Text
         self.text_label = QtWidgets.QLabel(text, parent=self)
+        self.text_label.setWordWrap(True)
         self.text_label.setAlignment(QtCore.Qt.AlignCenter)
         self.text_label.setStyleSheet(self.common.gui.css["new_tab_button_text"])
-        self.text_label.setGeometry(
-            (self.width() - 200) / 2, self.height() - 50, 200, 30
+        self.text_label.setMinimumHeight(38)
+        button_layout.addWidget(self.text_label)
+
+
+class NewTabModeGrid(QtWidgets.QWidget):
+    def __init__(self, buttons):
+        super(NewTabModeGrid, self).__init__()
+        self.buttons = buttons
+        self.grid_layout = QtWidgets.QGridLayout(self)
+        self.grid_layout.setContentsMargins(0, 0, 0, 0)
+        self.grid_layout.setHorizontalSpacing(20)
+        self.grid_layout.setVerticalSpacing(20)
+        self.reflow()
+
+    def resizeEvent(self, event):
+        super(NewTabModeGrid, self).resizeEvent(event)
+        self.reflow()
+
+    def reflow(self):
+        while self.grid_layout.count():
+            self.grid_layout.takeAt(0)
+
+        button_width = 260
+        available_width = max(self.width(), button_width)
+        columns = max(1, min(3, available_width // button_width))
+
+        for index, button in enumerate(self.buttons):
+            row = index // columns
+            column = index % columns
+            self.grid_layout.addWidget(button, row, column, QtCore.Qt.AlignCenter)
+
+        rows = (len(self.buttons) + columns - 1) // columns
+        self.grid_layout.addItem(
+            QtWidgets.QSpacerItem(
+                0,
+                0,
+                QtWidgets.QSizePolicy.Minimum,
+                QtWidgets.QSizePolicy.Expanding,
+            ),
+            rows,
+            0,
+            1,
+            columns,
         )
-        self.text_label.show()
+
+
+class NewTabModeChooser(QtWidgets.QWidget):
+    def __init__(self, common, buttons):
+        super(NewTabModeChooser, self).__init__()
+        self.common = common
+
+        logo_label = QtWidgets.QLabel()
+        logo_label.setPixmap(
+            QtGui.QPixmap.fromImage(
+                QtGui.QImage(
+                    GuiCommon.get_resource_path(
+                        "images/{}_logo_text.png".format(self.common.gui.color_mode)
+                    )
+                )
+            )
+        )
+        logo_label.setAlignment(QtCore.Qt.AlignCenter)
+
+        self.mode_grid = NewTabModeGrid(buttons)
+        mode_scroll_area = QtWidgets.QScrollArea()
+        mode_scroll_area.setWidgetResizable(True)
+        mode_scroll_area.setFrameShape(QtWidgets.QFrame.NoFrame)
+        mode_scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        mode_scroll_area.setWidget(self.mode_grid)
+
+        layout = QtWidgets.QVBoxLayout(self)
+        layout.setContentsMargins(24, 24, 24, 24)
+        layout.setSpacing(24)
+        layout.addStretch()
+        layout.addWidget(logo_label)
+        layout.addWidget(mode_scroll_area, 1)
+        layout.addStretch()
 
 
 class Tab(QtWidgets.QWidget):
@@ -122,23 +197,6 @@ class Tab(QtWidgets.QWidget):
         # An invisible widget, used for hiding the persistent tab icon
         self.invisible_widget = QtWidgets.QWidget()
         self.invisible_widget.setFixedSize(0, 0)
-
-        # Onionshare logo
-        self.image_label = QtWidgets.QLabel()
-        self.image_label.setPixmap(
-            QtGui.QPixmap.fromImage(
-                QtGui.QImage(
-                    GuiCommon.get_resource_path(
-                        "images/{}_logo_text.png".format(self.common.gui.color_mode)
-                    )
-                )
-            )
-        )
-        image_layout = QtWidgets.QVBoxLayout()
-        image_layout.addWidget(self.image_label)
-        self.image = QtWidgets.QWidget()
-        self.image.setFixedSize(280, 280)
-        self.image.setLayout(image_layout)
 
         # New tab buttons
         self.share_button = NewTabButton(
@@ -179,35 +237,23 @@ class Tab(QtWidgets.QWidget):
 
         self.download_button = NewTabButton(
             self.common,
-            "images/{}_mode_new_tab_receive.png".format(self.common.gui.color_mode),
+            "images/{}_mode_new_tab_download.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_download_button"),
             strings._("gui_main_page_download_button"),
             QtCore.Qt.Key_D,
         )
         self.download_button.clicked.connect(self.download_mode_clicked)
 
-        new_tab_top_layout = QtWidgets.QHBoxLayout()
-        new_tab_top_layout.addStretch()
-        new_tab_top_layout.addWidget(self.image)
-        new_tab_top_layout.addWidget(self.share_button)
-        new_tab_top_layout.addWidget(self.receive_button)
-        new_tab_top_layout.addStretch()
-
-        new_tab_bottom_layout = QtWidgets.QHBoxLayout()
-        new_tab_bottom_layout.addStretch()
-        new_tab_bottom_layout.addWidget(self.download_button)
-        new_tab_bottom_layout.addWidget(self.website_button)
-        new_tab_bottom_layout.addWidget(self.chat_button)
-        new_tab_bottom_layout.addStretch()
-
-        new_tab_layout = QtWidgets.QVBoxLayout()
-        new_tab_layout.addStretch()
-        new_tab_layout.addLayout(new_tab_top_layout)
-        new_tab_layout.addLayout(new_tab_bottom_layout)
-        new_tab_layout.addStretch()
-
-        self.new_tab = QtWidgets.QWidget()
-        self.new_tab.setLayout(new_tab_layout)
+        self.new_tab = NewTabModeChooser(
+            self.common,
+            [
+                self.share_button,
+                self.receive_button,
+                self.download_button,
+                self.website_button,
+                self.chat_button,
+            ],
+        )
         self.new_tab.show()
 
         # Layout

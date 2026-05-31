@@ -365,7 +365,7 @@ class GuiCommon:
             # New tab
             "new_tab_button_image": """
                 QLabel {
-                    padding: 30px;
+                    padding: 12px;
                     text-align: center;
                 }
                 """,
