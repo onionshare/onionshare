@@ -57,13 +57,13 @@ class DownloadMode(Mode):
         # Polling sets this to true and prevents the mode from 'stopping'
         self.is_polling = False
 
-        # Download (receive) image
+        # Download image
         self.image_label = QtWidgets.QLabel()
         self.image_label.setPixmap(
             QtGui.QPixmap.fromImage(
                 QtGui.QImage(
                     GuiCommon.get_resource_path(
-                        "images/{}_mode_receive.png".format(self.common.gui.color_mode)
+                        "images/{}_mode_download.png".format(self.common.gui.color_mode)
                     )
                 )
             )
