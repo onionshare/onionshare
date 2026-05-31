@@ -92,10 +92,10 @@ class DownloadMode(Mode):
         self.onionshare_url_label = QtWidgets.QLabel(
             strings._("mode_settings_download_onionshare_url_label")
         )
+        download_lineedit_stylesheet = self._get_download_lineedit_stylesheet()
+
         self.onionshare_url = QtWidgets.QLineEdit()
-        self.onionshare_url.setStyleSheet(
-            "QLineEdit { color: black; } QLineEdit::placeholder { color: gray; }"
-        )
+        self.onionshare_url.setStyleSheet(download_lineedit_stylesheet)
         self.onionshare_url.setPlaceholderText(
             "http://lldan5gahapx5k7iafb3s4ikijc4ni7gx5iywdflkba5y2ezyg6sjgyd.onion"
         )
@@ -113,9 +113,7 @@ class DownloadMode(Mode):
         self.onionshare_private_key.setPlaceholderText(
             strings._("mode_settings_download_onionshare_private_key")
         )
-        self.onionshare_private_key.setStyleSheet(
-            "QLineEdit { color: black; } QLineEdit::placeholder { color: gray; }"
-        )
+        self.onionshare_private_key.setStyleSheet(download_lineedit_stylesheet)
         self.onionshare_private_key.hide()
 
         onionshare_url_layout = QtWidgets.QVBoxLayout()
@@ -253,6 +251,19 @@ class DownloadMode(Mode):
         Returns the type of mode as a string (e.g. "share", "receive", etc.)
         """
         return "download"
+
+    def _get_download_lineedit_stylesheet(self):
+        if self.common.gui.color_mode == "dark":
+            text_color = "#ffffff"
+            placeholder_color = "#ffffff"
+        else:
+            text_color = "#000000"
+            placeholder_color = "#666666"
+
+        return (
+            f"QLineEdit {{ color: {text_color}; }} "
+            f"QLineEdit::placeholder {{ color: {placeholder_color}; }}"
+        )
 
     def onionshare_uses_private_key_checkbox_checked(self):
         """

@@ -43,8 +43,8 @@ class NewTabButton(QtWidgets.QPushButton):
         super(NewTabButton, self).__init__()
         self.common = common
 
-        self.setMinimumSize(220, 220)
-        self.setMaximumSize(260, 260)
+        self.setMinimumSize(210, 208)
+        self.setMaximumSize(240, 220)
         self.setSizePolicy(
             QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed
         )
@@ -56,8 +56,8 @@ class NewTabButton(QtWidgets.QPushButton):
         self.setAccessibleName(title)
 
         button_layout = QtWidgets.QVBoxLayout(self)
-        button_layout.setContentsMargins(14, 14, 14, 14)
-        button_layout.setSpacing(8)
+        button_layout.setContentsMargins(10, 10, 10, 10)
+        button_layout.setSpacing(6)
 
         # Image
         self.image_label = QtWidgets.QLabel(parent=self)
@@ -68,7 +68,8 @@ class NewTabButton(QtWidgets.QPushButton):
         )
         self.image_label.setAlignment(QtCore.Qt.AlignCenter)
         self.image_label.setStyleSheet(self.common.gui.css["new_tab_button_image"])
-        self.image_label.setMinimumHeight(105)
+        self.image_label.setMinimumHeight(100)
+        self.image_label.setMaximumHeight(108)
         button_layout.addWidget(self.image_label)
 
         # Title
@@ -76,7 +77,7 @@ class NewTabButton(QtWidgets.QPushButton):
         self.title_label.setWordWrap(True)
         self.title_label.setAlignment(QtCore.Qt.AlignCenter)
         self.title_label.setStyleSheet(self.common.gui.css["new_tab_title_text"])
-        self.title_label.setMinimumHeight(44)
+        self.title_label.setMinimumHeight(36)
         button_layout.addWidget(self.title_label)
 
         # Text
@@ -84,7 +85,7 @@ class NewTabButton(QtWidgets.QPushButton):
         self.text_label.setWordWrap(True)
         self.text_label.setAlignment(QtCore.Qt.AlignCenter)
         self.text_label.setStyleSheet(self.common.gui.css["new_tab_button_text"])
-        self.text_label.setMinimumHeight(38)
+        self.text_label.setMinimumHeight(32)
         button_layout.addWidget(self.text_label)
 
 
@@ -94,8 +95,8 @@ class NewTabModeGrid(QtWidgets.QWidget):
         self.buttons = buttons
         self.grid_layout = QtWidgets.QGridLayout(self)
         self.grid_layout.setContentsMargins(0, 0, 0, 0)
-        self.grid_layout.setHorizontalSpacing(20)
-        self.grid_layout.setVerticalSpacing(20)
+        self.grid_layout.setHorizontalSpacing(16)
+        self.grid_layout.setVerticalSpacing(14)
         self.reflow()
 
     def resizeEvent(self, event):
@@ -110,24 +111,23 @@ class NewTabModeGrid(QtWidgets.QWidget):
         available_width = max(self.width(), button_width)
         columns = max(1, min(3, available_width // button_width))
 
+        # Use virtual columns so incomplete rows are centred rather than leaving
+        # a large empty hole on the right side of the chooser. Each card spans
+        # two virtual columns, so a 3-card row uses columns 0, 2, 4 while a
+        # 2-card row uses columns 1, 3.
+        for column in range(columns * 2):
+            self.grid_layout.setColumnStretch(column, 1)
+
         for index, button in enumerate(self.buttons):
             row = index // columns
-            column = index % columns
-            self.grid_layout.addWidget(button, row, column, QtCore.Qt.AlignCenter)
-
-        rows = (len(self.buttons) + columns - 1) // columns
-        self.grid_layout.addItem(
-            QtWidgets.QSpacerItem(
-                0,
-                0,
-                QtWidgets.QSizePolicy.Minimum,
-                QtWidgets.QSizePolicy.Expanding,
-            ),
-            rows,
-            0,
-            1,
-            columns,
-        )
+            column_in_row = index % columns
+            remaining = len(self.buttons) - row * columns
+            row_items = min(columns, remaining)
+            offset = columns - row_items
+            column = offset + column_in_row * 2
+            self.grid_layout.addWidget(
+                button, row, column, 1, 2, QtCore.Qt.AlignCenter
+            )
 
 
 class NewTabModeChooser(QtWidgets.QWidget):
@@ -155,8 +155,8 @@ class NewTabModeChooser(QtWidgets.QWidget):
         mode_scroll_area.setWidget(self.mode_grid)
 
         layout = QtWidgets.QVBoxLayout(self)
-        layout.setContentsMargins(24, 24, 24, 24)
-        layout.setSpacing(24)
+        layout.setContentsMargins(24, 18, 24, 18)
+        layout.setSpacing(16)
         layout.addStretch()
         layout.addWidget(logo_label)
         layout.addWidget(mode_scroll_area, 1)
