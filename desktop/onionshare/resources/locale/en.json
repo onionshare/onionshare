@@ -199,7 +199,7 @@
     "gui_new_tab_receive_button": "Receive Files",
     "gui_new_tab_website_button": "Host a Website",
     "gui_new_tab_chat_button": "Chat Anonymously",
-    "gui_new_tab_download_button": "Download from another OnionShare",
+    "gui_new_tab_download_button": "Download a Share",
     "gui_main_page_share_button": "Start Sharing",
     "gui_main_page_receive_button": "Start Receiving",
     "gui_main_page_website_button": "Start Hosting",
