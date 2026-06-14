@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-06-01 19:58+0530\n"
-"PO-Revision-Date: 2026-03-28 16:09+0000\n"
+"PO-Revision-Date: 2026-06-10 06:50+0000\n"
 "Last-Translator: Maryam Azad <hannahperez8@protonmail.com>\n"
 "Language-Team: fa <LL@li.org>\n"
 "Language: fa\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2026.6\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: ../../source/install.rst:2
@@ -438,10 +439,9 @@ msgstr "Miguel Jacq:"
 #: ../../source/install.rst:129
 msgid ""
 "PGP public key fingerprint ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
-msgstr ""
+msgstr "اثر انگشت کلید PGP عمومی ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
 
 #: ../../source/install.rst:130
-#, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-fingerprint/"
