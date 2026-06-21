@@ -672,7 +672,8 @@ class History(QtWidgets.QWidget):
         self.common = common
         self.mode = mode
 
-        self.setMinimumWidth(350)
+        self.setMinimumWidth(320)
+        self.setMaximumWidth(420)
 
         # In progress and completed counters
         self.in_progress_count = 0
@@ -906,14 +907,27 @@ class ToggleHistory(QtWidgets.QPushButton):
             self.history_widget.hide()
             self.setIcon(self.icon)
             self.setFlat(True)
+            self.set_mode_image_visible(True)
         else:
             self.history_widget.show()
             self.setIcon(self.selected_icon)
             self.setFlat(False)
+            self.set_mode_image_visible(False)
 
         # Reset the indicator count
         self.indicator_count = 0
         self.update_indicator()
+
+    def set_mode_image_visible(self, visible):
+        """
+        Hide the mode image while the history drawer is open.
+
+        On smaller screens the image competes with the main controls and the
+        history pane, which can push the form off the left edge of the window.
+        """
+        image = getattr(self.current_mode, "image", None)
+        if image is not None:
+            image.setVisible(visible)
 
 
 class DownloadHistoryItem(HistoryItem):

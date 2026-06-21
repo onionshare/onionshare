@@ -119,7 +119,7 @@ class Mode(QtWidgets.QWidget):
         self.tor_not_connected_layout = QtWidgets.QVBoxLayout()
         self.tor_not_connected_layout.addStretch()
         self.tor_not_connected_layout.addWidget(tor_not_connected_label)
-        self.tor_not_connected_layout.addWidget(MinimumSizeWidget(700, 0))
+        self.tor_not_connected_layout.addWidget(MinimumSizeWidget(520, 0))
         self.tor_not_connected_layout.addStretch()
         self.tor_not_connected_widget = QtWidgets.QWidget()
         self.tor_not_connected_widget.setLayout(self.tor_not_connected_layout)
