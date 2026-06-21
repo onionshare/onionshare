@@ -20,12 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import re
-import requests
-
 from PySide6 import QtCore, QtWidgets, QtGui
-
-from onionshare_cli.common import Common
-from onionshare_cli.web import Web
 
 from urllib.parse import urlparse
 
@@ -51,6 +46,12 @@ class DownloadMode(Mode):
         """
 
         self.id = 0
+        self.service_id = None
+        self.display_url = None
+        self.download_thread = None
+        self.timer = None
+        self.stop_requested = False
+        self.client_auth_added = False
 
         # Download mode is client-only (no web server)
         self.is_server = False
@@ -287,6 +288,7 @@ class DownloadMode(Mode):
             # If we're running inside a flatpak package, the data dir must be inside ~/OnionShare
             if self.common.gui.is_flatpak:
                 if not selected_dir.startswith(os.path.expanduser("~/OnionShare")):
+                    from ....widgets import Alert
                     Alert(self.common, strings._("gui_receive_flatpak_data_dir"))
                     return
 
@@ -315,20 +317,35 @@ class DownloadMode(Mode):
             self.settings.set("download", "poll", 0)
             self.poll_warning_label.hide()
 
-    def extract_domain(self, url):
-        # First, parse the URL to get the domain
+    def normalize_onionshare_url(self, url):
+        """
+        Validate and normalize an OnionShare URL.
+
+        Download mode only needs the v3 onion service id because it always
+        fetches the Share Mode /download endpoint. Accept either a full URL or
+        a bare <service>.onion address, but reject non-onion and malformed
+        hosts rather than accidentally trying http://None.onion/download.
+        """
+        url = url.strip()
+        if not url:
+            raise ValueError(strings._("error_download_invalid_onion_url"))
+
+        if "://" not in url:
+            url = f"http://{url}"
+
         parsed_url = urlparse(url)
+        if parsed_url.scheme.lower() not in ("http", "https"):
+            raise ValueError(strings._("error_download_invalid_onion_url"))
 
-        # Extract the domain (without scheme and path)
-        domain_with_tld = parsed_url.netloc.split(":")[0]  # Remove port if any
+        hostname = (parsed_url.hostname or "").lower()
+        if not hostname.endswith(".onion"):
+            raise ValueError(strings._("error_download_invalid_onion_url"))
 
-        # Regular expression to extract the main domain name
-        match = re.search(r"([a-zA-Z0-9-]+)\.[a-zA-Z]{2,}", domain_with_tld)
+        service_id = hostname[: -len(".onion")]
+        if not re.fullmatch(r"[a-z2-7]{56}", service_id):
+            raise ValueError(strings._("error_download_invalid_onion_url"))
 
-        if match:
-            return match.group(1)
-        else:
-            return None  # Return None if no domain is found
+        return service_id, f"http://{service_id}.onion"
 
     def start_server(self):
         """
@@ -336,7 +353,23 @@ class DownloadMode(Mode):
         server and the web app.
         """
         self.common.log("Mode", "start_server")
+
+        if self.common.gui.local_only:
+            self.starting_server_error.emit(strings._("gui_tor_connection_canceled"))
+            return
+
+        try:
+            self.service_id, self.display_url = self.normalize_onionshare_url(
+                self.onionshare_url.text()
+            )
+            self.onionshare_url.setText(self.display_url)
+        except ValueError as e:
+            self.starting_server_error.emit(str(e))
+            return
+
         self.id += 1
+        self.stop_requested = False
+        self.client_auth_added = False
 
         self.set_server_active.emit(True)
 
@@ -350,46 +383,43 @@ class DownloadMode(Mode):
         # Hide the mode settings
         self.mode_settings_widget.hide()
 
-        self.service_id = self.extract_domain(self.onionshare_url.text().strip())
-
         self.common.log("DownloadMode", "start_server")
 
-        if not self.common.gui.local_only:
-            self.download_thread = DownloadThread(self)
+        self.download_thread = DownloadThread(self)
 
-            self.download_thread.begun.connect(self.add_download_item)
-            self.download_thread.progress.connect(self.progress_download_item)
-            self.download_thread.success.connect(self.finished_download_item)
-            self.download_thread.error.connect(self.error_download_item)
-            self.download_thread.locked.connect(self.locked_download_item)
+        self.download_thread.begun.connect(self.add_download_item)
+        self.download_thread.progress.connect(self.progress_download_item)
+        self.download_thread.success.connect(self.finished_download_item)
+        self.download_thread.error.connect(self.error_download_item)
+        self.download_thread.locked.connect(self.locked_download_item)
 
-            # Start the download thread
-            self.download_thread.start()
+        # Start the download thread
+        self.download_thread.start()
 
-            if (
-                self.settings.get("download", "poll")
-                and self.settings.get("download", "poll") >= 1
-            ):
-                self.is_polling = True
-                # Set up a QTimer to trigger the thread at end of each polling interval
-                self.timer = QtCore.QTimer(self)
-                self.timer.timeout.connect(self.trigger_download_thread)
-                self.timer.setInterval(
-                    self.settings.get("download", "poll") * 60 * 1000
-                )  # Minutes to milliseconds
-                self.timer.start()
+        if (
+            self.settings.get("download", "poll")
+            and self.settings.get("download", "poll") >= 1
+        ):
+            self.is_polling = True
+            # Set up a QTimer to trigger the thread at end of each polling interval
+            self.timer = QtCore.QTimer(self)
+            self.timer.timeout.connect(self.trigger_download_thread)
+            self.timer.setInterval(
+                self.settings.get("download", "poll") * 60 * 1000
+            )  # Minutes to milliseconds
+            self.timer.start()
 
         # Update the 'Explainer' label to explain what is happening.
         if self.is_polling:
             self.download_mode_explainer.setText(
                 strings._("gui_download_mode_in_progress_polling").format(
-                    self.onionshare_url.text().strip(), self.poll.value()
+                    self.display_url, self.poll.value()
                 )
             )
         else:
             self.download_mode_explainer.setText(
                 strings._("gui_download_mode_in_progress").format(
-                    self.onionshare_url.text().strip()
+                    self.display_url
                 )
             )
 
@@ -412,7 +442,8 @@ class DownloadMode(Mode):
         """
         If any polling is taking place, stop iot
         """
-        if self.is_polling:
+        self.stop_requested = True
+        if self.is_polling and self.timer:
             self.common.log(
                 "DownloadMode", "stop_server_custom", "Stopping Download polling timer"
             )
@@ -421,10 +452,22 @@ class DownloadMode(Mode):
             self.common.log(
                 "DownloadMode", "stop_server_custom", "Stopping DownloadThread"
             )
+            self.download_thread.request_stop()
             self.download_thread.quit()
-            self.download_thread.wait()
+            self.download_thread.wait(3000)
 
-        self.common.gui.onion.remove_onion_client_auth(self.service_id)
+        if self.client_auth_added and self.service_id:
+            try:
+                self.common.gui.onion.remove_onion_client_auth(self.service_id)
+            except Exception as e:
+                self.common.log(
+                    "DownloadMode",
+                    "stop_server_custom",
+                    f"Error removing onion client auth: {e}",
+                )
+            self.client_auth_added = False
+
+        self.is_polling = False
         self.download_mode_explainer.setText(strings._("gui_download_mode_explainer"))
 
     def handle_tor_broke_custom(self):
@@ -445,7 +488,7 @@ class DownloadMode(Mode):
         item = DownloadHistoryItem(
             self.common,
             self.id,
-            self.onionshare_url.text().strip(),
+            self.display_url or self.onionshare_url.text().strip(),
         )
 
         self.history.add(self.id, item)
@@ -499,7 +542,7 @@ class DownloadMode(Mode):
         if self.history.in_progress_count > 0:
             self.history.in_progress_count -= 1
             self.history.update_in_progress()
-        if not self.is_polling:
+        if not self.is_polling and not self.stop_requested:
             self.stop_server()
 
     def reset_info_counters(self):
