@@ -100,6 +100,8 @@ class GuiCommon:
         share_zip_progess_bar_chunk_color = "#4E064F"
         history_background_color = "#ffffff"
         history_label_color = "#000000"
+        download_history_file_background_color = "#ffffff"
+        download_history_file_size_color = "#666666"
         settings_error_color = "#FF0000"
         if color_mode == "dark":
             header_color = "#F2F2F2"
@@ -111,6 +113,8 @@ class GuiCommon:
             share_zip_progess_bar_border_color = "#F2F2F2"
             history_background_color = "#191919"
             history_label_color = "#ffffff"
+            download_history_file_background_color = "#2b2b2b"
+            download_history_file_size_color = "#cfcfcf"
             settings_error_color = "#FF9999"
 
         return {
@@ -467,6 +471,20 @@ class GuiCommon:
             "receive_file_size": """
                 QLabel {
                     color: #666666;
+                    font-size: 11px;
+                }""",
+            "download_history_file": """
+                QWidget {
+                    background-color: """
+            + download_history_file_background_color
+            + """;
+                }
+                """,
+            "download_history_file_size": """
+                QLabel {
+                    color: """
+            + download_history_file_size_color
+            + """;
                     font-size: 11px;
                 }""",
             "receive_message_button": """

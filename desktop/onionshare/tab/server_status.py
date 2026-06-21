@@ -416,7 +416,7 @@ class ServerStatus(QtWidgets.QWidget):
                     if self.mode == self.common.gui.MODE_DOWNLOAD:
                         self.server_button.setEnabled(True)
                         self.server_button.setText(
-                            strings._("gui_status_indicator_download_working")
+                            strings._("gui_download_stop_server")
                         )
                     else:
                         if self.common.platform == "Windows":
@@ -500,6 +500,7 @@ class ServerStatus(QtWidgets.QWidget):
         elif self.status == self.STATUS_WORKING and (
             self.common.platform == "Windows"
             or self.settings.get("general", "autostart_timer")
+            or self.mode == self.common.gui.MODE_DOWNLOAD
         ):
             self.cancel_server()
         self.button_clicked.emit()

@@ -614,6 +614,7 @@ class HistoryItemList(QtWidgets.QScrollArea):
 
         # Other scroll area settings
         self.setBackgroundRole(QtGui.QPalette.Light)
+        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.verticalScrollBar().rangeChanged.connect(self.resizeScroll)
 
     def resizeScroll(self, minimum, maximum):
@@ -932,6 +933,10 @@ class DownloadHistoryItem(HistoryItem):
             f"id={self.id} url={self.url} file_name = {self.file_size} file_size = {self.file_size}",
         )
 
+        self.setSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred
+        )
+
         # Label
         self.label = QtWidgets.QLabel(
             strings._("gui_all_modes_transfer_started").format(
@@ -939,11 +944,17 @@ class DownloadHistoryItem(HistoryItem):
             )
         )
         self.label.setWordWrap(True)
+        self.label.setStyleSheet(self.common.gui.css["history_default_label"])
 
         # URL so we know which onion service we downloaded this share from
         self.url_label = QtWidgets.QLabel()
         self.url_label.setWordWrap(True)
+        self.url_label.setMinimumWidth(0)
         self.url_label.setMaximumWidth(250)
+        self.url_label.setSizePolicy(
+            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Preferred
+        )
+        self.url_label.setStyleSheet(self.common.gui.css["history_default_label"])
         self.url_text = self.common.gui.wrap_text(self.url_label, self.url)
         self.url_label.setText(self.url_text)
 
@@ -963,7 +974,7 @@ class DownloadHistoryItem(HistoryItem):
         self.files_layout = QtWidgets.QVBoxLayout()
         self.files_layout.setContentsMargins(0, 0, 0, 0)
         files_widget = QtWidgets.QWidget()
-        files_widget.setStyleSheet(self.common.gui.css["receive_file"])
+        files_widget.setStyleSheet(self.common.gui.css["download_history_file"])
         files_widget.setLayout(self.files_layout)
 
         # Layout
@@ -1001,12 +1012,25 @@ class DownloadHistoryItem(HistoryItem):
             self.file_size = self.common.human_readable_filesize(data["file_size"])
 
             # Filename label
-            self.filename_label = QtWidgets.QLabel(self.file_name)
-            self.filename_label_width = self.filename_label.width()
+            self.filename_label = QtWidgets.QLabel()
+            self.filename_label.setWordWrap(True)
+            self.filename_label.setMinimumWidth(0)
+            self.filename_label.setMaximumWidth(220)
+            self.filename_label.setSizePolicy(
+                QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Preferred
+            )
+            self.filename_label.setStyleSheet(
+                self.common.gui.css["history_default_label"]
+            )
+            self.filename_label.setText(
+                self.common.gui.wrap_text(self.filename_label, self.file_name)
+            )
 
             # File size label
             self.filesize_label = QtWidgets.QLabel(self.file_size)
-            self.filesize_label.setStyleSheet(self.common.gui.css["receive_file_size"])
+            self.filesize_label.setStyleSheet(
+                self.common.gui.css["download_history_file_size"]
+            )
 
             # Folder button
             image = QtGui.QImage(GuiCommon.get_resource_path("images/open_folder.svg"))
@@ -1021,12 +1045,13 @@ class DownloadHistoryItem(HistoryItem):
 
             # Layouts
             layout = QtWidgets.QHBoxLayout()
-            layout.addWidget(self.filename_label)
+            layout.setContentsMargins(6, 4, 6, 4)
+            layout.addWidget(self.filename_label, stretch=1)
             layout.addWidget(self.filesize_label)
-            layout.addStretch()
             layout.addWidget(self.folder_button)
 
             file_widget = QtWidgets.QWidget()
+            file_widget.setStyleSheet(self.common.gui.css["download_history_file"])
             file_widget.setLayout(layout)
             self.files_layout.addWidget(file_widget)
 

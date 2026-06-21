@@ -23,7 +23,9 @@ import os
 import requests
 import time
 from datetime import datetime
+from email.message import Message
 from PySide6 import QtCore
+from werkzeug.utils import secure_filename
 
 from onionshare_cli.onion import (
     TorErrorInvalidSetting,
@@ -44,6 +46,14 @@ from onionshare_cli.onion import (
 from onionshare_cli.web.web import WaitressException
 
 from . import strings
+
+
+class DownloadCanceled(Exception):
+    """
+    Raised when Download Mode is canceled by the user.
+    """
+
+    pass
 
 
 class OnionThread(QtCore.QThread):
@@ -300,11 +310,24 @@ class DownloadThread(QtCore.QThread):
         super(DownloadThread, self).__init__()
         self._mutex = QtCore.QMutex()  # Mutex for locking
         self._lock = False  # To track the lock status
+        self._stop_requested = False
+        self._response = None
 
         self.mode = mode
         self.mode.common.log("DownloadThread", "__init__")
 
         self.saved_download_mode_dir = None
+
+    def request_stop(self):
+        """
+        Ask the thread to stop and close any in-flight streaming response.
+        """
+        self._stop_requested = True
+        if self._response is not None:
+            try:
+                self._response.close()
+            except Exception:
+                pass
 
     def run(self):
         if self._mutex.tryLock():
@@ -342,11 +365,25 @@ class DownloadThread(QtCore.QThread):
                         self.mode.service_id,
                         self.mode.onionshare_private_key.text().strip(),
                     )
+                    self.mode.client_auth_added = True
 
-                response = requests.get(url, proxies=proxies, stream=True)
+                response = requests.get(
+                    url,
+                    proxies=proxies,
+                    stream=True,
+                    timeout=(30, 30),
+                    allow_redirects=False,
+                    headers={"Accept-Encoding": "identity"},
+                )
+                self._response = response
+
+                if self._stop_requested:
+                    raise DownloadCanceled()
 
                 # Check if the request was successful (HTTP status code 200)
                 if response.status_code == 200:
+                    self.validate_download_response(response)
+
                     # Extract the file name from the 'Content-Disposition' header, if present
                     file_name = self.get_filename_from_content_disposition(
                         response.headers
@@ -358,7 +395,10 @@ class DownloadThread(QtCore.QThread):
                     )
 
                     # Get the file size from the 'Content-Length' header
-                    file_size = int(response.headers.get("Content-Length", 0))
+                    try:
+                        file_size = int(response.headers.get("Content-Length", 0))
+                    except ValueError:
+                        file_size = 0
 
                     # Save the share
                     file_path = self.save_share(file_name, response, file_size)
@@ -372,9 +412,19 @@ class DownloadThread(QtCore.QThread):
                     self.success.emit(file_path, file_name, file_size)
                 else:
                     raise Exception(
-                        f"Failed to download file. Status code: {response.status_code}"
+                        strings._("error_download_http_status").format(
+                            response.status_code
+                        )
                     )
 
+            except DownloadCanceled:
+                self.mode.common.log("DownloadThread", "run", "Download canceled")
+                self.error.emit(strings._("error_download_canceled"))
+                return
+            except requests.exceptions.Timeout:
+                self.mode.common.log("DownloadThread", "run", "Download timed out")
+                self.error.emit(strings._("error_download_timeout"))
+                return
             except Exception as e:
                 self.mode.common.log(
                     "DownloadThread", "run", f"Error occurred in requests: {e}"
@@ -383,6 +433,12 @@ class DownloadThread(QtCore.QThread):
                 return
 
             finally:
+                if self._response is not None:
+                    try:
+                        self._response.close()
+                    except Exception:
+                        pass
+                    self._response = None
                 # Always release the mutex, even if an exception occurred
                 self._mutex.unlock()
                 self._lock = False
@@ -394,24 +450,37 @@ class DownloadThread(QtCore.QThread):
             )
             self.locked.emit()
 
+    def validate_download_response(self, response):
+        """
+        Reject obvious HTML error pages, without requiring every valid download
+        response to match one exact Content-Disposition shape. OnionShare Share
+        Mode may legitimately serve a shared HTML file as an attachment, so the
+        safe distinction is:
+
+        * HTML with no Content-Disposition is probably an error/status page.
+        * Any response with Content-Disposition is a download; the filename is
+          still treated as untrusted and sanitised before writing to disk.
+        """
+        content_disposition = response.headers.get("Content-Disposition", "")
+        content_type = response.headers.get("Content-Type", "").split(";")[0].lower()
+
+        if not content_disposition and content_type == "text/html":
+            raise Exception(strings._("error_download_not_onionshare_share"))
+
     def get_filename_from_content_disposition(self, headers):
         content_disposition = headers.get("Content-Disposition", "")
 
-        # Extract filename directly from Content-Disposition
-        if "filename" in content_disposition:
-            # Extract the filename (it could contain the UTF-8 encoded form as well)
-            filename = (
-                content_disposition.split("filename=")[1].split(";")[0].strip('"')
-            )
-        elif "filename*" in content_disposition:
-            # Extract and decode filename* if filename* is used
-            filename = unquote(
-                content_disposition.split("filename*=UTF-8''")[1].strip('"')
-            )
-        else:
-            # Fallback default filename
-            filename = "downloaded_file.zip"
+        message = Message()
+        message["Content-Disposition"] = content_disposition
+        filename = message.get_filename() or "downloaded_file"
+        return self.sanitize_download_filename(filename)
 
+    def sanitize_download_filename(self, filename):
+        """
+        Convert a server-supplied download filename into a safe basename.
+        """
+        filename = filename.replace("\\", "/").split("/")[-1]
+        filename = secure_filename(filename) or "downloaded_file"
         return filename
 
     def save_share(self, file_name, response, file_size):
@@ -424,6 +493,8 @@ class DownloadThread(QtCore.QThread):
         to continually overwrite the existing download with a new version,
         to keep it up to date.
         """
+        file_name = self.sanitize_download_filename(file_name)
+
         if self.mode.is_polling and self.mode.history.completed_count > 0:
             download_mode_dir = self.saved_download_mode_dir
 
@@ -473,6 +544,7 @@ class DownloadThread(QtCore.QThread):
 
         # Build file path for saving
         file_path = os.path.join(download_mode_dir, file_name)
+        partial_file_path = f"{file_path}.part"
         self.mode.common.log(
             "DownloadThread",
             "save_share",
@@ -480,15 +552,33 @@ class DownloadThread(QtCore.QThread):
         )
 
         # Save the file and report the progress back to the UI
-        with open(file_path, "wb") as file:
-            downloaded = 0
-            for chunk in response.iter_content(chunk_size=1024):  # 1KB chunks
-                if chunk:
-                    downloaded += len(chunk)  # Update the downloaded bytes
+        try:
+            with open(partial_file_path, "wb") as file:
+                downloaded = 0
+                for chunk in response.iter_content(chunk_size=1024):  # 1KB chunks
+                    if self._stop_requested:
+                        raise DownloadCanceled()
 
-                    # Send progress via signal to the main thread
-                    progress = int((downloaded / file_size) * 100)
-                    self.progress.emit(progress)
+                    if chunk:
+                        downloaded += len(chunk)  # Update the downloaded bytes
 
-                    file.write(chunk)
+                        # Send progress via signal to the main thread when the
+                        # server supplied a usable Content-Length. Otherwise,
+                        # leave the progress bar indeterminate.
+                        if file_size > 0:
+                            progress = min(int((downloaded / file_size) * 100), 100)
+                            self.progress.emit(progress)
+
+                        file.write(chunk)
+
+            os.replace(partial_file_path, file_path)
+
+        except Exception:
+            try:
+                if os.path.exists(partial_file_path):
+                    os.remove(partial_file_path)
+            except Exception:
+                pass
+            raise
+
         return file_path
