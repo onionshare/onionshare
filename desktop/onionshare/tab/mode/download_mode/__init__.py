@@ -162,10 +162,18 @@ class DownloadMode(Mode):
             strings._("mode_settings_receive_data_dir_browse_button")
         )
         data_dir_button.clicked.connect(self.data_dir_button_clicked)
-        data_dir_layout = QtWidgets.QHBoxLayout()
+        self.data_dir_lineedit.setMinimumWidth(0)
+        self.data_dir_lineedit.setSizePolicy(
+            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Fixed
+        )
+        data_dir_path_layout = QtWidgets.QHBoxLayout()
+        data_dir_path_layout.setContentsMargins(0, 0, 0, 0)
+        data_dir_path_layout.addWidget(self.data_dir_lineedit, stretch=1)
+        data_dir_path_layout.addWidget(data_dir_button)
+        data_dir_layout = QtWidgets.QVBoxLayout()
+        data_dir_layout.setContentsMargins(0, 0, 0, 0)
         data_dir_layout.addWidget(data_dir_label)
-        data_dir_layout.addWidget(self.data_dir_lineedit)
-        data_dir_layout.addWidget(data_dir_button)
+        data_dir_layout.addLayout(data_dir_path_layout)
         self.mode_settings_widget.mode_specific_layout.addLayout(data_dir_layout)
 
         # These settings make no sense for Download mode
@@ -236,7 +244,7 @@ class DownloadMode(Mode):
         self.main_layout.addWidget(self.download_mode_explainer)
         self.main_layout.addWidget(self.primary_action, stretch=1)
         self.main_layout.addWidget(self.server_status)
-        self.main_layout.addWidget(MinimumSizeWidget(700, 0))
+        self.main_layout.addWidget(MinimumSizeWidget(520, 0))
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()

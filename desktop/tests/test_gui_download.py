@@ -18,6 +18,20 @@ class FakeDownloadResponse:
         for chunk in self._chunks:
             yield chunk
 
+    def test_opening_history_hides_decorative_image(self):
+        tab = self.new_download_tab()
+        mode = tab.download_mode
+
+        self.assertTrue(mode.image.isVisible())
+        mode.toggle_history.click()
+        self.assertTrue(mode.history.isVisible())
+        self.assertFalse(mode.image.isVisible())
+
+        mode.toggle_history.click()
+        self.assertFalse(mode.history.isVisible())
+        self.assertTrue(mode.image.isVisible())
+
+        self.close_all_tabs()
 
 class TestDownload(GuiBaseTest):
     def new_download_tab(self):
