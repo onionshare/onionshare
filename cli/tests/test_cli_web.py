@@ -1,7 +1,6 @@
 import os
 import random
 import re
-import socket
 import subprocess
 import time
 import zipfile
@@ -13,10 +12,11 @@ from io import BytesIO
 
 import pytest
 from contextlib import contextmanager
-from multiprocessing import Process
+from threading import Thread
 from urllib.request import urlopen, Request
 from werkzeug.datastructures import Headers
 from werkzeug.exceptions import RequestedRangeNotSatisfiable
+from werkzeug.serving import make_server
 
 from onionshare_cli.common import Common
 from onionshare_cli.web import Web
@@ -412,35 +412,31 @@ def check_unsupported(cmd: str, args: list):
 
 @contextmanager
 def live_server(web):
-    s = socket.socket()
-    s.bind(("localhost", 0))
-    port = s.getsockname()[1]
-    s.close()
-
-    def run():
-        web.app.run(host="127.0.0.1", port=port, debug=False)
-
-    proc = Process(target=run)
-    proc.start()
+    server = make_server("127.0.0.1", 0, web.app)
+    port = server.socket.getsockname()[1]
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
 
     url = "http://127.0.0.1:{}".format(port)
     req = Request(url)
 
-    attempts = 20
-    while True:
-        try:
-            urlopen(req)
-            break
-        except Exception:
-            attempts -= 1
-            if attempts > 0:
-                time.sleep(0.5)
-            else:
-                raise
+    try:
+        attempts = 20
+        while True:
+            try:
+                urlopen(req)
+                break
+            except Exception:
+                attempts -= 1
+                if attempts > 0:
+                    time.sleep(0.5)
+                else:
+                    raise
 
-    yield url + "/download"
-
-    proc.terminate()
+        yield url + "/download"
+    finally:
+        server.shutdown()
+        thread.join(timeout=5)
 
 
 class TestRangeRequests:
