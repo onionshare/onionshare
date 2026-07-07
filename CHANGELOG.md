@@ -1,5 +1,9 @@
 # OnionShare Changelog
 
+## 2.6.5
+
+* Dependencies: Updates tor dependencies and other python and web dependencies.
+
 ## 2.6.4
 
 * Security fix: Prevent symlink traversal
