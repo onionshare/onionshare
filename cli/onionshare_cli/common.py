@@ -430,11 +430,34 @@ class Common:
         os.makedirs(onionshare_data_dir, 0o700, True)
         return onionshare_data_dir
 
+    def build_cache_dir(self):
+        """
+        Returns the path of the OnionShare cache directory, which holds
+        non-essential data that can safely be deleted. On Linux and BSD this
+        follows the XDG Base Directory Specification (~/.cache/onionshare);
+        on Windows and macOS cache data lives inside the data directory.
+        """
+        if self.platform == "Windows" or self.platform == "Darwin":
+            onionshare_cache_dir = os.path.join(self.build_data_dir(), "cache")
+        else:
+            try:
+                xdg_cache_home = os.environ["XDG_CACHE_HOME"]
+                onionshare_cache_dir = f"{xdg_cache_home}/onionshare"
+            except Exception:
+                onionshare_cache_dir = os.path.expanduser("~/.cache/onionshare")
+
+            # Modify the cache dir if running tests
+            if getattr(sys, "onionshare_test_mode", False):
+                onionshare_cache_dir += "-testdata"
+
+        os.makedirs(onionshare_cache_dir, 0o700, True)
+        return onionshare_cache_dir
+
     def build_tmp_dir(self):
         """
         Returns path to a folder that can hold temporary files
         """
-        tmp_dir = os.path.join(self.build_data_dir(), "tmp")
+        tmp_dir = os.path.join(self.build_cache_dir(), "tmp")
         os.makedirs(tmp_dir, 0o700, True)
         return tmp_dir
 
