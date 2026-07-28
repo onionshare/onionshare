@@ -15,14 +15,14 @@ modules:
     buildsystem: simple
     build-commands:
       - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-        --prefix=${FLATPAK_DEST} "werkzeug==3.1.6" --no-build-isolation
+        --prefix=${FLATPAK_DEST} "werkzeug==3.1.8" --no-build-isolation
     sources:
       - type: file
         url: https://files.pythonhosted.org/packages/7e/99/7690b6d4034fffd95959cbe0c02de8deb3098cc577c67bb6a24fe5d7caa7/markupsafe-3.0.3.tar.gz
         sha256: 722695808f4b6457b320fdc131280796bdceb04ab50fe1795cd540799ebe1698
       - type: file
-        url: https://files.pythonhosted.org/packages/4d/ec/d58832f89ede95652fd01f4f24236af7d32b70cab2196dfcc2d2fd13c5c2/werkzeug-3.1.6-py3-none-any.whl
-        sha256: 7ddf3357bb9564e407607f988f683d72038551200c704012bb9a4c523d42f131
+        url: https://files.pythonhosted.org/packages/93/8c/2e650f2afeb7ee576912636c23ddb621c91ac6a98e66dc8d29c3c69446e1/werkzeug-3.1.8-py3-none-any.whl
+        sha256: 63a77fb8892bf28ebc3178683445222aa500e48ebad5ec77b0ad80f8726b1f50
   - name: python3-python-gnupg
     buildsystem: simple
     build-commands:

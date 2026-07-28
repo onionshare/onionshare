@@ -1,6 +1,6 @@
 project = "OnionShare"
 author = copyright = "Micah Lee, et al."
-version = release = "2.6.4"
+version = release = "2.6.5"
 
 extensions = ["sphinx_rtd_theme"]
 templates_path = ["_templates"]
