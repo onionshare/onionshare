@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-06-01 19:58+0530\n"
-"PO-Revision-Date: 2026-04-25 07:09+0000\n"
-"Last-Translator: Mona Lisa <nickwick@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-07-25 05:01+0000\n"
+"Last-Translator: Jonatan Nyberg <monalisa@users.noreply.hosted.weblate.org>\n"
 "Language-Team: sv <LL@li.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/help.rst:2
@@ -25,19 +25,19 @@ msgstr "Få hjälp"
 
 #: ../../source/help.rst:5
 msgid "Read This Website"
-msgstr "Läs den här webbsidan"
+msgstr "Läs dokumentationen"
 
 #: ../../source/help.rst:7
 msgid ""
 "You will find instructions on how to use OnionShare. Look through all of the "
 "sections first to see if anything answers your questions."
 msgstr ""
-"Du hittar instruktioner om hur du använder OnionShare. Titta igenom alla "
-"avsnitt först för att se om något svarar på dina frågor."
+"Här finns instruktioner för hur OnionShare används. Läs först igenom "
+"avsnitten för att se om din fråga redan besvaras."
 
 #: ../../source/help.rst:10
 msgid "Check the GitHub Issues"
-msgstr "Kolla GitHub-ärenden"
+msgstr "Kontrollera GitHub-ärendena"
 
 #: ../../source/help.rst:12
 msgid ""
@@ -46,10 +46,10 @@ msgid ""
 "encountered the same problem and either raised it with the developers, or "
 "maybe even posted a solution."
 msgstr ""
-"Om det inte finns på webbplatsen, kolla `GitHub-ärendena <https://github.com/"
-"onionshare/onionshare/issues>`_. Det är möjligt att någon annan har stött på "
-"samma problem och antingen tagit upp det med utvecklarna, eller kanske till "
-"och med publicerat en lösning."
+"Om svaret inte finns i dokumentationen kan du kontrollera `GitHub-ärendena "
+"<https://github.com/onionshare/onionshare/issues>`_. Någon annan kan ha "
+"stött på samma problem, rapporterat det till utvecklarna eller publicerat en "
+"lösning."
 
 #: ../../source/help.rst:15
 msgid "Submit an Issue Yourself"
