@@ -34,6 +34,7 @@ setuptools.setup(
         "onionshare.tab.mode.receive_mode",
         "onionshare.tab.mode.website_mode",
         "onionshare.tab.mode.chat_mode",
+        "onionshare.tab.mode.download_mode",
     ],
     package_data={
         "onionshare": [

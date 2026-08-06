@@ -97,7 +97,7 @@ class ChatMode(Mode):
         self.main_layout.addWidget(chat_mode_explainer)
         self.main_layout.addWidget(self.primary_action, stretch=1)
         self.main_layout.addWidget(self.server_status)
-        self.main_layout.addWidget(MinimumSizeWidget(700, 0))
+        self.main_layout.addWidget(MinimumSizeWidget(520, 0))
 
         # Column layout
         self.column_layout = QtWidgets.QHBoxLayout()
