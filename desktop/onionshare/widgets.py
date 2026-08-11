@@ -11,11 +11,11 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 from PySide6 import QtCore, QtWidgets, QtGui
@@ -27,22 +27,20 @@ from .gui_common import GuiCommon
 
 class Alert(QtWidgets.QMessageBox):
     """
-    An alert box dialog.
+    A class to display an alert box dialog.
+
+    Args:
+        common: Reference to the common GUI object for logging.
+        message: The message to display in the alert dialog.
+        icon: The icon to display alongside the alert message (default: NoIcon).
+        buttons: Buttons to display in the alert (default: Ok).
+        autostart: If True, the dialog automatically opens (default: True).
+        title: Title of the dialog window (default: "OnionShare").
     """
-
-    def __init__(
-        self,
-        common,
-        message,
-        icon=QtWidgets.QMessageBox.NoIcon,
-        buttons=QtWidgets.QMessageBox.Ok,
-        autostart=True,
-        title="OnionShare",
-    ):
-        super(Alert, self).__init__(None)
-
+    
+    def __init__(self, common, message, icon=QtWidgets.QMessageBox.NoIcon, buttons=QtWidgets.QMessageBox.Ok, autostart=True, title="OnionShare"):
+        super().__init__(None)
         self.common = common
-
         self.common.log("Alert", "__init__")
 
         self.setWindowTitle(title)
@@ -57,17 +55,17 @@ class Alert(QtWidgets.QMessageBox):
 
 class AddFileDialog(QtWidgets.QFileDialog):
     """
-    Overridden version of QFileDialog which allows us to select folders as well
-    as, or instead of, files. For adding files/folders to share.
+    Customized version of QFileDialog to allow selecting both files and folders.
 
-    Note that this dialog can't be used in macOS, only in Windows, Linux, and BSD.
-    This is because the macOS sandbox requires native dialogs, and this is a Qt5
-    dialog.
+    Note: Not compatible with macOS due to the sandbox requiring native dialogs.
+          Only usable on Windows, Linux, and BSD.
+
+    Args:
+        common: Reference to the common GUI object for logging.
     """
-
+    
     def __init__(self, common, *args, **kwargs):
-        QtWidgets.QFileDialog.__init__(self, *args, **kwargs)
-
+        super().__init__(*args, **kwargs)
         self.common = common
         self.common.log("AddFileDialog", "__init__")
 
@@ -75,32 +73,47 @@ class AddFileDialog(QtWidgets.QFileDialog):
         self.setOption(self.Option.ReadOnly, True)
         self.setOption(self.Option.ShowDirsOnly, False)
         self.setFileMode(self.FileMode.ExistingFiles)
+
+        # Allow multi-selection in both tree view and list view
         tree_view = self.findChild(QtWidgets.QTreeView)
         tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        
         list_view = self.findChild(QtWidgets.QListView, "listView")
         list_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
     def accept(self):
+        """
+        Override accept to log the action before closing the dialog.
+        """
         self.common.log("AddFileDialog", "accept")
-        QtWidgets.QDialog.accept(self)
+        super().accept()
 
 
 class MinimumSizeWidget(QtWidgets.QWidget):
     """
-    An empty widget with a minimum width and height, just to force layouts to behave
-    """
+    A widget with a specified minimum width and height to force layouts to behave.
 
+    Args:
+        width: Minimum width of the widget.
+        height: Minimum height of the widget.
+    """
+    
     def __init__(self, width, height):
-        super(MinimumSizeWidget, self).__init__()
+        super().__init__()
         self.setMinimumWidth(width)
         self.setMinimumHeight(height)
 
 
 class Image(qrcode.image.base.BaseImage):
     """
-    A custom Image class, for use with the QR Code pixmap.
-    """
+    Custom QR Code image class for use with PyQt pixmaps.
 
+    Args:
+        border: Size of the border around the QR code.
+        width: Width of the QR code in pixels.
+        box_size: Size of each box in the QR code.
+    """
+    
     def __init__(self, border, width, box_size, *args, **kwargs):
         self.border = border
         self.width = width
@@ -110,9 +123,19 @@ class Image(qrcode.image.base.BaseImage):
         self._image.fill(QtCore.Qt.white)
 
     def pixmap(self):
+        """
+        Convert the QR code image to a QPixmap for display in the GUI.
+        """
         return QtGui.QPixmap.fromImage(self._image)
 
     def drawrect(self, row, col):
+        """
+        Draw a single black rectangle (QR code module) at the specified row and column.
+        
+        Args:
+            row: The row of the QR code matrix.
+            col: The column of the QR code matrix.
+        """
         painter = QtGui.QPainter(self._image)
         painter.fillRect(
             (col + self.border) * self.box_size,
@@ -123,25 +146,34 @@ class Image(qrcode.image.base.BaseImage):
         )
 
     def save(self, stream, kind=None):
+        """
+        Empty method for compatibility with the base class.
+        """
         pass
 
 
 class QRCodeDialog(QtWidgets.QDialog):
     """
-    A dialog showing a QR code.
-    """
+    A dialog window to display a QR code.
 
+    Args:
+        common: Reference to the common GUI object for logging.
+        title: Title of the QR code dialog.
+        text: The text to encode in the QR code.
+    """
+    
     def __init__(self, common, title, text):
-        super(QRCodeDialog, self).__init__()
+        super().__init__()
 
         self.common = common
+        self.common.log("QRCodeDialog", "__init__")
 
-        self.common.log("QrCode", "__init__")
-
+        # QR code title label
         self.qr_label_title = QtWidgets.QLabel(self)
         self.qr_label_title.setText(title)
         self.qr_label_title.setAlignment(QtCore.Qt.AlignCenter)
 
+        # QR code image display
         self.qr_label = QtWidgets.QLabel(self)
         self.qr_label.setPixmap(qrcode.make(text, image_factory=Image).pixmap())
         self.qr_label.setScaledContents(True)
@@ -149,6 +181,8 @@ class QRCodeDialog(QtWidgets.QDialog):
 
         self.setWindowTitle(strings._("gui_qr_code_dialog_title"))
         self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
+
+        # Layout for the dialog
         layout = QtWidgets.QVBoxLayout(self)
         layout.addWidget(self.qr_label_title)
         layout.addWidget(self.qr_label)
