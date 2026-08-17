@@ -768,13 +768,21 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.save_button.show()
 
         if self.tor_con_type == "test":
+
+            def yes_no(value):
+                return (
+                    strings._("gui_settings_true")
+                    if value
+                    else strings._("gui_settings_false")
+                )
+
             Alert(
                 self.common,
                 strings._("settings_test_success").format(
                     self.test_onion.tor_version,
-                    self.test_onion.supports_ephemeral,
-                    self.test_onion.supports_stealth,
-                    self.test_onion.supports_v3_onions,
+                    yes_no(self.test_onion.supports_ephemeral),
+                    yes_no(self.test_onion.supports_stealth),
+                    yes_no(self.test_onion.supports_v3_onions),
                 ),
                 title=strings._("gui_settings_connection_type_test_button"),
             )
