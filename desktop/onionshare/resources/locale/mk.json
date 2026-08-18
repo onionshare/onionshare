@@ -44,5 +44,7 @@
     "gui_status_indicator_share_stopped": "Запрено",
     "hours_first_letter": "h",
     "minutes_first_letter": "m",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "gui_settings_true": "Да",
+    "gui_settings_false": "Не"
 }

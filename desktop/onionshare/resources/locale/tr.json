@@ -257,5 +257,7 @@
     "gui_chat_mode_explainer": "Sohbet modu, Tor Browser'da başkalarıyla etkileşimli olarak sohbet etmenizi sağlar.<br><br><b>Sohbet geçmişi OnionShare'de saklanmaz. Tor Browser'ı kapattığınızda sohbet geçmişi kaybolacaktır.</b>",
     "error_generic": "Beklenmedik bir hata oluştu:\n{}",
     "gui_settings_license_label": "OnionShare, GPL v3 altında lisanslıdır.<br>Üçüncü parti lisanslarına şuradan bakabilirsiniz:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "OnionShare başlatıldığında bu onion hizmetini otomatik olarak başlat"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "OnionShare başlatıldığında bu onion hizmetini otomatik olarak başlat",
+    "gui_settings_true": "Evet",
+    "gui_settings_false": "Hayır"
 }

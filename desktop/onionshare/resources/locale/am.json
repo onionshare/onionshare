@@ -24,5 +24,7 @@
     "gui_status_indicator_receive_stopped": "ቆምዋል",
     "gui_status_indicator_chat_stopped": "ቆምዋል",
     "gui_status_indicator_share_stopped": "ቆምዋል",
-    "gui_main_page_website_button": "ማስተናገድ ይጀምሩ"
+    "gui_main_page_website_button": "ማስተናገድ ይጀምሩ",
+    "gui_settings_true": "አዎ",
+    "gui_settings_false": "አይ"
 }

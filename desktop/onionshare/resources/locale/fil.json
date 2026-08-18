@@ -45,5 +45,7 @@
     "gui_status_indicator_chat_stopped": "Inihinto",
     "hours_first_letter": "h",
     "minutes_first_letter": "m",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "gui_settings_false": "Hindi",
+    "gui_settings_true": "Oo"
 }

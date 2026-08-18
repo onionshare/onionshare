@@ -113,5 +113,7 @@
     "days_first_letter": "d",
     "hours_first_letter": "ㄷ",
     "minutes_first_letter": "m",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "gui_settings_false": "아니요",
+    "gui_settings_true": "예"
 }

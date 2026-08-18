@@ -47,5 +47,7 @@
     "days_first_letter": "d",
     "hours_first_letter": "કર",
     "minutes_first_letter": "મિનિટ",
-    "seconds_first_letter": "સે"
+    "seconds_first_letter": "સે",
+    "gui_settings_true": "હા",
+    "gui_settings_false": "નહિ"
 }

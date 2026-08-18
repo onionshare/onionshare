@@ -48,5 +48,7 @@
     "gui_start_server_autostart_timer_tooltip": "Tajmer za automatsko pokretanje završava u {}",
     "gui_receive_start_server": "Pokreni način prijema",
     "hours_first_letter": "h",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "gui_settings_true": "Da",
+    "gui_settings_false": "Ne"
 }

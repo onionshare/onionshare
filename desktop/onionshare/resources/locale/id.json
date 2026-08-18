@@ -256,5 +256,7 @@
     "moat_bridgedb_error": "Tidak dapat menghubungi BridgeDB.",
     "moat_captcha_error": "Solusi tidak tepat. Silakan coba lagi.",
     "mode_tor_not_connected_label": "OnionShare tidak terhubung ke jaringan Tor",
-    "waitress_web_server_error": "Terjadi masalah saat memulai server web"
+    "waitress_web_server_error": "Terjadi masalah saat memulai server web",
+    "gui_settings_true": "Ya",
+    "gui_settings_false": "Tidak"
 }

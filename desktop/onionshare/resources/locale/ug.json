@@ -23,5 +23,7 @@
     "gui_settings_button_help": "ياردەم",
     "gui_status_indicator_share_stopped": "توختىدى",
     "gui_status_indicator_receive_stopped": "توختىدى",
-    "gui_status_indicator_chat_stopped": "توختىدى"
+    "gui_status_indicator_chat_stopped": "توختىدى",
+    "gui_settings_true": "ھەئە",
+    "gui_settings_false": "ياق"
 }

@@ -143,5 +143,7 @@
     "days_first_letter": "d",
     "hours_first_letter": "घंटा",
     "minutes_first_letter": "मी",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "gui_settings_true": "हाँ",
+    "gui_settings_false": "नहीं"
 }

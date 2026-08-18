@@ -31,5 +31,7 @@
     "gui_close_tab_warning_close": "හරි",
     "gui_status_indicator_receive_stopped": "නවත්වා ඇත",
     "gui_status_indicator_chat_stopped": "නවත්වා ඇත",
-    "gui_status_indicator_share_stopped": "නවත්වා ඇත"
+    "gui_status_indicator_share_stopped": "නවත්වා ඇත",
+    "gui_settings_false": "නැත",
+    "gui_settings_true": "හරි"
 }

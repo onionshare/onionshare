@@ -67,5 +67,7 @@
     "gui_main_page_website_button": "Start Hosting",
     "hours_first_letter": "s",
     "minutes_first_letter": "m",
-    "seconds_first_letter": "S"
+    "seconds_first_letter": "S",
+    "gui_settings_true": "Ih",
+    "gui_settings_false": "Uhu"
 }

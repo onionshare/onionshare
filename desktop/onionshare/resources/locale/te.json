@@ -156,5 +156,7 @@
     "gui_settings_theme_light": "Light",
     "gui_stop_server_autostop_timer_tooltip": "స్వీయ నియంత్రణ సమయం అయిపోయినది",
     "gui_start_server_autostart_timer_tooltip": "స్వీయ నియంత్రణ సమయం అయిపోయినది",
-    "gui_status_indicator_chat_stopped": "ఆగిపోయినవి"
+    "gui_status_indicator_chat_stopped": "ఆగిపోయినవి",
+    "gui_settings_false": "లేదు",
+    "gui_settings_true": "అవును"
 }

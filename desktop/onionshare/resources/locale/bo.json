@@ -33,5 +33,7 @@
     "gui_quit_warning_cancel": "ཕྱིར་འཐེན།",
     "gui_status_indicator_share_working": "འགོ་འཛུགས་བཞིན་པ…",
     "gui_status_indicator_share_started": "བརྒྱུད་སྐུར།",
-    "gui_settings_button_help": "རོགས་རམ"
+    "gui_settings_button_help": "རོགས་རམ",
+    "gui_settings_true": "ཡིན་ལགས།",
+    "gui_settings_false": "མིན།"
 }

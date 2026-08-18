@@ -185,5 +185,7 @@
     "days_first_letter": "k",
     "hours_first_letter": "ó",
     "minutes_first_letter": "p",
-    "seconds_first_letter": "mp"
+    "seconds_first_letter": "mp",
+    "gui_settings_false": "Nem",
+    "gui_settings_true": "Igen"
 }

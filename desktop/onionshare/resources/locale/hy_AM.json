@@ -113,5 +113,7 @@
     "gui_autoconnect_configure": "Կապի կարգավորումներ",
     "gui_copied_url_title": "OnionShare հասցեն պատճենված է",
     "gui_copy_client_auth": "Պատճենել փակ բանալին",
-    "gui_qr_label_auth_string_title": "Փակ բանալի"
+    "gui_qr_label_auth_string_title": "Փակ բանալի",
+    "gui_settings_true": "Այո",
+    "gui_settings_false": "Ոչ"
 }

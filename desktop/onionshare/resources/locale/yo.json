@@ -30,5 +30,6 @@
     "moat_captcha_submit": "Submit",
     "gui_close_tab_warning_cancel": "Cancel",
     "gui_settings_authenticate_password_option": "Password",
-    "gui_settings_button_cancel": "Cancel"
+    "gui_settings_button_cancel": "Cancel",
+    "gui_settings_true": "Yes"
 }

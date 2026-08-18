@@ -257,5 +257,7 @@
     "gui_chat_mode_explainer": "Keskustelutila mahdollistaa keskustelun interaktiivisesti muiden kanssa Tor-selaimessa. <br><br><b>Keskusteluhistoria ei ole tallennettu OnionShare:en. Keskusteluhistoria katoaa kun suljet Tor-selaimen.</b>",
     "gui_settings_license_label": "OnionShare on lisensoitu GPL v3:n alaisuudessa.<br>Kolmannen osapuolen lisenssejä voi tarkastella täällä:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Käynnistä tämä Onion-palvelu automaattisesti, kun OnionShare käynnistyy",
-    "error_generic": "OnionSharessa tapahtui odottamaton virhe:\n{}"
+    "error_generic": "OnionSharessa tapahtui odottamaton virhe:\n{}",
+    "gui_settings_true": "Kyllä",
+    "gui_settings_false": "Ei"
 }

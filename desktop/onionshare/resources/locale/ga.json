@@ -257,5 +257,7 @@
     "gui_chat_mode_explainer": "Ligeann mód comhrá duit comhrá idirghníomhach a dhéanamh le daoine eile, i mBrabhsálaí Tor.<br><br><b>Ní stóráiltear stair comhrá in OnionShare. Imeoidh an stair chomhrá nuair a dhúnann tú Brabhsálaí Tor.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Cuir tús leis an tseirbhís oinniúin seo go huathoibríoch nuair a thosaíonn OnionShare",
     "error_generic": "Tharla earráid le OnionShare gan choinne:\n{}",
-    "gui_settings_license_label": "Tá OnionShare ceadúnaithe faoin GPL v3.<br>Is féidir ceadúnais tríú páirtí a fheiceáil anseo:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'> https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "Tá OnionShare ceadúnaithe faoin GPL v3.<br>Is féidir ceadúnais tríú páirtí a fheiceáil anseo:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'> https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_true": "Tá",
+    "gui_settings_false": "Ní hea"
 }

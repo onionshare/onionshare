@@ -39,5 +39,7 @@
     "gui_status_indicator_share_stopped": "Stoppate",
     "gui_status_indicator_receive_stopped": "Stoppate",
     "hours_first_letter": "h",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "gui_settings_true": "Yes",
+    "gui_settings_false": "No"
 }

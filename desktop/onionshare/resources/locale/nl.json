@@ -206,8 +206,10 @@
     "gui_autoconnect_start": "Verbinden met Tor",
     "moat_captcha_submit": "Versturen",
     "moat_solution_empty_error": "Voer de tekens van de afbeelding in",
-    "gui_share_url_public_description": "Iedereen met dit  OnionShare adres kan je bestanden binnenhalen met de Tor browser.",
+    "gui_share_url_public_description": "<b>1Iedereen</b>2 met dit OnionShare adres kan je bestanden <b>3binnenhalen</b>4 met de <b>5Tor Browser</b>6: <img src='{}' />",
     "gui_receive_url_public_description": "<b>1Iedereen</b>2 met dit OnionShare adres kan bestanden op je computer <b>3plaatsen</b>4 met de <b>5Tor Browser</b>6: <img src='{}' />7",
     "gui_settings_bridge_use_checkbox": "Een brug gebruiken",
-    "gui_autoconnect_configure": "Netwerkinstellingen"
+    "gui_autoconnect_configure": "Netwerkinstellingen",
+    "gui_settings_true": "Ja",
+    "gui_settings_false": "Nee"
 }
