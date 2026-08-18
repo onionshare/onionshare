@@ -254,5 +254,7 @@
     "gui_autoconnect_could_not_connect_to_tor_api": "Non se puido conectar coa API de Tor. Comproba que tes conexión a Internet antes de volver a intentalo.",
     "gui_general_settings_window_title": "Xeral",
     "gui_chat_mode_explainer": "O modo chat permíteche conversar interactivamente con outras persoas, no Navegador Tor.<br><br><b>O historial da conversa non se garda en OnionShare. O historial desaparece ao pechar o Navegador Tor.</b>",
-    "gui_autoconnect_circumventing_censorship_starting_meek": "Usar unha ponte encuberta para acceder aos dominios…"
+    "gui_autoconnect_circumventing_censorship_starting_meek": "Usar unha ponte encuberta para acceder aos dominios…",
+    "gui_settings_true": "Si",
+    "gui_settings_false": "Non"
 }

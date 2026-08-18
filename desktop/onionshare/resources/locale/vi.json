@@ -257,5 +257,7 @@
     "gui_chat_mode_explainer": "Chế độ Chat trò chuyện cho phép bạn chat tương tác với các bên khác, trong trình duyệt Tor Browser.<br><br><b>Lịch sử Chat không được lưu trữ lại trong OnionShare. Lịch sử Chat sẽ biến mất khi bạn đóng trình duyệt Tor Browser.</b>",
     "error_generic": "Có lỗi không mong muốn xảy ra với OnionShare:\n{}",
     "mode_settings_persistent_autostart_on_launch_checkbox": "‘Tự động khởi động dịch vụ onion này khi OnionShare khởi động",
-    "gui_settings_license_label": "OnionShare được cấp phép theo GPL v3.<br>Có thể xem giấy phép của bên thứ ba tại đây:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "OnionShare được cấp phép theo GPL v3.<br>Có thể xem giấy phép của bên thứ ba tại đây:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_true": "Có",
+    "gui_settings_false": "Không"
 }

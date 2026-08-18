@@ -257,5 +257,7 @@
     "gui_chat_mode_explainer": "Чат-режим позволяет вам общаться в интерактивном режиме с другими, в Tor Browser.<br><br><b> История Chat не хранится в OnionShare. История чата исчезнет, когда вы закроете Tor Browser.</b>",
     "gui_settings_license_label": "OnionShare лицензируется по лицензии GPL v3.<br>Лицензии третьих сторон можно посмотреть здесь:<br><a href=„https://github.com/onionshare/onionshare/tree/main/licenses“>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Автоматически запустить этот сервис onion, когда OnionShare начинает",
-    "error_generic": "С OnionShare произошла неожиданная ошибка:\n{}"
+    "error_generic": "С OnionShare произошла неожиданная ошибка:\n{}",
+    "gui_settings_false": "Нет",
+    "gui_settings_true": "Да"
 }

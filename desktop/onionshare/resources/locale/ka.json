@@ -59,5 +59,7 @@
     "hours_first_letter": "სთ",
     "minutes_first_letter": "მილი",
     "seconds_first_letter": "წმ",
-    "gui_close_tab_warning_close": "დიახ"
+    "gui_close_tab_warning_close": "დიახ",
+    "gui_settings_true": "დიახ",
+    "gui_settings_false": "არა"
 }

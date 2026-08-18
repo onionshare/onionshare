@@ -257,5 +257,7 @@
     "gui_chat_mode_explainer": "Im Chat-Modus kannst du interaktiv mit anderen im Tor-Browser chatten.<br><br><b>Der Chatverlauf wird nicht in OnionShare gespeichert. Der Chatverlauf verschwindet, wenn du den Tor-Browser schließt.</b>",
     "error_generic": "Es ist ein unerwarteter Fehler bei OnionShare aufgetreten:\n{}",
     "gui_settings_license_label": "OnionShare ist unter der GPL v3 lizenziert.<br>Lizenzen von Drittanbietern können hier eingesehen werden:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "Diesen Onion-Dienst automatisch starten, wenn OnionShare startet"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Diesen Onion-Dienst automatisch starten, wenn OnionShare startet",
+    "gui_settings_false": "Nein",
+    "gui_settings_true": "ja"
 }

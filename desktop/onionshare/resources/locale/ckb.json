@@ -192,5 +192,7 @@
     "gui_general_settings_window_title": "گشتی",
     "gui_hide": "Hide",
     "moat_captcha_reload": "Reload",
-    "gui_status_indicator_chat_stopped": "وەستێنراو"
+    "gui_status_indicator_chat_stopped": "وەستێنراو",
+    "gui_settings_true": "بەڵێ",
+    "gui_settings_false": "نەخێر"
 }

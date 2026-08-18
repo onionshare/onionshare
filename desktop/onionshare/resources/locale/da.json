@@ -239,5 +239,7 @@
     "gui_share_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>downloade</b> dine filer med <b>Tor Browser</b>: <img src='{}' />",
     "gui_chat_url_public_description": "<b>Alle</b> med denne OnionShare-adresse kan <b>deltage i chatrummet</b> med <b>Tor Browser</b>: <img src='{}' />",
     "gui_website_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>besøge</b> dit websted med <b>Tor Browser</b>: <img src='{}' />",
-    "gui_receive_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>uploade</b> filer til din computer med <b>Tor Browser</b>: <img src='{}' />"
+    "gui_receive_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>uploade</b> filer til din computer med <b>Tor Browser</b>: <img src='{}' />",
+    "gui_settings_true": "Ja",
+    "gui_settings_false": "Nej"
 }

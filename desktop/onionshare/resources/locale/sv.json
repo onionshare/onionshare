@@ -257,5 +257,7 @@
     "gui_chat_mode_explainer": "Chattläget låter dig chatta interaktivt med andra i Tor Browser.<br><br><b>Chatthistoriken lagras inte i OnionShare. Chatthistoriken försvinner när du stänger Tor Browser.</b>",
     "error_generic": "Det uppstod ett oväntat fel med OnionShare:\n{}",
     "gui_settings_license_label": "OnionShare är licensierat under GPLv3.<br>Licenser för tredjepartskomponenter finns här:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "Starta onion-tjänsten automatiskt när OnionShare startar"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Starta onion-tjänsten automatiskt när OnionShare startar",
+    "gui_settings_true": "Ja",
+    "gui_settings_false": "Nej"
 }

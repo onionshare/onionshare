@@ -221,5 +221,7 @@
     "gui_status_indicator_chat_scheduled": "Planirano…",
     "gui_settings_theme_label": "Tema",
     "gui_settings_theme_light": "Svetla",
-    "gui_general_settings_window_title": "Generalno"
+    "gui_general_settings_window_title": "Generalno",
+    "gui_settings_false": "Ne",
+    "gui_settings_true": "Da"
 }

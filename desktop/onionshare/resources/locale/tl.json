@@ -26,5 +26,11 @@
     "moat_captcha_reload": "Reload",
     "gui_status_indicator_receive_stopped": "Natigil",
     "gui_status_indicator_share_stopped": "Natigil",
-    "gui_status_indicator_chat_stopped": "Natigil"
+    "gui_status_indicator_chat_stopped": "Natigil",
+    "gui_tor_connection_ask_quit": "Umalis",
+    "gui_quit_warning_quit": "Umalis",
+    "gui_settings_theme_label": "Tema",
+    "gui_settings_false": "Hindi",
+    "systray_menu_exit": "Umalis",
+    "gui_settings_true": "Oo"
 }

@@ -57,5 +57,7 @@
     "days_first_letter": "t",
     "hours_first_letter": "h",
     "minutes_first_letter": "m",
-    "seconds_first_letter": "s"
+    "seconds_first_letter": "s",
+    "gui_settings_true": "Jes",
+    "gui_settings_false": "Ne"
 }

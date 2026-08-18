@@ -257,5 +257,7 @@
     "gui_chat_mode_explainer": "Mënyra fjalosje ju lejon të bisedoni në mënyrë ndërvepruese me të tjerë, në Shfletuesin Tor.<br><br><b>Historiku i fjalosjes nuk depozitohet në OnionShare. Historiku i fjalosjes do të zhduket, kur të mbyllni Shfletuesin Tor.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Nise automatikisht këtë shërbim Onion, kur niset OnionShare",
     "gui_settings_license_label": "OnionShare licencohet sipas GPL v3.<br>Licenca palësh të treta mund të shihen këtu:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
-    "error_generic": "Pati një gabim të papritur me OnionShare-in:\n{}"
+    "error_generic": "Pati një gabim të papritur me OnionShare-in:\n{}",
+    "gui_settings_true": "Po",
+    "gui_settings_false": "Jo"
 }

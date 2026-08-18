@@ -257,5 +257,7 @@
     "gui_chat_mode_explainer": "チャットモードを使用すると、Tor Browser で他のユーザーとチャットを行うことができるようになります。<br><br><b>チャットの履歴は OnionShare には保存されません。Tor Browser を終了すると、チャットの履歴は消去されます。</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "OnionShare の起動時にこの Onion Service を自動的に開始する",
     "error_generic": "OnionShare で予期せぬエラーが発生しました:\n{}",
-    "gui_settings_license_label": "OnionShare は GPL v3 の下でライセンスされています。<br>サードパーティのライセンスに関する情報:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "OnionShare は GPL v3 の下でライセンスされています。<br>サードパーティのライセンスに関する情報:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_false": "いいえ",
+    "gui_settings_true": "はい"
 }

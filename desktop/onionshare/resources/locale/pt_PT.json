@@ -257,5 +257,7 @@
     "waitress_web_server_error": "Ocorreu um problema ao iniciar o servidor da Web",
     "error_generic": "Ocorreu um erro inesperado com o OnionShare:\n{}",
     "gui_settings_license_label": "OnionShare está licenciado sob a GPL v3.<br>As licenças de terceiros podem ser revistas aqui:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "Iniciar automaticamente este serviço onion quando o OnionShare inicia"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Iniciar automaticamente este serviço onion quando o OnionShare inicia",
+    "gui_settings_false": "Não",
+    "gui_settings_true": "Sim"
 }

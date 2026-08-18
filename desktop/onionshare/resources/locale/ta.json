@@ -257,5 +257,7 @@
     "waitress_web_server_error": "வலை சேவையகத்தைத் தொடங்குவதில் சிக்கல் இருந்தது",
     "error_generic": "வெங்காயத்தில் எதிர்பாராத பிழை ஏற்பட்டது: \n{}",
     "mode_settings_persistent_autostart_on_launch_checkbox": "வெங்காயர் தொடங்கும் போது தானாக இந்த வெங்காய சேவையைத் தொடங்கவும்",
-    "gui_settings_license_label": "சிபிஎல் வி 3 இன் கீழ் வெங்காயர் உரிமம் பெற்றது.<br> மூன்றாம் தரப்பு உரிமங்களை இங்கே காணலாம்: <br> <a href = 'https: //github.com/onionshare/onionshare/main/licenses'>"
+    "gui_settings_license_label": "சிபிஎல் வி 3 இன் கீழ் வெங்காயர் உரிமம் பெற்றது.<br> மூன்றாம் தரப்பு உரிமங்களை இங்கே காணலாம்: <br> <a href = 'https: //github.com/onionshare/onionshare/main/licenses'>",
+    "gui_settings_false": "இல்லை",
+    "gui_settings_true": "ஆம்"
 }

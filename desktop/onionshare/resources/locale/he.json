@@ -66,5 +66,7 @@
     "days_first_letter": "ב",
     "hours_first_letter": "שעה",
     "minutes_first_letter": "דק",
-    "seconds_first_letter": "ש"
+    "seconds_first_letter": "ש",
+    "gui_settings_true": "כן",
+    "gui_settings_false": "לא"
 }

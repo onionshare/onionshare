@@ -171,5 +171,7 @@
     "gui_share_url_public_description": "<b>Oricine</b> are această adresă OnionShare poate <b>descărca</b> fișierele dvs. folosind <b>Tor Browser</b>: <img src='{}' />",
     "gui_status_indicator_chat_stopped": "Oprit",
     "gui_autoconnect_configure": "Setări de rețea",
-    "mode_settings_advanced_toggle_show": "Afișați setări avansate"
+    "mode_settings_advanced_toggle_show": "Afișați setări avansate",
+    "gui_settings_false": "Nu",
+    "gui_settings_true": "Da"
 }
