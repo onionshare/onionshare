@@ -150,3 +150,28 @@ class TestSettings:
             settings_obj._settings["bridges_custom"]
             == "Bridge 45.3.20.65:9050 21300AD88890A49C429A6CB9959CFD44490A8F6E"
         )
+
+    def test_set_webtunnel_builtin_pt(self, settings_obj):
+        """bridges_builtin_pt accepts 'webtunnel' as a valid value."""
+        settings_obj.set("bridges_builtin_pt", "webtunnel")
+        assert settings_obj.get("bridges_builtin_pt") == "webtunnel"
+
+    def test_check_bridges_valid_webtunnel(self, settings_obj):
+        """
+        check_bridges_valid must accept WebTunnel bridge lines.
+        WebTunnel bridge format: webtunnel <IP>:<port> <fingerprint> url=https://...
+        """
+        _common = settings_obj.common
+        valid = _common.check_bridges_valid([
+            "webtunnel 192.0.2.42:443 D965164C1D9FB4FDD92E4FD5CDC6005E7820A687 url=https://example.com/secret-path",
+        ])
+        assert valid, "A well-formed webtunnel bridge line should be accepted"
+
+    def test_check_bridges_valid_webtunnel_rejects_bad(self, settings_obj):
+        """check_bridges_valid must reject malformed webtunnel bridge lines."""
+        _common = settings_obj.common
+        # Missing the required url= parameter
+        result = _common.check_bridges_valid([
+            "webtunnel 192.0.2.42:443 D965164C1D9FB4FDD92E4FD5CDC6005E7820A687",
+        ])
+        assert not result, "A webtunnel line without url= should be rejected"
