@@ -103,6 +103,22 @@ class ReceiveModeWeb:
             Handle the upload files POST request, though at this point, the files have
             already been uploaded and saved to their correct locations.
             """
+            # /upload-ajax already rejects requests once the autostop timer has
+            # expired, but plain (non-JS) form submissions hit this route
+            # directly. Without this check, ReceiveModeRequest.__init__ never
+            # initializes told_gui_about_request/includes_message (it only does
+            # so when can_upload is True), so touching request.includes_message
+            # or parsing request.files below raises an AttributeError and
+            # returns a 500 instead of a normal error page.
+            if not self.can_upload:
+                if ajax:
+                    return json.dumps(
+                        {"error_flashes": ["Uploads are no longer being accepted"]}
+                    )
+                else:
+                    flash("Uploads are no longer being accepted", "error")
+                    return redirect("/")
+
             message_received = request.includes_message
 
             files_received = 0
