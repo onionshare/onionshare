@@ -43,6 +43,7 @@ from onionshare_cli.onion import (
 from onionshare_cli.meek import Meek
 from onionshare_cli.web.web import WaitressException
 
+
 class GuiCommon:
     """
     The shared code for all of the OnionShare GUI.
@@ -52,6 +53,7 @@ class GuiCommon:
     MODE_RECEIVE = "receive"
     MODE_WEBSITE = "website"
     MODE_CHAT = "chat"
+    MODE_DOWNLOAD = "download"
 
     def __init__(self, common, qtapp, local_only):
         self.common = common
@@ -98,6 +100,8 @@ class GuiCommon:
         share_zip_progess_bar_chunk_color = "#4E064F"
         history_background_color = "#ffffff"
         history_label_color = "#000000"
+        download_history_file_background_color = "#ffffff"
+        download_history_file_size_color = "#666666"
         settings_error_color = "#FF0000"
         if color_mode == "dark":
             header_color = "#F2F2F2"
@@ -109,6 +113,8 @@ class GuiCommon:
             share_zip_progess_bar_border_color = "#F2F2F2"
             history_background_color = "#191919"
             history_label_color = "#ffffff"
+            download_history_file_background_color = "#2b2b2b"
+            download_history_file_size_color = "#cfcfcf"
             settings_error_color = "#FF9999"
 
         return {
@@ -363,7 +369,7 @@ class GuiCommon:
             # New tab
             "new_tab_button_image": """
                 QLabel {
-                    padding: 30px;
+                    padding: 6px;
                     text-align: center;
                 }
                 """,
@@ -388,7 +394,7 @@ class GuiCommon:
                     color: """
             + title_color
             + """;
-                    font-size: 25px;
+                    font-size: 16px;
                 }
                 """,
             # Share mode and child widget styles
@@ -467,6 +473,20 @@ class GuiCommon:
                     color: #666666;
                     font-size: 11px;
                 }""",
+            "download_history_file": """
+                QWidget {
+                    background-color: """
+            + download_history_file_background_color
+            + """;
+                }
+                """,
+            "download_history_file_size": """
+                QLabel {
+                    color: """
+            + download_history_file_size_color
+            + """;
+                    font-size: 11px;
+                }""",
             "receive_message_button": """
                 QPushButton {
                     padding: 5px 10px;
@@ -484,6 +504,41 @@ class GuiCommon:
                 }
                 """,
         }
+
+    def wrap_text(self, item, text):
+        """
+        Helper function to insert 'fake' line breaks in long strings
+        (such as file names or onion addresses) so that we may then
+        use the resulting string in a label with setWordWrap(True)
+        to properly wrap it.
+        """
+        # Get the font metrics of the label to calculate line breaks
+        fm = QtGui.QFontMetrics(item.font())
+
+        # Max width of the label
+        max_width = item.maximumWidth()
+
+        # Wrap the text by inserting line breaks
+        lines = []
+        current_line = ""
+
+        for char in text:
+            # Add the character to the current line
+            current_line += char
+
+            # If the line exceeds the maximum width, start a new line
+            if fm.horizontalAdvance(current_line) > max_width:
+                lines.append(
+                    current_line[:-1]
+                )  # Remove the last character and start a new line
+                current_line = char  # Start new line with the current character
+
+        # Add the last line
+        if current_line:
+            lines.append(current_line)
+
+        # Join all lines with newlines
+        return "\n".join(lines)
 
     def get_tor_paths(self):
         if self.common.platform == "Linux":
@@ -594,6 +649,7 @@ class GuiCommon:
         """
         if type(e) is WaitressException:
             return strings._("waitress_web_server_error")
+
 
 class ToggleCheckbox(QtWidgets.QCheckBox):
     def __init__(self, text):
