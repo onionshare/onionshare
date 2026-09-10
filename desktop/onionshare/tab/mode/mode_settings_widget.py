@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PySide6 import QtCore, QtWidgets
 
 from ... import strings
+from ...gui_common import GuiCommon
 
 
 class ModeSettingsWidget(QtWidgets.QScrollArea):
@@ -35,6 +36,14 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         self.common = common
         self.tab = tab
         self.settings = mode_settings
+
+        # Show the timers using the conventions of the language OnionShare is
+        # displayed in, rather than a hardcoded 12-hour clock and English dates
+        self.timer_locale = GuiCommon.get_locale(common)
+        timer_display_format = (
+            f"{self.timer_locale.timeFormat(QtCore.QLocale.ShortFormat)} "
+            f"{self.timer_locale.dateFormat(QtCore.QLocale.ShortFormat)}"
+        )
 
         # Downstream Mode need to fill in this layout with its settings
         self.mode_specific_layout = QtWidgets.QVBoxLayout()
@@ -92,7 +101,8 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
 
         # The autostart timer widget
         self.autostart_timer_widget = QtWidgets.QDateTimeEdit()
-        self.autostart_timer_widget.setDisplayFormat("hh:mm A MMM d, yy")
+        self.autostart_timer_widget.setLocale(self.timer_locale)
+        self.autostart_timer_widget.setDisplayFormat(timer_display_format)
         self.autostart_timer_reset()
         self.autostart_timer_widget.setCurrentSection(
             QtWidgets.QDateTimeEdit.MinuteSection
@@ -123,7 +133,8 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
 
         # The autostop timer widget
         self.autostop_timer_widget = QtWidgets.QDateTimeEdit()
-        self.autostop_timer_widget.setDisplayFormat("hh:mm A MMM d, yy")
+        self.autostop_timer_widget.setLocale(self.timer_locale)
+        self.autostop_timer_widget.setDisplayFormat(timer_display_format)
         self.autostop_timer_reset()
         self.autostop_timer_widget.setCurrentSection(
             QtWidgets.QDateTimeEdit.MinuteSection
