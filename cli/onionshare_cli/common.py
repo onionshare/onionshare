@@ -533,20 +533,29 @@ class Common:
         return s[:output_len]
 
     @staticmethod
-    def human_readable_filesize(b):
+    def split_filesize(b):
         """
-        Returns filesize in a human readable format.
+        Splits a filesize into a human readable value and the index of its
+        unit, where 0 is bytes, 1 is KiB, 2 is MiB, and so on.
         """
         thresh = 1024.0
         if b < thresh:
-            return "{:.1f} B".format(b)
-        units = ("KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
-        u = 0
+            return b, 0
+        u = 1
         b /= thresh
         while b >= thresh:
             b /= thresh
             u += 1
-        return "{:.1f} {}".format(b, units[u])
+        return b, u
+
+    @staticmethod
+    def human_readable_filesize(b):
+        """
+        Returns filesize in a human readable format.
+        """
+        units = ("B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
+        value, u = Common.split_filesize(b)
+        return "{:.1f} {}".format(value, units[u])
 
     @staticmethod
     def format_seconds(seconds):
