@@ -250,6 +250,27 @@ class TestHumanReadableFilesize:
         assert common_obj.human_readable_filesize(test_input) == expected
 
 
+class TestSplitFilesize:
+    @pytest.mark.parametrize(
+        "test_input,expected",
+        (
+            (0, (0, 0)),
+            (1023, (1023, 0)),
+            (1024 ** 1, (1.0, 1)),
+            (1024 ** 2, (1.0, 2)),
+            (1024 ** 3, (1.0, 3)),
+            (1024 ** 4, (1.0, 4)),
+            (1024 ** 5, (1.0, 5)),
+            (1024 ** 6, (1.0, 6)),
+            (1024 ** 7, (1.0, 7)),
+            (1024 ** 8, (1.0, 8)),
+            (1536, (1.5, 1)),
+        ),
+    )
+    def test_split_filesize(self, common_obj, test_input, expected):
+        assert common_obj.split_filesize(test_input) == expected
+
+
 class TestLog:
     def test_output(self, common_obj, time_strftime):
         common_obj.verbose = True

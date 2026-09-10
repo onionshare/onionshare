@@ -24,6 +24,7 @@ import shutil
 from PySide6 import QtCore, QtWidgets, QtGui
 
 from . import strings
+from onionshare_cli.common import Common
 from onionshare_cli.onion import (
     Onion,
     TorErrorInvalidSetting,
@@ -553,6 +554,29 @@ class GuiCommon:
                 return str(path)
         except FileNotFoundError:
             return None
+
+    @staticmethod
+    def get_translated_filesize(b):
+        """
+        Takes a number of bytes and returns it in a human readable format, using
+        translated units.
+
+        The web interfaces deliberately keep their English units, so that the
+        sender's locale is not leaked to the recipient. This is only for the GUI.
+        """
+        units = (
+            "gui_filesize_bytes",
+            "gui_filesize_kib",
+            "gui_filesize_mib",
+            "gui_filesize_gib",
+            "gui_filesize_tib",
+            "gui_filesize_pib",
+            "gui_filesize_eib",
+            "gui_filesize_zib",
+            "gui_filesize_yib",
+        )
+        value, u = Common.split_filesize(b)
+        return strings._(units[u]).format("{:.1f}".format(value))
 
     @staticmethod
     def get_translated_tor_error(e):

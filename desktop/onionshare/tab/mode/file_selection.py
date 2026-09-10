@@ -279,10 +279,10 @@ class FileList(QtWidgets.QListWidget):
 
             if os.path.isfile(filename):
                 size_bytes = fileinfo.size()
-                size_readable = self.common.human_readable_filesize(size_bytes)
+                size_readable = GuiCommon.get_translated_filesize(size_bytes)
             else:
                 size_bytes = self.common.dir_size(filename)
-                size_readable = self.common.human_readable_filesize(size_bytes)
+                size_readable = GuiCommon.get_translated_filesize(size_bytes)
 
             # Create a new item
             item = QtWidgets.QListWidgetItem()
