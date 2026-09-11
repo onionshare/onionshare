@@ -209,6 +209,25 @@ class ReceiveMode(Mode):
         """
         return "receive"
 
+    @staticmethod
+    def is_data_dir_writable(path):
+        """
+        Return True if path is an existing directory we can create files in.
+
+        Uses a real write probe so AppArmor/sandbox restrictions (e.g. Tails)
+        are detected even when os.access is optimistic.
+        """
+        if not path or not os.path.isdir(path):
+            return False
+        try:
+            test_path = os.path.join(path, ".onionshare-write-test")
+            with open(test_path, "w", encoding="utf-8") as f:
+                f.write("ok")
+            os.remove(test_path)
+            return True
+        except OSError:
+            return False
+
     def data_dir_button_clicked(self):
         """
         Browse for a new OnionShare data directory, and save to tab settings
@@ -224,6 +243,14 @@ class ReceiveMode(Mode):
                 if not selected_dir.startswith(os.path.expanduser("~/OnionShare")):
                     Alert(self.common, strings._("gui_receive_flatpak_data_dir"))
                     return
+
+            if not self.is_data_dir_writable(selected_dir):
+                Alert(
+                    self.common,
+                    strings._("gui_receive_data_dir_not_writable").format(selected_dir),
+                    QtWidgets.QMessageBox.Warning,
+                )
+                return
 
             self.common.log(
                 "ReceiveMode",
@@ -298,6 +325,20 @@ class ReceiveMode(Mode):
             )
             self.web.receive_mode.can_upload = False
             return False
+
+    def start_server(self):
+        """
+        Start Receive Mode only if the save directory is writable.
+        """
+        data_dir = self.settings.get("receive", "data_dir")
+        if not self.is_data_dir_writable(data_dir):
+            Alert(
+                self.common,
+                strings._("gui_receive_data_dir_not_writable").format(data_dir),
+                QtWidgets.QMessageBox.Warning,
+            )
+            return
+        super().start_server()
 
     def start_server_custom(self):
         """
