@@ -30,6 +30,19 @@ class Alert(QtWidgets.QMessageBox):
     An alert box dialog.
     """
 
+    # Qt's built-in translations for QMessageBox standard buttons are only
+    # applied if the app installs a QTranslator for Qt's own qtbase locale
+    # files, which OnionShare doesn't do. Without this, standard buttons like
+    # "OK" always show up in English, regardless of the user's chosen
+    # OnionShare locale (see #984). Re-label them using our own strings.
+    standard_button_strings = {
+        QtWidgets.QMessageBox.Ok: "gui_alert_button_ok",
+        QtWidgets.QMessageBox.Cancel: "gui_alert_button_cancel",
+        QtWidgets.QMessageBox.Yes: "gui_alert_button_yes",
+        QtWidgets.QMessageBox.No: "gui_alert_button_no",
+        QtWidgets.QMessageBox.Close: "gui_alert_button_close",
+    }
+
     def __init__(
         self,
         common,
@@ -50,6 +63,10 @@ class Alert(QtWidgets.QMessageBox):
         self.setText(message)
         self.setIcon(icon)
         self.setStandardButtons(buttons)
+        for standard_button, string_key in self.standard_button_strings.items():
+            button = self.button(standard_button)
+            if button is not None:
+                button.setText(strings._(string_key))
 
         if autostart:
             self.exec()
