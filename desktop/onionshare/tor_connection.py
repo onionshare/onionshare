@@ -78,7 +78,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
         self.setLayout(layout)
 
         # Start displaying the status at 0
-        self._tor_status_update(0, "")
+        self._tor_status_update(0, "", "")
 
     def start(self, custom_settings=False, testing_settings=False, onion=None):
         self.common.log("TorConnectionWidget", "start")
@@ -119,11 +119,14 @@ class TorConnectionWidget(QtWidgets.QWidget):
     def wasCanceled(self):
         return self.was_canceled
 
-    def _tor_status_update(self, progress, summary):
+    def _tor_status_update(self, progress, summary, tag):
         self.progress.setValue(int(progress))
         self.update_progress.emit(int(progress))
+        translated_summary = self.common.gui.get_translated_bootstrap_summary(
+            tag, summary
+        )
         self.label.setText(
-            f"<strong>{strings._('connecting_to_tor')}</strong><br>{summary}"
+            f"<strong>{strings._('connecting_to_tor')}</strong><br>{translated_summary}"
         )
 
     def _connected_to_tor(self):
@@ -160,7 +163,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
 
 
 class TorConnectionThread(QtCore.QThread):
-    tor_status_update = QtCore.Signal(str, str)
+    tor_status_update = QtCore.Signal(str, str, str)
     connected_to_tor = QtCore.Signal()
     canceled_connecting_to_tor = QtCore.Signal()
     error_connecting_to_tor = QtCore.Signal(str)
@@ -216,8 +219,8 @@ class TorConnectionThread(QtCore.QThread):
             self.error_connecting_to_tor.emit(message)
             return
 
-    def _tor_status_update(self, progress, summary):
-        self.tor_status_update.emit(progress, summary)
+    def _tor_status_update(self, progress, summary, tag):
+        self.tor_status_update.emit(progress, summary, tag)
 
         # Return False if the dialog was canceled
         return not self.parent.wasCanceled()
