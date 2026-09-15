@@ -6,17 +6,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3.2\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-06-01 19:58+0530\n"
-"PO-Revision-Date: 2023-11-03 05:01+0000\n"
-"Last-Translator: emma peel <emma.peel@riseup.net>\n"
+"PO-Revision-Date: 2026-09-15 02:51+0000\n"
+"Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: none\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.2-dev\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -36,46 +36,51 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Mobile"
-msgstr ""
+msgstr "Seluler"
 
 #: ../../source/install.rst:14
 msgid "You can download OnionShare for Mobile from the follow links"
 msgstr ""
+"Anda dapat mengunduh OnionShare untuk perangkat seluler melalui tautan "
+"berikut"
 
 #: ../../source/install.rst:16
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
 "Google Play: https://play.google.com/store/apps/details?"
 "id=org.onionshare.android"
 msgstr ""
+"Google Play: https://play.google.com/store/apps/"
+"details?id=org.onionshare.android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
-msgstr ""
+msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
 #: ../../source/install.rst:20
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #: ../../source/install.rst:21
 msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
-msgstr ""
+msgstr "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
 
 #: ../../source/install.rst:22
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"Unduhan IPA langsung: https://github.com/onionshare/onionshare-ios/releases"
 
 #: ../../source/install.rst:23
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "Testflight: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:29
 msgid ""
@@ -84,6 +89,11 @@ msgid ""
 "<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
+"Terdapat berbagai cara untuk menginstal OnionShare di Linux, tetapi cara "
+"yang direkomendasikan adalah menggunakan paket `Flatpak <https://"
+"flatpak.org/>`_ atau `Snap <https://snapcraft.io/>`_. Flatpak dan Snapcraft "
+"memastikan Anda selalu menggunakan versi terbaru serta menjalankan "
+"OnionShare di dalam sandbox."
 
 #: ../../source/install.rst:32
 msgid ""
@@ -91,6 +101,9 @@ msgid ""
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
+"Dukungan Snapcraft tersedia secara bawaan di Ubuntu, sedangkan Fedora sudah "
+"dilengkapi dukungan Flatpak. Namun, pilihan penggunaannya terserah Anda. "
+"Keduanya dapat digunakan di semua distribusi Linux."
 
 #: ../../source/install.rst:34
 msgid ""
@@ -101,11 +114,9 @@ msgstr ""
 "org.onionshare.OnionShare"
 
 #: ../../source/install.rst:36
-#, fuzzy
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
-"**Instal OnionShare menggunakan Flatpak**: https://flathub.org/apps/details/"
-"org.onionshare.OnionShare"
+"**Instal OnionShare menggunakan Snapcraft**: https://snapcraft.io/onionshare"
 
 #: ../../source/install.rst:38
 msgid ""
@@ -113,12 +124,12 @@ msgid ""
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
 "Anda juga dapat mengunduh dan menginstal paket ``.flatpak`` atau ``.snap`` "
-"bertanda PGP dari https://onionshare.org/dist/ jika Anda mau."
+"yang ditandatangani dengan PGP dari https://onionshare.org/dist/ jika "
+"diinginkan."
 
 #: ../../source/install.rst:41
-#, fuzzy
 msgid "Manual Flatpak Installation"
-msgstr "Instalasi"
+msgstr "Instalasi Flatpak Manual"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -126,11 +137,14 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
+"Jika Anda ingin menginstal OnionShare secara manual dengan Flatpak "
+"menggunakan `bundel satu berkas <https://docs.flatpak.org/en/latest/single-"
+"file-bundles.html>`_ yang ditandatangani dengan PGP, lakukan langkah berikut:"
 
 #: ../../source/install.rst:45
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
-msgstr ""
+msgstr "Instal Flatpak dengan mengikuti petunjuk di https://flatpak.org/setup/."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -139,18 +153,26 @@ msgid ""
 "won't be downloading OnionShare from Flathub, OnionShare depends on some "
 "packages that are only available there."
 msgstr ""
+"Tambahkan repositori Flathub dengan menjalankan ``flatpak remote-add --if-"
+"not-exists flathub https://flathub.org/repo/flathub.flatpakrepo``. Meskipun "
+"Anda tidak akan mengunduh OnionShare dari Flathub, OnionShare bergantung "
+"pada beberapa paket yang hanya tersedia di sana."
 
 #: ../../source/install.rst:47
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
+"Buka https://onionshare.org/dist/, pilih versi OnionShare terbaru, lalu "
+"unduh berkas ``.flatpak`` dan ``.flatpak.asc``."
 
 #: ../../source/install.rst:48
 msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Verifikasi tanda tangan PGP pada berkas ``.flatpak``. Lihat "
+":ref:`verifying_sigs` untuk informasi selengkapnya."
 
 #: ../../source/install.rst:49
 msgid ""
@@ -158,38 +180,52 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
+"Instal berkas ``.flatpak`` dengan menjalankan ``flatpak install OnionShare-"
+"VERSION.flatpak``. Ganti ``VERSION`` dengan nomor versi berkas yang Anda "
+"unduh."
 
 #: ../../source/install.rst:51
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
 msgstr ""
+"Anda dapat menjalankan OnionShare dengan: `flatpak run "
+"org.onionshare.OnionShare`."
 
 #: ../../source/install.rst:54
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "Instalasi Snapcraft Manual"
 
 #: ../../source/install.rst:56
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
+"Jika Anda ingin menginstal OnionShare secara manual dengan Snapcraft "
+"menggunakan paket Snapcraft yang ditandatangani dengan PGP, lakukan langkah "
+"berikut:"
 
 #: ../../source/install.rst:58
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
+"Instal Snapcraft dengan mengikuti petunjuk di https://snapcraft.io/docs/"
+"installing-snapd."
 
 #: ../../source/install.rst:59
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
+"Buka https://onionshare.org/dist/, pilih versi OnionShare terbaru, lalu "
+"unduh berkas ``.snap`` dan ``.snap.asc``."
 
 #: ../../source/install.rst:60
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Verifikasi tanda tangan PGP pada berkas ``.snap``. Lihat "
+":ref:`verifying_sigs` untuk informasi selengkapnya."
 
 #: ../../source/install.rst:61
 msgid ""
@@ -199,24 +235,33 @@ msgid ""
 "package is not signed by the Snapcraft store, however you did verify its PGP "
 "signature, so you know it's legitimate."
 msgstr ""
+"Instal berkas ``.snap`` dengan menjalankan ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap``. Ganti ``VERSION`` dengan nomor versi berkas "
+"yang Anda unduh. Perhatikan bahwa Anda harus menggunakan `--dangerous` "
+"karena paket tersebut tidak ditandatangani oleh Snapcraft Store. Namun, Anda "
+"telah memverifikasi tanda tangan PGP-nya sehingga paket tersebut dapat "
+"dipastikan asli."
 
 #: ../../source/install.rst:63
 msgid "You can run OnionShare with: `snap run onionshare`."
-msgstr ""
+msgstr "Anda dapat menjalankan OnionShare dengan: `snap run onionshare`."
 
 #: ../../source/install.rst:68
 msgid "Command-line only"
-msgstr ""
+msgstr "Khusus command-line"
 
 #: ../../source/install.rst:70
 msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
+"Anda dapat menginstal OnionShare versi command-line saja pada sistem operasi "
+"apa pun menggunakan pengelola paket Python, yaitu ``pip``. :ref:`cli` "
+"menyediakan informasi selengkapnya."
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #: ../../source/install.rst:77
 msgid ""
@@ -226,6 +271,12 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
+"Meskipun tidak dikembangkan secara resmi untuk platform ini, OnionShare juga "
+"dapat diinstal di `FreeBSD <https://freebsd.org/>`_. Aplikasi ini tersedia "
+"melalui koleksi ports atau sebagai paket siap pakai. Jika Anda memilih untuk "
+"menginstal dan menggunakan OnionShare pada sistem operasi FreeBSD, perlu "
+"diketahui bahwa platform ini **TIDAK** didukung secara resmi oleh proyek "
+"OnionShare."
 
 #: ../../source/install.rst:79
 msgid ""
@@ -236,19 +287,23 @@ msgid ""
 "you wish to check changes related to this platform, please refer to the "
 "following resources:"
 msgstr ""
+"Meskipun tidak disediakan dan dipelihara secara resmi oleh pengembang "
+"OnionShare, paket dan ports FreeBSD tetap mengambil serta memverifikasi "
+"source code dari repositori resmi OnionShare atau paket rilis resminya dari "
+"`PyPI <https://pypi.org/project/onionshare-cli/>`_. Jika ingin memeriksa "
+"perubahan terkait platform ini, silakan merujuk ke sumber berikut:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
-msgstr ""
+msgstr "https://cgit.freebsd.org/ports/log/www/onionshare"
 
 #: ../../source/install.rst:82
 msgid "https://www.freshports.org/www/onionshare"
-msgstr ""
+msgstr "https://www.freshports.org/www/onionshare"
 
 #: ../../source/install.rst:85
-#, fuzzy
 msgid "Manual pkg Installation"
-msgstr "Instalasi"
+msgstr "Instalasi pkg Manual"
 
 #: ../../source/install.rst:87
 msgid ""
@@ -256,6 +311,9 @@ msgid ""
 "``pyXY`` specifying the version of Python the package was built for. So, in "
 "order to install OnionShare for Python 3.9, use::"
 msgstr ""
+"Untuk menginstal paket biner, gunakan ``pkg install pyXY-onionshare``, "
+"dengan ``pyXY`` menunjukkan versi Python yang digunakan saat paket dibuat. "
+"Jadi, untuk menginstal OnionShare untuk Python 3.9, gunakan::"
 
 #: ../../source/install.rst:91
 msgid ""
@@ -263,6 +321,9 @@ msgid ""
 "built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
 "want to install that version."
 msgstr ""
+"Versi OnionShare **khusus command-line** juga tersedia sebagai paket siap "
+"pakai. Ganti ``py39-onionshare`` dengan ``py39-onionshare-cli`` jika Anda "
+"ingin menginstal versi tersebut."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -270,11 +331,13 @@ msgid ""
 "please refer to its `official Handbook section about pkg <https://"
 "docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
+"Untuk informasi dan rincian tambahan tentang paket siap pakai FreeBSD, "
+"silakan merujuk ke `bagian Handbook resmi mengenai pkg <https://"
+"docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 
 #: ../../source/install.rst:96
-#, fuzzy
 msgid "Manual port Installation"
-msgstr "Instalasi"
+msgstr "Instalasi port Manual"
 
 #: ../../source/install.rst:98
 msgid ""
@@ -282,6 +345,9 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
+"Untuk menginstal port FreeBSD, pindahkan direktori ke `koleksi ports "
+"<https://freebsd.org/ports/>`_ yang telah Anda checkout sebelumnya, lalu "
+"jalankan perintah berikut::"
 
 #: ../../source/install.rst:102
 msgid ""
@@ -289,6 +355,9 @@ msgid ""
 "only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
 "cli`` if you want to install that version."
 msgstr ""
+"Koleksi ports juga menyediakan port khusus untuk OnionShare versi **khusus "
+"command-line**. Ganti ``www/onionshare`` dengan ``www/onionshare-cli`` jika "
+"Anda ingin menginstal versi tersebut."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -296,6 +365,9 @@ msgid ""
 "please refer to its `official Handbook section about ports <https://"
 "docs.freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
+"Untuk informasi dan rincian tambahan tentang koleksi ports FreeBSD, silakan "
+"merujuk ke `bagian Handbook resmi mengenai ports <https://docs.freebsd.org/"
+"en/books/handbook/ports/#ports-using>`_."
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
@@ -309,15 +381,16 @@ msgid ""
 "include operating system-specific signatures, and you can just rely on those "
 "alone if you'd like."
 msgstr ""
-"Anda dapat memverifikasi bahwa paket yang Anda unduh sah dan belum diubah "
-"dengan memverifikasi tanda tangan PGP-nya. Untuk Windows dan macOS, langkah "
-"ini bersifat opsional dan memberikan keamanan mendalam: binari OnionShare "
-"menyertakan tanda tangan khusus sistem operasi, dan Anda dapat "
-"menggunakannya jika Anda mau."
+"Anda dapat memverifikasi bahwa paket yang diunduh adalah asli dan tidak "
+"dimodifikasi dengan memverifikasi tanda tangan PGP-nya. Untuk Windows dan "
+"macOS, langkah ini bersifat opsional serta memberikan lapisan perlindungan "
+"tambahan: biner OnionShare sudah menyertakan tanda tangan khusus sistem "
+"operasi, sehingga Anda dapat mengandalkan tanda tangan tersebut saja jika "
+"diinginkan."
 
 #: ../../source/install.rst:115
 msgid "Signing key"
-msgstr "Kunci masuk"
+msgstr "Kunci penandatanganan"
 
 #: ../../source/install.rst:117
 msgid ""
@@ -325,37 +398,38 @@ msgid ""
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
 msgstr ""
+"Paket ditandatangani oleh pengembang inti yang bertanggung jawab atas rilis "
+"terkait. Berikut informasi kunci GPG untuk setiap pengembang inti OnionShare:"
 
 #: ../../source/install.rst:120
 msgid "Micah Lee:"
-msgstr ""
+msgstr "Micah Lee:"
 
 #: ../../source/install.rst:121
 msgid ""
 "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 msgstr ""
+"Fingerprint kunci publik PGP ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
-#, fuzzy
 msgid ""
 "You can download Micah's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-fingerprint/"
 "927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
-"Paket ditandatangani oleh Micah Lee, pengembang inti, menggunakan kunci "
-"publik PGP miliknya dengan sidik jari "
-"``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Anda dapat mengunduh kunci "
-"Micah `dari server kunci keys.openpgp.org <https://keys.openpgp.org/vks/v1/"
-"by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Anda dapat mengunduh kunci Micah `dari keyserver keys.openpgp.org <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
-msgstr ""
+msgstr "Saptak Sengupta:"
 
 #: ../../source/install.rst:125
 msgid ""
 "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 msgstr ""
+"Fingerprint kunci publik PGP ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
 msgid ""
@@ -363,28 +437,29 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-fingerprint/"
 "2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
+"Anda dapat mengunduh kunci Saptak `dari keyserver keys.openpgp.org <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
 msgid ""
 "PGP public key fingerprint ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
 msgstr ""
+"Fingerprint kunci publik PGP ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
 
 #: ../../source/install.rst:130
-#, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
 "keys.openpgp.org/vks/v1/by-fingerprint/"
 "54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_."
 msgstr ""
-"Paket ditandatangani oleh Micah Lee, pengembang inti, menggunakan kunci "
-"publik PGP miliknya dengan sidik jari "
-"``927F419D7EC82C2F149C1BD1403C2657CD994F73``. Anda dapat mengunduh kunci "
-"Micah `dari server kunci keys.openpgp.org <https://keys.openpgp.org/vks/v1/"
-"by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"Anda dapat mengunduh kunci Miguel `dari keyserver keys.openpgp.org <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_."
 
 #: ../../source/install.rst:132
 msgid ""
@@ -392,62 +467,61 @@ msgid ""
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
 "`Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
-"Anda harus menginstal GnuPG untuk memverifikasi tanda tangan. Untuk macOS "
-"Anda mungkin menginginkan `GPGTools <https://gpgtools.org/>`_, dan untuk "
-"Windows Anda mungkin menginginkan `Gpg4win <https://www.gpg4win.org/>`_."
+"Anda harus menginstal GnuPG untuk memverifikasi tanda tangan. Untuk macOS, "
+"Anda mungkin perlu menggunakan `GPGTools <https://gpgtools.org/>`_, "
+"sedangkan untuk Windows, Anda mungkin perlu menggunakan `Gpg4win <https://"
+"www.gpg4win.org/>`_."
 
 #: ../../source/install.rst:135
 msgid "Signatures"
 msgstr "Tanda tangan"
 
 #: ../../source/install.rst:137
-#, fuzzy
 msgid ""
 "You can find the signatures (as ``.asc`` files), as well as Windows, macOS, "
 "Flatpak, Snap, and source packages, at https://onionshare.org/dist/ in the "
 "folders named for each version of OnionShare. You can also find them on the "
 "`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
-"Anda dapat menemukan tanda tangan (sebagai file ``.asc``), serta paket "
-"Windows, macOS, Flatpak, Snap, dan sumber, di https://onionshare.org/dist/ "
-"di folder yang diberi nama untuk setiap versi OnionShare. Anda juga dapat "
-"menemukannya di halaman `Rilis GitHub <https://github.com/micahflee/"
-"onionshare/releases>`_."
+"Anda dapat menemukan tanda tangan, dalam bentuk berkas ``.asc``, serta paket "
+"Windows, macOS, Flatpak, Snap, dan source code di [https://onionshare.org/"
+"dist/](https://onionshare.org/dist/) pada folder yang diberi nama sesuai "
+"setiap versi OnionShare. Anda juga dapat menemukannya pada `halaman GitHub "
+"Releases <https://github.com/onionshare/onionshare/releases>`_."
 
 #: ../../source/install.rst:141
 msgid "Verifying"
-msgstr "Memverifikasi"
+msgstr "Verifikasi"
 
 #: ../../source/install.rst:143
-#, fuzzy
 msgid ""
 "Once you have imported the core developers public keys into your GnuPG "
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
-"Setelah Anda mengimpor kunci publik Micah ke gantungan kunci GnuPG Anda, "
-"tanda tangan biner yang sudah diunduh dan dan ``.asc``, Anda dapat "
-"memverifikasi biner untuk macOS di terminal seperti ini::"
+"Setelah mengimpor kunci publik pengembang inti ke keychain GnuPG, mengunduh "
+"biner, dan tanda tangan ``.asc``, Anda dapat memverifikasi biner melalui "
+"terminal seperti berikut:"
 
 #: ../../source/install.rst:145
 msgid "For Windows::"
-msgstr ""
+msgstr "Untuk Windows::"
 
 #: ../../source/install.rst:149
 msgid "For macOS::"
-msgstr ""
+msgstr "Untuk macOS::"
 
 #: ../../source/install.rst:153
 msgid "For Linux::"
-msgstr ""
+msgstr "Untuk Linux::"
 
 #: ../../source/install.rst:159
 msgid "and for the source file::"
-msgstr ""
+msgstr "dan untuk berkas source code::"
 
 #: ../../source/install.rst:163
 msgid "The expected output looks like this::"
-msgstr "Output yang diharapkan terlihat seperti ini ::"
+msgstr "Hasil yang diharapkan akan terlihat seperti berikut::"
 
 #: ../../source/install.rst:173
 msgid ""
@@ -455,6 +529,9 @@ msgid ""
 "integrity of the file (malicious or otherwise), and you should not install "
 "the package."
 msgstr ""
+"Jika Anda tidak melihat ``Good signature from``, mungkin terdapat masalah "
+"pada integritas berkas, baik karena tindakan berbahaya maupun penyebab lain. "
+"Jangan instal paket tersebut."
 
 #: ../../source/install.rst:175
 msgid ""
@@ -462,6 +539,9 @@ msgid ""
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
+"Pesan ``WARNING:`` yang ditampilkan di atas bukan masalah pada paket. Pesan "
+"tersebut hanya berarti Anda belum menentukan tingkat \"trust\" untuk kunci "
+"PGP Micah, yaitu pengembang inti."
 
 #: ../../source/install.rst:177
 msgid ""
@@ -470,10 +550,10 @@ msgid ""
 "the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/"
 ">`_ may be useful."
 msgstr ""
-"Jika Anda ingin mempelajari lebih lanjut tentang memverifikasi tanda tangan "
-"PGP, panduan untuk `Qubes OS <https://www.qubes-os.org/security/verifying-"
-"signatures/>`_ dan `Tor Project <https://support.torproject.org/id/tbb/how-"
-"to-verify-signature/>`_ mungkin bermanfaat."
+"Jika Anda ingin mempelajari lebih lanjut tentang verifikasi tanda tangan "
+"PGP, panduan dari `Qubes OS <https://www.qubes-os.org/security/verifying-"
+"signatures/>`_ dan `Tor Project <https://support.torproject.org/tbb/how-to-"
+"verify-signature/>`_ dapat membantu."
 
 #~ msgid "Or for Windows, in a command-prompt like this::"
 #~ msgstr "Atau untuk Windows, di command-prompt seperti ini ::"
