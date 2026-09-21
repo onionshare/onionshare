@@ -332,6 +332,7 @@ class ReceiveMode(Mode):
         """
         data_dir = self.settings.get("receive", "data_dir")
         if not self.is_data_dir_writable(data_dir):
+            self.server_status.stop_server_finished()
             Alert(
                 self.common,
                 strings._("gui_receive_data_dir_not_writable").format(data_dir),
