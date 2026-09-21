@@ -77,10 +77,8 @@ class Application(QtWidgets.QApplication):
         return False
 
     def is_dark_mode(self):
-        # A default-constructed QPalette() is Qt's hardcoded, style-independent
-        # palette, not the platform's actual one, so its Base color is always
-        # white and never reflects the OS light/dark setting (see #1440).
-        # QStyleHints.colorScheme() asks the platform theme directly.
+        # Use Qt's system appearance hint rather than inferring it from
+        # a palette colour. Default to light if the scheme is unknown.
         return self.styleHints().colorScheme() == Qt.ColorScheme.Dark
 
     def setLightMode(self):
