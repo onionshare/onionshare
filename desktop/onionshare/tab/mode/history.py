@@ -159,11 +159,11 @@ class ShareHistoryItem(HistoryItem):
                 # This prevents a "Windows copy dialog"-esque experience at
                 # the beginning of the download.
                 pb_fmt = strings._("gui_all_modes_progress_starting").format(
-                    self.common.human_readable_filesize(downloaded_bytes)
+                    GuiCommon.get_translated_filesize(downloaded_bytes)
                 )
             else:
                 pb_fmt = strings._("gui_all_modes_progress_eta").format(
-                    self.common.human_readable_filesize(downloaded_bytes),
+                    GuiCommon.get_translated_filesize(downloaded_bytes),
                     self.estimated_time_remaining,
                 )
 
@@ -221,7 +221,7 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
         self.setLayout(layout)
 
     def update(self, uploaded_bytes, complete):
-        self.filesize_label.setText(self.common.human_readable_filesize(uploaded_bytes))
+        self.filesize_label.setText(GuiCommon.get_translated_filesize(uploaded_bytes))
         self.filesize_label.show()
 
         if complete:
@@ -399,14 +399,14 @@ class ReceiveHistoryItem(HistoryItem):
             elapsed = datetime.now() - self.started
             if elapsed.seconds < 10:
                 pb_fmt = strings._("gui_all_modes_progress_starting").format(
-                    self.common.human_readable_filesize(total_uploaded_bytes)
+                    GuiCommon.get_translated_filesize(total_uploaded_bytes)
                 )
             else:
                 estimated_time_remaining = self.common.estimated_time_remaining(
                     total_uploaded_bytes, self.content_length, self.started.timestamp()
                 )
                 pb_fmt = strings._("gui_all_modes_progress_eta").format(
-                    self.common.human_readable_filesize(total_uploaded_bytes),
+                    GuiCommon.get_translated_filesize(total_uploaded_bytes),
                     estimated_time_remaining,
                 )
 
@@ -554,11 +554,11 @@ class IndividualFileHistoryItem(HistoryItem):
                 # This prevents a "Windows copy dialog"-esque experience at
                 # the beginning of the download.
                 pb_fmt = strings._("gui_all_modes_progress_starting").format(
-                    self.common.human_readable_filesize(downloaded_bytes)
+                    GuiCommon.get_translated_filesize(downloaded_bytes)
                 )
             else:
                 pb_fmt = strings._("gui_all_modes_progress_eta").format(
-                    self.common.human_readable_filesize(downloaded_bytes),
+                    GuiCommon.get_translated_filesize(downloaded_bytes),
                     self.estimated_time_remaining,
                 )
 
