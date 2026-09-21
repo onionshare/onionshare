@@ -434,21 +434,17 @@ class Common:
         """
         Returns the path of the OnionShare cache directory, which holds
         non-essential data that can safely be deleted. On Linux and BSD this
-        follows the XDG Base Directory Specification (~/.cache/onionshare);
-        on Windows and macOS cache data lives inside the data directory.
+        follows the XDG Base Directory Specification (~/.cache/onionshare).
         """
-        if self.platform == "Windows" or self.platform == "Darwin":
-            onionshare_cache_dir = os.path.join(self.build_data_dir(), "cache")
-        else:
-            try:
-                xdg_cache_home = os.environ["XDG_CACHE_HOME"]
-                onionshare_cache_dir = f"{xdg_cache_home}/onionshare"
-            except Exception:
-                onionshare_cache_dir = os.path.expanduser("~/.cache/onionshare")
+        xdg_cache_home = os.environ.get("XDG_CACHE_HOME", "")
+        if not os.path.isabs(xdg_cache_home):
+            xdg_cache_home = os.path.expanduser("~/.cache")
 
-            # Modify the cache dir if running tests
-            if getattr(sys, "onionshare_test_mode", False):
-                onionshare_cache_dir += "-testdata"
+        onionshare_cache_dir = os.path.join(xdg_cache_home, "onionshare")
+
+        # Modify the cache dir if running tests
+        if getattr(sys, "onionshare_test_mode", False):
+            onionshare_cache_dir += "-testdata"
 
         os.makedirs(onionshare_cache_dir, 0o700, True)
         return onionshare_cache_dir
@@ -457,8 +453,13 @@ class Common:
         """
         Returns path to a folder that can hold temporary files
         """
-        tmp_dir = os.path.join(self.build_cache_dir(), "tmp")
-        os.makedirs(tmp_dir, 0o700, True)
+        if self.platform in ("Windows", "Darwin"):
+            base_dir = self.build_data_dir()
+        else:
+            base_dir = self.build_cache_dir()
+
+        tmp_dir = os.path.join(base_dir, "tmp")
+        os.makedirs(tmp_dir, mode=0o700, exist_ok=True)
         return tmp_dir
 
     def build_persistent_dir(self):
