@@ -77,10 +77,9 @@ class Application(QtWidgets.QApplication):
         return False
 
     def is_dark_mode(self):
-        baseColor = QtGui.QPalette().color(QtGui.QPalette.Base)
-        if baseColor.name().lower() == "#ffffff":
-            return False
-        return True
+        # Use Qt's system appearance hint rather than inferring it from
+        # a palette colour. Default to light if the scheme is unknown.
+        return self.styleHints().colorScheme() == Qt.ColorScheme.Dark
 
     def setLightMode(self):
         light_palette = QPalette()
