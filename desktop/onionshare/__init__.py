@@ -35,6 +35,7 @@ from onionshare_cli.common import Common
 from onionshare_cli.settings import Settings
 
 from .gui_common import GuiCommon
+from .instance_lock import acquire_flatpak_lock
 from .widgets import Alert
 from .main_window import MainWindow
 
@@ -200,49 +201,74 @@ def main():
         if not valid:
             sys.exit()
 
+    flatpak_lock_file = None
+
     # Is there another onionshare-gui running?
-    if os.path.exists(common.gui.lock_filename):
-        with open(common.gui.lock_filename, "r") as f:
-            existing_pid = int(f.read())
-
-        # Is this process actually still running?
-        still_running = True
-        if not psutil.pid_exists(existing_pid):
-            still_running = False
-        else:
-            for proc in psutil.process_iter(["pid", "name", "username"]):
-                if proc.pid == existing_pid:
-                    if (
-                        proc.username() != getpass.getuser()
-                        or "onionshare" not in " ".join(proc.cmdline()).lower()
-                    ):
-                        still_running = False
-
-        if still_running:
+    if common.is_flatpak():
+        # Flatpak PIDs are namespace-local and can be reused after a crash.
+        # Keep an OS-managed lock open for the lifetime of this process instead.
+        flatpak_lock_file, existing_pid = acquire_flatpak_lock(
+            common.gui.lock_filename
+        )
+        if flatpak_lock_file is None:
             print(f"Opening tab in existing OnionShare window (pid {existing_pid})")
 
-            # Make an event for the existing OnionShare window
             if filenames:
                 obj = {"type": "new_share_tab", "filenames": filenames}
             else:
                 obj = {"type": "new_tab"}
 
-            # Write that event to disk
             with open(common.gui.events_filename, "a") as f:
                 f.write(json.dumps(obj) + "\n")
             return
-        else:
-            os.remove(common.gui.lock_filename)
+    else:
+        if os.path.exists(common.gui.lock_filename):
+            with open(common.gui.lock_filename, "r") as f:
+                existing_pid = int(f.read())
 
-    # Write the lock file
-    with open(common.gui.lock_filename, "w") as f:
-        f.write(f"{os.getpid()}\n")
+            still_running = True
+            if not psutil.pid_exists(existing_pid):
+                still_running = False
+            else:
+                for proc in psutil.process_iter(["pid", "name", "username"]):
+                    if proc.pid == existing_pid:
+                        if (
+                            proc.username() != getpass.getuser()
+                            or "onionshare" not in " ".join(proc.cmdline()).lower()
+                        ):
+                            still_running = False
+
+            if still_running:
+                print(
+                    f"Opening tab in existing OnionShare window (pid {existing_pid})"
+                )
+
+                if filenames:
+                    obj = {"type": "new_share_tab", "filenames": filenames}
+                else:
+                    obj = {"type": "new_tab"}
+
+                with open(common.gui.events_filename, "a") as f:
+                    f.write(json.dumps(obj) + "\n")
+                return
+            else:
+                os.remove(common.gui.lock_filename)
+
+        with open(common.gui.lock_filename, "w") as f:
+            f.write(f"{os.getpid()}\n")
+
+    def release_lock():
+        if flatpak_lock_file is not None:
+            # Closing releases flock even after ordinary shutdown. Keep the file
+            # itself so a racing process cannot lock an unlinked inode.
+            flatpak_lock_file.close()
+        elif os.path.exists(common.gui.lock_filename):
+            os.remove(common.gui.lock_filename)
 
     # Allow Ctrl-C to smoothly quit the program instead of throwing an exception
     def signal_handler(s, frame):
         print("\nCtrl-C pressed, quitting")
-        if os.path.exists(common.gui.lock_filename):
-            os.remove(common.gui.lock_filename)
+        release_lock()
         sys.exit(0)
 
     signal.signal(signal.SIGINT, signal_handler)
@@ -257,7 +283,7 @@ def main():
     # Clean up when app quits
     def shutdown():
         main_window.cleanup()
-        os.remove(common.gui.lock_filename)
+        release_lock()
 
     qtapp.aboutToQuit.connect(shutdown)
 
