@@ -35,5 +35,10 @@
     "gui_status_indicator_receive_working": "ਸ਼ੁਰੂ ਕਰ ਰਿਹਾ…",
     "gui_hide": "Hide",
     "gui_settings_true": "ਹਾਂ",
-    "gui_settings_false": "ਨਹੀਂ"
+    "gui_settings_false": "ਨਹੀਂ",
+    "gui_alert_button_yes": "ਹਾਂ",
+    "gui_alert_button_cancel": "ਰੱਦ ਕਰੋ",
+    "gui_alert_button_close": "ਬੰਦ ਕਰੋ",
+    "gui_alert_button_no": "ਨਹੀਂ",
+    "gui_alert_button_ok": "ਠੀਕ"
 }

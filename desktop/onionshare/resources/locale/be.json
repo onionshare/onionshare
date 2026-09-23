@@ -256,5 +256,10 @@
     "gui_close_tab_warning_chat_description": "Закрыць укладку, на якой знаходзіцца сервер чата?",
     "gui_chat_mode_explainer": "Рэжым чата дазваляе ўзаемадзейнічаць з іншымі карыстальнікамі ў браўзеры Tor.<br><br><b>Гісторыя чатаў не захоўваецца ў OnionShare. Гісторыя чатаў знікне, калі вы закрыеце браўзер Tor.</b>",
     "gui_settings_false": "Не",
-    "gui_settings_true": "Так"
+    "gui_settings_true": "Так",
+    "gui_alert_button_ok": "Добра",
+    "gui_alert_button_yes": "Так",
+    "gui_alert_button_close": "Закрыць",
+    "gui_alert_button_no": "Не",
+    "gui_alert_button_cancel": "Адмяніць"
 }

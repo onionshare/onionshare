@@ -259,5 +259,10 @@
     "gui_settings_license_label": "OnionShare ist unter der GPL v3 lizenziert.<br>Lizenzen von Drittanbietern können hier eingesehen werden:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Diesen Onion-Dienst automatisch starten, wenn OnionShare startet",
     "gui_settings_false": "Nein",
-    "gui_settings_true": "ja"
+    "gui_settings_true": "ja",
+    "gui_alert_button_cancel": "Abbrechen",
+    "gui_alert_button_close": "Schließen",
+    "gui_alert_button_no": "Nein",
+    "gui_alert_button_yes": "Ja",
+    "gui_alert_button_ok": "OK"
 }

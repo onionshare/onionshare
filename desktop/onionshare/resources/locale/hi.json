@@ -145,5 +145,10 @@
     "minutes_first_letter": "मी",
     "seconds_first_letter": "s",
     "gui_settings_true": "हाँ",
-    "gui_settings_false": "नहीं"
+    "gui_settings_false": "नहीं",
+    "gui_alert_button_close": "बंद करे",
+    "gui_alert_button_ok": "ठीक है",
+    "gui_alert_button_yes": "हाँ",
+    "gui_alert_button_cancel": "रद्द करें",
+    "gui_alert_button_no": "नहीं"
 }

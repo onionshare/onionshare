@@ -194,5 +194,10 @@
     "moat_captcha_reload": "Reload",
     "gui_status_indicator_chat_stopped": "وەستێنراو",
     "gui_settings_true": "بەڵێ",
-    "gui_settings_false": "نەخێر"
+    "gui_settings_false": "نەخێر",
+    "gui_alert_button_close": "داخستن",
+    "gui_alert_button_ok": "باشە",
+    "gui_alert_button_no": "نەخێر",
+    "gui_alert_button_cancel": "پاشگەزبونەوە",
+    "gui_alert_button_yes": "بەڵێ"
 }

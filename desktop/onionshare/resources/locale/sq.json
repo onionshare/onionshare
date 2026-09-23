@@ -259,5 +259,10 @@
     "gui_settings_license_label": "OnionShare licencohet sipas GPL v3.<br>Licenca palësh të treta mund të shihen këtu:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "error_generic": "Pati një gabim të papritur me OnionShare-in:\n{}",
     "gui_settings_true": "Po",
-    "gui_settings_false": "Jo"
+    "gui_settings_false": "Jo",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_cancel": "Anuloje",
+    "gui_alert_button_yes": "Po",
+    "gui_alert_button_no": "Jo",
+    "gui_alert_button_close": "Mbylle"
 }

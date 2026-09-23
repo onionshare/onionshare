@@ -35,5 +35,10 @@
     "gui_status_indicator_share_started": "བརྒྱུད་སྐུར།",
     "gui_settings_button_help": "རོགས་རམ",
     "gui_settings_true": "ཡིན་ལགས།",
-    "gui_settings_false": "མིན།"
+    "gui_settings_false": "མིན།",
+    "gui_alert_button_no": "མིན།",
+    "gui_alert_button_close": "སྒོ་རྒྱོབ།",
+    "gui_alert_button_ok": "འགྲིག",
+    "gui_alert_button_yes": "ཡིན་ལགས།",
+    "gui_alert_button_cancel": "ཕྱིར་འཐེན།"
 }

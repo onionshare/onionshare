@@ -158,5 +158,10 @@
     "gui_start_server_autostart_timer_tooltip": "స్వీయ నియంత్రణ సమయం అయిపోయినది",
     "gui_status_indicator_chat_stopped": "ఆగిపోయినవి",
     "gui_settings_false": "లేదు",
-    "gui_settings_true": "అవును"
+    "gui_settings_true": "అవును",
+    "gui_alert_button_ok": "సరే",
+    "gui_alert_button_no": "లేదు",
+    "gui_alert_button_close": "దగ్గరగా",
+    "gui_alert_button_yes": "అవును",
+    "gui_alert_button_cancel": "రద్దుచేయి"
 }

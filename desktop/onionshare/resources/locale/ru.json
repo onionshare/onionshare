@@ -259,5 +259,10 @@
     "mode_settings_persistent_autostart_on_launch_checkbox": "Автоматически запустить этот сервис onion, когда OnionShare начинает",
     "error_generic": "С OnionShare произошла неожиданная ошибка:\n{}",
     "gui_settings_false": "Нет",
-    "gui_settings_true": "Да"
+    "gui_settings_true": "Да",
+    "gui_alert_button_cancel": "Отмена",
+    "gui_alert_button_close": "Закрыть",
+    "gui_alert_button_ok": "ОК",
+    "gui_alert_button_yes": "Да",
+    "gui_alert_button_no": "Нет"
 }

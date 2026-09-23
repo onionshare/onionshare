@@ -259,5 +259,10 @@
     "gui_settings_license_label": "OnionShare се разпространява под GPL v3.<br>Лицензите на трети страни могат да бъдат видяни тук:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "error_generic": "Неочаквана грешка в OnionShare:\n{}",
     "gui_settings_false": "Не",
-    "gui_settings_true": "Да"
+    "gui_settings_true": "Да",
+    "gui_alert_button_yes": "Да",
+    "gui_alert_button_no": "Отказ",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_cancel": "Отказ",
+    "gui_alert_button_close": "Затваряне"
 }

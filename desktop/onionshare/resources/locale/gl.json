@@ -256,5 +256,10 @@
     "gui_chat_mode_explainer": "O modo chat permíteche conversar interactivamente con outras persoas, no Navegador Tor.<br><br><b>O historial da conversa non se garda en OnionShare. O historial desaparece ao pechar o Navegador Tor.</b>",
     "gui_autoconnect_circumventing_censorship_starting_meek": "Usar unha ponte encuberta para acceder aos dominios…",
     "gui_settings_true": "Si",
-    "gui_settings_false": "Non"
+    "gui_settings_false": "Non",
+    "gui_alert_button_no": "Non",
+    "gui_alert_button_close": "Pechar",
+    "gui_alert_button_ok": "Feito",
+    "gui_alert_button_cancel": "Cancelar",
+    "gui_alert_button_yes": "Si"
 }

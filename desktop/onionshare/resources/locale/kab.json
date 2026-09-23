@@ -69,5 +69,10 @@
     "minutes_first_letter": "m",
     "seconds_first_letter": "S",
     "gui_settings_true": "Ih",
-    "gui_settings_false": "Uhu"
+    "gui_settings_false": "Uhu",
+    "gui_alert_button_cancel": "Sefex",
+    "gui_alert_button_no": "Ala",
+    "gui_alert_button_ok": "Ih",
+    "gui_alert_button_close": "Mdel",
+    "gui_alert_button_yes": "Ih"
 }

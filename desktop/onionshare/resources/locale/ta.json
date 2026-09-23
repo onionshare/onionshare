@@ -259,5 +259,10 @@
     "mode_settings_persistent_autostart_on_launch_checkbox": "வெங்காயர் தொடங்கும் போது தானாக இந்த வெங்காய சேவையைத் தொடங்கவும்",
     "gui_settings_license_label": "சிபிஎல் வி 3 இன் கீழ் வெங்காயர் உரிமம் பெற்றது.<br> மூன்றாம் தரப்பு உரிமங்களை இங்கே காணலாம்: <br> <a href = 'https: //github.com/onionshare/onionshare/main/licenses'>",
     "gui_settings_false": "இல்லை",
-    "gui_settings_true": "ஆம்"
+    "gui_settings_true": "ஆம்",
+    "gui_alert_button_cancel": "ரத்துசெய்",
+    "gui_alert_button_yes": "ஆம்",
+    "gui_alert_button_close": "மூடு",
+    "gui_alert_button_no": "இல்லை",
+    "gui_alert_button_ok": "சரி"
 }

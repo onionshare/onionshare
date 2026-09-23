@@ -259,5 +259,10 @@
     "error_generic": "V aplikácii OnionShare došlo k neočakávanej chybe:\n{}",
     "gui_settings_license_label": "OnionShare je licencované pod GPL v3.<br>Licencie tretích strán si môžete pozrieť tu:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "gui_settings_false": "Nie",
-    "gui_settings_true": "Áno"
+    "gui_settings_true": "Áno",
+    "gui_alert_button_no": "Nie",
+    "gui_alert_button_yes": "Áno",
+    "gui_alert_button_close": "Zatvoriť",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_cancel": "Zrušiť"
 }

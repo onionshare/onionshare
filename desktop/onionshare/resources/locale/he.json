@@ -68,5 +68,10 @@
     "minutes_first_letter": "דק",
     "seconds_first_letter": "ש",
     "gui_settings_true": "כן",
-    "gui_settings_false": "לא"
+    "gui_settings_false": "לא",
+    "gui_alert_button_close": "סגירה",
+    "gui_alert_button_cancel": "בטל",
+    "gui_alert_button_yes": "כן",
+    "gui_alert_button_no": "לא",
+    "gui_alert_button_ok": "אישור"
 }

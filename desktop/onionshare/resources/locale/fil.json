@@ -47,5 +47,10 @@
     "minutes_first_letter": "m",
     "seconds_first_letter": "s",
     "gui_settings_false": "Hindi",
-    "gui_settings_true": "Oo"
+    "gui_settings_true": "Oo",
+    "gui_alert_button_close": "Isara",
+    "gui_alert_button_cancel": "Kanselahin",
+    "gui_alert_button_no": "Hindi",
+    "gui_alert_button_yes": "Oo",
+    "gui_alert_button_ok": "OK"
 }

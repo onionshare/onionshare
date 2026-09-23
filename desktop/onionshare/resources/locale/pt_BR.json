@@ -259,5 +259,10 @@
     "error_generic": "Ocorreu um erro inesperado com o OnionShare:\n{}",
     "gui_settings_license_label": "O OnionShare está licenciado sob a GPL v3. As licenças de terceiros podem ser visualizadas aqui:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "gui_settings_true": "Sim",
-    "gui_settings_false": "Não"
+    "gui_settings_false": "Não",
+    "gui_alert_button_cancel": "Cancelar",
+    "gui_alert_button_close": "Fechar",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_yes": "Sim",
+    "gui_alert_button_no": "Não"
 }

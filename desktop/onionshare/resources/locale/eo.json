@@ -59,5 +59,10 @@
     "minutes_first_letter": "m",
     "seconds_first_letter": "s",
     "gui_settings_true": "Jes",
-    "gui_settings_false": "Ne"
+    "gui_settings_false": "Ne",
+    "gui_alert_button_ok": "Bone",
+    "gui_alert_button_yes": "Jes",
+    "gui_alert_button_close": "Fermi",
+    "gui_alert_button_no": "Ne",
+    "gui_alert_button_cancel": "Nuligi"
 }

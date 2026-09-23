@@ -259,5 +259,10 @@
     "gui_settings_license_label": "تم ترخيص Onionshare بموجب GPL v3.<br> يمكن الاطلاع على تراخيص الطرف الثالث هنا:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "error_generic": "كان هناك خطأ غير متوقع مع OnionShare:\n{}",
     "gui_settings_true": "نعم",
-    "gui_settings_false": "لا"
+    "gui_settings_false": "لا",
+    "gui_alert_button_cancel": "إلغاء",
+    "gui_alert_button_ok": "حسناً",
+    "gui_alert_button_close": "أغلق",
+    "gui_alert_button_yes": "نعم",
+    "gui_alert_button_no": "لا"
 }

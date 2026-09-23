@@ -46,5 +46,10 @@
     "minutes_first_letter": "m",
     "seconds_first_letter": "s",
     "gui_settings_true": "Да",
-    "gui_settings_false": "Не"
+    "gui_settings_false": "Не",
+    "gui_alert_button_ok": "Готово",
+    "gui_alert_button_close": "Затвори",
+    "gui_alert_button_cancel": "Откажи",
+    "gui_alert_button_no": "Не",
+    "gui_alert_button_yes": "Да"
 }

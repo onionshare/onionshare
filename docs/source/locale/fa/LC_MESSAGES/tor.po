@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-06-01 19:58+0530\n"
-"PO-Revision-Date: 2026-03-28 16:09+0000\n"
+"PO-Revision-Date: 2026-09-22 09:51+0000\n"
 "Last-Translator: Maryam Azad <hannahperez8@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fa\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/tor.rst:2
@@ -237,7 +237,7 @@ msgstr ""
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
-msgstr "از نسخه Tor که در OnionShare تعبیه شده است استفاده کنید"
+msgstr "استفاده از نسخه Tor که در OnionShare تعبیه شده است"
 
 #: ../../source/tor.rst:70
 msgid ""

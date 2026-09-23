@@ -41,5 +41,10 @@
     "hours_first_letter": "h",
     "seconds_first_letter": "s",
     "gui_settings_true": "Yes",
-    "gui_settings_false": "No"
+    "gui_settings_false": "No",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_cancel": "Cancellar",
+    "gui_alert_button_close": "Clauder",
+    "gui_alert_button_yes": "Si",
+    "gui_alert_button_no": "Non"
 }

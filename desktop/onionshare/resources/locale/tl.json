@@ -32,5 +32,10 @@
     "gui_settings_theme_label": "Tema",
     "gui_settings_false": "Hindi",
     "systray_menu_exit": "Umalis",
-    "gui_settings_true": "Oo"
+    "gui_settings_true": "Oo",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_cancel": "Kanselahin",
+    "gui_alert_button_yes": "Oo",
+    "gui_alert_button_close": "Sarado",
+    "gui_alert_button_no": "Hindi"
 }

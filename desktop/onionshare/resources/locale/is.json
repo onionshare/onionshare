@@ -259,5 +259,10 @@
     "gui_settings_license_label": "OnionShare kemur með GPL v3 notkunarleyfi.<br>Notkunarleyfi utanaðkomandi aðila má sjá hér:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "error_generic": "Upp kom óvænt villa í OnionShare:\n{}",
     "gui_settings_true": "Já",
-    "gui_settings_false": "Nei"
+    "gui_settings_false": "Nei",
+    "gui_alert_button_cancel": "Hætta við",
+    "gui_alert_button_no": "Nei",
+    "gui_alert_button_close": "Loka",
+    "gui_alert_button_yes": "Já",
+    "gui_alert_button_ok": "Í lagi"
 }

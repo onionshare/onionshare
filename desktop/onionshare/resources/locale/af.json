@@ -255,5 +255,10 @@
     "waitress_web_server_error": "Daar was ’n probleem om die webbediener te begin",
     "gui_close_tab_warning_chat_description": "Sluit die oortjie wat gasheer vir ’n kletsbediener is?",
     "gui_settings_true": "Ja",
-    "gui_settings_false": "Nee"
+    "gui_settings_false": "Nee",
+    "gui_alert_button_yes": "Ja",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_no": "Nee",
+    "gui_alert_button_cancel": "Kanseleer",
+    "gui_alert_button_close": "Sluit"
 }

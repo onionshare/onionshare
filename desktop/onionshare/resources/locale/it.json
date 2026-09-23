@@ -257,5 +257,10 @@
     "gui_chat_mode_explainer": "La modalità chat ti consente di chattare in modo interattivo con gli altri, in Tor Browser.<br><br><b>La cronologia chat non viene archiviata in OnionShare. La cronologia della chat scomparirà quando chiudi Tor Browser.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Avvia automaticamente questo servizio onion all'avvio di OnionShare",
     "gui_settings_true": "Sì",
-    "gui_settings_false": "No"
+    "gui_settings_false": "No",
+    "gui_alert_button_cancel": "Annulla",
+    "gui_alert_button_ok": "Ok",
+    "gui_alert_button_close": "Chiudi",
+    "gui_alert_button_no": "No",
+    "gui_alert_button_yes": "Sì"
 }

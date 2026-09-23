@@ -253,5 +253,10 @@
     "moat_captcha_error": "Neteisingas sprendimas. Bandykite dar kartą.",
     "gui_dragdrop_sandbox_flatpak": "Kad „Flatpak“ saugi dėžė būtų saugesnė, nuvilkimas ir įdėjimas nepalaikomas. Norėdami pasirinkti failus, naudokite mygtukus „Pridėti failus“ ir „Pridėti aplanką“.",
     "gui_settings_false": "Ne",
-    "gui_settings_true": "Taip"
+    "gui_settings_true": "Taip",
+    "gui_alert_button_ok": "Gerai",
+    "gui_alert_button_no": "Ne",
+    "gui_alert_button_close": "Užverti",
+    "gui_alert_button_cancel": "Atsisakyti",
+    "gui_alert_button_yes": "Taip"
 }

@@ -25,5 +25,10 @@
     "gui_status_indicator_receive_stopped": "توختىدى",
     "gui_status_indicator_chat_stopped": "توختىدى",
     "gui_settings_true": "ھەئە",
-    "gui_settings_false": "ياق"
+    "gui_settings_false": "ياق",
+    "gui_alert_button_ok": "جەزملە",
+    "gui_alert_button_yes": "ھەئە",
+    "gui_alert_button_close": "يېپىش",
+    "gui_alert_button_no": "ياق",
+    "gui_alert_button_cancel": "ئەمەلدىن قالدۇرۇش"
 }

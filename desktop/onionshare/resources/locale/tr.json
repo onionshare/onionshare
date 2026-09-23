@@ -259,5 +259,19 @@
     "gui_settings_license_label": "OnionShare, GPL v3 altında lisanslıdır.<br>Üçüncü parti lisanslarına şuradan bakabilirsiniz:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "OnionShare başlatıldığında bu onion hizmetini otomatik olarak başlat",
     "gui_settings_true": "Evet",
-    "gui_settings_false": "Hayır"
+    "gui_settings_false": "Hayır",
+    "gui_alert_button_cancel": "İptal",
+    "gui_alert_button_yes": "Evet",
+    "gui_alert_button_close": "Kapat",
+    "gui_alert_button_ok": "TAMAM",
+    "gui_alert_button_no": "Hayır",
+    "gui_filesize_bytes": "{} B",
+    "gui_filesize_kib": "{} KiB",
+    "gui_filesize_mib": "{} MiB",
+    "gui_filesize_gib": "{} GiB",
+    "gui_filesize_tib": "{} TiB",
+    "gui_filesize_pib": "{} PiB",
+    "gui_filesize_eib": "{} EiB",
+    "gui_filesize_zib": "{} ZiB",
+    "gui_filesize_yib": "{} YiB"
 }

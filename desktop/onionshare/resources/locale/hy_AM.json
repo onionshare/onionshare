@@ -115,5 +115,13 @@
     "gui_copy_client_auth": "Պատճենել փակ բանալին",
     "gui_qr_label_auth_string_title": "Փակ բանալի",
     "gui_settings_true": "Այո",
-    "gui_settings_false": "Ոչ"
+    "gui_settings_false": "Ոչ",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_close": "Փակել",
+    "gui_alert_button_no": "Ոչ",
+    "gui_alert_button_cancel": "Չեղարկել",
+    "gui_alert_button_yes": "Այո",
+    "gui_tor_connection_ask_quit": "Դուրս գալ",
+    "systray_menu_exit": "Դուրս գալ",
+    "gui_quit_warning_quit": "Դուրս գալ"
 }

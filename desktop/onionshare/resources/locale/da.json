@@ -241,5 +241,10 @@
     "gui_website_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>besøge</b> dit websted med <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>uploade</b> filer til din computer med <b>Tor Browser</b>: <img src='{}' />",
     "gui_settings_true": "Ja",
-    "gui_settings_false": "Nej"
+    "gui_settings_false": "Nej",
+    "gui_alert_button_cancel": "Annullér",
+    "gui_alert_button_ok": "Ok",
+    "gui_alert_button_close": "Luk",
+    "gui_alert_button_yes": "Ja",
+    "gui_alert_button_no": "Nej"
 }
