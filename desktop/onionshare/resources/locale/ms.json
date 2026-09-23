@@ -48,5 +48,10 @@
     "seconds_first_letter": "s",
     "moat_captcha_reload": "Muatkan Semula",
     "gui_settings_true": "Ya",
-    "gui_settings_false": "Tidak"
+    "gui_settings_false": "Tidak",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_cancel": "Batal",
+    "gui_alert_button_no": "Tidak",
+    "gui_alert_button_yes": "Ya",
+    "gui_alert_button_close": "Tutup"
 }

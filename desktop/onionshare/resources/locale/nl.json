@@ -211,5 +211,10 @@
     "gui_settings_bridge_use_checkbox": "Een brug gebruiken",
     "gui_autoconnect_configure": "Netwerkinstellingen",
     "gui_settings_true": "Ja",
-    "gui_settings_false": "Nee"
+    "gui_settings_false": "Nee",
+    "gui_alert_button_cancel": "Annuleren",
+    "gui_alert_button_close": "Sluiten",
+    "gui_alert_button_ok": "Ok",
+    "gui_alert_button_no": "Nee",
+    "gui_alert_button_yes": "Ja"
 }

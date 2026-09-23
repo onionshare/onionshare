@@ -50,5 +50,10 @@
     "hours_first_letter": "h",
     "seconds_first_letter": "s",
     "gui_settings_true": "Da",
-    "gui_settings_false": "Ne"
+    "gui_settings_false": "Ne",
+    "gui_alert_button_yes": "Da",
+    "gui_alert_button_no": "Ne",
+    "gui_alert_button_close": "Zatvori",
+    "gui_alert_button_cancel": "Odustani",
+    "gui_alert_button_ok": "U redu"
 }

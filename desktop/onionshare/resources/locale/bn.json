@@ -259,5 +259,10 @@
     "error_generic": "অনিয়নশেয়ারে একটি অনাকাঙ্খিত সমস্যা দেখা গিয়েছিলো:\n{}",
     "gui_settings_license_label": "অনিয়নশেয়ার জিপিএল সং৩ এ অনমতিপত্র প্রাপ্ত।<br>তৃতীয় পক্ষের অনুমতিপত্র এখানে দেখা যাবে:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "gui_settings_false": "না",
-    "gui_settings_true": "হ্যাঁ"
+    "gui_settings_true": "হ্যাঁ",
+    "gui_alert_button_no": "না",
+    "gui_alert_button_close": "বন্ধ করুন",
+    "gui_alert_button_ok": "ঠিক আছে",
+    "gui_alert_button_yes": "হ্যাঁ",
+    "gui_alert_button_cancel": "বাতিল"
 }

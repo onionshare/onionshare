@@ -259,5 +259,10 @@
     "error_generic": "Tharla earráid le OnionShare gan choinne:\n{}",
     "gui_settings_license_label": "Tá OnionShare ceadúnaithe faoin GPL v3.<br>Is féidir ceadúnais tríú páirtí a fheiceáil anseo:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'> https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "gui_settings_true": "Tá",
-    "gui_settings_false": "Ní hea"
+    "gui_settings_false": "Ní hea",
+    "gui_alert_button_no": "Níl",
+    "gui_alert_button_yes": "Tá",
+    "gui_alert_button_close": "Dún",
+    "gui_alert_button_cancel": "Cealaigh",
+    "gui_alert_button_ok": "Ceart go leor"
 }

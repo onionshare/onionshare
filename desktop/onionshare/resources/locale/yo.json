@@ -31,5 +31,7 @@
     "gui_close_tab_warning_cancel": "Cancel",
     "gui_settings_authenticate_password_option": "Password",
     "gui_settings_button_cancel": "Cancel",
-    "gui_settings_true": "Yes"
+    "gui_settings_true": "Yes",
+    "gui_alert_button_yes": "Yes",
+    "gui_alert_button_cancel": "Cancel"
 }

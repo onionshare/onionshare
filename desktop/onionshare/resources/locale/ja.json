@@ -259,5 +259,10 @@
     "error_generic": "OnionShare で予期せぬエラーが発生しました:\n{}",
     "gui_settings_license_label": "OnionShare は GPL v3 の下でライセンスされています。<br>サードパーティのライセンスに関する情報:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "gui_settings_false": "いいえ",
-    "gui_settings_true": "はい"
+    "gui_settings_true": "はい",
+    "gui_alert_button_cancel": "キャンセル",
+    "gui_alert_button_close": "閉じる",
+    "gui_alert_button_yes": "はい",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_no": "いいえ"
 }

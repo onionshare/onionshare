@@ -49,5 +49,10 @@
     "minutes_first_letter": "મિનિટ",
     "seconds_first_letter": "સે",
     "gui_settings_true": "હા",
-    "gui_settings_false": "નહિ"
+    "gui_settings_false": "નહિ",
+    "gui_alert_button_close": "બંધ",
+    "gui_alert_button_cancel": "રદ્ કરો",
+    "gui_alert_button_no": "નહિ",
+    "gui_alert_button_yes": "હા",
+    "gui_alert_button_ok": "OK"
 }

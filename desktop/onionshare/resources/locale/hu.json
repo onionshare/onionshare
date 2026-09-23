@@ -187,5 +187,10 @@
     "minutes_first_letter": "p",
     "seconds_first_letter": "mp",
     "gui_settings_false": "Nem",
-    "gui_settings_true": "Igen"
+    "gui_settings_true": "Igen",
+    "gui_alert_button_cancel": "Mégse",
+    "gui_alert_button_ok": "Rendben",
+    "gui_alert_button_close": "Bezárás",
+    "gui_alert_button_yes": "Igen",
+    "gui_alert_button_no": "Nem"
 }

@@ -258,5 +258,10 @@
     "mode_tor_not_connected_label": "OnionShare tidak terhubung ke jaringan Tor",
     "waitress_web_server_error": "Terjadi masalah saat memulai server web",
     "gui_settings_true": "Ya",
-    "gui_settings_false": "Tidak"
+    "gui_settings_false": "Tidak",
+    "gui_alert_button_cancel": "Batal",
+    "gui_alert_button_ok": "Oke",
+    "gui_alert_button_close": "Tutup",
+    "gui_alert_button_yes": "Iya",
+    "gui_alert_button_no": "Tidak"
 }

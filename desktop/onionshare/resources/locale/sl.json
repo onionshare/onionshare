@@ -65,5 +65,11 @@
     "gui_autoconnect_configure": "Omrežne nastavitve",
     "mode_settings_advanced_toggle_show": "Pokažite napredne nastavitve",
     "gui_settings_true": "Da",
-    "gui_settings_false": "Ne"
+    "gui_settings_false": "Ne",
+    "gui_alert_button_ok": "V redu",
+    "gui_new_tab_share_button": "Datoteke v skupni rabi",
+    "gui_alert_button_no": "Ne",
+    "gui_alert_button_cancel": "Prekliči",
+    "gui_alert_button_yes": "Da",
+    "gui_alert_button_close": "Zapri"
 }

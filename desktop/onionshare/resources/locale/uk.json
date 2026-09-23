@@ -259,5 +259,10 @@
     "error_generic": "В OnionShare сталася непередбачувана помилка:\n{}",
     "gui_settings_license_label": "OnionShare має ліцензію GPL v3.<br>Ліцензії третіх сторін можна переглянути тут:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "gui_settings_true": "Так",
-    "gui_settings_false": "Відсутні"
+    "gui_settings_false": "Ні",
+    "gui_alert_button_cancel": "Скасувати",
+    "gui_alert_button_close": "Закрити",
+    "gui_alert_button_yes": "Так",
+    "gui_alert_button_no": "Ні",
+    "gui_alert_button_ok": "Гаразд"
 }

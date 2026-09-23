@@ -26,5 +26,10 @@
     "gui_status_indicator_share_stopped": "ቆምዋል",
     "gui_main_page_website_button": "ማስተናገድ ይጀምሩ",
     "gui_settings_true": "አዎ",
-    "gui_settings_false": "አይ"
+    "gui_settings_false": "አይ",
+    "gui_alert_button_cancel": "ተወው",
+    "gui_alert_button_ok": "እሺ",
+    "gui_alert_button_no": "አይ",
+    "gui_alert_button_yes": "አዎ",
+    "gui_alert_button_close": "መዝጋት"
 }

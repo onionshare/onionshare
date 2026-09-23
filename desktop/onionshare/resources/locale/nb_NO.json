@@ -256,5 +256,10 @@
     "gui_close_tab_warning_chat_description": "Lukk fanen som vertstjener en sludretjener?",
     "gui_chat_mode_explainer": "Chat modus lar deg chatte interaktivt med andre, i Tor nettleser.<br><br><b>Chat historikken er ikke lagret i OnionShare. Chat historikken vil forsvinne når du lukker Tor Browser..</b>",
     "gui_settings_false": "Nei",
-    "gui_settings_true": "Ja"
+    "gui_settings_true": "Ja",
+    "gui_alert_button_cancel": "Avbryt",
+    "gui_alert_button_close": "Lukk",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_no": "Nei",
+    "gui_alert_button_yes": "Ja"
 }

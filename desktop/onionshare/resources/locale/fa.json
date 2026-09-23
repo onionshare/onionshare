@@ -259,5 +259,10 @@
     "gui_settings_license_label": "پیازرسان با نگارش ۳ پروانهٔ GPL منتشر شده.<br>می‌توانید پروانه‌های نرم‌افزاری سوم‌شخص را در این‌جا ببینید: <br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "error_generic": "خطای غیرمنتظره‌ای در OnionShare رخ داد:\n{}",
     "gui_settings_true": "بله",
-    "gui_settings_false": "خیر"
+    "gui_settings_false": "خیر",
+    "gui_alert_button_ok": "تأیید",
+    "gui_alert_button_cancel": "لغو",
+    "gui_alert_button_close": "بستن",
+    "gui_alert_button_no": "خیر",
+    "gui_alert_button_yes": "بله"
 }

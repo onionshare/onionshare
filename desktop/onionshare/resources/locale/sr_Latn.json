@@ -223,5 +223,10 @@
     "gui_settings_theme_light": "Svetla",
     "gui_general_settings_window_title": "Generalno",
     "gui_settings_false": "Ne",
-    "gui_settings_true": "Da"
+    "gui_settings_true": "Da",
+    "gui_alert_button_yes": "Da",
+    "gui_alert_button_close": "Zatvori",
+    "gui_alert_button_no": "Ne",
+    "gui_alert_button_cancel": "Odustani",
+    "gui_alert_button_ok": "OK"
 }

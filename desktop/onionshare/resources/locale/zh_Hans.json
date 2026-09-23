@@ -259,5 +259,10 @@
     "gui_settings_license_label": "OnionShare 采用 GPL v3 许可。可在此处查看第三方许可：<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "error_generic": "OnionShare 出现意外错误：\n{}",
     "gui_settings_false": "否",
-    "gui_settings_true": "是"
+    "gui_settings_true": "是",
+    "gui_alert_button_cancel": "取消",
+    "gui_alert_button_ok": "确定",
+    "gui_alert_button_close": "关闭",
+    "gui_alert_button_yes": "是",
+    "gui_alert_button_no": "否"
 }

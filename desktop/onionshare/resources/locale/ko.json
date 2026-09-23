@@ -115,5 +115,10 @@
     "minutes_first_letter": "m",
     "seconds_first_letter": "s",
     "gui_settings_false": "아니요",
-    "gui_settings_true": "예"
+    "gui_settings_true": "예",
+    "gui_alert_button_cancel": "취소",
+    "gui_alert_button_no": "아니",
+    "gui_alert_button_ok": "확인",
+    "gui_alert_button_close": "닫기",
+    "gui_alert_button_yes": "네"
 }

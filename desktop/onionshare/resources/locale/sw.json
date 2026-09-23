@@ -253,5 +253,10 @@
     "moat_captcha_submit": "Wasilisha",
     "moat_bridgedb_error": "Haikuweza kuwasiliana na BridgeD.",
     "gui_settings_true": "Ndio",
-    "gui_settings_false": "Hapana"
+    "gui_settings_false": "Hapana",
+    "gui_alert_button_close": "Funga",
+    "gui_alert_button_yes": "Ndio",
+    "gui_alert_button_no": "Hapana",
+    "gui_alert_button_cancel": "Ondoa",
+    "gui_alert_button_ok": "Kubali"
 }

@@ -33,5 +33,10 @@
     "gui_status_indicator_chat_stopped": "නවත්වා ඇත",
     "gui_status_indicator_share_stopped": "නවත්වා ඇත",
     "gui_settings_false": "නැත",
-    "gui_settings_true": "හරි"
+    "gui_settings_true": "හරි",
+    "gui_alert_button_yes": "හරි",
+    "gui_alert_button_cancel": "අවලංගු කරන්න",
+    "gui_alert_button_no": "නැත",
+    "gui_alert_button_close": "වසන්න",
+    "gui_alert_button_ok": "හරි"
 }

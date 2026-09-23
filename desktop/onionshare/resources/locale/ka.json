@@ -61,5 +61,10 @@
     "seconds_first_letter": "წმ",
     "gui_close_tab_warning_close": "დიახ",
     "gui_settings_true": "დიახ",
-    "gui_settings_false": "არა"
+    "gui_settings_false": "არა",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_close": "დახურვა",
+    "gui_alert_button_yes": "დიახ",
+    "gui_alert_button_no": "არა",
+    "gui_alert_button_cancel": "გაუქმება"
 }

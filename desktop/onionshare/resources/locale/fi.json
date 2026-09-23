@@ -259,5 +259,10 @@
     "mode_settings_persistent_autostart_on_launch_checkbox": "Käynnistä tämä Onion-palvelu automaattisesti, kun OnionShare käynnistyy",
     "error_generic": "OnionSharessa tapahtui odottamaton virhe:\n{}",
     "gui_settings_true": "Kyllä",
-    "gui_settings_false": "Ei"
+    "gui_settings_false": "Ei",
+    "gui_alert_button_cancel": "Peruuta",
+    "gui_alert_button_no": "Ei",
+    "gui_alert_button_yes": "Kyllä",
+    "gui_alert_button_ok": "Kaikki hyvin",
+    "gui_alert_button_close": "Sulje"
 }

@@ -257,5 +257,10 @@
     "gui_chat_mode_explainer": "Modus razgovora omogućuje interaktivni razgovor s drugima u Tor pregledniku.<br><br><b>Povijest razgovora se ne sprema u OnionShareu. Povijest razgovora će nestati kada zatvoriš Tor preglednik.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Automatski pokreni ovu onion uslugu kad se pokrene OnionShare",
     "gui_settings_true": "Da",
-    "gui_settings_false": "Ne"
+    "gui_settings_false": "Ne",
+    "gui_alert_button_cancel": "Odustani",
+    "gui_alert_button_close": "Zatvori",
+    "gui_alert_button_no": "Ne",
+    "gui_alert_button_yes": "Da",
+    "gui_alert_button_ok": "U redu"
 }
