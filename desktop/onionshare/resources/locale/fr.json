@@ -264,5 +264,14 @@
     "gui_alert_button_close": "Fermer",
     "gui_alert_button_yes": "Oui",
     "gui_alert_button_no": "Non",
-    "gui_alert_button_ok": "OK"
+    "gui_alert_button_ok": "OK",
+    "gui_filesize_bytes": "{} o",
+    "gui_filesize_kib": "{} Kio",
+    "gui_filesize_mib": "{} Mio",
+    "gui_filesize_gib": "{} Gio",
+    "gui_filesize_tib": "{} Tio",
+    "gui_filesize_pib": "{} Pio",
+    "gui_filesize_eib": "{} Eio",
+    "gui_filesize_zib": "{} Zio",
+    "gui_filesize_yib": "{} Yio"
 }
