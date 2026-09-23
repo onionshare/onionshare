@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-06-01 19:58+0530\n"
-"PO-Revision-Date: 2025-04-09 08:05+0000\n"
+"PO-Revision-Date: 2026-09-23 10:55+0000\n"
 "Last-Translator: Lupo Cosentino <boots-bounce-hazy@duck.com>\n"
 "Language-Team: it <LL@li.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 "Generated-By: Babel 2.9.1\n"
 
 #: ../../source/features.rst:4
@@ -48,7 +48,6 @@ msgid "And private keys might look something like this::"
 msgstr "E le chiave private possono essere simili a questa::"
 
 #: ../../source/features.rst:18
-#, fuzzy
 msgid ""
 "You're responsible for securely sharing that URL and private key using a "
 "communication channel of your choice like in an encrypted chat message, or "
@@ -62,7 +61,6 @@ msgstr ""
 "security-plan>`_."
 
 #: ../../source/features.rst:20
-#, fuzzy
 msgid ""
 "The people you send the URL to then copy and paste it into their `Tor "
 "Browser <https://www.torproject.org/>`_ to access the OnionShare service. "
@@ -73,7 +71,6 @@ msgstr ""
 "<https://www.torproject.org/>`_ per accedere al servizio di OnionShare."
 
 #: ../../source/features.rst:24
-#, fuzzy
 msgid ""
 "If you run OnionShare on your laptop to send someone files, and then suspend "
 "it before the files are sent, the service will not be available until your "
@@ -125,7 +122,6 @@ msgstr ""
 "condivisione."
 
 #: ../../source/features.rst:39
-#, fuzzy
 msgid ""
 "As soon as someone finishes downloading your files, OnionShare will "
 "automatically stop the server, removing the website from the internet. To "
@@ -162,7 +158,6 @@ msgstr ""
 "avanzamento del download delle persone che scaricano i file da te."
 
 #: ../../source/features.rst:48
-#, fuzzy
 msgid ""
 "Now that you have a OnionShare, copy the address and the private key and "
 "send it to the person you want to receive the files. If the files need to "
@@ -174,7 +169,6 @@ msgstr ""
 "persona sia esposta a dei pericoli, utilizza un'app di messaggistica cifrata."
 
 #: ../../source/features.rst:50
-#, fuzzy
 msgid ""
 "That person then must load the address in Tor Browser. After logging in with "
 "the private key, the files can be downloaded directly from your computer by "
@@ -265,7 +259,6 @@ msgstr ""
 "ti sono stati inviati dalle persone."
 
 #: ../../source/features.rst:77
-#, fuzzy
 msgid "Here is what it looks like for someone sending you files and messages."
 msgstr "Ecco come appare per qualcuno che ti sta inviando dei file."
 
@@ -301,7 +294,6 @@ msgid "Use at your own risk"
 msgstr "Utilizzare a proprio rischio e pericolo"
 
 #: ../../source/features.rst:88
-#, fuzzy
 msgid ""
 "Just like with malicious email attachments, it's possible someone could try "
 "to attack your computer by uploading a malicious file to your OnionShare "
@@ -340,7 +332,6 @@ msgid "Tips for running a receive service"
 msgstr "Consigli per la gestione di un servizio di ricezione"
 
 #: ../../source/features.rst:97
-#, fuzzy
 msgid ""
 "If you want to host your own anonymous dropbox using OnionShare, it's "
 "recommended you do so on a separate, dedicated computer always powered on "
@@ -351,7 +342,6 @@ msgstr ""
 "acceso e connesso a Internet, e non su quello che usi regolarmente."
 
 #: ../../source/features.rst:99
-#, fuzzy
 msgid ""
 "If you intend to put the OnionShare address on your website or social media "
 "profiles, save the tab (see :ref:`save_tabs`) and run it as a public service "
@@ -420,7 +410,6 @@ msgid "Content Security Policy"
 msgstr "Politica sulla Sicurezza dei Contenuti"
 
 #: ../../source/features.rst:124
-#, fuzzy
 msgid ""
 "By default OnionShare helps secure your website by setting a strict `Content "
 "Security Policy <https://en.wikipedia.org/wiki/Content_Security_Policy>`_ "
@@ -434,7 +423,6 @@ msgstr ""
 "all'interno della pagina web."
 
 #: ../../source/features.rst:126
-#, fuzzy
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
@@ -467,7 +455,6 @@ msgid "Tips for running a website service"
 msgstr "Suggerimenti per la gestione di un servizio di un sito web"
 
 #: ../../source/features.rst:134
-#, fuzzy
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not just "
 "to quickly show someone something), it's recommended you do it on a "
@@ -484,7 +471,6 @@ msgstr ""
 "stesso indirizzo se si chiude OnionShare e lo si riapre in seguito."
 
 #: ../../source/features.rst:137
-#, fuzzy
 msgid ""
 "If your website is intended for the public, you should run it as a public "
 "service (see :ref:`turn_off_private_key`)."
@@ -506,7 +492,6 @@ msgstr ""
 "server della chat\"."
 
 #: ../../source/features.rst:146
-#, fuzzy
 msgid ""
 "After you start the server, copy the OnionShare address and private key and "
 "send them to the people you want in the anonymous chat room. If it's "
@@ -596,7 +581,6 @@ msgstr ""
 "da nessuna parte, quindi il problema è ridotto al minimo."
 
 #: ../../source/features.rst:173
-#, fuzzy
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
 "anonymously and securely with someone without needing to create any "
