@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-06-01 19:58+0530\n"
-"PO-Revision-Date: 2026-06-10 06:50+0000\n"
+"PO-Revision-Date: 2026-09-22 09:51+0000\n"
 "Last-Translator: Maryam Azad <hannahperez8@protonmail.com>\n"
 "Language-Team: fa <LL@li.org>\n"
 "Language: fa\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.6\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: ../../source/install.rst:2
@@ -366,7 +366,7 @@ msgstr ""
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
-msgstr "تایید امضای PGP"
+msgstr "تأیید امضاهای PGP"
 
 #: ../../source/install.rst:111
 msgid ""
