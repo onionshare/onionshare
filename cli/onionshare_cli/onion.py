@@ -190,6 +190,23 @@ class Onion(object):
         s = key_b32.decode("utf-8")
         return s
 
+    def private_key_to_b64(self, encoded_key):
+        """
+        Converts a base32 encoded string back to a base64 encoded string.
+
+        This is used for adding a Private Key to an onion when operating in
+        client mode (such as when downloading from another OnionShare)
+        """
+        # Decode the base32 string into bytes
+        encoded_key_b32 = encoded_key.encode("utf-8")
+        decoded_bytes = base64.b32decode(encoded_key_b32 + b"====")
+
+        # Convert the decoded bytes to base64
+        base64_key = base64.b64encode(decoded_bytes)
+
+        # Convert to string and return
+        return base64_key.decode("utf-8")
+
     def connect(
         self,
         custom_settings=None,
@@ -417,7 +434,11 @@ class Onion(object):
 
             return_code = self.tor_proc.poll()
             if return_code != None:
-                self.common.log("Onion", "connect", f"tor process has terminated early: {return_code}")
+                self.common.log(
+                    "Onion",
+                    "connect",
+                    f"tor process has terminated early: {return_code}",
+                )
 
             # Connect to the controller
             self.common.log("Onion", "connect", "authenticating to tor controller")
@@ -678,6 +699,31 @@ class Onion(object):
             return self.c.is_authenticated()
         else:
             return False
+
+    def add_onion_client_auth(self, service_id, private_key, key_type="x25519"):
+        """
+        Implemented from scratch here because it never made it into Stem maint branch
+        """
+        if self.supports_v3_onions and self.supports_ephemeral:
+            private_key64 = self.private_key_to_b64(private_key)
+            request = f"ONION_CLIENT_AUTH_ADD {service_id} {key_type}:{private_key64}"
+            response = self.c.msg(request)
+            self.common.log("Onion", "add_onion_client_auth", response)
+            return response
+        else:
+            raise TorTooOldEphemeral()
+
+    def remove_onion_client_auth(self, service_id):
+        """
+        Implemented from scratch here because it never made it into Stem maint branch
+        """
+        if self.supports_v3_onions and self.supports_ephemeral:
+            request = f"ONION_CLIENT_AUTH_REMOVE {service_id}"
+            response = self.c.msg(request)
+            self.common.log("Onion", "remove_onion_client_auth", response)
+            return response
+        else:
+            raise TorTooOldEphemeral()
 
     def start_onion_service(self, mode, mode_settings, port, await_publication):
         """
