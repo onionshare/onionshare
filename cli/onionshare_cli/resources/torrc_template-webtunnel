@@ -1,0 +1,6 @@
+# WebTunnel bridge lines are not hardcoded here because they are distributed
+# individually via bridges.torproject.org (BridgeDB) and the Tor Moat API.
+# OnionShare fetches and caches them automatically after the first successful
+# Tor connection.  If no cached bridges are available yet, obtain them by
+# using the "Request a bridge from torproject.org" option, or paste custom
+# WebTunnel bridge lines via the "Custom" bridge option.
