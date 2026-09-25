@@ -444,6 +444,7 @@ class Onion(object):
 
                 res_parts = shlex.split(res)
                 progress = res_parts[2].split("=")[1]
+                tag = res_parts[3].split("=")[1]
                 summary = res_parts[4].split("=")[1]
 
                 # "\033[K" clears the rest of the line
@@ -453,7 +454,7 @@ class Onion(object):
                 )
 
                 if callable(tor_status_update_func):
-                    if not tor_status_update_func(progress, summary):
+                    if not tor_status_update_func(progress, summary, tag):
                         # If the dialog was canceled, stop connecting to Tor
                         self.common.log(
                             "Onion",

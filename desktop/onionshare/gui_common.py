@@ -619,6 +619,19 @@ class GuiCommon:
         if type(e) is WaitressException:
             return strings._("waitress_web_server_error")
 
+    @staticmethod
+    def get_translated_bootstrap_summary(tag, fallback):
+        """
+        Translates a Tor bootstrap-phase summary using its stable "tag"
+        (see control-spec.txt Section 5.5). Falls back to Tor's own summary
+        text (always English) for any tag OnionShare doesn't know about yet,
+        e.g. one added by a future Tor version.
+        """
+        try:
+            return strings._(f"gui_bootstrap_status_{tag}")
+        except KeyError:
+            return fallback
+
 class ToggleCheckbox(QtWidgets.QCheckBox):
     def __init__(self, text):
         super(ToggleCheckbox, self).__init__(text)
