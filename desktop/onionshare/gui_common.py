@@ -544,6 +544,15 @@ class GuiCommon:
         )
 
     @staticmethod
+    def get_locale(common):
+        """
+        Returns a QLocale for the language OnionShare is displayed in, so that
+        dates and times follow that language's conventions: a 24-hour clock
+        where that is the norm, localized month names, and so on.
+        """
+        return QtCore.QLocale(common.settings.get("locale"))
+
+    @staticmethod
     def get_resource_path(filename):
         """
         Returns the absolute path of a resource
