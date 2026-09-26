@@ -264,5 +264,14 @@
     "gui_alert_button_close": "Закрити",
     "gui_alert_button_yes": "Так",
     "gui_alert_button_no": "Ні",
-    "gui_alert_button_ok": "Гаразд"
+    "gui_alert_button_ok": "OK",
+    "gui_filesize_bytes": "{} Б",
+    "gui_filesize_kib": "{} КіБ",
+    "gui_filesize_mib": "{} МіБ",
+    "gui_filesize_gib": "{} ГіБ",
+    "gui_filesize_tib": "{} ТіБ",
+    "gui_filesize_pib": "{} ПіБ",
+    "gui_filesize_eib": "{} ЕіБ",
+    "gui_filesize_zib": "{} ЗіБ",
+    "gui_filesize_yib": "{} ЙіБ"
 }
