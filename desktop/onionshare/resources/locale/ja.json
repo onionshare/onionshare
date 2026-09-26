@@ -264,5 +264,14 @@
     "gui_alert_button_close": "閉じる",
     "gui_alert_button_yes": "はい",
     "gui_alert_button_ok": "OK",
-    "gui_alert_button_no": "いいえ"
+    "gui_alert_button_no": "いいえ",
+    "gui_filesize_bytes": "{} B",
+    "gui_filesize_kib": "{} KiB",
+    "gui_filesize_mib": "{} MiB",
+    "gui_filesize_gib": "{} GiB",
+    "gui_filesize_tib": "{} TiB",
+    "gui_filesize_pib": "{} PiB",
+    "gui_filesize_eib": "{} EiB",
+    "gui_filesize_zib": "{} ZiB",
+    "gui_filesize_yib": "{} YiB"
 }
