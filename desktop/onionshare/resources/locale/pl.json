@@ -273,5 +273,6 @@
     "gui_filesize_pib": "{} PiB",
     "gui_filesize_eib": "{} EiB",
     "gui_filesize_zib": "{} ZiB",
-    "gui_filesize_yib": "{} YiB"
+    "gui_filesize_yib": "{} YiB",
+    "gui_receive_data_dir_not_writable": "OnionShare nie może zapisać danych w tym folderze:\n\n{}\n\nWybierz folder, w którym masz uprawnienia do zapisu (na przykład folder Pobrane), a następnie spróbuj ponownie."
 }
