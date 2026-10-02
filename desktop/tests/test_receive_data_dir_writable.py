@@ -40,3 +40,42 @@ def test_is_data_dir_writable_readonly_dir():
                 os.chmod(d, stat.S_IRWXU)
             except OSError:
                 pass
+
+
+def test_create_missing_receive_dir(tmp_path):
+    path = tmp_path / "OnionShare"
+    assert ReceiveMode.is_data_dir_writable(str(path), create=True)
+    assert path.is_dir()
+    assert list(path.iterdir()) == []
+    if os.name == "posix":
+        assert stat.S_IMODE(path.stat().st_mode) == 0o700
+
+
+def test_missing_dir_probe_does_not_create(tmp_path):
+    path = tmp_path / "missing"
+    assert not ReceiveMode.is_data_dir_writable(str(path))
+    assert not path.exists()
+
+
+def test_create_receive_dir_rejects_file(tmp_path):
+    path = tmp_path / "file"
+    path.write_text("preserve me")
+    assert not ReceiveMode.is_data_dir_writable(str(path), create=True)
+    assert path.read_text() == "preserve me"
+
+
+def test_create_receive_dir_permission_error(tmp_path, monkeypatch):
+    def denied(*args, **kwargs):
+        raise PermissionError("Directory creation denied")
+
+    monkeypatch.setattr(os, "makedirs", denied)
+    assert not ReceiveMode.is_data_dir_writable(str(tmp_path / "missing"), create=True)
+
+
+def test_receive_dir_write_probe_failure(tmp_path, monkeypatch):
+    def denied(*args, **kwargs):
+        raise PermissionError("Write denied by sandbox")
+
+    monkeypatch.setattr(tempfile, "NamedTemporaryFile", denied)
+    assert not ReceiveMode.is_data_dir_writable(str(tmp_path), create=True)
+    assert list(tmp_path.iterdir()) == []

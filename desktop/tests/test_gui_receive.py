@@ -5,6 +5,7 @@ import requests
 import shutil
 import sys
 from datetime import datetime, timedelta
+from unittest.mock import patch
 
 from PySide6 import QtCore, QtTest
 
@@ -175,6 +176,25 @@ class TestReceive(GuiBaseTest):
         os.chmod(upload_dir, 0o700)
 
     # Tests
+
+    def test_start_creates_missing_receive_directory(self):
+        tab = self.new_receive_tab()
+        receive_dir = os.path.join(self.tmpdir.name, "fresh", "OnionShare")
+        tab.settings.set("receive", "data_dir", receive_dir)
+        tab.receive_mode.data_dir_lineedit.setText(receive_dir)
+
+        # Fail immediately on an unexpected warning instead of opening a modal.
+        with patch(
+            "onionshare.tab.mode.receive_mode.Alert",
+            side_effect=AssertionError("Unexpected receive-directory warning"),
+        ):
+            self.server_working_on_start_button_pressed(tab)
+            self.server_is_started(tab)
+            self.assertTrue(os.path.isdir(receive_dir))
+            self.web_server_is_running(tab)
+            self.server_is_stopped(tab)
+            self.web_server_is_stopped(tab)
+        self.close_all_tabs()
 
     def test_clear_all_button(self):
         """
