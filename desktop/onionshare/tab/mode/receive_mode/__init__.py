@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
+import tempfile
+
 from PySide6 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.web import Web
@@ -220,10 +222,18 @@ class ReceiveMode(Mode):
         if not path or not os.path.isdir(path):
             return False
         try:
-            test_path = os.path.join(path, ".onionshare-write-test")
-            with open(test_path, "w", encoding="utf-8") as f:
-                f.write("ok")
-            os.remove(test_path)
+            with tempfile.TemporaryDirectory(
+                prefix=".onionshare-write-test-",
+                dir=path,
+            ) as probe_dir:
+                with tempfile.NamedTemporaryFile(
+                    mode="wb",
+                    prefix="probe-",
+                    dir=probe_dir,
+                ) as probe:
+                    probe.write(b"ok")
+                    probe.flush()
+
             return True
         except OSError:
             return False
