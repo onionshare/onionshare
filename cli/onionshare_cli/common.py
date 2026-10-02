@@ -472,9 +472,16 @@ class Common:
 
     def build_tor_dir(self):
         """
-        Returns path to the tor data directory
+        Returns path to the tor data directory. The tor data directory holds
+        non-essential data that can safely be deleted, so on Linux and BSD
+        it lives under the XDG cache directory (~/.cache/onionshare).
         """
-        tor_dir = os.path.join(self.build_data_dir(), "tor_data")
+        if self.platform in ("Windows", "Darwin"):
+            base_dir = self.build_data_dir()
+        else:
+            base_dir = self.build_cache_dir()
+
+        tor_dir = os.path.join(base_dir, "tor_data")
         os.makedirs(tor_dir, 0o700, True)
         return tor_dir
 
