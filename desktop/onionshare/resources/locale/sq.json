@@ -86,7 +86,7 @@
     "gui_settings_bridge_use_checkbox": "Përdorni një urë",
     "gui_settings_bridge_radio_builtin": "Përzgjidhni një urë të brendshme",
     "gui_settings_bridge_none_radio_option": "Mos përdor ura",
-    "gui_settings_meek_lite_expensive_warning": "Kujdes: Xhirimi i urave “meek-azure” është shumë i kushtueshëm për Projektin Tor.<br><br>Përdorin vetëm nëse s’jeni në gjendje të lidheni drejtpërsëdrejti te Tor-i, përmes transportesh via obfs4 transports, ose urash të tjera normale.",
+    "gui_settings_meek_expensive_warning": "Kujdes: Xhirimi i urave “meek” është shumë i kushtueshëm për Projektin Tor.<br><br>Përdorin vetëm nëse s’jeni në gjendje të lidheni drejtpërsëdrejti te Tor-i, përmes transportesh via obfs4 transports, ose urash të tjera normale.",
     "gui_settings_bridge_moat_radio_option": "Kërkoni një urë nga torproject.org",
     "gui_settings_bridge_moat_button": "Kërkoni një Urë të Re",
     "gui_settings_bridge_custom_radio_option": "Jepni një urë që e mësuar nga një burim i besuar",

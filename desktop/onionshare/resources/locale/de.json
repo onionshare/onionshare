@@ -47,7 +47,7 @@
     "gui_settings_connection_type_automatic_option": "Versuche automatische Konfiguration mittels Tor-Browser",
     "gui_settings_connection_type_test_button": "Verbindung mit Tor testen",
     "gui_settings_tor_bridges": "Mittels einer Tor-Brücke verbinden?",
-    "gui_settings_meek_lite_expensive_warning": "Achtung: Die „Meek-Azure“-Brücken sind für das Tor-Projekt sehr kostspielig.<br><br> Nutze sie nur, wenn du dich nicht direkt, per obfs4-Transport oder über andere, normale Brücken mit dem Tor-Netzwerk verbinden kannst.",
+    "gui_settings_meek_expensive_warning": "Achtung: Die „Meek-Azure“-Brücken sind für das Tor-Projekt sehr kostspielig.<br><br> Nutze sie nur, wenn du dich nicht direkt, per obfs4-Transport oder über andere, normale Brücken mit dem Tor-Netzwerk verbinden kannst.",
     "gui_settings_tor_bridges_invalid": "Keine der ausgewählten Brücken funktioniert. Überprüfe sie oder gib andere an.",
     "settings_error_unknown": "Kann nicht mit dem Tor-Controller verbinden, weil deine Einstellungen keinen Sinn ergeben.",
     "settings_error_automatic": "Kann nicht mit dem Tor-Controller verbinden. Läuft der Tor-Browser (kann von https://www.torproject.org/ heruntergeladen werden) im Hintergrund?",

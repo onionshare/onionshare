@@ -561,7 +561,7 @@ msgstr ""
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
 

@@ -125,7 +125,7 @@
     "gui_close_tab_warning_chat_description": "அரட்டை சேவையகத்தை புரவலன் செய்யும் தாவலை மூடு?",
     "gui_settings_help_label": "உதவி தேவையா?<a href='https://docs.onionshare.org'> docs.onionshare.org </a> ஐப் பார்க்கவும்",
     "gui_qr_label_url_title": "வெங்காய முகவரி",
-    "gui_settings_meek_lite_expensive_warning": "எச்சரிக்கை: டோர் திட்டம் இயங்குவதற்கு சாந்தகுணமுள்ள ஏழ்நிலை பாலங்கள் மிகவும் விலை உயர்ந்தவை.",
+    "gui_settings_meek_expensive_warning": "எச்சரிக்கை: டோர் திட்டம் இயங்குவதற்கு சாந்தகுணமுள்ள ஏழ்நிலை பாலங்கள் மிகவும் விலை உயர்ந்தவை.",
     "update_available": "புதிய வெங்காயம் அவுட். <a href = '{}'> அதைப் பெற இங்கே சொடுக்கு செய்க </a>. <br><br> நீங்கள் {} ஐப் பயன்படுத்துகிறீர்கள், மேலும் அண்மை காலத்தது {}.",
     "update_not_available": "நீங்கள் அண்மைக் கால வெங்காயத்தை இயக்குகிறீர்கள்.",
     "gui_tor_connection_lost": "TOR இலிருந்து துண்டிக்கப்பட்டது.",

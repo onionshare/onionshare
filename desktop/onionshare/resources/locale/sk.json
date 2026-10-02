@@ -51,7 +51,7 @@
     "gui_settings_authenticate_password_option": "Heslo",
     "gui_settings_password_label": "Heslo",
     "gui_settings_tor_bridges": "Pripojiť sa pomocou premostenia Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Upozornenie: Prevádzka premostení meek-azure je pre projekt Tor veľmi nákladná.<br><br>Používajte ich len vtedy, ak sa nemôžete pripojiť k Toru priamo, cez obfs4 transporty alebo iné cez bežné premostenia.",
+    "gui_settings_meek_expensive_warning": "Upozornenie: Prevádzka premostení meek je pre projekt Tor veľmi nákladná.<br><br>Používajte ich len vtedy, ak sa nemôžete pripojiť k Toru priamo, cez obfs4 transporty alebo iné cez bežné premostenia.",
     "gui_settings_tor_bridges_invalid": "Ani jeden z premostení, ktoré ste pridali, nefunguje. Prekontrolujte ich alebo pridajte iné.",
     "gui_settings_button_save": "Uložiť",
     "gui_settings_button_cancel": "Zrušiť",
