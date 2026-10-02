@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Contrasenya",
     "gui_settings_password_label": "Contrasenya",
     "gui_settings_tor_bridges": "Voleu connectar mitjançant un pont de Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Avís: els ponts meek-azure són molt costosos per al Projecte Tor.<br><br>Feu-los servir només si no us podeu connectar directament a Tor, mitjançant transports obfs4 o altres ponts normals.",
+    "gui_settings_meek_expensive_warning": "Avís: els ponts meek són molt costosos per al Projecte Tor.<br><br>Feu-los servir només si no us podeu connectar directament a Tor, mitjançant transports obfs4 o altres ponts normals.",
     "gui_settings_tor_bridges_invalid": "Cap dels ponts que heu afegit funciona. Comproveu-los o proveu d'afegir-ne de nous.",
     "gui_settings_button_save": "Desa",
     "gui_settings_button_cancel": "Cancel·la",

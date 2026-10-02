@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Sandi",
     "gui_settings_password_label": "Sandi",
     "gui_settings_tor_bridges": "Dukungan Tor bridge",
-    "gui_settings_meek_lite_expensive_warning": "Peringatan: meek_lite sangat mahal untuk dijalankan oleh Tor Project. <br><br>Gunakan hanya jika tidak dapat terhubung ke Tor secara langsung, melalui obfs4 transports,, atau bridge normal lainnya.",
+    "gui_settings_meek_expensive_warning": "Peringatan: meek_lite sangat mahal untuk dijalankan oleh Tor Project. <br><br>Gunakan hanya jika tidak dapat terhubung ke Tor secara langsung, melalui obfs4 transports,, atau bridge normal lainnya.",
     "gui_settings_tor_bridges_invalid": "Tak satu pun dari bridge yang Anda tambahkan bekerja.\nPeriksa kembali atau tambahkan yang lain.",
     "gui_settings_button_save": "Simpan",
     "gui_settings_button_cancel": "Batal",

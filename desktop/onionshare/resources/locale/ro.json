@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Parolă",
     "gui_settings_password_label": "Parolă",
     "gui_settings_tor_bridges": "Suport pentru Tor",
-    "gui_settings_meek_lite_expensive_warning": "Avertisment: podurile meek_lite sunt foarte costisitoare pentru rularea Proiectului Tor. <br> <br> Utilizați-le numai dacă nuvă puteți conecta direct la Tor, prin transporturi obfs4 sau alte poduri normale.",
+    "gui_settings_meek_expensive_warning": "Avertisment: podurile meek_lite sunt foarte costisitoare pentru rularea Proiectului Tor. <br> <br> Utilizați-le numai dacă nuvă puteți conecta direct la Tor, prin transporturi obfs4 sau alte poduri normale.",
     "gui_settings_tor_bridges_invalid": "Niciunul din podurile adăugate nu funcționează.\nVerificați-le încă o dată sau adăugați altele.",
     "gui_settings_button_save": "Salvare",
     "gui_settings_button_cancel": "Anulare",

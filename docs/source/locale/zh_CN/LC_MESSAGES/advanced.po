@@ -640,11 +640,11 @@ msgstr "bridges_builtin_pt"
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
 "当 ``bridges_type`` 设置为 \"built-in\" 时，这指定了要使用哪种类型的网桥协"
-"议。选项有 \"obfs4\"、\"meek-azure\" 或 \"snowflake\"。默认：\"obfs4\""
+"议。选项有 \"obfs4\"、\"meek\" 或 \"snowflake\"。默认：\"obfs4\""
 
 #: ../../source/advanced.rst:339
 msgid "bridges_moat"

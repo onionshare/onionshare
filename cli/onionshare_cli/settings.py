@@ -118,7 +118,7 @@ class Settings(object):
             "autoupdate_timestamp": None,
             "bridges_enabled": False,
             "bridges_type": "built-in",  # "built-in", "moat", or "custom"
-            "bridges_builtin_pt": "obfs4",  # "obfs4", "meek-azure", or "snowflake"
+            "bridges_builtin_pt": "obfs4",  # "obfs4", "meek", or "snowflake"
             "bridges_moat": "",
             "bridges_custom": "",
             "bridges_builtin": {},

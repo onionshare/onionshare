@@ -171,7 +171,7 @@
     "gui_tor_connection_ask_open_settings": "Ano",
     "update_not_available": "Používáte aktuální verzi OnionShare.",
     "gui_server_autostart_timer_expired": "Plánovaný čas již uplynul. Nastavte jej, abyste mohli začít sdílet.",
-    "gui_settings_meek_lite_expensive_warning": "Varování: Provoz mostů meek-azure je pro projekt Tor velmi nákladný.<br><br>Používejte je pouze v případě, kdy se nemůžete připojit k Toru přímo, přes obfs4 transporty nebo jiné běžné mosty.",
+    "gui_settings_meek_expensive_warning": "Varování: Provoz mostů meek je pro projekt Tor velmi nákladný.<br><br>Používejte je pouze v případě, kdy se nemůžete připojit k Toru přímo, přes obfs4 transporty nebo jiné běžné mosty.",
     "update_error_invalid_latest_version": "Nepodařilo se zkontrolovat novou verzi: Na webu OnionShare se objevuje hlášení, že nejnovější verze je nerozpoznatelná '{}'…",
     "update_error_check_error": "Nepodařilo se zkontrolovat novou verzi: Možná nejste připojeni k Toru nebo je webová stránka OnionShare nedostupná?",
     "gui_settings_tor_bridges_invalid": "Žádný z Vámi přidaných mostů nefunguje. Zkontrolujte je nebo přidejte další.",

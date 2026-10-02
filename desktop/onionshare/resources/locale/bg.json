@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Парола",
     "gui_settings_password_label": "Парола",
     "gui_settings_tor_bridges": "Свързване, чрез мостове на Тор?",
-    "gui_settings_meek_lite_expensive_warning": "Внимание: Проектът Тор бива таксуван при всяко ползване на мостовете meek-azure.<br><br>За това ги използвайте само ако не можете да се свържете с Тор директно, чрез obfs4 или обикновени мостове.",
+    "gui_settings_meek_expensive_warning": "Внимание: Проектът Тор бива таксуван при всяко ползване на мостовете meek.<br><br>За това ги използвайте само ако не можете да се свържете с Тор директно, чрез obfs4 или обикновени мостове.",
     "gui_settings_tor_bridges_invalid": "Нито един от въведените от вас мостове не работи. Проверете ги или добавете други.",
     "gui_settings_button_save": "Запазване",
     "gui_settings_button_cancel": "Отказ",

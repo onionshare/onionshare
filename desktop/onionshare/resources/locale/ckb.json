@@ -51,7 +51,7 @@
     "gui_settings_authenticate_password_option": "Şîfre",
     "gui_settings_password_label": "Şîfre",
     "gui_settings_tor_bridges": "Alîkari ji pirên Tor",
-    "gui_settings_meek_lite_expensive_warning": "Hîşyarî: Pirên meek_lite ji bo Tor Project gelek buha ne.<br><br>Tenê bikar bîne dema tu rasterast ne bi Tor, obfs4 servîs û bi pirên ji rêzê nikarî werî girêdan.",
+    "gui_settings_meek_expensive_warning": "Hîşyarî: Pirên meek_lite ji bo Tor Project gelek buha ne.<br><br>Tenê bikar bîne dema tu rasterast ne bi Tor, obfs4 servîs û bi pirên ji rêzê nikarî werî girêdan.",
     "gui_settings_tor_bridges_invalid": "Tu pirên hilbijartî kar nakin.\nCarekî din kontrol bike an jî yên cûda zêde bike.",
     "gui_settings_button_save": "Qeyd bike",
     "gui_settings_button_cancel": "Betal bike",

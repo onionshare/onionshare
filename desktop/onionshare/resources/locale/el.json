@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Κωδικός",
     "gui_settings_password_label": "Κωδικός",
     "gui_settings_tor_bridges": "Σύνδεση με χρήση γέφυρας Tor;",
-    "gui_settings_meek_lite_expensive_warning": "Προσοχή: Οι γέφυρες meek_azure επιβαρύνουν τη λειτουργία του Tor Project. <br><br> Χρησιμοποιήστε τες μόνο αν δεν μπορείτε να συνδεθείτε κατ' ευθείαν στο Tor μέσω obfs4 transports ή άλλων κανονικών γεφυρών.",
+    "gui_settings_meek_expensive_warning": "Προσοχή: Οι γέφυρες meek_azure επιβαρύνουν τη λειτουργία του Tor Project. <br><br> Χρησιμοποιήστε τες μόνο αν δεν μπορείτε να συνδεθείτε κατ' ευθείαν στο Tor μέσω obfs4 transports ή άλλων κανονικών γεφυρών.",
     "gui_settings_tor_bridges_invalid": "Καμία γέφυρα που προσθέσατε δεν λειτουργεί. Ελέγξτε ξανά ή προσθέστε άλλες.",
     "gui_settings_button_save": "Αποθήκευση",
     "gui_settings_button_cancel": "Άκυρο",

@@ -274,7 +274,7 @@ msgstr ""
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
-"recommended over using `meek-azure`."
+"recommended over using `meek`."
 msgstr ""
 "ابتدا از یک پل داخلی ساخته شده استفاده کنید. استفاده از پل های `obfs4` یا "
 "`snowflake` پیش از استفاده از `Meek-Azure` توصیه می شود."

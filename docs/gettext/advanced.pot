@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OnionShare 2.6.4\n"
+"Project-Id-Version: OnionShare 2.6.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-01 19:58+0530\n"
+"POT-Creation-Date: 2026-10-02 10:22+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -451,7 +451,7 @@ msgid "bridges_builtin_pt"
 msgstr ""
 
 #: ../../source/advanced.rst:338
-msgid "When ``bridges_type`` is set to \"built-in\", this specifies which type of bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or \"snowflake\". Default: \"obfs4\""
+msgid "When ``bridges_type`` is set to \"built-in\", this specifies which type of bridge protocol to use. Options are \"obfs4\", \"meek\" or \"snowflake\". Default: \"obfs4\""
 msgstr ""
 
 #: ../../source/advanced.rst:339

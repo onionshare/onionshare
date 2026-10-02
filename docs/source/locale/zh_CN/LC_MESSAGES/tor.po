@@ -250,7 +250,7 @@ msgstr ""
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
-"recommended over using `meek-azure`."
+"recommended over using `meek`."
 msgstr ""
 "首先尝试使用内置网桥。建议使用 `obfs4` 或 `snowflake` 网桥，而不是使用 `meek-"
 "azure`。"

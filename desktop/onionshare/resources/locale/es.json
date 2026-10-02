@@ -80,7 +80,7 @@
     "gui_settings_authenticate_no_auth_option": "Sin autenticación, o autenticación por cookies",
     "gui_settings_authenticate_password_option": "Contraseña",
     "gui_settings_password_label": "Contraseña",
-    "gui_settings_meek_lite_expensive_warning": "Advertencia: Los puentes meek-azure son muy costosos de mantener para el Proyecto Tor.<br><br>Utilízalos solo si no puedes conectarte a Tor directamente, a través de transportes obfs4 u otros puentes normales.",
+    "gui_settings_meek_expensive_warning": "Advertencia: Los puentes meek son muy costosos de mantener para el Proyecto Tor.<br><br>Utilízalos solo si no puedes conectarte a Tor directamente, a través de transportes obfs4 u otros puentes normales.",
     "gui_settings_button_save": "Guardar",
     "gui_settings_button_cancel": "Cancelar",
     "gui_settings_button_help": "Ayuda",

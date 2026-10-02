@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Palavra-passe",
     "gui_settings_password_label": "Palavra-passe",
     "gui_settings_tor_bridges": "Ligar com Ponte Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Aviso: as pontes meek-azure são muito dispendiosas para o Projeto Tor.<br><br>Utilize-as apenas se não conseguir ligar diretamente ao Tor, via transportes obfs4, ou outras pontes normais.",
+    "gui_settings_meek_expensive_warning": "Aviso: as pontes meek são muito dispendiosas para o Projeto Tor.<br><br>Utilize-as apenas se não conseguir ligar diretamente ao Tor, via transportes obfs4, ou outras pontes normais.",
     "gui_settings_tor_bridges_invalid": "Nenhuma das pontes que adicionou funciona. Verifique-as ou adicione outras.",
     "gui_settings_button_save": "Guardar",
     "gui_settings_button_cancel": "Cancelar",
