@@ -270,7 +270,7 @@ msgstr ""
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
-"recommended over using `meek-azure`."
+"recommended over using `meek`."
 msgstr ""
 "முதலில் ஒரு உள்ளமைக்கப்பட்ட பாலத்தைப் பயன்படுத்த முயற்சிக்கவும். `OBFS4` அல்லது` "
 "ச்னோஃப்ளேக்` பாலங்களைப் பயன்படுத்துவது `சாந்தகுணப்படும்-ஏசூர்` ஐப் பயன்படுத்த "

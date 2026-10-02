@@ -44,7 +44,7 @@
     "gui_settings_authenticate_password_option": "ពាក្យ​សម្ងាត់",
     "gui_settings_password_label": "ពាក្យ​សម្ងាត់",
     "gui_settings_tor_bridges": "ភ្ជាប់ដោយប្រើ Tor bridge?",
-    "gui_settings_meek_lite_expensive_warning": "ប្រុងប្រយ័ត្ន៖ meek-azure bridges វាត្រូវចំណាយច្រើនសម្រាប់គម្រោង Tor ដើម្បីដំណើរការ។<br><br>សូមប្រើវា បើសិនជាមិនអាចភ្ជាប់ទៅ Tor ដោយផ្ទាល់ តាមរយៈ obfs4 transports ឬ Bridges ធម្មតាផ្សេងទៀត។",
+    "gui_settings_meek_expensive_warning": "ប្រុងប្រយ័ត្ន៖ meek bridges វាត្រូវចំណាយច្រើនសម្រាប់គម្រោង Tor ដើម្បីដំណើរការ។<br><br>សូមប្រើវា បើសិនជាមិនអាចភ្ជាប់ទៅ Tor ដោយផ្ទាល់ តាមរយៈ obfs4 transports ឬ Bridges ធម្មតាផ្សេងទៀត។",
     "gui_settings_tor_bridges_invalid": "គ្មាន Bridge ណាដែលអ្នកបានបន្ថែមដំណើរការនោះទេ។ ត្រួតពិនិត្យម្ដងទៀត ឬបន្ថែម Bridge ផ្សេងទៀត។",
     "gui_settings_button_save": "រក្សាទុក",
     "gui_settings_button_cancel": "បោះបង់",

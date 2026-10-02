@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Senha",
     "gui_settings_password_label": "Senha",
     "gui_settings_tor_bridges": "Conectar usando uma ponte Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Aviso: as pontes meek-azure são muito custosas para o Projeto Tor.<br><br>Use-as somente se você não conseguir se conectar ao Tor diretamente, via transportadores obfs4 ou outras pontes comuns.",
+    "gui_settings_meek_expensive_warning": "Aviso: as pontes meek são muito custosas para o Projeto Tor.<br><br>Use-as somente se você não conseguir se conectar ao Tor diretamente, via transportadores obfs4 ou outras pontes comuns.",
     "gui_settings_tor_bridges_invalid": "Nenhuma das ponte adicionadas funciona. Tente usá-las de novo ou adicione outras.",
     "gui_settings_button_save": "Salvar",
     "gui_settings_button_cancel": "Cancelar",

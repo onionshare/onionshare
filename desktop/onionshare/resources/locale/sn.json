@@ -42,7 +42,7 @@
     "gui_settings_authenticate_password_option": "neno siri",
     "gui_settings_password_label": "neno siri",
     "gui_settings_tor_bridges": "unganisha kwa kutumia kiungio cha Tor?",
-    "gui_settings_meek_lite_expensive_warning": "tahadhari: viungio vya meek azure ni gharama sana kuendesha mradi wa Tor. <br><br> unaweza kutumia tu kama imeshindwa kuunganisha na Tor moja kwa moja, kupitia obsfs4 transport, or au viungio vingine.",
+    "gui_settings_meek_expensive_warning": "tahadhari: viungio vya meek azure ni gharama sana kuendesha mradi wa Tor. <br><br> unaweza kutumia tu kama imeshindwa kuunganisha na Tor moja kwa moja, kupitia obsfs4 transport, or au viungio vingine.",
     "gui_settings_tor_bridges_invalid": "hakuna kiungio ulichoongeza kwenye kazi yako. bofya mara mbili kuhakikisha au ongeza zingine.",
     "gui_settings_button_save": "hifadhi",
     "gui_settings_button_cancel": "sitisha",

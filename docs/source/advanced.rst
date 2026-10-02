@@ -335,7 +335,7 @@ use_autoupdate       ``boolean`` Whether OnionShare should automatically check f
 autoupdate_timestamp ``integer`` The last time OnionShare checked for updates. Default: None
 bridges_enabled      ``boolean`` Whether to connect to Tor using bridges. Default: False
 bridges_type         ``string``  When ``bridges_enabled`` is True, where to load bridges from. Options are "built-in" (bridges shipped with OnionShare and which may get updated from Tor), "moat" (request bridges from Tor's Moat API), or "custom" (user-supplied bridges). Default: "built-in"
-bridges_builtin_pt   ``string``  When ``bridges_type`` is set to "built-in", this specifies which type of bridge protocol to use. Options are "obfs4", "meek-azure" or "snowflake". Default: "obfs4"
+bridges_builtin_pt   ``string``  When ``bridges_type`` is set to "built-in", this specifies which type of bridge protocol to use. Options are "obfs4", "meek" or "snowflake". Default: "obfs4"
 bridges_moat         ``string``  When ``bridges_type`` is set to "moat", the bridges returned from Tor's Moat API are stored here. Default: ""
 bridges_custom       ``string``  When ``bridges_type`` is set to "custom", the bridges specified by the user are stored here. Separate each bridge line in the string with '\n'. Default: ""
 bridges_builtin      ``dict``    When ``bridges_type`` is set to "built-in", OnionShare obtains the latest built-in bridges recommended by Tor and stores them here. Default: {}

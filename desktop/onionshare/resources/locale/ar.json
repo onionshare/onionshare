@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "بكلمة السر",
     "gui_settings_password_label": "كلمة السر",
     "gui_settings_tor_bridges": "هل تريد الاتصال باستخدام جسر تور؟",
-    "gui_settings_meek_lite_expensive_warning": "تنبيه: يكلّف استخدام الجسور meek-azure مشروع تور للغاية لأجل تشغيلها.<br><br>استخدمها عند الضرورة فقط عند تعذُّر الاتصال إما بِتور مباشرة، وإما عبر وسائل نقل obfs4 وإما عبر الجسور الاعتيادية.",
+    "gui_settings_meek_expensive_warning": "تنبيه: يكلّف استخدام الجسور meek مشروع تور للغاية لأجل تشغيلها.<br><br>استخدمها عند الضرورة فقط عند تعذُّر الاتصال إما بِتور مباشرة، وإما عبر وسائل نقل obfs4 وإما عبر الجسور الاعتيادية.",
     "gui_settings_tor_bridges_invalid": "لا تعمل أي من الجسور التي أضفتها. قم بتفحصها جيدا أو أضف أخرى.",
     "gui_settings_button_save": "احفظ",
     "gui_settings_button_cancel": "ألغِ",

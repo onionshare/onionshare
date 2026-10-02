@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Hasło",
     "gui_settings_password_label": "Hasło",
     "gui_settings_tor_bridges": "Połączenie z użyciem mostka Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Uwaga: Mostki meek_lite są bardzo kosztowne dla Tor Project.<br><br>Korzystaj z nich tylko wtedy, gdy nie możesz połączyć się bezpośrednio z siecią Tor poprzez obsf4 albo przez inne normalne mostki.",
+    "gui_settings_meek_expensive_warning": "Uwaga: Mostki meek_lite są bardzo kosztowne dla Tor Project.<br><br>Korzystaj z nich tylko wtedy, gdy nie możesz połączyć się bezpośrednio z siecią Tor poprzez obsf4 albo przez inne normalne mostki.",
     "gui_settings_tor_bridges_invalid": "Żadne z dodanych przez Ciebie mostków nie działają. Zweryfikuj je lub dodaj inne.",
     "gui_settings_button_save": "Zapisz",
     "gui_settings_button_cancel": "Anuluj",

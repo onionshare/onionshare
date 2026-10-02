@@ -285,10 +285,10 @@ msgstr ""
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
-"recommended over using `meek-azure`."
+"recommended over using `meek`."
 msgstr ""
 "Δοκιμάστε αρχικά μια ενσωματωμένη γέφυρα. Η χρήση των γεφυρών `obfs4` ή "
-"`snowflake` προτείνονται με χρήση του `meek-azure`."
+"`snowflake` προτείνονται με χρήση του `meek`."
 
 #: ../../source/tor.rst:84
 msgid ""

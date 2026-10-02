@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Passord",
     "gui_settings_password_label": "Passord",
     "gui_settings_tor_bridges": "Koble til med en Tor-bro?",
-    "gui_settings_meek_lite_expensive_warning": "Advarsel: Meek-lite-broene er veldig kostbare å kjøre for Tor-prosjektet.<br><br>Kun bruk dem hvis direkte tilkobling til Tor ikke virker, via obfs-transporter, eller andre normale broer.",
+    "gui_settings_meek_expensive_warning": "Advarsel: Meek-lite-broene er veldig kostbare å kjøre for Tor-prosjektet.<br><br>Kun bruk dem hvis direkte tilkobling til Tor ikke virker, via obfs-transporter, eller andre normale broer.",
     "gui_settings_tor_bridges_invalid": "Ingen av broene du la til virker.\nDobbeltsjekk dem eller legg til andre.",
     "gui_settings_button_save": "Lagre",
     "gui_settings_button_cancel": "Avbryt",

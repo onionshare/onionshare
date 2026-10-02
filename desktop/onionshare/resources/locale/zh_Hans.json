@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "密码",
     "gui_settings_password_label": "密码",
     "gui_settings_tor_bridges": "使用 Tor 网桥连接？",
-    "gui_settings_meek_lite_expensive_warning": "警告：meek-azure 网桥会对 Tor 的运行产生极大负担。<br><br>仅在无法直接连接以及通过 obfs4 或其他网桥连接 Tor 时使用。",
+    "gui_settings_meek_expensive_warning": "警告：meek 网桥会对 Tor 的运行产生极大负担。<br><br>仅在无法直接连接以及通过 obfs4 或其他网桥连接 Tor 时使用。",
     "gui_settings_tor_bridges_invalid": "你添加的网桥都无法工作。请再次检查或添加其它网桥。",
     "gui_settings_button_save": "保存",
     "gui_settings_button_cancel": "取消",

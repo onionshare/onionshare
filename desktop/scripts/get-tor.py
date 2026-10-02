@@ -291,10 +291,10 @@ def update_tor_bridges():
         )
         sys.exit(1)
 
-    for bridge_type in ["meek-azure", "obfs4", "snowflake"]:
+    for bridge_type in ["meek", "obfs4", "snowflake"]:
         if bridge_type in result and result[bridge_type]:
-            if bridge_type == "meek-azure":
-                torrc_template_extension = "meek_lite_azure"
+            if bridge_type == "meek":
+                torrc_template_extension = "meek"
             else:
                 torrc_template_extension = bridge_type
             torrc_template = os.path.join(

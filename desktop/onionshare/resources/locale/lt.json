@@ -44,7 +44,7 @@
     "gui_settings_authenticate_password_option": "Slaptažodis",
     "gui_settings_password_label": "Slaptažodis",
     "gui_settings_tor_bridges": "Prisijunkti naudodami „Tor“ tiltą?",
-    "gui_settings_meek_lite_expensive_warning": "Įspėjimas: <br><br>Meek_lite tiltai labai brangiai kainuoja „Tor“ projektui.<br><br>Jais naudokitės tik tuo atveju, jei negalite prisijungti prie „Tor“ tiesiogiai, per obfs4 transportą ar kitus įprastus tiltus.",
+    "gui_settings_meek_expensive_warning": "Įspėjimas: <br><br>Meek_lite tiltai labai brangiai kainuoja „Tor“ projektui.<br><br>Jais naudokitės tik tuo atveju, jei negalite prisijungti prie „Tor“ tiesiogiai, per obfs4 transportą ar kitus įprastus tiltus.",
     "gui_settings_tor_bridges_invalid": "Nė vienas iš jūsų pridėtų tiltų neveikia. Patikrinkite juos dar kartą arba pridėkite kitus.",
     "gui_settings_button_save": "Įrašyti",
     "gui_settings_button_cancel": "Atsisakyti",

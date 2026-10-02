@@ -48,7 +48,7 @@
     "gui_settings_socks_label": "Порт SOCKS",
     "gui_settings_authenticate_no_auth_option": "Без аутентификации, либо по cookie",
     "gui_settings_tor_bridges": "Использовать \"мост\" Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Внимание: использование мостов meek-azure очень затратно для Tor Project.<br><br>Используйте их только если не можете подключиться к сети Tor напрямую, через obfs4, или другие обычные мосты.",
+    "gui_settings_meek_expensive_warning": "Внимание: использование мостов meek очень затратно для Tor Project.<br><br>Используйте их только если не можете подключиться к сети Tor напрямую, через obfs4, или другие обычные мосты.",
     "gui_settings_tor_bridges_invalid": "Ни один из добавленных вами мостов не работает. Проверьте их снова или добавьте другие.",
     "settings_error_unknown": "Невозможно подключиться к Tor-контроллеру из-за некорректных настроек.",
     "settings_error_automatic": "Ошибка подключения к Tor-контроллеру. Запущен ли Tor Browser (torproject.org) в фоновом режиме?",
