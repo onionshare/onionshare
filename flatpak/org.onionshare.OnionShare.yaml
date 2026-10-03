@@ -116,8 +116,8 @@ modules:
     buildsystem: autotools
     sources:
       - type: archive
-        sha256: 2e6c1720118c812acf0079fd47cf91b6bfaba5d766c321c4d3d2a28d6a11a8ed
-        url: https://dist.torproject.org/tor-0.4.9.11.tar.gz
+        sha256: 5e748d3272cdf44a7d7741173f371c8def3d96eecb77e93c89c50663ce9cc792
+        url: https://dist.torproject.org/tor-0.4.9.13.tar.gz
     modules:
       - name: libevent
         buildsystem: autotools
