@@ -103,6 +103,19 @@ class ReceiveModeWeb:
             Handle the upload files POST request, though at this point, the files have
             already been uploaded and saved to their correct locations.
             """
+            # /upload-ajax rejects these requests before dispatching here,
+            # but plain (non-JS) form submissions hit this route directly.
+            # Requests that were admitted before the autostop timer ran out
+            # are allowed to finish normally, even if the timer expires
+            # while they are in progress.
+            if not request.admitted:
+                if ajax:
+                    return json.dumps(
+                        {"error_flashes": ["Uploads are no longer being accepted"]}
+                    )
+                flash("Uploads are no longer being accepted", "error")
+                return redirect("/")
+
             message_received = request.includes_message
 
             files_received = 0
@@ -247,7 +260,7 @@ class ReceiveModeWeb:
             "/upload-ajax", methods=["POST"], provide_automatic_options=False
         )
         def upload_ajax_public():
-            if not self.can_upload:
+            if not request.admitted:
                 return self.web.error403()
             return upload(ajax=True)
 
@@ -389,6 +402,13 @@ class ReceiveModeRequest(Request):
             if self.path == "/upload" or self.path == "/upload-ajax":
                 self.upload_request = True
 
+        # Whether this upload request was admitted (started) before the
+        # autostop timer expired. This is decided once, here, and used
+        # consistently for the rest of the request's lifecycle, so that
+        # an upload that was already in progress when the timer ran out
+        # is allowed to finish normally.
+        self.admitted = False
+
         if self.upload_request:
             self.web.common.log("ReceiveModeRequest", "__init__")
 
@@ -403,8 +423,20 @@ class ReceiveModeRequest(Request):
             # A dictionary that maps filenames to the bytes uploaded so far
             self.progress = {}
 
-            # Prevent new uploads if we've said so (timer expired)
-            if self.web.receive_mode.can_upload:
+            self.admitted = self.web.receive_mode.can_upload
+
+            # Initialize the attributes needed for cleanup even for
+            # rejected requests, since close() and the upload routes may
+            # still run when the upload was not admitted
+            self.history_id = None
+            self.content_length = 0
+            self.told_gui_about_request = False
+            self.includes_message = False
+            self.previous_file = None
+
+            # Don't parse the form (which streams file uploads) or save
+            # anything for uploads that were not admitted
+            if self.admitted:
 
                 # Create an history_id, attach it to the request
                 self.history_id = self.web.receive_mode.cur_history_id
@@ -420,13 +452,7 @@ class ReceiveModeRequest(Request):
                 size_str = self.web.common.human_readable_filesize(self.content_length)
                 print(f"{date_str}: Upload of total size {size_str} is starting")
 
-                # Don't tell the GUI that a request has started until we start receiving files
-                self.told_gui_about_request = False
-
-                self.previous_file = None
-
                 # Is there a text message?
-                self.includes_message = False
                 if not self.web.settings.get("receive", "disable_text"):
                     text_message = self.form.get("text")
                     if text_message and len(text_message) <= 524288:
@@ -550,6 +576,13 @@ class ReceiveModeRequest(Request):
             return io.BytesIO()
 
         if self.upload_request:
+            # Reject uploads that were not admitted (autostop timer had
+            # already expired when this request started), so nothing gets
+            # saved to disk
+            if not self.admitted:
+                self.file_upload_rejected = True
+                return io.BytesIO()
+
             # Check if file uploads are disabled - reject file streams early
             if self.web.settings.get("receive", "disable_files"):
                 self.web.common.log(
