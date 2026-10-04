@@ -61,3 +61,27 @@ class TestWebUnixSocket:
 
         assert not os.path.exists(socket_path)
         assert not os.path.exists(socket_dir)
+
+    def test_waitress_unix_socket_tempdir_is_cleaned_up(self, temp_dir, common_obj):
+        common_obj.settings = Settings(common_obj)
+        mode_settings = ModeSettings(common_obj)
+        web = Web(common_obj, False, mode_settings, "receive")
+
+        socket_dir = tempfile.TemporaryDirectory(dir=temp_dir.name)
+        socket_path = os.path.join(socket_dir.name, "web_socket")
+
+        thread = Thread(
+            target=web.start, args=(0, socket_path, socket_dir), daemon=True
+        )
+        thread.start()
+        try:
+            assert wait_for_socket(socket_path), "web server never bound the socket"
+            assert oct(os.stat(socket_path).st_mode & 0o777) == "0o600"
+        finally:
+            web.stop(0)
+            web.cleanup()
+            thread.join(timeout=5)
+
+        assert web.unix_socket is None
+        assert web.unix_socket_dir is None
+        assert not os.path.exists(socket_dir.name)

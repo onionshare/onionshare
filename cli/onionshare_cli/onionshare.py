@@ -43,6 +43,7 @@ class OnionShare(object):
 
         # Listen on a unix socket instead of TCP, if possible
         self.unix_socket = None
+        self.unix_socket_dir = None
         self._unix_socket_decided = False
 
         # do not use tor -- for development
@@ -81,9 +82,12 @@ class OnionShare(object):
         if self.onion.tor_proc is None:
             return None
 
-        socket_dir = tempfile.mkdtemp(dir=self.common.build_tmp_dir())
-        os.chmod(socket_dir, 0o700)
-        self.unix_socket = os.path.join(socket_dir, "web_socket")
+        # TemporaryDirectory creates a 0700 directory owned by this user, so
+        # only this user (or root) can reach the socket
+        self.unix_socket_dir = tempfile.TemporaryDirectory(
+            prefix="web_socket_", dir=self.common.build_tmp_dir()
+        )
+        self.unix_socket = os.path.join(self.unix_socket_dir.name, "web_socket")
         self.common.log(
             "OnionShare", "choose_unix_socket", f"using {self.unix_socket}"
         )
@@ -125,10 +129,11 @@ class OnionShare(object):
         self.onion.stop_onion_service(mode_settings)
 
         # Clean up and forget the socket, so a restart picks a new one
-        if self.unix_socket:
+        if self.unix_socket_dir:
             try:
-                os.rmdir(os.path.dirname(self.unix_socket))
+                self.unix_socket_dir.cleanup()
             except OSError:
                 pass
+        self.unix_socket_dir = None
         self.unix_socket = None
         self._unix_socket_decided = False

@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
+import signal
 import sys
 import time
 import argparse
@@ -41,6 +42,12 @@ def main(cwd=None):
     """
     common = Common()
     common.display_banner()
+
+    # Allow SIGTERM (e.g. `kill`, systemd stop) to clean up like Ctrl-C does
+    def sigterm_handler(signum, frame):
+        raise KeyboardInterrupt
+
+    signal.signal(signal.SIGTERM, sigterm_handler)
 
     # OnionShare CLI in OSX needs to change current working directory (#132)
     if common.platform == "Darwin":
@@ -451,7 +458,9 @@ def main(cwd=None):
             print("")
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port, app.unix_socket))
+    t = threading.Thread(
+        target=web.start, args=(app.port, app.unix_socket, app.unix_socket_dir)
+    )
     t.daemon = True
     t.start()
 

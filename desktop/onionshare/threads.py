@@ -129,7 +129,11 @@ class WebThread(QtCore.QThread):
     def run(self):
         self.mode.common.log("WebThread", "run")
         try:
-            self.mode.web.start(self.mode.app.port, self.mode.app.unix_socket)
+            self.mode.web.start(
+                self.mode.app.port,
+                self.mode.app.unix_socket,
+                self.mode.app.unix_socket_dir,
+            )
             self.success.emit()
         except WaitressException as e:
             message = self.mode.common.gui.get_translated_web_error(e)

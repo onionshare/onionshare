@@ -91,8 +91,20 @@ class TestOnionShare:
 
         onionshare_obj.stop_onion_service(mode_settings_obj)
         assert onionshare_obj.unix_socket is None
+        assert onionshare_obj.unix_socket_dir is None
         assert not os.path.exists(os.path.dirname(first))
 
         second = onionshare_obj.choose_unix_socket("share")
         assert second is not None
         assert second != first
+
+    def test_stop_onion_service_cleans_up_even_with_a_stale_socket(
+        self, onionshare_obj, mode_settings_obj
+    ):
+        onionshare_obj.onion.tor_proc = object()
+        socket_path = onionshare_obj.choose_unix_socket("share")
+        # Simulate a server that created the socket and then died
+        open(socket_path, "w").close()
+        onionshare_obj.stop_onion_service(mode_settings_obj)
+        assert not os.path.exists(socket_path)
+        assert not os.path.exists(os.path.dirname(socket_path))
