@@ -560,6 +560,34 @@ class GuiCommon:
         return QtCore.QLocale(common.settings.get("locale"))
 
     @staticmethod
+    def get_timer_time_format(locale):
+        """
+        The time format for the auto-start/auto-stop timer widgets and
+        tooltips. OnionShare's generic English locale resolves to
+        QLocale("en_US"), whose short time format is a 12-hour clock, but a
+        24-hour clock is preferred by English speakers outside the US
+        (onionshare/onionshare#985), so it is overridden here.
+        """
+        if locale.name() == "en_US":
+            return "HH:mm"
+        return locale.timeFormat(QtCore.QLocale.ShortFormat)
+
+    @staticmethod
+    def get_timer_date_format(locale, long_format=False):
+        """
+        The date format for the auto-start/auto-stop timer widgets and
+        tooltips. For locales other than English, this is the locale's own
+        short or long date format. QLocale("en_US") puts the month before the
+        day (e.g. 3/9/27), which is confusing for English speakers outside the
+        US, so the traditional OnionShare ordering is kept for English.
+        """
+        if locale.name() == "en_US":
+            return "MMMM dd, yyyy" if long_format else "MMM d, yy"
+        if long_format:
+            return locale.dateFormat(QtCore.QLocale.LongFormat)
+        return locale.dateFormat(QtCore.QLocale.ShortFormat)
+
+    @staticmethod
     def get_resource_path(filename):
         """
         Returns the absolute path of a resource

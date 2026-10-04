@@ -41,8 +41,8 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         # displayed in, rather than a hardcoded 12-hour clock and English dates
         self.timer_locale = GuiCommon.get_locale(common)
         timer_display_format = (
-            f"{self.timer_locale.timeFormat(QtCore.QLocale.ShortFormat)} "
-            f"{self.timer_locale.dateFormat(QtCore.QLocale.ShortFormat)}"
+            f"{GuiCommon.get_timer_time_format(self.timer_locale)} "
+            f"{GuiCommon.get_timer_date_format(self.timer_locale)}"
         )
 
         # Downstream Mode need to fill in this layout with its settings

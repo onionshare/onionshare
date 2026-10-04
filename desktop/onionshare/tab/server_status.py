@@ -326,11 +326,9 @@ class ServerStatus(QtWidgets.QWidget):
         conventions of the language OnionShare is displayed in.
         """
         locale = GuiCommon.get_locale(self.common)
-        return locale.toString(
-            timer_widget.dateTime(),
-            f"{locale.timeFormat(QtCore.QLocale.ShortFormat)}, "
-            f"{locale.dateFormat(QtCore.QLocale.LongFormat)}",
-        )
+        time_format = GuiCommon.get_timer_time_format(locale)
+        date_format = GuiCommon.get_timer_date_format(locale, long_format=True)
+        return locale.toString(timer_widget.dateTime(), f"{time_format}, {date_format}")
 
     def update(self):
         """
