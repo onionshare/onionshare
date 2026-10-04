@@ -130,15 +130,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.tabs = TabWidget(self.common, self.system_tray, self.status_bar, self)
         self.tabs.bring_to_front.connect(self.bring_to_front)
 
-        # The "+" new tab button is a manually-positioned overlay widget
-        # (see TabWidget.move_new_tab_button), not one placed via a layout,
-        # so Qt's automatically-computed tab order skips over it when
-        # tabbing forward from the settings button, even though shift+tab
-        # correctly lands on it in reverse. Make the order explicit and
-        # symmetric in both directions.
-        self.setTabOrder(self.settings_button, self.tabs.new_tab_button)
-        self.setTabOrder(self.tabs.new_tab_button, self.tabs.tabBar())
-
         # If we have saved persistent tabs, try opening those
         if len(self.common.settings.get("persistent_tabs")) > 0:
             for mode_settings_id in self.common.settings.get("persistent_tabs"):
@@ -158,6 +149,10 @@ class MainWindow(QtWidgets.QMainWindow):
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
         self.show()
+
+        # Ensure "+" new tab button is reachable via keyboard tab after focusing on
+        # an existing tab.
+        self.setTabOrder(self.tabs.tabBar(), self.tabs.new_tab_button)
 
         # Create the close warning dialog -- the dialog widget needs to be in the constructor
         # in order to test it
