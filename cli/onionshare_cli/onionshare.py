@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
+import tempfile
 from .common import AutoStopTimer
 
 
@@ -40,6 +41,10 @@ class OnionShare(object):
         self.onion_host = None
         self.port = None
 
+        # Listen on a unix socket instead of TCP, if possible
+        self.unix_socket = None
+        self._unix_socket_decided = False
+
         # do not use tor -- for development
         self.local_only = local_only
 
@@ -57,6 +62,33 @@ class OnionShare(object):
         except Exception:
             raise OSError("Cannot find an available OnionShare port")
 
+    def choose_unix_socket(self, mode):
+        """
+        Choose a unix socket path, or None to use a TCP port.
+        """
+        if self._unix_socket_decided:
+            return self.unix_socket
+        self._unix_socket_decided = True
+
+        self.unix_socket = None
+        if self.local_only or mode == "chat":
+            return None
+        if self.common.platform == "Windows":
+            return None
+        if os.path.exists("/usr/share/anon-ws-base-files/workstation"):
+            return None
+        # Only bundled Tor runs as this user and can reach the socket
+        if self.onion.tor_proc is None:
+            return None
+
+        socket_dir = tempfile.mkdtemp(dir=self.common.build_tmp_dir())
+        os.chmod(socket_dir, 0o700)
+        self.unix_socket = os.path.join(socket_dir, "web_socket")
+        self.common.log(
+            "OnionShare", "choose_unix_socket", f"using {self.unix_socket}"
+        )
+        return self.unix_socket
+
     def start_onion_service(self, mode, mode_settings, await_publication=True):
         """
         Start the onionshare onion service.
@@ -65,6 +97,8 @@ class OnionShare(object):
 
         if not self.port:
             self.choose_port()
+
+        self.choose_unix_socket(mode)
 
         if self.autostop_timer > 0:
             self.autostop_timer_thread = AutoStopTimer(self.common, self.autostop_timer)
@@ -78,7 +112,7 @@ class OnionShare(object):
             return
 
         self.onion_host = self.onion.start_onion_service(
-            mode, mode_settings, self.port, await_publication
+            mode, mode_settings, self.port, await_publication, self.unix_socket
         )
 
         if not mode_settings.get("general", "public"):
@@ -89,3 +123,12 @@ class OnionShare(object):
         Stop the onion service
         """
         self.onion.stop_onion_service(mode_settings)
+
+        # Clean up and forget the socket, so a restart picks a new one
+        if self.unix_socket:
+            try:
+                os.rmdir(os.path.dirname(self.unix_socket))
+            except OSError:
+                pass
+        self.unix_socket = None
+        self._unix_socket_decided = False

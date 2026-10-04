@@ -451,7 +451,7 @@ def main(cwd=None):
             print("")
 
     # Start OnionShare http service in new thread
-    t = threading.Thread(target=web.start, args=(app.port,))
+    t = threading.Thread(target=web.start, args=(app.port, app.unix_socket))
     t.daemon = True
     t.start()
 

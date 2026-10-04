@@ -99,6 +99,7 @@ class Web:
         mimetypes.add_type("text/javascript", ".js")
 
         self.waitress = None
+        self.unix_socket = None
 
         # The flask app
         self.app = Flask(
@@ -329,11 +330,12 @@ class Web:
         log_handler.setLevel(logging.WARNING)
         self.app.logger.addHandler(log_handler)
 
-    def start(self, port):
+    def start(self, port, unix_socket=None):
         """
         Start the flask web server.
         """
-        self.common.log("Web", "start", f"port={port}")
+        self.unix_socket = unix_socket
+        self.common.log("Web", "start", f"port={port}, unix_socket={unix_socket}")
 
         # Make sure the stop_q is empty when starting a new server
         while not self.stop_q.empty():
@@ -353,13 +355,22 @@ class Web:
             self.socketio.run(self.app, host=host, port=port)
         else:
             try:
-                self.waitress = create_server(
-                    self.app,
-                    host=host,
-                    port=port,
-                    clear_untrusted_proxy_headers=True,
-                    ident="OnionShare",
-                )
+                if unix_socket:
+                    self.waitress = create_server(
+                        self.app,
+                        unix_socket=unix_socket,
+                        unix_socket_perms="600",
+                        clear_untrusted_proxy_headers=True,
+                        ident="OnionShare",
+                    )
+                else:
+                    self.waitress = create_server(
+                        self.app,
+                        host=host,
+                        port=port,
+                        clear_untrusted_proxy_headers=True,
+                        ident="OnionShare",
+                    )
                 self.waitress.run()
             except Exception as e:
                 if not self.waitress.shutdown:
@@ -380,6 +391,17 @@ class Web:
 
         if self.waitress:
             self.waitress_custom_shutdown()
+
+        if self.unix_socket:
+            try:
+                os.unlink(self.unix_socket)
+            except FileNotFoundError:
+                pass
+            try:
+                os.rmdir(os.path.dirname(self.unix_socket))
+            except OSError:
+                pass
+            self.unix_socket = None
 
     def cleanup(self):
         """
