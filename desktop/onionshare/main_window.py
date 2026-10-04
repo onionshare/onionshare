@@ -150,6 +150,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(central_widget)
         self.show()
 
+        # Ensure "+" new tab button is reachable via keyboard tab after focusing on
+        # an existing tab.
+        self.setTabOrder(self.tabs.tabBar(), self.tabs.new_tab_button)
+
         # Create the close warning dialog -- the dialog widget needs to be in the constructor
         # in order to test it
         self.close_dialog = QtWidgets.QMessageBox()

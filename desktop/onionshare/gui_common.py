@@ -121,6 +121,13 @@ class GuiCommon:
                 QPushButton {
                     font-weight: bold;
                     font-size: 20px;
+                    border: 1px solid transparent;
+                    border-radius: 4px;
+                }
+                QPushButton:focus {
+                    border-color: """
+            + header_color
+            + """;
                 }""",
             "settings_subtab_bar": """
                 QTabBar::tab {
