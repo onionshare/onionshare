@@ -67,7 +67,7 @@
     "gui_receive_stop_server_autostop_timer": "Stop Ontvangstmodus ({} resterend)",
     "gui_copied_url_title": "OnionShare Adres gekopieerd",
     "gui_settings_tor_bridges": "Verbinden met Tor bridge?",
-    "gui_settings_meek_lite_expensive_warning": "Waarschuwing: De meek_lite bridges zijn erg kostbaar voor het Tor Project om uit te voeren. <br><br> Gebruik ze alleen als je niet direct met Tor kan verbinden, via obfs4 transports, of andere normale bridges.",
+    "gui_settings_meek_expensive_warning": "Waarschuwing: De meek_lite bridges zijn erg kostbaar voor het Tor Project om uit te voeren. <br><br> Gebruik ze alleen als je niet direct met Tor kan verbinden, via obfs4 transports, of andere normale bridges.",
     "gui_settings_tor_bridges_invalid": "Geen van de bridges die je hebt toegevoegd werken. Controleer ze of voeg andere toe.",
     "gui_tor_connection_lost": "De verbinding met Tor is verbroken.",
     "gui_share_url_description": "<b>Iedereen</b> met dit OnionShare-adres kan je bestanden <b>binnenhalen</b> met de <b>Tor Browser</b>: <img src='{}' />",

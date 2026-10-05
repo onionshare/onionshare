@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Lösenord",
     "gui_settings_password_label": "Lösenord",
     "gui_settings_tor_bridges": "Anslut med en Tor-bro?",
-    "gui_settings_meek_lite_expensive_warning": "Varning: meek-azure-broarna är mycket kostsamma för Tor-projektet att köra.<br><br>Använd dem endast om det inte går att ansluta till Tor direkt, via obfs4-transporter eller andra vanliga broar.",
+    "gui_settings_meek_expensive_warning": "Varning: meek-broarna är mycket kostsamma för Tor-projektet att köra.<br><br>Använd dem endast om det inte går att ansluta till Tor direkt, via obfs4-transporter eller andra vanliga broar.",
     "gui_settings_tor_bridges_invalid": "Ingen av broarna du lagt till fungerar. Dubbelkolla dem eller lägg till andra.",
     "gui_settings_button_save": "Spara",
     "gui_settings_button_cancel": "Avbryt",

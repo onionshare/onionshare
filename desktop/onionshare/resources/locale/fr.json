@@ -86,7 +86,7 @@
     "gui_tor_connection_ask": "Ouvrir les paramètres pour résoudre le problème de connexion à Tor ?",
     "gui_tor_connection_canceled": "Impossible de se connecter à Tor.\n\nAssurez-vous d’être connecté à Internet, puis rouvrez OnionShare et configurez sa connexion à Tor.",
     "systray_page_loaded_title": "La page a été chargée",
-    "gui_settings_meek_lite_expensive_warning": "Avertissement : L’exploitation de ponts meek_azure demande beaucoup de ressources au Projet Tor.<br><br>Ne les utilisez que si vous ne pouvez pas vous connecter directement à Tor par les transports obfs4 ou autres ponts normaux.",
+    "gui_settings_meek_expensive_warning": "Avertissement : L’exploitation de ponts meek_azure demande beaucoup de ressources au Projet Tor.<br><br>Ne les utilisez que si vous ne pouvez pas vous connecter directement à Tor par les transports obfs4 ou autres ponts normaux.",
     "gui_server_started_after_autostop_timer": "La minuterie d’arrêt automatique est arrivée au bout de son délai avant le démarrage du serveur. Créez un nouveau partage.",
     "gui_server_autostop_timer_expired": "La minuterie d’arrêt automatique est déjà arrivée au bout de son délai. Réglez-la pour commencer le partage.",
     "close_on_autostop_timer": "Arrêté, car la minuterie d’arrêt automatique est arrivée au bout de son délai",

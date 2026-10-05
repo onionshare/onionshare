@@ -289,10 +289,10 @@ msgstr ""
 #, fuzzy
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
-"recommended over using `meek-azure`."
+"recommended over using `meek`."
 msgstr ""
 "Prøv å bruke en innebygd bro først. `obfs4` eller `snowflake`-broer "
-"anbefales framfor bruk av`meek-azure`."
+"anbefales framfor bruk av`meek`."
 
 #: ../../source/tor.rst:84
 #, fuzzy

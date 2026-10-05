@@ -112,7 +112,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         )
         if self.obfs4proxy_file_path and os.path.isfile(self.obfs4proxy_file_path):
             self.bridge_builtin_dropdown.addItem("obfs4")
-            self.bridge_builtin_dropdown.addItem("meek-azure")
+            self.bridge_builtin_dropdown.addItem("meek")
         if self.snowflake_file_path and os.path.isfile(self.snowflake_file_path):
             self.bridge_builtin_dropdown.addItem("snowflake")
 
@@ -472,8 +472,8 @@ class TorSettingsTab(QtWidgets.QWidget):
                 bridges_builtin_pt = self.old_settings.get("bridges_builtin_pt")
                 if bridges_builtin_pt == "obfs4":
                     self.bridge_builtin_dropdown.setCurrentText("obfs4")
-                elif bridges_builtin_pt == "meek-azure":
-                    self.bridge_builtin_dropdown.setCurrentText("meek-azure")
+                elif bridges_builtin_pt == "meek":
+                    self.bridge_builtin_dropdown.setCurrentText("meek")
                 else:
                     self.bridge_builtin_dropdown.setCurrentText("snowflake")
 
@@ -555,12 +555,12 @@ class TorSettingsTab(QtWidgets.QWidget):
         """
         Build-in bridge selection changed
         """
-        if selection == "meek-azure":
+        if selection == "meek":
             # Alert the user about meek's costliness if it looks like they're turning it on
-            if not self.old_settings.get("bridges_builtin_pt") == "meek-azure":
+            if not self.old_settings.get("bridges_builtin_pt") == "meek":
                 Alert(
                     self.common,
-                    strings._("gui_settings_meek_lite_expensive_warning"),
+                    strings._("gui_settings_meek_expensive_warning"),
                     QtWidgets.QMessageBox.Warning,
                 )
 

@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "密碼",
     "gui_settings_password_label": "密碼",
     "gui_settings_tor_bridges": "連接 Tor 橋接器?",
-    "gui_settings_meek_lite_expensive_warning": "警告: The meek_lite bridges are very costly for the Tor Project to run.<br><br>Only use them if unable to connect to Tor directly, via obfs4 transports, or other normal bridges.",
+    "gui_settings_meek_expensive_warning": "警告: The meek_lite bridges are very costly for the Tor Project to run.<br><br>Only use them if unable to connect to Tor directly, via obfs4 transports, or other normal bridges.",
     "gui_settings_tor_bridges_invalid": "您新增的橋接器無效。請再次檢查或新增其他的橋接器。",
     "gui_settings_button_save": "儲存",
     "gui_settings_button_cancel": "取消",

@@ -77,7 +77,7 @@ It doesn't interfere with other ``tor`` processes on your computer, so you can u
 
 To use a bridge, you must select "Use the Tor version built into OnionShare" and check the "Use a bridge" checkbox.
 
-Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is recommended over using `meek-azure`.
+Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is recommended over using `meek`.
 
 .. image:: _static/screenshots/tor-settings-bridges.png
 

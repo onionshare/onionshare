@@ -216,10 +216,10 @@ msgstr ""
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
-"recommended over using `meek-azure`."
+"recommended over using `meek`."
 msgstr ""
 "Zkuste nejprve využít vestavěný most. Doporučuje se používat mosty `obfs4` "
-"nebo `snowflake`, nikoli však `meek-azure`. (provoz mostů meek-azure je pro "
+"nebo `snowflake`, nikoli však `meek`. (provoz mostů meek je pro "
 "projekt Tor velmi nákladný, používejte je pouze v případě, kdy se nemůžete "
 "připojit k Toru jiným způsobem)"
 

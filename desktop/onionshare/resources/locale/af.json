@@ -45,7 +45,7 @@
     "gui_settings_authenticate_password_option": "Wagwoord",
     "gui_settings_password_label": "Wagwoord",
     "gui_settings_tor_bridges": "Koppel u d.m.v. Tor-brug?",
-    "gui_settings_meek_lite_expensive_warning": "Waarskuwing: Die meek_lite-brûe is baie duur vir die Tor-projek om uit te voer.<br><br>Gebruik dit slegs indien u nie direk aan Tor, d.m.v. obfs4-vervoere, of ander normale brûe kan koppel nie.",
+    "gui_settings_meek_expensive_warning": "Waarskuwing: Die meek_lite-brûe is baie duur vir die Tor-projek om uit te voer.<br><br>Gebruik dit slegs indien u nie direk aan Tor, d.m.v. obfs4-vervoere, of ander normale brûe kan koppel nie.",
     "gui_settings_tor_bridges_invalid": "Geen van u toegevoegde brûe werk nie. Gaan dit na of voeg ander toe.",
     "gui_settings_button_save": "Bewaar",
     "gui_settings_button_cancel": "Kanselleer",

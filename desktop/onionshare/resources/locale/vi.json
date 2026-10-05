@@ -86,7 +86,7 @@
     "gui_settings_bridge_use_checkbox": "Sử dụng một cầu Bridge",
     "gui_settings_bridge_radio_builtin": "Chọn một cầu Bridge đã được tích hợp",
     "gui_settings_bridge_none_radio_option": "Không sử dụng cầu Bridge",
-    "gui_settings_meek_lite_expensive_warning": "Cảnh báo: Các cầu Bridge \"meek-azure\" rất tốn kém cho Dự Án Tor để chạy.<br><br>Chỉ sử dụng chúng nếu không thể kết nối trực tiếp tới Tor, thông qua phương thức vận chuyển obfs4, hoặc các cầu Bridge thông thường khác.",
+    "gui_settings_meek_expensive_warning": "Cảnh báo: Các cầu Bridge \"meek\" rất tốn kém cho Dự Án Tor để chạy.<br><br>Chỉ sử dụng chúng nếu không thể kết nối trực tiếp tới Tor, thông qua phương thức vận chuyển obfs4, hoặc các cầu Bridge thông thường khác.",
     "gui_settings_bridge_moat_radio_option": "Yêu cầu một cầu Bridge từ torproject.org",
     "gui_settings_bridge_moat_button": "Yêu cầu một cầu Bridge mới",
     "gui_settings_bridge_custom_radio_option": "Cung cấp một cầu Bridge bạn đã biết từ một nguồn cung cấp đáng tin cậy",

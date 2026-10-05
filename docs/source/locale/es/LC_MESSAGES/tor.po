@@ -282,10 +282,10 @@ msgstr ""
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
-"recommended over using `meek-azure`."
+"recommended over using `meek`."
 msgstr ""
 "Primero intenta usar un puente incorporado. Usar puentes `obfs4` o "
-"`snowflake` es recomendado, en vez de usar `meek-azure`."
+"`snowflake` es recomendado, en vez de usar `meek`."
 
 #: ../../source/tor.rst:84
 msgid ""

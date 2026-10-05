@@ -42,7 +42,7 @@
     "gui_settings_authenticate_password_option": "సంకేతపుమాట",
     "gui_settings_password_label": "సంకేతపుమాట",
     "gui_settings_tor_bridges": "Tor బ్రిడ్జి మద్దతు",
-    "gui_settings_meek_lite_expensive_warning": "హెచ్చరిక: tor వ్యవస్థను meek_lite బ్రిడ్జిల ద్వారా నడపడం చాలా ఖర్చుతో కూడిన పని.<br><br>మీరు obfs4 మాధ్యమాల ద్వారా లేదా వేరే మామూలు బ్రిడ్జిల ద్వారా torకు సూటిగా అనుసంధానించలేని పక్షంలోనే వాటిని వాడండి.",
+    "gui_settings_meek_expensive_warning": "హెచ్చరిక: tor వ్యవస్థను meek_lite బ్రిడ్జిల ద్వారా నడపడం చాలా ఖర్చుతో కూడిన పని.<br><br>మీరు obfs4 మాధ్యమాల ద్వారా లేదా వేరే మామూలు బ్రిడ్జిల ద్వారా torకు సూటిగా అనుసంధానించలేని పక్షంలోనే వాటిని వాడండి.",
     "gui_settings_tor_bridges_invalid": "మీరు చేర్చిన ఏ బ్రిడ్జీ కూడా పనిచేయుటలేదు.\nమరల సరిచూచుకోండి లేదా వేరేవాటిని చేర్చండి.",
     "gui_settings_button_save": "భద్రపరచు",
     "gui_settings_button_cancel": "రద్దుచేయి",

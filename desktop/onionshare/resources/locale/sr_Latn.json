@@ -45,7 +45,7 @@
     "gui_settings_authenticate_password_option": "Lozinka",
     "gui_settings_password_label": "Lozinka",
     "gui_settings_tor_bridges": "Povezivanje pomoću Tor mosta?",
-    "gui_settings_meek_lite_expensive_warning": "Upozorenje: meek-azure mostovi su vrlo skupi za Tor projekat da ih koristi.<br><br>Koristi ih samo ako ne možeš da se povežeš na Tor direktno, preko obfs4 transporta ili drugih redovnih mostova.",
+    "gui_settings_meek_expensive_warning": "Upozorenje: meek mostovi su vrlo skupi za Tor projekat da ih koristi.<br><br>Koristi ih samo ako ne možeš da se povežeš na Tor direktno, preko obfs4 transporta ili drugih redovnih mostova.",
     "gui_settings_tor_bridges_invalid": "Nijedan od mostova koje ste dodali ne funkcioniše. Proverite ih ponovo ili dodajte druge.",
     "gui_settings_button_save": "Sačuvaj",
     "gui_settings_button_cancel": "Odustani",

@@ -356,10 +356,10 @@ class Onion(object):
                                     )
                                 ) as o:
                                     f.write(o.read())
-                            elif builtin_bridge_type == "meek-azure":
+                            elif builtin_bridge_type == "meek":
                                 with open(
                                     self.common.get_resource_path(
-                                        "torrc_template-meek_lite_azure"
+                                        "torrc_template-meek"
                                     )
                                 ) as o:
                                     f.write(o.read())
