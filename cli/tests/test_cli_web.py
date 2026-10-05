@@ -312,6 +312,111 @@ class TestWeb:
 
         shutil.rmtree(data_dir)
 
+    def test_receive_mode_upload_after_autostop_timer_expired(self, temp_dir, common_obj):
+        """
+        Uploads that arrive after the autostop timer has expired should be
+        rejected cleanly (not with a 500 error), for both the plain /upload
+        route used by non-JS form submissions, and /upload-ajax
+        """
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+        web.settings.set("receive", "data_dir", data_dir)
+
+        # Simulate the autostop timer running out
+        web.receive_mode.can_upload = False
+
+        with web.app.test_client() as c:
+            # Plain (non-JS) form submission to /upload
+            res = c.post(
+                "/upload",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"THIS IS A TEST FILE"), "new_york.jpg")},
+            )
+            res.get_data()
+            assert res.status_code == 302
+
+            # Follow the redirect to pick up the flash message
+            res = c.get("/")
+            content = res.get_data()
+            assert res.status_code == 200
+            assert b"Uploads are no longer being accepted" in content
+
+            # Ajax submission to /upload-ajax
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"THIS IS A TEST FILE"), "new_york.jpg")},
+            )
+            res.get_data()
+            assert res.status_code == 403
+
+        # Nothing should have been saved to the data dir
+        assert os.listdir(data_dir) == []
+
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_upload_admitted_before_autostop_timer_expired(
+        self, temp_dir, common_obj
+    ):
+        """
+        An upload that was admitted (started) before the autostop timer
+        expired should be allowed to finish normally with its success
+        message and webhook, even if the timer ran out while it was in
+        progress
+        """
+        global webhook_url, webhook_data
+        webhook_url = None
+        webhook_data = None
+
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+        web.settings.set("receive", "data_dir", data_dir)
+        web.settings.set("receive", "webhook_url", "http://127.0.0.1:1337/example")
+        web.proxies = None
+
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"THIS IS A TEST FILE"), "new_york.jpg")},
+            )
+            content = res.get_data()
+            assert res.status_code == 200
+            assert b"Uploaded new_york.jpg" in content
+
+            # Simulate the autostop timer running out while the upload
+            # was in progress
+            web.receive_mode.can_upload = False
+
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"THIS IS A TEST FILE"), "new_york.jpg")},
+            )
+            res.get_data()
+            assert res.status_code == 403
+
+        # The admitted upload should have been saved
+        data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
+        filenames = os.listdir(data_dir_date)
+        assert len(filenames) == 1
+        data_dir_time = os.path.join(data_dir_date, filenames[0][0:12])
+        assert os.path.exists(os.path.join(data_dir_time, "new_york.jpg"))
+
+        # And the webhook should have fired
+        assert webhook_url == "http://127.0.0.1:1337/example"
+        assert webhook_data == "1 file submitted to OnionShare"
+
+        shutil.rmtree(data_dir)
+
     def test_public_mode_on(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
         web.settings.set("general", "public", True)
