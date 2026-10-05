@@ -264,5 +264,15 @@
     "gui_alert_button_ok": "确定",
     "gui_alert_button_close": "关闭",
     "gui_alert_button_yes": "是",
-    "gui_alert_button_no": "否"
+    "gui_alert_button_no": "否",
+    "gui_filesize_bytes": "{} B",
+    "gui_filesize_kib": "{} KiB",
+    "gui_filesize_mib": "{} MiB",
+    "gui_filesize_gib": "{} GiB",
+    "gui_filesize_tib": "{} TiB",
+    "gui_filesize_pib": "{} PiB",
+    "gui_filesize_eib": "{} EiB",
+    "gui_filesize_zib": "{} ZiB",
+    "gui_filesize_yib": "{} YiB",
+    "gui_receive_data_dir_not_writable": "OnionShare 无法写入此文件夹：\n\n{}\n\n请选择一个可以写入的文件夹（例如下载文件夹），然后重试。"
 }
