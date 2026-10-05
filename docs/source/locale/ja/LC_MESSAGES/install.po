@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2026-06-01 19:58+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-02 10:22+1000\n"
 "PO-Revision-Date: 2026-06-14 03:01+0000\n"
 "Last-Translator: Himmel <himmel@users.noreply.hosted.weblate.org>\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -430,8 +430,8 @@ msgid ""
 "2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
 "Saptak の鍵は keys.openpgp.org の `鍵サーバー <https://keys.openpgp.org/vks/"
-"v1/by-fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_ から"
-"ダウンロードできます。"
+"v1/by-fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_ からダウンロー"
+"ドできます。"
 
 #: ../../source/install.rst:128
 msgid "Miguel Jacq:"
@@ -440,7 +440,8 @@ msgstr "Miguel Jacq:"
 #: ../../source/install.rst:129
 msgid ""
 "PGP public key fingerprint ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
-msgstr "PGP 公開鍵のフィンガープリント ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
+msgstr ""
+"PGP 公開鍵のフィンガープリント ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
 
 #: ../../source/install.rst:130
 msgid ""
@@ -449,8 +450,8 @@ msgid ""
 "54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_."
 msgstr ""
 "Miguel の鍵は keys.openpgp.org の `鍵サーバー <https://keys.openpgp.org/vks/"
-"v1/by-fingerprint/54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_ から"
-"ダウンロードできます。"
+"v1/by-fingerprint/54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_ からダウンロー"
+"ドできます。"
 
 #: ../../source/install.rst:132
 msgid ""

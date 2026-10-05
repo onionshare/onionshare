@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-01 19:58+0530\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2026-10-02 10:22+1000\n"
+"PO-Revision-Date: 2026-10-04 04:06+0000\n"
+"Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: none\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
@@ -25,6 +27,8 @@ msgid ""
 "When OnionShare starts, it will show you a screen asking you to connect to "
 "the Tor network."
 msgstr ""
+"Saat OnionShare dimulai, aplikasi akan menampilkan layar yang meminta Anda "
+"untuk terhubung ke jaringan Tor."
 
 #: ../../source/tor.rst:8
 msgid ""
@@ -35,6 +39,12 @@ msgid ""
 "connection fails, you can still try bridges or reconfigure Tor via the "
 "\"Network Settings\" button."
 msgstr ""
+"Anda dapat mengaktifkan sakelar \"Connect to Tor automatically\" sebelum "
+"mengeklik \"Connect to Tor\". Dengan demikian, saat OnionShare dijalankan "
+"kembali, aplikasi akan otomatis terhubung menggunakan pengaturan koneksi Tor "
+"dari sesi terakhir, alih-alih menampilkan pilihan koneksi. Jika koneksi "
+"gagal, Anda tetap dapat mencoba bridge atau mengonfigurasi ulang Tor melalui "
+"tombol \"Network Settings\"."
 
 #: ../../source/tor.rst:11
 msgid ""
@@ -42,45 +52,57 @@ msgid ""
 "are no problems with your network, including any attempts to block your "
 "access to the Tor network, this should hopefully work the first time."
 msgstr ""
+"Anda dapat mengeklik \"Connect to Tor\" untuk memulai proses koneksi. Jika "
+"tidak ada masalah pada jaringan Anda, termasuk upaya pemblokiran akses ke "
+"jaringan Tor, koneksi seharusnya dapat berhasil pada percobaan pertama."
 
 #: ../../source/tor.rst:13
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings before "
 "you connect, you can click \"Network Settings\"."
 msgstr ""
+"Atau, jika Anda ingin mengonfigurasi Bridge atau pengaturan Tor lainnya "
+"secara manual sebelum terhubung, Anda dapat mengeklik \"Network Settings\"."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Penghindaran sensor secara otomatis"
 
 #: ../../source/tor.rst:18
 msgid ""
 "When you click \"Connect to Tor\", if OnionShare fails to connect, it might "
 "be because Tor is censored in your country or on your local network."
 msgstr ""
+"Saat Anda mengeklik \"Connect to Tor\", jika OnionShare gagal terhubung, "
+"kemungkinan Tor disensor di negara Anda atau pada jaringan lokal Anda."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "Jika hal ini terjadi, Anda akan memiliki pilihan berikut:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Coba lagi tanpa bridge"
 
 #: ../../source/tor.rst:23
 msgid ""
 "Automatically determine my country from my IP address for bridge settings"
 msgstr ""
+"Tentukan negara saya secara otomatis dari alamat IP saya untuk pengaturan "
+"bridge"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Pilih negara saya secara manual untuk pengaturan bridge"
 
 #: ../../source/tor.rst:28
 msgid ""
 "If you choose the \"Try again without a bridge\" option, OnionShare will "
 "retry connecting to Tor like normal, without attempting to bypass censorship."
 msgstr ""
+"Jika Anda memilih opsi \"Try again without a bridge\", OnionShare akan "
+"mencoba kembali terhubung ke Tor seperti biasa, tanpa berupaya melewati "
+"sensor."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -95,6 +117,17 @@ msgid ""
 "Censorship Circumvention API. The Meek proxy hides the fact that you are "
 "trying to find a way to connect to Tor."
 msgstr ""
+"Dua opsi lainnya akan berupaya melewati sensor secara otomatis menggunakan "
+"bridge Tor. Jika penyedia jaringan Anda memblokir akses ke jaringan Tor, "
+"Anda mungkin tetap dapat terhubung ke bridge Tor, yang kemudian akan "
+"menghubungkan Anda ke jaringan Tor dan melewati sensor tersebut. Kedua opsi "
+"ini menggunakan Censorship Circumvention API milik Tor Project untuk "
+"menyediakan pengaturan bridge yang seharusnya dapat berfungsi bagi Anda. "
+"OnionShare akan menggunakan proxy domain-fronting `Meek <https://"
+"gitlab.torproject.org/legacy/trac/-/wikis/doc/meek/>`_ sementara untuk "
+"membuat koneksi non-Tor dari komputer Anda ke Censorship Circumvention API "
+"milik Tor. Proxy Meek menyembunyikan fakta bahwa Anda sedang mencoba mencari "
+"cara untuk terhubung ke Tor."
 
 #: ../../source/tor.rst:36
 msgid ""
@@ -104,6 +137,11 @@ msgid ""
 "reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"Jika Anda memilih \"Automatically determine my country from my IP address "
+"for bridge settings\", Censorship Circumvention API akan mempertimbangkan "
+"alamat IP Anda—ya, alamat IP asli Anda—untuk menentukan negara tempat Anda "
+"mungkin berada. Berdasarkan informasi negara tersebut, API akan berupaya "
+"secara otomatis menemukan bridge yang sesuai dengan lokasi Anda."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -111,10 +149,13 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"Jika Anda memilih \"Manually select my country for bridge settings\", "
+"Censorship API akan menemukan bridge yang sesuai dengan negara yang Anda "
+"tentukan."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Cara kerja penghindaran sensor otomatis"
 
 #: ../../source/tor.rst:48
 msgid ""
@@ -123,6 +164,11 @@ msgid ""
 "does not find any bridges for your location, OnionShare will ask the API for "
 "\"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Jika Censorship Circumvention API menemukan bridge yang diyakini sesuai "
+"untuk Anda, OnionShare akan mencoba kembali terhubung ke Tor menggunakan "
+"bridge tersebut. Jika API tidak menemukan bridge untuk lokasi Anda, "
+"OnionShare akan meminta opsi \"fallback\" kepada API, kemudian mencoba "
+"kembali terhubung menggunakan opsi tersebut."
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -130,6 +176,9 @@ msgid ""
 "or if the API returns an error message, OnionShare will attempt to use the "
 "obfs4 built-in bridges."
 msgstr ""
+"Jika karena alasan tertentu OnionShare gagal terhubung ke Censorship API itu "
+"sendiri, atau jika API mengembalikan pesan kesalahan, OnionShare akan "
+"mencoba menggunakan bridge bawaan obfs4."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -137,6 +186,9 @@ msgid ""
 "do not go over the Tor network (because if you could connect to Tor already, "
 "you wouldn't need to connect to the API)."
 msgstr ""
+"Penting untuk diperhatikan bahwa permintaan ke Censorship Circumvention API "
+"tidak dikirim melalui jaringan Tor, karena jika Anda sudah dapat terhubung "
+"ke Tor, Anda tidak perlu terhubung ke API tersebut."
 
 #: ../../source/tor.rst:54
 msgid ""
@@ -146,6 +198,12 @@ msgid ""
 "to making one or two requests to the Censorship Circumvention API. Then Meek "
 "is stopped, and all further network requests happen over the Tor network."
 msgstr ""
+"Meskipun sulit bagi pihak lawan untuk mengetahui tujuan permintaan Meek, hal "
+"ini tetap dapat berisiko bagi sebagian pengguna. Oleh karena itu, fitur ini "
+"bersifat opt-in. Penggunaan Meek dan permintaan jaringan non-Tor dibatasi "
+"hanya untuk membuat satu atau dua permintaan ke Censorship Circumvention "
+"API. Setelah itu, Meek dihentikan dan seluruh permintaan jaringan "
+"selanjutnya dilakukan melalui jaringan Tor."
 
 #: ../../source/tor.rst:56
 msgid ""
@@ -155,10 +213,15 @@ msgid ""
 "appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Jika Anda tidak nyaman membuat permintaan yang tidak melalui jaringan Tor, "
+"Anda dapat mengeklik \"Network Settings\"—atau ikon Settings di pojok kanan "
+"bawah, lalu memilih tab Tor Settings pada layar yang muncul—dan "
+"mengonfigurasi bridge secara manual. Setelah menyimpan pengaturan bridge, "
+"OnionShare akan mencoba kembali terhubung menggunakan bridge tersebut."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "Mengonfigurasi pengaturan Tor secara manual"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -167,21 +230,29 @@ msgid ""
 "the application, and then switch to the Tor Settings tab in the screen that "
 "appears."
 msgstr ""
+"Anda dapat membuka pengaturan Tor dengan mengeklik \"Network Settings\" pada "
+"layar selamat datang, atau dengan mengeklik ikon \"⚙\" di pojok kanan bawah "
+"aplikasi, kemudian beralih ke tab Tor Settings pada layar yang muncul."
 
 #: ../../source/tor.rst:65
 msgid ""
 "Here are the different ways you can configure OnionShare to connect to Tor:"
 msgstr ""
+"Berikut adalah berbagai cara untuk mengonfigurasi OnionShare agar terhubung "
+"ke Tor:"
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Gunakan versi Tor yang terintegrasi dalam OnionShare"
 
 #: ../../source/tor.rst:70
 msgid ""
 "This is the default, simplest and most reliable way that OnionShare connects "
 "to Tor. For this reason, it's recommended for most users."
 msgstr ""
+"Ini adalah cara bawaan, paling sederhana, dan paling andal bagi OnionShare "
+"untuk terhubung ke Tor. Oleh karena itu, metode ini direkomendasikan bagi "
+"sebagian besar pengguna."
 
 #: ../../source/tor.rst:73
 msgid ""
@@ -190,22 +261,30 @@ msgid ""
 "``tor`` processes on your computer, so you can use the Tor Browser or the "
 "system ``tor`` on their own."
 msgstr ""
+"Saat Anda membuka OnionShare, aplikasi akan menjalankan proses ``tor`` yang "
+"sudah dikonfigurasi di latar belakang untuk digunakan oleh OnionShare. "
+"Proses ini tidak mengganggu proses ``tor`` lain di komputer Anda, sehingga "
+"Anda tetap dapat menggunakan Tor Browser atau ``tor`` sistem secara terpisah."
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**Menggunakan bridge**"
 
 #: ../../source/tor.rst:78
 msgid ""
 "To use a bridge, you must select \"Use the Tor version built into "
 "OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
+"Untuk menggunakan bridge, Anda harus memilih \"Use the Tor version built "
+"into OnionShare\" dan mencentang kotak \"Use a bridge\"."
 
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
 "recommended over using `meek`."
 msgstr ""
+"Cobalah menggunakan bridge bawaan terlebih dahulu. Penggunaan bridge `obfs4` "
+"atau `snowflake` direkomendasikan dibandingkan `meek-azure`."
 
 #: ../../source/tor.rst:84
 msgid ""
@@ -214,16 +293,20 @@ msgid ""
 "bridge. (This makes it more difficult for governments or ISPs to block "
 "access to Tor bridges.)"
 msgstr ""
+"Jika bridge bawaan tidak berfungsi, Anda dapat meminta bridge dari "
+"torproject.org. Anda harus menyelesaikan CAPTCHA untuk meminta bridge. (Hal "
+"ini membuat pemerintah atau ISP lebih sulit memblokir akses ke bridge Tor.)"
 
 #: ../../source/tor.rst:88
 msgid ""
 "You also have the option of using a bridge that you learned about from a "
 "trusted source."
 msgstr ""
+"Anda juga dapat menggunakan bridge yang diperoleh dari sumber tepercaya."
 
 #: ../../source/tor.rst:91
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "Mencoba konfigurasi otomatis dengan Tor Browser"
 
 #: ../../source/tor.rst:93
 msgid ""
@@ -232,16 +315,23 @@ msgid ""
 "from the Tor Browser. Keep in mind you need to keep Tor Browser open in the "
 "background while you're using OnionShare for this to work."
 msgstr ""
+"Jika Anda telah `mengunduh Tor Browser <https://www.torproject.org>`_ dan "
+"tidak ingin menjalankan dua proses ``tor``, Anda dapat menggunakan proses "
+"``tor`` dari Tor Browser. Perlu diingat bahwa Tor Browser harus tetap "
+"terbuka di latar belakang selama Anda menggunakan OnionShare agar metode ini "
+"berfungsi."
 
 #: ../../source/tor.rst:97
 msgid "Using a system ``tor`` in Windows"
-msgstr ""
+msgstr "Menggunakan ``tor`` sistem di Windows"
 
 #: ../../source/tor.rst:99
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and do "
 "stuff as an administrator."
 msgstr ""
+"Metode ini cukup lanjutan. Anda perlu mengetahui cara mengedit file teks "
+"biasa dan menjalankan tindakan sebagai administrator."
 
 #: ../../source/tor.rst:101
 msgid ""
@@ -250,6 +340,10 @@ msgid ""
 "the extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted "
 "folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
+"Unduh Tor Windows Expert Bundle `dari situs web Tor <https://"
+"www.torproject.org/download/tor/>`_. Ekstrak file terkompresi tersebut, lalu "
+"salin folder hasil ekstraksi ke ``C:Program Files (x86)``. Ubah nama folder "
+"hasil ekstraksi yang berisi ``Data`` dan ``Tor`` menjadi ``tor-win32``."
 
 #: ../../source/tor.rst:105
 msgid ""
@@ -259,6 +353,11 @@ msgid ""
 "administrator, and use ``tor.exe --hash-password`` to generate a hash of "
 "your password. For example::"
 msgstr ""
+"Buat kata sandi untuk control port. (Sebaiknya gunakan rangkaian tujuh kata, "
+"seperti ``comprised stumble rummage work avenging construct volatile``, "
+"sebagai kata sandi.) Selanjutnya, buka Command Prompt (``cmd``) sebagai "
+"administrator dan gunakan ``tor.exe --hash-password`` untuk menghasilkan "
+"hash kata sandi Anda. Contoh::"
 
 #: ../../source/tor.rst:112
 msgid ""
@@ -266,6 +365,9 @@ msgid ""
 "ignore). In the case of the above example, it is "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 msgstr ""
+"Output kata sandi yang telah di-hash ditampilkan setelah beberapa peringatan "
+"yang dapat Anda abaikan. Pada contoh di atas, hasilnya adalah "
+"``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
 #: ../../source/tor.rst:114
 msgid ""
@@ -273,6 +375,10 @@ msgid ""
 "and put your hashed password output in it, replacing the "
 "``HashedControlPassword`` with the one you just generated::"
 msgstr ""
+"Sekarang buat file teks baru di ``C:\\Program Files (x86)\\tor-"
+"win32\\torrc`` , lalu masukkan output hash kata sandi Anda ke dalamnya "
+"dengan mengganti ``HashedControlPassword`` menggunakan hash yang baru saja "
+"Anda buat::"
 
 #: ../../source/tor.rst:119
 msgid ""
@@ -280,10 +386,14 @@ msgid ""
 "appropriate ``torrc`` file you just created (as described in `<https://"
 "2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like this::"
 msgstr ""
+"Dalam Command Prompt yang dijalankan sebagai administrator, instal ``tor`` "
+"sebagai layanan menggunakan file ``torrc`` yang sesuai dan baru saja Anda "
+"buat (sebagaimana dijelaskan dalam `<https://2019.www.torproject.org/docs/"
+"faq.html.en#NTService>`_). Contohnya::"
 
 #: ../../source/tor.rst:123
 msgid "You are now running a system ``tor`` process in Windows!"
-msgstr ""
+msgstr "Sekarang Anda menjalankan proses ``tor`` sistem di Windows."
 
 #: ../../source/tor.rst:125
 msgid ""
@@ -295,24 +405,34 @@ msgid ""
 "Connection to Tor\" button. If all goes well, you should see \"Connected to "
 "the Tor controller\"."
 msgstr ""
+"Buka OnionShare, klik ikon \"⚙\", lalu beralih ke tab Tor Settings. Pada "
+"bagian \"How should OnionShare connect to Tor?\", pilih \"Connect using "
+"control port\", kemudian atur \"Control port\" menjadi ``127.0.0.1`` dan "
+"\"Port\" menjadi ``9051``. Pada bagian \"Tor authentication settings\", "
+"pilih \"Password\", lalu masukkan kata sandi control port yang Anda pilih "
+"sebelumnya. Klik tombol \"Test Connection to Tor\". Jika semuanya berjalan "
+"lancar, Anda akan melihat pesan \"Connected to the Tor controller\"."
 
 #: ../../source/tor.rst:134
 msgid "Using a system ``tor`` in macOS"
-msgstr ""
+msgstr "Menggunakan ``tor`` sistem di macOS"
 
 #: ../../source/tor.rst:136
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, "
 "and then install Tor::"
 msgstr ""
+"Pertama, instal `Homebrew <https://brew.sh/>`_ jika belum tersedia, kemudian "
+"instal Tor::"
 
 #: ../../source/tor.rst:140
 msgid "Now configure Tor to allow connections from OnionShare::"
 msgstr ""
+"Selanjutnya, konfigurasikan Tor agar mengizinkan koneksi dari OnionShare::"
 
 #: ../../source/tor.rst:147
 msgid "And start the system Tor service::"
-msgstr ""
+msgstr "Kemudian, jalankan layanan Tor sistem::"
 
 #: ../../source/tor.rst:151
 msgid ""
@@ -323,14 +443,22 @@ msgid ""
 "authentication, or cookie authentication\". Click the \"Test Connection to "
 "Tor\" button."
 msgstr ""
+"Buka OnionShare, klik ikon \"⚙\", lalu beralih ke tab Tor Settings. Pada "
+"bagian \"How should OnionShare connect to Tor?\", pilih \"Connect using "
+"socket file\", lalu atur file socket menjadi ``/usr/local/var/run/tor/"
+"control.socket``. Pada bagian \"Tor authentication settings\", pilih \"No "
+"authentication, or cookie authentication\". Klik tombol \"Test Connection to "
+"Tor\"."
 
 #: ../../source/tor.rst:157 ../../source/tor.rst:177
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr ""
+"Jika semuanya berjalan lancar, Anda akan melihat pesan \"Connected to the "
+"Tor controller\"."
 
 #: ../../source/tor.rst:160
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "Menggunakan ``tor`` sistem di Linux"
 
 #: ../../source/tor.rst:162
 msgid ""
@@ -338,6 +466,9 @@ msgid ""
 "similar Linux distro, It is recommended to use the Tor Project's `official "
 "repository <https://support.torproject.org/apt/tor-deb-repo/>`_."
 msgstr ""
+"Pertama, instal paket ``tor``. Jika Anda menggunakan Debian, Ubuntu, atau "
+"distribusi Linux serupa, disarankan menggunakan `repositori resmi Tor "
+"Project <https://support.torproject.org/apt/tor-deb-repo/>`_."
 
 #: ../../source/tor.rst:164
 msgid ""
@@ -345,12 +476,18 @@ msgid ""
 "of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to connect to "
 "your system ``tor``'s control socket file."
 msgstr ""
+"Selanjutnya, tambahkan pengguna Anda ke grup yang menjalankan proses ``tor``—"
+"pada Debian dan Ubuntu, grup tersebut adalah ``debian-tor``—lalu "
+"konfigurasikan OnionShare untuk terhubung ke file control socket ``tor`` "
+"sistem Anda."
 
 #: ../../source/tor.rst:166
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command (replace "
 "``username`` with your actual username)::"
 msgstr ""
+"Tambahkan pengguna Anda ke grup ``debian-tor`` dengan menjalankan perintah "
+"berikut (ganti ``username`` dengan nama pengguna Anda yang sebenarnya)::"
 
 #: ../../source/tor.rst:170
 msgid ""
@@ -361,3 +498,9 @@ msgid ""
 "settings\" choose \"No authentication, or cookie authentication\". Click the "
 "\"Test Connection to Tor\" button."
 msgstr ""
+"Nyalakan ulang komputer Anda. Setelah komputer menyala kembali, buka "
+"OnionShare, klik ikon \"⚙\", lalu beralih ke tab Tor Settings. Pada bagian "
+"\"How should OnionShare connect to Tor?\", pilih \"Connect using socket "
+"file\". Atur file socket menjadi ``/var/run/tor/control``. Pada bagian \"Tor "
+"authentication settings\", pilih \"No authentication, or cookie "
+"authentication\". Klik tombol \"Test Connection to Tor\"."
