@@ -679,12 +679,20 @@ class Onion(object):
         else:
             return False
 
-    def start_onion_service(self, mode, mode_settings, port, await_publication):
+    def start_onion_service(
+        self, mode, mode_settings, port, await_publication, unix_socket=None
+    ):
         """
         Start a onion service on port 80, pointing to the given port, and
         return the onion hostname.
         """
-        self.common.log("Onion", "start_onion_service", f"port={port}")
+        if unix_socket:
+            target = f"unix:{unix_socket}"
+        else:
+            target = port
+        self.common.log(
+            "Onion", "start_onion_service", f"port={port}, target={target}"
+        )
 
         if not self.supports_ephemeral:
             print(
@@ -736,7 +744,7 @@ class Onion(object):
         try:
             if not self.supports_stealth:
                 res = self.c.create_ephemeral_hidden_service(
-                    {80: port},
+                    {80: target},
                     await_publication=await_publication,
                     basic_auth=None,
                     key_type=key_type,
@@ -744,7 +752,7 @@ class Onion(object):
                 )
             else:
                 res = self.c.create_ephemeral_hidden_service(
-                    {80: port},
+                    {80: target},
                     await_publication=await_publication,
                     basic_auth=None,
                     key_type=key_type,
