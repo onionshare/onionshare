@@ -48,6 +48,7 @@ class Meek(object):
             self.obfs4proxy_file_path,
             self.snowflake_file_path,
             self.meek_client_file_path,
+            self.webtunnel_file_path,
         ) = get_tor_paths()
 
         self.meek_proxies = {}

@@ -57,6 +57,7 @@ Compile pluggable transports:
 .\scripts\build-pt-obfs4proxy.ps1
 .\scripts\build-pt-snowflake.ps1
 .\scripts\build-pt-meek.ps1
+.\scripts\build-pt-webtunnel.ps1
 ```
 
 **macOS and Linux users:**
@@ -65,6 +66,7 @@ Compile pluggable transports:
 ./scripts/build-pt-obfs4proxy.sh
 ./scripts/build-pt-snowflake.sh
 ./scripts/build-pt-meek.sh
+./scripts/build-pt-webtunnel.sh
 ```
 
 ### Running OnionShare from the source code tree
