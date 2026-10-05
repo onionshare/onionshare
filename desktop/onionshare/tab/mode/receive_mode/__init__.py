@@ -212,16 +212,23 @@ class ReceiveMode(Mode):
         return "receive"
 
     @staticmethod
-    def is_data_dir_writable(path):
+    def is_data_dir_writable(path, create=False):
         """
-        Return True if path is an existing directory we can create files in.
+        Return True if path is a directory we can create files in.
+
+        At server startup, create missing directories as uploads historically did.
+        Directory selection checks remain read-only apart from the write probe.
 
         Uses a real write probe so AppArmor/sandbox restrictions (e.g. Tails)
         are detected even when os.access is optimistic.
         """
-        if not path or not os.path.isdir(path):
+        if not path:
             return False
         try:
+            if create:
+                os.makedirs(path, mode=0o700, exist_ok=True)
+            if not os.path.isdir(path):
+                return False
             with tempfile.TemporaryDirectory(
                 prefix=".onionshare-write-test-",
                 dir=path,
@@ -341,7 +348,7 @@ class ReceiveMode(Mode):
         Start Receive Mode only if the save directory is writable.
         """
         data_dir = self.settings.get("receive", "data_dir")
-        if not self.is_data_dir_writable(data_dir):
+        if not self.is_data_dir_writable(data_dir, create=True):
             self.server_status.stop_server_finished()
             Alert(
                 self.common,

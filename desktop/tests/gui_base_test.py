@@ -120,6 +120,12 @@ class GuiBaseTest(unittest.TestCase):
         self.assertFalse(tab.new_tab.isVisible())
         self.assertTrue(tab.receive_mode.isVisible())
 
+        # Keep uploads independent of the user's existing ~/OnionShare directory.
+        receive_dir = os.path.join(self.tmpdir.name, "receive")
+        os.makedirs(receive_dir, mode=0o700, exist_ok=True)
+        tab.settings.set("receive", "data_dir", receive_dir)
+        tab.receive_mode.data_dir_lineedit.setText(receive_dir)
+
         return tab
 
     def new_website_tab(self):
