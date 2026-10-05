@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2026-06-01 19:58+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-02 10:22+1000\n"
 "PO-Revision-Date: 2026-09-17 16:51+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: none\n"
@@ -384,8 +384,8 @@ msgid ""
 "cli``, and you should see some output of your service starting::"
 msgstr ""
 "Тепер ви можете виконати ``sudo systemctl start onionshare-cli.service``. "
-"Якщо у вас встановлено ``journalctl``, ви можете виконати ``sudo journalctl -"
-"f -t onionshare-cli``, і ви побачите вивід вашої служби, що запускається::"
+"Якщо у вас встановлено ``journalctl``, ви можете виконати ``sudo journalctl "
+"-f -t onionshare-cli``, і ви побачите вивід вашої служби, що запускається::"
 
 #: ../../source/advanced.rst:282
 msgid ""
@@ -678,8 +678,8 @@ msgstr "bridges_builtin_pt"
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
-"\"snowflake\". Default: \"obfs4\""
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or \"snowflake\". "
+"Default: \"obfs4\""
 msgstr ""
 
 #: ../../source/advanced.rst:339
