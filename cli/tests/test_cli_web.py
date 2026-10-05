@@ -391,6 +391,7 @@ class TestWeb:
         os.makedirs(data_dir, exist_ok=True)
         web.settings.set("receive", "data_dir", data_dir)
         web.settings.set("receive", "webhook_url", "http://127.0.0.1:1337/example")
+        web.requests_session = WebhookStubSession()
         web.proxies = None
 
         with web.app.test_client() as c:
