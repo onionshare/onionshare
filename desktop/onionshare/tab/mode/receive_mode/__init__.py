@@ -101,6 +101,71 @@ class ReceiveMode(Mode):
         disable_layout.addStretch()
         self.mode_settings_widget.mode_specific_layout.addLayout(disable_layout)
 
+        # Maximum upload size
+        self.max_upload_size_checkbox = QtWidgets.QCheckBox()
+        self.max_upload_size_checkbox.clicked.connect(
+            self.max_upload_size_checkbox_clicked
+        )
+        self.max_upload_size_checkbox.setText(
+            strings._("mode_settings_receive_max_upload_size_checkbox")
+        )
+        self.max_upload_size_spinbox = QtWidgets.QDoubleSpinBox()
+        self.max_upload_size_spinbox.setMinimum(0.1)
+        self.max_upload_size_spinbox.setMaximum(1000000.0)
+        self.max_upload_size_spinbox.setDecimals(1)
+        self.max_upload_size_unit_combobox = QtWidgets.QComboBox()
+        self.max_upload_size_unit_combobox.addItem(
+            strings._("mode_settings_receive_max_upload_size_unit_kb"), 1024
+        )
+        self.max_upload_size_unit_combobox.addItem(
+            strings._("mode_settings_receive_max_upload_size_unit_mb"), 1024**2
+        )
+        self.max_upload_size_unit_combobox.addItem(
+            strings._("mode_settings_receive_max_upload_size_unit_gb"), 1024**3
+        )
+        max_upload_size_layout = QtWidgets.QHBoxLayout()
+        max_upload_size_layout.addWidget(self.max_upload_size_checkbox)
+        max_upload_size_layout.addWidget(self.max_upload_size_spinbox)
+        max_upload_size_layout.addWidget(self.max_upload_size_unit_combobox)
+        max_upload_size_layout.addStretch()
+        self.mode_settings_widget.mode_specific_layout.addLayout(max_upload_size_layout)
+
+        # Apply the maximum upload size to the service's entire lifespan
+        self.max_upload_size_total_checkbox = QtWidgets.QCheckBox()
+        self.max_upload_size_total_checkbox.clicked.connect(
+            self.max_upload_size_total_checkbox_clicked
+        )
+        self.max_upload_size_total_checkbox.setText(
+            strings._("mode_settings_receive_max_upload_size_total_checkbox")
+        )
+        self.mode_settings_widget.mode_specific_layout.addWidget(
+            self.max_upload_size_total_checkbox
+        )
+
+        # Load the saved maximum upload size, if any
+        max_upload_size = self.settings.get("receive", "max_upload_size")
+        if max_upload_size > 0:
+            self.max_upload_size_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.max_upload_size_total_checkbox.setEnabled(True)
+            if self.settings.get("receive", "max_upload_size_total"):
+                self.max_upload_size_total_checkbox.setCheckState(QtCore.Qt.Checked)
+            else:
+                self.max_upload_size_total_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.set_max_upload_size_widgets(max_upload_size)
+            self.show_max_upload_size()
+        else:
+            self.max_upload_size_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.max_upload_size_total_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.max_upload_size_total_checkbox.setEnabled(False)
+            self.hide_max_upload_size()
+
+        # Connect these after loading their initial values, so setting them
+        # doesn't trigger a save
+        self.max_upload_size_spinbox.valueChanged.connect(self.max_upload_size_edited)
+        self.max_upload_size_unit_combobox.currentIndexChanged.connect(
+            self.max_upload_size_edited
+        )
+
         # Webhook URL
         webhook_url = self.settings.get("receive", "webhook_url")
         self.webhook_url_checkbox = QtWidgets.QCheckBox()
@@ -316,6 +381,57 @@ class ReceiveMode(Mode):
 
     def show_webhook_url(self):
         self.webhook_url_lineedit.show()
+
+    def max_upload_size_checkbox_clicked(self):
+        if self.max_upload_size_checkbox.isChecked():
+            self.show_max_upload_size()
+            self.max_upload_size_total_checkbox.setEnabled(True)
+            self.save_max_upload_size()
+        else:
+            self.hide_max_upload_size()
+            self.max_upload_size_total_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.max_upload_size_total_checkbox.setEnabled(False)
+            self.settings.set("receive", "max_upload_size", 0)
+            self.settings.set("receive", "max_upload_size_total", False)
+
+    def max_upload_size_edited(self):
+        if self.max_upload_size_checkbox.isChecked():
+            self.save_max_upload_size()
+
+    def max_upload_size_total_checkbox_clicked(self):
+        self.settings.set(
+            "receive",
+            "max_upload_size_total",
+            self.max_upload_size_total_checkbox.isChecked(),
+        )
+
+    def save_max_upload_size(self):
+        value = self.max_upload_size_spinbox.value()
+        unit = self.max_upload_size_unit_combobox.currentData()
+        self.settings.set("receive", "max_upload_size", int(value * unit))
+
+    def set_max_upload_size_widgets(self, size):
+        """
+        Load a size in bytes into the value/unit widgets, using the largest
+        unit that keeps the value >= 1.
+        """
+        units = [(1024**3, 2), (1024**2, 1), (1024, 0)]
+        for multiplier, index in units:
+            if size >= multiplier:
+                self.max_upload_size_unit_combobox.setCurrentIndex(index)
+                self.max_upload_size_spinbox.setValue(size / multiplier)
+                return
+        # Smaller than 1 KiB: show it in KB anyway
+        self.max_upload_size_unit_combobox.setCurrentIndex(0)
+        self.max_upload_size_spinbox.setValue(max(size / 1024, 0.1))
+
+    def show_max_upload_size(self):
+        self.max_upload_size_spinbox.show()
+        self.max_upload_size_unit_combobox.show()
+
+    def hide_max_upload_size(self):
+        self.max_upload_size_spinbox.hide()
+        self.max_upload_size_unit_combobox.hide()
 
     def get_stop_server_autostop_timer_text(self):
         """

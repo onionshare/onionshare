@@ -63,6 +63,16 @@ class ModeSettings:
                 "webhook_url": None,
                 "disable_text": False,
                 "disable_files": False,
+                # Maximum size of a single upload request, in bytes. 0 means no
+                # limit.
+                "max_upload_size": 0,
+                # If True, apply max_upload_size to the service's entire
+                # lifespan: once total_upload_size reaches max_upload_size, no
+                # further uploads are accepted.
+                "max_upload_size_total": False,
+                # Running total of bytes received by the service, persisted so
+                # the lifespan limit survives restarts of a persistent service.
+                "total_upload_size": 0,
             },
             "website": {
                 "disable_csp": False,

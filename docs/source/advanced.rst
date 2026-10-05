@@ -161,6 +161,8 @@ Browse the command-line documentation by running ``onionshare --help``::
                                 Receive files: URL to receive webhook notifications
       --disable-text            Receive files: Disable receiving text messages
       --disable-files           Receive files: Disable receiving files
+      --max-upload-size size    Receive files: Maximum size of an upload, e.g. 100mb (0 means no limit)
+      --max-upload-size-total   Receive files: Apply the maximum upload size to the entire service lifespan
       --disable_csp             Publish website: Disable the default Content Security Policy header (allows your website to use third-party resources)
       --custom_csp custom_csp   Publish website: Set a custom Content Security Policy header
       -v, --verbose             Log OnionShare errors to stdout, and web errors to disk
@@ -446,14 +448,17 @@ log_filenames    ``boolean`` Whether to log URL requests to stdout when using th
 receive
 ^^^^^^^
 
-============= =========== ===========
-Parameter     Type        Explanation
-============= =========== ===========
-data_dir      ``string``  The path where received files or text messages will be stored. Default: the 'OnionShare' folder of the user's home directory.
-webhook_url   ``string``  A webhook URL that OnionShare will POST to when it receives files or text messages. Default: null
-disable_text  ``boolean`` Whether to disable receiving text messages. Default: false
-disable_files ``boolean`` Whether to disable receiving files. Default: false
-============= =========== ===========
+===================== =========== ===========
+Parameter             Type        Explanation
+===================== =========== ===========
+data_dir              ``string``  The path where received files or text messages will be stored. Default: the 'OnionShare' folder of the user's home directory.
+webhook_url           ``string``  A webhook URL that OnionShare will POST to when it receives files or text messages. Default: null
+disable_text          ``boolean`` Whether to disable receiving text messages. Default: false
+disable_files         ``boolean`` Whether to disable receiving files. Default: false
+max_upload_size       ``integer`` Maximum size in bytes of a single upload request (including multipart overhead). 0 means no limit. Default: 0
+max_upload_size_total ``boolean`` Whether max_upload_size applies to the service's entire lifespan, refusing all further uploads once the total is reached. Default: false
+total_upload_size     ``integer`` Running total of bytes received by the service, persisted so the lifespan limit survives restarts. Managed automatically; set it to 0 to reset the count. Default: 0
+===================== =========== ===========
 
 website
 ^^^^^^^

@@ -17,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+
 import base64
 import hashlib
 import importlib.metadata as importlib_metadata
@@ -598,6 +599,41 @@ class Common:
         units = ("B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
         value, u = Common.split_filesize(b)
         return "{:.1f} {}".format(value, units[u])
+
+    @staticmethod
+    def parse_human_readable_filesize(size_str):
+        """
+        Parse a human readable filesize such as "100mb", "1 GiB" or "512" into
+        an integer number of bytes. Uses base 1024, matching the KiB/MiB/GiB
+        units produced by human_readable_filesize(). A bare number is treated
+        as bytes. Raises ValueError if the string cannot be parsed.
+        """
+        match = re.match(r"^\s*([0-9]+(?:\.[0-9]+)?)\s*([a-zA-Z]*)\s*$", str(size_str))
+        if not match:
+            raise ValueError(f"Invalid filesize: {size_str}")
+
+        value = float(match.group(1))
+        unit = match.group(2).lower()
+        multipliers = {
+            "": 1,
+            "b": 1,
+            "k": 1024,
+            "kb": 1024,
+            "kib": 1024,
+            "m": 1024**2,
+            "mb": 1024**2,
+            "mib": 1024**2,
+            "g": 1024**3,
+            "gb": 1024**3,
+            "gib": 1024**3,
+            "t": 1024**4,
+            "tb": 1024**4,
+            "tib": 1024**4,
+        }
+        if unit not in multipliers:
+            raise ValueError(f"Unknown filesize unit: {unit}")
+
+        return int(value * multipliers[unit])
 
     @staticmethod
     def format_seconds(seconds):

@@ -257,6 +257,35 @@ class TestHumanReadableFilesize:
         assert common_obj.human_readable_filesize(test_input) == expected
 
 
+class TestParseHumanReadableFilesize:
+    @pytest.mark.parametrize(
+        "test_input,expected",
+        (
+            ("0", 0),
+            (0, 0),
+            ("512", 512),
+            ("512b", 512),
+            ("1kb", 1024),
+            ("1KB", 1024),
+            ("1 KiB", 1024),
+            ("1.5mb", int(1.5 * 1024**2)),
+            ("2 GB", 2 * 1024**3),
+            ("1tb", 1024**4),
+            ("100 mb", 100 * 1024**2),
+        ),
+    )
+    def test_parse_human_readable_filesize(self, common_obj, test_input, expected):
+        assert common_obj.parse_human_readable_filesize(test_input) == expected
+
+    @pytest.mark.parametrize(
+        "test_input",
+        ("", "abc", "1xb", "-1mb", "1.2.3mb", None),
+    )
+    def test_parse_human_readable_filesize_invalid(self, common_obj, test_input):
+        with pytest.raises(ValueError):
+            common_obj.parse_human_readable_filesize(test_input)
+
+
 class TestSplitFilesize:
     @pytest.mark.parametrize(
         "test_input,expected",

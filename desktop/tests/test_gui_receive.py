@@ -270,6 +270,70 @@ class TestReceive(GuiBaseTest):
 
         self.close_all_tabs()
 
+    def test_max_upload_size(self):
+        """
+        The maximum upload size setting rejects oversized uploads, leaves
+        nothing on disk, and allows smaller uploads.
+        """
+        tab = self.new_receive_tab()
+        mode = tab.get_mode()
+
+        # Initially there is no limit, and the size widgets are hidden
+        self.assertTrue(mode.max_upload_size_spinbox.isHidden())
+        self.assertTrue(mode.max_upload_size_unit_combobox.isHidden())
+        self.assertFalse(mode.max_upload_size_total_checkbox.isEnabled())
+        self.assertEqual(tab.settings.get("receive", "max_upload_size"), 0)
+
+        # Enable a 2 KB limit
+        mode.max_upload_size_unit_combobox.setCurrentIndex(0)  # KB
+        mode.max_upload_size_spinbox.setValue(2.0)
+        mode.max_upload_size_checkbox.click()
+        self.assertFalse(mode.max_upload_size_spinbox.isHidden())
+        self.assertFalse(mode.max_upload_size_unit_combobox.isHidden())
+        self.assertTrue(mode.max_upload_size_total_checkbox.isEnabled())
+        self.assertEqual(tab.settings.get("receive", "max_upload_size"), 2048)
+        self.assertFalse(tab.settings.get("receive", "max_upload_size_total"))
+
+        # Also apply the limit across the service's lifespan
+        mode.max_upload_size_total_checkbox.click()
+        self.assertTrue(tab.settings.get("receive", "max_upload_size_total"))
+
+        self.run_all_common_setup_tests()
+        self.run_all_receive_mode_setup_tests(tab)
+
+        # An upload over the limit is rejected and nothing is written
+        big_file = os.path.join(self.tmpdir.name, "too_big.bin")
+        with open(big_file, "wb") as f:
+            f.write(b"*" * 4096)
+        url = f"http://127.0.0.1:{tab.app.port}/upload-ajax"
+        r = requests.post(url, files={"file[]": open(big_file, "rb")})
+        self.assertEqual(r.status_code, 413)
+        self.assertIn("too large", r.text)
+
+        QtTest.QTest.qWait(1000, self.gui.qtapp)
+        written = []
+        now = datetime.now()
+        for _ in range(10):
+            date_dir = now.strftime("%Y-%m-%d")
+            time_dir = now.strftime("%H%M%S")
+            receive_mode_dir = os.path.join(
+                tab.settings.get("receive", "data_dir"), date_dir, time_dir
+            )
+            for path in glob.glob(receive_mode_dir + "*"):
+                for root, _dirs, files in os.walk(path):
+                    for f in files:
+                        written.append(os.path.join(root, f))
+            now = now - timedelta(seconds=1)
+        self.assertEqual(written, [])
+
+        # An upload within the limit is accepted
+        self.upload_file(tab, self.tmpfile_test, "test.txt")
+
+        self.server_is_stopped(tab)
+        self.web_server_is_stopped(tab)
+        self.server_status_indicator_says_closed(tab)
+        self.close_all_tabs()
+
     def test_405_page_returned_for_invalid_methods(self):
         """
         Our custom 405 page should return for invalid methods

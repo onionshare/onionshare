@@ -587,6 +587,12 @@ class Tab(QtWidgets.QWidget):
                     ),
                 )
 
+            if event["type"] == Web.REQUEST_UPLOAD_TOO_LARGE:
+                self.system_tray.showMessage(
+                    strings._("systray_upload_too_large_title"),
+                    strings._("systray_upload_too_large_message"),
+                )
+
             if event["type"] == Web.REQUEST_OTHER:
                 if (
                     event["path"] != "/favicon.ico"
