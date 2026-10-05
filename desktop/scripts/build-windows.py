@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-from setuptools.command.build import build
-import sys
 import os
+import sys
 import inspect
 import click
 import shutil
@@ -9,6 +8,11 @@ import subprocess
 import uuid
 import xml.etree.ElementTree as ET
 from glob import glob
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
 
 root = os.path.dirname(
     os.path.dirname(
@@ -165,17 +169,13 @@ def wix_build_components_xml(root, data):
     return component_ids
 
 
-def msi_package(build_path, msi_path, product_update_code):
+def msi_package(build_path, msi_path, product_update_code, version):
     print(f"> Build the WiX file")
-    version_filename = os.path.join(
-        build_path, "lib", "onionshare_cli", "resources", "version.txt"
-    )
-    with open(version_filename) as f:
-        version = f.read().strip()
-        # change a version like 2.6.dev1 to just 2.6, for cx_Freeze's sake
-        last_digit = version[-1]
-        if version.endswith(f".dev{last_digit}"):
-            version = version[0:-5]
+
+    # change a version like 2.6.dev1 to just 2.6, for cx_Freeze's sake
+    last_digit = version[-1]
+    if version.endswith(f".dev{last_digit}"):
+        version = version[0:-5]
 
     data = {
         "id": "TARGETDIR",
@@ -428,16 +428,18 @@ def codesign(path):
 @click.argument("path")
 def package(path):
     """Build the MSI package"""
-    version_filename = os.path.join(
-        root, "cli", "onionshare_cli", "resources", "version.txt"
+    pyproject_filename = os.path.join(
+        root, "cli", "pyproject.toml"
     )
-    with open(version_filename) as f:
-        version = f.read().strip()
+    with open(pyproject_filename, "rb") as f:
+        pyproject = tomllib.load(f)
+        version = pyproject['project']['version']
 
     msi_package(
         path,
         os.path.join(desktop_dir, "dist", f"OnionShare-win64-{version}.msi"),
         "ed7f9243-3528-4b4a-b85c-9943982e75eb",
+        version
     )
 
 

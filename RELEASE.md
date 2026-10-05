@@ -7,7 +7,7 @@ Unless you're a core OnionShare developer making a release, you'll probably neve
 ### Update the version in these places
 
 - [ ] `cli/pyproject.toml`
-- [ ] `cli/onionshare_cli/resources/version.txt`
+- [ ] `cli/setup.py` (hard-coded version used by the Flatpak build)
 - [ ] `desktop/pyproject.toml`
 - [ ] `desktop/setup.py`
 - [ ] `desktop/org.onionshare.OnionShare.appdata.xml`
@@ -118,7 +118,7 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
 
   # get onionshare dependencies
   cd flatpak-build-tools/pip
-  ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/desktop/pyproject.toml | grep -v PySide6)
+  ./flatpak-pip-generator $(../../onionshare/flatpak/pyproject-to-requirements.py ../../onionshare/desktop/pyproject.toml | grep -v PySide6)
   ../flatpak-json2yaml.py ./python3-modules.json
   mv python3-modules.yml onionshare-desktop.yaml
   ```
@@ -287,7 +287,7 @@ Now, notarize the release. You will need an app-specific Apple ID password set u
 export APPLE_PASSWORD="changeme" # This must be an app-specific Apple ID password, not your main Apple ID password
 export APPLE_ID="you@example.com"
 export TEAM_ID="TEAMID" # You must update it to the Lockdown Systems team ID
-export VERSION=$(cat ../cli/onionshare_cli/resources/version.txt)
+export VERSION=$(cat ../cli/pyproject.toml | python -c 'import tomllib,sys;print(tomllib.load(sys.stdin)["project"]["version"])')
 
 # Notarize it
 xcrun notarytool submit --apple-id "$APPLE_ID" --team-id $TEAM_ID --password "$APPLE_PASSWORD" --progress --wait dist/OnionShare-$VERSION.dmg
