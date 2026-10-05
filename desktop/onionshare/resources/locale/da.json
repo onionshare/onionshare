@@ -84,7 +84,7 @@
     "systray_page_loaded_title": "Side indlæst",
     "gui_settings_language_label": "Foretrukne sprog",
     "gui_settings_language_changed_notice": "Genstart OnionShare for at skifte til det nye sprog.",
-    "gui_settings_meek_lite_expensive_warning": "Advarsel: meek_lite-broerne er meget dyre at køre for Tor-projektet.<br><br>Brug dem kun hvis du ikke er i stand til at oprette forbindelse til Tor direkte, via obfs4-transporter eller andre normale broer.",
+    "gui_settings_meek_expensive_warning": "Advarsel: meek_lite-broerne er meget dyre at køre for Tor-projektet.<br><br>Brug dem kun hvis du ikke er i stand til at oprette forbindelse til Tor direkte, via obfs4-transporter eller andre normale broer.",
     "gui_share_url_description": "<b>Alle</b> med OnionShare-adressen kan <b>downloade</b> dine filer, med <b>Tor Browser</b>: <img src='{}' />",
     "gui_receive_url_description": "<b>Alle</b> med OnionShare-adressen kan <b>uploade</b> filer til din computer, med <b>Tor Browser</b>: <img src='{}' />",
     "history_in_progress_tooltip": "{} igangværende",
@@ -239,5 +239,12 @@
     "gui_share_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>downloade</b> dine filer med <b>Tor Browser</b>: <img src='{}' />",
     "gui_chat_url_public_description": "<b>Alle</b> med denne OnionShare-adresse kan <b>deltage i chatrummet</b> med <b>Tor Browser</b>: <img src='{}' />",
     "gui_website_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>besøge</b> dit websted med <b>Tor Browser</b>: <img src='{}' />",
-    "gui_receive_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>uploade</b> filer til din computer med <b>Tor Browser</b>: <img src='{}' />"
+    "gui_receive_url_public_description": "<b>Alle</b> med OnionShare-adressen kan <b>uploade</b> filer til din computer med <b>Tor Browser</b>: <img src='{}' />",
+    "gui_settings_true": "Ja",
+    "gui_settings_false": "Nej",
+    "gui_alert_button_cancel": "Annullér",
+    "gui_alert_button_ok": "Ok",
+    "gui_alert_button_close": "Luk",
+    "gui_alert_button_yes": "Ja",
+    "gui_alert_button_no": "Nej"
 }

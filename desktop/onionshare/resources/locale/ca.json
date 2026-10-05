@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Contrasenya",
     "gui_settings_password_label": "Contrasenya",
     "gui_settings_tor_bridges": "Voleu connectar mitjançant un pont de Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Avís: els ponts meek-azure són molt costosos per al Projecte Tor.<br><br>Feu-los servir només si no us podeu connectar directament a Tor, mitjançant transports obfs4 o altres ponts normals.",
+    "gui_settings_meek_expensive_warning": "Avís: els ponts meek són molt costosos per al Projecte Tor.<br><br>Feu-los servir només si no us podeu connectar directament a Tor, mitjançant transports obfs4 o altres ponts normals.",
     "gui_settings_tor_bridges_invalid": "Cap dels ponts que heu afegit funciona. Comproveu-los o proveu d'afegir-ne de nous.",
     "gui_settings_button_save": "Desa",
     "gui_settings_button_cancel": "Cancel·la",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "El mode de xat us permet xatejar de manera interactiva amb altres persones al Navegador Tor.<br><br><b>L'historial de xat no s'emmagatzema a OnionShare. L'historial de xat desapareixerà quan tanqueu el Navegador Tor.</b>",
     "error_generic": "S'ha produït un error inesperat a l'OnionShare:\n{}",
     "gui_settings_license_label": "L'OnionShare es publica sota la llicència GPL v3.<br>Les llicències de tercers es poden veure aquí:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "Inicia de manera automàtica aquest servei onion en iniciar l'OnionShare"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Inicia de manera automàtica aquest servei onion en iniciar l'OnionShare",
+    "gui_settings_true": "Sí",
+    "gui_settings_false": "No",
+    "gui_alert_button_cancel": "Canceŀla",
+    "gui_alert_button_close": "Tanca",
+    "gui_alert_button_yes": "Sí",
+    "gui_alert_button_ok": "D'acord",
+    "gui_alert_button_no": "No"
 }

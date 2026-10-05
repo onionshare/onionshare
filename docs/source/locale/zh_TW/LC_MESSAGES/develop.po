@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2023-04-15 05:52+0000\n"
 "Last-Translator: jxt <chihsun.tsai@gmail.com>\n"
 "Language-Team: zh_TW <LL@li.org>\n"
@@ -58,8 +58,8 @@ msgstr "貢獻編碼"
 
 #: ../../source/develop.rst:17
 msgid ""
-"OnionShare source code is to be found in this Git repository: https://github."
-"com/onionshare/onionshare"
+"OnionShare source code is to be found in this Git repository: https://"
+"github.com/onionshare/onionshare"
 msgstr ""
 
 #: ../../source/develop.rst:19
@@ -167,9 +167,9 @@ msgid ""
 "projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, "
 "and use \"OnionShare (localname)\" if needed."
 msgstr ""
-"協助 OnionShare 更易使用與親切，歡迎加入 `Hosted Weblate <https://hosted."
-"weblate.org/projects/onionshare/>`_ 翻譯計畫。 請保持 \"OnionShare\" 原字或使"
-"用 \"OnionShare (本地譯名)\" 。"
+"協助 OnionShare 更易使用與親切，歡迎加入 `Hosted Weblate <https://"
+"hosted.weblate.org/projects/onionshare/>`_ 翻譯計畫。 請保持 \"OnionShare\" "
+"原字或使用 \"OnionShare (本地譯名)\" 。"
 
 #: ../../source/develop.rst:172
 msgid ""

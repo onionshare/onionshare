@@ -45,7 +45,7 @@
     "gui_settings_authenticate_password_option": "Lozinka",
     "gui_settings_password_label": "Lozinka",
     "gui_settings_tor_bridges": "Povezivanje pomoću Tor mosta?",
-    "gui_settings_meek_lite_expensive_warning": "Upozorenje: meek-azure mostovi su vrlo skupi za Tor projekat da ih koristi.<br><br>Koristi ih samo ako ne možeš da se povežeš na Tor direktno, preko obfs4 transporta ili drugih redovnih mostova.",
+    "gui_settings_meek_expensive_warning": "Upozorenje: meek mostovi su vrlo skupi za Tor projekat da ih koristi.<br><br>Koristi ih samo ako ne možeš da se povežeš na Tor direktno, preko obfs4 transporta ili drugih redovnih mostova.",
     "gui_settings_tor_bridges_invalid": "Nijedan od mostova koje ste dodali ne funkcioniše. Proverite ih ponovo ili dodajte druge.",
     "gui_settings_button_save": "Sačuvaj",
     "gui_settings_button_cancel": "Odustani",
@@ -221,5 +221,12 @@
     "gui_status_indicator_chat_scheduled": "Planirano…",
     "gui_settings_theme_label": "Tema",
     "gui_settings_theme_light": "Svetla",
-    "gui_general_settings_window_title": "Generalno"
+    "gui_general_settings_window_title": "Generalno",
+    "gui_settings_false": "Ne",
+    "gui_settings_true": "Da",
+    "gui_alert_button_yes": "Da",
+    "gui_alert_button_close": "Zatvori",
+    "gui_alert_button_no": "Ne",
+    "gui_alert_button_cancel": "Odustani",
+    "gui_alert_button_ok": "OK"
 }

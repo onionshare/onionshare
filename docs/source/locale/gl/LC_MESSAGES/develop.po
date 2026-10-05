@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -47,8 +47,8 @@ msgstr ""
 
 #: ../../source/develop.rst:17
 msgid ""
-"OnionShare source code is to be found in this Git repository: https://github."
-"com/onionshare/onionshare"
+"OnionShare source code is to be found in this Git repository: https://"
+"github.com/onionshare/onionshare"
 msgstr ""
 
 #: ../../source/develop.rst:19

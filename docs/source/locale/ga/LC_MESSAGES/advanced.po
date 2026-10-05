@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-12-04 07:00+0000\n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
+"PO-Revision-Date: 2026-07-30 21:31+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ga\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :(n>"
 "6 && n<11) ? 3 : 4;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 "Generated-By: Babel 2.9.0\n"
 
 #: ../../source/advanced.rst:2
@@ -207,7 +207,7 @@ msgid ""
 "using ``pip3``::"
 msgstr ""
 "Nó, is féidir leat an leagan ordú-líne de OnionShare a shuiteáil ag baint "
-"úsáide as `` pip3`` ::"
+"úsáide as ``pip3``::"
 
 #: ../../source/advanced.rst:81
 msgid ""
@@ -237,8 +237,8 @@ msgstr "Rith an CLI ó Snap"
 
 #: ../../source/advanced.rst:92
 msgid ""
-"If you installed OnionShare using the Snap package, you can run ``onionshare."
-"cli`` to access the command-line interface version."
+"If you installed OnionShare using the Snap package, you can run "
+"``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "Má shuiteáil tú OnionShare ag baint úsáide as an bpacáiste Snap, is féidir "
 "leat ``onionshare.cli`` a rith chun rochtain a fháil ar an leagan comhéadan "
@@ -377,8 +377,9 @@ msgid ""
 "necessary to specify it as the argument to the onionshare-cli command."
 msgstr ""
 "Tabhair faoi deara, cé go raibh ``/home/user/my-shared-file.txt`` "
-"sainmhínithe sa chuid ``filenames`` den chomhad ``my-persistent-onion."
-"json``, tá sé fós riachtanach é a shonrú mar argóint don ordú onionshare-cli."
+"sainmhínithe sa chuid ``filenames`` den chomhad ``my-persistent-"
+"onion.json``, tá sé fós riachtanach é a shonrú mar argóint don ordú "
+"onionshare-cli."
 
 #: ../../source/advanced.rst:270
 msgid ""
@@ -573,7 +574,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:328
 msgid "socks_address"
-msgstr "seoladh stocks_"
+msgstr "socks_address"
 
 #: ../../source/advanced.rst:328
 msgid ""
@@ -609,7 +610,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:331
 msgid "auth_type"
-msgstr "cineál_auth_"
+msgstr "auth_type"
 
 #: ../../source/advanced.rst:331
 msgid ""
@@ -712,7 +713,7 @@ msgstr "droidge_buntin_pt"
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
 "Nuair a shocraítear ``bridges_type`` go “ionsuite”, sonraíonn sé seo cén "
@@ -743,8 +744,7 @@ msgid ""
 msgstr ""
 "Nuair a shocraítear ``bridges_type`` go “saincheaptha”, stóráiltear na "
 "droichid a shonraíonn an t-úsáideoir anseo. Déan gach líne droichead sa "
-"sreang a scaradh le '\\n"
-"'. Réamhshocraithe: “”"
+"sreang a scaradh le '\\n'. Réamhshocraithe: “”"
 
 #: ../../source/advanced.rst:341
 msgid "bridges_builtin"
@@ -813,8 +813,8 @@ msgid ""
 "detect the user's computer's light or dark theme), 1 (light) or 2 (dark)."
 msgstr ""
 "An téama don aip deisce OnionShare. Is iad na roghanna bailí ná 0 (téama "
-"éadrom nó dorcha ríomhaire an úsáideora a bhrath go huathoibríoch), 1 (solas)"
-" nó 2 (dorcha)."
+"éadrom nó dorcha ríomhaire an úsáideora a bhrath go huathoibríoch), 1 "
+"(solas) nó 2 (dorcha)."
 
 #: ../../source/advanced.rst:349
 msgid "Configuration file parameters for persistent onions"
@@ -889,8 +889,8 @@ msgid ""
 "The mode used by this persistent onion. Options are \"share\", \"receive\", "
 "\"website\" or \"chat\"."
 msgstr ""
-"An modh a úsáideann an oinniún leanúnach seo. Is iad na roghanna “comhroinnt”"
-", “faigh”, “suíomh Gréasáin” nó “comhrá”."
+"An modh a úsáideann an oinniún leanúnach seo. Is iad na roghanna "
+"“comhroinnt”, “faigh”, “suíomh Gréasáin” nó “comhrá”."
 
 #: ../../source/advanced.rst:416
 msgid "enabled"
@@ -980,8 +980,8 @@ msgstr "service_id"
 
 #: ../../source/advanced.rst:430
 msgid ""
-"The 32-character onion service URL, without the scheme and without the '."
-"onion' suffix."
+"The 32-character onion service URL, without the scheme and without the "
+"'.onion' suffix."
 msgstr ""
 "URL seirbhíse oinniúin 32 carachtar, gan an scéim agus gan an iarmhír "
 "'.onion'."

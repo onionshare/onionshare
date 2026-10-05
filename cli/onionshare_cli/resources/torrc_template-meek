@@ -1,0 +1,2 @@
+# Enable built-in meek bridge
+Bridge meek_lite 192.0.2.20:80 url=https://1603026938.rsc.cdn77.org front=www.phpmyadmin.net utls=HelloRandomizedALPN

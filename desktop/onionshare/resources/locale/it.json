@@ -44,7 +44,7 @@
     "gui_settings_control_port_label": "Porta di controllo",
     "gui_settings_authenticate_no_auth_option": "Nessuna autenticazione, o cookie di autenticazione",
     "gui_settings_tor_bridges": "Connettersi usando un bridge Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Attenzione: i bridge meek_lite sono molto costosi da mantenere per il Progetto Tor.<br><br>Usali solo se è impossibile connettersi a Tor direttamente, con i trasporti obfs4, o con un altro bridge normale.",
+    "gui_settings_meek_expensive_warning": "Attenzione: i bridge meek_lite sono molto costosi da mantenere per il Progetto Tor.<br><br>Usali solo se è impossibile connettersi a Tor direttamente, con i trasporti obfs4, o con un altro bridge normale.",
     "gui_settings_tor_bridges_invalid": "Nessuno dei bridge aggiunti funziona. Controllali nuovamente o aggiungine altri.",
     "gui_settings_button_save": "Salva",
     "gui_settings_button_cancel": "Cancella",
@@ -255,5 +255,12 @@
     "mode_settings_receive_disable_text_checkbox": "\"Disabilita l'invio di testo\"",
     "gui_server_doesnt_support_stealth": "Spiacenti, questa versione di Tor non supporta la modalità stealth (autenticazione del client). Prova con una versione più recente di Tor o utilizza la modalità 'pubblica' se non è necessario che sia privata.",
     "gui_chat_mode_explainer": "La modalità chat ti consente di chattare in modo interattivo con gli altri, in Tor Browser.<br><br><b>La cronologia chat non viene archiviata in OnionShare. La cronologia della chat scomparirà quando chiudi Tor Browser.</b>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "Avvia automaticamente questo servizio onion all'avvio di OnionShare"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Avvia automaticamente questo servizio onion all'avvio di OnionShare",
+    "gui_settings_true": "Sì",
+    "gui_settings_false": "No",
+    "gui_alert_button_cancel": "Annulla",
+    "gui_alert_button_ok": "Ok",
+    "gui_alert_button_close": "Chiudi",
+    "gui_alert_button_no": "No",
+    "gui_alert_button_yes": "Sì"
 }

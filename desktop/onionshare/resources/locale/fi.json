@@ -41,7 +41,7 @@
     "gui_settings_authenticate_password_option": "Salasana",
     "gui_settings_password_label": "Salasana",
     "gui_settings_tor_bridges": "Yhdistetäänkö käyttäen Tor-siltaa?",
-    "gui_settings_meek_lite_expensive_warning": "Varoitus: Meek_lite-sillat ovat Tor-projektille erittäin kalliita. <br><br> Käytä niitä vain, jos et pysty muodostamaan yhteyttä suoraan Toriin, obfs4-kuljetusten tai muiden tavallisten silta-solmujen kautta.",
+    "gui_settings_meek_expensive_warning": "Varoitus: Meek_lite-sillat ovat Tor-projektille erittäin kalliita. <br><br> Käytä niitä vain, jos et pysty muodostamaan yhteyttä suoraan Toriin, obfs4-kuljetusten tai muiden tavallisten silta-solmujen kautta.",
     "gui_settings_tor_bridges_invalid": "Mikään lisäämistäsi silloista ei toimi. Tarkista ne tai lisää uusia.",
     "gui_settings_button_save": "Tallenna",
     "gui_settings_button_cancel": "Peruuta",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "Keskustelutila mahdollistaa keskustelun interaktiivisesti muiden kanssa Tor-selaimessa. <br><br><b>Keskusteluhistoria ei ole tallennettu OnionShare:en. Keskusteluhistoria katoaa kun suljet Tor-selaimen.</b>",
     "gui_settings_license_label": "OnionShare on lisensoitu GPL v3:n alaisuudessa.<br>Kolmannen osapuolen lisenssejä voi tarkastella täällä:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Käynnistä tämä Onion-palvelu automaattisesti, kun OnionShare käynnistyy",
-    "error_generic": "OnionSharessa tapahtui odottamaton virhe:\n{}"
+    "error_generic": "OnionSharessa tapahtui odottamaton virhe:\n{}",
+    "gui_settings_true": "Kyllä",
+    "gui_settings_false": "Ei",
+    "gui_alert_button_cancel": "Peruuta",
+    "gui_alert_button_no": "Ei",
+    "gui_alert_button_yes": "Kyllä",
+    "gui_alert_button_ok": "Kaikki hyvin",
+    "gui_alert_button_close": "Sulje"
 }

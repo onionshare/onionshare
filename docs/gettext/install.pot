@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OnionShare 2.6.3\n"
+"Project-Id-Version: OnionShare 2.6.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"POT-Creation-Date: 2026-10-02 10:22+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -253,11 +253,11 @@ msgid "Miguel Jacq:"
 msgstr ""
 
 #: ../../source/install.rst:129
-msgid "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+msgid "PGP public key fingerprint ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
 msgstr ""
 
 #: ../../source/install.rst:130
-msgid "You can download Miguel's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+msgid "You can download Miguel's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_."
 msgstr ""
 
 #: ../../source/install.rst:132

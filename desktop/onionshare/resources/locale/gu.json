@@ -43,5 +43,16 @@
     "gui_file_selection_remove_all": "Remove All",
     "gui_status_indicator_receive_working": "શરૂ થઈ રહ્યુ છે…",
     "gui_close_tab_warning_close": "ઠીક છે",
-    "gui_please_wait_no_button": "શરૂ થઈ રહ્યુ છે…"
+    "gui_please_wait_no_button": "શરૂ થઈ રહ્યુ છે…",
+    "days_first_letter": "d",
+    "hours_first_letter": "કર",
+    "minutes_first_letter": "મિનિટ",
+    "seconds_first_letter": "સે",
+    "gui_settings_true": "હા",
+    "gui_settings_false": "નહિ",
+    "gui_alert_button_close": "બંધ",
+    "gui_alert_button_cancel": "રદ્ કરો",
+    "gui_alert_button_no": "નહિ",
+    "gui_alert_button_yes": "હા",
+    "gui_alert_button_ok": "OK"
 }

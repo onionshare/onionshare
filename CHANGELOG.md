@@ -1,5 +1,16 @@
 # OnionShare Changelog
 
+## 2.6.5
+
+* Dependencies: Updates tor dependencies and other python and web dependencies.
+
+## 2.6.4
+
+* Security fix: Prevent symlink traversal
+* Security fix: Prevent upload of files when file upload mode is disabled. Prevent creation of empty folder on empty POST request payload
+* Dependencies: Updates tor dependencies and other python and web dependencies. Also updates flatpak runtime.
+* Bug fix: Show indeterminate progress and warn user during Tor traversal
+
 ## 2.6.3
 
 * Feature: It is now possible to view what URLs are visited in Share/Website mode using the CLI tool, with `--log-filenames`.

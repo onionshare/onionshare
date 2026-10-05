@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2025-09-29 04:01+0000\n"
 "Last-Translator: gfbdrgn <erfvvgtyhbnjhyuu@wireconnected.com>\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -235,8 +235,8 @@ msgstr "Запуск CLI из Snap"
 
 #: ../../source/advanced.rst:92
 msgid ""
-"If you installed OnionShare using the Snap package, you can run ``onionshare."
-"cli`` to access the command-line interface version."
+"If you installed OnionShare using the Snap package, you can run "
+"``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "Если вы установили OnionShare с помощью пакета Snap, вы можете запустить "
 "``onionshare.cli`` для доступа к версии интерфейса командной строки."
@@ -292,9 +292,9 @@ msgid ""
 "mode, and want to start the same onion service every time your machine "
 "starts."
 msgstr ""
-"Вы можете найти это особенно полезно, если вы работаете в режиме «персистент»"
-", и хотите начать тот же сервис лука каждый раз, когда ваша машина начинает "
-"работать."
+"Вы можете найти это особенно полезно, если вы работаете в режиме "
+"«персистент», и хотите начать тот же сервис лука каждый раз, когда ваша "
+"машина начинает работать."
 
 #: ../../source/advanced.rst:176
 msgid "To do this, you need to prepare some OnionShare json config first."
@@ -309,10 +309,10 @@ msgid ""
 "the settings, but if you already have OnionShare installed, it probably "
 "looks much like this already::"
 msgstr ""
-"Вот основная конфигурация OnionShare. В этом примере он хранится в "
-"``/доме/пользователье/.config/onionshare/onionshare.json``. Возможно, вам "
-"придется скорректировать некоторые настройки, но если вы уже установили "
-"OnionShare, это, вероятно, выглядит так уже::"
+"Вот основная конфигурация OnionShare. В этом примере он хранится в ``/доме/"
+"пользователье/.config/onionshare/onionshare.json``. Возможно, вам придется "
+"скорректировать некоторые настройки, но если вы уже установили OnionShare, "
+"это, вероятно, выглядит так уже::"
 
 #: ../../source/advanced.rst:207
 msgid ""
@@ -389,8 +389,8 @@ msgid ""
 "cli``, and you should see some output of your service starting::"
 msgstr ""
 "Теперь вы можете запустить ``sudo systemctl start onionshare-cli.service``. "
-"Если у вас установлен ``journalctl``, вы можете запустить ``sudo journalctl -"
-"f -t onionshare-cli``, и вы должны увидеть некоторые результаты своей "
+"Если у вас установлен ``journalctl``, вы можете запустить ``sudo journalctl "
+"-f -t onionshare-cli``, и вы должны увидеть некоторые результаты своей "
 "службы, начиная::"
 
 #: ../../source/advanced.rst:282
@@ -530,9 +530,9 @@ msgid ""
 "'automatic' (use Tor Browser's Tor connection), 'control_port' or "
 "'socket_file'. Default: 'bundled'"
 msgstr ""
-"То, как OnionShare подключается к Tor. Valid опции \"bundled\", \"automatic\""
-" (использовать Tor Browser's Tor connection), \"control_port\" или "
-"\"socket_file\". По умолчанию: \""
+"То, как OnionShare подключается к Tor. Valid опции \"bundled\", "
+"\"automatic\" (использовать Tor Browser's Tor connection), \"control_port\" "
+"или \"socket_file\". По умолчанию: \""
 
 #: ../../source/advanced.rst:326
 #, fuzzy
@@ -601,8 +601,8 @@ msgid ""
 "The path to Tor's socket file, if ``connection_type`` is set to "
 "'socket_file'. Default: '/var/run/tor/control'"
 msgstr ""
-"Путь к файлу сокета Tor, если ``connection_type `` настроен на «socket_file»"
-". По умолчанию: '/var/run/tor/control \""
+"Путь к файлу сокета Tor, если ``connection_type `` настроен на "
+"«socket_file». По умолчанию: '/var/run/tor/control \""
 
 #: ../../source/advanced.rst:331
 msgid "auth_type"
@@ -709,12 +709,12 @@ msgstr "bridges_builtin_pt"
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
 "Когда ``bridges_type `` настроен на «встроенное», это указывает, какой тип "
-"протокола моста использовать. Варианты: «obfs4», «meek-azure» или «snowflake»"
-". По умолчанию: \"obfs4\""
+"протокола моста использовать. Варианты: «obfs4», «meek» или "
+"«snowflake». По умолчанию: \"obfs4\""
 
 #: ../../source/advanced.rst:339
 #, fuzzy
@@ -741,8 +741,8 @@ msgid ""
 "Default: \"\""
 msgstr ""
 "Когда ``bridges_type `` установлен на «таможенный», мосты, указанные "
-"пользователем, хранятся здесь. Отделить каждую линию моста в строке с 'n. \""
-"\""
+"пользователем, хранятся здесь. Отделить каждую линию моста в строке с 'n. "
+"\"\""
 
 #: ../../source/advanced.rst:341
 #, fuzzy
@@ -945,8 +945,8 @@ msgid ""
 "Whether the onion service can be accessed with or without a Private Key "
 "(Client Authentication). If true, no Private Key is required."
 msgstr ""
-"Можно ли получить доступ к службе лука с помощью или без частного ключа ("
-"Client Authentication). Если это так, то не требуется никакого частного "
+"Можно ли получить доступ к службе лука с помощью или без частного ключа "
+"(Client Authentication). Если это так, то не требуется никакого частного "
 "ключа."
 
 #: ../../source/advanced.rst:428
@@ -961,8 +961,8 @@ msgid ""
 "start-timer`` with the CLI tool. Default: false"
 msgstr ""
 "Настраивается ли служба лука для запуска в определенное время. Время может "
-"быть установлено в настольном приложении или указано в секундах с "
-"``-авто-старт-таймером `` с помощью инструмента CLI. По умолчанию"
+"быть установлено в настольном приложении или указано в секундах с ``-авто-"
+"старт-таймером `` с помощью инструмента CLI. По умолчанию"
 
 #: ../../source/advanced.rst:429
 #, fuzzy
@@ -986,8 +986,8 @@ msgstr "service_id"
 
 #: ../../source/advanced.rst:430
 msgid ""
-"The 32-character onion service URL, without the scheme and without the '."
-"onion' suffix."
+"The 32-character onion service URL, without the scheme and without the "
+"'.onion' suffix."
 msgstr "32-характерный луковый URL-адрес, без схемы и без суффикса '.onion'."
 
 #: ../../source/advanced.rst:433
@@ -995,8 +995,8 @@ msgid ""
 "The below are settings specific to the 'mode' specified in the "
 "``persistent`` section above."
 msgstr ""
-"Ниже приведены параметры, специфичные для «режима», указанного в ``разделе ``"
-", выше."
+"Ниже приведены параметры, специфичные для «режима», указанного в ``разделе "
+"``, выше."
 
 #: ../../source/advanced.rst:436
 msgid "share"

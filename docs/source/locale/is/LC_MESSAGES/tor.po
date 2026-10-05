@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2025-08-26 15:02+0000\n"
 "Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
 "memory@weblate.org>\n"
@@ -208,7 +208,7 @@ msgstr ""
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
-"recommended over using `meek-azure`."
+"recommended over using `meek`."
 msgstr ""
 
 #: ../../source/tor.rst:84
@@ -249,9 +249,9 @@ msgstr ""
 
 #: ../../source/tor.rst:101
 msgid ""
-"Download the Tor Windows Expert Bundle `from the Tor website <https://www."
-"torproject.org/download/tor/>`_. Extract the compressed file and copy the "
-"extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted "
+"Download the Tor Windows Expert Bundle `from the Tor website <https://"
+"www.torproject.org/download/tor/>`_. Extract the compressed file and copy "
+"the extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted "
 "folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
 
@@ -281,8 +281,8 @@ msgstr ""
 #: ../../source/tor.rst:119
 msgid ""
 "In your administrator command prompt, install ``tor`` as a service using the "
-"appropriate ``torrc`` file you just created (as described in `<https://2019."
-"www.torproject.org/docs/faq.html.en#NTService>`_). Like this::"
+"appropriate ``torrc`` file you just created (as described in `<https://"
+"2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like this::"
 msgstr ""
 
 #: ../../source/tor.rst:123

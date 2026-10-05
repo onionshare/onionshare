@@ -51,7 +51,7 @@ class Meek(object):
         ) = get_tor_paths()
 
         self.meek_proxies = {}
-        self.meek_url = "https://1723079976.rsc.cdn77.org/"
+        self.meek_url = "https://1603026938.rsc.cdn77.org/"
         self.meek_front = "www.phpmyadmin.net"
         self.meek_env = {
             "TOR_PT_MANAGED_TRANSPORT_VER": "1",

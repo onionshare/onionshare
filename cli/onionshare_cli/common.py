@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import base64
 import hashlib
+import importlib.metadata as importlib_metadata
 import importlib.resources as importlib_resources
 import os
 import platform
@@ -59,8 +60,7 @@ class Common:
             self.platform = "BSD"
 
         # The current version of OnionShare
-        with open(self.get_resource_path("version.txt")) as f:
-            self.version = f.read().strip()
+        self.version = importlib_metadata.version(__package__)
 
     def display_banner(self):
         """
@@ -436,12 +436,36 @@ class Common:
         os.makedirs(onionshare_data_dir, 0o700, True)
         return onionshare_data_dir
 
+    def build_cache_dir(self):
+        """
+        Returns the path of the OnionShare cache directory, which holds
+        non-essential data that can safely be deleted. On Linux and BSD this
+        follows the XDG Base Directory Specification (~/.cache/onionshare).
+        """
+        xdg_cache_home = os.environ.get("XDG_CACHE_HOME", "")
+        if not os.path.isabs(xdg_cache_home):
+            xdg_cache_home = os.path.expanduser("~/.cache")
+
+        onionshare_cache_dir = os.path.join(xdg_cache_home, "onionshare")
+
+        # Modify the cache dir if running tests
+        if getattr(sys, "onionshare_test_mode", False):
+            onionshare_cache_dir += "-testdata"
+
+        os.makedirs(onionshare_cache_dir, 0o700, True)
+        return onionshare_cache_dir
+
     def build_tmp_dir(self):
         """
         Returns path to a folder that can hold temporary files
         """
-        tmp_dir = os.path.join(self.build_data_dir(), "tmp")
-        os.makedirs(tmp_dir, 0o700, True)
+        if self.platform in ("Windows", "Darwin"):
+            base_dir = self.build_data_dir()
+        else:
+            base_dir = self.build_cache_dir()
+
+        tmp_dir = os.path.join(base_dir, "tmp")
+        os.makedirs(tmp_dir, mode=0o700, exist_ok=True)
         return tmp_dir
 
     def build_persistent_dir(self):
@@ -544,20 +568,29 @@ class Common:
         return s[:output_len]
 
     @staticmethod
-    def human_readable_filesize(b):
+    def split_filesize(b):
         """
-        Returns filesize in a human readable format.
+        Splits a filesize into a human readable value and the index of its
+        unit, where 0 is bytes, 1 is KiB, 2 is MiB, and so on.
         """
         thresh = 1024.0
         if b < thresh:
-            return "{:.1f} B".format(b)
-        units = ("KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
-        u = 0
+            return b, 0
+        u = 1
         b /= thresh
         while b >= thresh:
             b /= thresh
             u += 1
-        return "{:.1f} {}".format(b, units[u])
+        return b, u
+
+    @staticmethod
+    def human_readable_filesize(b):
+        """
+        Returns filesize in a human readable format.
+        """
+        units = ("B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB")
+        value, u = Common.split_filesize(b)
+        return "{:.1f} {}".format(value, units[u])
 
     @staticmethod
     def format_seconds(seconds):

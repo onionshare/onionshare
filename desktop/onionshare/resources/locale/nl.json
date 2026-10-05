@@ -67,7 +67,7 @@
     "gui_receive_stop_server_autostop_timer": "Stop Ontvangstmodus ({} resterend)",
     "gui_copied_url_title": "OnionShare Adres gekopieerd",
     "gui_settings_tor_bridges": "Verbinden met Tor bridge?",
-    "gui_settings_meek_lite_expensive_warning": "Waarschuwing: De meek_lite bridges zijn erg kostbaar voor het Tor Project om uit te voeren. <br><br> Gebruik ze alleen als je niet direct met Tor kan verbinden, via obfs4 transports, of andere normale bridges.",
+    "gui_settings_meek_expensive_warning": "Waarschuwing: De meek_lite bridges zijn erg kostbaar voor het Tor Project om uit te voeren. <br><br> Gebruik ze alleen als je niet direct met Tor kan verbinden, via obfs4 transports, of andere normale bridges.",
     "gui_settings_tor_bridges_invalid": "Geen van de bridges die je hebt toegevoegd werken. Controleer ze of voeg andere toe.",
     "gui_tor_connection_lost": "De verbinding met Tor is verbroken.",
     "gui_share_url_description": "<b>Iedereen</b> met dit OnionShare-adres kan je bestanden <b>binnenhalen</b> met de <b>Tor Browser</b>: <img src='{}' />",
@@ -206,8 +206,15 @@
     "gui_autoconnect_start": "Verbinden met Tor",
     "moat_captcha_submit": "Versturen",
     "moat_solution_empty_error": "Voer de tekens van de afbeelding in",
-    "gui_share_url_public_description": "Iedereen met dit  OnionShare adres kan je bestanden binnenhalen met de Tor browser.",
+    "gui_share_url_public_description": "<b>1Iedereen</b>2 met dit OnionShare adres kan je bestanden <b>3binnenhalen</b>4 met de <b>5Tor Browser</b>6: <img src='{}' />",
     "gui_receive_url_public_description": "<b>1Iedereen</b>2 met dit OnionShare adres kan bestanden op je computer <b>3plaatsen</b>4 met de <b>5Tor Browser</b>6: <img src='{}' />7",
     "gui_settings_bridge_use_checkbox": "Een brug gebruiken",
-    "gui_autoconnect_configure": "Netwerkinstellingen"
+    "gui_autoconnect_configure": "Netwerkinstellingen",
+    "gui_settings_true": "Ja",
+    "gui_settings_false": "Nee",
+    "gui_alert_button_cancel": "Annuleren",
+    "gui_alert_button_close": "Sluiten",
+    "gui_alert_button_ok": "Ok",
+    "gui_alert_button_no": "Nee",
+    "gui_alert_button_yes": "Ja"
 }

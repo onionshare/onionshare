@@ -113,7 +113,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         )
         if self.obfs4proxy_file_path and os.path.isfile(self.obfs4proxy_file_path):
             self.bridge_builtin_dropdown.addItem("obfs4")
-            self.bridge_builtin_dropdown.addItem("meek-azure")
+            self.bridge_builtin_dropdown.addItem("meek")
         if self.snowflake_file_path and os.path.isfile(self.snowflake_file_path):
             self.bridge_builtin_dropdown.addItem("snowflake")
         if self.webtunnel_file_path and os.path.isfile(self.webtunnel_file_path):
@@ -475,8 +475,8 @@ class TorSettingsTab(QtWidgets.QWidget):
                 bridges_builtin_pt = self.old_settings.get("bridges_builtin_pt")
                 if bridges_builtin_pt == "obfs4":
                     self.bridge_builtin_dropdown.setCurrentText("obfs4")
-                elif bridges_builtin_pt == "meek-azure":
-                    self.bridge_builtin_dropdown.setCurrentText("meek-azure")
+                elif bridges_builtin_pt == "meek":
+                    self.bridge_builtin_dropdown.setCurrentText("meek")
                 elif bridges_builtin_pt == "webtunnel":
                     self.bridge_builtin_dropdown.setCurrentText("webtunnel")
                 else:
@@ -560,12 +560,12 @@ class TorSettingsTab(QtWidgets.QWidget):
         """
         Build-in bridge selection changed
         """
-        if selection == "meek-azure":
+        if selection == "meek":
             # Alert the user about meek's costliness if it looks like they're turning it on
-            if not self.old_settings.get("bridges_builtin_pt") == "meek-azure":
+            if not self.old_settings.get("bridges_builtin_pt") == "meek":
                 Alert(
                     self.common,
-                    strings._("gui_settings_meek_lite_expensive_warning"),
+                    strings._("gui_settings_meek_expensive_warning"),
                     QtWidgets.QMessageBox.Warning,
                 )
 
@@ -773,13 +773,21 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.save_button.show()
 
         if self.tor_con_type == "test":
+
+            def yes_no(value):
+                return (
+                    strings._("gui_settings_true")
+                    if value
+                    else strings._("gui_settings_false")
+                )
+
             Alert(
                 self.common,
                 strings._("settings_test_success").format(
                     self.test_onion.tor_version,
-                    self.test_onion.supports_ephemeral,
-                    self.test_onion.supports_stealth,
-                    self.test_onion.supports_v3_onions,
+                    yes_no(self.test_onion.supports_ephemeral),
+                    yes_no(self.test_onion.supports_stealth),
+                    yes_no(self.test_onion.supports_v3_onions),
                 ),
                 title=strings._("gui_settings_connection_type_test_button"),
             )

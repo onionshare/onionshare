@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
+import tempfile
+
 from PySide6 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.web import Web
@@ -209,6 +211,40 @@ class ReceiveMode(Mode):
         """
         return "receive"
 
+    @staticmethod
+    def is_data_dir_writable(path, create=False):
+        """
+        Return True if path is a directory we can create files in.
+
+        At server startup, create missing directories as uploads historically did.
+        Directory selection checks remain read-only apart from the write probe.
+
+        Uses a real write probe so AppArmor/sandbox restrictions (e.g. Tails)
+        are detected even when os.access is optimistic.
+        """
+        if not path:
+            return False
+        try:
+            if create:
+                os.makedirs(path, mode=0o700, exist_ok=True)
+            if not os.path.isdir(path):
+                return False
+            with tempfile.TemporaryDirectory(
+                prefix=".onionshare-write-test-",
+                dir=path,
+            ) as probe_dir:
+                with tempfile.NamedTemporaryFile(
+                    mode="wb",
+                    prefix="probe-",
+                    dir=probe_dir,
+                ) as probe:
+                    probe.write(b"ok")
+                    probe.flush()
+
+            return True
+        except OSError:
+            return False
+
     def data_dir_button_clicked(self):
         """
         Browse for a new OnionShare data directory, and save to tab settings
@@ -224,6 +260,14 @@ class ReceiveMode(Mode):
                 if not selected_dir.startswith(os.path.expanduser("~/OnionShare")):
                     Alert(self.common, strings._("gui_receive_flatpak_data_dir"))
                     return
+
+            if not self.is_data_dir_writable(selected_dir):
+                Alert(
+                    self.common,
+                    strings._("gui_receive_data_dir_not_writable").format(selected_dir),
+                    QtWidgets.QMessageBox.Warning,
+                )
+                return
 
             self.common.log(
                 "ReceiveMode",
@@ -298,6 +342,21 @@ class ReceiveMode(Mode):
             )
             self.web.receive_mode.can_upload = False
             return False
+
+    def start_server(self):
+        """
+        Start Receive Mode only if the save directory is writable.
+        """
+        data_dir = self.settings.get("receive", "data_dir")
+        if not self.is_data_dir_writable(data_dir, create=True):
+            self.server_status.stop_server_finished()
+            Alert(
+                self.common,
+                strings._("gui_receive_data_dir_not_writable").format(data_dir),
+                QtWidgets.QMessageBox.Warning,
+            )
+            return
+        super().start_server()
 
     def start_server_custom(self):
         """

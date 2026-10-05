@@ -5,5 +5,7 @@
     "gui_settings_window_title": "Jak'ankiri",
     "gui_general_settings_window_title": "Taqpacha",
     "gui_settings_button_cancel": "Suyt'ayaña",
-    "gui_settings_language_label": "Aru"
+    "gui_settings_language_label": "Aru",
+    "gui_alert_button_close": "Jist'antaña",
+    "gui_alert_button_cancel": "Suyt'ayaña"
 }

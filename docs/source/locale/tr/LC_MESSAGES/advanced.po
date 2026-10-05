@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2026-01-02 16:01+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: tr <LL@li.org>\n"
@@ -231,8 +231,8 @@ msgstr "Snap paketinden CLI çalıştırma"
 
 #: ../../source/advanced.rst:92
 msgid ""
-"If you installed OnionShare using the Snap package, you can run ``onionshare."
-"cli`` to access the command-line interface version."
+"If you installed OnionShare using the Snap package, you can run "
+"``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "OnionShare'i Snap paketini kullanarak kurduysanız, komut satırı arayüzü "
 "sürümüne erişmek için ``onionshare.cli`` komutunu çalıştırabilirsiniz."
@@ -304,10 +304,10 @@ msgid ""
 "the settings, but if you already have OnionShare installed, it probably "
 "looks much like this already::"
 msgstr ""
-"Burada OnionShare ana yapılandırması bulunmaktadır. Bu örnekte, ``/home/user/"
-".config/onionshare/onionshare.json`` konumunda saklanmaktadır. Bazı ayarları "
-"değiştirmeniz gerekebilir, ancak OnionShare zaten kuruluysa buna çok "
-"benziyor olacaktır::"
+"Burada OnionShare ana yapılandırması bulunmaktadır. Bu örnekte, ``/home/"
+"user/.config/onionshare/onionshare.json`` konumunda saklanmaktadır. Bazı "
+"ayarları değiştirmeniz gerekebilir, ancak OnionShare zaten kuruluysa buna "
+"çok benziyor olacaktır::"
 
 #: ../../source/advanced.rst:207
 msgid ""
@@ -701,11 +701,11 @@ msgstr "bridges_builtin_pt"
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
 "``bridges_type`` \"built-in\" olarak ayarlandığında hangi tür köprü iletişim "
-"kuralının kullanılacağını belirtir. Seçenekler \"obfs4\", \"meek-azure\" "
+"kuralının kullanılacağını belirtir. Seçenekler \"obfs4\", \"meek\" "
 "veya \"snowflake\" şeklindedir. Öntanımlı: \"obfs4\""
 
 #: ../../source/advanced.rst:339
@@ -970,8 +970,8 @@ msgstr "service_id"
 
 #: ../../source/advanced.rst:430
 msgid ""
-"The 32-character onion service URL, without the scheme and without the '."
-"onion' suffix."
+"The 32-character onion service URL, without the scheme and without the "
+"'.onion' suffix."
 msgstr "32 karakterlik onion hizmeti URL'si, şema ve '.onion' son eki olmadan."
 
 #: ../../source/advanced.rst:433

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.2\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2025-06-20 17:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: none\n"
@@ -41,8 +41,8 @@ msgstr "அறிவிலிமையம் சிக்கல்களைச�
 
 #: ../../source/help.rst:12
 msgid ""
-"If it isn't on the website, please check the `GitHub issues <https://github."
-"com/onionshare/onionshare/issues>`_. It's possible someone else has "
+"If it isn't on the website, please check the `GitHub issues <https://"
+"github.com/onionshare/onionshare/issues>`_. It's possible someone else has "
 "encountered the same problem and either raised it with the developers, or "
 "maybe even posted a solution."
 msgstr ""
@@ -64,8 +64,8 @@ msgstr ""
 "நீங்கள் ஒரு தீர்வைக் கண்டுபிடிக்க முடியாவிட்டால், அல்லது ஒரு கேள்வியைக் கேட்க அல்லது புதிய "
 "அம்சத்தைப் பரிந்துரைக்க விரும்பினால், தயவுசெய்து ஒரு `சிக்கலைச் சமர்ப்பிக்கவும்<https://"
 "github.com/onionshare/onionshare/issues/new>`_. இதற்கு `ஒரு அறிவிலிமையம் கணக்கை "
-"உருவாக்க வேண்டும் <https://help.github.com/articles/"
-"signing-for-for-a-new-github-account/>` _."
+"உருவாக்க வேண்டும் <https://help.github.com/articles/signing-for-for-a-new-"
+"github-account/>` _."
 
 #: ../../source/help.rst:20
 msgid "Join our Keybase Team"

@@ -44,7 +44,7 @@
     "gui_settings_authenticate_password_option": "ពាក្យ​សម្ងាត់",
     "gui_settings_password_label": "ពាក្យ​សម្ងាត់",
     "gui_settings_tor_bridges": "ភ្ជាប់ដោយប្រើ Tor bridge?",
-    "gui_settings_meek_lite_expensive_warning": "ប្រុងប្រយ័ត្ន៖ meek-azure bridges វាត្រូវចំណាយច្រើនសម្រាប់គម្រោង Tor ដើម្បីដំណើរការ។<br><br>សូមប្រើវា បើសិនជាមិនអាចភ្ជាប់ទៅ Tor ដោយផ្ទាល់ តាមរយៈ obfs4 transports ឬ Bridges ធម្មតាផ្សេងទៀត។",
+    "gui_settings_meek_expensive_warning": "ប្រុងប្រយ័ត្ន៖ meek bridges វាត្រូវចំណាយច្រើនសម្រាប់គម្រោង Tor ដើម្បីដំណើរការ។<br><br>សូមប្រើវា បើសិនជាមិនអាចភ្ជាប់ទៅ Tor ដោយផ្ទាល់ តាមរយៈ obfs4 transports ឬ Bridges ធម្មតាផ្សេងទៀត។",
     "gui_settings_tor_bridges_invalid": "គ្មាន Bridge ណាដែលអ្នកបានបន្ថែមដំណើរការនោះទេ។ ត្រួតពិនិត្យម្ដងទៀត ឬបន្ថែម Bridge ផ្សេងទៀត។",
     "gui_settings_button_save": "រក្សាទុក",
     "gui_settings_button_cancel": "បោះបង់",
@@ -254,5 +254,12 @@
     "gui_autoconnect_try_again_without_a_bridge": "ព្យាយាមម្តងទៀតដោយគ្មាន bridges",
     "gui_autoconnect_circumventing_censorship_starting_meek": "កំពុង​បង្កើត​ meek bridge សម្រាប់​ដែន​មុខ…",
     "gui_autoconnect_circumventing_censorship_got_bridges": "Bridges ត្រូវបានបង្កើតឡើង។ កំពុងភ្ជាប់ទៅ Tor…",
-    "gui_chat_mode_explainer": "មុខងារជជែកអនុញ្ញាតឱ្យអ្នកជជែកជាមួយអ្នកដទៃនៅក្នុងកម្មវិធីរុករក Tor ។<br><br><b>ប្រវត្តិជជែកមិនត្រូវបានរក្សាទុកនៅក្នុង OnionShare ទេ។ ប្រវត្តិជជែកនឹងបាត់នៅពេលដែលអ្នកបិទកម្មវិធីរុករក Tor។</b>"
+    "gui_chat_mode_explainer": "មុខងារជជែកអនុញ្ញាតឱ្យអ្នកជជែកជាមួយអ្នកដទៃនៅក្នុងកម្មវិធីរុករក Tor ។<br><br><b>ប្រវត្តិជជែកមិនត្រូវបានរក្សាទុកនៅក្នុង OnionShare ទេ។ ប្រវត្តិជជែកនឹងបាត់នៅពេលដែលអ្នកបិទកម្មវិធីរុករក Tor។</b>",
+    "gui_settings_false": "ទេ",
+    "gui_settings_true": "បាទ/ចាស",
+    "gui_alert_button_cancel": "បោះបង់",
+    "gui_alert_button_no": "ទេ",
+    "gui_alert_button_close": "បិទ",
+    "gui_alert_button_yes": "បាទ/ចាស",
+    "gui_alert_button_ok": "យល់ព្រម"
 }

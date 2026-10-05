@@ -54,5 +54,17 @@
     "gui_copy_url": "მისამართის ასლი",
     "gui_settings_bridge_radio_builtin": "აირჩიეთ ჩაშენებული ხიდი",
     "gui_share_url_public_description": "<b>ყველას</b>, ვისაც ეს OnionShare მისამართი აქვს, შეუძლია, <b>გადმოწეროს</b> თქვენი ფაილები <b>Tor ბრაუზერით</b>: <img src='{}' />",
-    "gui_tab_name_receive": "მიღება"
+    "gui_tab_name_receive": "მიღება",
+    "days_first_letter": "დ",
+    "hours_first_letter": "სთ",
+    "minutes_first_letter": "მილი",
+    "seconds_first_letter": "წმ",
+    "gui_close_tab_warning_close": "დიახ",
+    "gui_settings_true": "დიახ",
+    "gui_settings_false": "არა",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_close": "დახურვა",
+    "gui_alert_button_yes": "დიახ",
+    "gui_alert_button_no": "არა",
+    "gui_alert_button_cancel": "გაუქმება"
 }

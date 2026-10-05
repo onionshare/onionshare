@@ -64,5 +64,15 @@
     "history_receive_read_message_button": "Ɣeṛ izen",
     "gui_share_stop_server_autostop_timer": "Seḥbes beṭṭu ({})",
     "gui_autoconnect_start": "Tuqqna ɣer Tor",
-    "gui_main_page_website_button": "Start Hosting"
+    "gui_main_page_website_button": "Start Hosting",
+    "hours_first_letter": "s",
+    "minutes_first_letter": "m",
+    "seconds_first_letter": "S",
+    "gui_settings_true": "Ih",
+    "gui_settings_false": "Uhu",
+    "gui_alert_button_cancel": "Sefex",
+    "gui_alert_button_no": "Ala",
+    "gui_alert_button_ok": "Ih",
+    "gui_alert_button_close": "Mdel",
+    "gui_alert_button_yes": "Ih"
 }

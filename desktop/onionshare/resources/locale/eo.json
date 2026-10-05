@@ -53,5 +53,16 @@
     "gui_tab_name_chat": "Babili",
     "gui_status_indicator_share_stopped": "Haltita",
     "gui_status_indicator_receive_stopped": "Haltita",
-    "gui_status_indicator_chat_stopped": "Haltita"
+    "gui_status_indicator_chat_stopped": "Haltita",
+    "days_first_letter": "t",
+    "hours_first_letter": "h",
+    "minutes_first_letter": "m",
+    "seconds_first_letter": "s",
+    "gui_settings_true": "Jes",
+    "gui_settings_false": "Ne",
+    "gui_alert_button_ok": "Bone",
+    "gui_alert_button_yes": "Jes",
+    "gui_alert_button_close": "Fermi",
+    "gui_alert_button_no": "Ne",
+    "gui_alert_button_cancel": "Nuligi"
 }

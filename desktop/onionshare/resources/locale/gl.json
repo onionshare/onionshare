@@ -51,7 +51,7 @@
     "gui_settings_authenticate_password_option": "Contrasinal",
     "gui_settings_password_label": "Contrasinal",
     "gui_settings_tor_bridges": "Conectar usando unha ponte Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Aviso: as pontes meek-azure requiren moitos recursos do Proxecto Tor.<br><br>Utilízao só se non podes conectar directamente con Tor, vía transporte obfs4 ou outras pontes habituais.",
+    "gui_settings_meek_expensive_warning": "Aviso: as pontes meek requiren moitos recursos do Proxecto Tor.<br><br>Utilízao só se non podes conectar directamente con Tor, vía transporte obfs4 ou outras pontes habituais.",
     "gui_settings_tor_bridges_invalid": "Non funciona ningunha das pontes engadidas. Compróbaas ou engade outras.",
     "gui_settings_button_save": "Gardar",
     "gui_settings_button_cancel": "Cancelar",
@@ -254,5 +254,12 @@
     "gui_autoconnect_could_not_connect_to_tor_api": "Non se puido conectar coa API de Tor. Comproba que tes conexión a Internet antes de volver a intentalo.",
     "gui_general_settings_window_title": "Xeral",
     "gui_chat_mode_explainer": "O modo chat permíteche conversar interactivamente con outras persoas, no Navegador Tor.<br><br><b>O historial da conversa non se garda en OnionShare. O historial desaparece ao pechar o Navegador Tor.</b>",
-    "gui_autoconnect_circumventing_censorship_starting_meek": "Usar unha ponte encuberta para acceder aos dominios…"
+    "gui_autoconnect_circumventing_censorship_starting_meek": "Usar unha ponte encuberta para acceder aos dominios…",
+    "gui_settings_true": "Si",
+    "gui_settings_false": "Non",
+    "gui_alert_button_no": "Non",
+    "gui_alert_button_close": "Pechar",
+    "gui_alert_button_ok": "Feito",
+    "gui_alert_button_cancel": "Cancelar",
+    "gui_alert_button_yes": "Si"
 }

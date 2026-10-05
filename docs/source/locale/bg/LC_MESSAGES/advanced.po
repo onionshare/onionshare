@@ -6,11 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2025-11-06 05:51+0000\n"
-"Last-Translator: 109247019824 <109247019824@users.noreply.hosted.weblate.org>"
-"\n"
+"Last-Translator: 109247019824 "
+"<109247019824@users.noreply.hosted.weblate.org>\n"
 "Language-Team: none\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -231,8 +231,8 @@ msgstr "Работа с команден ред от Snap"
 
 #: ../../source/advanced.rst:92
 msgid ""
-"If you installed OnionShare using the Snap package, you can run ``onionshare."
-"cli`` to access the command-line interface version."
+"If you installed OnionShare using the Snap package, you can run "
+"``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "Ако сте инсталирали OnionShare с помощта на пакет от Snap, можете да "
 "изпълните ``onionshare.cli``, за да получите достъп до интерфейса за "
@@ -315,8 +315,8 @@ msgid ""
 "user/.config/onionshare/persistent/my-persistent-onion.json``, that looks "
 "like this::"
 msgstr ""
-"Забележете секцията „persistent_tabs“. Ще създадем файла ``/home/user/."
-"config/onionshare/persistent/my-persistent-onion.json`` със следното "
+"Забележете секцията „persistent_tabs“. Ще създадем файла ``/home/"
+"user/.config/onionshare/persistent/my-persistent-onion.json`` със следното "
 "съдържание::"
 
 #: ../../source/advanced.rst:247
@@ -637,7 +637,7 @@ msgstr ""
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
 
@@ -853,8 +853,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:430
 msgid ""
-"The 32-character onion service URL, without the scheme and without the '."
-"onion' suffix."
+"The 32-character onion service URL, without the scheme and without the "
+"'.onion' suffix."
 msgstr ""
 
 #: ../../source/advanced.rst:433

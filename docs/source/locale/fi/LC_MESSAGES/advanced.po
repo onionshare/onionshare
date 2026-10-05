@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2021-08-24 17:33+0000\n"
 "Last-Translator: Kaantaja <ufdbvgoljrjkrkyyub@ianvvn.com>\n"
 "Language-Team: none\n"
@@ -48,8 +48,8 @@ msgid ""
 msgstr ""
 "Kun suljet OnionSharen ja avaat sen uudelleen, tallentamasi välilehdet "
 "avautuvat uudelleen. Sinun täytyy manuaalisesti käynnistää jokainen palvelu, "
-"mutta näin tehdessäsi ne käynnistyvät samalla OnionShare-osoitteella ja -"
-"salasanalla."
+"mutta näin tehdessäsi ne käynnistyvät samalla OnionShare-osoitteella ja "
+"-salasanalla."
 
 #: ../../source/advanced.rst:19
 #, fuzzy
@@ -223,8 +223,8 @@ msgstr ""
 #: ../../source/advanced.rst:92
 #, fuzzy
 msgid ""
-"If you installed OnionShare using the Snap package, you can run ``onionshare."
-"cli`` to access the command-line interface version."
+"If you installed OnionShare using the Snap package, you can run "
+"``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "Jos olet asentanut OnionSharen käyttämällä Linuxin Snapcraft-pakettia, voit "
 "myös ajaa``onionshare.cli`` päästäksesi komentokehotekäyttöliittymään."
@@ -607,7 +607,7 @@ msgstr ""
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
 
@@ -823,8 +823,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:430
 msgid ""
-"The 32-character onion service URL, without the scheme and without the '."
-"onion' suffix."
+"The 32-character onion service URL, without the scheme and without the "
+"'.onion' suffix."
 msgstr ""
 
 #: ../../source/advanced.rst:433

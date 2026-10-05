@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2022-10-09 21:13+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: none\n"
@@ -235,8 +235,8 @@ msgid ""
 "README.md>`_ in the Git repository."
 msgstr ""
 "Info om installasjon på andre operativsystemer er å finne i `CLI-lesmeg-"
-"filen <https://github.com/onionshare/onionshare/blob/develop/cli/README."
-"md>`_ i i Git-kodelageret."
+"filen <https://github.com/onionshare/onionshare/blob/develop/cli/"
+"README.md>`_ i i Git-kodelageret."
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
@@ -245,8 +245,8 @@ msgstr ""
 #: ../../source/advanced.rst:92
 #, fuzzy
 msgid ""
-"If you installed OnionShare using the Snap package, you can run ``onionshare."
-"cli`` to access the command-line interface version."
+"If you installed OnionShare using the Snap package, you can run "
+"``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "Hvis du har installer OnionShare ved bruk av Snapcraft-pakken for Linux, kan "
 "du også bare kjøre ``onionshare.cli`` for å få tilgang til versjonen med "
@@ -634,7 +634,7 @@ msgstr ""
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
 
@@ -850,8 +850,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:430
 msgid ""
-"The 32-character onion service URL, without the scheme and without the '."
-"onion' suffix."
+"The 32-character onion service URL, without the scheme and without the "
+"'.onion' suffix."
 msgstr ""
 
 #: ../../source/advanced.rst:433

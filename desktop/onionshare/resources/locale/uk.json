@@ -44,7 +44,7 @@
     "gui_settings_authenticate_password_option": "Пароль",
     "gui_settings_password_label": "Пароль",
     "gui_settings_tor_bridges": "Під'єднатися за допомогою мосту Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Увага: Мости meek-azure заважкі для роботи Tor Project. <br> <br>Користуйтеся ними лише якщо не вдається з'єднатися з Tor безпосередньо, через obfs4 транспорти або інші звичайні мости.",
+    "gui_settings_meek_expensive_warning": "Увага: Мости meek заважкі для роботи Tor Project. <br> <br>Користуйтеся ними лише якщо не вдається з'єднатися з Tor безпосередньо, через obfs4 транспорти або інші звичайні мости.",
     "gui_settings_tor_bridges_invalid": "Жоден з доданих мостів не працює. Ще раз перевірте їх або додайте інші.",
     "gui_settings_button_save": "Зберегти",
     "gui_settings_button_cancel": "Скасувати",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "Режим бесіди дозволяє вам інтерактивно спілкуватися з іншими користувачами в Браузері Tor.<br><br><b>Історія бесід не зберігається в OnionShare. Історія бесід зникне, коли ви закриєте Браузер Tor.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Автоматично запускати цю onion-службу під час запуску OnionShare",
     "error_generic": "В OnionShare сталася непередбачувана помилка:\n{}",
-    "gui_settings_license_label": "OnionShare має ліцензію GPL v3.<br>Ліцензії третіх сторін можна переглянути тут:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "OnionShare має ліцензію GPL v3.<br>Ліцензії третіх сторін можна переглянути тут:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_true": "Так",
+    "gui_settings_false": "Ні",
+    "gui_alert_button_cancel": "Скасувати",
+    "gui_alert_button_close": "Закрити",
+    "gui_alert_button_yes": "Так",
+    "gui_alert_button_no": "Ні",
+    "gui_alert_button_ok": "Гаразд"
 }

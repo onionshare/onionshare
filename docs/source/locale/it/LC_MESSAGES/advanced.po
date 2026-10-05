@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
-"PO-Revision-Date: 2025-04-09 08:06+0000\n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
+"PO-Revision-Date: 2026-09-23 10:55+0000\n"
 "Last-Translator: Lupo Cosentino <boots-bounce-hazy@duck.com>\n"
 "Language-Team: it <LL@li.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: ../../source/advanced.rst:2
@@ -199,10 +199,6 @@ msgstr ""
 "la versione CLI."
 
 #: ../../source/advanced.rst:77
-#, fuzzy
-#| msgid ""
-#| "You can install just the command-line version of OnionShare using "
-#| "``pip3``::"
 msgid ""
 "Alternatively, you can install just the command-line version of OnionShare "
 "using ``pip3``::"
@@ -238,8 +234,8 @@ msgstr "Esecuzione della CLI da Snap"
 
 #: ../../source/advanced.rst:92
 msgid ""
-"If you installed OnionShare using the Snap package, you can run ``onionshare."
-"cli`` to access the command-line interface version."
+"If you installed OnionShare using the Snap package, you can run "
+"``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "Se si è installato OnionShare utilizzando il pacchetto Snap, è possibile "
 "eseguire ``onionshare.cli`` per accedere alla versione con interfaccia a "
@@ -274,7 +270,6 @@ msgid "Usage"
 msgstr "Utilizzo"
 
 #: ../../source/advanced.rst:107
-#, fuzzy
 msgid ""
 "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
@@ -327,9 +322,9 @@ msgid ""
 "user/.config/onionshare/persistent/my-persistent-onion.json``, that looks "
 "like this::"
 msgstr ""
-"Si noti la sezione “persistent_tabs”. Ora creeremo un file in ``/home/user/"
-".config/onionshare/persistent/my-persistent-onion.json``, che assomiglia a "
-"questo::"
+"Si noti la sezione “persistent_tabs”. Ora creeremo un file in ``/home/"
+"user/.config/onionshare/persistent/my-persistent-onion.json``, che "
+"assomiglia a questo::"
 
 #: ../../source/advanced.rst:247
 msgid ""
@@ -352,8 +347,8 @@ msgstr ""
 "Il modo più semplice per generare l'indirizzo e la chiave privata di Onion è "
 "quello di creare una scheda OnionShare “appuntata” nell'applicazione desktop "
 "e avviare la condivisione per la prima volta. In questo modo le impostazioni "
-"persistenti saranno salvate nella cartella ``.config/onionshare/persistent/``"
-" con un nome casuale. È possibile rimuovere la scheda dopo averla generata "
+"persistenti saranno salvate nella cartella ``.config/onionshare/persistent/"
+"`` con un nome casuale. È possibile rimuovere la scheda dopo averla generata "
 "la prima volta. Oppure, si può lasciarla dov'è e usare quel file persistente "
 "nel file dell'unità systemd sottostante."
 
@@ -405,9 +400,9 @@ msgid ""
 "If you don't want your users to use a Private Key, set ``public`` to be "
 "``true`` in the ``general`` settings of the my-persistent-onion.json file."
 msgstr ""
-"Se non si vuole che gli utenti usino una chiave privata, impostare ``public``"
-" come ``true`` nelle impostazioni ``general`` del file my-persistent-"
-"onion.json."
+"Se non si vuole che gli utenti usino una chiave privata, impostare "
+"``public`` come ``true`` nelle impostazioni ``general`` del file my-"
+"persistent-onion.json."
 
 #: ../../source/advanced.rst:286
 msgid "Keyboard Shortcuts"
@@ -448,17 +443,14 @@ msgstr ""
 "sul nuovo computer la cartella relativa al sistema operativo in uso:"
 
 #: ../../source/advanced.rst:309
-#, fuzzy
 msgid "Linux: ``~/.config/onionshare``"
 msgstr "Linux: ``~/.config/onionshare``"
 
 #: ../../source/advanced.rst:310
-#, fuzzy
 msgid "macOS: ``~/Library/Application Support/OnionShare``"
 msgstr "macOS: ``~/Library/Application Support/OnionShare``"
 
 #: ../../source/advanced.rst:311
-#, fuzzy
 msgid "Windows: ``%APPDATA%\\OnionShare``"
 msgstr "Windows: ``%APPDATA%\\OnionShare``"
 
@@ -524,7 +516,6 @@ msgstr "versione"
 #: ../../source/advanced.rst:426 ../../source/advanced.rst:430
 #: ../../source/advanced.rst:452 ../../source/advanced.rst:453
 #: ../../source/advanced.rst:465
-#, fuzzy
 msgid "``string``"
 msgstr "``string``"
 
@@ -536,7 +527,6 @@ msgstr ""
 "valore."
 
 #: ../../source/advanced.rst:325
-#, fuzzy
 msgid "connection_type"
 msgstr "connection_type"
 
@@ -546,12 +536,11 @@ msgid ""
 "'automatic' (use Tor Browser's Tor connection), 'control_port' or "
 "'socket_file'. Default: 'bundled'"
 msgstr ""
-"Il modo in cui OnionShare si connette a Tor. Le opzioni valide sono “bundled”"
-", “automatic” (usa la connessione Tor del browser Tor), ‘control_port’ o "
-"“socket_file”. Valore predefinito: ‘bundled’"
+"Il modo in cui OnionShare si connette a Tor. Le opzioni valide sono "
+"“bundled”, “automatic” (usa la connessione Tor del browser Tor), "
+"‘control_port’ o “socket_file”. Valore predefinito: ‘bundled’"
 
 #: ../../source/advanced.rst:326
-#, fuzzy
 msgid "control_port_address"
 msgstr "control_port_address"
 
@@ -564,13 +553,11 @@ msgstr ""
 "impostato su 'control_port’. Predefinito: “127.0.0.1”"
 
 #: ../../source/advanced.rst:327
-#, fuzzy
 msgid "control_port_port"
 msgstr "control_port_port"
 
 #: ../../source/advanced.rst:327 ../../source/advanced.rst:329
 #: ../../source/advanced.rst:335
-#, fuzzy
 msgid "``integer``"
 msgstr "``integer``"
 
@@ -583,7 +570,6 @@ msgstr ""
 "impostato su 'control_port'. Predefinito: '9051'"
 
 #: ../../source/advanced.rst:328
-#, fuzzy
 msgid "socks_address"
 msgstr "socks_address"
 
@@ -596,7 +582,6 @@ msgstr ""
 "impostato su 'control_port’. Predefinito: “9051”"
 
 #: ../../source/advanced.rst:329
-#, fuzzy
 msgid "socks_port"
 msgstr "socks_port"
 
@@ -609,7 +594,6 @@ msgstr ""
 "impostato su 'control_port’ o 'socket_file'. Predefinito: ''9050'"
 
 #: ../../source/advanced.rst:330
-#, fuzzy
 msgid "socket_file_path"
 msgstr "socket_file_path"
 
@@ -622,7 +606,6 @@ msgstr ""
 "'socket_file’. Predefinito: “/var/run/tor/control”"
 
 #: ../../source/advanced.rst:331
-#, fuzzy
 msgid "auth_type"
 msgstr "auth_type"
 
@@ -635,7 +618,6 @@ msgstr ""
 "impostare ‘password’, altrimenti ‘no_auth’. Predefinito: “no_auth”"
 
 #: ../../source/advanced.rst:332
-#, fuzzy
 msgid "auth_password"
 msgstr "auth_password"
 
@@ -649,7 +631,6 @@ msgstr ""
 "Predefinito: ''"
 
 #: ../../source/advanced.rst:333
-#, fuzzy
 msgid "auto_connect"
 msgstr "auto_connect"
 
@@ -661,7 +642,6 @@ msgstr "auto_connect"
 #: ../../source/advanced.rst:443 ../../source/advanced.rst:454
 #: ../../source/advanced.rst:455 ../../source/advanced.rst:464
 #: ../../source/advanced.rst:466
-#, fuzzy
 msgid "``boolean``"
 msgstr "``boolean``"
 
@@ -674,7 +654,6 @@ msgstr ""
 "Predefinito: Falso"
 
 #: ../../source/advanced.rst:334
-#, fuzzy
 msgid "use_autoupdate"
 msgstr "use_autoupdate"
 
@@ -688,7 +667,6 @@ msgstr ""
 "Windows. Predefinito: Vero."
 
 #: ../../source/advanced.rst:335
-#, fuzzy
 msgid "autoupdate_timestamp"
 msgstr "autoupdate_timestamp"
 
@@ -699,7 +677,6 @@ msgstr ""
 "Nessuno"
 
 #: ../../source/advanced.rst:336
-#, fuzzy
 msgid "bridges_enabled"
 msgstr "bridges_enabled"
 
@@ -708,7 +685,6 @@ msgid "Whether to connect to Tor using bridges. Default: False"
 msgstr "Se connettersi a Tor usando i bridge. Predefinito: Falso"
 
 #: ../../source/advanced.rst:337
-#, fuzzy
 msgid "bridges_type"
 msgstr "bridges_type"
 
@@ -725,22 +701,20 @@ msgstr ""
 "forniti dall'utente). Predefinito: “integrato”"
 
 #: ../../source/advanced.rst:338
-#, fuzzy
 msgid "bridges_builtin_pt"
 msgstr "bridges_builtin_pt"
 
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
 "Quando ``bridges_type`` è impostato su “built-in”, specifica quale tipo di "
-"protocollo di bridge utilizzare. Le opzioni sono “obfs4”, “meek-azure” o "
+"protocollo di bridge utilizzare. Le opzioni sono “obfs4”, “meek” o "
 "“snowflake”. Valore predefinito: “obfs4”"
 
 #: ../../source/advanced.rst:339
-#, fuzzy
 msgid "bridges_moat"
 msgstr "bridges_moat"
 
@@ -753,7 +727,6 @@ msgstr ""
 "Moat di Tor sono memorizzati qui. Predefinito: \"\""
 
 #: ../../source/advanced.rst:340
-#, fuzzy
 msgid "bridges_custom"
 msgstr "bridges_custom"
 
@@ -765,16 +738,13 @@ msgid ""
 msgstr ""
 "Quando ``bridges_type`` è impostato su \"custom\", i ponti specificati "
 "dall'utente sono memorizzati qui. Separare ogni riga di ponte nella stringa "
-"con '\\n"
-"'. Predefinito: \"\""
+"con '\\n'. Predefinito: \"\""
 
 #: ../../source/advanced.rst:341
-#, fuzzy
 msgid "bridges_builtin"
 msgstr "bridges_builtin"
 
 #: ../../source/advanced.rst:341
-#, fuzzy
 msgid "``dict``"
 msgstr "``dict``"
 
@@ -788,13 +758,11 @@ msgstr ""
 "{}"
 
 #: ../../source/advanced.rst:342
-#, fuzzy
 msgid "persistent_tabs"
 msgstr "persistent_tabs"
 
 #: ../../source/advanced.rst:342 ../../source/advanced.rst:442
 #: ../../source/advanced.rst:467
-#, fuzzy
 msgid "``list``"
 msgstr "``list``"
 
@@ -808,14 +776,13 @@ msgid ""
 "'persistent'. Default: []"
 msgstr ""
 "Se l'utente ha definito alcune schede come “salvate” (nel senso che sono "
-"persistenti a ogni avvio di OnionShare e il loro indirizzo onion non cambia)"
-", a queste viene assegnato un identificatore casuale che viene elencato qui. "
-"La cipolla persistente viene memorizzata come file JSON con lo stesso nome "
-"di questo identificatore, in una sottocartella della cartella di "
+"persistenti a ogni avvio di OnionShare e il loro indirizzo onion non "
+"cambia), a queste viene assegnato un identificatore casuale che viene "
+"elencato qui. La cipolla persistente viene memorizzata come file JSON con lo "
+"stesso nome di questo identificatore, in una sottocartella della cartella di "
 "configurazione di OnionShare chiamata “persistente”. Predefinito: []"
 
 #: ../../source/advanced.rst:343
-#, fuzzy
 msgid "locale"
 msgstr "locale"
 
@@ -838,8 +805,8 @@ msgid ""
 "The theme for the OnionShare desktop app. Valid options are 0 (automatically "
 "detect the user's computer's light or dark theme), 1 (light) or 2 (dark)."
 msgstr ""
-"Il tema dell'applicazione desktop di OnionShare. Le opzioni valide sono 0 ("
-"rileva automaticamente il tema chiaro o scuro del computer dell'utente), 1 "
+"Il tema dell'applicazione desktop di OnionShare. Le opzioni valide sono 0 "
+"(rileva automaticamente il tema chiaro o scuro del computer dell'utente), 1 "
 "(chiaro) o 2 (scuro)."
 
 #: ../../source/advanced.rst:349
@@ -869,12 +836,10 @@ msgstr ""
 "cipolla persistente e il loro significato, per ogni sezione del JSON"
 
 #: ../../source/advanced.rst:399
-#, fuzzy
 msgid "onion"
 msgstr "onion"
 
 #: ../../source/advanced.rst:404
-#, fuzzy
 msgid "private_key"
 msgstr "private_key"
 
@@ -883,7 +848,6 @@ msgid "Base64-encoded private key of the onion service"
 msgstr "Chiave privata del servizio onion codificata in base64"
 
 #: ../../source/advanced.rst:405
-#, fuzzy
 msgid "client_auth_priv_key"
 msgstr "client_auth_priv_key"
 
@@ -895,7 +859,6 @@ msgstr ""
 "all'utente."
 
 #: ../../source/advanced.rst:406
-#, fuzzy
 msgid "client_auth_pub_key"
 msgstr "client_auth_pub_key"
 
@@ -907,12 +870,10 @@ msgstr ""
 "Utilizzata da OnionShare."
 
 #: ../../source/advanced.rst:410
-#, fuzzy
 msgid "persistent"
 msgstr "persistent"
 
 #: ../../source/advanced.rst:415
-#, fuzzy
 msgid "mode"
 msgstr "mode"
 
@@ -925,7 +886,6 @@ msgstr ""
 "“condividere”, ‘ricevere’, “sito web” o “chat”."
 
 #: ../../source/advanced.rst:416
-#, fuzzy
 msgid "enabled"
 msgstr "enabled"
 
@@ -939,7 +899,6 @@ msgstr ""
 "cancellato. Predefinito: true"
 
 #: ../../source/advanced.rst:417
-#, fuzzy
 msgid "autostart_on_launch"
 msgstr "autostart_on_launch"
 
@@ -952,12 +911,10 @@ msgstr ""
 "OnionShare e una volta che Tor è connesso. Predefinito: false"
 
 #: ../../source/advanced.rst:421
-#, fuzzy
 msgid "general"
 msgstr "general"
 
 #: ../../source/advanced.rst:426
-#, fuzzy
 msgid "title"
 msgstr "title"
 
@@ -970,7 +927,6 @@ msgstr ""
 "Predefinito: null (“OnionShare” sarà mostrato al suo posto)"
 
 #: ../../source/advanced.rst:427
-#, fuzzy
 msgid "public"
 msgstr "public"
 
@@ -979,12 +935,11 @@ msgid ""
 "Whether the onion service can be accessed with or without a Private Key "
 "(Client Authentication). If true, no Private Key is required."
 msgstr ""
-"Se si può accedere al servizio onion con o senza chiave privata ("
-"autenticazione del cliente). Se è vero, non è necessaria alcuna chiave "
+"Se si può accedere al servizio onion con o senza chiave privata "
+"(autenticazione del cliente). Se è vero, non è necessaria alcuna chiave "
 "privata."
 
 #: ../../source/advanced.rst:428
-#, fuzzy
 msgid "autostart_timer"
 msgstr "autostart_timer"
 
@@ -999,7 +954,6 @@ msgstr ""
 "``--auto-start-timer`` con lo strumento CLI. Predefinito: false"
 
 #: ../../source/advanced.rst:429
-#, fuzzy
 msgid "autostop_timer"
 msgstr "autostop_timer"
 
@@ -1014,14 +968,13 @@ msgstr ""
 "secondi con ``--auto-stop-timer`` con lo strumento CLI. Predefinito: false"
 
 #: ../../source/advanced.rst:430
-#, fuzzy
 msgid "service_id"
 msgstr "service_id"
 
 #: ../../source/advanced.rst:430
 msgid ""
-"The 32-character onion service URL, without the scheme and without the '."
-"onion' suffix."
+"The 32-character onion service URL, without the scheme and without the "
+"'.onion' suffix."
 msgstr ""
 "L'URL del servizio onion a 32 caratteri, senza lo schema e senza il suffisso "
 "‘.onion’."
@@ -1035,12 +988,10 @@ msgstr ""
 "sezione ``persistente`` di cui sopra."
 
 #: ../../source/advanced.rst:436
-#, fuzzy
 msgid "share"
 msgstr "share"
 
 #: ../../source/advanced.rst:441
-#, fuzzy
 msgid "autostop_sharing"
 msgstr "autostop_sharing"
 
@@ -1053,7 +1004,6 @@ msgstr ""
 "stati scaricati per la prima volta. Predefinito: true"
 
 #: ../../source/advanced.rst:442 ../../source/advanced.rst:467
-#, fuzzy
 msgid "filenames"
 msgstr "filenames"
 
@@ -1062,7 +1012,6 @@ msgid "A list of files to share. Default: []"
 msgstr "Un elenco di file da condividere. Predefinito: []"
 
 #: ../../source/advanced.rst:443 ../../source/advanced.rst:466
-#, fuzzy
 msgid "log_filenames"
 msgstr "log_filenames"
 
@@ -1074,12 +1023,10 @@ msgstr ""
 "Predefinito: false"
 
 #: ../../source/advanced.rst:447
-#, fuzzy
 msgid "receive"
 msgstr "receive"
 
 #: ../../source/advanced.rst:452
-#, fuzzy
 msgid "data_dir"
 msgstr "data_dir"
 
@@ -1093,7 +1040,6 @@ msgstr ""
 "dell'utente."
 
 #: ../../source/advanced.rst:453
-#, fuzzy
 msgid "webhook_url"
 msgstr "webhook_url"
 
@@ -1106,7 +1052,6 @@ msgstr ""
 "messaggi di testo. Predefinito: null"
 
 #: ../../source/advanced.rst:454
-#, fuzzy
 msgid "disable_text"
 msgstr "disable_text"
 
@@ -1115,7 +1060,6 @@ msgid "Whether to disable receiving text messages. Default: false"
 msgstr "Disabilita la ricezione dei messaggi di testo. Predefinito: falso"
 
 #: ../../source/advanced.rst:455
-#, fuzzy
 msgid "disable_files"
 msgstr "disable_files"
 
@@ -1124,12 +1068,10 @@ msgid "Whether to disable receiving files. Default: false"
 msgstr "Disabilita la ricezione dei file. Predefinito: falso"
 
 #: ../../source/advanced.rst:459
-#, fuzzy
 msgid "website"
 msgstr "website"
 
 #: ../../source/advanced.rst:464
-#, fuzzy
 msgid "disable_csp"
 msgstr "disable_csp"
 
@@ -1143,7 +1085,6 @@ msgstr ""
 "``false``"
 
 #: ../../source/advanced.rst:465
-#, fuzzy
 msgid "custom_csp"
 msgstr "custom_csp"
 
@@ -1154,7 +1095,6 @@ msgstr ""
 "inviare al posto di quella predefinita."
 
 #: ../../source/advanced.rst:471
-#, fuzzy
 msgid "chat"
 msgstr "chat"
 
@@ -1221,11 +1161,11 @@ msgstr ""
 #~ msgstr ""
 #~ "Per utilizzare gli indirizzi legacy, prima di avviare un server fai clic "
 #~ "su \"Mostra impostazioni avanzate\" dalla relativa scheda e seleziona la "
-#~ "casella \"Utilizza un indirizzo legacy (servizio onion v2, "
-#~ "sconsigliato)\". Nella modalità legacy puoi facoltativamente attivare "
-#~ "l'autenticazione del client Tor. Una volta avviato un server in modalità "
-#~ "legacy, non è possibile rimuovere la modalità legacy in quella scheda. "
-#~ "Invece è necessario avviare un servizio separato in una scheda separata."
+#~ "casella \"Utilizza un indirizzo legacy (servizio onion v2, sconsigliato)"
+#~ "\". Nella modalità legacy puoi facoltativamente attivare l'autenticazione "
+#~ "del client Tor. Una volta avviato un server in modalità legacy, non è "
+#~ "possibile rimuovere la modalità legacy in quella scheda. Invece è "
+#~ "necessario avviare un servizio separato in una scheda separata."
 
 #~ msgid ""
 #~ "Tor Project plans to `completely deprecate v2 onion services <https://"

@@ -300,9 +300,7 @@ class ShareModeWeb(SendBaseModeWeb):
 
         return range_, status_code
 
-    def generate(
-        self, range_, file_to_download, path, history_id, filesize
-    ):
+    def generate(self, range_, file_to_download, path, history_id, filesize):
         # The user hasn't canceled the download
         self.client_cancel = False
 
@@ -349,7 +347,9 @@ class ShareModeWeb(SendBaseModeWeb):
                         if self.web.settings.get("share", "log_filenames"):
                             # Decode and sanitize the path to remove newlines
                             decoded_path = unquote(path)
-                            decoded_path = decoded_path.replace("\r", "").replace("\n", "")
+                            decoded_path = decoded_path.replace("\r", "").replace(
+                                "\n", ""
+                            )
                             filename_str = f"{decoded_path} - "
                         else:
                             filename_str = ""
@@ -576,6 +576,12 @@ class ZipWriter(object):
         """
         Add a file to the zip archive.
         """
+        # Skip symlinks
+        if os.path.islink(filename):
+            return
+        # Verify the file is within selected roots (symlink safety check)
+        if self.web and not self.web.share_mode._is_path_contained(filename):
+            return
         self.z.write(filename, os.path.basename(filename), zipfile.ZIP_DEFLATED)
         self._size += os.path.getsize(filename)
         self.processed_size_callback(self._size)
@@ -585,18 +591,23 @@ class ZipWriter(object):
         Add a directory, and all of its children, to the zip archive.
         """
         dir_to_strip = os.path.dirname(filename.rstrip("/")) + "/"
-        for dirpath, dirnames, filenames in os.walk(filename):
+        for dirpath, dirnames, filenames in os.walk(filename, followlinks=False):
             for f in filenames:
                 # Canceling early?
                 if self.cancel_compression:
                     return False
 
                 full_filename = os.path.join(dirpath, f)
-                if not os.path.islink(full_filename):
-                    arc_filename = full_filename[len(dir_to_strip) :]
-                    self.z.write(full_filename, arc_filename, zipfile.ZIP_DEFLATED)
-                    self._size += os.path.getsize(full_filename)
-                    self.processed_size_callback(self._size)
+                # Skip symlinks
+                if os.path.islink(full_filename):
+                    continue
+                # Verify the file is within selected roots
+                if self.web and not self.web.share_mode._is_path_contained(full_filename):
+                    continue
+                arc_filename = full_filename[len(dir_to_strip) :]
+                self.z.write(full_filename, arc_filename, zipfile.ZIP_DEFLATED)
+                self._size += os.path.getsize(full_filename)
+                self.processed_size_callback(self._size)
 
         return True
 

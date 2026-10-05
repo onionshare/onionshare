@@ -2,11 +2,13 @@
 app-id: org.onionshare.OnionShare
 command: onionshare
 runtime: org.kde.Platform
-runtime-version: "6.8"
+runtime-version: "6.10"
 sdk: org.kde.Sdk
+base: io.qt.PySide.BaseApp
+base-version: "6.8"
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
-  - org.freedesktop.Sdk.Extension.llvm19
+  - org.freedesktop.Sdk.Extension.llvm22
 separate-locales: false
 finish-args:
   - "--device=dri"
@@ -17,56 +19,16 @@ finish-args:
   - "--talk-name=org.freedesktop.Notifications"
   - "--talk-name=org.freedesktop.secrets"
   - "--filesystem=~/OnionShare:create"
+build-options:
+  env:
+    - BASEAPP_REMOVE_WEBENGINE=1
+    - BASEAPP_DISABLE_NUMPY=1
 cleanup:
   - "/go"
   - "/bin/scripts"
+cleanup-commands:
+  - /app/cleanup-BaseApp.sh
 modules:
-  - name: pyside6
-    buildsystem: simple
-    build-commands: []
-    modules:
-      - name: pyside6-essentials
-        only-arches:
-          - x86_64
-        buildsystem: simple
-        build-commands:
-          - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-            --prefix=${FLATPAK_DEST} "pyside6-essentials" --no-build-isolation
-        sources:
-          - type: file
-            url: https://files.pythonhosted.org/packages/d2/f9/aa4ff511ff1f3dd177f7e8f5a635e03fe578fa2045c8d6be4577e7db3b28/PySide6_Essentials-6.8.2.1-cp39-abi3-manylinux_2_28_x86_64.whl
-            sha256: 5ab31e5395a4724102edd6e8ff980fa3f7cde2aa79050763a1dcc30bb914195a
-        modules:
-          - name: shiboken6
-            buildsystem: simple
-            build-commands:
-              - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-                --prefix=${FLATPAK_DEST} "shiboken6" --no-build-isolation
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/7b/ff/ab4f287b9573e50b5a47c10e2af8feb5abecc3c7431bd5deec135efc969e/shiboken6-6.8.2.1-cp39-abi3-manylinux_2_28_x86_64.whl
-                sha256: c83e90056f13d0872cc4d2b7bf60b6d6e3b1b172f1f91910c0ba5b641af01758
-      - name: pyside6-essentials-aarch64
-        only-arches:
-          - aarch64
-        buildsystem: simple
-        build-commands:
-          - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-            --prefix=${FLATPAK_DEST} "pyside6-essentials" --no-build-isolation
-        sources:
-          - type: file
-            url: https://files.pythonhosted.org/packages/fd/69/595002d860ee58431fe7add081d6f54fff94ae9680f2eb8cd355c1649bb6/PySide6_Essentials-6.8.2.1-cp39-abi3-manylinux_2_39_aarch64.whl
-            sha256: 7aed46f91d44399b4c713cf7387f5fb6f0114413fbcdbde493a528fb8e19f6ed
-        modules:
-          - name: shiboken6
-            buildsystem: simple
-            build-commands:
-              - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-                --prefix=${FLATPAK_DEST} "shiboken6" --no-build-isolation
-            sources:
-              - type: file
-                url: https://files.pythonhosted.org/packages/a6/b0/4fb102eb5260ee06d379769f3c4f0b82ef397c15f1cbbbbb3f6dceb86d5d/shiboken6-6.8.2.1-cp39-abi3-manylinux_2_39_aarch64.whl
-                sha256: 8592401423acc693f51dbbfae5e7493cc3ed6738be79daaf90afa07f4da5bb25
   - name: snowflake-client
     buildsystem: simple
     build-options:
@@ -80,7 +42,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
-        tag: v2.10.1
+        tag: v2.13.1
       - snowflake/go.mod.yml
   - name: obfs4proxy
     buildsystem: simple
@@ -116,8 +78,8 @@ modules:
     buildsystem: autotools
     sources:
       - type: archive
-        sha256: 5047e1ded12d9aac4eb858f7634a627714dd58ce99053d517691a4b304a66d10
-        url: https://dist.torproject.org/tor-0.4.8.14.tar.gz
+        sha256: 5e748d3272cdf44a7d7741173f371c8def3d96eecb77e93c89c50663ce9cc792
+        url: https://dist.torproject.org/tor-0.4.9.13.tar.gz
     modules:
       - name: libevent
         buildsystem: autotools
@@ -131,13 +93,19 @@ modules:
       - easy-install.pth
     build-commands:
       - rm desktop/pyproject.toml
-      - cd desktop && pip3 install --prefix=${FLATPAK_DEST} .
+      - export PIP_NO_INDEX=1 PIP_FIND_LINKS="file://${PWD}" && cd desktop && pip3 install --prefix=${FLATPAK_DEST} --no-deps --use-pep517 --no-index --find-links="${PIP_FIND_LINKS}" .
       - cd desktop && install -D -m0644 org.onionshare.OnionShare.appdata.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.appdata.xml
       - cd desktop && install -D -m0644 org.onionshare.OnionShare.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/org.onionshare.OnionShare.svg
       - cd desktop && install -D -m0644 org.onionshare.OnionShare.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
     sources:
       - type: dir
         path: ..
+      - type: file
+        url: https://files.pythonhosted.org/packages/94/b8/f1f62a5e3c0ad2ff1d189590bfa4c46b4f3b6e49cef6f26c6ee4e575394d/setuptools-80.10.2-py3-none-any.whl
+        sha256: 95b30ddfb717250edb492926c92b5221f7ef3fbcc2b07579bcd4a27da21d0173
+      - type: file
+        url: https://files.pythonhosted.org/packages/fa/7f/4c07234086edbce4a0a446209dc0cb08a19bb206a3ea53b2f56a403f983b/wheel-0.41.3-py3-none-any.whl
+        sha256: 488609bc63a29322326e05560731bf7bfea8e48ad646e1f5e40d366607de0942
       # - type: git
       #   url: https://github.com/onionshare/onionshare.git
       #   tag: v2.6.3
@@ -147,10 +115,16 @@ modules:
         buildsystem: simple
         build-commands:
           - rm cli/pyproject.toml
-          - cd cli && pip3 install --prefix=${FLATPAK_DEST} --no-deps .
+          - export PIP_NO_INDEX=1 PIP_FIND_LINKS="file://${PWD}" && cd cli && pip3 install --prefix=${FLATPAK_DEST} --no-deps --use-pep517 --no-index --find-links="${PIP_FIND_LINKS}" .
         sources:
           - type: dir
             path: ..
+          - type: file
+            url: https://files.pythonhosted.org/packages/94/b8/f1f62a5e3c0ad2ff1d189590bfa4c46b4f3b6e49cef6f26c6ee4e575394d/setuptools-80.10.2-py3-none-any.whl
+            sha256: 95b30ddfb717250edb492926c92b5221f7ef3fbcc2b07579bcd4a27da21d0173
+          - type: file
+            url: https://files.pythonhosted.org/packages/fa/7f/4c07234086edbce4a0a446209dc0cb08a19bb206a3ea53b2f56a403f983b/wheel-0.41.3-py3-none-any.whl
+            sha256: 488609bc63a29322326e05560731bf7bfea8e48ad646e1f5e40d366607de0942
         #   - type: git
         #     url: https://github.com/onionshare/onionshare.git
         #     tag: v2.6.3

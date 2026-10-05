@@ -45,7 +45,7 @@
     "gui_settings_authenticate_password_option": "Lozinka",
     "gui_settings_password_label": "Lozinka",
     "gui_settings_tor_bridges": "Povezati se pomoću Torovog mosta?",
-    "gui_settings_meek_lite_expensive_warning": "Upozorenje: meek_lite mostovi troše velike količine resursa za pokretanje Tor projekta.<br><br>Koristi ih samo ako se ne možeš povezati s Torom direktno putem obfs4 prijenosa ili drugih normalnih mostova.",
+    "gui_settings_meek_expensive_warning": "Upozorenje: meek_lite mostovi troše velike količine resursa za pokretanje Tor projekta.<br><br>Koristi ih samo ako se ne možeš povezati s Torom direktno putem obfs4 prijenosa ili drugih normalnih mostova.",
     "gui_settings_tor_bridges_invalid": "Nijedan od dodanih mostova ne funkcionira. Provjeri ih ili dodaj druge.",
     "gui_settings_button_save": "Spremi",
     "gui_settings_button_cancel": "Odustani",
@@ -255,5 +255,12 @@
     "gui_dragdrop_sandbox_flatpak": "Kako bi Flatpak sandbox bio sigurniji, funkcija povlačenja i ispuštanja nije podržana. Umjesto toga koristi gumbe „Dodaj datoteke” i „Dodaj mapu” za biranje datoteka.",
     "gui_close_tab_warning_chat_description": "Zatvoriti karticu koja hostira server za razgovore?",
     "gui_chat_mode_explainer": "Modus razgovora omogućuje interaktivni razgovor s drugima u Tor pregledniku.<br><br><b>Povijest razgovora se ne sprema u OnionShareu. Povijest razgovora će nestati kada zatvoriš Tor preglednik.</b>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "Automatski pokreni ovu onion uslugu kad se pokrene OnionShare"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Automatski pokreni ovu onion uslugu kad se pokrene OnionShare",
+    "gui_settings_true": "Da",
+    "gui_settings_false": "Ne",
+    "gui_alert_button_cancel": "Odustani",
+    "gui_alert_button_close": "Zatvori",
+    "gui_alert_button_no": "Ne",
+    "gui_alert_button_yes": "Da",
+    "gui_alert_button_ok": "U redu"
 }

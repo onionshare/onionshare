@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Senha",
     "gui_settings_password_label": "Senha",
     "gui_settings_tor_bridges": "Conectar usando uma ponte Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Aviso: as pontes meek-azure são muito custosas para o Projeto Tor.<br><br>Use-as somente se você não conseguir se conectar ao Tor diretamente, via transportadores obfs4 ou outras pontes comuns.",
+    "gui_settings_meek_expensive_warning": "Aviso: as pontes meek são muito custosas para o Projeto Tor.<br><br>Use-as somente se você não conseguir se conectar ao Tor diretamente, via transportadores obfs4 ou outras pontes comuns.",
     "gui_settings_tor_bridges_invalid": "Nenhuma das ponte adicionadas funciona. Tente usá-las de novo ou adicione outras.",
     "gui_settings_button_save": "Salvar",
     "gui_settings_button_cancel": "Cancelar",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "O modo de bate-papo permite que você converse interativamente com outras pessoas no navegador Tor.<br><br><b>O histórico de bate-papo não é armazenado no OnionShare. O histórico de bate-papo desaparecerá quando você fechar o Navegador Tor.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Iniciar automaticamente este serviço onion quando o OnionShare for iniciado",
     "error_generic": "Ocorreu um erro inesperado com o OnionShare:\n{}",
-    "gui_settings_license_label": "O OnionShare está licenciado sob a GPL v3. As licenças de terceiros podem ser visualizadas aqui:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "O OnionShare está licenciado sob a GPL v3. As licenças de terceiros podem ser visualizadas aqui:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_true": "Sim",
+    "gui_settings_false": "Não",
+    "gui_alert_button_cancel": "Cancelar",
+    "gui_alert_button_close": "Fechar",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_yes": "Sim",
+    "gui_alert_button_no": "Não"
 }

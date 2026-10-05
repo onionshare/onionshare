@@ -103,7 +103,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         self.use_bridge_widget = AutoConnectUseBridgeWidget(self.common)
         self.use_bridge_widget.connect_clicked.connect(self.use_bridge_connect_clicked)
         self.use_bridge_widget.try_again_clicked.connect(
-            self.first_launch_widget_connect_clicked
+            self.try_again_without_bridges_clicked
         )
         self.use_bridge_widget.open_tor_settings.connect(self.open_tor_settings)
         self.use_bridge_widget.hide()
@@ -167,6 +167,17 @@ class AutoConnectTab(QtWidgets.QWidget):
 
         self.tor_con.show()
         self.tor_con.start(self.curr_settings)
+
+    def try_again_without_bridges_clicked(self):
+        """
+        The "Try again without bridges" option was chosen. Disable bridges
+        in the settings, so the retry connects without attempting to bypass
+        censorship.
+        """
+        self.common.log("AutoConnectTab", "try_again_without_bridges_clicked")
+        self.curr_settings.set("bridges_enabled", False)
+        self.curr_settings.save()
+        self.first_launch_widget_connect_clicked()
 
     def _got_bridges(self):
         self.use_bridge_widget.progress.hide()
@@ -698,8 +709,8 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.detect_automatic_radio.show()
         self.detect_manual_radio.show()
 
-    def _toggle_no_bridge(self):
-        self.use_bridge = not self.use_bridge
+    def _toggle_no_bridge(self, checked):
+        self.use_bridge = not checked
 
     def _detect_automatic_toggled(self):
         self.country_combobox.setEnabled(False)
@@ -715,7 +726,6 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.connection_status_label.setText(
             strings._("gui_autoconnect_trying_to_connect_to_tor")
         )
-        print(self.use_bridge)
         if not self.use_bridge:
             self.try_again_clicked.emit()
         else:

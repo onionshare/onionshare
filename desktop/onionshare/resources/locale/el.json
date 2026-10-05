@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Κωδικός",
     "gui_settings_password_label": "Κωδικός",
     "gui_settings_tor_bridges": "Σύνδεση με χρήση γέφυρας Tor;",
-    "gui_settings_meek_lite_expensive_warning": "Προσοχή: Οι γέφυρες meek_azure επιβαρύνουν τη λειτουργία του Tor Project. <br><br> Χρησιμοποιήστε τες μόνο αν δεν μπορείτε να συνδεθείτε κατ' ευθείαν στο Tor μέσω obfs4 transports ή άλλων κανονικών γεφυρών.",
+    "gui_settings_meek_expensive_warning": "Προσοχή: Οι γέφυρες meek_azure επιβαρύνουν τη λειτουργία του Tor Project. <br><br> Χρησιμοποιήστε τες μόνο αν δεν μπορείτε να συνδεθείτε κατ' ευθείαν στο Tor μέσω obfs4 transports ή άλλων κανονικών γεφυρών.",
     "gui_settings_tor_bridges_invalid": "Καμία γέφυρα που προσθέσατε δεν λειτουργεί. Ελέγξτε ξανά ή προσθέστε άλλες.",
     "gui_settings_button_save": "Αποθήκευση",
     "gui_settings_button_cancel": "Άκυρο",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "Η λειτουργία συνομιλίας σάς επιτρέπει να συνομιλείτε διαδραστικά με άλλους, στο Tor Browser.<br><br><b>Το ιστορικό συνομιλίας δεν αποθηκεύεται στο OnionShare. Το ιστορικό συνομιλιών θα διαγραφεί όταν κλείσετε το Tor Browser.</b>",
     "error_generic": "Υπήρξε ένα απροσδόκητο σφάλμα με το OnionShare:\n{}",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Αυτόματη εκκίνηση αυτής της υπηρεσίας κρεμμυδιού όταν ξεκινάει το OnionShare",
-    "gui_settings_license_label": "Το OnionShare είναι αδειοδοτημένο σύμφωνα με τις άδειες GPL v3.<br>Third-party μπορούν να προβλεφθούν εδώ:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "Το OnionShare είναι αδειοδοτημένο σύμφωνα με τις άδειες GPL v3.<br>Third-party μπορούν να προβλεφθούν εδώ:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_true": "Ναι",
+    "gui_settings_false": "Όχι",
+    "gui_alert_button_cancel": "Άκυρο",
+    "gui_alert_button_close": "Κλείσιμο",
+    "gui_alert_button_ok": "Εντάξει",
+    "gui_alert_button_no": "Όχι",
+    "gui_alert_button_yes": "Ναι"
 }

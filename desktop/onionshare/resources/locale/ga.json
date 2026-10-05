@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Focal faire",
     "gui_settings_password_label": "Focal faire",
     "gui_settings_tor_bridges": "An bhfuil fonn ort ceangal le droichead Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Rabhadh: Tá sé an-chostasach ar Thionscadal Tor na droichid meek_lite a chur ar fáil.<br><br>Iarraimid ort gan iad a úsáid má tá tú in ann ceangal díreach a bhunú le Tor, nó trí chóras iompair obfs4, nó trí dhroichead eile.",
+    "gui_settings_meek_expensive_warning": "Rabhadh: Tá sé an-chostasach ar Thionscadal Tor na droichid meek_lite a chur ar fáil.<br><br>Iarraimid ort gan iad a úsáid má tá tú in ann ceangal díreach a bhunú le Tor, nó trí chóras iompair obfs4, nó trí dhroichead eile.",
     "gui_settings_tor_bridges_invalid": "Níl aon cheann de do chuid droichead ag obair. Seiceáil arís iad, nó bain triail as droichid eile.",
     "gui_settings_button_save": "Sábháil",
     "gui_settings_button_cancel": "Cealaigh",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "Ligeann mód comhrá duit comhrá idirghníomhach a dhéanamh le daoine eile, i mBrabhsálaí Tor.<br><br><b>Ní stóráiltear stair comhrá in OnionShare. Imeoidh an stair chomhrá nuair a dhúnann tú Brabhsálaí Tor.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Cuir tús leis an tseirbhís oinniúin seo go huathoibríoch nuair a thosaíonn OnionShare",
     "error_generic": "Tharla earráid le OnionShare gan choinne:\n{}",
-    "gui_settings_license_label": "Tá OnionShare ceadúnaithe faoin GPL v3.<br>Is féidir ceadúnais tríú páirtí a fheiceáil anseo:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'> https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "Tá OnionShare ceadúnaithe faoin GPL v3.<br>Is féidir ceadúnais tríú páirtí a fheiceáil anseo:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'> https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_true": "Tá",
+    "gui_settings_false": "Ní hea",
+    "gui_alert_button_no": "Níl",
+    "gui_alert_button_yes": "Tá",
+    "gui_alert_button_close": "Dún",
+    "gui_alert_button_cancel": "Cealaigh",
+    "gui_alert_button_ok": "Ceart go leor"
 }

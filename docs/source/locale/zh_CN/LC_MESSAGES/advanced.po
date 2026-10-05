@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2025-02-17 18:26+0000\n"
 "Last-Translator: Sketch6580 <sketch6580@users.noreply.hosted.weblate.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -204,8 +204,8 @@ msgstr "从 Snap 运行 CLI"
 
 #: ../../source/advanced.rst:92
 msgid ""
-"If you installed OnionShare using the Snap package, you can run ``onionshare."
-"cli`` to access the command-line interface version."
+"If you installed OnionShare using the Snap package, you can run "
+"``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "如果使用 Snap 软件包安装了 OnionShare，可以运行 ``onionshare.cli`` 来访问命令"
 "行界面版本。"
@@ -640,11 +640,11 @@ msgstr "bridges_builtin_pt"
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
 "当 ``bridges_type`` 设置为 \"built-in\" 时，这指定了要使用哪种类型的网桥协"
-"议。选项有 \"obfs4\"、\"meek-azure\" 或 \"snowflake\"。默认：\"obfs4\""
+"议。选项有 \"obfs4\"、\"meek\" 或 \"snowflake\"。默认：\"obfs4\""
 
 #: ../../source/advanced.rst:339
 msgid "bridges_moat"
@@ -883,8 +883,8 @@ msgstr "service_id"
 
 #: ../../source/advanced.rst:430
 msgid ""
-"The 32-character onion service URL, without the scheme and without the '."
-"onion' suffix."
+"The 32-character onion service URL, without the scheme and without the "
+"'.onion' suffix."
 msgstr "32 个字符的洋葱服务 URL，没有方案，也没有 '.onion' 后缀。"
 
 #: ../../source/advanced.rst:433

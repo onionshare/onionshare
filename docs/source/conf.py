@@ -1,6 +1,6 @@
 project = "OnionShare"
 author = copyright = "Micah Lee, et al."
-version = release = "2.6.3"
+version = release = "2.6.5"
 
 extensions = ["sphinx_rtd_theme"]
 templates_path = ["_templates"]
@@ -14,15 +14,19 @@ languages = [
     ("Deutsch", "de"),  # German
     ("Ελληνικά", "el"),  # Greek
     ("Gaeilge", "ga"),  # Irish
+    ("Italiano", "it"),  # Italian
     ("日本語", "ja"),  # Japanese
+    ("فارسی", "fa"),  # Persian
     ("Polish", "pl"),  # Polish
     ("Русский", "ru"),  # Russian
     ("Español", "es"),  # Spanish
+    ("Svenska", "sv"),  # Swedish
     ("Türkçe", "tr"),  # Turkish
     ("Українська", "uk"),  # Ukrainian
+    ("Tiếng Việt", "vi"),  # Vietnamese
 ]
 
-versions = ["2.3", "2.3.1", "2.3.2", "2.3.3", "2.4", "2.5", "2.6", "2.6.1", "2.6.2", "2.6.3"]
+versions = ["2.3", "2.3.1", "2.3.2", "2.3.3", "2.4", "2.5", "2.6", "2.6.1", "2.6.2", "2.6.3", "2.6.4"]
 
 html_theme = "sphinx_rtd_theme"
 html_logo = "_static/logo.png"

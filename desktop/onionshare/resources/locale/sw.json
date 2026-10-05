@@ -44,7 +44,7 @@
     "gui_settings_authenticate_password_option": "neno la siri",
     "gui_settings_password_label": "neno siri",
     "gui_settings_tor_bridges": "Unganisha kwa kutumia kiungio cha Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Onyo: Hizi viungio vya meek- azure ni gharama sana kwa Tor Project kuendeshea. <br><br> unaweza tu kutumia endapo umeshindwa kuunganisha moja kwa moja, kupitia usafirishwaji, au kutumia viungio.",
+    "gui_settings_meek_expensive_warning": "Onyo: Hizi viungio vya meek- azure ni gharama sana kwa Tor Project kuendeshea. <br><br> unaweza tu kutumia endapo umeshindwa kuunganisha moja kwa moja, kupitia usafirishwaji, au kutumia viungio.",
     "gui_settings_tor_bridges_invalid": "Hakuna kiungio ulichoongeza kinafanya kazi. bofya mara mbili au ongeza kingine.",
     "gui_settings_button_save": "Hifadhi",
     "gui_settings_button_cancel": "Sitisha",
@@ -251,5 +251,12 @@
     "moat_captcha_placeholder": "Weka wahusika kutoka kwa picha",
     "moat_captcha_reload": "Pakia upya",
     "moat_captcha_submit": "Wasilisha",
-    "moat_bridgedb_error": "Haikuweza kuwasiliana na BridgeD."
+    "moat_bridgedb_error": "Haikuweza kuwasiliana na BridgeD.",
+    "gui_settings_true": "Ndio",
+    "gui_settings_false": "Hapana",
+    "gui_alert_button_close": "Funga",
+    "gui_alert_button_yes": "Ndio",
+    "gui_alert_button_no": "Hapana",
+    "gui_alert_button_cancel": "Ondoa",
+    "gui_alert_button_ok": "Kubali"
 }

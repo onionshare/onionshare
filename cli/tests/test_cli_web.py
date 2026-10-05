@@ -1,7 +1,6 @@
 import os
 import random
 import re
-import socket
 import subprocess
 import time
 import zipfile
@@ -13,10 +12,11 @@ from io import BytesIO
 
 import pytest
 from contextlib import contextmanager
-from multiprocessing import Process
+from threading import Thread
 from urllib.request import urlopen, Request
 from werkzeug.datastructures import Headers
 from werkzeug.exceptions import RequestedRangeNotSatisfiable
+from werkzeug.serving import make_server
 
 from onionshare_cli.common import Common
 from onionshare_cli.web import Web
@@ -139,6 +139,24 @@ class TestWeb:
             res.get_data()
             assert res.status_code == 200
 
+    def test_receive_mode_page_has_upload_ui(self, temp_dir, common_obj):
+        """
+        The receive index page must include the #uploads container and the
+        receive.js script reference. The JS upload-progress UX (including the
+        indeterminate progress bar and the Tor-traversal warning added in
+        issue #1876) is appended into #uploads at runtime; if either element
+        is missing the warning will silently never appear.
+        """
+        web = web_obj(temp_dir, common_obj, "receive")
+        with web.app.test_client() as c:
+            res = c.get("/")
+            html = res.get_data(as_text=True)
+            assert res.status_code == 200
+            # Container where JS appends upload-progress divs
+            assert 'id="uploads"' in html
+            # Script that drives the upload progress UX
+            assert "receive.js" in html
+
     def test_receive_mode_webhook(self, temp_dir, common_obj):
         global webhook_url, webhook_data
         webhook_url = None
@@ -257,6 +275,7 @@ class TestWeb:
 
         # Date folder should have just a time folder with new_york.jpg
         data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
+        print(data_dir_date)
         filenames = os.listdir(data_dir_date)
         assert len(filenames) == 1
         time_str = filenames[0][0:12]
@@ -287,10 +306,9 @@ class TestWeb:
             assert res.status_code == 200
             assert b"Nothing submitted" in content
 
-        # Date folder should be empty
-        data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
-        filenames = os.listdir(data_dir_date)
-        assert len(filenames) == 0
+        # There should be no receive date directory
+        data_dir_date = os.listdir(data_dir)
+        assert len(data_dir_date) == 0
 
         shutil.rmtree(data_dir)
 
@@ -394,35 +412,31 @@ def check_unsupported(cmd: str, args: list):
 
 @contextmanager
 def live_server(web):
-    s = socket.socket()
-    s.bind(("localhost", 0))
-    port = s.getsockname()[1]
-    s.close()
-
-    def run():
-        web.app.run(host="127.0.0.1", port=port, debug=False)
-
-    proc = Process(target=run)
-    proc.start()
+    server = make_server("127.0.0.1", 0, web.app)
+    port = server.socket.getsockname()[1]
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
 
     url = "http://127.0.0.1:{}".format(port)
     req = Request(url)
 
-    attempts = 20
-    while True:
-        try:
-            urlopen(req)
-            break
-        except Exception:
-            attempts -= 1
-            if attempts > 0:
-                time.sleep(0.5)
-            else:
-                raise
+    try:
+        attempts = 20
+        while True:
+            try:
+                urlopen(req)
+                break
+            except Exception:
+                attempts -= 1
+                if attempts > 0:
+                    time.sleep(0.5)
+                else:
+                    raise
 
-    yield url + "/download"
-
-    proc.terminate()
+        yield url + "/download"
+    finally:
+        server.shutdown()
+        thread.join(timeout=5)
 
 
 class TestRangeRequests:

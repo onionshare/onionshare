@@ -80,7 +80,7 @@
     "gui_settings_authenticate_no_auth_option": "Sin autenticación, o autenticación por cookies",
     "gui_settings_authenticate_password_option": "Contraseña",
     "gui_settings_password_label": "Contraseña",
-    "gui_settings_meek_lite_expensive_warning": "Advertencia: Los puentes meek-azure son muy costosos de mantener para el Proyecto Tor.<br><br>Utilízalos solo si no puedes conectarte a Tor directamente, a través de transportes obfs4 u otros puentes normales.",
+    "gui_settings_meek_expensive_warning": "Advertencia: Los puentes meek son muy costosos de mantener para el Proyecto Tor.<br><br>Utilízalos solo si no puedes conectarte a Tor directamente, a través de transportes obfs4 u otros puentes normales.",
     "gui_settings_button_save": "Guardar",
     "gui_settings_button_cancel": "Cancelar",
     "gui_settings_button_help": "Ayuda",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "El modo de chat te permite chatear de forma interactiva con otros, en el navegador Tor. <br><br><b>El historial del chat no se almacena en OnionShare. El historial de chat desaparecerá cuando cierres el navegador Tor.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Inicia automáticamente este servicio cebolla cuando arranque OnionShare",
     "error_generic": "Hubo un error inesperado con OnionShare:\n{}",
-    "gui_settings_license_label": "OnionShare tiene licencia GPL v3.<br>Las licencias de terceros se pueden consultar aquí:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "OnionShare tiene licencia GPL v3.<br>Las licencias de terceros se pueden consultar aquí:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_true": "Sí",
+    "gui_settings_false": "No",
+    "gui_alert_button_cancel": "Cancelar",
+    "gui_alert_button_close": "Cerrar",
+    "gui_alert_button_yes": "Sí",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_no": "No"
 }

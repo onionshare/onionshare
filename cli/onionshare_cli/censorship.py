@@ -144,7 +144,7 @@ class CensorshipCircumvention(object):
             )
             data = {"country": country}
         if transports:
-            data.append({"transports": transports})
+            data["transports"] = transports
         try:
             r = requests.post(
                 endpoint,

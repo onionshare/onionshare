@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2025-07-11 14:01+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: none\n"
@@ -48,11 +48,11 @@ msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
-"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
-"android"
+"Google Play: https://play.google.com/store/apps/details?"
+"id=org.onionshare.android"
 msgstr ""
-"Google Play: https://play.google.com/store/apps/"
-"details?id=org.onionshare.android"
+"Google Play: https://play.google.com/store/apps/details?"
+"id=org.onionshare.android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
@@ -96,11 +96,11 @@ msgstr ""
 
 #: ../../source/install.rst:34
 msgid ""
-"**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
-"onionshare.OnionShare"
+"**Install OnionShare using Flatpak**: https://flathub.org/apps/details/"
+"org.onionshare.OnionShare"
 msgstr ""
-"**Asebded n OnionShare s Flatpak**: https://flathub.org/apps/details/org."
-"onionshare.OnionShare"
+"**Asebded n OnionShare s Flatpak**: https://flathub.org/apps/details/"
+"org.onionshare.OnionShare"
 
 #: ../../source/install.rst:36
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
@@ -264,8 +264,8 @@ msgstr ""
 #: ../../source/install.rst:93
 msgid ""
 "For additional information and details about the FreeBSD pre-built packages, "
-"please refer to its `official Handbook section about pkg <https://docs."
-"freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
+"please refer to its `official Handbook section about pkg <https://"
+"docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
 
 #: ../../source/install.rst:96
@@ -290,8 +290,8 @@ msgstr ""
 #: ../../source/install.rst:104
 msgid ""
 "For additional information and details about the FreeBSD ports collection, "
-"please refer to its `official Handbook section about ports <https://docs."
-"freebsd.org/en/books/handbook/ports/#ports-using>`_."
+"please refer to its `official Handbook section about ports <https://"
+"docs.freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
 
 #: ../../source/install.rst:109
@@ -330,8 +330,8 @@ msgstr ""
 #: ../../source/install.rst:122
 msgid ""
 "You can download Micah's key `from the keys.openpgp.org keyserver <https://"
-"keys.openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
 
 #: ../../source/install.rst:124
@@ -346,8 +346,8 @@ msgstr ""
 #: ../../source/install.rst:126
 msgid ""
 "You can download Saptak's key `from the keys.openpgp.org keyserver <https://"
-"keys.openpgp.org/vks/v1/by-"
-"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
 
 #: ../../source/install.rst:128
@@ -356,14 +356,14 @@ msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
 msgid ""
-"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+"PGP public key fingerprint ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
 msgstr ""
 
 #: ../../source/install.rst:130
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
-"keys.openpgp.org/vks/v1/by-"
-"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_."
 msgstr ""
 
 #: ../../source/install.rst:132

@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) Micah Lee, et al.
 # This file is distributed under the same license as the OnionShare package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2025-02-17 07:32+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: none\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -48,11 +48,11 @@ msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
-"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
-"android"
+"Google Play: https://play.google.com/store/apps/details?"
+"id=org.onionshare.android"
 msgstr ""
-"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
-"android"
+"Google Play: https://play.google.com/store/apps/details?"
+"id=org.onionshare.android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
@@ -106,8 +106,8 @@ msgstr ""
 
 #: ../../source/install.rst:34
 msgid ""
-"**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
-"onionshare.OnionShare"
+"**Install OnionShare using Flatpak**: https://flathub.org/apps/details/"
+"org.onionshare.OnionShare"
 msgstr ""
 "**Instaloni OnionShare-in duke përdorur Flatpak-un**: https://flathub.org/"
 "apps/details/org.onionshare.OnionShare"
@@ -137,8 +137,8 @@ msgid ""
 "bundles.html>`_, you can do so like this:"
 msgstr ""
 "Nëse doni ta instaloni dorazi OnionShare-in me Flatpak duke përdorur `paketë "
-"njëkartelëshe <https://docs.flatpak.org/en/latest/single-file-bundles."
-"html>`_ të nënshkruar me PGP, këtë mund ta bëni kështu:"
+"njëkartelëshe <https://docs.flatpak.org/en/latest/single-file-"
+"bundles.html>`_ të nënshkruar me PGP, këtë mund ta bëni kështu:"
 
 #: ../../source/install.rst:45
 msgid ""
@@ -187,8 +187,8 @@ msgstr ""
 #: ../../source/install.rst:51
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
 msgstr ""
-"OnionShare-in mund ta vini në funksionim përmes: `flatpak run org.onionshare."
-"OnionShare`."
+"OnionShare-in mund ta vini në funksionim përmes: `flatpak run "
+"org.onionshare.OnionShare`."
 
 #: ../../source/install.rst:54
 msgid "Manual Snapcraft Installation"
@@ -327,12 +327,12 @@ msgstr ""
 #: ../../source/install.rst:93
 msgid ""
 "For additional information and details about the FreeBSD pre-built packages, "
-"please refer to its `official Handbook section about pkg <https://docs."
-"freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
+"please refer to its `official Handbook section about pkg <https://"
+"docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
 "Për informacion shtesë dhe hollësi rreth paketave të paramontuara FreeBSD, "
-"ju lutemi, shihni `te ndarja për pkg te Doracaku zyrtar <https://docs."
-"freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
+"ju lutemi, shihni `te ndarja për pkg te Doracaku zyrtar <https://"
+"docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 
 #: ../../source/install.rst:96
 msgid "Manual port Installation"
@@ -361,12 +361,12 @@ msgstr ""
 #: ../../source/install.rst:104
 msgid ""
 "For additional information and details about the FreeBSD ports collection, "
-"please refer to its `official Handbook section about ports <https://docs."
-"freebsd.org/en/books/handbook/ports/#ports-using>`_."
+"please refer to its `official Handbook section about ports <https://"
+"docs.freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
 "Për informacion dhe hollësi shtesë rreth koleksionit të bartjeve FreeBSD, ju "
-"lutemi, shihni `pjesën për bartje, te Doracaku zyrtar <https://docs.freebsd."
-"org/en/books/handbook/ports/#ports-using>`_."
+"lutemi, shihni `pjesën për bartje, te Doracaku zyrtar <https://"
+"docs.freebsd.org/en/books/handbook/ports/#ports-using>`_."
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
@@ -413,12 +413,12 @@ msgstr ""
 #: ../../source/install.rst:122
 msgid ""
 "You can download Micah's key `from the keys.openpgp.org keyserver <https://"
-"keys.openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
 "Kyçin e Mikas mund ta shkarkoni `që nga shërbyesi keys.openpgp.org i kyçeve "
-"<https://keys.openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 
 #: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
@@ -433,12 +433,12 @@ msgstr ""
 #: ../../source/install.rst:126
 msgid ""
 "You can download Saptak's key `from the keys.openpgp.org keyserver <https://"
-"keys.openpgp.org/vks/v1/by-"
-"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
 "Kyçin e Saptakut mund ta shkarkoni `që nga shërbyesi keys.openpgp.org i "
-"kyçeve <https://keys.openpgp.org/vks/v1/by-"
-"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+"kyçeve <https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 
 #: ../../source/install.rst:128
 msgid "Miguel Jacq:"
@@ -446,19 +446,19 @@ msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
 msgid ""
-"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+"PGP public key fingerprint ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
 msgstr ""
-"Shenja gishtash kyçi publik PGP ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
 
 #: ../../source/install.rst:130
+#, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
-"keys.openpgp.org/vks/v1/by-"
-"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_."
 msgstr ""
 "Kyçin e Migelit mund ta shkarkoni që nga shërbyesi i kyçeve keys.openpgp.org "
-"<https://keys.openpgp.org/vks/v1/by-"
-"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+"<https://keys.openpgp.org/vks/v1/by-fingerprint/"
+"00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
 
 #: ../../source/install.rst:132
 msgid ""
@@ -550,5 +550,11 @@ msgid ""
 msgstr ""
 "Nëse doni të mësoni më tepër rreth verifikimit të nënshkrimeve PGP, mund të "
 "jenë të dobishëm udhërrëfyesit për `Qubes OS <https://www.qubes-os.org/"
-"security/verifying-signatures/>`_ dhe `Projektin Tor <https://support."
-"torproject.org/tbb/how-to-verify-signature/>`_ ."
+"security/verifying-signatures/>`_ dhe `Projektin Tor <https://"
+"support.torproject.org/tbb/how-to-verify-signature/>`_ ."
+
+#~ msgid ""
+#~ "PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+#~ msgstr ""
+#~ "Shenja gishtash kyçi publik PGP "
+#~ "``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."

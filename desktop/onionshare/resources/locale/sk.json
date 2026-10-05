@@ -51,7 +51,7 @@
     "gui_settings_authenticate_password_option": "Heslo",
     "gui_settings_password_label": "Heslo",
     "gui_settings_tor_bridges": "Pripojiť sa pomocou premostenia Tor?",
-    "gui_settings_meek_lite_expensive_warning": "Upozornenie: Prevádzka premostení meek-azure je pre projekt Tor veľmi nákladná.<br><br>Používajte ich len vtedy, ak sa nemôžete pripojiť k Toru priamo, cez obfs4 transporty alebo iné cez bežné premostenia.",
+    "gui_settings_meek_expensive_warning": "Upozornenie: Prevádzka premostení meek je pre projekt Tor veľmi nákladná.<br><br>Používajte ich len vtedy, ak sa nemôžete pripojiť k Toru priamo, cez obfs4 transporty alebo iné cez bežné premostenia.",
     "gui_settings_tor_bridges_invalid": "Ani jeden z premostení, ktoré ste pridali, nefunguje. Prekontrolujte ich alebo pridajte iné.",
     "gui_settings_button_save": "Uložiť",
     "gui_settings_button_cancel": "Zrušiť",
@@ -257,5 +257,12 @@
     "mode_tor_not_connected_label": "Služba OnionShare nie je pripojená k sieti Tor",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Automaticky spustiť túto službu Onion pri spustení služby OnionShare",
     "error_generic": "V aplikácii OnionShare došlo k neočakávanej chybe:\n{}",
-    "gui_settings_license_label": "OnionShare je licencované pod GPL v3.<br>Licencie tretích strán si môžete pozrieť tu:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "OnionShare je licencované pod GPL v3.<br>Licencie tretích strán si môžete pozrieť tu:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_false": "Nie",
+    "gui_settings_true": "Áno",
+    "gui_alert_button_no": "Nie",
+    "gui_alert_button_yes": "Áno",
+    "gui_alert_button_close": "Zatvoriť",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_cancel": "Zrušiť"
 }

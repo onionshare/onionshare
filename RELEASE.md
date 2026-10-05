@@ -7,7 +7,7 @@ Unless you're a core OnionShare developer making a release, you'll probably neve
 ### Update the version in these places
 
 - [ ] `cli/pyproject.toml`
-- [ ] `cli/onionshare_cli/resources/version.txt`
+- [ ] `cli/setup.py` (hard-coded version used by the Flatpak build)
 - [ ] `desktop/pyproject.toml`
 - [ ] `desktop/setup.py`
 - [ ] `desktop/org.onionshare.OnionShare.appdata.xml`
@@ -101,7 +101,7 @@ Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (yo
 
 In `flatpak/org.onionshare.OnionShare.yaml`:
 
-- [ ] Update `tor` and `libevent` 
+- [ ] Update `tor` and `libevent`
 - [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies. To do this, edit the script `flatpak/generate-golang-dependencies.py` and make sure that the repository URLs and tags are the latest versions. Then run this command from the root of the onionshare repository folder:
 
   ```sh
@@ -118,7 +118,7 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
 
   # get onionshare dependencies
   cd flatpak-build-tools/pip
-  ./flatpak-pip-generator $(../../onionshare/flatpak/poetry-to-requirements.py ../../onionshare/desktop/pyproject.toml | grep -v PySide6)
+  ./flatpak-pip-generator $(../../onionshare/flatpak/pyproject-to-requirements.py ../../onionshare/desktop/pyproject.toml | grep -v PySide6)
   ../flatpak-json2yaml.py ./python3-modules.json
   mv python3-modules.yml onionshare-desktop.yaml
   ```
@@ -270,7 +270,7 @@ Next, merge these two app bundles into a single universal2 app bundle:
 
 You will need to have obtained a Developer ID Certificate from our Apple team account. The 'Development certificates' don't work for production-ready code-signing.
 
-Only Glenn as the 'Account Holder' can request Developer ID certs, so you will need to provide him a CSR to do so. Refer to https://developer.apple.com/help/account/create-certificates/create-developer-id-certificates/ and https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request/ . The private key will be in your keychain. Glenn can send you the cert once it's issued, and you should add that to your keychain too.
+Micah as the 'Account Holder' can request Developer ID certs, so you will need to provide him a CSR to do so. Refer to https://developer.apple.com/help/account/create-certificates/create-developer-id-certificates/ and https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request/ . The private key will be in your keychain. Glenn can send you the cert once it's issued, and you should add that to your keychain too.
 
 Finally, code sign and package the universal2 app bundle.
 
@@ -281,14 +281,16 @@ Finally, code sign and package the universal2 app bundle.
 
 The will create `dist/OnionShare-$VERSION.dmg` in the `desktop` directory that you're still cd'd into.
 
-Now, notarize the release. You will need an app-specific Apple ID password set up. You will also need to change the `--apple-id` to your Apple ID email. The team ID below, however, is consistent to all of us, it's the Science & Design team ID.
+Now, notarize the release. You will need an app-specific Apple ID password set up. You will also need to change the `--apple-id` to your Apple ID email. The team ID below, however, is consistent to all of us, it's the Lockdown Systems LLC ID.
 
 ```sh
 export APPLE_PASSWORD="changeme" # This must be an app-specific Apple ID password, not your main Apple ID password
-export VERSION=$(cat ../cli/onionshare_cli/resources/version.txt)
+export APPLE_ID="you@example.com"
+export TEAM_ID="TEAMID" # You must update it to the Lockdown Systems team ID
+export VERSION=$(cat ../cli/pyproject.toml | python -c 'import tomllib,sys;print(tomllib.load(sys.stdin)["project"]["version"])')
 
 # Notarize it
-xcrun notarytool submit --apple-id "you@example.com" --team-id 7WLJ4UBL5L --password "$APPLE_PASSWORD" --progress --wait dist/OnionShare-$VERSION.dmg
+xcrun notarytool submit --apple-id "$APPLE_ID" --team-id $TEAM_ID --password "$APPLE_PASSWORD" --progress --wait dist/OnionShare-$VERSION.dmg
 ```
 
 If this is your first time notarizing with this Apple ID, it can take a very long time (like 9 hours), because Apple builds up a sort of 'signature' of your request and this kind of app. All subsequent notarizations (for future releases) should be much faster (a couple of minutes).

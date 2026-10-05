@@ -86,7 +86,7 @@
     "gui_settings_bridge_use_checkbox": "Sử dụng một cầu Bridge",
     "gui_settings_bridge_radio_builtin": "Chọn một cầu Bridge đã được tích hợp",
     "gui_settings_bridge_none_radio_option": "Không sử dụng cầu Bridge",
-    "gui_settings_meek_lite_expensive_warning": "Cảnh báo: Các cầu Bridge \"meek-azure\" rất tốn kém cho Dự Án Tor để chạy.<br><br>Chỉ sử dụng chúng nếu không thể kết nối trực tiếp tới Tor, thông qua phương thức vận chuyển obfs4, hoặc các cầu Bridge thông thường khác.",
+    "gui_settings_meek_expensive_warning": "Cảnh báo: Các cầu Bridge \"meek\" rất tốn kém cho Dự Án Tor để chạy.<br><br>Chỉ sử dụng chúng nếu không thể kết nối trực tiếp tới Tor, thông qua phương thức vận chuyển obfs4, hoặc các cầu Bridge thông thường khác.",
     "gui_settings_bridge_moat_radio_option": "Yêu cầu một cầu Bridge từ torproject.org",
     "gui_settings_bridge_moat_button": "Yêu cầu một cầu Bridge mới",
     "gui_settings_bridge_custom_radio_option": "Cung cấp một cầu Bridge bạn đã biết từ một nguồn cung cấp đáng tin cậy",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "Chế độ Chat trò chuyện cho phép bạn chat tương tác với các bên khác, trong trình duyệt Tor Browser.<br><br><b>Lịch sử Chat không được lưu trữ lại trong OnionShare. Lịch sử Chat sẽ biến mất khi bạn đóng trình duyệt Tor Browser.</b>",
     "error_generic": "Có lỗi không mong muốn xảy ra với OnionShare:\n{}",
     "mode_settings_persistent_autostart_on_launch_checkbox": "‘Tự động khởi động dịch vụ onion này khi OnionShare khởi động",
-    "gui_settings_license_label": "OnionShare được cấp phép theo GPL v3.<br>Có thể xem giấy phép của bên thứ ba tại đây:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "OnionShare được cấp phép theo GPL v3.<br>Có thể xem giấy phép của bên thứ ba tại đây:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_true": "Có",
+    "gui_settings_false": "Không",
+    "gui_alert_button_cancel": "Hủy bỏ",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_close": "Đóng",
+    "gui_alert_button_yes": "Có",
+    "gui_alert_button_no": "Không"
 }

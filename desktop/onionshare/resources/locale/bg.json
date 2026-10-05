@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Парола",
     "gui_settings_password_label": "Парола",
     "gui_settings_tor_bridges": "Свързване, чрез мостове на Тор?",
-    "gui_settings_meek_lite_expensive_warning": "Внимание: Проектът Тор бива таксуван при всяко ползване на мостовете meek-azure.<br><br>За това ги използвайте само ако не можете да се свържете с Тор директно, чрез obfs4 или обикновени мостове.",
+    "gui_settings_meek_expensive_warning": "Внимание: Проектът Тор бива таксуван при всяко ползване на мостовете meek.<br><br>За това ги използвайте само ако не можете да се свържете с Тор директно, чрез obfs4 или обикновени мостове.",
     "gui_settings_tor_bridges_invalid": "Нито един от въведените от вас мостове не работи. Проверете ги или добавете други.",
     "gui_settings_button_save": "Запазване",
     "gui_settings_button_cancel": "Отказ",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "Режимът за бързи съобщения ви дава възможност да обменяте съобщения в реално време посредством четеца Тор.<br><br><b>Хронологията на разговора не се пази в OnionShare. Тя изчезва при затваряне на четеца.<b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Стартиране на тази услуга на Onion при отваряне на OnionShare",
     "gui_settings_license_label": "OnionShare се разпространява под GPL v3.<br>Лицензите на трети страни могат да бъдат видяни тук:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
-    "error_generic": "Неочаквана грешка в OnionShare:\n{}"
+    "error_generic": "Неочаквана грешка в OnionShare:\n{}",
+    "gui_settings_false": "Не",
+    "gui_settings_true": "Да",
+    "gui_alert_button_yes": "Да",
+    "gui_alert_button_no": "Отказ",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_cancel": "Отказ",
+    "gui_alert_button_close": "Затваряне"
 }

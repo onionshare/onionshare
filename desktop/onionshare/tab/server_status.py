@@ -320,6 +320,16 @@ class ServerStatus(QtWidgets.QWidget):
             self.show_client_auth_qr_code_button.show()
             self.client_auth_toggle_button.show()
 
+    def timer_datetime_string(self, timer_widget):
+        """
+        Formats an auto-start/auto-stop timer's date and time using the
+        conventions of the language OnionShare is displayed in.
+        """
+        locale = GuiCommon.get_locale(self.common)
+        time_format = GuiCommon.get_timer_time_format(locale)
+        date_format = GuiCommon.get_timer_date_format(locale, long_format=True)
+        return locale.toString(timer_widget.dateTime(), f"{time_format}, {date_format}")
+
     def update(self):
         """
         Update the GUI elements based on the current state.
@@ -335,8 +345,8 @@ class ServerStatus(QtWidgets.QWidget):
             if self.settings.get("general", "autostop_timer"):
                 self.server_button.setToolTip(
                     strings._("gui_stop_server_autostop_timer_tooltip").format(
-                        self.mode_settings_widget.autostop_timer_widget.dateTime().toString(
-                            "h:mm AP, MMMM dd, yyyy"
+                        self.timer_datetime_string(
+                            self.mode_settings_widget.autostop_timer_widget
                         )
                     )
                 )
@@ -403,8 +413,8 @@ class ServerStatus(QtWidgets.QWidget):
                 if self.settings.get("general", "autostart_timer"):
                     self.server_button.setToolTip(
                         strings._("gui_start_server_autostart_timer_tooltip").format(
-                            self.mode_settings_widget.autostart_timer_widget.dateTime().toString(
-                                "h:mm AP, MMMM dd, yyyy"
+                            self.timer_datetime_string(
+                                self.mode_settings_widget.autostart_timer_widget
                             )
                         )
                     )

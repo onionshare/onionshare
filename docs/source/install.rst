@@ -126,8 +126,8 @@ key information for each of the core developers of OnionShare:
     * You can download Saptak's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_.
 
 * Miguel Jacq:
-    * PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``.
-    * You can download Miguel's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_.
+    * PGP public key fingerprint ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``.
+    * You can download Miguel's key `from the keys.openpgp.org keyserver <https://keys.openpgp.org/vks/v1/by-fingerprint/54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_.
 
 You must have GnuPG installed to verify signatures. For macOS you probably want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want `Gpg4win <https://www.gpg4win.org/>`_.
 

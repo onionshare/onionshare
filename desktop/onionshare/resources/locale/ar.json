@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "بكلمة السر",
     "gui_settings_password_label": "كلمة السر",
     "gui_settings_tor_bridges": "هل تريد الاتصال باستخدام جسر تور؟",
-    "gui_settings_meek_lite_expensive_warning": "تنبيه: يكلّف استخدام الجسور meek-azure مشروع تور للغاية لأجل تشغيلها.<br><br>استخدمها عند الضرورة فقط عند تعذُّر الاتصال إما بِتور مباشرة، وإما عبر وسائل نقل obfs4 وإما عبر الجسور الاعتيادية.",
+    "gui_settings_meek_expensive_warning": "تنبيه: يكلّف استخدام الجسور meek مشروع تور للغاية لأجل تشغيلها.<br><br>استخدمها عند الضرورة فقط عند تعذُّر الاتصال إما بِتور مباشرة، وإما عبر وسائل نقل obfs4 وإما عبر الجسور الاعتيادية.",
     "gui_settings_tor_bridges_invalid": "لا تعمل أي من الجسور التي أضفتها. قم بتفحصها جيدا أو أضف أخرى.",
     "gui_settings_button_save": "احفظ",
     "gui_settings_button_cancel": "ألغِ",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "وضع المحادثة يتيح لك المحادثة بشكل تفاعلي مع الآخرين، في متصفح تور.<br><br><b>لا يتم تخزين سجل المحادثة في OnionShare. سوف يختفي سجل المحادثة عند إغلاق متصفح تور.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "ابدأ خدمة البصل هذه تلقائيًا عند بدء تشغيل Onionshare",
     "gui_settings_license_label": "تم ترخيص Onionshare بموجب GPL v3.<br> يمكن الاطلاع على تراخيص الطرف الثالث هنا:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
-    "error_generic": "كان هناك خطأ غير متوقع مع OnionShare:\n{}"
+    "error_generic": "كان هناك خطأ غير متوقع مع OnionShare:\n{}",
+    "gui_settings_true": "نعم",
+    "gui_settings_false": "لا",
+    "gui_alert_button_cancel": "إلغاء",
+    "gui_alert_button_ok": "حسناً",
+    "gui_alert_button_close": "أغلق",
+    "gui_alert_button_yes": "نعم",
+    "gui_alert_button_no": "لا"
 }

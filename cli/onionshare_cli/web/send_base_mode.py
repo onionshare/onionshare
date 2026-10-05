@@ -74,6 +74,12 @@ class SendBaseModeWeb:
         """
         Build a data structure that describes the list of files
         """
+        # Store canonical paths of selected root directories for containment checking
+        self.selected_roots = []
+        for filename in filenames:
+            if os.path.isdir(filename):
+                self.selected_roots.append(os.path.realpath(filename))
+
         # If there's just one folder, replace filenames with a list of files inside that folder
         if len(filenames) == 1 and os.path.isdir(filenames[0]):
             filenames = [
@@ -101,8 +107,15 @@ class SendBaseModeWeb:
         for filename in filenames:
             basename = os.path.basename(filename.rstrip(slash))
 
+            # Skip symlinks at the root level
+            if os.path.islink(filename):
+                continue
+
             # If it's a filename, add it
             if os.path.isfile(filename):
+                # Verify the file is within selected roots (for symlink safety)
+                if not self._is_path_contained(filename):
+                    continue
                 self.files[self.fix_windows_paths(basename)] = filename
                 self.root_files[self.fix_windows_paths(basename)] = filename
 
@@ -110,7 +123,7 @@ class SendBaseModeWeb:
             elif os.path.isdir(filename):
                 self.root_files[self.fix_windows_paths(basename)] = filename
 
-                for root, _, nested_filenames in os.walk(filename):
+                for root, _, nested_filenames in os.walk(filename, followlinks=False):
                     # Normalize the root path. So if the directory name is "/home/user/Documents/some_folder",
                     # and it has a nested folder foobar, the root is "/home/user/Documents/some_folder/foobar".
                     # The normalized_root should be "some_folder/foobar"
@@ -123,15 +136,39 @@ class SendBaseModeWeb:
 
                     # Add the files in this dir
                     for nested_filename in nested_filenames:
+                        full_path = os.path.join(root, nested_filename)
+                        # Skip symlinks
+                        if os.path.islink(full_path):
+                            continue
+                        # Verify the file is within selected roots
+                        if not self._is_path_contained(full_path):
+                            continue
                         self.files[
                             self.fix_windows_paths(
                                 os.path.join(normalized_root, nested_filename)
                             )
-                        ] = os.path.join(root, nested_filename)
+                        ] = full_path
 
         self.set_file_info_custom(filenames, processed_size_callback)
 
-    def directory_listing(self, filenames, path="", filesystem_path=None, add_trailing_slash=False):
+    def _is_path_contained(self, path):
+        """
+        Check if the given path is contained within one of the selected root directories.
+        Uses realpath to resolve symlinks and ensure containment.
+        Returns False if the path is outside the selected roots (potential symlink escape).
+        """
+        if not self.selected_roots:
+            return True
+
+        resolved_path = os.path.realpath(path)
+        for root in self.selected_roots:
+            if resolved_path.startswith(root + os.sep) or resolved_path == root:
+                return True
+        return False
+
+    def directory_listing(
+        self, filenames, path="", filesystem_path=None, add_trailing_slash=False
+    ):
         """
         Display the front page of a share or index.html-less website, listing the files/directories.
         """
@@ -153,7 +190,9 @@ class SendBaseModeWeb:
         breadcrumbs_leaf = breadcrumbs.pop()[0]
 
         # If filesystem_path is None, this is the root directory listing
-        files, dirs = self.build_directory_listing(path, filenames, filesystem_path, add_trailing_slash)
+        files, dirs = self.build_directory_listing(
+            path, filenames, filesystem_path, add_trailing_slash
+        )
 
         # Mark the request as done so we know we can close the share if in auto-stop mode.
         self.web.done = True
@@ -163,7 +202,9 @@ class SendBaseModeWeb:
             path, files, dirs, breadcrumbs, breadcrumbs_leaf
         )
 
-    def build_directory_listing(self, path, filenames, filesystem_path, add_trailing_slash=False):
+    def build_directory_listing(
+        self, path, filenames, filesystem_path, add_trailing_slash=False
+    ):
         files = []
         dirs = []
 
@@ -173,16 +214,26 @@ class SendBaseModeWeb:
             else:
                 this_filesystem_path = self.files[filename]
 
+            # Skip symlinks in directory listings
+            if os.path.islink(this_filesystem_path):
+                continue
+
             is_dir = os.path.isdir(this_filesystem_path)
 
             if is_dir:
                 if add_trailing_slash:
                     dirs.append(
-                        {"link": os.path.join(f"/{path}", quote(filename), ""), "basename": filename}
+                        {
+                            "link": os.path.join(f"/{path}", quote(filename), ""),
+                            "basename": filename,
+                        }
                     )
                 else:
                     dirs.append(
-                        {"link": os.path.join(f"/{path}", quote(filename)), "basename": filename}
+                        {
+                            "link": os.path.join(f"/{path}", quote(filename)),
+                            "basename": filename,
+                        }
                     )
             else:
                 size = os.path.getsize(this_filesystem_path)
@@ -202,6 +253,12 @@ class SendBaseModeWeb:
         Return a flask response that's streaming the download of an individual file, and gzip
         compressing it if the browser supports it.
         """
+        # Verify the path is contained within selected roots (symlink safety check)
+        if not self._is_path_contained(filesystem_path):
+            history_id = self.cur_history_id
+            self.cur_history_id += 1
+            return self.web.error404(history_id)
+
         use_gzip = self.should_use_gzip()
 
         # gzip compress the individual file, if it hasn't already been compressed
@@ -256,11 +313,13 @@ class SendBaseModeWeb:
                             if self.web.settings.get(self.web.mode, "log_filenames"):
                                 # Decode and sanitize the path to remove newlines
                                 decoded_path = unquote(path)
-                                decoded_path = decoded_path.replace("\r", "").replace("\n", "")
+                                decoded_path = decoded_path.replace("\r", "").replace(
+                                    "\n", ""
+                                )
                                 filename_str = f"{decoded_path} - "
                             else:
                                 filename_str = ""
-                            
+
                             sys.stdout.write(
                                 "\r{0}{1:s}, {2:.2f}%          ".format(
                                     filename_str,

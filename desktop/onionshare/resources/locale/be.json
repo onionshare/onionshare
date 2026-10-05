@@ -86,7 +86,7 @@
     "gui_settings_bridge_use_checkbox": "Выкарыстоўвайце мост",
     "gui_settings_bridge_radio_builtin": "Выберыце ўбудаваны мост",
     "gui_settings_bridge_none_radio_option": "Не выкарыстоўвайце масты",
-    "gui_settings_meek_lite_expensive_warning": "Увага: масты meek-azure складаныя для праекту Tor. <br> <br>Выкарыстоўвайце іх толькі ў тым выпадку, калі вы не можаце падключыцца да Tor напрамую, праз транспарт obfs4 або іншыя агульныя масты.",
+    "gui_settings_meek_expensive_warning": "Увага: масты meek складаныя для праекту Tor. <br> <br>Выкарыстоўвайце іх толькі ў тым выпадку, калі вы не можаце падключыцца да Tor напрамую, праз транспарт obfs4 або іншыя агульныя масты.",
     "gui_settings_bridge_moat_radio_option": "Запытайце мост на torproject.org",
     "gui_settings_bridge_moat_button": "Запытаць новы мост",
     "gui_settings_bridge_custom_radio_option": "Укажыце мост, пра які вы даведаліся з надзейнай крыніцы",
@@ -254,5 +254,12 @@
     "mode_tor_not_connected_label": "OnionShare не падключаны да сеткі Tor",
     "waitress_web_server_error": "Пры запуску вэбсервера адбылася памылка падчас запуску",
     "gui_close_tab_warning_chat_description": "Закрыць укладку, на якой знаходзіцца сервер чата?",
-    "gui_chat_mode_explainer": "Рэжым чата дазваляе ўзаемадзейнічаць з іншымі карыстальнікамі ў браўзеры Tor.<br><br><b>Гісторыя чатаў не захоўваецца ў OnionShare. Гісторыя чатаў знікне, калі вы закрыеце браўзер Tor.</b>"
+    "gui_chat_mode_explainer": "Рэжым чата дазваляе ўзаемадзейнічаць з іншымі карыстальнікамі ў браўзеры Tor.<br><br><b>Гісторыя чатаў не захоўваецца ў OnionShare. Гісторыя чатаў знікне, калі вы закрыеце браўзер Tor.</b>",
+    "gui_settings_false": "Не",
+    "gui_settings_true": "Так",
+    "gui_alert_button_ok": "Добра",
+    "gui_alert_button_yes": "Так",
+    "gui_alert_button_close": "Закрыць",
+    "gui_alert_button_no": "Не",
+    "gui_alert_button_cancel": "Адмяніць"
 }

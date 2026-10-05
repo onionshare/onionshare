@@ -24,6 +24,7 @@ import shutil
 from PySide6 import QtCore, QtWidgets, QtGui
 
 from . import strings
+from onionshare_cli.common import Common
 from onionshare_cli.onion import (
     Onion,
     TorErrorInvalidSetting,
@@ -120,6 +121,13 @@ class GuiCommon:
                 QPushButton {
                     font-weight: bold;
                     font-size: 20px;
+                    border: 1px solid transparent;
+                    border-radius: 4px;
+                }
+                QPushButton:focus {
+                    border-color: """
+            + header_color
+            + """;
                 }""",
             "settings_subtab_bar": """
                 QTabBar::tab {
@@ -549,6 +557,43 @@ class GuiCommon:
         )
 
     @staticmethod
+    def get_locale(common):
+        """
+        Returns a QLocale for the language OnionShare is displayed in, so that
+        dates and times follow that language's conventions: a 24-hour clock
+        where that is the norm, localized month names, and so on.
+        """
+        return QtCore.QLocale(common.settings.get("locale"))
+
+    @staticmethod
+    def get_timer_time_format(locale):
+        """
+        The time format for the auto-start/auto-stop timer widgets and
+        tooltips. OnionShare's generic English locale resolves to
+        QLocale("en_US"), whose short time format is a 12-hour clock, but a
+        24-hour clock is preferred by English speakers outside the US
+        (onionshare/onionshare#985), so it is overridden here.
+        """
+        if locale.name() == "en_US":
+            return "HH:mm"
+        return locale.timeFormat(QtCore.QLocale.ShortFormat)
+
+    @staticmethod
+    def get_timer_date_format(locale, long_format=False):
+        """
+        The date format for the auto-start/auto-stop timer widgets and
+        tooltips. For locales other than English, this is the locale's own
+        short or long date format. QLocale("en_US") puts the month before the
+        day (e.g. 3/9/27), which is confusing for English speakers outside the
+        US, so the traditional OnionShare ordering is kept for English.
+        """
+        if locale.name() == "en_US":
+            return "MMMM dd, yyyy" if long_format else "MMM d, yy"
+        if long_format:
+            return locale.dateFormat(QtCore.QLocale.LongFormat)
+        return locale.dateFormat(QtCore.QLocale.ShortFormat)
+
+    @staticmethod
     def get_resource_path(filename):
         """
         Returns the absolute path of a resource
@@ -559,6 +604,29 @@ class GuiCommon:
                 return str(path)
         except FileNotFoundError:
             return None
+
+    @staticmethod
+    def get_translated_filesize(b):
+        """
+        Takes a number of bytes and returns it in a human readable format, using
+        translated units.
+
+        The web interfaces deliberately keep their English units, so that the
+        sender's locale is not leaked to the recipient. This is only for the GUI.
+        """
+        units = (
+            "gui_filesize_bytes",
+            "gui_filesize_kib",
+            "gui_filesize_mib",
+            "gui_filesize_gib",
+            "gui_filesize_tib",
+            "gui_filesize_pib",
+            "gui_filesize_eib",
+            "gui_filesize_zib",
+            "gui_filesize_yib",
+        )
+        value, u = Common.split_filesize(b)
+        return strings._(units[u]).format("{:.1f}".format(value))
 
     @staticmethod
     def get_translated_tor_error(e):

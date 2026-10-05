@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2025-07-11 14:01+0000\n"
 "Last-Translator: Cleverson Cândido <optimuspraimu@gmail.com>\n"
 "Language-Team: pt_BR <LL@li.org>\n"
@@ -250,8 +250,8 @@ msgstr ""
 #| "If you installed OnionShare using the Snap package, you can also just run "
 #| "``onionshare.cli`` to access the command-line interface version."
 msgid ""
-"If you installed OnionShare using the Snap package, you can run ``onionshare."
-"cli`` to access the command-line interface version."
+"If you installed OnionShare using the Snap package, you can run "
+"``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "Se você instalou o OnionShare usando o pacote Snap, você também pode "
 "simplesmente executar ``onionshare.cli`` para acessar a versão da interface "
@@ -636,7 +636,7 @@ msgstr ""
 #: ../../source/advanced.rst:338
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", this specifies which type of "
-"bridge protocol to use. Options are \"obfs4\", \"meek-azure\" or "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or "
 "\"snowflake\". Default: \"obfs4\""
 msgstr ""
 
@@ -852,8 +852,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:430
 msgid ""
-"The 32-character onion service URL, without the scheme and without the '."
-"onion' suffix."
+"The 32-character onion service URL, without the scheme and without the "
+"'.onion' suffix."
 msgstr ""
 
 #: ../../source/advanced.rst:433
@@ -961,7 +961,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:473
 msgid "There are currently no configurable settings for the Chat mode."
-msgstr "Atualmente não há configurações configuráveis para o modo de bate-papo."
+msgstr ""
+"Atualmente não há configurações configuráveis para o modo de bate-papo."
 
 #~ msgid ""
 #~ "Everything in OnionShare is temporary by default. If you close an "

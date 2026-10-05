@@ -42,7 +42,7 @@
     "gui_settings_authenticate_password_option": "パスワード",
     "gui_settings_password_label": "パスワード",
     "gui_settings_tor_bridges": "Tor ブリッジを使用して接続しますか？",
-    "gui_settings_meek_lite_expensive_warning": "警告: meek-azure ブリッジは Tor Project にとって非常に高額な維持費がかかります。<br><br>直接に Tor と接続できず、obsf4 ブリッジや他のブリッジが使用できない場合のみに使用してください。",
+    "gui_settings_meek_expensive_warning": "警告: meek ブリッジは Tor Project にとって非常に高額な維持費がかかります。<br><br>直接に Tor と接続できず、obsf4 ブリッジや他のブリッジが使用できない場合のみに使用してください。",
     "gui_settings_tor_bridges_invalid": "追加したすべてのブリッジが機能していません。再確認するか、他のブリッジを追加してください。",
     "gui_settings_button_save": "保存",
     "gui_settings_button_cancel": "キャンセル",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "チャットモードを使用すると、Tor Browser で他のユーザーとチャットを行うことができるようになります。<br><br><b>チャットの履歴は OnionShare には保存されません。Tor Browser を終了すると、チャットの履歴は消去されます。</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "OnionShare の起動時にこの Onion Service を自動的に開始する",
     "error_generic": "OnionShare で予期せぬエラーが発生しました:\n{}",
-    "gui_settings_license_label": "OnionShare は GPL v3 の下でライセンスされています。<br>サードパーティのライセンスに関する情報:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>"
+    "gui_settings_license_label": "OnionShare は GPL v3 の下でライセンスされています。<br>サードパーティのライセンスに関する情報:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
+    "gui_settings_false": "いいえ",
+    "gui_settings_true": "はい",
+    "gui_alert_button_cancel": "キャンセル",
+    "gui_alert_button_close": "閉じる",
+    "gui_alert_button_yes": "はい",
+    "gui_alert_button_ok": "OK",
+    "gui_alert_button_no": "いいえ"
 }

@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 17:24+1100\n"
+"POT-Creation-Date: 2026-06-01 19:58+0530\n"
 "PO-Revision-Date: 2024-08-22 00:52+0000\n"
-"Last-Translator: Assem Askarova <assask499@users.noreply.hosted.weblate."
-"org>\n"
+"Last-Translator: Assem Askarova "
+"<assask499@users.noreply.hosted.weblate.org>\n"
 "Language-Team: none\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -49,8 +49,8 @@ msgstr "안드로이드"
 
 #: ../../source/install.rst:17
 msgid ""
-"Google Play: https://play.google.com/store/apps/details?id=org.onionshare."
-"android"
+"Google Play: https://play.google.com/store/apps/details?"
+"id=org.onionshare.android"
 msgstr ""
 
 #: ../../source/install.rst:18
@@ -95,26 +95,26 @@ msgstr ""
 
 #: ../../source/install.rst:34
 msgid ""
-"**Install OnionShare using Flatpak**: https://flathub.org/apps/details/org."
-"onionshare.OnionShare"
+"**Install OnionShare using Flatpak**: https://flathub.org/apps/details/"
+"org.onionshare.OnionShare"
 msgstr ""
-"**Flatpak을 사용하여 OnionShare 설치**: https://flathub.org/apps/details/org."
-"onionshare.OnionShare"
+"**Flatpak을 사용하여 OnionShare 설치**: https://flathub.org/apps/details/"
+"org.onionshare.OnionShare"
 
 #: ../../source/install.rst:36
 #, fuzzy
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
-"**Flatpak을 사용하여 OnionShare 설치**: https://flathub.org/apps/details/org."
-"onionshare.OnionShare"
+"**Flatpak을 사용하여 OnionShare 설치**: https://flathub.org/apps/details/"
+"org.onionshare.OnionShare"
 
 #: ../../source/install.rst:38
 msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
-"원하는 경우 https://onionshare.org/dist/에서 PGP 서명 ``.flatpak`` 또는 ``."
-"snap`` 패키지를 다운로드하여 설치할 수도 있습니다."
+"원하는 경우 https://onionshare.org/dist/에서 PGP 서명 ``.flatpak`` 또는 "
+"``.snap`` 패키지를 다운로드하여 설치할 수도 있습니다."
 
 #: ../../source/install.rst:41
 #, fuzzy
@@ -268,8 +268,8 @@ msgstr ""
 #: ../../source/install.rst:93
 msgid ""
 "For additional information and details about the FreeBSD pre-built packages, "
-"please refer to its `official Handbook section about pkg <https://docs."
-"freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
+"please refer to its `official Handbook section about pkg <https://"
+"docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
 
 #: ../../source/install.rst:96
@@ -294,8 +294,8 @@ msgstr ""
 #: ../../source/install.rst:104
 msgid ""
 "For additional information and details about the FreeBSD ports collection, "
-"please refer to its `official Handbook section about ports <https://docs."
-"freebsd.org/en/books/handbook/ports/#ports-using>`_."
+"please refer to its `official Handbook section about ports <https://"
+"docs.freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
 
 #: ../../source/install.rst:109
@@ -339,14 +339,14 @@ msgstr ""
 #, fuzzy
 msgid ""
 "You can download Micah's key `from the keys.openpgp.org keyserver <https://"
-"keys.openpgp.org/vks/v1/by-"
-"fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
 "패키지는 핵심 개발자인 Micah Lee가 지문 "
 "``927F419D7EC82C2F149C1BD1403C2657CD994F73``을 사용하여 PGP 공개 키를 사용하"
-"여 서명했습니다. Micah의 키는 `keys.openpgp.org keyserver <https://keys."
-"openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_"
-"에서 다운로드할 수 있습니다."
+"여 서명했습니다. Micah의 키는 `keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_에서 다운로드할 수 있습니다."
 
 #: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
@@ -360,8 +360,8 @@ msgstr ""
 #: ../../source/install.rst:126
 msgid ""
 "You can download Saptak's key `from the keys.openpgp.org keyserver <https://"
-"keys.openpgp.org/vks/v1/by-"
-"fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
 
 #: ../../source/install.rst:128
@@ -370,21 +370,21 @@ msgstr ""
 
 #: ../../source/install.rst:129
 msgid ""
-"PGP public key fingerprint ``00AE817C24A10C2540461A9C1D7CDE0234DB458D``."
+"PGP public key fingerprint ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
 msgstr ""
 
 #: ../../source/install.rst:130
 #, fuzzy
 msgid ""
 "You can download Miguel's key `from the keys.openpgp.org keyserver <https://"
-"keys.openpgp.org/vks/v1/by-"
-"fingerprint/00AE817C24A10C2540461A9C1D7CDE0234DB458D>`_."
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_."
 msgstr ""
 "패키지는 핵심 개발자인 Micah Lee가 지문 "
 "``927F419D7EC82C2F149C1BD1403C2657CD994F73``을 사용하여 PGP 공개 키를 사용하"
-"여 서명했습니다. Micah의 키는 `keys.openpgp.org keyserver <https://keys."
-"openpgp.org/vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_"
-"에서 다운로드할 수 있습니다."
+"여 서명했습니다. Micah의 키는 `keys.openpgp.org keyserver <https://"
+"keys.openpgp.org/vks/v1/by-fingerprint/"
+"927F419D7EC82C2F149C1BD1403C2657CD994F73>`_에서 다운로드할 수 있습니다."
 
 #: ../../source/install.rst:132
 msgid ""
@@ -393,8 +393,8 @@ msgid ""
 "`Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
 "서명을 검증하려면 GnuPG가 설치되어 있어야 합니다. macOS의 경우 `GPGTools "
-"<https://gpgtools.org/>`_를 원할 것이고 Windows의 경우 `Gpg4win <https://www."
-"gpg4win.org/>`_를 원할 것입니다."
+"<https://gpgtools.org/>`_를 원할 것이고 Windows의 경우 `Gpg4win <https://"
+"www.gpg4win.org/>`_를 원할 것입니다."
 
 #: ../../source/install.rst:135
 msgid "Signatures"
@@ -470,8 +470,8 @@ msgid ""
 ">`_ may be useful."
 msgstr ""
 "PGP 서명 검증에 대한 자세한 내용은 `Qubes OS <https://www.qubes-os.org/"
-"security/verifying-signatures/>`_ 및 `Tor 프로젝트 <https://support ."
-"torproject.org/tbb/how-to-verify-signature/>`_가 유용할 수 있습니다."
+"security/verifying-signatures/>`_ 및 `Tor 프로젝트 <https://"
+"support .torproject.org/tbb/how-to-verify-signature/>`_가 유용할 수 있습니다."
 
 #~ msgid "Or for Windows, in a command-prompt like this::"
 #~ msgstr "Windows의 경우, 이와 같은 명령 프롬프트에서 사용할 수 있습니다::"

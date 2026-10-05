@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Lykilorð",
     "gui_settings_password_label": "Lykilorð",
     "gui_settings_tor_bridges": "Tengjast með Tor-brú?",
-    "gui_settings_meek_lite_expensive_warning": "Aðvörun: Að reka meek_azure brýrnar er kostnaðarsamt fyrir Tor-verkefnið.<br><br>Ekki nota þær nema þér takist ekki að tengjast beint við Tor, með obfs4 tengileið, eða öðrum venjulegum brúm.",
+    "gui_settings_meek_expensive_warning": "Aðvörun: Að reka meek_azure brýrnar er kostnaðarsamt fyrir Tor-verkefnið.<br><br>Ekki nota þær nema þér takist ekki að tengjast beint við Tor, með obfs4 tengileið, eða öðrum venjulegum brúm.",
     "gui_settings_tor_bridges_invalid": "Engar af brúnum sem þú bættir við virka. Yfirfarðu þær eða bættu öðrum við.",
     "gui_settings_button_save": "Vista",
     "gui_settings_button_cancel": "Hætta við",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "Spjallhamur gerir þér kleift að spjalla gagnvirkt við aðra í Tor-vafranum.<br><br><b>Spjallferillinn er ekki geymdur í OnionShare, hann mun hverfa þegar þú lokar Tor-vafranum.</b>",
     "mode_settings_persistent_autostart_on_launch_checkbox": "Ræsa sjálfkrafa þessa onion-þjónustu þegar OnionShare fer í gang",
     "gui_settings_license_label": "OnionShare kemur með GPL v3 notkunarleyfi.<br>Notkunarleyfi utanaðkomandi aðila má sjá hér:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
-    "error_generic": "Upp kom óvænt villa í OnionShare:\n{}"
+    "error_generic": "Upp kom óvænt villa í OnionShare:\n{}",
+    "gui_settings_true": "Já",
+    "gui_settings_false": "Nei",
+    "gui_alert_button_cancel": "Hætta við",
+    "gui_alert_button_no": "Nei",
+    "gui_alert_button_close": "Loka",
+    "gui_alert_button_yes": "Já",
+    "gui_alert_button_ok": "Í lagi"
 }

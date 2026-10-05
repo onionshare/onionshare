@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "密碼",
     "gui_settings_password_label": "密碼",
     "gui_settings_tor_bridges": "連接 Tor 橋接器?",
-    "gui_settings_meek_lite_expensive_warning": "警告: The meek_lite bridges are very costly for the Tor Project to run.<br><br>Only use them if unable to connect to Tor directly, via obfs4 transports, or other normal bridges.",
+    "gui_settings_meek_expensive_warning": "警告: The meek_lite bridges are very costly for the Tor Project to run.<br><br>Only use them if unable to connect to Tor directly, via obfs4 transports, or other normal bridges.",
     "gui_settings_tor_bridges_invalid": "您新增的橋接器無效。請再次檢查或新增其他的橋接器。",
     "gui_settings_button_save": "儲存",
     "gui_settings_button_cancel": "取消",
@@ -254,5 +254,12 @@
     "moat_captcha_label": "回答機器人辨識碼以請求橋接器。",
     "waitress_web_server_error": "啟動網頁伺候器時出現問題",
     "gui_close_tab_warning_chat_description": "關閉使用聊天伺候器的分頁?",
-    "gui_chat_mode_explainer": "聊天模式可以在 Tor 瀏覽器中與他人互動<br><br><b>OnionShare 不會儲存對話記錄，一旦關閉 Tor 瀏覽器它就會消失。</b>"
+    "gui_chat_mode_explainer": "聊天模式可以在 Tor 瀏覽器中與他人互動<br><br><b>OnionShare 不會儲存對話記錄，一旦關閉 Tor 瀏覽器它就會消失。</b>",
+    "gui_settings_false": "否",
+    "gui_settings_true": "是",
+    "gui_alert_button_cancel": "取消",
+    "gui_alert_button_close": "關閉",
+    "gui_alert_button_no": "否",
+    "gui_alert_button_yes": "是",
+    "gui_alert_button_ok": "確定"
 }

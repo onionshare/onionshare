@@ -377,7 +377,7 @@ class ShareMode(Mode):
             for index in range(self.file_selection.file_list.count()):
                 item = self.file_selection.file_list.item(index)
                 total_size_bytes += item.size_bytes
-            total_size_readable = self.common.human_readable_filesize(total_size_bytes)
+            total_size_readable = GuiCommon.get_translated_filesize(total_size_bytes)
 
             if file_count > 1:
                 self.info_label.setText(

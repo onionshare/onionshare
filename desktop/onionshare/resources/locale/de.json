@@ -47,7 +47,7 @@
     "gui_settings_connection_type_automatic_option": "Versuche automatische Konfiguration mittels Tor-Browser",
     "gui_settings_connection_type_test_button": "Verbindung mit Tor testen",
     "gui_settings_tor_bridges": "Mittels einer Tor-Brücke verbinden?",
-    "gui_settings_meek_lite_expensive_warning": "Achtung: Die „Meek-Azure“-Brücken sind für das Tor-Projekt sehr kostspielig.<br><br> Nutze sie nur, wenn du dich nicht direkt, per obfs4-Transport oder über andere, normale Brücken mit dem Tor-Netzwerk verbinden kannst.",
+    "gui_settings_meek_expensive_warning": "Achtung: Die „Meek-Azure“-Brücken sind für das Tor-Projekt sehr kostspielig.<br><br> Nutze sie nur, wenn du dich nicht direkt, per obfs4-Transport oder über andere, normale Brücken mit dem Tor-Netzwerk verbinden kannst.",
     "gui_settings_tor_bridges_invalid": "Keine der ausgewählten Brücken funktioniert. Überprüfe sie oder gib andere an.",
     "settings_error_unknown": "Kann nicht mit dem Tor-Controller verbinden, weil deine Einstellungen keinen Sinn ergeben.",
     "settings_error_automatic": "Kann nicht mit dem Tor-Controller verbinden. Läuft der Tor-Browser (kann von https://www.torproject.org/ heruntergeladen werden) im Hintergrund?",
@@ -257,5 +257,12 @@
     "gui_chat_mode_explainer": "Im Chat-Modus kannst du interaktiv mit anderen im Tor-Browser chatten.<br><br><b>Der Chatverlauf wird nicht in OnionShare gespeichert. Der Chatverlauf verschwindet, wenn du den Tor-Browser schließt.</b>",
     "error_generic": "Es ist ein unerwarteter Fehler bei OnionShare aufgetreten:\n{}",
     "gui_settings_license_label": "OnionShare ist unter der GPL v3 lizenziert.<br>Lizenzen von Drittanbietern können hier eingesehen werden:<br><a href='https://github.com/onionshare/onionshare/tree/main/licenses'>https://github.com/onionshare/onionshare/tree/main/licenses</a>",
-    "mode_settings_persistent_autostart_on_launch_checkbox": "Diesen Onion-Dienst automatisch starten, wenn OnionShare startet"
+    "mode_settings_persistent_autostart_on_launch_checkbox": "Diesen Onion-Dienst automatisch starten, wenn OnionShare startet",
+    "gui_settings_false": "Nein",
+    "gui_settings_true": "ja",
+    "gui_alert_button_cancel": "Abbrechen",
+    "gui_alert_button_close": "Schließen",
+    "gui_alert_button_no": "Nein",
+    "gui_alert_button_yes": "Ja",
+    "gui_alert_button_ok": "OK"
 }

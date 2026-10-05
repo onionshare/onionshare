@@ -5,6 +5,7 @@ import requests
 import shutil
 import sys
 from datetime import datetime, timedelta
+from unittest.mock import patch
 
 from PySide6 import QtCore, QtTest
 
@@ -176,6 +177,25 @@ class TestReceive(GuiBaseTest):
 
     # Tests
 
+    def test_start_creates_missing_receive_directory(self):
+        tab = self.new_receive_tab()
+        receive_dir = os.path.join(self.tmpdir.name, "fresh", "OnionShare")
+        tab.settings.set("receive", "data_dir", receive_dir)
+        tab.receive_mode.data_dir_lineedit.setText(receive_dir)
+
+        # Fail immediately on an unexpected warning instead of opening a modal.
+        with patch(
+            "onionshare.tab.mode.receive_mode.Alert",
+            side_effect=AssertionError("Unexpected receive-directory warning"),
+        ):
+            self.server_working_on_start_button_pressed(tab)
+            self.server_is_started(tab)
+            self.assertTrue(os.path.isdir(receive_dir))
+            self.web_server_is_running(tab)
+            self.server_is_stopped(tab)
+            self.web_server_is_stopped(tab)
+        self.close_all_tabs()
+
     def test_clear_all_button(self):
         """
         Clear all history items should work
@@ -262,7 +282,87 @@ class TestReceive(GuiBaseTest):
         self.run_all_receive_mode_setup_tests(tab)
         self.upload_file(tab, self.tmpfile_test, "test.txt")
         url = f"http://127.0.0.1:{tab.app.port}/"
-        self.hit_405(url, expected_resp="OnionShare: 405 Method Not Allowed", data = {'foo':'bar'}, methods = ["put", "post", "delete", "options"])
+        self.hit_405(
+            url,
+            expected_resp="OnionShare: 405 Method Not Allowed",
+            data={"foo": "bar"},
+            methods=["put", "post", "delete", "options"],
+        )
+
+        self.server_is_stopped(tab)
+        self.web_server_is_stopped(tab)
+        self.server_status_indicator_says_closed(tab)
+        self.close_all_tabs()
+
+    def test_disable_files_prevents_file_upload(self):
+        """
+        Test that disable_files setting prevents file uploads (security fix)
+        When disable_files is True, file uploads should be rejected and no files written to disk.
+        """
+        tab = self.new_receive_tab()
+
+        # Enable disable_files setting
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().disable_files_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_receive_mode_setup_tests(tab)
+
+        # Try to upload a file - should fail
+        files = {"file[]": open(self.tmpfile_test, "rb")}
+        url = f"http://127.0.0.1:{tab.app.port}/upload-ajax"
+        r = requests.post(url, files=files)
+
+        # Verify error response
+        self.assertIn("error_flashes", r.text)
+        self.assertIn("File uploads are not allowed", r.text)
+
+        # Verify no files were written to disk
+        QtTest.QTest.qWait(1000, self.gui.qtapp)
+        written_files = []
+        now = datetime.now()
+        for _ in range(10):
+            date_dir = now.strftime("%Y-%m-%d")
+            time_dir = now.strftime("%H%M%S")
+            receive_mode_dir = os.path.join(
+                tab.settings.get("receive", "data_dir"), date_dir, time_dir
+            )
+            for path in glob.glob(receive_mode_dir + "*"):
+                for root, dirs, files in os.walk(path):
+                    for f in files:
+                        if not f.endswith("-message.txt"):
+                            written_files.append(os.path.join(root, f))
+            now = now - timedelta(seconds=1)
+
+        self.assertEqual(
+            len(written_files),
+            0,
+            f"No files should be written when disable_files is True, but found: {written_files}",
+        )
+
+        self.server_is_stopped(tab)
+        self.web_server_is_stopped(tab)
+        self.server_status_indicator_says_closed(tab)
+        self.close_all_tabs()
+
+    def test_disable_files_allows_text_message(self):
+        """
+        Test that disable_files setting still allows text messages
+        """
+        tab = self.new_receive_tab()
+
+        # Enable disable_files setting
+        tab.get_mode().mode_settings_widget.toggle_advanced_button.click()
+        tab.get_mode().disable_files_checkbox.click()
+
+        self.run_all_common_setup_tests()
+        self.run_all_receive_mode_setup_tests(tab)
+
+        # Submit a text message - should succeed
+        self.submit_message(tab, "This is a test message")
+
+        # Verify counter incremented (text message was accepted)
+        self.counter_incremented(tab, 1)
 
         self.server_is_stopped(tab)
         self.web_server_is_stopped(tab)
