@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import requests
 
+from .tor_socks import make_tor_socks_session
+
 
 class CensorshipCircumventionError(Exception):
     """
@@ -42,7 +44,7 @@ class CensorshipCircumvention(object):
         """
         self.common = common
         self.common.log("CensorshipCircumvention", "__init__")
-        self.api_proxies = {}
+        self.api_requests = None
         if meek:
             self.meek = meek
             self.common.log(
@@ -50,7 +52,9 @@ class CensorshipCircumvention(object):
                 "__init__",
                 "Using Meek with CensorshipCircumvention API",
             )
-            self.api_proxies = self.meek.meek_proxies
+            if self.meek.meek_proxies:
+                self.api_requests = requests.Session()
+                self.api_requests.proxies = self.meek.meek_proxies
         if onion:
             self.onion = onion
             if not self.onion.is_authenticated:
@@ -61,11 +65,12 @@ class CensorshipCircumvention(object):
                     "__init__",
                     "Using Tor with CensorshipCircumvention API",
                 )
-                (socks_address, socks_port) = self.onion.get_tor_socks_port()
-                self.api_proxies = {
-                    "http": f"socks5h://{socks_address}:{socks_port}",
-                    "https": f"socks5h://{socks_address}:{socks_port}",
-                }
+                (proxy_type, socks_address, socks_port) = (
+                    self.onion.get_tor_socks_proxy()
+                )
+                self.api_requests = make_tor_socks_session(
+                    proxy_type, socks_address, socks_port
+                )
 
     def request_map(self, country=False):
         """
@@ -79,7 +84,7 @@ class CensorshipCircumvention(object):
         it just returns the recommended bridge type countries.
         """
         self.common.log("CensorshipCircumvention", "request_map", f"country={country}")
-        if not self.api_proxies:
+        if not self.api_requests:
             return False
         endpoint = "https://bridges.torproject.org/moat/circumvention/map"
         data = {}
@@ -87,11 +92,10 @@ class CensorshipCircumvention(object):
             data = {"country": country}
 
         try:
-            r = requests.post(
+            r = self.api_requests.post(
                 endpoint,
                 json=data,
                 headers={"Content-Type": "application/vnd.api+json"},
-                proxies=self.api_proxies,
             )
             if r.status_code != 200:
                 self.common.log(
@@ -132,7 +136,7 @@ class CensorshipCircumvention(object):
             "request_settings",
             f"country={country}, transports={transports}",
         )
-        if not self.api_proxies:
+        if not self.api_requests:
             return False
         endpoint = "https://bridges.torproject.org/moat/circumvention/settings"
         data = {}
@@ -146,11 +150,10 @@ class CensorshipCircumvention(object):
         if transports:
             data["transports"] = transports
         try:
-            r = requests.post(
+            r = self.api_requests.post(
                 endpoint,
                 json=data,
                 headers={"Content-Type": "application/vnd.api+json"},
-                proxies=self.api_proxies,
             )
             if r.status_code != 200:
                 self.common.log(
@@ -194,14 +197,13 @@ class CensorshipCircumvention(object):
         """
         Retrieves the list of built-in bridges from the Tor Project.
         """
-        if not self.api_proxies:
+        if not self.api_requests:
             return False
         endpoint = "https://bridges.torproject.org/moat/circumvention/builtin"
         try:
-            r = requests.post(
+            r = self.api_requests.post(
                 endpoint,
                 headers={"Content-Type": "application/vnd.api+json"},
-                proxies=self.api_proxies,
             )
             if r.status_code != 200:
                 self.common.log(
@@ -281,14 +283,13 @@ class CensorshipCircumvention(object):
         These are intended for when no censorship settings were found for a
         specific country, but maybe there was some connection issue anyway.
         """
-        if not self.api_proxies:
+        if not self.api_requests:
             return False
         endpoint = "https://bridges.torproject.org/moat/circumvention/defaults"
         try:
-            r = requests.get(
+            r = self.api_requests.get(
                 endpoint,
                 headers={"Content-Type": "application/vnd.api+json"},
-                proxies=self.api_proxies,
             )
             if r.status_code != 200:
                 self.common.log(

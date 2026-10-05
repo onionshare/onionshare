@@ -27,11 +27,14 @@ import threading
 from datetime import datetime
 from datetime import timedelta
 
+import requests
+
 from .common import Common, CannotFindTor
 from .web import Web
 from .onion import TorErrorProtocolError, TorTooOldEphemeral, TorTooOldStealth, Onion
 from .onionshare import OnionShare
 from .mode_settings import ModeSettings
+from .tor_socks import make_tor_socks_session
 from qrcode import QRCode
 
 
@@ -380,16 +383,17 @@ def main(cwd=None):
     try:
         common.settings.load()
 
-        # Receive mode needs to know the tor proxy details for webhooks
+        # Receive mode needs to make requests through Tor for webhooks
         if mode == "receive":
             if local_only:
-                web.proxies = None
+                web.requests_session = requests.Session()
             else:
-                (socks_address, socks_port) = onion.get_tor_socks_port()
-                web.proxies = {
-                    "http": f"socks5h://{socks_address}:{socks_port}",
-                    "https": f"socks5h://{socks_address}:{socks_port}",
-                }
+                (proxy_type, socks_address, socks_port) = (
+                    onion.get_tor_socks_proxy()
+                )
+                web.requests_session = make_tor_socks_session(
+                    proxy_type, socks_address, socks_port
+                )
 
         app = OnionShare(common, onion, local_only, autostop_timer)
         app.choose_port()

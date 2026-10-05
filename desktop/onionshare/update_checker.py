@@ -25,6 +25,7 @@ import socks
 from packaging.version import Version
 
 from onionshare_cli.settings import Settings
+from onionshare_cli.tor_socks import UnixSocksSocket
 
 
 class UpdateCheckerCheckError(Exception):
@@ -118,11 +119,15 @@ class UpdateChecker(QtCore.QObject):
                     "UpdateChecker", "check", f"loading http://{onion_domain}{path}"
                 )
 
-                (socks_address, socks_port) = self.onion.get_tor_socks_port()
-                socks.set_default_proxy(socks.SOCKS5, socks_address, socks_port)
-
-                s = socks.socksocket()
-                s.settimeout(15)  # 15 second timeout
+                (proxy_type, socks_address, socks_port) = (
+                    self.onion.get_tor_socks_proxy()
+                )
+                if proxy_type == "unix":
+                    s = UnixSocksSocket(socks_address, timeout=15)
+                else:
+                    socks.set_default_proxy(socks.SOCKS5, socks_address, socks_port)
+                    s = socks.socksocket()
+                    s.settimeout(15)  # 15 second timeout
                 s.connect((onion_domain, 80))
 
                 http_request = f"GET {path} HTTP/1.0\r\n"

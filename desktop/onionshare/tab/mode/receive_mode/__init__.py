@@ -20,10 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import tempfile
+import requests
 
 from PySide6 import QtCore, QtWidgets, QtGui
 
 from onionshare_cli.web import Web
+from onionshare_cli.tor_socks import make_tor_socks_session
 
 from ..history import History, ToggleHistory, ReceiveHistoryItem
 from .. import Mode
@@ -487,15 +489,16 @@ class ReceiveMode(Mode):
         # Hide and reset the uploads if we have previously shared
         self.reset_info_counters()
 
-        # Set proxies for webhook URL
+        # Set the requests session for webhook URL, going through Tor
         if self.common.gui.local_only:
-            self.web.proxies = None
+            self.web.requests_session = requests.Session()
         else:
-            (socks_address, socks_port) = self.common.gui.onion.get_tor_socks_port()
-            self.web.proxies = {
-                "http": f"socks5h://{socks_address}:{socks_port}",
-                "https": f"socks5h://{socks_address}:{socks_port}",
-            }
+            (proxy_type, socks_address, socks_port) = (
+                self.common.gui.onion.get_tor_socks_proxy()
+            )
+            self.web.requests_session = make_tor_socks_session(
+                proxy_type, socks_address, socks_port
+            )
 
     def start_server_step2_custom(self):
         """

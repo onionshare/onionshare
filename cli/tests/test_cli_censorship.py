@@ -4,7 +4,7 @@ from onionshare_cli import censorship, common
 
 
 class FakeMeek:
-    """Stands in for a running meek-client, so api_proxies is populated."""
+    """Stands in for a running meek-client, so api_requests is populated."""
 
     meek_proxies = {
         "http": "socks5h://127.0.0.1:1",
@@ -25,16 +25,17 @@ def circumvention_obj():
 
 
 @pytest.fixture
-def captured_request(monkeypatch):
+def captured_request(circumvention_obj):
     """Capture the request body that would go to the Moat API."""
     captured = {}
 
-    def fake_post(endpoint, json=None, headers=None, proxies=None):
-        captured["endpoint"] = endpoint
-        captured["json"] = json
-        return FakeResponse()
+    class FakeSession:
+        def post(self, endpoint, json=None, headers=None):
+            captured["endpoint"] = endpoint
+            captured["json"] = json
+            return FakeResponse()
 
-    monkeypatch.setattr(censorship.requests, "post", fake_post)
+    circumvention_obj.api_requests = FakeSession()
     return captured
 
 
