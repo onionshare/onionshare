@@ -40,7 +40,7 @@
     "gui_settings_authenticate_password_option": "Hasło",
     "gui_settings_password_label": "Hasło",
     "gui_settings_tor_bridges": "Połączenie z użyciem mostka Tor?",
-    "gui_settings_meek_expensive_warning": "Uwaga: Mostki meek_lite są bardzo kosztowne dla Tor Project.<br><br>Korzystaj z nich tylko wtedy, gdy nie możesz połączyć się bezpośrednio z siecią Tor poprzez obsf4 albo przez inne normalne mostki.",
+    "gui_settings_meek_expensive_warning": "Uwaga: utrzymywanie mostków meek wiąże się dla projektu Tor z bardzo wysokimi kosztami.<br><br>Korzystaj z nich tylko wtedy, gdy nie możesz połączyć się z siecią Tor bezpośrednio, za pomocą transportów obfs4 lub innych standardowych mostków.",
     "gui_settings_tor_bridges_invalid": "Żadne z dodanych przez Ciebie mostków nie działają. Zweryfikuj je lub dodaj inne.",
     "gui_settings_button_save": "Zapisz",
     "gui_settings_button_cancel": "Anuluj",
@@ -273,5 +273,6 @@
     "gui_filesize_pib": "{} PiB",
     "gui_filesize_eib": "{} EiB",
     "gui_filesize_zib": "{} ZiB",
-    "gui_filesize_yib": "{} YiB"
+    "gui_filesize_yib": "{} YiB",
+    "gui_receive_data_dir_not_writable": "OnionShare nie może zapisać danych w tym folderze:\n\n{}\n\nWybierz folder, w którym masz uprawnienia do zapisu (na przykład folder Pobrane), a następnie spróbuj ponownie."
 }
