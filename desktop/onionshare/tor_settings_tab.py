@@ -116,8 +116,10 @@ class TorSettingsTab(QtWidgets.QWidget):
             self.bridge_builtin_dropdown.addItem("meek")
         if self.snowflake_file_path and os.path.isfile(self.snowflake_file_path):
             self.bridge_builtin_dropdown.addItem("snowflake")
-        if self.webtunnel_file_path and os.path.isfile(self.webtunnel_file_path):
-            self.bridge_builtin_dropdown.addItem("webtunnel")
+        # Note: webtunnel is not offered as a built-in bridge because there
+        # are no built-in webtunnel bridges. WebTunnel bridges are only
+        # distributed by BridgeDB: request them with the Moat option, or
+        # enter them as custom bridge lines.
 
         # Request a bridge from torproject.org (moat)
         self.bridge_moat_radio = QtWidgets.QRadioButton(
@@ -477,8 +479,6 @@ class TorSettingsTab(QtWidgets.QWidget):
                     self.bridge_builtin_dropdown.setCurrentText("obfs4")
                 elif bridges_builtin_pt == "meek":
                     self.bridge_builtin_dropdown.setCurrentText("meek")
-                elif bridges_builtin_pt == "webtunnel":
-                    self.bridge_builtin_dropdown.setCurrentText("webtunnel")
                 else:
                     self.bridge_builtin_dropdown.setCurrentText("snowflake")
 

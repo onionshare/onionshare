@@ -375,17 +375,16 @@ class Onion(object):
                                 ) as o:
                                     f.write(o.read())
                             elif builtin_bridge_type == "webtunnel":
-                                # WebTunnel bridges are not hardcoded; they are fetched
-                                # from the Tor Moat API and cached in settings after the
-                                # first successful connection.  If no bridges are cached
-                                # yet, log a warning — the user should use the Moat
-                                # option or paste custom bridges to obtain them first.
-                                self.common.log(
-                                    "Onion",
-                                    "connect",
-                                    "No cached WebTunnel bridges found. "
-                                    "Use the Moat option or paste custom WebTunnel "
-                                    "bridge lines to connect with this transport.",
+                                # There are no built-in WebTunnel bridges:
+                                # BridgeDB only distributes WebTunnel bridges
+                                # via the Moat API. Requesting them here would
+                                # result in a torrc with UseBridges 1 and no
+                                # Bridge lines, which tor refuses to start.
+                                raise TorErrorInvalidSetting(
+                                    "There are no built-in WebTunnel bridges. "
+                                    "Request WebTunnel bridges from BridgeDB "
+                                    "using the 'Request a bridge' option, or "
+                                    "enter them as custom bridge lines."
                                 )
                             self.common.log(
                                 "Onion",

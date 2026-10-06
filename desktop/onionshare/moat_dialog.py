@@ -49,6 +49,24 @@ class MoatDialog(QtWidgets.QDialog):
         self.setWindowTitle(strings._("gui_settings_bridge_moat_button"))
         self.setWindowIcon(QtGui.QIcon(GuiCommon.get_resource_path("images/logo.png")))
 
+        # Bridge type selector
+        # BridgeDB decides which transport it hands out from the list of
+        # transports that the client declares support for in the fetch
+        # request, always using the first one that it has available. So
+        # this choice has to be made before fetching the CAPTCHA.
+        self.bridge_type_label = QtWidgets.QLabel(
+            strings._("moat_bridge_type_label")
+        )
+        self.bridge_type_dropdown = QtWidgets.QComboBox()
+        self.bridge_type_dropdown.addItems(["obfs4", "webtunnel"])
+        self.bridge_type_dropdown.currentTextChanged.connect(
+            self.bridge_type_changed
+        )
+        bridge_type_layout = QtWidgets.QHBoxLayout()
+        bridge_type_layout.addWidget(self.bridge_type_label)
+        bridge_type_layout.addWidget(self.bridge_type_dropdown)
+        bridge_type_layout.addStretch()
+
         # Label
         self.label = QtWidgets.QLabel()
 
@@ -87,6 +105,7 @@ class MoatDialog(QtWidgets.QDialog):
 
         # Layout
         layout = QtWidgets.QVBoxLayout()
+        layout.addLayout(bridge_type_layout)
         layout.addWidget(self.label)
         layout.addWidget(self.captcha)
         layout.addLayout(solution_layout)
@@ -97,6 +116,13 @@ class MoatDialog(QtWidgets.QDialog):
         self.setLayout(layout)
         self.cancel_button.setFocus()
 
+        self.reload_clicked()
+
+    def bridge_type_changed(self):
+        """
+        Bridge type selection changed: fetch a new CAPTCHA for that type.
+        """
+        self.common.log("MoatDialog", "bridge_type_changed")
         self.reload_clicked()
 
     def reload_clicked(self):
@@ -113,8 +139,13 @@ class MoatDialog(QtWidgets.QDialog):
         self.reload_button.hide()
         self.submit_button.hide()
 
-        # BridgeDB fetch
-        self.t_fetch = MoatThread(self.common, self.meek, "fetch")
+        # BridgeDB fetch, for the selected bridge type
+        self.t_fetch = MoatThread(
+            self.common,
+            self.meek,
+            "fetch",
+            {"supported": [self.bridge_type_dropdown.currentText()]},
+        )
         self.t_fetch.bridgedb_error.connect(self.bridgedb_error)
         self.t_fetch.captcha_ready.connect(self.captcha_ready)
         self.t_fetch.start()
@@ -218,7 +249,9 @@ class MoatThread(QtCore.QThread):
 
     bridgedb_error = QtCore.Signal()
     captcha_error = QtCore.Signal(str)
-    captcha_ready = QtCore.Signal(str, str, str)
+    # BridgeDB returns the challenge's transport as a string or a list of
+    # transport types it may hand out, so pass it through unmodified.
+    captcha_ready = QtCore.Signal("QVariant", str, str)
     bridges_ready = QtCore.Signal(str)
 
     def __init__(self, common, meek, action, data={}):
@@ -255,21 +288,35 @@ class MoatThread(QtCore.QThread):
         if self.action == "fetch":
             self.common.log("MoatThread", "run", f"starting fetch")
 
+            # BridgeDB hands out bridges of the first transport in its
+            # intersection of our supported list and its own resources,
+            # so the order of this list selects the bridge type the
+            # user will receive.
+            supported = self.data.get("supported", ["obfs4", "webtunnel"])
+
             # Request a bridge
-            r = requests.post(
-                "https://bridges.torproject.org/moat/fetch",
-                headers={"Content-Type": "application/vnd.api+json"},
-                proxies=self.meek.meek_proxies,
-                json={
-                    "data": [
-                        {
-                            "version": "0.1.0",
-                            "type": "client-transports",
-                            "supported": ["obfs4", "snowflake"],
-                        }
-                    ]
-                },
-            )
+            try:
+                r = requests.post(
+                    "https://bridges.torproject.org/moat/fetch",
+                    headers={"Content-Type": "application/vnd.api+json"},
+                    proxies=self.meek.meek_proxies,
+                    json={
+                        "data": [
+                            {
+                                "version": "0.1.0",
+                                "type": "client-transports",
+                                "supported": supported,
+                            }
+                        ]
+                    },
+                )
+            except requests.exceptions.RequestException as e:
+                self.common.log(
+                    "MoatThread", "run", f"error requesting bridges: {e}"
+                )
+                self.meek.cleanup()
+                self.bridgedb_error.emit()
+                return
 
             self.meek.cleanup()
 
@@ -307,24 +354,32 @@ class MoatThread(QtCore.QThread):
             self.common.log("MoatThread", "run", f"starting check")
 
             # Check the CAPTCHA
-            r = requests.post(
-                "https://bridges.torproject.org/moat/check",
-                headers={"Content-Type": "application/vnd.api+json"},
-                proxies=self.meek.meek_proxies,
-                json={
-                    "data": [
-                        {
-                            "id": "2",
-                            "type": "moat-solution",
-                            "version": "0.1.0",
-                            "transport": self.data["transport"],
-                            "challenge": self.data["challenge"],
-                            "solution": self.data["solution"],
-                            "qrcode": "false",
-                        }
-                    ]
-                },
-            )
+            try:
+                r = requests.post(
+                    "https://bridges.torproject.org/moat/check",
+                    headers={"Content-Type": "application/vnd.api+json"},
+                    proxies=self.meek.meek_proxies,
+                    json={
+                        "data": [
+                            {
+                                "id": "2",
+                                "type": "moat-solution",
+                                "version": "0.1.0",
+                                "transport": self.data["transport"],
+                                "challenge": self.data["challenge"],
+                                "solution": self.data["solution"],
+                                "qrcode": "false",
+                            }
+                        ]
+                    },
+                )
+            except requests.exceptions.RequestException as e:
+                self.common.log(
+                    "MoatThread", "run", f"error checking captcha: {e}"
+                )
+                self.meek.cleanup()
+                self.bridgedb_error.emit()
+                return
 
             self.meek.cleanup()
 

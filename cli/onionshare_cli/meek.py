@@ -52,7 +52,12 @@ class Meek(object):
         ) = get_tor_paths()
 
         self.meek_proxies = {}
-        self.meek_url = "https://1603026938.rsc.cdn77.org/"
+        # The moat reflector, reached via domain fronting, that relays
+        # HTTPS requests to bridges.torproject.org. This is distinct from
+        # the CDN77 meek used as a built-in bridge, which only relays
+        # traffic to a Tor bridge and cannot serve the Moat API.
+        # https://gitlab.torproject.org/tpo/applications/tor-browser/-/commit/f6c72cec392f215a77a2aaed626bfcc53e030327
+        self.meek_url = "https://1723079976.rsc.cdn77.org/"
         self.meek_front = "www.phpmyadmin.net"
         self.meek_env = {
             "TOR_PT_MANAGED_TRANSPORT_VER": "1",
@@ -119,7 +124,7 @@ class Meek(object):
         for line in iter(self.meek_proc.stdout.readline, b""):
             if "CMETHOD meek socks5" in line:
                 self.meek_host = line.split(" ")[3].split(":")[0]
-                self.meek_port = line.split(" ")[3].split(":")[1]
+                self.meek_port = line.split(" ")[3].split(":")[1].strip()
                 self.common.log(
                     "Meek",
                     "start",
