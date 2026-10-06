@@ -157,6 +157,7 @@ class ReceiveMode(Mode):
             self.max_upload_size_checkbox.setCheckState(QtCore.Qt.Unchecked)
             self.max_upload_size_total_checkbox.setCheckState(QtCore.Qt.Unchecked)
             self.max_upload_size_total_checkbox.setEnabled(False)
+            self.set_max_upload_size_widgets(5 * 1024**2)
             self.hide_max_upload_size()
 
         # Connect these after loading their initial values, so setting them
