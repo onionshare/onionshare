@@ -428,10 +428,12 @@ class ReceiveMode(Mode):
     def show_max_upload_size(self):
         self.max_upload_size_spinbox.show()
         self.max_upload_size_unit_combobox.show()
+        self.max_upload_size_total_checkbox.show()
 
     def hide_max_upload_size(self):
         self.max_upload_size_spinbox.hide()
         self.max_upload_size_unit_combobox.hide()
+        self.max_upload_size_total_checkbox.hide()
 
     def get_stop_server_autostop_timer_text(self):
         """
