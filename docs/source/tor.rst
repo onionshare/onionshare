@@ -87,6 +87,14 @@ If using a built-in bridge doesn't work, you can request a bridge from torprojec
 
 You also have the option of using a bridge that you learned about from a trusted source.
 
+**Using a proxy**
+
+If your local network requires you to go through a proxy in order to reach the internet, you can configure OnionShare to make the Tor connection through a proxy.
+Check "Use a proxy", and choose the proxy type (SOCKS4, SOCKS5, or HTTP/HTTPS) and fill in the proxy's address and port, and its username and password if it requires authentication.
+
+These proxy settings only apply to the Tor version built into OnionShare.
+If you're connecting to a system ``tor`` process using a control port or socket file, you must configure the proxy in the system tor's own ``torrc`` file instead, using the ``Socks4Proxy``, ``Socks5Proxy`` or ``HTTPSProxy`` options.
+
 Attempt auto-configuration with Tor Browser
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -141,8 +149,8 @@ Now configure Tor to allow connections from OnionShare::
 
     mkdir -p /usr/local/var/run/tor
     chmod 700 /usr/local/var/run/tor
-    echo 'SOCKSPort 9050' >> /usr/local/etc/tor/torrc
     echo 'ControlPort unix:"/usr/local/var/run/tor/control.socket"' >> /usr/local/etc/tor/torrc
+    echo 'SocksPort unix:"/usr/local/var/run/tor/socks"' >> /usr/local/etc/tor/torrc
 
 And start the system Tor service::
 
@@ -151,6 +159,7 @@ And start the system Tor service::
 Open OnionShare, click the "⚙" icon in it, and switch to the Tor Settings tab.
 Under "How should OnionShare connect to Tor?" choose "Connect using socket file", and
 set the socket file to be ``/usr/local/var/run/tor/control.socket``.
+Set the "SOCKS socket file" to be ``/usr/local/var/run/tor/socks``.
 Under "Tor authentication settings" choose "No authentication, or cookie authentication".
 Click the "Test Connection to Tor" button.
 
@@ -171,6 +180,7 @@ Reboot your computer.
 After it boots up again, open OnionShare, click the "⚙" icon in it, and switch to the Tor Settings tab.
 Under "How should OnionShare connect to Tor?" choose "Connect using socket file".
 Set the socket file to be ``/var/run/tor/control``.
+Set the "SOCKS socket file" to be ``/var/run/tor/socks``.
 Under "Tor authentication settings" choose "No authentication, or cookie authentication".
 Click the "Test Connection to Tor" button.
 

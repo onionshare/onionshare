@@ -401,6 +401,40 @@ class Onion(object):
                             if line.strip() != "":
                                 f.write(f"Bridge {line}\n")
 
+                # Proxy support
+                if self.settings.get("proxy_enabled") and self.settings.get(
+                    "proxy_address"
+                ):
+                    proxy_port = self.settings.get("proxy_port")
+                    if proxy_port:
+                        proxy = f"{self.settings.get('proxy_address')}:{proxy_port}"
+                    else:
+                        proxy = self.settings.get("proxy_address")
+
+                    proxy_username = self.settings.get("proxy_username")
+                    proxy_password = self.settings.get("proxy_password")
+
+                    if self.settings.get("proxy_type") == "socks4":
+                        f.write(f"\nSocks4Proxy {proxy}\n")
+                    elif self.settings.get("proxy_type") == "http":
+                        f.write(f"\nHTTPSProxy {proxy}\n")
+                        if proxy_username and proxy_password:
+                            f.write(
+                                f"HTTPSProxyAuthenticator {proxy_username}:{proxy_password}\n"
+                            )
+                    # socks5 is the default
+                    else:
+                        f.write(f"\nSocks5Proxy {proxy}\n")
+                        if proxy_username and proxy_password:
+                            f.write(f"Socks5ProxyUsername {proxy_username}\n")
+                            f.write(f"Socks5ProxyPassword {proxy_password}\n")
+
+                    self.common.log(
+                        "Onion",
+                        "connect",
+                        "Wrote in the proxy settings from OnionShare settings",
+                    )
+
             # Execute a tor subprocess
             self.common.log("Onion", "connect", f"starting {self.tor_path} subprocess")
             start_ts = time.time()
@@ -925,18 +959,28 @@ class Onion(object):
             except Exception:
                 pass
 
-    def get_tor_socks_port(self):
+    def get_tor_socks_proxy(self):
         """
-        Returns a (address, port) tuple for the Tor SOCKS port
+        Returns a (proxy_type, address, port) tuple for the Tor SOCKS proxy,
+        where proxy_type is "tcp" or "unix".
+
+        For "tcp", connect to the SOCKS server at (address, port).
+        For "unix", address is the path of a unix domain socket file that
+        the SOCKS server is listening on, and port is None.
         """
-        self.common.log("Onion", "get_tor_socks_port")
+        self.common.log("Onion", "get_tor_socks_proxy")
 
         if self.settings.get("connection_type") == "bundled":
-            return ("127.0.0.1", self.tor_socks_port)
+            return ("tcp", "127.0.0.1", self.tor_socks_port)
         elif self.settings.get("connection_type") == "automatic":
-            return ("127.0.0.1", 9150)
+            return ("tcp", "127.0.0.1", 9150)
+        elif self.settings.get("connection_type") == "socket_file" and self.settings.get(
+            "socks_socket_path"
+        ):
+            # If a SOCKS unix domain socket file is configured, use it
+            return ("unix", self.settings.get("socks_socket_path"), None)
         else:
-            return (self.settings.get("socks_address"), self.settings.get("socks_port"))
+            return ("tcp", self.settings.get("socks_address"), self.settings.get("socks_port"))
 
     def update_builtin_bridges(self):
         """

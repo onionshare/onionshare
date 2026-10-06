@@ -361,11 +361,10 @@ class ReceiveModeWeb:
     def send_webhook_notification(self, data):
         self.common.log("ReceiveModeWeb", "send_webhook_notification", data)
         try:
-            requests.post(
+            self.web.requests_session.post(
                 self.web.settings.get("receive", "webhook_url"),
                 data=data,
                 timeout=5,
-                proxies=self.web.proxies,
             )
         except Exception as e:
             print(f"Webhook notification failed: {e}")
