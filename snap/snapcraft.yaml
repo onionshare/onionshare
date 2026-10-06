@@ -172,7 +172,7 @@ parts:
       - go/latest/stable
     source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
     source-type: git
-    source-tag: v2.13.1
+    source-tag: v2.14.1
     organize:
       bin/client: bin/snowflake-client
     after: [obfs4]
@@ -189,6 +189,18 @@ parts:
       go build -o $SNAPCRAFT_PART_INSTALL/bin/meek-client ./...
     after: [snowflake-client]
 
+  webtunnel-client:
+    plugin: go
+    build-snaps:
+      - go/latest/stable
+    source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/webtunnel.git
+    source-type: git
+    source-tag: v0.0.7
+    override-build: |
+      cd webtunnel
+      go build -o $SNAPCRAFT_PART_INSTALL/bin/webtunnel-client ./main/client
+    after: [meek-client]
+
   # This part removes all the files in this snap which already exist in
   # connected content and base snaps. Since these files will be available
   # at runtime from the content and base snaps, they do not need to be
@@ -204,6 +216,7 @@ parts:
       - obfs4
       - snowflake-client
       - meek-client
+      - webtunnel-client
     plugin: nil
     build-snaps:  # List all content-snaps and base snaps you're using here
       - core24

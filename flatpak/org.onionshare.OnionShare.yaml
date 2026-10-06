@@ -42,7 +42,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
-        tag: v2.13.1
+        tag: v2.14.1
       - snowflake/go.mod.yml
   - name: obfs4proxy
     buildsystem: simple
@@ -74,6 +74,21 @@ modules:
         url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git
         tag: v0.38.0
       - meek-client/go.mod.yml
+  - name: webtunnel-client
+    buildsystem: simple
+    build-options:
+      append-path: /usr/lib/sdk/golang/bin
+      env:
+        GOBIN: "/app/bin/"
+        GO11MODULE: on
+        GOROOT: /usr/lib/sdk/golang
+    build-commands:
+      - ". /usr/lib/sdk/golang/enable.sh && go build -mod=vendor -o /app/bin/webtunnel-client ./main/client"
+    sources:
+      - type: git
+        url: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/webtunnel.git
+        tag: v0.0.7
+      - webtunnel-client/go.mod.yml
   - name: tor
     buildsystem: autotools
     sources:

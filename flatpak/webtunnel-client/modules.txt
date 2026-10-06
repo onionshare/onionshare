@@ -1,0 +1,3 @@
+# gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib v1.6.0
+## explicit; go 1.11
+gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
