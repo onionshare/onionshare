@@ -168,6 +168,7 @@ class TestGetTorPaths:
         snowflake_file_path = os.path.join(
             base_path, "Resources", "Tor", "snowflake-client"
         )
+        webtunnel_file_path = os.path.join(base_path, "Resources", "Tor", "webtunnel-client")
         assert common_obj.get_tor_paths() == (
             tor_path,
             tor_geo_ip_file_path,
@@ -175,6 +176,7 @@ class TestGetTorPaths:
             obfs4proxy_file_path,
             snowflake_file_path,
             meek_client_file_path,
+            webtunnel_file_path,
         )
 
     @pytest.mark.skipif(sys.platform != "linux", reason="requires Linux")
@@ -186,6 +188,7 @@ class TestGetTorPaths:
             _,  # obfs4proxy is optional
             _,  # snowflake-client is optional
             _,  # meek-client is optional
+            _,  # webtunnel-client is optional
         ) = common_obj.get_tor_paths()
 
         assert os.path.basename(tor_path) == "tor"
@@ -221,6 +224,9 @@ class TestGetTorPaths:
         tor_geo_ipv6_file_path = os.path.join(
             os.path.join(os.path.join(base_path, "Data"), "Tor"), "geoip6"
         )
+        webtunnel_file_path = os.path.join(
+            os.path.join(base_path, "Tor"), "webtunnel-client.exe"
+        )
         assert common_obj.get_tor_paths() == (
             tor_path,
             tor_geo_ip_file_path,
@@ -228,6 +234,7 @@ class TestGetTorPaths:
             obfs4proxy_file_path,
             snowflake_file_path,
             meek_client_file_path,
+            webtunnel_file_path,
         )
 
 

@@ -1,0 +1,8 @@
+- dest: vendor
+  path: webtunnel-client/modules.txt
+  type: file
+- dest: vendor/gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib
+  sha256: 196ea57956c9140dd3f57a40898693600b073adc30117f934b91d4ce4cee2155
+  strip-components: 5
+  type: archive
+  url: https://proxy.golang.org/gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/goptlib/@v/v1.6.0.zip

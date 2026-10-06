@@ -159,6 +159,7 @@ class Onion(object):
             self.obfs4proxy_file_path,
             self.snowflake_file_path,
             self.meek_client_file_path,
+            self.webtunnel_file_path,
         ) = get_tor_paths()
 
         # The tor process
@@ -316,6 +317,9 @@ class Onion(object):
             torrc_template = torrc_template.replace(
                 "{{snowflake_path}}", str(self.snowflake_file_path)
             )
+            torrc_template = torrc_template.replace(
+                "{{webtunnel_path}}", str(self.webtunnel_file_path)
+            )
 
             with open(self.tor_torrc, "w") as f:
                 self.common.log("Onion", "connect", "Writing torrc template file")
@@ -370,6 +374,18 @@ class Onion(object):
                                     )
                                 ) as o:
                                     f.write(o.read())
+                            elif builtin_bridge_type == "webtunnel":
+                                # There are no built-in WebTunnel bridges:
+                                # BridgeDB only distributes WebTunnel bridges
+                                # via the Moat API. Requesting them here would
+                                # result in a torrc with UseBridges 1 and no
+                                # Bridge lines, which tor refuses to start.
+                                raise TorErrorInvalidSetting(
+                                    "There are no built-in WebTunnel bridges. "
+                                    "Request WebTunnel bridges from BridgeDB "
+                                    "using the 'Request a bridge' option, or "
+                                    "enter them as custom bridge lines."
+                                )
                             self.common.log(
                                 "Onion",
                                 "connect",

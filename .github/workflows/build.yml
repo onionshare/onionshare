@@ -98,6 +98,22 @@ jobs:
             .\scripts\build-pt-meek.ps1
           }
 
+      - name: Restore cache - webtunnel
+        uses: actions/cache@v4
+        with:
+          path: desktop\onionshare\resources\tor\webtunnel-client.exe
+          key: ${{ runner.os }}-win64-webtunnel-${{ hashFiles('desktop/scripts/build-pt-webtunnel.ps1') }}
+
+      - name: Build webtunnel
+        shell: pwsh
+        run: |
+          if ((Test-Path -Path 'desktop\onionshare\resources\tor\webtunnel-client.exe') -eq $True) {
+            Write-Output "webtunnel already built"
+          } else {
+            cd desktop
+            .\scripts\build-pt-webtunnel.ps1
+          }
+
       - name: Build OnionShare
         run: |
           cd desktop
@@ -201,6 +217,21 @@ jobs:
           else
             cd desktop
             ./scripts/build-pt-meek.sh
+          fi
+
+      - name: Restore cache - webtunnel
+        uses: actions/cache@v4
+        with:
+          path: desktop/onionshare/resources/tor/webtunnel-client
+          key: ${{ runner.os }}-macos-webtunnel-${{ hashFiles('desktop/scripts/build-pt-webtunnel.sh') }}
+
+      - name: Build webtunnel
+        run: |
+          if [[ -f "desktop/onionshare/resources/tor/webtunnel-client" ]]; then
+            echo "webtunnel already built"
+          else
+            cd desktop
+            ./scripts/build-pt-webtunnel.sh
           fi
 
       - name: Install cx_Freeze/PySide6 build dependencies
@@ -319,6 +350,21 @@ jobs:
           else
             cd desktop
             ./scripts/build-pt-meek.sh
+          fi
+
+      - name: Restore cache - webtunnel
+        uses: actions/cache@v4
+        with:
+          path: desktop/onionshare/resources/tor/webtunnel-client
+          key: ${{ runner.os }}-macos-arm-webtunnel-${{ hashFiles('desktop/scripts/build-pt-webtunnel.sh') }}
+
+      - name: Build webtunnel
+        run: |
+          if [[ -f "desktop/onionshare/resources/tor/webtunnel-client" ]]; then
+            echo "webtunnel already built"
+          else
+            cd desktop
+            ./scripts/build-pt-webtunnel.sh
           fi
 
       - name: Install cx_Freeze/PySide6 build dependencies

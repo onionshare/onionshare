@@ -8,7 +8,8 @@ import tempfile
 # Define the repositories, tags, and subfolders
 repos = [
     {"url": "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek.git", "tag": "v0.38.0", "subfolder": "meek-client"},
-    {"url": "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git", "tag": "v2.13.1", "subfolder": "snowflake"},
+    {"url": "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git", "tag": "v2.14.1", "subfolder": "snowflake"},
+    {"url": "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/webtunnel.git", "tag": "v0.0.7", "subfolder": "webtunnel-client"},
     {"url": "https://gitlab.com/yawning/obfs4.git", "tag": "obfs4proxy-0.0.14", "subfolder": "obfs4proxy"},
 ]
 
