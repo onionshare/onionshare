@@ -34,6 +34,16 @@
     <p class="upload-description">You can submit files</p>
     {% endif %}
 
+    {% if max_upload_size_human %}
+    <p class="upload-description">
+      {% if max_upload_size_total %}
+      Maximum upload size for this service: {{ max_upload_size_human }}
+      {% else %}
+      Maximum upload size: {{ max_upload_size_human }}
+      {% endif %}
+    </p>
+    {% endif %}
+
     <div id="uploads"></div>
 
     <div>

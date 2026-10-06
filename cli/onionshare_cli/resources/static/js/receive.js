@@ -99,7 +99,13 @@ $(function () {
             flash("info", info);
           }
         } catch (e) {
-          flash("error", "Invalid response from server: " + data);
+          if (ajax.status === 413) {
+            flash("error", "The file is too large to upload");
+          } else if (ajax.status === 403) {
+            flash("error", "This service is no longer accepting uploads");
+          } else {
+            flash("error", "Invalid response from server");
+          }
         }
       },
       false,

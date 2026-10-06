@@ -166,6 +166,18 @@ def main(cwd=None):
         dest="disable_files",
         help="Receive files: Disable receiving files",
     )
+    parser.add_argument(
+        "--max-upload-size",
+        metavar="size",
+        default="0",
+        help="Receive files: Maximum size of an upload, e.g. 100mb (0 means no limit)",
+    )
+    parser.add_argument(
+        "--max-upload-size-total",
+        action="store_true",
+        dest="max_upload_size_total",
+        help="Receive files: Apply the maximum upload size to the entire service lifespan",
+    )
     # Website args
     parser.add_argument(
         "--disable_csp",
@@ -217,10 +229,23 @@ def main(cwd=None):
     webhook_url = args.webhook_url
     disable_text = args.disable_text
     disable_files = args.disable_files
+    max_upload_size_raw = args.max_upload_size
+    max_upload_size_total = args.max_upload_size_total
     disable_csp = bool(args.disable_csp)
     custom_csp = args.custom_csp
     log_filenames = bool(args.log_filenames)
     verbose = bool(args.verbose)
+
+    # Parse the maximum upload size, which is given in human friendly units
+    try:
+        max_upload_size = common.parse_human_readable_filesize(max_upload_size_raw)
+    except ValueError:
+        print(f"Invalid maximum upload size: {max_upload_size_raw}")
+        sys.exit()
+
+    if max_upload_size_total and max_upload_size <= 0:
+        print("You must set --max-upload-size to use --max-upload-size-total")
+        sys.exit()
 
     # Verbose mode?
     common.verbose = verbose
@@ -266,6 +291,8 @@ def main(cwd=None):
                 mode_settings.set("receive", "webhook_url", webhook_url)
             mode_settings.set("receive", "disable_text", disable_text)
             mode_settings.set("receive", "disable_files", disable_files)
+            mode_settings.set("receive", "max_upload_size", max_upload_size)
+            mode_settings.set("receive", "max_upload_size_total", max_upload_size_total)
         if mode == "website":
             if disable_csp and custom_csp:
                 print(

@@ -81,6 +81,7 @@ class Web:
     REQUEST_INDIVIDUAL_FILE_CANCELED = 11
     REQUEST_ERROR_DATA_DIR_CANNOT_CREATE = 12
     REQUEST_OTHER = 13
+    REQUEST_UPLOAD_TOO_LARGE = 14
 
     def __init__(self, common, is_gui, mode_settings, mode="share"):
         self.common = common
@@ -263,6 +264,10 @@ class Web:
             mode.cur_history_id += 1
             return self.error500(history_id)
 
+        @self.app.errorhandler(413)
+        def request_entity_too_large(e):
+            return self.error413()
+
         if self.mode != "website":
 
             @self.app.route("/favicon.ico")
@@ -274,6 +279,10 @@ class Web:
     def error403(self):
         self.add_request(Web.REQUEST_OTHER, request.path)
         return render_template("403.html", static_url_path=self.static_url_path), 403
+
+    def error413(self):
+        self.add_request(Web.REQUEST_OTHER, request.path)
+        return render_template("413.html", static_url_path=self.static_url_path), 413
 
     def error404(self, history_id):
         mode = self.get_mode()

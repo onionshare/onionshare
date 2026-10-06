@@ -157,6 +157,21 @@ class TestWeb:
             # Script that drives the upload progress UX
             assert "receive.js" in html
 
+    def test_receive_mode_page_shows_max_upload_size(self, temp_dir, common_obj):
+        """A configured maximum upload size is shown to senders"""
+        web = web_obj(temp_dir, common_obj, "receive")
+        web.settings.set("receive", "max_upload_size", 1024 * 1024)
+
+        with web.app.test_client() as c:
+            html = c.get("/").get_data(as_text=True)
+            assert "Maximum upload size: 1.0 MiB" in html
+
+        # With the lifespan option, the wording makes the total clear
+        web.settings.set("receive", "max_upload_size_total", True)
+        with web.app.test_client() as c:
+            html = c.get("/").get_data(as_text=True)
+            assert "Maximum upload size for this service: 1.0 MiB" in html
+
     def test_receive_mode_webhook(self, temp_dir, common_obj):
         global webhook_url, webhook_data
         webhook_url = None
@@ -414,6 +429,118 @@ class TestWeb:
         # And the webhook should have fired
         assert webhook_url == "http://127.0.0.1:1337/example"
         assert webhook_data == "1 file submitted to OnionShare"
+
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_max_upload_size_rejects_too_big(self, temp_dir, common_obj):
+        """
+        An upload larger than the configured maximum upload size is rejected,
+        and nothing is written to disk.
+        """
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+
+        web.settings.set("receive", "data_dir", data_dir)
+        web.settings.set("receive", "max_upload_size", 1024)
+
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"*" * 2048), "too_big.bin")},
+            )
+            content = res.get_data()
+            assert res.status_code == 413
+            assert b"too large" in content
+
+        # The data dir should be empty, with no partial files left behind
+        assert os.listdir(data_dir) == []
+
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_max_upload_size_allows_small(self, temp_dir, common_obj):
+        """An upload within the configured maximum upload size is accepted"""
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+
+        web.settings.set("receive", "data_dir", data_dir)
+        web.settings.set("receive", "max_upload_size", 1024)
+
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"*" * 512), "small.bin")},
+            )
+            content = res.get_data()
+            assert res.status_code == 200
+            assert b"Uploaded small.bin" in content
+
+        data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
+        time_str = os.listdir(data_dir_date)[0][0:12]
+        assert os.path.exists(os.path.join(data_dir_date, time_str, "small.bin"))
+
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_max_upload_size_total(self, temp_dir, common_obj):
+        """
+        With the maximum applied to the service's entire lifespan, the service
+        refuses all further uploads once the total maximum is reached.
+        """
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+
+        web.settings.set("receive", "data_dir", data_dir)
+        web.settings.set("receive", "max_upload_size", 1024)
+        web.settings.set("receive", "max_upload_size_total", True)
+
+        with web.app.test_client() as c:
+            # First upload fits
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"*" * 512), "first.bin")},
+            )
+            res.get_data()
+            assert res.status_code == 200
+
+            # Second upload uses up the remaining budget
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"*" * 512), "second.bin")},
+            )
+            res.get_data()
+            assert res.status_code == 200
+
+        assert web.receive_mode.total_upload_size == 1024
+        assert web.receive_mode.can_upload is False
+
+        # Any further upload is refused
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"*"), "third.bin")},
+            )
+            res.get_data()
+            assert res.status_code == 403
+
+        all_files = []
+        for _root, _dirs, files in os.walk(data_dir):
+            all_files.extend(files)
+        assert "third.bin" not in all_files
 
         shutil.rmtree(data_dir)
 
