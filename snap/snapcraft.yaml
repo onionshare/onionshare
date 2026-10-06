@@ -197,7 +197,7 @@ parts:
     source-type: git
     source-tag: v0.0.7
     override-build: |
-      cd webtunnel
+      cd webtunnel-client
       go build -o $SNAPCRAFT_PART_INSTALL/bin/webtunnel-client ./main/client
     after: [meek-client]
 
