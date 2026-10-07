@@ -456,6 +456,15 @@ class Mode(QtWidgets.QWidget):
         """
         pass
 
+    def cleanup(self):
+        """
+        Clean up mode-specific resources (threads, timers, onion keys) when
+        the tab is being closed or the app is quitting. Server modes are
+        cleaned up by Tab.cleanup; modes that are not servers but just clients
+        should implement their own cleanup here.
+        """
+        pass
+
     def handle_tor_broke(self):
         """
         Handle connection from Tor breaking.

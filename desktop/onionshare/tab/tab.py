@@ -785,10 +785,17 @@ class Tab(QtWidgets.QWidget):
 
     def cleanup(self):
         self.common.log("Tab", "cleanup", f"tab_id={self.tab_id}")
-        if self.get_mode() and self.get_mode().is_server:
-            if self.get_mode().web_thread:
-                self.get_mode().web.stop(self.get_mode().app.port)
-                self.get_mode().web_thread.quit()
-                self.get_mode().web_thread.wait()
+        if self.get_mode():
+            if self.get_mode().is_server:
+                if self.get_mode().web_thread:
+                    self.get_mode().web.stop(self.get_mode().app.port)
+                    self.get_mode().web_thread.quit()
+                    self.get_mode().web_thread.wait()
 
-            self.get_mode().web.cleanup()
+                self.get_mode().web.cleanup()
+            else:
+                # Modes that are not servers don't run a web server, but they
+                # can still have their own resources that need cleaning up,
+                # such as a polling timer, a download thread, or an onion
+                # client auth private key in Tor
+                self.get_mode().cleanup()

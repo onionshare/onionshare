@@ -287,6 +287,8 @@
     "error_download_not_onionshare_share": "The server did not offer an OnionShare download.",
     "error_download_timeout": "The download timed out.",
     "error_download_canceled": "Download canceled.",
+    "error_download_dir_permission_denied": "Permission denied creating download directory: {}",
+    "error_download_dir_not_available": "Error finding available download directory.",
     "error_tor_protocol_error": "There was an error with Tor: {}",
     "error_generic": "There was an unexpected error with OnionShare:\n{}",
     "moat_contact_label": "Contacting BridgeDB…",

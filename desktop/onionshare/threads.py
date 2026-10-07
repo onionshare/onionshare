@@ -362,6 +362,8 @@ class DownloadThread(QtCore.QThread):
                     self.mode.onionshare_uses_private_key_checkbox.isChecked()
                     and len(self.mode.onionshare_private_key.text().strip()) == 52
                 ):
+                    if self._stop_requested:
+                        raise DownloadCanceled()
                     self.mode.common.log(
                         "DownloadThread", "run", f"Setting private key"
                     )
@@ -513,33 +515,83 @@ class DownloadThread(QtCore.QThread):
             # Create that directory, which shouldn't exist yet
             try:
                 os.makedirs(download_mode_dir, 0o700, exist_ok=False)
-            except OSError:
+            except FileExistsError:
                 # If this directory already exists, maybe someone else is downloading files at
                 # the same second in another tab, so use a different name in that case
-                if os.path.exists(download_mode_dir):
-                    # Keep going until we find a directory name that's available
-                    i = 1
-                    while True:
-                        new_download_mode_dir = f"{download_mode_dir}-{i}"
-                        try:
-                            os.makedirs(new_download_mode_dir, 0o700, exist_ok=False)
-                            download_mode_dir = new_download_mode_dir
-                            break
-                        except OSError:
-                            pass
-                        i += 1
-                        # Failsafe
-                        if i == 100:
-                            self.mode.common.log(
-                                "DownloadThread",
-                                "save_share",
-                                "Error finding available download directory",
+                # Keep going until we find a directory name that's available
+                i = 1
+                while True:
+                    new_download_mode_dir = f"{download_mode_dir}-{i}"
+                    try:
+                        os.makedirs(new_download_mode_dir, 0o700, exist_ok=False)
+                        download_mode_dir = new_download_mode_dir
+                        break
+                    except FileExistsError:
+                        pass
+                    except PermissionError as e:
+                        self.mode.common.log(
+                            "DownloadThread",
+                            "save_share",
+                            f"Permission denied creating download directory: {e}",
+                        )
+                        raise Exception(
+                            strings._("error_download_dir_permission_denied").format(
+                                new_download_mode_dir
                             )
-                            raise Exception(
-                                "Error finding available download directory"
+                        ) from e
+                    except OSError as e:
+                        # The directory can't be created for some other reason
+                        self.mode.common.log(
+                            "DownloadThread",
+                            "save_share",
+                            f"Error creating download directory: {e}",
+                        )
+                        raise Exception(
+                            strings._("error_cannot_create_data_dir").format(
+                                new_download_mode_dir
                             )
-            except PermissionError:
-                raise Exception("Permission denied creating download directory")
+                        ) from e
+                    i += 1
+                    # Failsafe
+                    if i == 100:
+                        self.mode.common.log(
+                            "DownloadThread",
+                            "save_share",
+                            "Error finding available download directory",
+                        )
+                        raise Exception(
+                            strings._("error_download_dir_not_available")
+                        )
+            except PermissionError as e:
+                # Permission denied creating the directory. One or more of the
+                # parent directories may have been created, but not the leaf,
+                # so we must not try to continue saving into it.
+                self.mode.common.log(
+                    "DownloadThread",
+                    "save_share",
+                    f"Permission denied creating download directory: {e}",
+                )
+                self.remove_empty_download_dir(download_mode_dir)
+                raise Exception(
+                    strings._("error_download_dir_permission_denied").format(
+                        download_mode_dir
+                    )
+                ) from e
+            except OSError as e:
+                # Could not create the directory at all (disk full, etc), and
+                # the directory does not exist, so fail the download instead of
+                # continuing to write into a folder that was never created
+                self.mode.common.log(
+                    "DownloadThread",
+                    "save_share",
+                    f"Error creating download directory: {e}",
+                )
+                self.remove_empty_download_dir(download_mode_dir)
+                raise Exception(
+                    strings._("error_cannot_create_data_dir").format(
+                        download_mode_dir
+                    )
+                ) from e
 
         # Save this successful download dir if we are in polling mode, so we can
         # use it next time.
@@ -575,6 +627,11 @@ class DownloadThread(QtCore.QThread):
 
                         file.write(chunk)
 
+            # If the download was canceled while streaming, don't rename the
+            # partial file to the final file
+            if self._stop_requested:
+                raise DownloadCanceled()
+
             os.replace(partial_file_path, file_path)
 
         except Exception:
@@ -583,6 +640,28 @@ class DownloadThread(QtCore.QThread):
                     os.remove(partial_file_path)
             except Exception:
                 pass
+            # Don't leave empty timestamped folders behind after a failed
+            # attempt
+            self.remove_empty_download_dir(download_mode_dir)
             raise
 
         return file_path
+
+    def remove_empty_download_dir(self, download_mode_dir):
+        """
+        Remove the timestamped download directory if it is empty, along with
+        the date directory containing it if that is now empty as well, so
+        failed attempts don't leave empty timestamped folders behind in the
+        data dir. Directories with other files or downloads are left alone.
+        """
+        try:
+            if os.path.exists(download_mode_dir) and not os.listdir(
+                download_mode_dir
+            ):
+                os.rmdir(download_mode_dir)
+
+            date_dir = os.path.dirname(download_mode_dir)
+            if os.path.exists(date_dir) and not os.listdir(date_dir):
+                os.rmdir(date_dir)
+        except Exception:
+            pass

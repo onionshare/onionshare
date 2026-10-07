@@ -1077,7 +1077,6 @@ class DownloadHistoryItem(HistoryItem):
             self.progress_bar.hide()
 
             # Change the label
-            error_data_formatted = data["error"]
             self.error_data_text = self.common.gui.wrap_text(self.label, data["error"])
             self.label.setText(
                 strings._("history_downloads_error").format(self.error_data_text)
@@ -1088,7 +1087,7 @@ class DownloadHistoryItem(HistoryItem):
         """
         Open the downloads folder, with the file selected, in a cross-platform manner
         """
-        self.common.log("DownloadHistoryItemFile", "open_folder")
+        self.common.log("DownloadHistoryItem", "open_folder")
 
         # Linux
         if self.common.platform == "Linux" or self.common.platform == "BSD":

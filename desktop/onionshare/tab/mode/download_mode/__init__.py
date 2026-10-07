@@ -448,17 +448,32 @@ class DownloadMode(Mode):
 
     def stop_server_custom(self):
         """
-        If any polling is taking place, stop iot
+        If any polling is taking place, stop it
         """
         self.stop_requested = True
+        self.cleanup_downloads()
+        self.download_mode_explainer.setText(strings._("gui_download_mode_explainer"))
+
+    def cleanup_downloads(self):
+        """
+        Stop the polling timer and the download thread, and remove the client
+        auth private key on Tor, if it was added.
+        """
         if self.is_polling and self.timer:
             self.common.log(
-                "DownloadMode", "stop_server_custom", "Stopping Download polling timer"
+                "DownloadMode",
+                "cleanup_downloads",
+                "Stopping Download polling timer",
             )
             self.timer.stop()
+
+        self.is_polling = False
+
         if self.download_thread:
             self.common.log(
-                "DownloadMode", "stop_server_custom", "Stopping DownloadThread"
+                "DownloadMode",
+                "cleanup_downloads",
+                "Stopping DownloadThread",
             )
             self.download_thread.request_stop()
             self.download_thread.quit()
@@ -470,13 +485,21 @@ class DownloadMode(Mode):
             except Exception as e:
                 self.common.log(
                     "DownloadMode",
-                    "stop_server_custom",
+                    "cleanup_downloads",
                     f"Error removing onion client auth: {e}",
                 )
             self.client_auth_added = False
 
-        self.is_polling = False
-        self.download_mode_explainer.setText(strings._("gui_download_mode_explainer"))
+    def cleanup(self):
+        """
+        Called when the tab is closed or the app is quitting. Download mode is
+        not a server, so Tab.cleanup delegates here to make sure the polling
+        timer and download thread are stopped and the client auth private key
+        is removed from Tor.
+        """
+        self.common.log("DownloadMode", "cleanup")
+        self.stop_requested = True
+        self.cleanup_downloads()
 
     def handle_tor_broke_custom(self):
         """
