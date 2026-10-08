@@ -22,7 +22,12 @@ from .censorship import CensorshipCircumvention
 from .meek import Meek
 from stem.control import Controller
 from stem import ProtocolError, SocketClosed
-from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
+from stem.connection import (
+    MissingPassword,
+    UnreadableCookieFile,
+    AuthenticationFailure,
+    authenticate_cookie,
+)
 import base64
 import nacl.public
 import os
@@ -190,6 +195,21 @@ class Onion(object):
         # change from b'ASDF' to ASDF
         s = key_b32.decode("utf-8")
         return s
+
+    @staticmethod
+    def get_cookie_auth_file(settings):
+        """
+        Return the configured Tor cookie authentication file if it exists and is
+        readable, else None (so Tor's default discovery is used).
+        """
+        cookie_auth_file = settings.get("cookie_auth_file")
+        if (
+            cookie_auth_file
+            and os.path.isfile(cookie_auth_file)
+            and os.access(cookie_auth_file, os.R_OK)
+        ):
+            return cookie_auth_file
+        return None
 
     def connect(
         self,
@@ -611,7 +631,16 @@ class Onion(object):
             # Try authenticating
             try:
                 if self.settings.get("auth_type") == "no_auth":
-                    self.c.authenticate()
+                    cookie_auth_file = self.get_cookie_auth_file(self.settings)
+                    if cookie_auth_file:
+                        try:
+                            authenticate_cookie(self.c, cookie_auth_file)
+                        except AuthenticationFailure:
+                            # Fall back to Tor's default discovery (e.g. the
+                            # cookie path advertised over PROTOCOLINFO)
+                            self.c.authenticate()
+                    else:
+                        self.c.authenticate()
                 elif self.settings.get("auth_type") == "password":
                     self.c.authenticate(self.settings.get("auth_password"))
                 else:

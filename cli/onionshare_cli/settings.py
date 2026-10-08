@@ -22,6 +22,25 @@ import json
 import os
 import locale
 
+# ONIONSHARE_<KEY> environment variables override settings. Unknown variables
+# are ignored.
+ENV_VAR_PREFIX = "ONIONSHARE_"
+
+# "version" must always reflect the running OnionShare version.
+NON_ENV_SETTINGS = {"version"}
+
+# Types for settings whose default value is None.
+ENV_SETTING_TYPES = {"locale": str, "autoupdate_timestamp": int}
+
+# Tor's conventional environment variables, mapped to the settings they
+# override. These have lower precedence than ONIONSHARE_* variables.
+TOR_ENV_VARS = {
+    "TOR_CONTROL_HOST": "control_port_address",
+    "TOR_CONTROL_PORT": "control_port_port",
+    "TOR_CONTROL_PASSWD": "auth_password",
+    "TOR_CONTROL_COOKIE_AUTH_FILE": "cookie_auth_file",
+}
+
 
 class Settings(object):
     """
@@ -111,6 +130,7 @@ class Settings(object):
             "socks_address": "127.0.0.1",
             "socks_port": 9050,
             "socket_file_path": "/var/run/tor/control",
+            "cookie_auth_file": "/run/tor/control.authcookie",
             "auth_type": "no_auth",
             "auth_password": "",
             "auto_connect": False,
@@ -127,6 +147,8 @@ class Settings(object):
             "theme": 0,
         }
         self._settings = {}
+        # Environment overrides, kept out of _settings so save() never writes them
+        self._env_overrides = {}
         self.fill_in_defaults()
 
     def fill_in_defaults(self):
@@ -179,11 +201,123 @@ class Settings(object):
             except Exception:
                 pass
 
+        # Apply environment overrides
+        self._apply_env_overrides()
+
         # Make sure data_dir exists
         try:
             os.makedirs(self.get("data_dir"), exist_ok=True)
         except Exception:
             pass
+
+    def _apply_env_overrides(self):
+        """
+        Apply TOR_* and ONIONSHARE_* environment overrides, in that order of
+        precedence. They are kept out of self._settings so save() never persists
+        them (e.g. an env-supplied auth_password).
+        """
+        self._env_overrides = {}
+        self._apply_tor_env_vars()
+
+        for key in self.default_settings:
+            if key in NON_ENV_SETTINGS:
+                continue
+
+            env_key = f"{ENV_VAR_PREFIX}{key.upper()}"
+            if env_key not in os.environ:
+                continue
+
+            try:
+                value = self._parse_env_value(key, os.environ[env_key])
+            except ValueError:
+                # Keep the file/default value; don't log the bad value (may be a secret)
+                self.common.log(
+                    "Settings",
+                    "_apply_env_overrides",
+                    f"Ignoring invalid value for {env_key}",
+                )
+                continue
+
+            self._env_overrides[key] = value
+
+        if self._env_overrides:
+            # Log names only, never values (may be secrets)
+            self.common.log(
+                "Settings",
+                "_apply_env_overrides",
+                "Overriding settings from environment: "
+                + ", ".join(sorted(self._env_overrides)),
+            )
+
+    def _apply_tor_env_vars(self):
+        """
+        Apply Tor's conventional TOR_CONTROL_* environment variables. These
+        have lower precedence than ONIONSHARE_* variables.
+        """
+        for env_key, key in TOR_ENV_VARS.items():
+            raw = os.environ.get(env_key)
+            if not raw:
+                continue
+            try:
+                self._env_overrides[key] = self._parse_env_value(key, raw)
+            except ValueError:
+                self.common.log(
+                    "Settings",
+                    "_apply_tor_env_vars",
+                    f"Ignoring invalid value for {env_key}",
+                )
+
+        # A password implies password authentication
+        if "auth_password" in self._env_overrides:
+            self._env_overrides["auth_type"] = "password"
+
+        # These variables only apply to an explicit control port connection, so
+        # select it, overriding the config file. ONIONSHARE_CONNECTION_TYPE is
+        # applied afterwards, so it still wins. TOR_CONTROL_PORT is deliberately
+        # excluded: it is also used to discover Tor in the "automatic"
+        # connection type.
+        tor_control_set = any(
+            os.environ.get(env_key)
+            for env_key in (
+                "TOR_CONTROL_HOST",
+                "TOR_CONTROL_PASSWD",
+                "TOR_CONTROL_COOKIE_AUTH_FILE",
+            )
+        )
+        if tor_control_set:
+            self._env_overrides["connection_type"] = "control_port"
+
+    def _parse_env_value(self, key, raw):
+        """
+        Parse an environment value by the setting's type. Raises ValueError.
+        """
+        expected_type = ENV_SETTING_TYPES.get(key, type(self.default_settings[key]))
+
+        if expected_type is bool:
+            return self._parse_env_bool(raw)
+
+        if expected_type is int:
+            return int(raw)
+
+        if expected_type in (dict, list):
+            value = json.loads(raw)
+            if not isinstance(value, expected_type):
+                raise ValueError(f"{key} must be a JSON {expected_type.__name__}")
+            return value
+
+        return raw
+
+    @staticmethod
+    def _parse_env_bool(raw):
+        """
+        Parse a boolean environment value. Raises ValueError.
+        """
+        value = raw.strip().lower()
+        if value in ("1", "true", "yes", "on"):
+            return True
+        if value in ("0", "false", "no", "off"):
+            return False
+        raise ValueError("invalid boolean")
 
     def save(self):
         """
@@ -194,6 +328,9 @@ class Settings(object):
         self.common.log("Settings", "save", f"Settings saved in {self.filename}")
 
     def get(self, key):
+        # Environment overrides take precedence
+        if key in self._env_overrides:
+            return self._env_overrides[key]
         return self._settings[key]
 
     def set(self, key, val):
@@ -206,5 +343,13 @@ class Settings(object):
                     val = self.default_settings["control_port_port"]
                 elif key == "socks_port":
                     val = self.default_settings["socks_port"]
+
+        # Keep an unchanged env override out of _settings so save() doesn't
+        # persist it (the desktop sets every field on save). A different value
+        # is an explicit choice and wins.
+        if key in self._env_overrides:
+            if val == self._env_overrides[key]:
+                return
+            self._env_overrides.pop(key, None)
 
         self._settings[key] = val

@@ -22,12 +22,19 @@ class UnixHTTPConnection(http.client.HTTPConnection):
         self.sock.connect(self.socket_path)
 
 
-def wait_for_socket(path, timeout=10):
-    """Wait until the server has bound the unix socket."""
+def wait_for_socket(path, mode=0o600, timeout=10):
+    """Wait until the server has bound the unix socket with the expected mode.
+
+    Waitress creates the socket at 0o755 and chmods it to 0o600 afterwards, so
+    waiting for existence alone races with that chmod.
+    """
     deadline = time.time() + timeout
     while time.time() < deadline:
-        if os.path.exists(path):
-            return True
+        try:
+            if os.stat(path).st_mode & 0o777 == mode:
+                return True
+        except FileNotFoundError:
+            pass
         time.sleep(0.05)
     return False
 
@@ -44,7 +51,9 @@ class TestWebUnixSocket:
         thread = Thread(target=web.start, args=(0, socket_path), daemon=True)
         thread.start()
         try:
-            assert wait_for_socket(socket_path), "web server never bound the socket"
+            assert wait_for_socket(
+                socket_path
+            ), "web server never bound the socket with mode 0o600"
             assert oct(os.stat(socket_path).st_mode & 0o777) == "0o600"
 
             conn = UnixHTTPConnection(socket_path)
@@ -75,7 +84,9 @@ class TestWebUnixSocket:
         )
         thread.start()
         try:
-            assert wait_for_socket(socket_path), "web server never bound the socket"
+            assert wait_for_socket(
+                socket_path
+            ), "web server never bound the socket with mode 0o600"
             assert oct(os.stat(socket_path).st_mode & 0o777) == "0o600"
         finally:
             web.stop(0)
