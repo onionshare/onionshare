@@ -5,6 +5,7 @@ import pytest
 from onionshare_cli import OnionShare
 from onionshare_cli.common import Common
 from onionshare_cli.mode_settings import ModeSettings
+from onionshare_cli.onion import Onion
 
 
 class MyOnion:
@@ -108,3 +109,26 @@ class TestOnionShare:
         onionshare_obj.stop_onion_service(mode_settings_obj)
         assert not os.path.exists(socket_path)
         assert not os.path.exists(os.path.dirname(socket_path))
+
+
+class FakeCookieSettings:
+    def __init__(self, cookie_auth_file):
+        self._cookie_auth_file = cookie_auth_file
+
+    def get(self, key):
+        return self._cookie_auth_file
+
+
+class TestGetCookieAuthFile:
+    def test_none_when_unset(self):
+        assert Onion.get_cookie_auth_file(FakeCookieSettings(None)) is None
+
+    def test_none_when_missing(self, temp_dir):
+        missing = os.path.join(temp_dir.name, "nope")
+        assert Onion.get_cookie_auth_file(FakeCookieSettings(missing)) is None
+
+    def test_returns_readable_file(self, temp_dir):
+        path = os.path.join(temp_dir.name, "control.authcookie")
+        with open(path, "w") as f:
+            f.write("cookie")
+        assert Onion.get_cookie_auth_file(FakeCookieSettings(path)) == path

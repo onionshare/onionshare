@@ -25,6 +25,7 @@ class TestSettings:
             "socks_address": "127.0.0.1",
             "socks_port": 9050,
             "socket_file_path": "/var/run/tor/control",
+            "cookie_auth_file": "/run/tor/control.authcookie",
             "auth_type": "no_auth",
             "auth_password": "",
             "use_autoupdate": True,
@@ -175,3 +176,260 @@ class TestSettings:
             "webtunnel 192.0.2.42:443 D965164C1D9FB4FDD92E4FD5CDC6005E7820A687",
         ])
         assert not result, "A webtunnel line without url= should be rejected"
+
+    def test_env_override_string(self, monkeypatch, temp_dir, settings_obj):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_CONNECTION_TYPE", "control_port")
+        settings_obj.load()
+        assert settings_obj.get("connection_type") == "control_port"
+
+    def test_env_override_int(self, monkeypatch, temp_dir, settings_obj):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_SOCKS_PORT", "9999")
+        settings_obj.load()
+        assert settings_obj.get("socks_port") == 9999
+        assert isinstance(settings_obj.get("socks_port"), int)
+
+    @pytest.mark.parametrize("value", ["1", "true", "TRUE", "yes", "on"])
+    def test_env_override_bool_true(self, monkeypatch, temp_dir, settings_obj, value):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_AUTO_CONNECT", value)
+        settings_obj.load()
+        assert settings_obj.get("auto_connect") is True
+
+    @pytest.mark.parametrize("value", ["0", "false", "FALSE", "no", "off"])
+    def test_env_override_bool_false(self, monkeypatch, temp_dir, settings_obj, value):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        settings_obj.set("auto_connect", True)
+        monkeypatch.setenv("ONIONSHARE_AUTO_CONNECT", value)
+        settings_obj.load()
+        assert settings_obj.get("auto_connect") is False
+
+    def test_env_override_json_list(self, monkeypatch, temp_dir, settings_obj):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_PERSISTENT_TABS", '["tab1", "tab2"]')
+        settings_obj.load()
+        assert settings_obj.get("persistent_tabs") == ["tab1", "tab2"]
+
+    def test_env_override_json_dict(self, monkeypatch, temp_dir, settings_obj):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_BRIDGES_BUILTIN", '{"obfs4": []}')
+        settings_obj.load()
+        assert settings_obj.get("bridges_builtin") == {"obfs4": []}
+
+    def test_env_override_invalid_int_falls_back(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_SOCKS_PORT", "not-an-int")
+        settings_obj.load()
+        assert settings_obj.get("socks_port") == 9050
+
+    def test_env_override_invalid_bool_falls_back(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_AUTO_CONNECT", "maybe")
+        settings_obj.load()
+        assert settings_obj.get("auto_connect") is False
+
+    def test_env_override_invalid_json_falls_back(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_PERSISTENT_TABS", "not json")
+        settings_obj.load()
+        assert settings_obj.get("persistent_tabs") == []
+
+    def test_env_override_wrong_json_type_falls_back(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_PERSISTENT_TABS", '{"not": "a list"}')
+        settings_obj.load()
+        assert settings_obj.get("persistent_tabs") == []
+
+    def test_env_override_takes_precedence_over_file(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_file = os.path.join(temp_dir.name, "settings.json")
+        with open(settings_file, "w") as f:
+            json.dump({"socks_port": 9999}, f)
+        settings_obj.filename = settings_file
+        monkeypatch.setenv("ONIONSHARE_SOCKS_PORT", "8888")
+        settings_obj.load()
+        assert settings_obj.get("socks_port") == 8888
+
+    def test_env_override_not_persisted_on_save(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_file = os.path.join(temp_dir.name, "settings.json")
+        settings_obj.filename = settings_file
+        monkeypatch.setenv("ONIONSHARE_AUTH_PASSWORD", "hunter2")
+        settings_obj.load()
+        assert settings_obj.get("auth_password") == "hunter2"
+        settings_obj.save()
+        with open(settings_file, "r") as f:
+            saved = json.load(f)
+        # The secret must not have been written to disk
+        assert saved["auth_password"] == ""
+
+    def test_env_override_cleared_by_set(self, monkeypatch, temp_dir, settings_obj):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_SOCKS_PORT", "8888")
+        settings_obj.load()
+        assert settings_obj.get("socks_port") == 8888
+        settings_obj.set("socks_port", 7777)
+        assert settings_obj.get("socks_port") == 7777
+
+    def test_env_override_same_value_set_not_persisted(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        # The desktop settings dialog sets every field when saving; setting a
+        # value identical to the environment override must not write it to disk.
+        settings_file = os.path.join(temp_dir.name, "settings.json")
+        settings_obj.filename = settings_file
+        monkeypatch.setenv("ONIONSHARE_AUTH_PASSWORD", "hunter2")
+        settings_obj.load()
+        settings_obj.set("auth_password", "hunter2")
+        settings_obj.save()
+        with open(settings_file, "r") as f:
+            saved = json.load(f)
+        assert saved["auth_password"] == ""
+        # The override is still in effect for this session
+        assert settings_obj.get("auth_password") == "hunter2"
+
+    def test_env_override_version_ignored(self, monkeypatch, temp_dir, settings_obj):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_VERSION", "9.9.9")
+        settings_obj.load()
+        assert settings_obj.get("version") == "DUMMY_VERSION_1.2.3"
+
+    def test_env_override_unknown_setting_ignored(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("ONIONSHARE_NOT_A_REAL_SETTING", "whatever")
+        settings_obj.load()
+        assert "not_a_real_setting" not in settings_obj._env_overrides
+
+    def test_tor_env_host_and_port(self, monkeypatch, temp_dir, settings_obj):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("TOR_CONTROL_HOST", "10.0.0.2")
+        monkeypatch.setenv("TOR_CONTROL_PORT", "9151")
+        settings_obj.load()
+        assert settings_obj.get("control_port_address") == "10.0.0.2"
+        assert settings_obj.get("control_port_port") == 9151
+
+    def test_tor_env_passwd_implies_password_auth(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("TOR_CONTROL_PASSWD", "hunter2")
+        settings_obj.load()
+        assert settings_obj.get("auth_password") == "hunter2"
+        assert settings_obj.get("auth_type") == "password"
+
+    def test_tor_env_cookie_auth_file(self, monkeypatch, temp_dir, settings_obj):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("TOR_CONTROL_COOKIE_AUTH_FILE", "/tmp/my.cookie")
+        settings_obj.load()
+        assert settings_obj.get("cookie_auth_file") == "/tmp/my.cookie"
+
+    def test_tor_env_overrides_file(self, monkeypatch, temp_dir, settings_obj):
+        settings_file = os.path.join(temp_dir.name, "settings.json")
+        with open(settings_file, "w") as f:
+            json.dump({"control_port_port": 9999}, f)
+        settings_obj.filename = settings_file
+        monkeypatch.setenv("TOR_CONTROL_PORT", "1234")
+        settings_obj.load()
+        assert settings_obj.get("control_port_port") == 1234
+
+    def test_tor_env_lower_precedence_than_onionshare(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("TOR_CONTROL_HOST", "10.0.0.2")
+        monkeypatch.setenv("ONIONSHARE_CONTROL_PORT_ADDRESS", "10.0.0.3")
+        settings_obj.load()
+        assert settings_obj.get("control_port_address") == "10.0.0.3"
+
+    def test_tor_env_invalid_port_falls_back(self, monkeypatch, temp_dir, settings_obj):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("TOR_CONTROL_PORT", "not-an-int")
+        settings_obj.load()
+        assert settings_obj.get("control_port_port") == 9051
+
+    def test_tor_env_not_persisted_on_save(self, monkeypatch, temp_dir, settings_obj):
+        settings_file = os.path.join(temp_dir.name, "settings.json")
+        settings_obj.filename = settings_file
+        monkeypatch.setenv("TOR_CONTROL_PASSWD", "hunter2")
+        settings_obj.load()
+        settings_obj.save()
+        with open(settings_file, "r") as f:
+            saved = json.load(f)
+        assert saved["auth_password"] == ""
+        assert saved["auth_type"] == "no_auth"
+
+    def test_every_setting_has_an_env_var(self, monkeypatch, temp_dir, settings_obj):
+        """Every onionshare.json parameter except version can be set via env."""
+        raws = {
+            bool: "true",
+            int: "123",
+            dict: '{"x": 1}',
+            list: '["x"]',
+            str: "envtest",
+        }
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        for key, default in settings_obj.default_settings.items():
+            if key == "version":
+                continue
+            raw = raws[settings.ENV_SETTING_TYPES.get(key, type(default))]
+            monkeypatch.setenv(f"ONIONSHARE_{key.upper()}", raw)
+            settings_obj.load()
+            assert settings_obj.get(key) == settings_obj._parse_env_value(key, raw), key
+
+    def test_tor_env_host_selects_control_port(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("TOR_CONTROL_HOST", "10.0.0.2")
+        settings_obj.load()
+        assert settings_obj.get("connection_type") == "control_port"
+
+    def test_tor_env_passwd_selects_control_port(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("TOR_CONTROL_PASSWD", "hunter2")
+        settings_obj.load()
+        assert settings_obj.get("connection_type") == "control_port"
+
+    def test_tor_env_port_alone_keeps_connection_type(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        # TOR_CONTROL_PORT is also used by the "automatic" connection type
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("TOR_CONTROL_PORT", "9151")
+        settings_obj.load()
+        assert settings_obj.get("connection_type") == "bundled"
+
+    def test_tor_env_onionshare_connection_type_wins(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_obj.filename = os.path.join(temp_dir.name, "nonexistent.json")
+        monkeypatch.setenv("TOR_CONTROL_HOST", "10.0.0.2")
+        monkeypatch.setenv("ONIONSHARE_CONNECTION_TYPE", "socket_file")
+        settings_obj.load()
+        assert settings_obj.get("connection_type") == "socket_file"
+
+    def test_tor_env_host_overrides_file_connection_type(
+        self, monkeypatch, temp_dir, settings_obj
+    ):
+        settings_file = os.path.join(temp_dir.name, "settings.json")
+        with open(settings_file, "w") as f:
+            json.dump({"connection_type": "socket_file"}, f)
+        settings_obj.filename = settings_file
+        monkeypatch.setenv("TOR_CONTROL_HOST", "10.0.0.2")
+        settings_obj.load()
+        assert settings_obj.get("connection_type") == "control_port"

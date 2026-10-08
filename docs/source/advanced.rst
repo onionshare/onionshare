@@ -330,6 +330,7 @@ control_port_port    ``integer`` The port number of Tor's Control port, if ``con
 socks_address        ``string``  The IP address of Tor's SOCKS proxy, if ``connection_type`` is set to 'control_port' or 'socket_file'. Default: '127.0.0.1'
 socks_port           ``integer`` The port number of Tor's SOCKS proxy, if ``connection_type`` is set to 'control_port' or 'socket_file'. Default: ''9050'
 socket_file_path     ``string``  The path to Tor's socket file, if ``connection_type`` is set to 'socket_file'. Default: '/var/run/tor/control'
+cookie_auth_file     ``string``  The path to Tor's control authentication cookie file, used when ``auth_type`` is 'no_auth' and the file exists; if cookie authentication fails, Tor's default cookie discovery is used. Default: '/run/tor/control.authcookie'
 auth_type            ``string``  If access to Tor's control port requires a password, this can be set to 'password', otherwise 'no_auth'. Default: 'no_auth'
 auth_password        ``string``  If access to Tor's control port requires a password, and ``auth_type`` is set to 'password', specify the password here. Default: ''
 auto_connect         ``boolean`` Whether OnionShare should automatically connect to Tor when it starts. Default: False
@@ -476,3 +477,41 @@ chat
 ^^^^
 
 There are currently no configurable settings for the Chat mode.
+
+
+Environment variables
+---------------------
+
+Every configuration file parameter, except ``version``, can also be set with an environment variable, which is mainly useful for headless or containerized deployments. The variable name is ``ONIONSHARE_`` followed by the upper-cased parameter name.
+
+=============================== ==================== ===========
+Environment variable            Config parameter     Type
+=============================== ==================== ===========
+ONIONSHARE_CONNECTION_TYPE      connection_type      ``string``
+ONIONSHARE_CONTROL_PORT_ADDRESS control_port_address ``string``
+ONIONSHARE_CONTROL_PORT_PORT    control_port_port    ``integer``
+ONIONSHARE_SOCKS_ADDRESS        socks_address        ``string``
+ONIONSHARE_SOCKS_PORT           socks_port           ``integer``
+ONIONSHARE_SOCKET_FILE_PATH     socket_file_path     ``string``
+ONIONSHARE_COOKIE_AUTH_FILE     cookie_auth_file     ``string``
+ONIONSHARE_AUTH_TYPE            auth_type            ``string``
+ONIONSHARE_AUTH_PASSWORD        auth_password        ``string``
+ONIONSHARE_AUTO_CONNECT         auto_connect         ``boolean``
+ONIONSHARE_USE_AUTOUPDATE       use_autoupdate       ``boolean``
+ONIONSHARE_AUTOUPDATE_TIMESTAMP autoupdate_timestamp ``integer``
+ONIONSHARE_BRIDGES_ENABLED      bridges_enabled      ``boolean``
+ONIONSHARE_BRIDGES_TYPE         bridges_type         ``string``
+ONIONSHARE_BRIDGES_BUILTIN_PT   bridges_builtin_pt   ``string``
+ONIONSHARE_BRIDGES_MOAT         bridges_moat         ``string``
+ONIONSHARE_BRIDGES_CUSTOM       bridges_custom       ``string``
+ONIONSHARE_BRIDGES_BUILTIN      bridges_builtin      ``dict``
+ONIONSHARE_PERSISTENT_TABS      persistent_tabs      ``list``
+ONIONSHARE_LOCALE               locale               ``string``
+ONIONSHARE_THEME                theme                ``integer``
+=============================== ==================== ===========
+
+Booleans accept ``1``/``0``, ``true``/``false``, ``yes``/``no`` or ``on``/``off``; integers are decimal; ``bridges_builtin`` and ``persistent_tabs`` are JSON. Any other ``ONIONSHARE_*`` variable, or a value that cannot be parsed as the expected type, is ignored.
+
+For compatibility with system Tor and Tor Browser, the conventional ``TOR_CONTROL_HOST``, ``TOR_CONTROL_PORT``, ``TOR_CONTROL_PASSWD`` and ``TOR_CONTROL_COOKIE_AUTH_FILE`` environment variables are also recognized. They override the configuration file, but have lower precedence than the ``ONIONSHARE_*`` variables above. Setting ``TOR_CONTROL_HOST``, ``TOR_CONTROL_PASSWD`` or ``TOR_CONTROL_COOKIE_AUTH_FILE`` selects the 'control_port' connection type, unless ``ONIONSHARE_CONNECTION_TYPE`` overrides it.
+
+Environment variables take precedence over the configuration file and are never written back to it, so a secret such as ``ONIONSHARE_AUTH_PASSWORD`` is not saved to disk. Changing an overridden setting to a different value in the application saves that new value normally.
