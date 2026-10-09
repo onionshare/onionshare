@@ -274,5 +274,6 @@
     "gui_filesize_eib": "{} EiB",
     "gui_filesize_zib": "{} ZiB",
     "gui_filesize_yib": "{} YiB",
-    "gui_receive_data_dir_not_writable": "OnionShare bu klasöre yazamıyor:\n\n{}\n\nYazma izni olan bir klasör seçin (örneğin İndirilenler klasörünüz) ve tekrar deneyin."
+    "gui_receive_data_dir_not_writable": "OnionShare bu klasöre yazamıyor:\n\n{}\n\nYazma izni olan bir klasör seçin (örneğin İndirilenler klasörünüz) ve tekrar deneyin.",
+    "moat_bridge_type_label": "İstenen köprü türü:"
 }
