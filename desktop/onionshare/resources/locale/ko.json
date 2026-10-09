@@ -120,5 +120,8 @@
     "gui_alert_button_no": "아니",
     "gui_alert_button_ok": "확인",
     "gui_alert_button_close": "닫기",
-    "gui_alert_button_yes": "네"
+    "gui_alert_button_yes": "네",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB"
 }

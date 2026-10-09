@@ -40,5 +40,7 @@
     "gui_alert_button_cancel": "ਰੱਦ ਕਰੋ",
     "gui_alert_button_close": "ਬੰਦ ਕਰੋ",
     "gui_alert_button_no": "ਨਹੀਂ",
-    "gui_alert_button_ok": "ਠੀਕ"
+    "gui_alert_button_ok": "ਠੀਕ",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB"
 }

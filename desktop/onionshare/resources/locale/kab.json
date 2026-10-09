@@ -74,5 +74,8 @@
     "gui_alert_button_no": "Ala",
     "gui_alert_button_ok": "Ih",
     "gui_alert_button_close": "Mdel",
-    "gui_alert_button_yes": "Ih"
+    "gui_alert_button_yes": "Ih",
+    "mode_settings_receive_max_upload_size_unit_mb": "Mo",
+    "mode_settings_receive_max_upload_size_unit_kb": "KAṬ",
+    "mode_settings_receive_max_upload_size_unit_gb": "Go"
 }

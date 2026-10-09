@@ -261,5 +261,8 @@
     "gui_alert_button_close": "Zavřít",
     "gui_alert_button_ok": "OK",
     "gui_alert_button_yes": "Ano",
-    "gui_alert_button_no": "Ne"
+    "gui_alert_button_no": "Ne",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_kb": "kB"
 }

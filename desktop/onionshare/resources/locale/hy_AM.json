@@ -123,5 +123,8 @@
     "gui_alert_button_yes": "Այո",
     "gui_tor_connection_ask_quit": "Դուրս գալ",
     "systray_menu_exit": "Դուրս գալ",
-    "gui_quit_warning_quit": "Դուրս գալ"
+    "gui_quit_warning_quit": "Դուրս գալ",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_kb": "ԿԲ"
 }
