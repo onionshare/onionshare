@@ -264,5 +264,8 @@
     "gui_alert_button_cancel": "Anuloje",
     "gui_alert_button_yes": "Po",
     "gui_alert_button_no": "Jo",
-    "gui_alert_button_close": "Mbylle"
+    "gui_alert_button_close": "Mbylle",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB"
 }

@@ -264,5 +264,8 @@
     "gui_alert_button_yes": "ஆம்",
     "gui_alert_button_close": "மூடு",
     "gui_alert_button_no": "இல்லை",
-    "gui_alert_button_ok": "சரி"
+    "gui_alert_button_ok": "சரி",
+    "mode_settings_receive_max_upload_size_unit_gb": "ஜிபி",
+    "mode_settings_receive_max_upload_size_unit_mb": "எம்பி",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB"
 }

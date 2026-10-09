@@ -260,5 +260,7 @@
     "gui_alert_button_ok": "OK",
     "gui_alert_button_no": "Nee",
     "gui_alert_button_cancel": "Kanseleer",
-    "gui_alert_button_close": "Sluit"
+    "gui_alert_button_close": "Sluit",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB"
 }

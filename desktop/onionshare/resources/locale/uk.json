@@ -44,7 +44,7 @@
     "gui_settings_authenticate_password_option": "Пароль",
     "gui_settings_password_label": "Пароль",
     "gui_settings_tor_bridges": "Під'єднатися за допомогою мосту Tor?",
-    "gui_settings_meek_expensive_warning": "Увага: Мости meek заважкі для роботи Tor Project. <br> <br>Користуйтеся ними лише якщо не вдається з'єднатися з Tor безпосередньо, через obfs4 транспорти або інші звичайні мости.",
+    "gui_settings_meek_expensive_warning": "Увага: Мости meek заважкі для роботи Tor Project.<br><br>Користуйтеся ними лише якщо не вдається з'єднатися з Tor безпосередньо, через obfs4 транспорти або інші звичайні мости.",
     "gui_settings_tor_bridges_invalid": "Жоден з доданих мостів не працює. Ще раз перевірте їх або додайте інші.",
     "gui_settings_button_save": "Зберегти",
     "gui_settings_button_cancel": "Скасувати",
@@ -273,5 +273,8 @@
     "gui_filesize_pib": "{} ПіБ",
     "gui_filesize_eib": "{} ЕіБ",
     "gui_filesize_zib": "{} ЗіБ",
-    "gui_filesize_yib": "{} ЙіБ"
+    "gui_filesize_yib": "{} ЙіБ",
+    "mode_settings_receive_max_upload_size_unit_kb": "кБ",
+    "mode_settings_receive_max_upload_size_unit_mb": "МБ",
+    "mode_settings_receive_max_upload_size_unit_gb": "ГБ"
 }

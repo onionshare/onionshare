@@ -40,5 +40,6 @@
     "gui_alert_button_close": "སྒོ་རྒྱོབ།",
     "gui_alert_button_ok": "འགྲིག",
     "gui_alert_button_yes": "ཡིན་ལགས།",
-    "gui_alert_button_cancel": "ཕྱིར་འཐེན།"
+    "gui_alert_button_cancel": "ཕྱིར་འཐེན།",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB"
 }

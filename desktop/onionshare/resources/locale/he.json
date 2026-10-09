@@ -73,5 +73,8 @@
     "gui_alert_button_cancel": "בטל",
     "gui_alert_button_yes": "כן",
     "gui_alert_button_no": "לא",
-    "gui_alert_button_ok": "אישור"
+    "gui_alert_button_ok": "אישור",
+    "mode_settings_receive_max_upload_size_unit_kb": "ק\"ב",
+    "mode_settings_receive_max_upload_size_unit_gb": "ג״ב",
+    "mode_settings_receive_max_upload_size_unit_mb": "מ״ב"
 }

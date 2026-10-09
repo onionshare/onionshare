@@ -46,5 +46,6 @@
     "gui_alert_button_cancel": "Cancellar",
     "gui_alert_button_close": "Clauder",
     "gui_alert_button_yes": "Si",
-    "gui_alert_button_no": "Non"
+    "gui_alert_button_no": "Non",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB"
 }

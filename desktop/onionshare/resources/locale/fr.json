@@ -273,5 +273,8 @@
     "gui_filesize_pib": "{} Pio",
     "gui_filesize_eib": "{} Eio",
     "gui_filesize_zib": "{} Zio",
-    "gui_filesize_yib": "{} Yio"
+    "gui_filesize_yib": "{} Yio",
+    "mode_settings_receive_max_upload_size_unit_kb": "ko",
+    "mode_settings_receive_max_upload_size_unit_gb": "Go",
+    "mode_settings_receive_max_upload_size_unit_mb": "Mo"
 }

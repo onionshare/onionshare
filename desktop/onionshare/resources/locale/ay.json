@@ -7,5 +7,7 @@
     "gui_settings_button_cancel": "Suyt'ayaña",
     "gui_settings_language_label": "Aru",
     "gui_alert_button_close": "Jist'antaña",
-    "gui_alert_button_cancel": "Suyt'ayaña"
+    "gui_alert_button_cancel": "Suyt'ayaña",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB"
 }

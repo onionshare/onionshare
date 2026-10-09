@@ -37,5 +37,7 @@
     "gui_alert_button_cancel": "Kanselahin",
     "gui_alert_button_yes": "Oo",
     "gui_alert_button_close": "Sarado",
-    "gui_alert_button_no": "Hindi"
+    "gui_alert_button_no": "Hindi",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB"
 }

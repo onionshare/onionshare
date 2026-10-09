@@ -261,5 +261,8 @@
     "gui_alert_button_close": "Pechar",
     "gui_alert_button_ok": "Feito",
     "gui_alert_button_cancel": "Cancelar",
-    "gui_alert_button_yes": "Si"
+    "gui_alert_button_yes": "Si",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB"
 }

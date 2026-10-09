@@ -261,5 +261,8 @@
     "gui_alert_button_close": "關閉",
     "gui_alert_button_no": "否",
     "gui_alert_button_yes": "是",
-    "gui_alert_button_ok": "確定"
+    "gui_alert_button_ok": "確定",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB"
 }
