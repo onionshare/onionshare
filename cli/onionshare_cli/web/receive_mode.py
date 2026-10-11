@@ -673,37 +673,60 @@ class ReceiveModeRequest(Request):
 
         try:
             os.makedirs(self.receive_mode_dir, 0o700, exist_ok=False)
-        except OSError:
-            if os.path.exists(self.receive_mode_dir):
-                i = 1
-                while True:
-                    new_receive_mode_dir = f"{self.receive_mode_dir}-{i}"
-                    try:
-                        os.makedirs(new_receive_mode_dir, 0o700, exist_ok=False)
-                        self.receive_mode_dir = new_receive_mode_dir
-                        break
-                    except OSError:
-                        pass
-                    i += 1
-                    if i == 100:
-                        self.web.common.log(
-                            "ReceiveModeRequest",
-                            "_create_receive_directory",
-                            "Error finding available receive mode directory",
-                        )
-                        self.upload_error = True
-                        break
-        except PermissionError:
-            self.web.add_request(
-                self.web.REQUEST_ERROR_DATA_DIR_CANNOT_CREATE,
-                request.path,
-                {"receive_mode_dir": self.receive_mode_dir},
-            )
-            print(f"Could not create OnionShare data folder: {self.receive_mode_dir}")
+        except FileExistsError:
+            # If this directory already exists, maybe someone else is receiving
+            # files at the same second in another tab, so use a different name
+            # in that case
+            # Keep going until we find a directory name that's available
+            i = 1
+            while True:
+                new_receive_mode_dir = f"{self.receive_mode_dir}-{i}"
+                try:
+                    os.makedirs(new_receive_mode_dir, 0o700, exist_ok=False)
+                    self.receive_mode_dir = new_receive_mode_dir
+                    break
+                except FileExistsError:
+                    pass
+                except PermissionError as e:
+                    self.web.common.log(
+                        "ReceiveModeRequest",
+                        "_create_receive_directory",
+                        f"Permission denied creating receive mode directory: {e}",
+                    )
+                    self.upload_error = True
+                    break
+                except OSError as e:
+                    self.web.common.log(
+                        "ReceiveModeRequest",
+                        "_create_receive_directory",
+                        f"Error creating receive mode directory: {e}",
+                    )
+                    self.upload_error = True
+                    break
+                i += 1
+                if i == 100:
+                    self.web.common.log(
+                        "ReceiveModeRequest",
+                        "_create_receive_directory",
+                        "Error finding available receive mode directory",
+                    )
+                    self.upload_error = True
+                    break
+        except PermissionError as e:
             self.web.common.log(
                 "ReceiveModeRequest",
                 "_create_receive_directory",
-                "Permission denied creating receive mode directory",
+                f"Permission denied creating receive mode directory: {e}",
+            )
+            self.upload_error = True
+        except OSError as e:
+            # Could not create the directory at all, and the directory does
+            # not exist, so the upload must fail rather than trying to save
+            # files into a folder that was never created
+            self.web.common.log(
+                "ReceiveModeRequest",
+                "_create_receive_directory",
+                f"Error creating receive mode directory: {e}",
             )
             self.upload_error = True
 
