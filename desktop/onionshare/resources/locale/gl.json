@@ -264,5 +264,8 @@
     "gui_alert_button_yes": "Si",
     "mode_settings_receive_max_upload_size_unit_gb": "GB",
     "mode_settings_receive_max_upload_size_unit_mb": "MB",
-    "mode_settings_receive_max_upload_size_unit_kb": "KB"
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "gui_status_indicator_download_stopped": "Detido",
+    "gui_status_indicator_download_working": "Estase a baixar…",
+    "gui_tab_name_download": "Descargar"
 }

@@ -262,5 +262,6 @@
     "gui_alert_button_close": "បិទ",
     "gui_alert_button_yes": "បាទ/ចាស",
     "gui_alert_button_ok": "យល់ព្រម",
-    "mode_settings_receive_max_upload_size_unit_mb": "មេកាបៃ"
+    "mode_settings_receive_max_upload_size_unit_mb": "មេកាបៃ",
+    "gui_tab_name_download": "ទាញ​យក"
 }

@@ -265,5 +265,8 @@
     "gui_alert_button_ok": "ঠিক আছে",
     "gui_alert_button_yes": "হ্যাঁ",
     "gui_alert_button_cancel": "বাতিল",
-    "mode_settings_receive_max_upload_size_unit_mb": "MB"
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "gui_tab_name_download": "ডাউনলোউড",
+    "gui_status_indicator_download_stopped": "বন্ধ হয়েছে",
+    "gui_status_indicator_download_working": "নামানো হচ্ছে…"
 }

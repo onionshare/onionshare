@@ -153,5 +153,8 @@
     "gui_alert_button_no": "नहीं",
     "mode_settings_receive_max_upload_size_unit_mb": "एम.बी.",
     "mode_settings_receive_max_upload_size_unit_kb": "कब",
-    "mode_settings_receive_max_upload_size_unit_gb": "GB"
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "gui_status_indicator_download_stopped": "रुक गया",
+    "gui_tab_name_download": "डाउनलोड",
+    "gui_status_indicator_download_working": "डाउनलोड हो  रहा है …"
 }

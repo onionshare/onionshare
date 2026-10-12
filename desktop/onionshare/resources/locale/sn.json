@@ -258,5 +258,7 @@
     "gui_alert_button_close": "funga",
     "gui_alert_button_yes": "Hongu",
     "gui_alert_button_no": "Kwete",
-    "gui_alert_button_cancel": "sitisha"
+    "gui_alert_button_cancel": "sitisha",
+    "gui_status_indicator_download_working": "Kututunura…",
+    "gui_tab_name_download": "Bhatani rekututunura riri mukati memutsara rakaratidzwa muscreen rinoshandisa icon chete"
 }

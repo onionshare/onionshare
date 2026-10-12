@@ -303,5 +303,8 @@
     "error_download_timeout": "Upłynął limit czasu pobierania.",
     "error_download_canceled": "Pobieranie anulowane.",
     "error_download_dir_permission_denied": "Brak uprawnień do utworzenia katalogu pobierania: {}",
-    "error_download_dir_not_available": "Błąd podczas wyszukiwania dostępnego katalogu pobierania."
+    "error_download_dir_not_available": "Błąd podczas wyszukiwania dostępnego katalogu pobierania.",
+    "gui_tab_name_download": "Pobierz",
+    "gui_status_indicator_download_working": "Pobieranie…",
+    "gui_status_indicator_download_stopped": "Zatrzymany"
 }

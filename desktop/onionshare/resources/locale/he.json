@@ -76,5 +76,8 @@
     "gui_alert_button_ok": "אישור",
     "mode_settings_receive_max_upload_size_unit_kb": "ק\"ב",
     "mode_settings_receive_max_upload_size_unit_gb": "ג״ב",
-    "mode_settings_receive_max_upload_size_unit_mb": "מ״ב"
+    "mode_settings_receive_max_upload_size_unit_mb": "מ״ב",
+    "gui_status_indicator_download_working": "בהורדה…",
+    "gui_status_indicator_download_stopped": "לא פעילה",
+    "gui_tab_name_download": "הורד"
 }
