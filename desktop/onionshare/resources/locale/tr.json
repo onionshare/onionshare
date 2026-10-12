@@ -263,7 +263,7 @@
     "gui_alert_button_cancel": "İptal",
     "gui_alert_button_yes": "Evet",
     "gui_alert_button_close": "Kapat",
-    "gui_alert_button_ok": "TAMAM",
+    "gui_alert_button_ok": "Tamam",
     "gui_alert_button_no": "Hayır",
     "gui_filesize_bytes": "{} B",
     "gui_filesize_kib": "{} KiB",
@@ -278,5 +278,9 @@
     "moat_bridge_type_label": "İstenen köprü türü:",
     "mode_settings_receive_max_upload_size_unit_gb": "GB",
     "mode_settings_receive_max_upload_size_unit_mb": "MB",
-    "mode_settings_receive_max_upload_size_unit_kb": "KB"
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "systray_upload_too_large_title": "Karşıya yükleme reddedildi",
+    "systray_upload_too_large_message": "Karşıya yükleme, azami boyutu aştı",
+    "mode_settings_receive_max_upload_size_checkbox": "Azami karşıya yükleme boyutunu sınırla",
+    "mode_settings_receive_max_upload_size_total_checkbox": "Bu üst sınırı, hizmetin tüm kullanım süresi için uygula"
 }
