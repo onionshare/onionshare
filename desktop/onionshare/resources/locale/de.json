@@ -282,5 +282,8 @@
     "systray_upload_too_large_message": "Ein Upload hat die maximale Größe überschritten",
     "mode_settings_receive_max_upload_size_checkbox": "Die maximale Upload-Größe begrenzen",
     "mode_settings_receive_max_upload_size_total_checkbox": "Wende diesen Höchstwert für die gesamte Lebensdauer des Dienstes an",
-    "moat_bridge_type_label": "Zu beantragender Brückentyp:"
+    "moat_bridge_type_label": "Zu beantragender Brückentyp:",
+    "gui_status_indicator_download_working": "Herunterladen …",
+    "gui_status_indicator_download_stopped": "Angehalten",
+    "gui_tab_name_download": "Herunterladen"
 }

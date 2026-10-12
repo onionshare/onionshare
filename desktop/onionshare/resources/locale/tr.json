@@ -282,5 +282,8 @@
     "systray_upload_too_large_title": "Karşıya yükleme reddedildi",
     "systray_upload_too_large_message": "Karşıya yükleme, azami boyutu aştı",
     "mode_settings_receive_max_upload_size_checkbox": "Azami karşıya yükleme boyutunu sınırla",
-    "mode_settings_receive_max_upload_size_total_checkbox": "Bu üst sınırı, hizmetin tüm kullanım süresi için uygula"
+    "mode_settings_receive_max_upload_size_total_checkbox": "Bu üst sınırı, hizmetin tüm kullanım süresi için uygula",
+    "gui_status_indicator_download_stopped": "Durduruldu",
+    "gui_tab_name_download": "İndir",
+    "gui_status_indicator_download_working": "İndiriliyor…"
 }

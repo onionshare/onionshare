@@ -219,5 +219,8 @@
     "gui_alert_button_yes": "Ja",
     "mode_settings_receive_max_upload_size_unit_gb": "GB",
     "mode_settings_receive_max_upload_size_unit_mb": "MB",
-    "mode_settings_receive_max_upload_size_unit_kb": "KB"
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "gui_status_indicator_download_stopped": "Gestopt",
+    "gui_status_indicator_download_working": "Aan het downloaden…",
+    "gui_tab_name_download": "Downloaden"
 }

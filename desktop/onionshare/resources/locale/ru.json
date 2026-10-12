@@ -267,5 +267,8 @@
     "gui_alert_button_no": "Нет",
     "mode_settings_receive_max_upload_size_unit_gb": "ГБ",
     "mode_settings_receive_max_upload_size_unit_mb": "МБ",
-    "mode_settings_receive_max_upload_size_unit_kb": "КБ"
+    "mode_settings_receive_max_upload_size_unit_kb": "КБ",
+    "gui_tab_name_download": "Скачать",
+    "gui_status_indicator_download_working": "Загрузка…",
+    "gui_status_indicator_download_stopped": "Остановлен"
 }

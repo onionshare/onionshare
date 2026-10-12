@@ -69,5 +69,7 @@
     "gui_alert_button_cancel": "გაუქმება",
     "mode_settings_receive_max_upload_size_unit_kb": "კბ",
     "mode_settings_receive_max_upload_size_unit_mb": "მბ",
-    "mode_settings_receive_max_upload_size_unit_gb": "გბ"
+    "mode_settings_receive_max_upload_size_unit_gb": "გბ",
+    "gui_tab_name_download": "ჩამოტვირთვა",
+    "gui_status_indicator_download_working": "გადმოწერა…"
 }

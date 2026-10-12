@@ -276,5 +276,8 @@
     "gui_filesize_yib": "{} Yio",
     "mode_settings_receive_max_upload_size_unit_kb": "ko",
     "mode_settings_receive_max_upload_size_unit_gb": "Go",
-    "mode_settings_receive_max_upload_size_unit_mb": "Mo"
+    "mode_settings_receive_max_upload_size_unit_mb": "Mo",
+    "gui_tab_name_download": "Ttéléchargement",
+    "gui_status_indicator_download_working": "Téléchargement…",
+    "gui_status_indicator_download_stopped": "Stoppé"
 }
