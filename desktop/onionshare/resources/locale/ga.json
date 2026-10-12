@@ -303,5 +303,8 @@
     "error_download_timeout": "Tháinig deireadh leis an am don íoslódáil.",
     "error_download_canceled": "Cuireadh an íoslódáil ar ceal.",
     "error_download_dir_permission_denied": "Diúltaíodh don chead chun an eolaire íoslódála a chruthú: {}",
-    "error_download_dir_not_available": "Earráid agus eolaire íoslódála atá ar fáil á aimsiú."
+    "error_download_dir_not_available": "Earráid agus eolaire íoslódála atá ar fáil á aimsiú.",
+    "gui_status_indicator_download_stopped": "Stopadh",
+    "gui_status_indicator_download_working": "Ag íosluchtú…",
+    "gui_tab_name_download": "Íoslódáil"
 }

@@ -42,5 +42,7 @@
     "gui_alert_button_no": "ਨਹੀਂ",
     "gui_alert_button_ok": "ਠੀਕ",
     "mode_settings_receive_max_upload_size_unit_mb": "MB",
-    "mode_settings_receive_max_upload_size_unit_gb": "GB"
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "gui_status_indicator_download_working": "ਡਾਊਨਲੋਡ ਕੀਤਾ ਜਾਂਦਾ ਹੈ…",
+    "gui_tab_name_download": "ਡਾਊਨਲੋਡ ਕਰੋ"
 }

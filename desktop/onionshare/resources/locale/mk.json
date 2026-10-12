@@ -54,5 +54,8 @@
     "gui_alert_button_yes": "Да",
     "mode_settings_receive_max_upload_size_unit_mb": "МБ",
     "mode_settings_receive_max_upload_size_unit_gb": "ГБ",
-    "mode_settings_receive_max_upload_size_unit_kb": "KB"
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "gui_status_indicator_download_working": "Преземање…",
+    "gui_status_indicator_download_stopped": "Стопирано",
+    "gui_tab_name_download": "Преземи"
 }
