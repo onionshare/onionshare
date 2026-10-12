@@ -53,5 +53,8 @@
     "gui_alert_button_cancel": "Batal",
     "gui_alert_button_no": "Tidak",
     "gui_alert_button_yes": "Ya",
-    "gui_alert_button_close": "Tutup"
+    "gui_alert_button_close": "Tutup",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB"
 }

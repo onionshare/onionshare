@@ -51,5 +51,8 @@
     "gui_alert_button_close": "Затвори",
     "gui_alert_button_cancel": "Откажи",
     "gui_alert_button_no": "Не",
-    "gui_alert_button_yes": "Да"
+    "gui_alert_button_yes": "Да",
+    "mode_settings_receive_max_upload_size_unit_mb": "МБ",
+    "mode_settings_receive_max_upload_size_unit_gb": "ГБ",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB"
 }

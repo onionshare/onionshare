@@ -31,5 +31,7 @@
     "gui_alert_button_ok": "እሺ",
     "gui_alert_button_no": "አይ",
     "gui_alert_button_yes": "አዎ",
-    "gui_alert_button_close": "መዝጋት"
+    "gui_alert_button_close": "መዝጋት",
+    "mode_settings_receive_max_upload_size_unit_mb": "ሜባ",
+    "mode_settings_receive_max_upload_size_unit_gb": "ጌባ"
 }

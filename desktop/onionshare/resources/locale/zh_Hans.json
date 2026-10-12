@@ -274,5 +274,8 @@
     "gui_filesize_eib": "{} EiB",
     "gui_filesize_zib": "{} ZiB",
     "gui_filesize_yib": "{} YiB",
-    "gui_receive_data_dir_not_writable": "OnionShare 无法写入此文件夹：\n\n{}\n\n请选择一个可以写入的文件夹（例如下载文件夹），然后重试。"
+    "gui_receive_data_dir_not_writable": "OnionShare 无法写入此文件夹：\n\n{}\n\n请选择一个可以写入的文件夹（例如下载文件夹），然后重试。",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_gb": "吉字节",
+    "mode_settings_receive_max_upload_size_unit_kb": "千字节"
 }

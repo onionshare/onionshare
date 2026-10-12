@@ -192,5 +192,8 @@
     "gui_alert_button_ok": "Rendben",
     "gui_alert_button_close": "Bezárás",
     "gui_alert_button_yes": "Igen",
-    "gui_alert_button_no": "Nem"
+    "gui_alert_button_no": "Nem",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB"
 }

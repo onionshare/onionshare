@@ -275,5 +275,8 @@
     "gui_filesize_zib": "{} ZiB",
     "gui_filesize_yib": "{} YiB",
     "gui_receive_data_dir_not_writable": "OnionShare bu klasöre yazamıyor:\n\n{}\n\nYazma izni olan bir klasör seçin (örneğin İndirilenler klasörünüz) ve tekrar deneyin.",
-    "moat_bridge_type_label": "İstenen köprü türü:"
+    "moat_bridge_type_label": "İstenen köprü türü:",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB"
 }

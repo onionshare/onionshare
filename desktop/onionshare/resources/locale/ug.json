@@ -30,5 +30,8 @@
     "gui_alert_button_yes": "ھەئە",
     "gui_alert_button_close": "يېپىش",
     "gui_alert_button_no": "ياق",
-    "gui_alert_button_cancel": "ئەمەلدىن قالدۇرۇش"
+    "gui_alert_button_cancel": "ئەمەلدىن قالدۇرۇش",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB"
 }

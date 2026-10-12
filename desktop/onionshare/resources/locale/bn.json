@@ -264,5 +264,6 @@
     "gui_alert_button_close": "বন্ধ করুন",
     "gui_alert_button_ok": "ঠিক আছে",
     "gui_alert_button_yes": "হ্যাঁ",
-    "gui_alert_button_cancel": "বাতিল"
+    "gui_alert_button_cancel": "বাতিল",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB"
 }

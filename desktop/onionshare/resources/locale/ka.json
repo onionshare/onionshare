@@ -66,5 +66,8 @@
     "gui_alert_button_close": "დახურვა",
     "gui_alert_button_yes": "დიახ",
     "gui_alert_button_no": "არა",
-    "gui_alert_button_cancel": "გაუქმება"
+    "gui_alert_button_cancel": "გაუქმება",
+    "mode_settings_receive_max_upload_size_unit_kb": "კბ",
+    "mode_settings_receive_max_upload_size_unit_mb": "მბ",
+    "mode_settings_receive_max_upload_size_unit_gb": "გბ"
 }

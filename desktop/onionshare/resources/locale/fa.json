@@ -273,5 +273,8 @@
     "gui_filesize_pib": "{} PiB",
     "gui_filesize_eib": "{} EiB",
     "gui_filesize_zib": "{} ZiB",
-    "gui_filesize_yib": "{} YiB"
+    "gui_filesize_yib": "{} YiB",
+    "mode_settings_receive_max_upload_size_unit_mb": "م‌ب",
+    "mode_settings_receive_max_upload_size_unit_gb": "گیگابایت",
+    "mode_settings_receive_max_upload_size_unit_kb": "کیلوبایت"
 }

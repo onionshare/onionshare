@@ -264,5 +264,8 @@
     "gui_alert_button_close": "Stäng",
     "gui_alert_button_no": "Nej",
     "gui_alert_button_ok": "OK",
-    "gui_alert_button_yes": "Ja"
+    "gui_alert_button_yes": "Ja",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB"
 }

@@ -38,5 +38,8 @@
     "gui_alert_button_cancel": "අවලංගු කරන්න",
     "gui_alert_button_no": "නැත",
     "gui_alert_button_close": "වසන්න",
-    "gui_alert_button_ok": "හරි"
+    "gui_alert_button_ok": "හරි",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_gb": "ගි.බ."
 }

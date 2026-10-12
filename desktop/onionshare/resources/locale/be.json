@@ -261,5 +261,8 @@
     "gui_alert_button_yes": "Так",
     "gui_alert_button_close": "Закрыць",
     "gui_alert_button_no": "Не",
-    "gui_alert_button_cancel": "Адмяніць"
+    "gui_alert_button_cancel": "Адмяніць",
+    "mode_settings_receive_max_upload_size_unit_mb": "МБ",
+    "mode_settings_receive_max_upload_size_unit_gb": "ГБ",
+    "mode_settings_receive_max_upload_size_unit_kb": "КБ"
 }
