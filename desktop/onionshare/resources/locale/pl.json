@@ -277,5 +277,10 @@
     "gui_receive_data_dir_not_writable": "OnionShare nie może zapisać danych w tym folderze:\n\n{}\n\nWybierz folder, w którym masz uprawnienia do zapisu (na przykład folder Pobrane), a następnie spróbuj ponownie.",
     "mode_settings_receive_max_upload_size_unit_kb": "KB",
     "mode_settings_receive_max_upload_size_unit_mb": "MB",
-    "mode_settings_receive_max_upload_size_unit_gb": "GB"
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "systray_upload_too_large_title": "Przesyłanie odrzucone",
+    "systray_upload_too_large_message": "Przesyłanie przekroczyło maksymalny rozmiar",
+    "mode_settings_receive_max_upload_size_checkbox": "Ogranicz maksymalny rozmiar przesyłania",
+    "mode_settings_receive_max_upload_size_total_checkbox": "Zastosuj ten limit maksymalny do całego okresu eksploatacji usługi",
+    "moat_bridge_type_label": "Typ mostka do zażądania:"
 }
