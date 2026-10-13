@@ -9,6 +9,7 @@ exclude_patterns = []
 languages = [
     ("English", "en"),  # English
     ("Shqip", "sq"),  # Albanian
+    ("Français", "fr"), # French
     ("Български", "bg"),  #Bulgarian
     ("中文 (简体)", "zh_CN"),  # Simplified Chinese
     ("Deutsch", "de"),  # German
