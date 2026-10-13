@@ -23,7 +23,6 @@ import sys
 
 import requests
 import socks
-import urllib3
 from urllib3.connection import HTTPConnection, HTTPSConnection
 from urllib3.connectionpool import HTTPConnectionPool, HTTPSConnectionPool
 from urllib3.exceptions import NewConnectionError
@@ -53,7 +52,11 @@ class UnixSocksSocket(socks.socksocket):
         unix domain socket.
         """
         dest_addr, dest_port = dest_pair
-        if not isinstance(dest_port, int):
+        if (
+            isinstance(dest_port, bool)
+            or not isinstance(dest_port, int)
+            or not 1 <= dest_port <= 65535
+        ):
             raise socks.GeneralProxyError("Invalid destination port")
 
         # Connect to the SOCKS server itself. This bypasses
@@ -125,10 +128,23 @@ class UnixSocksHTTPSConnectionPool(HTTPSConnectionPool):
 
 
 class UnixSocksPoolManager(PoolManager):
-    pool_classes_by_scheme = {
-        "http": UnixSocksHTTPConnectionPool,
-        "https": UnixSocksHTTPSConnectionPool,
-    }
+    def __init__(self, socks_path, **kwargs):
+        self._socks_path = socks_path
+        super().__init__(**kwargs)
+        # PoolManager.__init__ installs the default mapping on the instance.
+        self.pool_classes_by_scheme = {
+            "http": UnixSocksHTTPConnectionPool,
+            "https": UnixSocksHTTPSConnectionPool,
+        }
+
+    def _new_pool(self, scheme, host, port, request_context=None):
+        # Each manager uses one fixed SOCKS path. Add it after pool-key
+        # construction, since urllib3's PoolKey has no socks_path field.
+        context = (
+            self.connection_pool_kw if request_context is None else request_context
+        ).copy()
+        context["socks_path"] = self._socks_path
+        return super()._new_pool(scheme, host, port, request_context=context)
 
 
 class UnixSocks5Adapter(requests.adapters.HTTPAdapter):
@@ -148,9 +164,12 @@ class UnixSocks5Adapter(requests.adapters.HTTPAdapter):
         block=requests.adapters.DEFAULT_POOLBLOCK,
         **pool_kwargs,
     ):
-        pool_kwargs["socks_path"] = self._socks_path
         self.poolmanager = UnixSocksPoolManager(
-            num_pools=connections, maxsize=maxsize, block=block, **pool_kwargs
+            self._socks_path,
+            num_pools=connections,
+            maxsize=maxsize,
+            block=block,
+            **pool_kwargs,
         )
 
 
@@ -164,6 +183,9 @@ def make_tor_socks_session(proxy_type, address, port):
     socket file and requests go through it.
     """
     session = requests.Session()
+    # Environment proxies must never override Tor, including on redirects.
+    # This also disables automatic .netrc and environment CA-bundle loading.
+    session.trust_env = False
     if proxy_type == "unix":
         adapter = UnixSocks5Adapter(address)
         session.mount("http://", adapter)
