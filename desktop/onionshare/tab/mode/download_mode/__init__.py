@@ -194,10 +194,10 @@ class DownloadMode(Mode):
             self.common,
             QtGui.QPixmap.fromImage(
                 QtGui.QImage(
-                    GuiCommon.get_resource_path("images/share_icon_transparent.png")
+                    GuiCommon.get_resource_path("images/receive_icon_transparent.png")
                 )
             ),
-            strings._("gui_website_mode_no_files"),
+            strings._("gui_download_mode_no_files"),
             strings._("gui_all_modes_history"),
             "download",
         )
