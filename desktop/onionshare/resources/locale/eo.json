@@ -64,5 +64,11 @@
     "gui_alert_button_yes": "Jes",
     "gui_alert_button_close": "Fermi",
     "gui_alert_button_no": "Ne",
-    "gui_alert_button_cancel": "Nuligi"
+    "gui_alert_button_cancel": "Nuligi",
+    "mode_settings_receive_max_upload_size_unit_kb": "kB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "gui_status_indicator_download_stopped": "Haltigita",
+    "gui_status_indicator_download_working": "Elŝutado…",
+    "gui_tab_name_download": "Elŝuti"
 }

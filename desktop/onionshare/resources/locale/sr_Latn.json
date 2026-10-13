@@ -228,5 +228,7 @@
     "gui_alert_button_close": "Zatvori",
     "gui_alert_button_no": "Ne",
     "gui_alert_button_cancel": "Odustani",
-    "gui_alert_button_ok": "OK"
+    "gui_alert_button_ok": "OK",
+    "gui_status_indicator_download_working": "Preuzimam…",
+    "gui_tab_name_download": "Preuzmi"
 }

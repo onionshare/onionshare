@@ -52,5 +52,8 @@
     "gui_alert_button_cancel": "Kanselahin",
     "gui_alert_button_no": "Hindi",
     "gui_alert_button_yes": "Oo",
-    "gui_alert_button_ok": "OK"
+    "gui_alert_button_ok": "OK",
+    "gui_status_indicator_download_working": "Dina-download…",
+    "gui_tab_name_download": "I-download",
+    "gui_status_indicator_download_stopped": "Pinatigil"
 }

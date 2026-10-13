@@ -178,5 +178,11 @@
     "gui_alert_button_yes": "Da",
     "gui_alert_button_close": "Aproape",
     "gui_alert_button_ok": "OK",
-    "gui_alert_button_no": "Nu"
+    "gui_alert_button_no": "Nu",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_kb": "Ko",
+    "gui_status_indicator_download_stopped": "Oprit",
+    "gui_tab_name_download": "Descărcați",
+    "gui_status_indicator_download_working": "Se descarcă…"
 }

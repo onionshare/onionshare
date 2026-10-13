@@ -264,5 +264,11 @@
     "gui_alert_button_no": "Nei",
     "gui_alert_button_close": "Loka",
     "gui_alert_button_yes": "Já",
-    "gui_alert_button_ok": "Í lagi"
+    "gui_alert_button_ok": "Í lagi",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "gui_status_indicator_download_stopped": "Stöðvað",
+    "gui_status_indicator_download_working": "Sæki…",
+    "gui_tab_name_download": "Sækja"
 }

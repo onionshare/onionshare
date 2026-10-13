@@ -163,5 +163,9 @@
     "gui_alert_button_no": "లేదు",
     "gui_alert_button_close": "దగ్గరగా",
     "gui_alert_button_yes": "అవును",
-    "gui_alert_button_cancel": "రద్దుచేయి"
+    "gui_alert_button_cancel": "రద్దుచేయి",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "gui_status_indicator_download_working": "దింపుకుంటోంది…",
+    "gui_status_indicator_download_stopped": "ఆగిపొవడo",
+    "gui_tab_name_download": "దిగుమతి"
 }

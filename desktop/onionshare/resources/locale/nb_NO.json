@@ -261,5 +261,11 @@
     "gui_alert_button_close": "Lukk",
     "gui_alert_button_ok": "OK",
     "gui_alert_button_no": "Nei",
-    "gui_alert_button_yes": "Ja"
+    "gui_alert_button_yes": "Ja",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "mode_settings_receive_max_upload_size_unit_kb": "kB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "gui_tab_name_download": "Last ned",
+    "gui_status_indicator_download_working": "Laster ned …",
+    "gui_status_indicator_download_stopped": "Stoppet"
 }

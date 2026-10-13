@@ -258,5 +258,10 @@
     "gui_alert_button_yes": "Ndio",
     "gui_alert_button_no": "Hapana",
     "gui_alert_button_cancel": "Ondoa",
-    "gui_alert_button_ok": "Kubali"
+    "gui_alert_button_ok": "Kubali",
+    "mode_settings_receive_max_upload_size_unit_kb": "KB",
+    "mode_settings_receive_max_upload_size_unit_gb": "GB",
+    "mode_settings_receive_max_upload_size_unit_mb": "MB",
+    "gui_status_indicator_download_working": "Inapakua…",
+    "gui_tab_name_download": "Download"
 }

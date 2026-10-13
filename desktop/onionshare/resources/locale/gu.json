@@ -54,5 +54,7 @@
     "gui_alert_button_cancel": "રદ્ કરો",
     "gui_alert_button_no": "નહિ",
     "gui_alert_button_yes": "હા",
-    "gui_alert_button_ok": "OK"
+    "gui_alert_button_ok": "OK",
+    "gui_status_indicator_download_working": "ડાઉનલોડ થઈ રહ્યું છે…",
+    "gui_tab_name_download": "ડાઉનલોડ કરો"
 }
