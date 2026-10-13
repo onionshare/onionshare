@@ -118,7 +118,11 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
 
   # get onionshare dependencies
   cd flatpak-build-tools/pip
-  ./flatpak-pip-generator $(../../onionshare/flatpak/pyproject-to-requirements.py ../../onionshare/desktop/pyproject.toml | grep -v PySide6)
+  ../../onionshare/flatpak/pyproject-to-requirements.py \
+    ../../onionshare/desktop/pyproject.toml |
+    grep -v PySide6 > onionshare-desktop-requirements.txt
+
+  ./flatpak-pip-generator -r onionshare-desktop-requirements.txt
   ../flatpak-json2yaml.py ./python3-modules.json
   mv python3-modules.yml onionshare-desktop.yaml
   ```
