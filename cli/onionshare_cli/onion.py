@@ -37,6 +37,9 @@ import traceback
 from packaging.version import Version
 
 
+from .tor_config import upstream_proxy_config
+
+
 class TorErrorAutomatic(Exception):
     """
     OnionShare is failing to connect and authenticate to the Tor controller,
@@ -224,6 +227,20 @@ class Onion(object):
         # The Tor controller
         self.c = None
 
+        if self.settings.get("connection_type") == "socket_file":
+            if (
+                not self.settings.get("socket_file_path").strip()
+                or not self.settings.get("socks_socket_path").strip()
+            ):
+                raise TorErrorInvalidSetting(
+                    "Socket-file mode requires both a control socket file and a SOCKS socket file. "
+                    "Set the SOCKS socket path (for example /run/tor/socks); TCP fallback is not used."
+                )
+        try:
+            proxy_config = upstream_proxy_config(self.settings)
+        except ValueError as error:
+            raise TorErrorInvalidSetting(str(error)) from error
+
         if self.settings.get("connection_type") == "bundled":
             # Create a torrc for this session
             if self.use_tmp_dir:
@@ -401,39 +418,8 @@ class Onion(object):
                             if line.strip() != "":
                                 f.write(f"Bridge {line}\n")
 
-                # Proxy support
-                if self.settings.get("proxy_enabled") and self.settings.get(
-                    "proxy_address"
-                ):
-                    proxy_port = self.settings.get("proxy_port")
-                    if proxy_port:
-                        proxy = f"{self.settings.get('proxy_address')}:{proxy_port}"
-                    else:
-                        proxy = self.settings.get("proxy_address")
-
-                    proxy_username = self.settings.get("proxy_username")
-                    proxy_password = self.settings.get("proxy_password")
-
-                    if self.settings.get("proxy_type") == "socks4":
-                        f.write(f"\nSocks4Proxy {proxy}\n")
-                    elif self.settings.get("proxy_type") == "http":
-                        f.write(f"\nHTTPSProxy {proxy}\n")
-                        if proxy_username and proxy_password:
-                            f.write(
-                                f"HTTPSProxyAuthenticator {proxy_username}:{proxy_password}\n"
-                            )
-                    # socks5 is the default
-                    else:
-                        f.write(f"\nSocks5Proxy {proxy}\n")
-                        if proxy_username and proxy_password:
-                            f.write(f"Socks5ProxyUsername {proxy_username}\n")
-                            f.write(f"Socks5ProxyPassword {proxy_password}\n")
-
-                    self.common.log(
-                        "Onion",
-                        "connect",
-                        "Wrote in the proxy settings from OnionShare settings",
-                    )
+                # Upstream proxy for bundled Tor, validated before startup.
+                f.write(proxy_config)
 
             # Execute a tor subprocess
             self.common.log("Onion", "connect", f"starting {self.tor_path} subprocess")
@@ -467,7 +453,11 @@ class Onion(object):
 
             return_code = self.tor_proc.poll()
             if return_code != None:
-                self.common.log("Onion", "connect", f"tor process has terminated early: {return_code}")
+                self.common.log(
+                    "Onion",
+                    "connect",
+                    f"tor process has terminated early: {return_code}",
+                )
 
             # Connect to the controller
             self.common.log("Onion", "connect", "authenticating to tor controller")
@@ -974,13 +964,19 @@ class Onion(object):
             return ("tcp", "127.0.0.1", self.tor_socks_port)
         elif self.settings.get("connection_type") == "automatic":
             return ("tcp", "127.0.0.1", 9150)
-        elif self.settings.get("connection_type") == "socket_file" and self.settings.get(
-            "socks_socket_path"
-        ):
-            # If a SOCKS unix domain socket file is configured, use it
-            return ("unix", self.settings.get("socks_socket_path"), None)
+        elif self.settings.get("connection_type") == "socket_file":
+            path = self.settings.get("socks_socket_path").strip()
+            if not path:
+                raise TorErrorInvalidSetting(
+                    "Socket-file mode requires a SOCKS socket file; TCP fallback is not used."
+                )
+            return ("unix", path, None)
         else:
-            return ("tcp", self.settings.get("socks_address"), self.settings.get("socks_port"))
+            return (
+                "tcp",
+                self.settings.get("socks_address"),
+                self.settings.get("socks_port"),
+            )
 
     def update_builtin_bridges(self):
         """

@@ -25,6 +25,7 @@ import os
 
 from onionshare_cli.meek import Meek
 from onionshare_cli.settings import Settings
+from onionshare_cli.tor_config import upstream_proxy_config
 from onionshare_cli.onion import Onion
 
 from . import strings
@@ -385,6 +386,8 @@ class TorSettingsTab(QtWidgets.QWidget):
         proxy_type_layout.addWidget(self.proxy_type_combobox)
         proxy_type_layout.addStretch()
 
+        self.proxy_type_combobox.currentIndexChanged.connect(self.proxy_type_changed)
+
         # Proxy address and port
         gui_settings_proxy_address_label = QtWidgets.QLabel(
             strings._("gui_settings_proxy_address_label")
@@ -420,21 +423,28 @@ class TorSettingsTab(QtWidgets.QWidget):
         )
         self.proxy_password.setEchoMode(QtWidgets.QLineEdit.Password)
         proxy_username_password_layout = QtWidgets.QHBoxLayout()
+        proxy_username_password_layout.setContentsMargins(0, 0, 0, 0)
         proxy_username_password_layout.addWidget(gui_settings_proxy_username_label)
         proxy_username_password_layout.addWidget(self.proxy_username, stretch=1)
         proxy_username_password_layout.addWidget(gui_settings_proxy_password_label)
         proxy_username_password_layout.addWidget(self.proxy_password, stretch=1)
 
+        self.proxy_credentials = QtWidgets.QWidget()
+        self.proxy_credentials.setLayout(proxy_username_password_layout)
+
         proxy_extras_layout = QtWidgets.QVBoxLayout()
         proxy_extras_layout.addLayout(proxy_type_layout)
         proxy_extras_layout.addLayout(proxy_address_port_layout)
-        proxy_extras_layout.addLayout(proxy_username_password_layout)
+        proxy_extras_layout.addWidget(self.proxy_credentials)
         self.proxy_extras = QtWidgets.QWidget()
         self.proxy_extras.setLayout(proxy_extras_layout)
         self.proxy_extras.hide()
 
         proxy_group_layout = QtWidgets.QVBoxLayout()
         proxy_group_layout.addWidget(self.proxy_use_checkbox)
+        proxy_help = QtWidgets.QLabel(strings._("gui_settings_upstream_proxy_help"))
+        proxy_help.setWordWrap(True)
+        proxy_group_layout.addWidget(proxy_help)
         proxy_group_layout.addWidget(self.proxy_extras)
         self.proxy_group = QtWidgets.QGroupBox(
             strings._("gui_settings_proxy_label")
@@ -455,7 +465,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         columns_layout.addSpacing(20)
         columns_layout.addLayout(connection_type_layout, stretch=1)
         columns_wrapper = QtWidgets.QWidget()
-        columns_wrapper.setFixedHeight(400)
+        columns_wrapper.setMinimumHeight(400)
         columns_wrapper.setLayout(columns_layout)
 
         # Tor connection widget
@@ -660,12 +670,20 @@ class TorSettingsTab(QtWidgets.QWidget):
         'Use a bridge' checkbox changed
         """
         if self.bridge_use_checkbox.isChecked():
-            self.common.log("TorSettingsTab", "bridge_use_checkbox_state_changed", "Use bridge checkbox toggled on")
+            self.common.log(
+                "TorSettingsTab",
+                "bridge_use_checkbox_state_changed",
+                "Use bridge checkbox toggled on",
+            )
             self.bridge_settings.show()
             self.bridge_builtin_radio.click()
             self.bridge_builtin_dropdown.setCurrentText("obfs4")
         else:
-            self.common.log("TorSettingsTab", "bridge_use_checkbox_state_changed", "Use bridge checkbox toggled off")
+            self.common.log(
+                "TorSettingsTab",
+                "bridge_use_checkbox_state_changed",
+                "Use bridge checkbox toggled off",
+            )
             self.bridge_settings.hide()
 
     def bridge_builtin_radio_toggled(self, checked):
@@ -778,9 +796,16 @@ class TorSettingsTab(QtWidgets.QWidget):
         """
         self.common.log("TorSettingsTab", "proxy_use_toggled")
         if checked:
+            self.proxy_type_changed()
             self.proxy_extras.show()
         else:
             self.proxy_extras.hide()
+
+    def proxy_type_changed(self, *_args):
+        if not hasattr(self, "proxy_credentials"):
+            return
+        supports_auth = self.proxy_type_combobox.currentData() != "socks4"
+        self.proxy_credentials.setVisible(supports_auth)
 
     def authenticate_no_auth_toggled(self, checked):
         """
@@ -1022,6 +1047,24 @@ class TorSettingsTab(QtWidgets.QWidget):
             settings.set("auth_type", "password")
 
         settings.set("auth_password", self.authenticate_password_extras_password.text())
+
+        if settings.get("connection_type") == "socket_file":
+            for key in ("socket_file_path", "socks_socket_path"):
+                settings.set(key, settings.get(key).strip())
+                if not settings.get(key):
+                    self.error_label.setText(
+                        strings._("gui_settings_socket_paths_required")
+                    )
+                    return False
+        try:
+            upstream_proxy_config(settings)
+        except ValueError as error:
+            self.error_label.setText(
+                strings._("gui_settings_upstream_proxy_invalid").format(
+                    error=str(error)
+                )
+            )
+            return False
 
         # Whether we use bridges
         if self.bridge_use_checkbox.checkState() == QtCore.Qt.Checked:
