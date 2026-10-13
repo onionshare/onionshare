@@ -1,6 +1,6 @@
 [project]
 name = "onionshare"
-version = "2.6.5"
+version = "2.7"
 requires-python = ">=3.10,<3.14"
 description = "Securely and anonymously share files, host websites, and chat with friends using the Tor network"
 authors = [
