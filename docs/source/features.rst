@@ -51,6 +51,40 @@ That person then must load the address in Tor Browser. After logging in with the
 
 .. image:: _static/screenshots/share-torbrowser.png
 
+Download a Share
+----------------
+
+Starting with OnionShare 2.7, you can use Download Mode to download files from someone else's OnionShare directly in your own OnionShare.
+
+This means that if you have OnionShare, you don't need to use Tor Browser to download a share from another OnionShare.
+
+OnionShare connects to the share over the Tor network, so you can receive the files entirely within the application.
+
+Open a 'download' tab in OnioNShare, and paste the OnionShare address that you were sent.
+
+If you were also sent a private key, check "Were you also sent a Private Key?" and paste it into the private key field. This lets you download from shares protected with Tor client authentication.
+
+You can browse for a folder to save the downloaded files.
+When you are ready, click "Start downloading".
+
+.. image:: _static/screenshots/download.png
+
+OnionShare downloads the entire share as a single ZIP file, using the share's ``/download`` route.
+This means that the download will include all of the files and folders in the share. Support for choosing individual files to download is planned for a future release.
+
+Download a share periodically
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If someone runs a long-lived OnionShare and updates the files they share, you can download the share repeatedly to keep your copy up to date.
+Check "Poll the OnionShare URL to download the share periodically (in minutes)" and set the interval to at least one minute before clicking "Start downloading".
+OnionShare downloads the share immediately, then repeats the download from the same address at the interval you chose.
+
+Each successful download overwrites the previous ZIP file, so save a separate copy if you want to keep an earlier version.
+You can click "Stop downloading" to stop polling.
+
+The person sharing the files needs to keep their OnionShare running and uncheck "Stop sharing after files have been sent (uncheck to allow downloading individual files)" in their share tab to allow repeated downloads.
+They can also save the tab (see :ref:`save_tabs`) to keep the same OnionShare address between sessions.
+
 Receive Files and Messages
 --------------------------
 

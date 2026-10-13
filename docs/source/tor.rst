@@ -87,6 +87,11 @@ If using a built-in bridge doesn't work, you can request a bridge from torprojec
 
 You also have the option of using a bridge that you learned about from a trusted source.
 
+OnionShare also supports WebTunnel bridges. These must be supplied or requested separately from the built-in bridges.
+To use your own WebTunnel bridges, select "Provide a bridge you learned about from a trusted source" and paste the bridge lines into the bridges text box, one per line.
+You can also get them from the Tor Bridges (Moat) service by selecting "Request a bridge from torproject.org", clicking "Request a New Bridge", and choosing "webtunnel" as the bridge type.
+Solve the CAPTCHA to request the bridges, then save your settings to connect to Tor using them.
+
 Attempt auto-configuration with Tor Browser
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
