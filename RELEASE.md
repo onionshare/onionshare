@@ -242,6 +242,7 @@ cd desktop
 ./scripts/build-pt-obfs4proxy.sh
 ./scripts/build-pt-snowflake.sh
 ./scripts/build-pt-meek.sh
+./scripts/build-pt-webtunnel.sh
 ```
 
 Make the Apple Silicon app bundle:
