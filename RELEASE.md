@@ -274,7 +274,7 @@ Next, merge these two app bundles into a single universal2 app bundle:
 
 You will need to have obtained a Developer ID Certificate from our Apple team account. The 'Development certificates' don't work for production-ready code-signing.
 
-Micah as the 'Account Holder' can request Developer ID certs, so you will need to provide him a CSR to do so. Refer to https://developer.apple.com/help/account/create-certificates/create-developer-id-certificates/ and https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request/ . The private key will be in your keychain. Glenn can send you the cert once it's issued, and you should add that to your keychain too.
+Micah as the 'Account Holder' can request Developer ID certs, so you will need to provide him a CSR to do so. Refer to https://developer.apple.com/help/account/create-certificates/create-developer-id-certificates/ and https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request/ . The private key will be in your keychain. Micah can send you the cert once it's issued, and you should add that to your keychain too.
 
 Finally, code sign and package the universal2 app bundle.
 
