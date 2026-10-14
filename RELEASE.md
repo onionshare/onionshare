@@ -83,7 +83,7 @@ Enter the `desktop` directory and run `poetry export > ../snap/local/desktop-req
 In `snap/snapcraft.yaml`:
 
 - [ ] Update the version number near the top of the file.
-- [ ] The `tor`, `libevent`, `obfs4`, `snowflake-client`, and `meek-client` parts should be updated if necessary
+- [ ] The `tor`, `libevent`, `obfs4`, `snowflake-client`, `meek-client` and `webtunnel-client` parts should be updated if necessary
 
 To test locally:
 
@@ -102,7 +102,7 @@ Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (yo
 In `flatpak/org.onionshare.OnionShare.yaml`:
 
 - [ ] Update `tor` and `libevent`
-- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies. To do this, edit the script `flatpak/generate-golang-dependencies.py` and make sure that the repository URLs and tags are the latest versions. Then run this command from the root of the onionshare repository folder:
+- [ ] Update `obfs4proxy`, `meek-client`, `webtunnel-client` and `snowflake-client` dependencies. To do this, edit the script `flatpak/generate-golang-dependencies.py` and make sure that the repository URLs and tags are the latest versions. Then run this command from the root of the onionshare repository folder:
 
   ```sh
   ./flatpak/generate-golang-dependencies.py
@@ -165,7 +165,7 @@ From https://snapcraft.io/onionshare/releases (you must be logged in), find the 
 - [ ] Create a new branch in https://github.com/flathub/org.onionshare.OnionShare for the version
 - [ ] Overwrite the manifest in the flathub repo with the updated version in [flatpak/org.onionshare.OnionShare.yaml](./flatpak/org.onionshare.OnionShare.yaml)
 - [ ] Edit it so that the sources for `onionshare` and `onionshare-cli` are the GitHub repo, with the correct git tag, rather than the local filesystem
-- [ ] Ensure you also copy across the `onionshare-cli.yaml`, `onionshare-desktop.yaml`, `meek-client`, `snowflake` and `obfs4proxy` from the `flatpak/` folder into the flathub repository, so that the flathub repository has all the latest dependencies.
+- [ ] Ensure you also copy across the `onionshare-cli.yaml`, `onionshare-desktop.yaml`, `meek-client`, `snowflake`, `webtunnel-client` and `obfs4proxy` from the `flatpak/` folder into the flathub repository, so that the flathub repository has all the latest dependencies.
 - [ ] Make a PR in the flathub repo, and merge it to make a release
 
 ### Windows release
