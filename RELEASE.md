@@ -83,7 +83,7 @@ Enter the `desktop` directory and run `poetry export > ../snap/local/desktop-req
 In `snap/snapcraft.yaml`:
 
 - [ ] Update the version number near the top of the file.
-- [ ] The `tor`, `libevent`, `obfs4`, `snowflake-client`, and `meek-client` parts should be updated if necessary
+- [ ] The `tor`, `libevent`, `obfs4`, `snowflake-client`, `meek-client` and `webtunnel-client` parts should be updated if necessary
 
 To test locally:
 
@@ -102,7 +102,7 @@ Make sure the builds all succeeded at https://snapcraft.io/onionshare/builds (yo
 In `flatpak/org.onionshare.OnionShare.yaml`:
 
 - [ ] Update `tor` and `libevent`
-- [ ] Update `obfs4proxy`, `meek-client`, and `snowflake-client` dependencies. To do this, edit the script `flatpak/generate-golang-dependencies.py` and make sure that the repository URLs and tags are the latest versions. Then run this command from the root of the onionshare repository folder:
+- [ ] Update `obfs4proxy`, `meek-client`, `webtunnel-client` and `snowflake-client` dependencies. To do this, edit the script `flatpak/generate-golang-dependencies.py` and make sure that the repository URLs and tags are the latest versions. Then run this command from the root of the onionshare repository folder:
 
   ```sh
   ./flatpak/generate-golang-dependencies.py
@@ -118,7 +118,11 @@ In `flatpak/org.onionshare.OnionShare.yaml`:
 
   # get onionshare dependencies
   cd flatpak-build-tools/pip
-  ./flatpak-pip-generator $(../../onionshare/flatpak/pyproject-to-requirements.py ../../onionshare/desktop/pyproject.toml | grep -v PySide6)
+  ../../onionshare/flatpak/pyproject-to-requirements.py \
+    ../../onionshare/desktop/pyproject.toml |
+    grep -v PySide6 > onionshare-desktop-requirements.txt
+
+  ./flatpak-pip-generator -r onionshare-desktop-requirements.txt
   ../flatpak-json2yaml.py ./python3-modules.json
   mv python3-modules.yml onionshare-desktop.yaml
   ```
@@ -161,7 +165,7 @@ From https://snapcraft.io/onionshare/releases (you must be logged in), find the 
 - [ ] Create a new branch in https://github.com/flathub/org.onionshare.OnionShare for the version
 - [ ] Overwrite the manifest in the flathub repo with the updated version in [flatpak/org.onionshare.OnionShare.yaml](./flatpak/org.onionshare.OnionShare.yaml)
 - [ ] Edit it so that the sources for `onionshare` and `onionshare-cli` are the GitHub repo, with the correct git tag, rather than the local filesystem
-- [ ] Ensure you also copy across the `onionshare-cli.yaml`, `onionshare-desktop.yaml`, `meek-client`, `snowflake` and `obfs4proxy` from the `flatpak/` folder into the flathub repository, so that the flathub repository has all the latest dependencies.
+- [ ] Ensure you also copy across the `onionshare-cli.yaml`, `onionshare-desktop.yaml`, `meek-client`, `snowflake`, `webtunnel-client` and `obfs4proxy` from the `flatpak/` folder into the flathub repository, so that the flathub repository has all the latest dependencies.
 - [ ] Make a PR in the flathub repo, and merge it to make a release
 
 ### Windows release
@@ -238,6 +242,7 @@ cd desktop
 ./scripts/build-pt-obfs4proxy.sh
 ./scripts/build-pt-snowflake.sh
 ./scripts/build-pt-meek.sh
+./scripts/build-pt-webtunnel.sh
 ```
 
 Make the Apple Silicon app bundle:
@@ -270,7 +275,7 @@ Next, merge these two app bundles into a single universal2 app bundle:
 
 You will need to have obtained a Developer ID Certificate from our Apple team account. The 'Development certificates' don't work for production-ready code-signing.
 
-Micah as the 'Account Holder' can request Developer ID certs, so you will need to provide him a CSR to do so. Refer to https://developer.apple.com/help/account/create-certificates/create-developer-id-certificates/ and https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request/ . The private key will be in your keychain. Glenn can send you the cert once it's issued, and you should add that to your keychain too.
+Micah as the 'Account Holder' can request Developer ID certs, so you will need to provide him a CSR to do so. Refer to https://developer.apple.com/help/account/create-certificates/create-developer-id-certificates/ and https://developer.apple.com/help/account/create-certificates/create-a-certificate-signing-request/ . The private key will be in your keychain. Micah can send you the cert once it's issued, and you should add that to your keychain too.
 
 Finally, code sign and package the universal2 app bundle.
 

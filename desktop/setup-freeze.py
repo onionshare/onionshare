@@ -44,9 +44,13 @@ with open(pyproject_filename, "rb") as f:
 # Build
 include_files = [
     (os.path.join("..", "LICENSE.txt"), "LICENSE.txt"),
+    (os.path.join("..", "licenses", "license-fontawesome-icons.txt"), "license-fontawesome-icons.txt"),
+    (os.path.join("..", "licenses", "license-jquery.txt"), "license-jquery.txt"),
+    (os.path.join("..", "licenses", "license-meek.txt"), "license-meek.txt"),
     (os.path.join("..", "licenses", "license-obfs4.txt"), "license-obfs4.txt"),
     (os.path.join("..", "licenses", "license-snowflake.txt"), "license-snowflake.txt"),
-    (os.path.join("..", "licenses", "license-tor.txt"), "license-tor.txt")
+    (os.path.join("..", "licenses", "license-tor.txt"), "license-tor.txt"),
+    (os.path.join("..", "licenses", "license-webtunnel.txt"), "license-webtunnel.txt")
 ]
 
 if platform.system() == "Windows":

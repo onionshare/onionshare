@@ -1,5 +1,24 @@
 # OnionShare Changelog
 
+## 2.7
+
+* New feature: 'Download mode' which lets you download a share from another OnionShare, in your OnionShare (instead of via Tor Browser).
+* New feature: Webtunnel bridges
+* New feature: Ability to set an upload size limit in Receive Mode: either 'per upload' or for the entire runtime of that receive mode service.
+* Change: Use UNIX sockets for web server instead of TCP port, on Linux/MacOS.
+* Change: use XDG_CACHE_HOME for storing bundled Tor and OnionShare cache data (instead of ~/.config)
+* Change: localized strings for various UI buttons, as well as more locale-friendly auto-stop/start date/time fields.
+* Bug fix: Prevent exception when attempting to upload to a Receive Mode whose auto-stop timer has triggered but which is still receiving a large file.
+* Bug fix: Pressing tab on keyboard scrolls to the + (new tab) button after the last active tab.
+* Bug fix: Alert when a chosen Receive Mode folder is not writable
+* Bug fix: Moat circumvention settings API was crashing
+* Bug fix: Better dark mode detection
+* Bug fix: Fixe ZipProgressBar for large file sizes exceeding 32-bit integer limits
+* Other: simplify Flatpak PyQt dependency in packaging
+* Other: Various dependency updates, including Tor 0.4.9.14, new Tor signing key, etc
+* Other: rename meek-azure to just meek per upstream deprecation of the former name
+* Other: Make pyproject.toml mostly PEP 621 compliant
+
 ## 2.6.5
 
 * Dependencies: Updates tor dependencies and other python and web dependencies.

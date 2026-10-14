@@ -1,6 +1,6 @@
 name: onionshare
 base: core24
-version: "2.6.5"
+version: "2.7"
 summary: Securely and anonymously share files, host websites, and chat using Tor
 description: |
   OnionShare lets you securely and anonymously send and receive files. It works by starting
@@ -140,8 +140,8 @@ parts:
       sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare-cli
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.9.13.tar.gz
-    source-checksum: sha256/5e748d3272cdf44a7d7741173f371c8def3d96eecb77e93c89c50663ce9cc792
+    source: https://dist.torproject.org/tor-0.4.9.14.tar.gz
+    source-checksum: sha256/182449ac1c8ff43278da27b69b02040e11d03d0327db6d9126e4190ec6235e4a
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
@@ -152,8 +152,8 @@ parts:
     after: [libevent]
 
   libevent:
-    source: https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz
-    source-checksum: sha256/92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb
+    source: https://github.com/libevent/libevent/releases/download/release-2.1.13-stable/libevent-2.1.13-stable.tar.gz
+    source-checksum: sha256/f7e9383b8c0baa81b687e5b5eecc01beefaf1b19b64151d95ed61647fe7a315c
     source-type: tar
     plugin: autotools
 

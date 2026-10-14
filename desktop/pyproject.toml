@@ -1,6 +1,6 @@
 [project]
 name = "onionshare"
-version = "2.6.5"
+version = "2.7"
 requires-python = ">=3.10,<3.14"
 description = "Securely and anonymously share files, host websites, and chat with friends using the Tor network"
 authors = [
@@ -24,7 +24,7 @@ classifiers = [
 dependencies = [
     "PySide6 == 6.8.2.1",
     "qrcode",
-    "werkzeug == 3.1.8",
+    "werkzeug == 3.1.9",
     "python-gnupg",
     "onionshare_cli",
 ]
@@ -66,7 +66,7 @@ click = "*"
 black = "*"
 cx_freeze = "*"
 importlib-metadata = "*"
-setuptools = "^80"
+setuptools = "^84"
 tomli = { version = "^2.0.1", python = "<3.11" }
 pytest = "*"
 pytest-faulthandler = "*"

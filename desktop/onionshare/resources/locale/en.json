@@ -202,6 +202,7 @@
     "gui_share_mode_autostop_timer_waiting": "Finishing sending…",
     "gui_website_mode_no_files": "No Website Shared Yet",
     "gui_receive_mode_no_files": "No Files Received Yet",
+    "gui_download_mode_no_files": "No Files Downloaded Yet",
     "gui_receive_mode_autostop_timer_waiting": "Finishing receiving…",
     "days_first_letter": "d",
     "hours_first_letter": "h",

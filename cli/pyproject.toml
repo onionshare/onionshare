@@ -1,6 +1,6 @@
 [project]
 name = "onionshare_cli"
-version = "2.6.5"
+version = "2.7"
 description = "Securely and anonymously share files, host websites, and chat with friends using the Tor network"
 requires-python = ">=3.10,<4.0"
 authors = [
@@ -32,13 +32,13 @@ dependencies = [
     "unidecode",
     "urllib3 >= 2.7, < 3.0",
     "eventlet",
-    "setuptools >= 80, < 81",
+    "setuptools >= 83",
     "pynacl >= 1.6.2, < 2.0",
     "colorama",
     "gevent-websocket",
     "stem == 1.8.1",
     "waitress >= 3.0.1, < 4.0.0",
-    "werkzeug == 3.1.8",
+    "werkzeug == 3.1.9",
     "packaging >= 24",
     "gevent >= 26.5.0, < 27.0.0",
     "wheel >= 0.46.2, < 1.0",
