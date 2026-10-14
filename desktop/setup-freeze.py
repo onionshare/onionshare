@@ -49,8 +49,8 @@ include_files = [
     (os.path.join("..", "licenses", "license-meek.txt"), "license-meek.txt"),
     (os.path.join("..", "licenses", "license-obfs4.txt"), "license-obfs4.txt"),
     (os.path.join("..", "licenses", "license-snowflake.txt"), "license-snowflake.txt"),
-    (os.path.join("..", "licenses", "license-tor.txt"), "license-tor.txt")
-    (os.path.join("..", "licenses", "license-webtunnel.txt"), "license-webtunnel.txt"),
+    (os.path.join("..", "licenses", "license-tor.txt"), "license-tor.txt"),
+    (os.path.join("..", "licenses", "license-webtunnel.txt"), "license-webtunnel.txt")
 ]
 
 if platform.system() == "Windows":
