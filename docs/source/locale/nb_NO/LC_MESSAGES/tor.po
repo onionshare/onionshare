@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-02 10:22+1000\n"
+"POT-Creation-Date: 2026-10-14 09:58+1100\n"
 "PO-Revision-Date: 2023-06-02 11:21+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: none\n"
@@ -314,11 +314,23 @@ msgid ""
 "trusted source."
 msgstr "Du kan også bruke en bro du har lært om fra en tiltrodd kilde."
 
-#: ../../source/tor.rst:91
+#: ../../source/tor.rst:90
+msgid ""
+"OnionShare also supports WebTunnel bridges. These must be supplied or "
+"requested separately from the built-in bridges. To use your own WebTunnel "
+"bridges, select \"Provide a bridge you learned about from a trusted source\" "
+"and paste the bridge lines into the bridges text box, one per line. You can "
+"also get them from the Tor Bridges (Moat) service by selecting \"Request a "
+"bridge from torproject.org\", clicking \"Request a New Bridge\", and "
+"choosing \"webtunnel\" as the bridge type. Solve the CAPTCHA to request the "
+"bridges, then save your settings to connect to Tor using them."
+msgstr ""
+
+#: ../../source/tor.rst:96
 msgid "Attempt auto-configuration with Tor Browser"
 msgstr "Forsøk automatisk oppsett med Tor-nettleseren"
 
-#: ../../source/tor.rst:93
+#: ../../source/tor.rst:98
 msgid ""
 "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ and "
 "don't want two ``tor`` processes running, you can use the ``tor`` process "
@@ -331,11 +343,11 @@ msgstr ""
 "nettleseren åpen i bakgrunnen mens du bruker OnionShare for at dette skal "
 "virke."
 
-#: ../../source/tor.rst:97
+#: ../../source/tor.rst:102
 msgid "Using a system ``tor`` in Windows"
 msgstr "Bruk av systemets``tor`` i Windows"
 
-#: ../../source/tor.rst:99
+#: ../../source/tor.rst:104
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and do "
 "stuff as an administrator."
@@ -343,7 +355,7 @@ msgstr ""
 "Dette er ganske avansert. Du må vite hvordan du redigerer filer i klartekst "
 "og gjøre ting som administrator."
 
-#: ../../source/tor.rst:101
+#: ../../source/tor.rst:106
 #, fuzzy
 msgid ""
 "Download the Tor Windows Expert Bundle `from the Tor website <https://"
@@ -356,7 +368,7 @@ msgstr ""
 "innholdet til ``C:\\Programfiler (x86)\\`` Gi den den utpakkede mappen med "
 "``Data`` og ``Tor`` i den den nye navnet ``tor-win32``."
 
-#: ../../source/tor.rst:105
+#: ../../source/tor.rst:110
 msgid ""
 "Make up a control port password. (Using 7 words in a sequence like "
 "``comprised stumble rummage work avenging construct volatile`` is a good "
@@ -370,7 +382,7 @@ msgstr ""
 "administrator og bruke ``tor.exe --hash-password`` for å generere en "
 "sjekksum for ditt passord. For eksempel::"
 
-#: ../../source/tor.rst:112
+#: ../../source/tor.rst:117
 msgid ""
 "The hashed password output is displayed after some warnings (which you can "
 "ignore). In the case of the above example, it is "
@@ -380,7 +392,7 @@ msgstr ""
 "kan se bort fra). For eksmplet ovenfor, er den "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
-#: ../../source/tor.rst:114
+#: ../../source/tor.rst:119
 msgid ""
 "Now create a new text file at ``C:\\Program Files (x86)\\tor-win32\\torrc`` "
 "and put your hashed password output in it, replacing the "
@@ -390,7 +402,7 @@ msgstr ""
 "sett inn den sjekksummerte utdataen for passordet i den, slik at det "
 "erstatter ``HashedControlPassword`` med det du akkurat genererte::"
 
-#: ../../source/tor.rst:119
+#: ../../source/tor.rst:124
 msgid ""
 "In your administrator command prompt, install ``tor`` as a service using the "
 "appropriate ``torrc`` file you just created (as described in `<https://"
@@ -400,11 +412,11 @@ msgstr ""
 "den egnede ``torrc``-filen du akkurat oppretet (som beskrevet i `<https://"
 "2019.www.torproject.org/docs/faq.html.en#NTService>`_). Slik::"
 
-#: ../../source/tor.rst:123
+#: ../../source/tor.rst:128
 msgid "You are now running a system ``tor`` process in Windows!"
 msgstr "Du kjører nå en systembasert``tor``-prosess i Windows!"
 
-#: ../../source/tor.rst:125
+#: ../../source/tor.rst:130
 #, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor Settings "
@@ -423,11 +435,11 @@ msgstr ""
 "\"Test tilkoblingen til Tor\"-knappen. Hvis alt går bra, vil du se "
 "\"Tilkoblet til Tor-kontrolleren\"."
 
-#: ../../source/tor.rst:134
+#: ../../source/tor.rst:139
 msgid "Using a system ``tor`` in macOS"
 msgstr "Bruk av systemets ``tor`` i macOS"
 
-#: ../../source/tor.rst:136
+#: ../../source/tor.rst:141
 #, fuzzy
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, "
@@ -436,15 +448,15 @@ msgstr ""
 "Først må du installere `Homebrew <https://brew.sh/>`_ hvis du ikke allerede "
 "har det, og så installere Tor::"
 
-#: ../../source/tor.rst:140
+#: ../../source/tor.rst:145
 msgid "Now configure Tor to allow connections from OnionShare::"
 msgstr "Sett opp Tor for å tillate tilkoblinger fra OnionShare::"
 
-#: ../../source/tor.rst:147
+#: ../../source/tor.rst:152
 msgid "And start the system Tor service::"
 msgstr "Og start den systembaserte Tor-tjenesten::"
 
-#: ../../source/tor.rst:151
+#: ../../source/tor.rst:156
 #, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor Settings "
@@ -461,15 +473,15 @@ msgstr ""
 "velger du \"Ingen, identitetsbekreftelse, eller kakebasert "
 "identitetsbekreftelse\". Klikk på \"Test tilkobling til Tor\"-knappen."
 
-#: ../../source/tor.rst:157 ../../source/tor.rst:177
+#: ../../source/tor.rst:162 ../../source/tor.rst:182
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr "Hvis alt går bra, vil du se «Tilkoblet til Tor-kontrolleren»."
 
-#: ../../source/tor.rst:160
+#: ../../source/tor.rst:165
 msgid "Using a system ``tor`` in Linux"
 msgstr "Bruk av systemets ``tor`` på Linux"
 
-#: ../../source/tor.rst:162
+#: ../../source/tor.rst:167
 msgid ""
 "First, install the ``tor`` package. If you're using Debian, Ubuntu, or a "
 "similar Linux distro, It is recommended to use the Tor Project's `official "
@@ -479,7 +491,7 @@ msgstr ""
 "lignende Linux-distribusjon, anbefales det å bruke Tor-prosjektets "
 "`offisielle pakkebrønn <https://support.torproject.org/apt/tor-deb-repo/>`_."
 
-#: ../../source/tor.rst:164
+#: ../../source/tor.rst:169
 msgid ""
 "Next, add your user to the group that runs the ``tor`` process (in the case "
 "of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to connect to "
@@ -489,7 +501,7 @@ msgstr ""
 "(som for Debian og Ubuntu er ``debian-tor`` og setter opp OnionShare til å "
 "koblet til ditt systems ``tor``-kontrollsocket-fil."
 
-#: ../../source/tor.rst:166
+#: ../../source/tor.rst:171
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command (replace "
 "``username`` with your actual username)::"
@@ -497,7 +509,7 @@ msgstr ""
 "Legg så til din bruker i ``debian-tor``-gruppen ved å kjøre denne kommandoen "
 "(erstatt ``username`` med ditt faktiske brukernavn)::"
 
-#: ../../source/tor.rst:170
+#: ../../source/tor.rst:175
 #, fuzzy
 msgid ""
 "Reboot your computer. After it boots up again, open OnionShare, click the "

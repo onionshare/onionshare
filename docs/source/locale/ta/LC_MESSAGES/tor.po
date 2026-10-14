@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-02 10:22+1000\n"
+"POT-Creation-Date: 2026-10-14 09:58+1100\n"
 "PO-Revision-Date: 2025-07-25 16:04+0000\n"
 "Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
 "Language-Team: none\n"
@@ -295,11 +295,23 @@ msgstr ""
 "நம்பகமான மூலத்திலிருந்து நீங்கள் கற்றுக்கொண்ட ஒரு பாலத்தைப் பயன்படுத்துவதற்கான விருப்பமும் "
 "உங்களிடம் உள்ளது."
 
-#: ../../source/tor.rst:91
+#: ../../source/tor.rst:90
+msgid ""
+"OnionShare also supports WebTunnel bridges. These must be supplied or "
+"requested separately from the built-in bridges. To use your own WebTunnel "
+"bridges, select \"Provide a bridge you learned about from a trusted source\" "
+"and paste the bridge lines into the bridges text box, one per line. You can "
+"also get them from the Tor Bridges (Moat) service by selecting \"Request a "
+"bridge from torproject.org\", clicking \"Request a New Bridge\", and "
+"choosing \"webtunnel\" as the bridge type. Solve the CAPTCHA to request the "
+"bridges, then save your settings to connect to Tor using them."
+msgstr ""
+
+#: ../../source/tor.rst:96
 msgid "Attempt auto-configuration with Tor Browser"
 msgstr "டோர் உலாவியுடன் தானாக கட்டமைப்பை முயற்சிக்கவும்"
 
-#: ../../source/tor.rst:93
+#: ../../source/tor.rst:98
 msgid ""
 "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ and "
 "don't want two ``tor`` processes running, you can use the ``tor`` process "
@@ -311,11 +323,11 @@ msgstr ""
 "செயல்முறையைப் பயன்படுத்தலாம். இது வேலை செய்ய நீங்கள் வெங்காயம் பயன்படுத்தும்போது டோர் "
 "உலாவியை பின்னணியில் திறந்து வைக்க வேண்டும் என்பதை நினைவில் கொள்ளுங்கள்."
 
-#: ../../source/tor.rst:97
+#: ../../source/tor.rst:102
 msgid "Using a system ``tor`` in Windows"
 msgstr "சாளரங்களில் `` TOR`` ஒரு கணினியைப் பயன்படுத்துதல்"
 
-#: ../../source/tor.rst:99
+#: ../../source/tor.rst:104
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and do "
 "stuff as an administrator."
@@ -323,7 +335,7 @@ msgstr ""
 "இது மிகவும் மேம்பட்டது. எளிய உரை கோப்புகளை எவ்வாறு திருத்தி நிர்வாகியாகச் செய்ய "
 "வேண்டும் என்பதை நீங்கள் அறிந்து கொள்ள வேண்டும்."
 
-#: ../../source/tor.rst:101
+#: ../../source/tor.rst:106
 msgid ""
 "Download the Tor Windows Expert Bundle `from the Tor website <https://"
 "www.torproject.org/download/tor/>`_. Extract the compressed file and copy "
@@ -335,7 +347,7 @@ msgstr ""
 "பிரித்தெடுக்கப்பட்ட கோப்புறையை `` சி: \\ நிரல் கோப்புகள் (x86) `` `` பிரித்தெடுக்கப்பட்ட "
 "கோப்புறையை `` தரவு`` மற்றும் ``டோர்`` ஆகியவற்றுடன் ``டோர்-வின் 32`` க்கு நகலெடுக்கவும்."
 
-#: ../../source/tor.rst:105
+#: ../../source/tor.rst:110
 msgid ""
 "Make up a control port password. (Using 7 words in a sequence like "
 "``comprised stumble rummage work avenging construct volatile`` is a good "
@@ -349,7 +361,7 @@ msgstr ""
 "(``cmd``) திறந்து, உங்கள் கடவுச்சொல்லின் ஹாஷை உருவாக்க ``tor.exe --hash-password`` "
 "ஐப் பயன்படுத்தவும். எடுத்துக்காட்டாக::"
 
-#: ../../source/tor.rst:112
+#: ../../source/tor.rst:117
 msgid ""
 "The hashed password output is displayed after some warnings (which you can "
 "ignore). In the case of the above example, it is "
@@ -359,7 +371,7 @@ msgstr ""
 "புறக்கணிக்கலாம்). மேற்கூறிய எடுத்துக்காட்டின் விசயத்தில், இது "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
-#: ../../source/tor.rst:114
+#: ../../source/tor.rst:119
 msgid ""
 "Now create a new text file at ``C:\\Program Files (x86)\\tor-win32\\torrc`` "
 "and put your hashed password output in it, replacing the "
@@ -369,7 +381,7 @@ msgstr ""
 "கோப்பை உருவாக்கி, அதில் உங்கள் ஆசெட் கடவுச்சொல் வெளியீட்டை வைத்து, "
 "``HashedControlPassword`` ஐ மாற்றவும் ::"
 
-#: ../../source/tor.rst:119
+#: ../../source/tor.rst:124
 msgid ""
 "In your administrator command prompt, install ``tor`` as a service using the "
 "appropriate ``torrc`` file you just created (as described in `<https://"
@@ -379,11 +391,11 @@ msgstr ""
 "பயன்படுத்தி ``tor`` ஐ ஒரு சேவையாக நிறுவவும் (`<https://2019.www.torproject.org/"
 "docs/faq.html.en#NTService>`_ இல் விவரிக்கப்பட்டுள்ளபடி). இதைப் போல::"
 
-#: ../../source/tor.rst:123
+#: ../../source/tor.rst:128
 msgid "You are now running a system ``tor`` process in Windows!"
 msgstr "நீங்கள் இப்போது சாளரங்களில் ஒரு கணினியை `` TOR`` செயல்முறையை இயக்குகிறீர்கள்!"
 
-#: ../../source/tor.rst:125
+#: ../../source/tor.rst:130
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor Settings "
 "tab. Under \"How should OnionShare connect to Tor?\" choose \"Connect using "
@@ -402,11 +414,11 @@ msgstr ""
 "சோதனை\" பொத்தானைக் சொடுக்கு செய்க. எல்லாம் சரியாக நடந்தால், \"டோர் கன்ட்ரோலருடன் "
 "இணைக்கப்பட்டுள்ள\" என்பதை நீங்கள் காண வேண்டும்."
 
-#: ../../source/tor.rst:134
+#: ../../source/tor.rst:139
 msgid "Using a system ``tor`` in macOS"
 msgstr "MACOS இல் `` TOR`` ஒரு அமைப்பைப் பயன்படுத்துதல்"
 
-#: ../../source/tor.rst:136
+#: ../../source/tor.rst:141
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, "
 "and then install Tor::"
@@ -414,15 +426,15 @@ msgstr ""
 "முதலில், உங்களிடம் ஏற்கனவே இல்லையென்றால் `Homebrew <https://brew.sh/>`_ ஐ நிறுவவும், "
 "பின்னர் டோரை நிறுவவும்::"
 
-#: ../../source/tor.rst:140
+#: ../../source/tor.rst:145
 msgid "Now configure Tor to allow connections from OnionShare::"
 msgstr "இப்போது வெங்காயத்தில் இருந்து இணைப்புகளை அனுமதிக்க TOR ஐ உள்ளமைக்கவும் ::"
 
-#: ../../source/tor.rst:147
+#: ../../source/tor.rst:152
 msgid "And start the system Tor service::"
 msgstr "கணினி டோர் சேவையைத் தொடங்கவும் ::"
 
-#: ../../source/tor.rst:151
+#: ../../source/tor.rst:156
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor Settings "
 "tab. Under \"How should OnionShare connect to Tor?\" choose \"Connect using "
@@ -438,16 +450,16 @@ msgstr ""
 "அல்லது குக்கீ ஏற்பு இல்லை\" என்பதைத் தேர்வுசெய்க. \"TOR க்கு இணைப்பு சோதனை\" பொத்தானைக் "
 "சொடுக்கு செய்க."
 
-#: ../../source/tor.rst:157 ../../source/tor.rst:177
+#: ../../source/tor.rst:162 ../../source/tor.rst:182
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr ""
 "எல்லாம் சரியாக நடந்தால், \"டோர் கன்ட்ரோலருடன் இணைக்கப்பட்டுள்ள\" என்பதை நீங்கள் காண வேண்டும்."
 
-#: ../../source/tor.rst:160
+#: ../../source/tor.rst:165
 msgid "Using a system ``tor`` in Linux"
 msgstr "லினக்சில் `` டோர்`` ஒரு கணினியைப் பயன்படுத்துதல்"
 
-#: ../../source/tor.rst:162
+#: ../../source/tor.rst:167
 msgid ""
 "First, install the ``tor`` package. If you're using Debian, Ubuntu, or a "
 "similar Linux distro, It is recommended to use the Tor Project's `official "
@@ -457,7 +469,7 @@ msgstr ""
 "டிச்ட்ரோவைப் பயன்படுத்துகிறீர்கள் என்றால், டோர் திட்டத்தின் `அதிகாரப்பூர்வ களஞ்சியத்தை "
 "<https://support.torproject.org/apt/tor-deb-repo/>` _."
 
-#: ../../source/tor.rst:164
+#: ../../source/tor.rst:169
 msgid ""
 "Next, add your user to the group that runs the ``tor`` process (in the case "
 "of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to connect to "
@@ -467,7 +479,7 @@ msgstr ""
 "உபுண்டு விசயத்தில், ``டெபியன்-டோர்``) உங்கள் கணினி ``tor`` இன் கட்டுப்பாட்டு சாக்கெட் "
 "கோப்புடன் இணைக்க OnionShare ஐ உள்ளமைக்கவும்."
 
-#: ../../source/tor.rst:166
+#: ../../source/tor.rst:171
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command (replace "
 "``username`` with your actual username)::"
@@ -475,7 +487,7 @@ msgstr ""
 "இந்தக் கட்டளையை இயக்குவதன் மூலம் உங்கள் பயனரை ``டெபியன்-டோர்`` குழுவில் சேர்க்கவும் "
 "(``பயனர்பெயர்`` ஐ உங்கள் உண்மையான பயனர்பெயருடன் மாற்றவும்)::"
 
-#: ../../source/tor.rst:170
+#: ../../source/tor.rst:175
 msgid ""
 "Reboot your computer. After it boots up again, open OnionShare, click the "
 "\"⚙\" icon in it, and switch to the Tor Settings tab. Under \"How should "

@@ -10,12 +10,12 @@ msgstr ""
 "POT-Creation-Date: 2026-10-14 09:58+1100\n"
 "PO-Revision-Date: 2025-10-07 10:13+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
-"Language: sq\n"
 "Language-Team: none\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: sq\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: ../../source/advanced.rst:2
@@ -29,40 +29,39 @@ msgstr "Ruani Skeda"
 #: ../../source/advanced.rst:9
 msgid ""
 "Closing OnionShare tabs you host destroys them, preventing reuse. "
-"Persistently hosted websites are available on the same address even if "
-"the computer they are shared from is rebooted."
+"Persistently hosted websites are available on the same address even if the "
+"computer they are shared from is rebooted."
 msgstr ""
-"Mbyllja e skedave OnionShare që keni hapur i asgjëson ato, duke "
-"parandaluar ripërdorimin. Sajte të strehuar për të mbetur, mund të kihen "
-"në të njëjtën adresë, edhe nëse kompjuteri prej të cilit jepen riniset."
+"Mbyllja e skedave OnionShare që keni hapur i asgjëson ato, duke parandaluar "
+"ripërdorimin. Sajte të strehuar për të mbetur, mund të kihen në të njëjtën "
+"adresë, edhe nëse kompjuteri prej të cilit jepen riniset."
 
 #: ../../source/advanced.rst:12
 msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
-"Bëjeni të mbetet cilëndo skedë duke i vënë shenjë kutizës “Hape përherë "
-"këtë skedë, kur niset OnionShare-i”, para se të nisni shërbyesin tuaj."
+"Bëjeni të mbetet cilëndo skedë duke i vënë shenjë kutizës “Hape përherë këtë "
+"skedë, kur niset OnionShare-i”, para se të nisni shërbyesin tuaj."
 
 #: ../../source/advanced.rst:16
 msgid ""
-"When opening OnionShare, your saved tabs from the prior session will "
-"start opened. Each service then can be started manually, and will be "
-"available on the same OnionShare address and be protected by the same "
-"private key."
+"When opening OnionShare, your saved tabs from the prior session will start "
+"opened. Each service then can be started manually, and will be available on "
+"the same OnionShare address and be protected by the same private key."
 msgstr ""
-"Kur hapet OnionShare, skedat tuaja të ruajtura prej sesionit të mëparshëm"
-" do të nisen të hapura. Mandej, çdo shërbim mund të niset dorazi dhe do "
-"të mund të përdoret në të njëjtën adresë OnionShare dhe do të mbrohet me "
-"të njëjtin kyç privat."
+"Kur hapet OnionShare, skedat tuaja të ruajtura prej sesionit të mëparshëm do "
+"të nisen të hapura. Mandej, çdo shërbim mund të niset dorazi dhe do të mund "
+"të përdoret në të njëjtën adresë OnionShare dhe do të mbrohet me të njëjtin "
+"kyç privat."
 
 #: ../../source/advanced.rst:19
 msgid ""
-"If you save a tab, a copy of its onion service secret key is stored on "
-"your computer."
+"If you save a tab, a copy of its onion service secret key is stored on your "
+"computer."
 msgstr ""
-"Nëse ruani një skedë, një kopje e kyçit të fshehtë të shërbimit Onion për"
-" të depozitohet në kompjuterin tuaj."
+"Nëse ruani një skedë, një kopje e kyçit të fshehtë të shërbimit Onion për të "
+"depozitohet në kompjuterin tuaj."
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
@@ -70,11 +69,11 @@ msgstr "Çaktivizo kyç Privat"
 
 #: ../../source/advanced.rst:26
 msgid ""
-"By default, all OnionShare services are protected with a private key, "
-"which Tor calls \"client authentication\"."
+"By default, all OnionShare services are protected with a private key, which "
+"Tor calls \"client authentication\"."
 msgstr ""
-"Si parazgjedhje, krejt shërbimet OnionShare mbrohen me një kyç privat, të"
-" cilin Tor-i e quan “mirëfilltësim klienti”."
+"Si parazgjedhje, krejt shërbimet OnionShare mbrohen me një kyç privat, të "
+"cilin Tor-i e quan “mirëfilltësim klienti”."
 
 #: ../../source/advanced.rst:28
 msgid ""
@@ -82,21 +81,21 @@ msgid ""
 "OnionShare service. If you want to allow the public to use your service, "
 "it's better to disable the private key altogether."
 msgstr ""
-"Shfletuesi Tor do t’ju kërkojë të jepni kyçin tuaj privat, kur ngarkoni "
-"një shërbim OnionShare. Nëse doni të lejoni publikun të përdorë shërbimin"
-" tuaj, është më mirë ta çaktivizoni fare kyçin e privat."
+"Shfletuesi Tor do t’ju kërkojë të jepni kyçin tuaj privat, kur ngarkoni një "
+"shërbim OnionShare. Nëse doni të lejoni publikun të përdorë shërbimin tuaj, "
+"është më mirë ta çaktivizoni fare kyçin e privat."
 
 #: ../../source/advanced.rst:31
 msgid ""
 "To turn off the private key for any tab, check the \"This is a public "
-"OnionShare service (disables private key)\" box before starting the "
-"server. Then the server will be public and a private key is not needed to"
-" load it in the Tor Browser."
+"OnionShare service (disables private key)\" box before starting the server. "
+"Then the server will be public and a private key is not needed to load it in "
+"the Tor Browser."
 msgstr ""
-"Që të çaktivizoni kyçin privat të cilësdo skedë, i vini shenjë kutizës "
-"“Ky është një shërbim OnionShare publik (çaktivizohet kyçi privat)”, para"
-" nisjes së shërbyesit. Mandej shërbyesi do të jetë publik dhe s’duhet kyç"
-" privat për t’u ngarkuar te Shfletuesi Tor."
+"Që të çaktivizoni kyçin privat të cilësdo skedë, i vini shenjë kutizës “Ky "
+"është një shërbim OnionShare publik (çaktivizohet kyçi privat)”, para nisjes "
+"së shërbyesit. Mandej shërbyesi do të jetë publik dhe s’duhet kyç privat për "
+"t’u ngarkuar te Shfletuesi Tor."
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
@@ -104,9 +103,9 @@ msgstr "Tituj Vetjakë"
 
 #: ../../source/advanced.rst:39
 msgid ""
-"When people load OnionShare services in the Tor Browser they see the "
-"default title for each type of service. For example, the default title "
-"for chat services is \"OnionShare Chat\"."
+"When people load OnionShare services in the Tor Browser they see the default "
+"title for each type of service. For example, the default title for chat "
+"services is \"OnionShare Chat\"."
 msgstr ""
 "Kur njerëzit ngarkojnë shërbime OnionShare te Shfletuesi Tor, shohin "
 "titullin parazgjedhje për çdo lloj shërbimi. Për shembull, titulli "
@@ -114,11 +113,11 @@ msgstr ""
 
 #: ../../source/advanced.rst:42
 msgid ""
-"If you edit the \"Custom title\" setting before starting a server you can"
-" change it."
+"If you edit the \"Custom title\" setting before starting a server you can "
+"change it."
 msgstr ""
-"Mund ta ndryshoni nëse përpunoni rregullimin “Titull vetjak” para nisjes "
-"së shërbyesit."
+"Mund ta ndryshoni nëse përpunoni rregullimin “Titull vetjak” para nisjes së "
+"shërbyesit."
 
 #: ../../source/advanced.rst:45
 msgid "Scheduled Times"
@@ -126,24 +125,23 @@ msgstr "Kohë të Planifikuara"
 
 #: ../../source/advanced.rst:47
 msgid ""
-"OnionShare supports scheduling exactly when a service should start and "
-"stop. Before starting a server, click \"Show advanced settings\" in its "
-"tab and then check the boxes next to either \"Start onion service at "
-"scheduled time\", \"Stop onion service at scheduled time\", or both, and "
-"set the respective desired dates and times."
+"OnionShare supports scheduling exactly when a service should start and stop. "
+"Before starting a server, click \"Show advanced settings\" in its tab and "
+"then check the boxes next to either \"Start onion service at scheduled "
+"time\", \"Stop onion service at scheduled time\", or both, and set the "
+"respective desired dates and times."
 msgstr ""
-"OnionShare-i mbulon planifikim të përpiktë se kur duhet nisur dhe ndalur "
-"një shërbim. Para nisjes së një shërbyesi, klikoni mbi “Shfaq rregullime "
-"të mëtejshme” te skeda e tij dhe mandej u vini shenjë kutizave në krah të"
-" “Nise shërbimin Onion në kohën e planifikuar”, \"Ndale shërbimin Onion "
-"në kohën e planifikuar\", ose të dyja dhe caktoni data dhe kohët e "
-"dëshiruara përkatëse."
+"OnionShare-i mbulon planifikim të përpiktë se kur duhet nisur dhe ndalur një "
+"shërbim. Para nisjes së një shërbyesi, klikoni mbi “Shfaq rregullime të "
+"mëtejshme” te skeda e tij dhe mandej u vini shenjë kutizave në krah të “Nise "
+"shërbimin Onion në kohën e planifikuar”, \"Ndale shërbimin Onion në kohën e "
+"planifikuar\", ose të dyja dhe caktoni data dhe kohët e dëshiruara përkatëse."
 
 #: ../../source/advanced.rst:51
 msgid ""
-"Services scheduled to start in the future display a countdown timer when "
-"the \"Start sharing\" button is clicked. Services scheduled to stop in "
-"the future display a countdown timer when started."
+"Services scheduled to start in the future display a countdown timer when the "
+"\"Start sharing\" button is clicked. Services scheduled to stop in the "
+"future display a countdown timer when started."
 msgstr ""
 "Shërbimet e planifikuara të nisin në të ardhmen shfaqin një matës "
 "kohëmbarimi, kur klikohet butoni “Nis ndarjen me të tjerë”. Shërbimet e "
@@ -152,16 +150,16 @@ msgstr ""
 
 #: ../../source/advanced.rst:54
 msgid ""
-"**Scheduling an OnionShare service to automatically start can be used as "
-"a dead man's switch**. This means your service is made public at a given "
-"time in the future if you are not there to prevent it. If nothing happens"
-" to you, you can cancel the service before it's scheduled to start."
+"**Scheduling an OnionShare service to automatically start can be used as a "
+"dead man's switch**. This means your service is made public at a given time "
+"in the future if you are not there to prevent it. If nothing happens to you, "
+"you can cancel the service before it's scheduled to start."
 msgstr ""
-"**Planifikimi i nisjes së automatizuar të një shërbimi OnionShare mund të"
-" përdoret si “çelësi i të vdekurit”**. Kjo do të thotë se shërbimi juaj "
-"bëhet publik në një kohë të dhënë në të ardhmen, nëse s’jeni atje për ta "
-"parandaluar këtë gjë. Nëse s’ju ndodh gjë dhe jeni gjallë, mund ta "
-"anuloni shërbimin para kohës së planifikuar për nisje."
+"**Planifikimi i nisjes së automatizuar të një shërbimi OnionShare mund të "
+"përdoret si “çelësi i të vdekurit”**. Kjo do të thotë se shërbimi juaj bëhet "
+"publik në një kohë të dhënë në të ardhmen, nëse s’jeni atje për ta "
+"parandaluar këtë gjë. Nëse s’ju ndodh gjë dhe jeni gjallë, mund ta anuloni "
+"shërbimin para kohës së planifikuar për nisje."
 
 #: ../../source/advanced.rst:60
 msgid ""
@@ -169,10 +167,9 @@ msgid ""
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
 msgstr ""
-"**Planifikimi i ndaljes së automatizuar të një shërbimi OnionShare "
-"kufizon ekspozimin e tij**. Nëse doni të ndani me të tjerë informacion të"
-" fshehtë, ose dika që do të vjetrohet, mund ta bëni këtë për një kohë të "
-"përzgjedhur."
+"**Planifikimi i ndaljes së automatizuar të një shërbimi OnionShare kufizon "
+"ekspozimin e tij**. Nëse doni të ndani me të tjerë informacion të fshehtë, "
+"ose dika që do të vjetrohet, mund ta bëni këtë për një kohë të përzgjedhur."
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
@@ -192,19 +189,19 @@ msgstr "Po instalohet versioni CLI"
 
 #: ../../source/advanced.rst:75
 msgid ""
-"If you have installed the Snap, macOS or Windows package, you already "
-"have the CLI version installed."
+"If you have installed the Snap, macOS or Windows package, you already have "
+"the CLI version installed."
 msgstr ""
 "Nëse keni instaluar paketën për Snap, macOS apo Windows, keni tashmë të "
 "instaluar versionin CLI."
 
 #: ../../source/advanced.rst:77
 msgid ""
-"Alternatively, you can install just the command-line version of "
-"OnionShare using ``pip3``::"
+"Alternatively, you can install just the command-line version of OnionShare "
+"using ``pip3``::"
 msgstr ""
-"Ndryshe, mund të instaloni thjesht versionin “rresht urdhrash” të "
-"OnionShare-it duke përdorur ``pip3``::"
+"Ndryshe, mund të instaloni thjesht versionin “rresht urdhrash” të OnionShare-"
+"it duke përdorur ``pip3``::"
 
 #: ../../source/advanced.rst:81
 msgid ""
@@ -220,15 +217,13 @@ msgstr "Mandej ekzekutojeni kështu:"
 
 #: ../../source/advanced.rst:87
 msgid ""
-"Info about installing it on different operating systems can be found in "
-"the `CLI README file "
-"<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
-"in the Git repository."
+"Info about installing it on different operating systems can be found in the "
+"`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
+"README.md>`_ in the Git repository."
 msgstr ""
-"Informacion rreth instalimi në sisteme të ndryshme operative mund të "
-"gjenden te `kartela CLI READMEe "
-"<https://github.com/onionshare/onionshare/blob/develop/cli/README.md>`_ "
-"te depoja Git."
+"Informacion rreth instalimi në sisteme të ndryshme operative mund të gjenden "
+"te `kartela CLI READMEe <https://github.com/onionshare/onionshare/blob/"
+"develop/cli/README.md>`_ te depoja Git."
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
@@ -240,8 +235,8 @@ msgid ""
 "``onionshare.cli`` to access the command-line interface version."
 msgstr ""
 "Nëse e instaluar OnionShare-in duke përdorur paketën Snap, mund të "
-"ekzekutoni ``onionshare.cli`` që të përdorni versionin me ndërfaqe "
-"“rresht urdhrash”."
+"ekzekutoni ``onionshare.cli`` që të përdorni versionin me ndërfaqe “rresht "
+"urdhrash”."
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"
@@ -249,8 +244,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:97
 msgid ""
-"From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS"
-"/onionshare-cli --help``"
+"From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
+"onionshare-cli --help``"
 msgstr ""
 
 #: ../../source/advanced.rst:100
@@ -268,7 +263,8 @@ msgid "Usage"
 msgstr "Përdorim"
 
 #: ../../source/advanced.rst:107
-msgid "Browse the command-line documentation by running ``onionshare --help``::"
+msgid ""
+"Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
 "Shfletoni dokumentimin për versionin “rresht urdhrash” duke ekzekutuar "
 "``onionshare --help``::"
@@ -285,9 +281,9 @@ msgstr ""
 
 #: ../../source/advanced.rst:176
 msgid ""
-"You may find this particularly useful if you are operating in "
-"'persistent' mode, and want to start the same onion service every time "
-"your machine starts."
+"You may find this particularly useful if you are operating in 'persistent' "
+"mode, and want to start the same onion service every time your machine "
+"starts."
 msgstr ""
 
 #: ../../source/advanced.rst:178
@@ -296,43 +292,41 @@ msgstr ""
 
 #: ../../source/advanced.rst:180
 msgid ""
-"Here is the main OnionShare config. In this example, it's stored in "
-"``/home/user/.config/onionshare/onionshare.json``. You may need to adjust"
-" some of the settings, but if you already have OnionShare installed, it "
-"probably looks much like this already::"
+"Here is the main OnionShare config. In this example, it's stored in ``/home/"
+"user/.config/onionshare/onionshare.json``. You may need to adjust some of "
+"the settings, but if you already have OnionShare installed, it probably "
+"looks much like this already::"
 msgstr ""
 
 #: ../../source/advanced.rst:209
 msgid ""
-"Notice the 'persistent_tabs' section. We will now create a file at "
-"``/home/user/.config/onionshare/persistent/my-persistent-onion.json``, "
-"that looks like this::"
+"Notice the 'persistent_tabs' section. We will now create a file at ``/home/"
+"user/.config/onionshare/persistent/my-persistent-onion.json``, that looks "
+"like this::"
 msgstr ""
 
 #: ../../source/advanced.rst:249
 msgid ""
-"**Don't actually use this private key, service_id or client_auth keys! "
-"They are shown only as an example. Never share the private_key with "
-"anyone.**"
+"**Don't actually use this private key, service_id or client_auth keys! They "
+"are shown only as an example. Never share the private_key with anyone.**"
 msgstr ""
 
 #: ../../source/advanced.rst:251
 msgid ""
-"The easiest way to generate the onion address and private key is to first"
-" create a 'pinned' OnionShare tab in the desktop app and started the "
-"share for the first time. This will then have saved the persistent "
-"settings to your ``.config/onionshare/persistent/`` folder with a random "
-"name. You can unpin that tab once you've generated it the first time. Or,"
-" you can leave it where it is, and use that persistent file in your "
-"systemd unit file below."
+"The easiest way to generate the onion address and private key is to first "
+"create a 'pinned' OnionShare tab in the desktop app and started the share "
+"for the first time. This will then have saved the persistent settings to "
+"your ``.config/onionshare/persistent/`` folder with a random name. You can "
+"unpin that tab once you've generated it the first time. Or, you can leave it "
+"where it is, and use that persistent file in your systemd unit file below."
 msgstr ""
 
 #: ../../source/advanced.rst:253
 msgid ""
-"Now you can create a systemd unit file in ``/etc/systemd/system"
-"/onionshare-cli.service``. Be sure to adjust the User and Group to your "
-"own user/group, as well as changes to any paths to the onionshare-cli "
-"binary or the paths to your JSON configs and shares."
+"Now you can create a systemd unit file in ``/etc/systemd/system/onionshare-"
+"cli.service``. Be sure to adjust the User and Group to your own user/group, "
+"as well as changes to any paths to the onionshare-cli binary or the paths to "
+"your JSON configs and shares."
 msgstr ""
 
 #: ../../source/advanced.rst:255
@@ -342,30 +336,26 @@ msgstr ""
 #: ../../source/advanced.rst:270
 msgid ""
 "Note that although ``/home/user/my-shared-file.txt`` was defined in the "
-"``filenames`` section of the ``my-persistent-onion.json`` file, it's "
-"still necessary to specify it as the argument to the onionshare-cli "
-"command."
+"``filenames`` section of the ``my-persistent-onion.json`` file, it's still "
+"necessary to specify it as the argument to the onionshare-cli command."
 msgstr ""
 
 #: ../../source/advanced.rst:272
 msgid ""
-"Be sure to run ``sudo systemctl daemon-reload`` after creating the unit "
-"file."
+"Be sure to run ``sudo systemctl daemon-reload`` after creating the unit file."
 msgstr ""
 
 #: ../../source/advanced.rst:274
 msgid ""
-"Now you can run ``sudo systemctl start onionshare-cli.service``. If you "
-"have ``journalctl`` installed, you can run ``sudo journalctl -f -t "
-"onionshare-cli``, and you should see some output of your service "
-"starting::"
+"Now you can run ``sudo systemctl start onionshare-cli.service``. If you have "
+"``journalctl`` installed, you can run ``sudo journalctl -f -t onionshare-"
+"cli``, and you should see some output of your service starting::"
 msgstr ""
 
 #: ../../source/advanced.rst:284
 msgid ""
 "If you don't want your users to use a Private Key, set ``public`` to be "
-"``true`` in the ``general`` settings of the my-persistent-onion.json "
-"file."
+"``true`` in the ``general`` settings of the my-persistent-onion.json file."
 msgstr ""
 
 #: ../../source/advanced.rst:288
@@ -377,8 +367,8 @@ msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
-"Aplikacioni OnionShare për desktop ka disa shkurtore tastiere, për "
-"leverdi dhe përdorim nga persona me aftësi të kufizuara::"
+"Aplikacioni OnionShare për desktop ka disa shkurtore tastiere, për leverdi "
+"dhe përdorim nga persona me aftësi të kufizuara::"
 
 #: ../../source/advanced.rst:295
 msgid "And from the main mode chooser screen::"
@@ -391,8 +381,8 @@ msgstr ""
 #: ../../source/advanced.rst:307
 msgid ""
 "You may want to migrate your OnionShare data when switching to another "
-"computer. This is especially true if you had a 'persistent' onion address"
-" and you want to preserve it."
+"computer. This is especially true if you had a 'persistent' onion address "
+"and you want to preserve it."
 msgstr ""
 
 #: ../../source/advanced.rst:309
@@ -419,9 +409,9 @@ msgstr ""
 
 #: ../../source/advanced.rst:319
 msgid ""
-"OnionShare stores its settings in a JSON file. Both the CLI and the "
-"Desktop versions use this configuration file. The CLI also lets you "
-"specify a path to a custom configuration file with ``--config``."
+"OnionShare stores its settings in a JSON file. Both the CLI and the Desktop "
+"versions use this configuration file. The CLI also lets you specify a path "
+"to a custom configuration file with ``--config``."
 msgstr ""
 
 #: ../../source/advanced.rst:321
@@ -471,7 +461,8 @@ msgid "``string``"
 msgstr ""
 
 #: ../../source/advanced.rst:326
-msgid "The version of OnionShare. You should not ever need to change this value."
+msgid ""
+"The version of OnionShare. You should not ever need to change this value."
 msgstr ""
 
 #: ../../source/advanced.rst:327
@@ -480,8 +471,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:327
 msgid ""
-"The way in which OnionShare connects to Tor. Valid options are 'bundled',"
-" 'automatic' (use Tor Browser's Tor connection), 'control_port' or "
+"The way in which OnionShare connects to Tor. Valid options are 'bundled', "
+"'automatic' (use Tor Browser's Tor connection), 'control_port' or "
 "'socket_file'. Default: 'bundled'"
 msgstr ""
 
@@ -557,8 +548,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:334
 msgid ""
-"If access to Tor's control port requires a password, and ``auth_type`` is"
-" set to 'password', specify the password here. Default: ''"
+"If access to Tor's control port requires a password, and ``auth_type`` is "
+"set to 'password', specify the password here. Default: ''"
 msgstr ""
 
 #: ../../source/advanced.rst:335
@@ -588,9 +579,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:336
 msgid ""
-"Whether OnionShare should automatically check for updates (over Tor). "
-"This setting is only valid for MacOS or Windows installations. Default: "
-"True."
+"Whether OnionShare should automatically check for updates (over Tor). This "
+"setting is only valid for MacOS or Windows installations. Default: True."
 msgstr ""
 
 #: ../../source/advanced.rst:337
@@ -615,10 +605,10 @@ msgstr ""
 
 #: ../../source/advanced.rst:339
 msgid ""
-"When ``bridges_enabled`` is True, where to load bridges from. Options are"
-" \"built-in\" (bridges shipped with OnionShare and which may get updated "
-"from Tor), \"moat\" (request bridges from Tor's Moat API), or \"custom\" "
-"(user-supplied bridges). Default: \"built-in\""
+"When ``bridges_enabled`` is True, where to load bridges from. Options are "
+"\"built-in\" (bridges shipped with OnionShare and which may get updated from "
+"Tor), \"moat\" (request bridges from Tor's Moat API), or \"custom\" (user-"
+"supplied bridges). Default: \"built-in\""
 msgstr ""
 
 #: ../../source/advanced.rst:340
@@ -627,9 +617,9 @@ msgstr ""
 
 #: ../../source/advanced.rst:340
 msgid ""
-"When ``bridges_type`` is set to \"built-in\", this specifies which type "
-"of bridge protocol to use. Options are \"obfs4\", \"meek\" or "
-"\"snowflake\". Default: \"obfs4\""
+"When ``bridges_type`` is set to \"built-in\", this specifies which type of "
+"bridge protocol to use. Options are \"obfs4\", \"meek\" or \"snowflake\". "
+"Default: \"obfs4\""
 msgstr ""
 
 #: ../../source/advanced.rst:341
@@ -638,8 +628,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:341
 msgid ""
-"When ``bridges_type`` is set to \"moat\", the bridges returned from Tor's"
-" Moat API are stored here. Default: \"\""
+"When ``bridges_type`` is set to \"moat\", the bridges returned from Tor's "
+"Moat API are stored here. Default: \"\""
 msgstr ""
 
 #: ../../source/advanced.rst:342
@@ -649,8 +639,8 @@ msgstr ""
 #: ../../source/advanced.rst:342
 msgid ""
 "When ``bridges_type`` is set to \"custom\", the bridges specified by the "
-"user are stored here. Separate each bridge line in the string with '\\n'."
-" Default: \"\""
+"user are stored here. Separate each bridge line in the string with '\\n'. "
+"Default: \"\""
 msgstr ""
 
 #: ../../source/advanced.rst:343
@@ -662,11 +652,9 @@ msgid "``dict``"
 msgstr ""
 
 #: ../../source/advanced.rst:343
-#, python-brace-format
 msgid ""
-"When ``bridges_type`` is set to \"built-in\", OnionShare obtains the "
-"latest built-in bridges recommended by Tor and stores them here. Default:"
-" {}"
+"When ``bridges_type`` is set to \"built-in\", OnionShare obtains the latest "
+"built-in bridges recommended by Tor and stores them here. Default: {}"
 msgstr ""
 
 #: ../../source/advanced.rst:344
@@ -694,9 +682,9 @@ msgstr ""
 
 #: ../../source/advanced.rst:345
 msgid ""
-"The locale used in OnionShare. Default: None (which is the same as 'en')."
-" For valid locale codes, see 'available_locales' in "
-"https://github.com/onionshare/onionshare/blob/main/cli/onionshare_cli/settings.py"
+"The locale used in OnionShare. Default: None (which is the same as 'en'). "
+"For valid locale codes, see 'available_locales' in https://github.com/"
+"onionshare/onionshare/blob/main/cli/onionshare_cli/settings.py"
 msgstr ""
 
 #: ../../source/advanced.rst:346
@@ -705,9 +693,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:346
 msgid ""
-"The theme for the OnionShare desktop app. Valid options are 0 "
-"(automatically detect the user's computer's light or dark theme), 1 "
-"(light) or 2 (dark)."
+"The theme for the OnionShare desktop app. Valid options are 0 (automatically "
+"detect the user's computer's light or dark theme), 1 (light) or 2 (dark)."
 msgstr ""
 
 #: ../../source/advanced.rst:351
@@ -716,9 +703,9 @@ msgstr ""
 
 #: ../../source/advanced.rst:353
 msgid ""
-"As described above, each 'persistent' onion has parameters of its own "
-"which are stored in its own JSON file. The path to this file can be "
-"specified for the CLI tool with ``--persistent``."
+"As described above, each 'persistent' onion has parameters of its own which "
+"are stored in its own JSON file. The path to this file can be specified for "
+"the CLI tool with ``--persistent``."
 msgstr ""
 
 #: ../../source/advanced.rst:355
@@ -727,8 +714,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:398
 msgid ""
-"Below are the configuration file parameters for a persistent onion and "
-"what they mean, for each section in the JSON"
+"Below are the configuration file parameters for a persistent onion and what "
+"they mean, for each section in the JSON"
 msgstr ""
 
 #: ../../source/advanced.rst:401
@@ -748,7 +735,8 @@ msgid "client_auth_priv_key"
 msgstr ""
 
 #: ../../source/advanced.rst:407
-msgid "The private key when using Client Authentication. Send this to the user."
+msgid ""
+"The private key when using Client Authentication. Send this to the user."
 msgstr ""
 
 #: ../../source/advanced.rst:408
@@ -757,8 +745,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:408
 msgid ""
-"The public key when using Client Authentication. Used on OnionShare's "
-"side."
+"The public key when using Client Authentication. Used on OnionShare's side."
 msgstr ""
 
 #: ../../source/advanced.rst:412
@@ -771,8 +758,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:417
 msgid ""
-"The mode used by this persistent onion. Options are \"share\", "
-"\"receive\", \"website\" or \"chat\"."
+"The mode used by this persistent onion. Options are \"share\", \"receive\", "
+"\"website\" or \"chat\"."
 msgstr ""
 
 #: ../../source/advanced.rst:418
@@ -781,9 +768,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:418
 msgid ""
-"Whether persistence is enabled for this onion. When the persistent option"
-" is unchecked in the desktop, this entire JSON file is deleted. Default: "
-"true"
+"Whether persistence is enabled for this onion. When the persistent option is "
+"unchecked in the desktop, this entire JSON file is deleted. Default: true"
 msgstr ""
 
 #: ../../source/advanced.rst:419
@@ -792,8 +778,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:419
 msgid ""
-"Whether to automatically start this persistent onion when OnionShare "
-"starts and once Tor is connected. Default: false"
+"Whether to automatically start this persistent onion when OnionShare starts "
+"and once Tor is connected. Default: false"
 msgstr ""
 
 #: ../../source/advanced.rst:423
@@ -806,8 +792,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:428
 msgid ""
-"An optional custom title for displaying on the onion service. Default: "
-"null (\"OnionShare\" will be shown instead)"
+"An optional custom title for displaying on the onion service. Default: null "
+"(\"OnionShare\" will be shown instead)"
 msgstr ""
 
 #: ../../source/advanced.rst:429
@@ -837,9 +823,9 @@ msgstr ""
 
 #: ../../source/advanced.rst:431
 msgid ""
-"Whether the onion service is configured to stop at a specific time. The "
-"time can be set in the desktop app or specified in seconds with ``--auto-"
-"stop-timer`` with the CLI tool. Default: false"
+"Whether the onion service is configured to stop at a specific time. The time "
+"can be set in the desktop app or specified in seconds with ``--auto-stop-"
+"timer`` with the CLI tool. Default: false"
 msgstr ""
 
 #: ../../source/advanced.rst:432
@@ -868,8 +854,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:443
 msgid ""
-"Whether to automatically stop the share once files are downloaded the "
-"first time. Default: true"
+"Whether to automatically stop the share once files are downloaded the first "
+"time. Default: true"
 msgstr ""
 
 #: ../../source/advanced.rst:444 ../../source/advanced.rst:472
@@ -886,8 +872,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:445 ../../source/advanced.rst:471
 msgid ""
-"Whether to log URL requests to stdout when using the CLI tool. Default: "
-"false"
+"Whether to log URL requests to stdout when using the CLI tool. Default: false"
 msgstr ""
 
 #: ../../source/advanced.rst:449
@@ -900,8 +885,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:454
 msgid ""
-"The path where received files or text messages will be stored. Default: "
-"the 'OnionShare' folder of the user's home directory."
+"The path where received files or text messages will be stored. Default: the "
+"'OnionShare' folder of the user's home directory."
 msgstr ""
 
 #: ../../source/advanced.rst:455
@@ -910,8 +895,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:455
 msgid ""
-"A webhook URL that OnionShare will POST to when it receives files or text"
-" messages. Default: null"
+"A webhook URL that OnionShare will POST to when it receives files or text "
+"messages. Default: null"
 msgstr ""
 
 #: ../../source/advanced.rst:456
@@ -946,8 +931,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:459
 msgid ""
-"Whether max_upload_size applies to the service's entire lifespan, "
-"refusing all further uploads once the total is reached. Default: false"
+"Whether max_upload_size applies to the service's entire lifespan, refusing "
+"all further uploads once the total is reached. Default: false"
 msgstr ""
 
 #: ../../source/advanced.rst:460
@@ -956,9 +941,9 @@ msgstr ""
 
 #: ../../source/advanced.rst:460
 msgid ""
-"Running total of bytes received by the service, persisted so the lifespan"
-" limit survives restarts. Managed automatically; set it to 0 to reset the"
-" count. Default: 0"
+"Running total of bytes received by the service, persisted so the lifespan "
+"limit survives restarts. Managed automatically; set it to 0 to reset the "
+"count. Default: 0"
 msgstr ""
 
 #: ../../source/advanced.rst:464
@@ -971,8 +956,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:469
 msgid ""
-"If set to ``true``, OnionShare won't set its default Content Security "
-"Policy header for the website. Default: ``false``"
+"If set to ``true``, OnionShare won't set its default Content Security Policy "
+"header for the website. Default: ``false``"
 msgstr ""
 
 #: ../../source/advanced.rst:470
@@ -990,4 +975,3 @@ msgstr ""
 #: ../../source/advanced.rst:478
 msgid "There are currently no configurable settings for the Chat mode."
 msgstr ""
-
