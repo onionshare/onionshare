@@ -5,7 +5,7 @@ runtime: org.kde.Platform
 runtime-version: "6.10"
 sdk: org.kde.Sdk
 base: io.qt.PySide.BaseApp
-base-version: "6.8"
+base-version: "6.10"
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.golang
   - org.freedesktop.Sdk.Extension.llvm22
@@ -27,7 +27,13 @@ cleanup:
   - "/go"
   - "/bin/scripts"
 cleanup-commands:
-  - /app/cleanup-BaseApp.sh
+  - |
+    set -eu
+    libevent_backup="$(mktemp -d)"
+    cp -a /app/lib/libevent*.so* "$libevent_backup/"
+    /app/cleanup-BaseApp.sh
+    cp -a "$libevent_backup/"* /app/lib/
+    rm -rf "$libevent_backup"
 modules:
   - name: snowflake-client
     buildsystem: simple
