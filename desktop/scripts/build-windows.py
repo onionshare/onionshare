@@ -422,6 +422,16 @@ def codesign(path):
             "snowflake-client.exe",
         )
     )
+    sign(
+        os.path.join(
+            path,
+            "lib",
+            "onionshare",
+            "resources",
+            "tor",
+            "webtunnel-client.exe",
+        )
+    )
 
 
 @main.command()
