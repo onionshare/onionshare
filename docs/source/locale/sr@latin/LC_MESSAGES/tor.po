@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-02 10:22+1000\n"
+"POT-Creation-Date: 2026-10-14 09:58+1100\n"
 "PO-Revision-Date: 2023-06-03 17:52+0000\n"
 "Last-Translator: emma peel <emmapeel@torproject.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,11 +231,23 @@ msgid ""
 "trusted source."
 msgstr ""
 
-#: ../../source/tor.rst:91
+#: ../../source/tor.rst:90
+msgid ""
+"OnionShare also supports WebTunnel bridges. These must be supplied or "
+"requested separately from the built-in bridges. To use your own WebTunnel "
+"bridges, select \"Provide a bridge you learned about from a trusted source\" "
+"and paste the bridge lines into the bridges text box, one per line. You can "
+"also get them from the Tor Bridges (Moat) service by selecting \"Request a "
+"bridge from torproject.org\", clicking \"Request a New Bridge\", and "
+"choosing \"webtunnel\" as the bridge type. Solve the CAPTCHA to request the "
+"bridges, then save your settings to connect to Tor using them."
+msgstr ""
+
+#: ../../source/tor.rst:96
 msgid "Attempt auto-configuration with Tor Browser"
 msgstr "Pokušaj automatsku konfiguraciju Tor Browser-a"
 
-#: ../../source/tor.rst:93
+#: ../../source/tor.rst:98
 msgid ""
 "If you have `downloaded the Tor Browser <https://www.torproject.org>`_ and "
 "don't want two ``tor`` processes running, you can use the ``tor`` process "
@@ -247,11 +259,11 @@ msgstr ""
 "Browser-a. Imajte na umu da trebate držati Tor Browser otvoren u pozadini "
 "dok koristite OnionShare da bi ovo funkcionisalo."
 
-#: ../../source/tor.rst:97
+#: ../../source/tor.rst:102
 msgid "Using a system ``tor`` in Windows"
 msgstr "Korišćenje sistemskog ``tor`` u Windows-u"
 
-#: ../../source/tor.rst:99
+#: ../../source/tor.rst:104
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and do "
 "stuff as an administrator."
@@ -259,7 +271,7 @@ msgstr ""
 "Ovo je dosta napredno. Morate znati kako da uređujete tekstualne datoteke uz "
 "korišćenje administratorskih privilegija."
 
-#: ../../source/tor.rst:101
+#: ../../source/tor.rst:106
 #, fuzzy
 #| msgid ""
 #| "Download the Tor Windows Expert Bundle `from <https://www.torproject.org/"
@@ -277,7 +289,7 @@ msgstr ""
 "``C:\\Program Files (x86)\\`` Preimenujte direktorijum koji sadrži ``Data`` "
 "i ``Tor`` u novo ime``tor-win32``."
 
-#: ../../source/tor.rst:105
+#: ../../source/tor.rst:110
 msgid ""
 "Make up a control port password. (Using 7 words in a sequence like "
 "``comprised stumble rummage work avenging construct volatile`` is a good "
@@ -291,7 +303,7 @@ msgstr ""
 "i koristite ``tor. exe --hash-password`` da generišete hash vaše lozinke. Na "
 "primer::"
 
-#: ../../source/tor.rst:112
+#: ../../source/tor.rst:117
 msgid ""
 "The hashed password output is displayed after some warnings (which you can "
 "ignore). In the case of the above example, it is "
@@ -301,7 +313,7 @@ msgstr ""
 "zanemariti). U slučaju gornjeg primera, to je "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
-#: ../../source/tor.rst:114
+#: ../../source/tor.rst:119
 msgid ""
 "Now create a new text file at ``C:\\Program Files (x86)\\tor-win32\\torrc`` "
 "and put your hashed password output in it, replacing the "
@@ -311,7 +323,7 @@ msgstr ""
 "\\tor-win32\\\\torrc`` i unesite svoju hashed lozinku u nju, zamenjujući "
 "``HashedControlPassword`` s onom koju ste upravo generisali::"
 
-#: ../../source/tor.rst:119
+#: ../../source/tor.rst:124
 msgid ""
 "In your administrator command prompt, install ``tor`` as a service using the "
 "appropriate ``torrc`` file you just created (as described in `<https://"
@@ -322,11 +334,11 @@ msgstr ""
 "opisano u `<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_). "
 "Kao ovo::"
 
-#: ../../source/tor.rst:123
+#: ../../source/tor.rst:128
 msgid "You are now running a system ``tor`` process in Windows!"
 msgstr "Sada imate pokrenut sistemski ``tor`` proces u Windows-u!"
 
-#: ../../source/tor.rst:125
+#: ../../source/tor.rst:130
 #, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor Settings "
@@ -345,11 +357,11 @@ msgstr ""
 "Connection to Tor'. Ako sve prođe kako treba, trebali biste videti 'Povezano "
 "s Tor kontrolerom'."
 
-#: ../../source/tor.rst:134
+#: ../../source/tor.rst:139
 msgid "Using a system ``tor`` in macOS"
 msgstr "Korišćenje sistema ``tor`` u macOS-u"
 
-#: ../../source/tor.rst:136
+#: ../../source/tor.rst:141
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, "
 "and then install Tor::"
@@ -357,15 +369,15 @@ msgstr ""
 "Prvo instalirajte `Homebrew <https://brew.sh/>`_ ako ga već nemate, a zatim "
 "instalirajte Tor::"
 
-#: ../../source/tor.rst:140
+#: ../../source/tor.rst:145
 msgid "Now configure Tor to allow connections from OnionShare::"
 msgstr "Sada konfigurišite Tor da dozvoli konekcije sa OnionShare::"
 
-#: ../../source/tor.rst:147
+#: ../../source/tor.rst:152
 msgid "And start the system Tor service::"
 msgstr "I pokrenite sistemski Tor servis::"
 
-#: ../../source/tor.rst:151
+#: ../../source/tor.rst:156
 #, fuzzy
 msgid ""
 "Open OnionShare, click the \"⚙\" icon in it, and switch to the Tor Settings "
@@ -382,16 +394,16 @@ msgstr ""
 "autentifikacije ili autentifikacije putem kolačića'. Kliknite na dugme 'Test "
 "Connection to Tor'."
 
-#: ../../source/tor.rst:157 ../../source/tor.rst:177
+#: ../../source/tor.rst:162 ../../source/tor.rst:182
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr ""
 "Ako sve prođe kako treba, trebali biste videti 'Povezano s Tor kontrolerom'."
 
-#: ../../source/tor.rst:160
+#: ../../source/tor.rst:165
 msgid "Using a system ``tor`` in Linux"
 msgstr "Korišćenje sistemskog ``tor`` na Linuxu"
 
-#: ../../source/tor.rst:162
+#: ../../source/tor.rst:167
 msgid ""
 "First, install the ``tor`` package. If you're using Debian, Ubuntu, or a "
 "similar Linux distro, It is recommended to use the Tor Project's `official "
@@ -401,7 +413,7 @@ msgstr ""
 "Linux distribuciju, preporučuje se korišćenje `official repository projekta "
 "Tor <https://support.torproject.org/apt/tor-deb-repo/>`_."
 
-#: ../../source/tor.rst:164
+#: ../../source/tor.rst:169
 msgid ""
 "Next, add your user to the group that runs the ``tor`` process (in the case "
 "of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to connect to "
@@ -411,7 +423,7 @@ msgstr ""
 "Debiana i Ubuntua, ``debian-tor``) i konfigurišite OnionShare da se poveže "
 "sa vašim sistemom ``tor`` control socket file."
 
-#: ../../source/tor.rst:166
+#: ../../source/tor.rst:171
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command (replace "
 "``username`` with your actual username)::"
@@ -419,7 +431,7 @@ msgstr ""
 "Dodajte svog korisnika u grupu ``debian-tor`` pokretanjem ove komande "
 "(zamenite ``username`` svojim stvarnim korisničkim imenom)::"
 
-#: ../../source/tor.rst:170
+#: ../../source/tor.rst:175
 #, fuzzy
 msgid ""
 "Reboot your computer. After it boots up again, open OnionShare, click the "

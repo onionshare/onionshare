@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-02 10:22+1000\n"
+"POT-Creation-Date: 2026-10-14 09:58+1100\n"
 "PO-Revision-Date: 2022-02-14 08:55+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: none\n"
@@ -112,7 +112,7 @@ msgstr ""
 "anonymt. Åpne en delingsfane, dra inn filene og mappene du vil dele, og "
 "klikk «Begynn deling»."
 
-#: ../../source/features.rst:35 ../../source/features.rst:117
+#: ../../source/features.rst:35 ../../source/features.rst:151
 msgid ""
 "After you add files, you'll see some settings. Make sure you choose the "
 "setting you're interested in before you start sharing."
@@ -179,11 +179,91 @@ msgstr ""
 "hjørnet."
 
 #: ../../source/features.rst:55
+msgid "Download a Share"
+msgstr ""
+
+#: ../../source/features.rst:57
+msgid ""
+"Starting with OnionShare 2.7, you can use Download Mode to download files "
+"from someone else's OnionShare directly in your own OnionShare."
+msgstr ""
+
+#: ../../source/features.rst:59
+msgid ""
+"This means that if you have OnionShare, you don't need to use Tor Browser to "
+"download a share from another OnionShare."
+msgstr ""
+
+#: ../../source/features.rst:61
+msgid ""
+"OnionShare connects to the share over the Tor network, so you can receive "
+"the files entirely within the application."
+msgstr ""
+
+#: ../../source/features.rst:63
+msgid ""
+"Open a 'download' tab in OnioNShare, and paste the OnionShare address that "
+"you were sent."
+msgstr ""
+
+#: ../../source/features.rst:65
+msgid ""
+"If you were also sent a private key, check \"Were you also sent a Private "
+"Key?\" and paste it into the private key field. This lets you download from "
+"shares protected with Tor client authentication."
+msgstr ""
+
+#: ../../source/features.rst:67
+#, fuzzy
+msgid ""
+"You can browse for a folder to save the downloaded files. When you are "
+"ready, click \"Start downloading\"."
+msgstr "Du kan finne en mappe å lagre meldinger og filer som blir sendt inn."
+
+#: ../../source/features.rst:72
+msgid ""
+"OnionShare downloads the entire share as a single ZIP file, using the "
+"share's ``/download`` route. This means that the download will include all "
+"of the files and folders in the share. Support for choosing individual files "
+"to download is planned for a future release."
+msgstr ""
+
+#: ../../source/features.rst:76
+msgid "Download a share periodically"
+msgstr ""
+
+#: ../../source/features.rst:78
+msgid ""
+"If someone runs a long-lived OnionShare and updates the files they share, "
+"you can download the share repeatedly to keep your copy up to date. Check "
+"\"Poll the OnionShare URL to download the share periodically (in minutes)\" "
+"and set the interval to at least one minute before clicking \"Start "
+"downloading\". OnionShare downloads the share immediately, then repeats the "
+"download from the same address at the interval you chose."
+msgstr ""
+
+#: ../../source/features.rst:82
+msgid ""
+"Each successful download overwrites the previous ZIP file, so save a "
+"separate copy if you want to keep an earlier version. You can click \"Stop "
+"downloading\" to stop polling."
+msgstr ""
+
+#: ../../source/features.rst:85
+msgid ""
+"The person sharing the files needs to keep their OnionShare running and "
+"uncheck \"Stop sharing after files have been sent (uncheck to allow "
+"downloading individual files)\" in their share tab to allow repeated "
+"downloads. They can also save the tab (see :ref:`save_tabs`) to keep the "
+"same OnionShare address between sessions."
+msgstr ""
+
+#: ../../source/features.rst:89
 #, fuzzy
 msgid "Receive Files and Messages"
 msgstr "Mottak av filer og meldinger"
 
-#: ../../source/features.rst:57
+#: ../../source/features.rst:91
 msgid ""
 "You can use OnionShare to let people anonymously submit files and messages "
 "directly to your computer, essentially turning it into an anonymous dropbox. "
@@ -193,13 +273,13 @@ msgstr ""
 "datamaskinen din anonymt, noe som gjør det til en anonym postboks. Åpne en "
 "mottaksfane og velg innstillingene du ønsker."
 
-#: ../../source/features.rst:62
+#: ../../source/features.rst:96
 #, fuzzy
 msgid ""
 "You can browse for a folder to save messages and files that get submitted."
 msgstr "Du kan finne en mappe å lagre meldinger og filer som blir sendt inn."
 
-#: ../../source/features.rst:64
+#: ../../source/features.rst:98
 #, fuzzy
 msgid ""
 "You can check \"Disable submitting text\" if want to only allow file "
@@ -210,7 +290,7 @@ msgstr ""
 "filopplastinger, og du kan huke av «Skru av opplasting av filer» hvis du kun "
 "vil tillate innsendelse av tekstmeldinger, som for et anonymt kontaktskjema."
 
-#: ../../source/features.rst:66
+#: ../../source/features.rst:100
 #, fuzzy
 msgid ""
 "You can check \"Use notification webhook\" and then choose a webhook URL if "
@@ -237,7 +317,7 @@ msgstr ""
 "mottaksmodus-tjeneste, vil @webhookbot sende deg en melding på Keybase som "
 "lar deg få vite det så snart det skjer."
 
-#: ../../source/features.rst:71
+#: ../../source/features.rst:105
 #, fuzzy
 msgid ""
 "When you are ready, click \"Start Receive Mode\". This starts the OnionShare "
@@ -248,7 +328,7 @@ msgstr ""
 "tjenesten. Alle som laster inn denne adressen i sin Tor-nettleser vil kunne "
 "sende inn filer og meldinger som blir lastet opp til datamaskinen din."
 
-#: ../../source/features.rst:75
+#: ../../source/features.rst:109
 msgid ""
 "You can also click the down \"↓\" icon in the top-right corner to show the "
 "history and progress of people sending files to you."
@@ -256,12 +336,12 @@ msgstr ""
 "Du kan også klikke «↓»-ikonet i øvre høyre hjørne for å vise historikken og "
 "framdriften for folk som sender filer til deg."
 
-#: ../../source/features.rst:77
+#: ../../source/features.rst:111
 #, fuzzy
 msgid "Here is what it looks like for someone sending you files and messages."
 msgstr "Det ser slik ut når noen sender deg filer."
 
-#: ../../source/features.rst:81
+#: ../../source/features.rst:115
 msgid ""
 "When someone submits files or messages to your receive service, by default "
 "they get saved to a folder called ``OnionShare`` in the home folder on your "
@@ -273,7 +353,7 @@ msgstr ""
 "datamaskin, automatisk organisert i egne undermapper basert på når filene "
 "ble opplastet."
 
-#: ../../source/features.rst:83
+#: ../../source/features.rst:117
 msgid ""
 "Setting up an OnionShare receiving service is useful for journalists and "
 "others needing to securely accept documents from anonymous sources. When "
@@ -286,11 +366,11 @@ msgstr ""
 "OnionShare en lettere, enklere, ikke helt like sikker versjon av `SecureDrop "
 "<https://securedrop.org/>` fløyteblåserinnsendelsessystemet."
 
-#: ../../source/features.rst:86
+#: ../../source/features.rst:120
 msgid "Use at your own risk"
 msgstr "Bruk på egen risiko"
 
-#: ../../source/features.rst:88
+#: ../../source/features.rst:122
 #, fuzzy
 msgid ""
 "Just like with malicious email attachments, it's possible someone could try "
@@ -303,7 +383,7 @@ msgstr ""
 "tjeneste. OnionShare legger ikke til noen sikkerhetsfunksjoner for å "
 "beskytte systemet ditt fra skadelige filer."
 
-#: ../../source/features.rst:90
+#: ../../source/features.rst:124
 msgid ""
 "If you receive an Office document or a PDF through OnionShare, you can "
 "convert these documents into PDFs that are safe to open using `Dangerzone "
@@ -317,18 +397,18 @@ msgstr ""
 "du åpner ubetrodde dokumenter ved å åpne dem i `Tails <https://"
 "tails.boum.org/>` i en engangs-VM fra `Qubes <https://qubes-os.org/>`."
 
-#: ../../source/features.rst:92
+#: ../../source/features.rst:126
 msgid ""
 "However, it is always safe to open text messages sent through OnionShare."
 msgstr ""
 "Dog er det alltid trygt å åpne tekstmeldinger som blir sendt gjennom "
 "OnionShare."
 
-#: ../../source/features.rst:95
+#: ../../source/features.rst:129
 msgid "Tips for running a receive service"
 msgstr "Tips for kjøring av en mottakstjeneste"
 
-#: ../../source/features.rst:97
+#: ../../source/features.rst:131
 #, fuzzy
 msgid ""
 "If you want to host your own anonymous dropbox using OnionShare, it's "
@@ -340,7 +420,7 @@ msgstr ""
 "som alltid er påslått og koblet til Internett, og ikke den du bruker til "
 "vanlig."
 
-#: ../../source/features.rst:99
+#: ../../source/features.rst:133
 #, fuzzy
 msgid ""
 "If you intend to put the OnionShare address on your website or social media "
@@ -352,11 +432,11 @@ msgstr ""
 "sosiale mediaprofiler, lagre fanen (sjekk :ref:`save_tabs`) og kjør den som "
 "en offentlig tjeneste (sjekk :ref:`turn_off_passwords`)."
 
-#: ../../source/features.rst:102
+#: ../../source/features.rst:136
 msgid "Other caveats to be aware of in Receive Mode"
 msgstr ""
 
-#: ../../source/features.rst:104
+#: ../../source/features.rst:138
 msgid ""
 "There are reports that OnionBrowser on iOS devices are unable to upload "
 "files to an OnionShare in Receive Mode, when operating in 'Silver' security "
@@ -364,11 +444,11 @@ msgid ""
 "file."
 msgstr ""
 
-#: ../../source/features.rst:107
+#: ../../source/features.rst:141
 msgid "Host a Website"
 msgstr "Vertstjen en nettside"
 
-#: ../../source/features.rst:109
+#: ../../source/features.rst:143
 msgid ""
 "To host a static HTML website with OnionShare, open a website tab, drag the "
 "files and folders that make up the static content there, and click \"Start "
@@ -378,7 +458,7 @@ msgstr ""
 "nettsidefane, dra filene og mappene som utgjør det statiske innholdet dit, "
 "og klikke på «Begynn deling» når du er klar."
 
-#: ../../source/features.rst:113
+#: ../../source/features.rst:147
 msgid ""
 "If you add an ``index.html`` file, it will render when someone loads your "
 "website. You should also include any other HTML files, CSS files, JavaScript "
@@ -393,7 +473,7 @@ msgstr ""
 "kjører kode eller bruker databaser. Så du kan for eksempel ikke bruke "
 "WordPress.)"
 
-#: ../../source/features.rst:115
+#: ../../source/features.rst:149
 msgid ""
 "If you don't have an ``index.html`` file, it will show a directory listing "
 "instead, and people loading it can look through the files and download them."
@@ -402,11 +482,11 @@ msgstr ""
 "istedenfor, og folk som laster den inn kan se gjennom filene og laste dem "
 "ned."
 
-#: ../../source/features.rst:122
+#: ../../source/features.rst:156
 msgid "Content Security Policy"
 msgstr "Sikkerhetspraksis for innhold"
 
-#: ../../source/features.rst:124
+#: ../../source/features.rst:158
 #, fuzzy
 msgid ""
 "By default OnionShare helps secure your website by setting a strict `Content "
@@ -419,7 +499,7 @@ msgstr ""
 "Content_Security_Policy>`_ i toppteksten. Dog forhindrer dette "
 "tredjepartsinnhold fra å bli lastet inn inne i nettsiden."
 
-#: ../../source/features.rst:126
+#: ../../source/features.rst:160
 msgid ""
 "If you want to load content from third-party websites, like assets or "
 "JavaScript libraries from CDNs, you have two options:"
@@ -427,7 +507,7 @@ msgstr ""
 "Hvis du vil laste inn innhold fra tredjeparts nettsteder, som eiendeler "
 "eller JavaScript-biblioteker fra CDN har du to valg:"
 
-#: ../../source/features.rst:128
+#: ../../source/features.rst:162
 #, fuzzy
 msgid ""
 "You can disable sending a Content Security Policy header by checking the "
@@ -438,16 +518,16 @@ msgstr ""
 "huke av «Ikke send sikkerhetspraksis for innhold-hode (lar nettsiden din "
 "bruke tredjepartsressurser)» før du starter tjenesten."
 
-#: ../../source/features.rst:129
+#: ../../source/features.rst:163
 #, fuzzy
 msgid "You can send a custom Content Security Policy header."
 msgstr "Du kan sende et egendefinert sikkerhetspraksis for innhold-hode."
 
-#: ../../source/features.rst:132
+#: ../../source/features.rst:166
 msgid "Tips for running a website service"
 msgstr "Tips for kjøring av en nettside-tjeneste"
 
-#: ../../source/features.rst:134
+#: ../../source/features.rst:168
 #, fuzzy
 msgid ""
 "If you want to host a long-term website using OnionShare (meaning not just "
@@ -464,7 +544,7 @@ msgstr ""
 "ref: `save_tabs`), slik at du kan gjenoppta nettstedet med samme adresse "
 "hvis du lukker OnionShare og åpner det senere."
 
-#: ../../source/features.rst:137
+#: ../../source/features.rst:171
 #, fuzzy
 msgid ""
 "If your website is intended for the public, you should run it as a public "
@@ -473,11 +553,11 @@ msgstr ""
 "Hvis din nettside er tiltenkt offentligheten, burde du kjøre det som en "
 "offentlig tjeneste (sjekk: ref:`turn_off_passwords`)."
 
-#: ../../source/features.rst:140
+#: ../../source/features.rst:174
 msgid "Chat Anonymously"
 msgstr "Sludre anonymt"
 
-#: ../../source/features.rst:142
+#: ../../source/features.rst:176
 msgid ""
 "You can use OnionShare to set up a private, secure chat room that doesn't "
 "log anything. Just open a chat tab and click \"Start chat server\"."
@@ -485,7 +565,7 @@ msgstr ""
 "Du kan bruke OnionShare til å sette opp et privat, sikkert praterom som ikke "
 "logger noe. Åpne en pratefane og klikk «Start pratetjener»."
 
-#: ../../source/features.rst:146
+#: ../../source/features.rst:180
 #, fuzzy
 msgid ""
 "After you start the server, copy the OnionShare address and private key and "
@@ -498,7 +578,7 @@ msgstr ""
 "begrense nøyaktig hvem som kan delta, bruk en kryptert meldingsapp for å "
 "sende OnionShare-adressen."
 
-#: ../../source/features.rst:151
+#: ../../source/features.rst:185
 msgid ""
 "People can join the chat room by loading its OnionShare address in Tor "
 "Browser. The chat room requires JavasScript, so everyone who wants to "
@@ -510,7 +590,7 @@ msgstr ""
 "sitt sikkerhetsnivå for Tor Browser satt til \"Standard\" eller \"Safer\", i "
 "stedet for \"Safest\"."
 
-#: ../../source/features.rst:154
+#: ../../source/features.rst:188
 #, fuzzy
 msgid ""
 "When someone joins the chat room they get assigned a random name. They can "
@@ -523,7 +603,7 @@ msgstr ""
 "sludrehistorikken ikke er lagret noe sted, blir den ikke vist i det hele "
 "tatt, selv om andre allerede prater i rommet."
 
-#: ../../source/features.rst:160
+#: ../../source/features.rst:194
 #, fuzzy
 msgid ""
 "In an OnionShare chat room, everyone is anonymous. Anyone can change their "
@@ -532,7 +612,7 @@ msgstr ""
 "I et OnionShare-sludrerom er alle anonyme. Alle kan endre navnet sitt til "
 "hva som helst, og det går ikke an å bekrefte noens identitet."
 
-#: ../../source/features.rst:163
+#: ../../source/features.rst:197
 msgid ""
 "However, if you create an OnionShare chat room and securely send the address "
 "only to a small group of trusted friends using encrypted messages, you can "
@@ -543,11 +623,11 @@ msgstr ""
 "du være ganske sikker på at folkene som tar del i sludringsrommet er vennene "
 "dine."
 
-#: ../../source/features.rst:166
+#: ../../source/features.rst:200
 msgid "How is this useful?"
 msgstr "Hvordan er dette nyttig?"
 
-#: ../../source/features.rst:168
+#: ../../source/features.rst:202
 msgid ""
 "If you need to already be using an encrypted messaging app, what's the point "
 "of an OnionShare chat room to begin with? It leaves less traces."
@@ -555,7 +635,7 @@ msgstr ""
 "Hvis man bruke et kryptert meldingsprogram fra før av, hva er da poenget med "
 "et OnionShare-praterom? Det levner færre spor."
 
-#: ../../source/features.rst:170
+#: ../../source/features.rst:204
 msgid ""
 "If you for example send a message to a Signal group, a copy of your message "
 "ends up on each device (the smartphones, and computers if they set up Signal "
@@ -574,7 +654,7 @@ msgstr ""
 "sludrerom lagrer ikke meldinger noensteds hen, så problemet er redusert til "
 "et minimum."
 
-#: ../../source/features.rst:173
+#: ../../source/features.rst:207
 #, fuzzy
 msgid ""
 "OnionShare chat rooms can also be useful for people wanting to chat "
@@ -589,11 +669,11 @@ msgstr ""
 "postadresse, og så vente på at journalisten skal ta del i praterommet, helt "
 "uten å miste anonymiteten."
 
-#: ../../source/features.rst:177
+#: ../../source/features.rst:211
 msgid "How does the encryption work?"
 msgstr "Hvordan fungerer krypteringen?"
 
-#: ../../source/features.rst:179
+#: ../../source/features.rst:213
 msgid ""
 "Because OnionShare relies on Tor onion services, connections between the Tor "
 "Browser and OnionShare are all end-to-end encrypted (E2EE). When someone "
@@ -607,7 +687,7 @@ msgstr ""
 "onion tilkobling, som sender den til alle andre medlemmer i praterommet med "
 "WebSockets, gjennom deres E2EE-onion tjenester."
 
-#: ../../source/features.rst:181
+#: ../../source/features.rst:215
 msgid ""
 "OnionShare doesn't implement any chat encryption on its own. It relies on "
 "the Tor onion service's encryption instead."
