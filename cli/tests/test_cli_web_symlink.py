@@ -179,6 +179,59 @@ class TestSymlinkProtection:
                 assert "normal.txt" in zip_contents
                 assert "nested/nested.txt" in zip_contents
 
+    @pytest.mark.parametrize("autostop_sharing", [True, False])
+    def test_single_symlink_is_not_used_as_download(
+        self, temp_dir, common_obj, autostop_sharing
+    ):
+        """A lone symlink must not trigger the uncompressed-file optimization."""
+        test_dir = tempfile.TemporaryDirectory(dir=temp_dir.name)
+        outside_secret = os.path.join(test_dir.name, "outside-secret.txt")
+        with open(outside_secret, "w") as f:
+            f.write("OUTSIDE_SECRET_MARKER")
+
+        symlink_path = os.path.join(test_dir.name, "link.txt")
+        os.symlink(outside_secret, symlink_path)
+
+        web = Web(common_obj, False, ModeSettings(common_obj), "share")
+        web.app.testing = True
+        web.settings.set("share", "autostop_sharing", autostop_sharing)
+        web.share_mode.set_file_info([symlink_path])
+
+        assert web.share_mode.is_zipped
+        assert web.share_mode.download_filename != symlink_path
+        with web.app.test_client() as c:
+            res = c.get("/download")
+            assert res.status_code == 200
+            assert b"OUTSIDE_SECRET_MARKER" not in res.get_data()
+
+    @pytest.mark.parametrize("autostop_sharing", [True, False])
+    def test_directory_containing_only_symlink_does_not_disclose_target(
+        self, temp_dir, common_obj, autostop_sharing
+    ):
+        """The expanded children of a selected directory must remain filtered."""
+        test_dir = tempfile.TemporaryDirectory(dir=temp_dir.name)
+        outside_secret = os.path.join(test_dir.name, "outside-secret.txt")
+        with open(outside_secret, "w") as f:
+            f.write("OUTSIDE_SECRET_MARKER")
+
+        shared_dir = os.path.join(test_dir.name, "shared")
+        os.mkdir(shared_dir)
+        symlink_path = os.path.join(shared_dir, "link.txt")
+        os.symlink(outside_secret, symlink_path)
+
+        web = Web(common_obj, False, ModeSettings(common_obj), "share")
+        web.app.testing = True
+        web.settings.set("share", "autostop_sharing", autostop_sharing)
+        web.share_mode.set_file_info([shared_dir])
+
+        assert web.share_mode.files == {}
+        assert web.share_mode.is_zipped
+        assert web.share_mode.download_filename != symlink_path
+        with web.app.test_client() as c:
+            res = c.get("/download")
+            assert res.status_code == 200
+            assert b"OUTSIDE_SECRET_MARKER" not in res.get_data()
+
     def test_root_level_symlink_handling(self, temp_dir, common_obj):
         """Test that root-level symlinks (not in subdirectory) are handled correctly"""
         # Create a directory with only a symlink (no normal files)

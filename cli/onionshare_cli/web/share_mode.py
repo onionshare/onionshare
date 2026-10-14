@@ -473,6 +473,9 @@ class ShareModeWeb(SendBaseModeWeb):
     def build_zipfile_list(self, filenames, processed_size_callback=None):
         self.common.log("ShareModeWeb", "build_zipfile_list", f"filenames={filenames}")
         for filename in filenames:
+            if os.path.islink(filename) or not self._is_path_contained(filename):
+                continue
+
             info = {
                 "filename": filename,
                 "basename": os.path.basename(filename.rstrip("/")),

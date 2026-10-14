@@ -2,6 +2,7 @@
 
 ## 2.7
 
+* Security fix: prevent sharing a single file that is a symlink (to a potentially sensitive file). This would require accidental action by the user or local compromise (which would mean bigger problems than just this). See [GHSA-2pj7-hh2q-hjrh](https://github.com/onionshare/onionshare/security/advisories/GHSA-2pj7-hh2q-hjrh)
 * New feature: 'Download mode' which lets you download a share from another OnionShare, in your OnionShare (instead of via Tor Browser).
 * New feature: Webtunnel bridges
 * New feature: Ability to set an upload size limit in Receive Mode: either 'per upload' or for the entire runtime of that receive mode service.
