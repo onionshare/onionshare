@@ -37,6 +37,9 @@ import traceback
 from packaging.version import Version
 
 
+from .tor_config import upstream_proxy_config
+
+
 class TorErrorAutomatic(Exception):
     """
     OnionShare is failing to connect and authenticate to the Tor controller,
@@ -241,6 +244,20 @@ class Onion(object):
         # The Tor controller
         self.c = None
 
+        if self.settings.get("connection_type") == "socket_file":
+            if (
+                not self.settings.get("socket_file_path").strip()
+                or not self.settings.get("socks_socket_path").strip()
+            ):
+                raise TorErrorInvalidSetting(
+                    "Socket-file mode requires both a control socket file and a SOCKS socket file. "
+                    "Set the SOCKS socket path (for example /run/tor/socks); TCP fallback is not used."
+                )
+        try:
+            proxy_config = upstream_proxy_config(self.settings)
+        except ValueError as error:
+            raise TorErrorInvalidSetting(str(error)) from error
+
         if self.settings.get("connection_type") == "bundled":
             # Create a torrc for this session
             if self.use_tmp_dir:
@@ -417,6 +434,9 @@ class Onion(object):
                         for line in self.settings.get("bridges_custom").split("\n"):
                             if line.strip() != "":
                                 f.write(f"Bridge {line}\n")
+
+                # Upstream proxy for bundled Tor, validated before startup.
+                f.write(proxy_config)
 
             # Execute a tor subprocess
             self.common.log("Onion", "connect", f"starting {self.tor_path} subprocess")
@@ -971,18 +991,34 @@ class Onion(object):
             except Exception:
                 pass
 
-    def get_tor_socks_port(self):
+    def get_tor_socks_proxy(self):
         """
-        Returns a (address, port) tuple for the Tor SOCKS port
+        Returns a (proxy_type, address, port) tuple for the Tor SOCKS proxy,
+        where proxy_type is "tcp" or "unix".
+
+        For "tcp", connect to the SOCKS server at (address, port).
+        For "unix", address is the path of a unix domain socket file that
+        the SOCKS server is listening on, and port is None.
         """
-        self.common.log("Onion", "get_tor_socks_port")
+        self.common.log("Onion", "get_tor_socks_proxy")
 
         if self.settings.get("connection_type") == "bundled":
-            return ("127.0.0.1", self.tor_socks_port)
+            return ("tcp", "127.0.0.1", self.tor_socks_port)
         elif self.settings.get("connection_type") == "automatic":
-            return ("127.0.0.1", 9150)
+            return ("tcp", "127.0.0.1", 9150)
+        elif self.settings.get("connection_type") == "socket_file":
+            path = self.settings.get("socks_socket_path").strip()
+            if not path:
+                raise TorErrorInvalidSetting(
+                    "Socket-file mode requires a SOCKS socket file; TCP fallback is not used."
+                )
+            return ("unix", path, None)
         else:
-            return (self.settings.get("socks_address"), self.settings.get("socks_port"))
+            return (
+                "tcp",
+                self.settings.get("socks_address"),
+                self.settings.get("socks_port"),
+            )
 
     def update_builtin_bridges(self):
         """

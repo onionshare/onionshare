@@ -689,6 +689,8 @@ class GuiCommon:
         Takes an exception defined in onion.py and returns a translated error message
         """
         if type(e) is TorErrorInvalidSetting:
+            if str(e):
+                return strings._("settings_error_invalid_detail").format(error=str(e))
             return strings._("settings_error_unknown")
         elif type(e) is TorErrorAutomatic:
             return strings._("settings_error_automatic")

@@ -11,6 +11,7 @@ import sys
 from io import BytesIO
 
 import pytest
+import requests
 from contextlib import contextmanager
 from threading import Thread
 from urllib.request import urlopen, Request
@@ -23,20 +24,17 @@ from onionshare_cli.web import Web
 from onionshare_cli.web.share_mode import parse_range_header
 from onionshare_cli.settings import Settings
 from onionshare_cli.mode_settings import ModeSettings
-import onionshare_cli.web.receive_mode
 
-# Stub requests.post, for receive mode webhook tests
+# Stub requests.Session, for receive mode webhook tests
 webhook_url = None
 webhook_data = None
 
 
-def requests_post_stub(url, data, timeout, proxies):
-    global webhook_url, webhook_data
-    webhook_url = url
-    webhook_data = data
-
-
-onionshare_cli.web.receive_mode.requests.post = requests_post_stub
+class WebhookStubSession(requests.Session):
+    def post(self, url, data=None, timeout=None):
+        global webhook_url, webhook_data
+        webhook_url = url
+        webhook_data = data
 
 
 DEFAULT_ZW_FILENAME_REGEX = re.compile(r"^onionshare_[a-z2-7]{6}.zip$")
@@ -180,7 +178,7 @@ class TestWeb:
         web = web_obj(temp_dir, common_obj, "receive")
         assert web.mode == "receive"
         web.settings.set("receive", "webhook_url", "http://127.0.0.1:1337/example")
-        web.proxies = None
+        web.requests_session = WebhookStubSession()
         assert (
             web.settings.get("receive", "webhook_url")
             == "http://127.0.0.1:1337/example"
@@ -393,6 +391,7 @@ class TestWeb:
         os.makedirs(data_dir, exist_ok=True)
         web.settings.set("receive", "data_dir", data_dir)
         web.settings.set("receive", "webhook_url", "http://127.0.0.1:1337/example")
+        web.requests_session = WebhookStubSession()
         web.proxies = None
 
         with web.app.test_client() as c:

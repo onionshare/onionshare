@@ -24,6 +24,7 @@ class TestSettings:
             "control_port_port": 9051,
             "socks_address": "127.0.0.1",
             "socks_port": 9050,
+            "socks_socket_path": "",
             "socket_file_path": "/var/run/tor/control",
             "auth_type": "no_auth",
             "auth_password": "",
@@ -35,6 +36,12 @@ class TestSettings:
             "bridges_moat": "",
             "bridges_custom": "",
             "bridges_builtin": {},
+            "proxy_enabled": False,
+            "proxy_type": "socks5",
+            "proxy_address": "",
+            "proxy_port": 0,
+            "proxy_username": "",
+            "proxy_password": "",
             "persistent_tabs": [],
             "theme": 0,
             "auto_connect": False,
@@ -90,6 +97,7 @@ class TestSettings:
         assert settings_obj.get("control_port_port") == 9051
         assert settings_obj.get("socks_address") == "127.0.0.1"
         assert settings_obj.get("socks_port") == 9050
+        assert settings_obj.get("socks_socket_path") == ""
         assert settings_obj.get("socket_file_path") == "/var/run/tor/control"
         assert settings_obj.get("auth_type") == "no_auth"
         assert settings_obj.get("auth_password") == ""
@@ -101,6 +109,13 @@ class TestSettings:
         assert settings_obj.get("bridges_builtin_pt") == "obfs4"
         assert settings_obj.get("bridges_moat") == ""
         assert settings_obj.get("bridges_custom") == ""
+        assert settings_obj.get("bridges_builtin") == {}
+        assert settings_obj.get("proxy_enabled") is False
+        assert settings_obj.get("proxy_type") == "socks5"
+        assert settings_obj.get("proxy_address") == ""
+        assert settings_obj.get("proxy_port") == 0
+        assert settings_obj.get("proxy_username") == ""
+        assert settings_obj.get("proxy_password") == ""
 
     def test_set_version(self, settings_obj):
         settings_obj.set("version", "CUSTOM_VERSION")
@@ -119,6 +134,17 @@ class TestSettings:
 
         settings_obj.set("socks_port", "NON_INTEGER")
         assert settings_obj._settings["socks_port"] == 9050
+
+    def test_set_socks_socket_path(self, settings_obj):
+        settings_obj.set("socks_socket_path", "/run/tor/socks")
+        assert settings_obj._settings["socks_socket_path"] == "/run/tor/socks"
+
+    def test_set_proxy_port(self, settings_obj):
+        settings_obj.set("proxy_port", 1080)
+        assert settings_obj._settings["proxy_port"] == 1080
+
+        settings_obj.set("proxy_port", "NON_INTEGER")
+        assert settings_obj._settings["proxy_port"] == 0
 
     @pytest.mark.skipif(sys.platform != "darwin", reason="requires Darwin")
     def test_filename_darwin(self, monkeypatch, platform_darwin):

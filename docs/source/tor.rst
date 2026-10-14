@@ -87,6 +87,20 @@ If using a built-in bridge doesn't work, you can request a bridge from torprojec
 
 You also have the option of using a bridge that you learned about from a trusted source.
 
+**Using a proxy**
+
+If your local network requires you to go through a proxy in order to reach the internet, you can configure OnionShare to make the Tor connection through a proxy.
+Check "Use a proxy", and choose the proxy type (SOCKS4, SOCKS5, or HTTP CONNECT) and fill in the proxy's address and port, and its username and password if it requires authentication.
+
+This is an **upstream proxy**: OnionShare connects to its built-in Tor, and Tor
+connects through the upstream proxy to reach the Tor network. Do not enter
+Tor's own SOCKS listener here. The proxy port must be between 1 and 65535.
+SOCKS5 and HTTP CONNECT support optional username/password authentication;
+provide both fields or leave both empty. SOCKS4 does not use these credentials.
+
+These proxy settings only apply to the Tor version built into OnionShare.
+If you're connecting to a system ``tor`` process using a control port or socket file, you must configure the proxy in the system tor's own ``torrc`` file instead, using the ``Socks4Proxy``, ``Socks5Proxy`` or ``HTTPSProxy`` options.
+
 Attempt auto-configuration with Tor Browser
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -141,16 +155,17 @@ Now configure Tor to allow connections from OnionShare::
 
     mkdir -p /usr/local/var/run/tor
     chmod 700 /usr/local/var/run/tor
-    echo 'SOCKSPort 9050' >> /usr/local/etc/tor/torrc
     echo 'ControlPort unix:"/usr/local/var/run/tor/control.socket"' >> /usr/local/etc/tor/torrc
+    echo 'SocksPort unix:"/usr/local/var/run/tor/socks"' >> /usr/local/etc/tor/torrc
 
 And start the system Tor service::
 
     brew services start tor
 
 Open OnionShare, click the "⚙" icon in it, and switch to the Tor Settings tab.
-Under "How should OnionShare connect to Tor?" choose "Connect using socket file", and
+Under "How should OnionShare connect to Tor?" choose "Connect using socket files", and
 set the socket file to be ``/usr/local/var/run/tor/control.socket``.
+Set the "SOCKS socket file" to be ``/usr/local/var/run/tor/socks``.
 Under "Tor authentication settings" choose "No authentication, or cookie authentication".
 Click the "Test Connection to Tor" button.
 
@@ -169,9 +184,32 @@ Add your user to the ``debian-tor`` group by running this command (replace ``use
 
 Reboot your computer.
 After it boots up again, open OnionShare, click the "⚙" icon in it, and switch to the Tor Settings tab.
-Under "How should OnionShare connect to Tor?" choose "Connect using socket file".
+Under "How should OnionShare connect to Tor?" choose "Connect using socket files".
 Set the socket file to be ``/var/run/tor/control``.
+Set the "SOCKS socket file" to be ``/var/run/tor/socks``.
 Under "Tor authentication settings" choose "No authentication, or cookie authentication".
 Click the "Test Connection to Tor" button.
 
 If all goes well, you should see "Connected to the Tor controller".
+
+Control and SOCKS connection settings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For an external Tor process, choose one complete connection mode:
+
+* **Connect using control port** uses TCP for both the control connection and
+  Tor's SOCKS listener. Enter both address/port pairs in this mode.
+* **Connect using socket files** uses Unix domain sockets for both connections.
+  Enter a **Control socket file** and a **SOCKS socket file**. On Debian these
+  are commonly ``/run/tor/control`` and ``/run/tor/socks``; use your Tor instance's
+  actual paths and ensure your user can access them.
+
+Both socket paths are required. Existing socket-file configurations without a
+SOCKS socket path must supply one before reconnecting. OnionShare no longer
+silently uses a hidden TCP SOCKS address/port when this field is empty.
+Switch to control-port mode if you want both connections to use TCP.
+
+These settings specify how OnionShare connects to Tor. They do not configure an
+upstream proxy for an external Tor process; configure that in the external
+Tor's own settings instead. Neither connection mode allows HTTP proxy
+environment variables to replace Tor routing for webhook requests.
