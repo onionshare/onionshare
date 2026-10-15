@@ -43,3 +43,7 @@ This isn't necessary when using OnionShare for something that isn't secret.
 Extra precaution must be taken to ensure the OnionShare address is communicated anonymously.
 A new e-mail or chat account, only accessed over Tor, can be used to share the address.
 This isn't necessary unless anonymity is a goal.
+
+**OnionShare can't protect against attackers who have already hacked your computer.**
+
+If you're running OnionShare on a computer where an attacker is able to manipulate the filesystem, the running processes, or anything else, OnionShare won't protect you from that attacker, or keep your onion service safe. It is also not a security vulnerability in OnionShare if someone is able to trick you into sharing files or contents of files from your computer that you didn't intend to. This includes somehow modifying the files after you start a share but before someone downloads them.
