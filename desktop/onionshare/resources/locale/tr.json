@@ -306,5 +306,6 @@
     "error_download_timeout": "İndirme işlemi zaman aşımına uğradı.",
     "error_download_canceled": "İndirme işlemi iptal edildi.",
     "error_download_dir_permission_denied": "İndirme dizini oluşturulurken izin reddedildi: {}",
-    "error_download_dir_not_available": "Kullanılabilir indirme dizini bulunamadı."
+    "error_download_dir_not_available": "Kullanılabilir indirme dizini bulunamadı.",
+    "gui_download_mode_no_files": "Henüz Dosya İndirilmedi"
 }

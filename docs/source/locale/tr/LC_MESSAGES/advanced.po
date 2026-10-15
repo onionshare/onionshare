@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-10-14 09:58+1100\n"
-"PO-Revision-Date: 2026-01-02 16:01+0000\n"
-"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"PO-Revision-Date: 2026-10-15 02:51+0000\n"
+"Last-Translator: Oğuz Ersen <ersen@users.noreply.hosted.weblate.org>\n"
 "Language-Team: tr <LL@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.18.0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -1065,27 +1066,32 @@ msgstr "Dosya almanın devre dışı bırakılıp bırakılmayacağı. Öntanım
 
 #: ../../source/advanced.rst:458
 msgid "max_upload_size"
-msgstr ""
+msgstr "max_upload_size"
 
 #: ../../source/advanced.rst:458
 msgid ""
 "Maximum size in bytes of a single upload request (including multipart "
 "overhead). 0 means no limit. Default: 0"
 msgstr ""
+"Bir karşıya yükleme isteğinin bayt cinsinden en fazla boyutu (çok parçalı "
+"yükleme ek yükü dahil). 0, sınır olmadığı anlamına gelir. Öntanımlı: 0"
 
 #: ../../source/advanced.rst:459
 msgid "max_upload_size_total"
-msgstr ""
+msgstr "max_upload_size_total"
 
 #: ../../source/advanced.rst:459
 msgid ""
 "Whether max_upload_size applies to the service's entire lifespan, refusing "
 "all further uploads once the total is reached. Default: false"
 msgstr ""
+"max_upload_size ayarının hizmetin tüm ömrü boyunca geçerli olup olmadığı; "
+"toplam sınıra ulaşıldığında sonraki tüm karşıya yüklemelerin reddedilip "
+"reddedilmeyeceği. Öntanımlı: false"
 
 #: ../../source/advanced.rst:460
 msgid "total_upload_size"
-msgstr ""
+msgstr "total_upload_size"
 
 #: ../../source/advanced.rst:460
 msgid ""
@@ -1093,6 +1099,10 @@ msgid ""
 "limit survives restarts. Managed automatically; set it to 0 to reset the "
 "count. Default: 0"
 msgstr ""
+"Hizmet tarafından alınan baytların kümülatif toplamı; yeniden başlatma "
+"işlemlerinden sonra da ömür sınırının korunması için kalıcı olarak "
+"kaydedilir. Otomatik olarak yönetilir; sayımı sıfırlamak için bu değeri 0 "
+"olarak ayarlayın. Öntanımlı: 0"
 
 #: ../../source/advanced.rst:464
 msgid "website"
