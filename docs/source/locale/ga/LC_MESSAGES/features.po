@@ -6,18 +6,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-10-14 09:58+1100\n"
-"PO-Revision-Date: 2026-07-30 21:31+0000\n"
-"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
+"PO-Revision-Date: 2026-10-15 02:51+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin "
+"<aindriu80@users.noreply.hosted.weblate.org>\n"
 "Language-Team: ga <LL@li.org>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :"
-"(n>6 && n<11) ? 3 : 4;\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :(n>"
+"6 && n<11) ? 3 : 4;\n"
 "Generated-By: Babel 2.18.0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -185,31 +187,40 @@ msgstr ""
 
 #: ../../source/features.rst:55
 msgid "Download a Share"
-msgstr ""
+msgstr "Íoslódáil scair"
 
 #: ../../source/features.rst:57
 msgid ""
 "Starting with OnionShare 2.7, you can use Download Mode to download files "
 "from someone else's OnionShare directly in your own OnionShare."
 msgstr ""
+"Ag tosú le OnionShare 2.7, is féidir leat an Mód Íoslódála a úsáid chun "
+"comhaid a íoslódáil ó OnionShare duine eile go díreach isteach i do "
+"OnionShare féin."
 
 #: ../../source/features.rst:59
 msgid ""
 "This means that if you have OnionShare, you don't need to use Tor Browser to "
 "download a share from another OnionShare."
 msgstr ""
+"Ciallaíonn sé seo, má tá OnionShare agat, nach gá duit Tor Browser a úsáid "
+"chun comhad a íoslódáil ó OnionShare eile."
 
 #: ../../source/features.rst:61
 msgid ""
 "OnionShare connects to the share over the Tor network, so you can receive "
 "the files entirely within the application."
 msgstr ""
+"Déanann OnionShare nasc leis an ábhar atá á roinnt trí líonra Tor, ionas gur "
+"féidir leat na comhaid a fháil go hiomlán laistigh den fheidhmchlár féin."
 
 #: ../../source/features.rst:63
 msgid ""
 "Open a 'download' tab in OnioNShare, and paste the OnionShare address that "
 "you were sent."
 msgstr ""
+"Oscail cluaisín 'íoslódála' in OnionShare agus greamaigh an seoladh "
+"OnionShare a seoladh chugat."
 
 #: ../../source/features.rst:65
 msgid ""
@@ -217,12 +228,18 @@ msgid ""
 "Key?\" and paste it into the private key field. This lets you download from "
 "shares protected with Tor client authentication."
 msgstr ""
+"Má seoladh eochair phríobháideach chugat chomh maith, cuir tic sa bhosca "
+"\"Ar seoladh eochair phríobháideach chugat chomh maith?\" agus greamaigh í "
+"sa réimse don eochair phríobháideach. Cuireann sé seo ar do chumas ábhar a "
+"íoslódáil ó acmhainní comhroinnte atá cosanta ag fíordheimhniú cliant Tor."
 
 #: ../../source/features.rst:67
 msgid ""
 "You can browse for a folder to save the downloaded files. When you are "
 "ready, click \"Start downloading\"."
 msgstr ""
+"Is féidir leat fillteán a aimsiú chun na comhaid íoslódáilte a shábháil ann. "
+"Nuair a bheidh tú réidh, cliceáil \"Tosaigh ag íoslódáil\"."
 
 #: ../../source/features.rst:72
 msgid ""
@@ -231,10 +248,16 @@ msgid ""
 "of the files and folders in the share. Support for choosing individual files "
 "to download is planned for a future release."
 msgstr ""
+"Íoslódálann OnionShare an t-ábhar roinnte ar fad mar chomhad ZIP amháin, ag "
+"baint úsáide as an gcosán ``/download`` a bhaineann leis an roinnt. "
+"Ciallaíonn sé seo go mbeidh na comhaid agus na fillteáin go léir atá sa "
+"roinnt san áireamh san íoslódáil. Tá sé beartaithe tacaíocht a chur ar fáil "
+"i leagan amach anseo chun gur féidir comhaid aonair a roghnú lena n-"
+"íoslódáil."
 
 #: ../../source/features.rst:76
 msgid "Download a share periodically"
-msgstr ""
+msgstr "Íoslódáil scair go tréimhsiúil"
 
 #: ../../source/features.rst:78
 msgid ""
@@ -245,6 +268,15 @@ msgid ""
 "downloading\". OnionShare downloads the share immediately, then repeats the "
 "download from the same address at the interval you chose."
 msgstr ""
+"Má bhíonn OnionShare ar siúl ag duine éigin ar feadh tréimhse fada agus má "
+"dhéanann siad na comhaid atá á roinnt acu a nuashonrú, is féidir leat an t-"
+"ábhar roinnte a íoslódáil arís agus arís eile chun do chóip féin a "
+"choinneáil cothrom le dáta. Cuir tic sa bhosca \"Déan seiceáil ar URL "
+"OnionShare chun an t-ábhar roinnte a íoslódáil go tréimhsiúil (i nóiméid)\" "
+"agus socraigh an t-eatramh go nóiméad amháin ar a laghad sula gcliceálann tú "
+"\"Tosaigh ag íoslódáil\". Íoslódálann OnionShare an t-ábhar láithreach, agus "
+"ansin déanann sé an íoslódáil arís ón seoladh céanna ag an eatramh a "
+"roghnaigh tú."
 
 #: ../../source/features.rst:82
 msgid ""
@@ -252,6 +284,10 @@ msgid ""
 "separate copy if you want to keep an earlier version. You can click \"Stop "
 "downloading\" to stop polling."
 msgstr ""
+"Scríobhann gach íoslódáil rathúil thar an gcomhad ZIP a bhí ann roimhe sin; "
+"mar sin, sábháil cóip ar leith más mian leat leagan níos luaithe a "
+"choinneáil. Is féidir leat cliceáil ar \"Stop downloading\" chun stop a chur "
+"leis an bpróiseas fiosrúcháin."
 
 #: ../../source/features.rst:85
 msgid ""
@@ -261,6 +297,12 @@ msgid ""
 "downloads. They can also save the tab (see :ref:`save_tabs`) to keep the "
 "same OnionShare address between sessions."
 msgstr ""
+"Caithfidh an duine atá ag roinnt na gcomhad OnionShare a choinneáil ag rith "
+"agus an tic a bhaint den rogha \"Stop sharing after files have been sent "
+"(uncheck to allow downloading individual files)\" sa chluaisín roinnte chun "
+"gur féidir comhaid aonair a íoslódáil arís is arís eile. Is féidir leo an "
+"cluaisín a shábháil freisin (féach :ref:`save_tabs`) chun an seoladh "
+"OnionShare céanna a choinneáil idir seisiúin."
 
 #: ../../source/features.rst:89
 msgid "Receive Files and Messages"

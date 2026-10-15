@@ -216,7 +216,7 @@
     "gui_settings_bridge_none_radio_option": "Nie używaj mostków",
     "gui_settings_bridge_moat_radio_option": "Poproś o mostek z torproject.org",
     "gui_settings_bridge_moat_button": "Poproś o Nowy Mostek",
-    "gui_settings_bridge_custom_radio_option": "Podaj mostek, o którym dowiedziałeś się z zaufanego źródła",
+    "gui_settings_bridge_custom_radio_option": "Podaj mostek uzyskany z zaufanego źródła",
     "gui_settings_bridge_custom_placeholder": "wpisz adres:port (jeden na linię)",
     "gui_settings_moat_bridges_invalid": "Nie zażądałeś jeszcze mostka z torproject.org.",
     "gui_settings_stop_active_tabs_label": "Na niektórych Twoich kartach działają usługi.\nMusisz zatrzymać wszystkie usługi, aby zmienić ustawienia Tora.",
@@ -306,5 +306,6 @@
     "error_download_dir_not_available": "Błąd podczas wyszukiwania dostępnego katalogu pobierania.",
     "gui_tab_name_download": "Pobierz",
     "gui_status_indicator_download_working": "Pobieranie…",
-    "gui_status_indicator_download_stopped": "Zatrzymany"
+    "gui_status_indicator_download_stopped": "Zatrzymany",
+    "gui_download_mode_no_files": "Nie pobrano jeszcze żadnych plików"
 }

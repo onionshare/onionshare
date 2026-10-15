@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-10-14 09:58+1100\n"
-"PO-Revision-Date: 2026-01-02 16:01+0000\n"
-"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"PO-Revision-Date: 2026-10-15 02:51+0000\n"
+"Last-Translator: Oğuz Ersen <ersen@users.noreply.hosted.weblate.org>\n"
 "Language-Team: tr <LL@li.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.18.0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -180,31 +181,40 @@ msgstr ""
 
 #: ../../source/features.rst:55
 msgid "Download a Share"
-msgstr ""
+msgstr "Bir Paylaşımı İndir"
 
 #: ../../source/features.rst:57
 msgid ""
 "Starting with OnionShare 2.7, you can use Download Mode to download files "
 "from someone else's OnionShare directly in your own OnionShare."
 msgstr ""
+"OnionShare 2.7 sürümünden itibaren, İndirme Modu'nu kullanarak başka bir "
+"kişinin OnionShare'inden dosyaları doğrudan kendi OnionShare'inize "
+"indirebilirsiniz."
 
 #: ../../source/features.rst:59
 msgid ""
 "This means that if you have OnionShare, you don't need to use Tor Browser to "
 "download a share from another OnionShare."
 msgstr ""
+"Bu, OnionShare'e sahipseniz, başka bir OnionShare'den paylaşım indirmek için "
+"Tor Browser'ı kullanmanıza gerek olmadığı anlamına gelir."
 
 #: ../../source/features.rst:61
 msgid ""
 "OnionShare connects to the share over the Tor network, so you can receive "
 "the files entirely within the application."
 msgstr ""
+"OnionShare, Tor ağı üzerinden paylaşıma bağlanır; böylece dosyaları tamamen "
+"uygulama içinden alabilirsiniz."
 
 #: ../../source/features.rst:63
 msgid ""
 "Open a 'download' tab in OnioNShare, and paste the OnionShare address that "
 "you were sent."
 msgstr ""
+"OnioNShare'de bir 'indirme' sekmesi açın ve size gönderilen OnionShare "
+"adresini buraya yapıştırın."
 
 #: ../../source/features.rst:65
 msgid ""
@@ -212,12 +222,18 @@ msgid ""
 "Key?\" and paste it into the private key field. This lets you download from "
 "shares protected with Tor client authentication."
 msgstr ""
+"Eğer size bir kişisel anahtar da gönderildiyse, \"Size kişisel anahtar da "
+"gönderildi mi?\" seçeneğini işaretleyin ve anahtarı kişisel anahtar alanına "
+"yapıştırın. Bu, Tor istemci kimlik doğrulamasıyla korunan paylaşımlardan "
+"indirme yapmanızı sağlar."
 
 #: ../../source/features.rst:67
 msgid ""
 "You can browse for a folder to save the downloaded files. When you are "
 "ready, click \"Start downloading\"."
 msgstr ""
+"İndirilen dosyaları kaydetmek için bir klasör seçebilirsiniz. Hazır "
+"olduğunuzda \"İndirmeyi başlat\" düğmesine tıklayın."
 
 #: ../../source/features.rst:72
 msgid ""
@@ -226,10 +242,14 @@ msgid ""
 "of the files and folders in the share. Support for choosing individual files "
 "to download is planned for a future release."
 msgstr ""
+"OnionShare, paylaşımın ``/download`` yolunu kullanarak paylaşımın tamamını "
+"tek bir ZIP dosyası olarak indirir. Bu, indirilen dosyanın paylaşımdaki tüm "
+"dosya ve klasörleri içereceği anlamına gelir. İndirilecek dosyaları tek tek "
+"seçme özelliği, gelecek bir sürümde eklenecektir."
 
 #: ../../source/features.rst:76
 msgid "Download a share periodically"
-msgstr ""
+msgstr "Bir paylaşımı belirli aralıklarla indirin"
 
 #: ../../source/features.rst:78
 msgid ""
@@ -240,6 +260,13 @@ msgid ""
 "downloading\". OnionShare downloads the share immediately, then repeats the "
 "download from the same address at the interval you chose."
 msgstr ""
+"Birisi uzun süreli bir OnionShare çalıştırıyorsa ve paylaştığı dosyaları "
+"güncelliyorsa, paylaşımı tekrar indirerek kopyanızı güncel tutabilirsiniz. "
+"\"Paylaşımı belirli aralıklarla (dakika cinsinden) indirmek için OnionShare "
+"URL'sini sorgula\" seçeneğini işaretleyin ve \"İndirmeyi başlat\" düğmesine "
+"tıklamadan önce aralığı en az bir dakikaya ayarlayın. OnionShare, paylaşımı "
+"hemen indirir, ardından seçtiğiniz aralıkta aynı adresten indirme işlemini "
+"tekrarlar."
 
 #: ../../source/features.rst:82
 msgid ""
@@ -247,6 +274,10 @@ msgid ""
 "separate copy if you want to keep an earlier version. You can click \"Stop "
 "downloading\" to stop polling."
 msgstr ""
+"Her başarılı indirme işlemi, önceki ZIP dosyasının üzerine yazar; bu "
+"nedenle, daha eski bir sürümü saklamak istiyorsanız ayrı bir kopyasını "
+"kaydedin. Sorgulamayı durdurmak için \"İndirmeyi durdur\" seçeneğine "
+"tıklayabilirsiniz."
 
 #: ../../source/features.rst:85
 msgid ""
@@ -256,6 +287,12 @@ msgid ""
 "downloads. They can also save the tab (see :ref:`save_tabs`) to keep the "
 "same OnionShare address between sessions."
 msgstr ""
+"Dosyaları paylaşan kişinin, tekrarlı indirmelere izin vermek için OnionShare "
+"uygulamasını çalışır durumda tutması ve paylaşım sekmesindeki \"Dosyalar "
+"gönderildikten sonra paylaşım durdurulsun (dosyaların tek tek indirilmesine "
+"izin vermek için işareti kaldırın)\" seçeneğinin işaretini kaldırması "
+"gerekir. Ayrıca, oturumlar arasında aynı OnionShare adresini korumak için "
+"sekmeyi kaydedebilir (:ref:`save_tabs`)."
 
 #: ../../source/features.rst:89
 msgid "Receive Files and Messages"
@@ -423,10 +460,10 @@ msgid ""
 "title (see :ref:`custom_titles`)."
 msgstr ""
 "OnionShare adresini web sitenize veya sosyal ağ profillerinize koymayı "
-"düşünüyorsanız, sekmeyi kaydedin (:ref:`save_tabs`bölümüne bakın) ve herkese "
-"açık bir hizmet olarak çalıştırın (:ref:`turn_off_private_key` bölümüne "
-"bakın). Özel bir başlık vermek de iyi bir fikirdir (:ref:`custom_titles` "
-"bölümüne bakın)."
+"düşünüyorsanız, sekmeyi kaydedin (:ref:`save_tabs` bölümüne bakın) ve "
+"herkese açık bir hizmet olarak çalıştırın (:ref:`turn_off_private_key` "
+"bölümüne bakın). Özel bir başlık vermek de iyi bir fikirdir "
+"(:ref:`custom_titles` bölümüne bakın)."
 
 #: ../../source/features.rst:136
 msgid "Other caveats to be aware of in Receive Mode"

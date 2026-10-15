@@ -136,7 +136,7 @@
     "mode_settings_receive_data_dir_browse_button": "Вибрати",
     "mode_settings_website_disable_csp_checkbox": "Не надсилати типовий заголовок Content Security Policy (дозволяє вебсайту використовувати сторонні ресурси)",
     "mode_settings_receive_data_dir_label": "Зберігати файли до",
-    "mode_settings_share_autostop_sharing_checkbox": "Закрити доступ, коли файли надіслано (приберіть прапорець, щоб дозволити завантаження окремих файлів)",
+    "mode_settings_share_autostop_sharing_checkbox": "Закрити доступ, коли файли надіслано (приберіть\nпрапорець, щоб дозволити завантаження окремих файлів)",
     "mode_settings_autostop_timer_checkbox": "Зупинити службу onion у запланований час",
     "mode_settings_autostart_timer_checkbox": "Запускати службу onion у запланований час",
     "mode_settings_public_checkbox": "Це загальнодоступна служба OnionShare (вимикає приватний ключ)",
@@ -279,5 +279,7 @@
     "mode_settings_receive_max_upload_size_unit_gb": "ГБ",
     "gui_tab_name_download": "Завантажити",
     "gui_status_indicator_download_stopped": "Зупинене",
-    "gui_status_indicator_download_working": "Завантаження…"
+    "gui_status_indicator_download_working": "Завантаження…",
+    "gui_download_start_server": "Розпочати завантаження",
+    "gui_download_stop_server": "Зупинити завантаження"
 }
