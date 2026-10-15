@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-10-14 09:58+1100\n"
-"PO-Revision-Date: 2025-02-11 08:01+0000\n"
-"Last-Translator: Matthaiks <kitynska@gmail.com>\n"
+"PO-Revision-Date: 2026-10-15 02:51+0000\n"
+"Last-Translator: Matthaiks <kityn@users.noreply.hosted.weblate.org>\n"
 "Language-Team: pl <LL@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "Generated-By: Babel 2.18.0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -179,31 +180,38 @@ msgstr ""
 
 #: ../../source/features.rst:55
 msgid "Download a Share"
-msgstr ""
+msgstr "Pobierz udział"
 
 #: ../../source/features.rst:57
 msgid ""
 "Starting with OnionShare 2.7, you can use Download Mode to download files "
 "from someone else's OnionShare directly in your own OnionShare."
 msgstr ""
+"Począwszy od wersji 2.7 OnionShare, możesz korzystać z trybu pobierania, aby "
+"pobierać pliki z OnionShare innej osoby bezpośrednio do własnego OnionShare."
 
 #: ../../source/features.rst:59
 msgid ""
 "This means that if you have OnionShare, you don't need to use Tor Browser to "
 "download a share from another OnionShare."
 msgstr ""
+"Oznacza to, że jeśli masz OnionShare, nie musisz używać Tor Browser, aby "
+"pobrać udostępniony plik z innej instancji OnionShare."
 
 #: ../../source/features.rst:61
 msgid ""
 "OnionShare connects to the share over the Tor network, so you can receive "
 "the files entirely within the application."
 msgstr ""
+"OnionShare łączy się z udostępnionymi zasobami za pośrednictwem sieci Tor, "
+"dzięki czemu możesz odbierać pliki w całości wewnątrz aplikacji."
 
 #: ../../source/features.rst:63
 msgid ""
 "Open a 'download' tab in OnioNShare, and paste the OnionShare address that "
 "you were sent."
 msgstr ""
+"Otwórz kartę pobierania w OnionShare i wklej otrzymany adres OnionShare."
 
 #: ../../source/features.rst:65
 msgid ""
@@ -211,12 +219,18 @@ msgid ""
 "Key?\" and paste it into the private key field. This lets you download from "
 "shares protected with Tor client authentication."
 msgstr ""
+"Jeśli przesłano Ci również klucz prywatny, zaznacz opcję „Czy przesłano Ci "
+"również klucz prywatny?” i wklej go w odpowiednim polu. Umożliwi to "
+"pobieranie danych z zasobów chronionych za pomocą uwierzytelniania kluczem "
+"prywatnym klienta sieci Tor."
 
 #: ../../source/features.rst:67
 msgid ""
 "You can browse for a folder to save the downloaded files. When you are "
 "ready, click \"Start downloading\"."
 msgstr ""
+"Możesz wskazać folder, w którym zostaną zapisane pobrane pliki. Gdy będziesz "
+"gotowy, kliknij „Rozpocznij pobieranie”."
 
 #: ../../source/features.rst:72
 msgid ""
@@ -225,10 +239,15 @@ msgid ""
 "of the files and folders in the share. Support for choosing individual files "
 "to download is planned for a future release."
 msgstr ""
+"OnionShare pobiera cały udostępniony zasób jako pojedynczy plik ZIP, "
+"korzystając ze ścieżki ``/download``. Oznacza to, że pobierane dane obejmą "
+"wszystkie pliki i foldery znajdujące się w udostępnionym zasobie. Obsługa "
+"pobierania wybranych, pojedynczych plików jest planowana w przyszłej wersji "
+"programu."
 
 #: ../../source/features.rst:76
 msgid "Download a share periodically"
-msgstr ""
+msgstr "Okresowo pobieraj udział"
 
 #: ../../source/features.rst:78
 msgid ""
@@ -239,6 +258,13 @@ msgid ""
 "downloading\". OnionShare downloads the share immediately, then repeats the "
 "download from the same address at the interval you chose."
 msgstr ""
+"Jeśli ktoś udostępnia pliki przez OnionShare przez dłuższy czas i je "
+"aktualizuje, możesz wielokrotnie pobierać udostępnione zasoby, aby mieć ich "
+"aktualną kopię. Zaznacz opcję „Okresowo (w minutach) odpytuj adres URL "
+"OnionShare w celu pobrania udostępnionych plików” i ustaw interwał na co "
+"najmniej jedną minutę przed kliknięciem przycisku „Rozpocznij pobieranie”. "
+"OnionShare natychmiast pobiera udostępnione pliki, a następnie powtarza "
+"pobieranie z tego samego adresu w wybranym odstępie czasu."
 
 #: ../../source/features.rst:82
 msgid ""
@@ -246,6 +272,9 @@ msgid ""
 "separate copy if you want to keep an earlier version. You can click \"Stop "
 "downloading\" to stop polling."
 msgstr ""
+"Każde udane pobranie nadpisuje poprzedni plik ZIP, więc zapisz oddzielną "
+"kopię, jeśli chcesz zachować wcześniejszą wersję. Możesz kliknąć „Zatrzymaj "
+"pobieranie”, aby zatrzymać odpytywanie."
 
 #: ../../source/features.rst:85
 msgid ""
@@ -255,6 +284,11 @@ msgid ""
 "downloads. They can also save the tab (see :ref:`save_tabs`) to keep the "
 "same OnionShare address between sessions."
 msgstr ""
+"Osoba udostępniająca pliki musi pozostawić uruchomiony program OnionShare i "
+"odznaczyć opcję „Zatrzymaj udostępnianie po wysłaniu plików (odznacz, aby "
+"umożliwić pobieranie pojedynczych plików)” na karcie udostępniania, aby "
+"umożliwić wielokrotne pobieranie. Może również zapisać zakładkę (patrz "
+":ref:`save_tabs`), aby zachować ten sam adres OnionShare pomiędzy sesjami."
 
 #: ../../source/features.rst:89
 msgid "Receive Files and Messages"
