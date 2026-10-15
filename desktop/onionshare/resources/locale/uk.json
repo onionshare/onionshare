@@ -279,5 +279,6 @@
     "mode_settings_receive_max_upload_size_unit_gb": "ГБ",
     "gui_tab_name_download": "Завантажити",
     "gui_status_indicator_download_stopped": "Зупинене",
-    "gui_status_indicator_download_working": "Завантаження…"
+    "gui_status_indicator_download_working": "Завантаження…",
+    "gui_download_start_server": "Початок завантаження %s"
 }
