@@ -57,6 +57,48 @@ class TestBuildPassword:
         assert common_obj.build_password() != common_obj.build_password()
 
 
+class TestBuildTmpDir:
+    @pytest.mark.parametrize(
+        "test_mode, dirname",
+        ((False, "onionshare"), (True, "onionshare-testdata")),
+    )
+    def test_darwin_uses_system_temp_dir(
+        self, common_obj, monkeypatch, tmp_path, test_mode, dirname
+    ):
+        common_obj.platform = "Darwin"
+        monkeypatch.setattr(sys, "onionshare_test_mode", test_mode, raising=False)
+        monkeypatch.setattr(
+            "onionshare_cli.common.tempfile.gettempdir", lambda: str(tmp_path)
+        )
+        monkeypatch.setattr(
+            common_obj, "build_data_dir", lambda: pytest.fail("unexpected data dir")
+        )
+
+        expected = tmp_path / dirname
+        assert common_obj.build_tmp_dir() == str(expected)
+        assert expected.is_dir()
+        assert os.stat(expected).st_mode & 0o777 == 0o700
+        assert common_obj.build_tmp_dir() == str(expected)
+
+    @pytest.mark.parametrize(
+        "platform, use_data_dir",
+        (("Linux", False), ("Windows", True)),
+    )
+    def test_other_platforms_unchanged(
+        self, common_obj, monkeypatch, tmp_path, platform, use_data_dir
+    ):
+        common_obj.platform = platform
+        monkeypatch.setattr(
+            common_obj, "build_data_dir", lambda: str(tmp_path / "data")
+        )
+        monkeypatch.setattr(
+            common_obj, "build_cache_dir", lambda: str(tmp_path / "cache")
+        )
+        expected = tmp_path / ("data" if use_data_dir else "cache") / "tmp"
+        assert common_obj.build_tmp_dir() == str(expected)
+        assert expected.is_dir()
+
+
 class TestDirSize:
     def test_temp_dir_size(self, common_obj, temp_dir_1024_delete):
         """dir_size() should return the total size (in bytes) of all files
