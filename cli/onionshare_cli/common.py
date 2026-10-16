@@ -32,6 +32,7 @@ import threading
 import time
 import shutil
 import re
+import tempfile
 
 import colorama
 from colorama import Fore, Back, Style
@@ -460,12 +461,22 @@ class Common:
         """
         Returns path to a folder that can hold temporary files
         """
-        if self.platform in ("Windows", "Darwin"):
-            base_dir = self.build_data_dir()
+        if self.platform == "Darwin":
+            # macOS Application Support contains a space, which makes Unix
+            # socket targets unsuitable for Tor's ADD_ONION Port= argument.
+            # Keep all temporary files in the per-user system temp area.
+            dirname = "onionshare"
+            if getattr(sys, "onionshare_test_mode", False):
+                dirname += "-testdata"
+            tmp_dir = os.path.join(tempfile.gettempdir(), dirname)
         else:
-            base_dir = self.build_cache_dir()
+            base_dir = (
+                self.build_data_dir()
+                if self.platform == "Windows"
+                else self.build_cache_dir()
+            )
+            tmp_dir = os.path.join(base_dir, "tmp")
 
-        tmp_dir = os.path.join(base_dir, "tmp")
         os.makedirs(tmp_dir, mode=0o700, exist_ok=True)
         return tmp_dir
 

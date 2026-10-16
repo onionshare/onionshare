@@ -83,11 +83,32 @@ class OnionShare(object):
             return None
 
         # TemporaryDirectory creates a 0700 directory owned by this user, so
-        # only this user (or root) can reach the socket
+        # only this user (or root) can reach the socket.
         self.unix_socket_dir = tempfile.TemporaryDirectory(
             prefix="web_socket_", dir=self.common.build_tmp_dir()
         )
-        self.unix_socket = os.path.join(self.unix_socket_dir.name, "web_socket")
+        socket_path = os.path.join(self.unix_socket_dir.name, "web_socket")
+
+        # Stem embeds the path directly into Tor's ADD_ONION Port= argument.
+        # Whitespace or commas break its syntax. macOS also limits Unix socket
+        # paths to 103 bytes (the 104-byte sun_path includes a terminator).
+        if (
+            any(char.isspace() for char in socket_path)
+            or "," in socket_path
+            or (
+                self.common.platform == "Darwin"
+                and len(os.fsencode(socket_path)) >= 104
+            )
+        ):
+            self.common.log(
+                "OnionShare", "choose_unix_socket",
+                "Unix socket path is unsuitable for Tor; using loopback TCP",
+            )
+            self.unix_socket_dir.cleanup()
+            self.unix_socket_dir = None
+            return None
+
+        self.unix_socket = socket_path
         self.common.log(
             "OnionShare", "choose_unix_socket", f"using {self.unix_socket}"
         )

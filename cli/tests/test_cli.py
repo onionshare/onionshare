@@ -1,4 +1,5 @@
 import os
+import tempfile
 
 import pytest
 
@@ -66,6 +67,57 @@ class TestOnionShare:
         assert socket_path is not None
         assert oct(os.stat(os.path.dirname(socket_path)).st_mode & 0o777) == "0o700"
         assert onionshare_obj.choose_unix_socket("share") == socket_path
+
+    @pytest.mark.skipif(os.name == "nt", reason="requires a short Unix temp path")
+    def test_choose_unix_socket_on_macos_uses_common_tmp_dir(
+        self, onionshare_obj, monkeypatch
+    ):
+        onionshare_obj.onion.tor_proc = object()
+        onionshare_obj.common.platform = "Darwin"
+        # pytest's tmp_path may itself exceed macOS's Unix socket path limit.
+        with tempfile.TemporaryDirectory(prefix="os_", dir="/tmp") as short_tmp:
+            monkeypatch.setattr(
+                "onionshare_cli.common.tempfile.gettempdir", lambda: short_tmp
+            )
+            expected_parent = onionshare_obj.common.build_tmp_dir()
+            socket_path = onionshare_obj.choose_unix_socket("share")
+            assert socket_path is not None
+            assert os.path.dirname(os.path.dirname(socket_path)) == expected_parent
+            assert not any(char.isspace() for char in socket_path)
+            assert oct(os.stat(os.path.dirname(socket_path)).st_mode & 0o777) == "0o700"
+            onionshare_obj.unix_socket_dir.cleanup()
+
+    def test_choose_unix_socket_falls_back_for_spaced_macos_tmpdir(
+        self, onionshare_obj, monkeypatch, tmp_path
+    ):
+        onionshare_obj.onion.tor_proc = object()
+        onionshare_obj.common.platform = "Darwin"
+        spaced_tmp = tmp_path / "temp with spaces"
+        spaced_tmp.mkdir()
+        monkeypatch.setattr(
+            "onionshare_cli.common.tempfile.gettempdir", lambda: str(spaced_tmp)
+        )
+
+        assert onionshare_obj.choose_unix_socket("share") is None
+        assert onionshare_obj.unix_socket is None
+        assert onionshare_obj.unix_socket_dir is None
+        assert list((spaced_tmp / "onionshare-testdata").iterdir()) == []
+
+    def test_choose_unix_socket_falls_back_for_overlong_macos_path(
+        self, onionshare_obj, monkeypatch, tmp_path
+    ):
+        onionshare_obj.onion.tor_proc = object()
+        onionshare_obj.common.platform = "Darwin"
+        long_tmp = tmp_path / ("x" * 90)
+        long_tmp.mkdir()
+        monkeypatch.setattr(
+            "onionshare_cli.common.tempfile.gettempdir", lambda: str(long_tmp)
+        )
+
+        assert onionshare_obj.choose_unix_socket("share") is None
+        assert onionshare_obj.unix_socket is None
+        assert onionshare_obj.unix_socket_dir is None
+        assert list((long_tmp / "onionshare-testdata").iterdir()) == []
 
     def test_choose_unix_socket_skips_chat(self, onionshare_obj):
         onionshare_obj.onion.tor_proc = object()
