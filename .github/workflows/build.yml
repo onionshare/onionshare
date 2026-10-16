@@ -120,6 +120,12 @@ jobs:
           C:\hostedtoolcache\windows\Python\3.12.9\x64\Scripts\poetry run python .\setup-freeze.py build
           C:\hostedtoolcache\windows\Python\3.12.9\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
+      - name: Smoke test frozen Windows CLI
+        shell: pwsh
+        run: |
+          & .\desktop\build\exe.win-amd64-3.12\onionshare-cli.exe --help
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Compress
         shell: pwsh
         run: |

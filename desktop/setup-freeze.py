@@ -24,6 +24,8 @@ import platform
 import shutil
 import cx_Freeze
 from cx_Freeze import setup, Executable
+from importlib import metadata as importlib_metadata
+from pathlib import Path
 from setuptools import find_packages
 
 if sys.version_info >= (3, 11):
@@ -52,6 +54,24 @@ include_files = [
     (os.path.join("..", "licenses", "license-tor.txt"), "license-tor.txt"),
     (os.path.join("..", "licenses", "license-webtunnel.txt"), "license-webtunnel.txt")
 ]
+
+# Common() calls importlib.metadata.version("onionshare_cli") at startup.
+# cx_Freeze bundles the importable package, but its .dist-info directory
+# must also be present on the frozen interpreter's sys.path.
+cli_distribution = importlib_metadata.distribution("onionshare_cli")
+cli_metadata_files = [
+    item
+    for item in (cli_distribution.files or [])
+    if item.name == "METADATA"
+    and item.parent.name.lower().replace("-", "_").startswith("onionshare_cli_")
+    and item.parent.name.endswith(".dist-info")
+]
+if len(cli_metadata_files) != 1:
+    raise RuntimeError("Cannot locate the onionshare_cli distribution metadata")
+cli_dist_info = Path(cli_distribution.locate_file(cli_metadata_files[0])).parent
+if not (cli_dist_info / "METADATA").is_file():
+    raise RuntimeError(f"Missing distribution metadata: {cli_dist_info}")
+include_files.append((str(cli_dist_info), str(Path("lib") / cli_dist_info.name)))
 
 if platform.system() == "Windows":
     include_msvcr = True
