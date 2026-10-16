@@ -120,6 +120,12 @@ jobs:
           C:\hostedtoolcache\windows\Python\3.12.9\x64\Scripts\poetry run python .\setup-freeze.py build
           C:\hostedtoolcache\windows\Python\3.12.9\x64\Scripts\poetry run python .\scripts\build-windows.py cleanup-build
 
+      - name: Smoke test frozen Windows CLI
+        shell: pwsh
+        run: |
+          & .\desktop\build\exe.win-amd64-3.12\onionshare-cli.exe --help
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Compress
         shell: pwsh
         run: |
@@ -253,6 +259,11 @@ jobs:
           ~/Library/Application\ Support/pypoetry/venv/bin/poetry run python ./setup-freeze.py bdist_mac
           ~/Library/Application\ Support/pypoetry/venv/bin/poetry run python ./scripts/build-macos.py cleanup-build
 
+      - name: Smoke test frozen macOS CLI
+        run: |
+          set -euo pipefail
+          ./desktop/build/OnionShare.app/Contents/MacOS/onionshare-cli --help
+
       - name: Compress
         run: |
           cd desktop/build
@@ -382,6 +393,11 @@ jobs:
           ~/Library/Application\ Support/pypoetry/venv/bin/poetry run python ./setup-freeze.py bdist_mac
           ~/Library/Application\ Support/pypoetry/venv/bin/poetry run python ./scripts/build-macos.py cleanup-build
 
+      - name: Smoke test frozen macOS CLI
+        run: |
+          set -euo pipefail
+          ./desktop/build/OnionShare.app/Contents/MacOS/onionshare-cli --help
+
       - name: Compress 
         run: |
           cd desktop/build
@@ -407,6 +423,11 @@ jobs:
           ~/Library/Application\ Support/pypoetry/venv/bin/poetry run ./scripts/macos-merge-universal.py ~/tmp/intel/OnionShare.app ~/tmp/arm64/OnionShare.app ~/tmp/universal/OnionShare.app
           cd ~/tmp/universal
           tar -czvf ~/onionshare-macos-universal.tar.gz OnionShare.app
+
+      - name: Smoke test frozen universal macOS CLI
+        run: |
+          set -euo pipefail
+          ~/tmp/universal/OnionShare.app/Contents/MacOS/onionshare-cli --help
 
       - uses: actions/upload-artifact@v4
         with:
