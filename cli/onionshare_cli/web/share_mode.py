@@ -126,13 +126,15 @@ class ShareModeWeb(SendBaseModeWeb):
         )
 
         self.download_etag = None
-        self.gzip_etag = None
         self.last_modified = datetime.now(tz=timezone.utc)
 
     def define_routes(self):
         """
         The web app routes for sharing files
         """
+        # Range offsets must refer to the original file, including when a browser
+        # resumes a download. Do not let Flask-Compress transform streamed files.
+        self.web.app.config["COMPRESS_STREAMS"] = False
 
         @self.web.app.route(
             "/", defaults={"path": ""}, methods=["GET"], provide_automatic_options=False
@@ -156,10 +158,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 return render_template("denied.html")
 
             # If download is allowed to continue, serve download page
-            if self.should_use_gzip():
-                self.filesize = self.gzip_filesize
-            else:
-                self.filesize = self.download_filesize
+            self.filesize = self.download_filesize
 
             return self.render_logic(path)
 
@@ -183,18 +182,11 @@ class ShareModeWeb(SendBaseModeWeb):
             # which is outside of the request context
             request_path = request.path
 
-            # If this is a zipped file, then serve as-is. If it's not zipped, then,
-            # if the http client supports gzip compression, gzip the file first
-            # and serve that
-            use_gzip = self.should_use_gzip()
-            if use_gzip:
-                file_to_download = self.gzip_filename
-                self.filesize = self.gzip_filesize
-                etag = self.gzip_etag
-            else:
-                file_to_download = self.download_filename
-                self.filesize = self.download_filesize
-                etag = self.download_etag
+            # Serve the same bytes on initial and resumed downloads. Browsers
+            # resume using offsets in the decoded file, not a gzip representation.
+            file_to_download = self.download_filename
+            self.filesize = self.download_filesize
+            etag = self.download_etag
 
             # for range requests
             range_, status_code = self.get_range_and_status_code(
@@ -207,7 +199,7 @@ class ShareModeWeb(SendBaseModeWeb):
             self.web.add_request(
                 self.web.REQUEST_STARTED,
                 request_path,
-                {"id": history_id, "use_gzip": use_gzip},
+                {"id": history_id, "use_gzip": False},
             )
 
             basename = os.path.basename(self.download_filename)
@@ -224,9 +216,6 @@ class ShareModeWeb(SendBaseModeWeb):
                         self.filesize,
                     )
                 )
-
-            if use_gzip:
-                r.headers.set("Content-Encoding", "gzip")
 
             r.headers.set("Content-Length", range_[1] - range_[0] + 1)
             filename_dict = {
@@ -498,22 +487,7 @@ class ShareModeWeb(SendBaseModeWeb):
             with open(self.download_filename, "rb") as f:
                 self.download_etag = make_etag(f)
 
-            # Compress the file with gzip now, so we don't have to do it on each request
-            self.gzip_tmp_dir = tempfile.TemporaryDirectory(
-                dir=self.common.build_tmp_dir()
-            )
-            self.gzip_filename = os.path.join(self.gzip_tmp_dir.name, "file.gz")
-            self._gzip_compress(
-                self.download_filename, self.gzip_filename, 6, processed_size_callback
-            )
-            self.gzip_filesize = os.path.getsize(self.gzip_filename)
-            with open(self.gzip_filename, "rb") as f:
-                self.gzip_etag = make_etag(f)
-
             self.is_zipped = False
-
-            # Cleanup this tempfile
-            self.web.cleanup_tempdirs.append(self.gzip_tmp_dir)
 
         else:
             # Zip up the files and folders
