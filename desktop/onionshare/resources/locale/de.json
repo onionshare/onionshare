@@ -285,5 +285,6 @@
     "moat_bridge_type_label": "Zu beantragender Brückentyp:",
     "gui_status_indicator_download_working": "Herunterladen …",
     "gui_status_indicator_download_stopped": "Angehalten",
-    "gui_tab_name_download": "Herunterladen"
+    "gui_tab_name_download": "Herunterladen",
+    "gui_download_start_server": "Download von %s starten"
 }
