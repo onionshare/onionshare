@@ -279,5 +279,17 @@
     "mode_settings_receive_max_upload_size_unit_kb": "کیلوبایت",
     "gui_status_indicator_download_working": "در حال دانلود…",
     "gui_status_indicator_download_stopped": "متوقف شده",
-    "gui_tab_name_download": "دانلود"
+    "gui_tab_name_download": "دانلود",
+    "gui_download_start_server": "شروع بارگیری",
+    "gui_download_stop_server": "توقف بارگیری",
+    "gui_receive_data_dir_not_writable": "OnionShare نمی تواند در این پوشه بنویسد:\n\n{}\n\nپوشه ای را انتخاب کنید که بتوانید در آن بنویسید (مثلاً پوشه دانلودها)، سپس دوباره امتحان کنید.",
+    "gui_download_mode_explainer": "آیا شخص دیگری از OnionShare برای ارسال فایل ها برای شما استفاده کرده است؟<br><br>برای دانلود آن می توانید آدرس onion را در اینجا وارد کنید یا از مرورگر Tor استفاده کنید.",
+    "gui_download_mode_in_progress": "شما در حال دانلود از {} هستید",
+    "gui_download_mode_in_progress_polling": "شما هر {} دقیقه یکبار از {} دانلود می کنید",
+    "systray_upload_too_large_title": "بارگذاری رد شد",
+    "systray_upload_too_large_message": "یک بارگذاری از حداکثر اندازه بیشتر شد",
+    "gui_download_mode_no_files": "هنوز هیچ فایلی دانلود نشده است",
+    "gui_new_tab_download_button": "دانلود یک سهم",
+    "gui_main_page_download_button": "شروع دانلود",
+    "gui_close_tab_warning_download_description": "بستن تبی که در حال دانلود یک فایل اشتراک‌گذاری‌شده است؟"
 }
