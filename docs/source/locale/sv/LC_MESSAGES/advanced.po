@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-10-14 09:58+1100\n"
-"PO-Revision-Date: 2026-07-25 05:01+0000\n"
-"Last-Translator: Jonatan Nyberg <monalisa@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-10-18 17:15+0000\n"
+"Last-Translator: Jonatan Nyberg <nickwick@users.noreply.hosted.weblate.org>\n"
 "Language-Team: sv <LL@li.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.18.0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -32,8 +33,8 @@ msgid ""
 "Persistently hosted websites are available on the same address even if the "
 "computer they are shared from is rebooted."
 msgstr ""
-"Om du stänger OnionShare-flikar som du är värd för förstörs de, vilket "
-"förhindrar återanvändning. Webbplatser som är beständigt värdar är "
+"Om du stänger OnionShare-flikar för tjänster som du själv kör tas flikarna "
+"bort och kan inte återanvändas. Webbplatser i permanenta flikar är "
 "tillgängliga på samma adress även om datorn de delas från startas om."
 
 #: ../../source/advanced.rst:12
@@ -41,8 +42,8 @@ msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
-"Gör en flik bestående genom att markera rutan \"Öppna alltid den här fliken "
-"när OnionShare startas\" innan du startar din server."
+"Gör en flik permanent genom att markera rutan ”Öppna alltid den här fliken "
+"när OnionShare startas” innan du startar servern."
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -50,10 +51,9 @@ msgid ""
 "opened. Each service then can be started manually, and will be available on "
 "the same OnionShare address and be protected by the same private key."
 msgstr ""
-"När du öppnar OnionShare kommer dina sparade flikar från föregående session "
-"att börja öppnas. Varje tjänst kan sedan startas manuellt och kommer att "
-"vara tillgänglig på samma OnionShare-adress och skyddas av samma privata "
-"nyckel."
+"När du öppnar OnionShare öppnas också dina sparade flikar från föregående "
+"session. Du kan sedan starta varje tjänst manuellt. Tjänsten är tillgänglig "
+"på samma OnionShare-adress och skyddas av samma privata nyckel som tidigare."
 
 #: ../../source/advanced.rst:19
 msgid ""
@@ -65,15 +65,15 @@ msgstr ""
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
-msgstr "Stäng av privat nyckel"
+msgstr "Inaktivera privat nyckel"
 
 #: ../../source/advanced.rst:26
 msgid ""
 "By default, all OnionShare services are protected with a private key, which "
 "Tor calls \"client authentication\"."
 msgstr ""
-"Som standard är alla OnionShare-tjänster skyddade med en privat nyckel, som "
-"Tor kallar \"klientautentisering\"."
+"Som standard skyddas alla OnionShare-tjänster med en privat nyckel. Tor "
+"kallar detta ”klientautentisering”."
 
 #: ../../source/advanced.rst:28
 msgid ""
@@ -81,9 +81,9 @@ msgid ""
 "OnionShare service. If you want to allow the public to use your service, "
 "it's better to disable the private key altogether."
 msgstr ""
-"Tor Browser kommer att be dig ange din privata nyckel när du laddar en "
-"OnionShare-tjänst. Om du vill tillåta allmänheten att använda din tjänst är "
-"det bättre att inaktivera den privata nyckeln helt och hållet."
+"Tor Browser ber dig ange den privata nyckeln när du öppnar en OnionShare-"
+"tjänst. Om du vill att tjänsten ska kunna användas av allmänheten är det "
+"bättre att inaktivera den privata nyckeln helt."
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -92,10 +92,10 @@ msgid ""
 "Then the server will be public and a private key is not needed to load it in "
 "the Tor Browser."
 msgstr ""
-"För att stänga av den privata nyckeln för en flik, markera rutan \"Detta är "
-"en offentlig OnionShare-tjänst (inaktiverar privat nyckel)\" innan du "
-"startar servern. Då blir servern offentlig och en privat nyckel behövs inte "
-"för att ladda den i Tor Browser."
+"Om du vill inaktivera den privata nyckeln för en flik markerar du rutan ”"
+"Detta är en offentlig OnionShare-tjänst (inaktiverar den privata nyckeln)” "
+"innan du startar servern. Servern blir då offentlig och ingen privat nyckel "
+"behövs för att öppna den i Tor Browser."
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
@@ -107,17 +107,17 @@ msgid ""
 "title for each type of service. For example, the default title for chat "
 "services is \"OnionShare Chat\"."
 msgstr ""
-"När personer laddar OnionShare-tjänster i Tor Browser ser de standardtiteln "
-"för varje typ av tjänst. Till exempel är standardtiteln för chattjänster "
-"\"OnionShare-chatt\"."
+"När någon öppnar en OnionShare-tjänst i Tor Browser visas standardtiteln för "
+"den typen av tjänst. Standardtiteln för chattjänster är till exempel ”"
+"OnionShare-chatt”."
 
 #: ../../source/advanced.rst:42
 msgid ""
 "If you edit the \"Custom title\" setting before starting a server you can "
 "change it."
 msgstr ""
-"Om du redigerar inställningen \"Anpassad titel\" innan du startar en server "
-"kan du ändra den."
+"Du kan ändra titeln genom att redigera inställningen ”Anpassad titel” innan "
+"du startar servern."
 
 #: ../../source/advanced.rst:45
 msgid "Scheduled Times"
@@ -132,9 +132,9 @@ msgid ""
 "respective desired dates and times."
 msgstr ""
 "OnionShare kan schemalägga exakt när en tjänst ska startas och stoppas. "
-"Klicka på \"Visa avancerade inställningar\" på fliken innan servern startas. "
-"Markera sedan \"Starta onion-tjänsten vid schemalagd tid\", \"Stoppa onion-"
-"tjänsten vid schemalagd tid\" eller båda och ange önskade datum och tider."
+"Klicka på ”Visa avancerade inställningar” på fliken innan servern startas. "
+"Markera sedan ”Starta onion-tjänsten vid schemalagd tid”, ”Stoppa onion-"
+"tjänsten vid schemalagd tid” eller båda och ange önskade datum och tider."
 
 #: ../../source/advanced.rst:51
 msgid ""
@@ -142,9 +142,9 @@ msgid ""
 "\"Start sharing\" button is clicked. Services scheduled to stop in the "
 "future display a countdown timer when started."
 msgstr ""
-"Tjänster som är schemalagda att starta i framtiden visar en nedräkningstimer "
-"när knappen \"Starta delning\" klickas. Tjänster som är schemalagda att "
-"stoppa i framtiden visar en nedräkningstimer när de startas."
+"För tjänster som är schemalagda att starta senare visas en nedräkning när du "
+"klickar på knappen ”Starta delning”. För tjänster som är schemalagda att "
+"stoppas senare visas en nedräkning när de startas."
 
 #: ../../source/advanced.rst:54
 msgid ""
@@ -153,10 +153,10 @@ msgid ""
 "in the future if you are not there to prevent it. If nothing happens to you, "
 "you can cancel the service before it's scheduled to start."
 msgstr ""
-"**Att schemalägga en OnionShare-tjänst för att starta automatiskt kan "
-"användas som en dödmansbrytare**. Detta innebär att din tjänst offentliggörs "
-"vid en viss tidpunkt i framtiden om du inte är där för att förhindra det. Om "
-"inget händer dig kan du avbryta tjänsten innan den är planerad att starta."
+"**Att schemalägga en OnionShare-tjänst för automatisk start kan fungera som "
+"en dödmansbrytare**. Det innebär att din tjänst blir offentlig vid en "
+"bestämd tidpunkt i framtiden om du inte är där och förhindrar det. Om inget "
+"händer dig kan du avbryta den schemalagda starten innan tjänsten startar."
 
 #: ../../source/advanced.rst:60
 msgid ""
@@ -164,13 +164,13 @@ msgid ""
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
 msgstr ""
-"**Att schemalägga en OnionShare-tjänst för att automatiskt stoppa begränsar "
-"dess exponering**. Om du vill dela hemlig information eller något som kommer "
-"att vara föråldrat kan du göra det under en begränsad tid."
+"**Att schemalägga en OnionShare-tjänst för automatiskt stopp begränsar dess "
+"exponering**. Om du vill dela hemlig information eller något som kommer att "
+"bli inaktuellt kan du göra det under en bestämd, begränsad tid."
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
-msgstr "Gränssnitt för kommandoraden"
+msgstr "Kommandoradsgränssnitt"
 
 #: ../../source/advanced.rst:70
 msgid ""
@@ -181,30 +181,30 @@ msgstr ""
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr "Installera CLI-versionen"
+msgstr "Installera kommandoradsversionen"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
 msgstr ""
-"Om du har installerat Snap-, macOS- eller Windows-paketet har du redan CLI-"
-"versionen installerad."
+"Om du har installerat Snap-, macOS- eller Windows-paketet har du redan "
+"kommandoradsversionen installerad."
 
 #: ../../source/advanced.rst:77
 msgid ""
 "Alternatively, you can install just the command-line version of OnionShare "
 "using ``pip3``::"
 msgstr ""
-"Alternativt kan du installera bara kommandoradsversionen av OnionShare med "
-"hjälp av ``pip3``::"
+"Du kan också installera enbart kommandoradsversionen av OnionShare med "
+"``pip3``::"
 
 #: ../../source/advanced.rst:81
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr ""
-"Observera att du också behöver paketet ``tor`` installerat. I macOS "
+"Observera att även paketet ``tor`` måste vara installerat. På macOS "
 "installerar du det med: ``brew install tor``"
 
 #: ../../source/advanced.rst:83
@@ -217,37 +217,37 @@ msgid ""
 "`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
 "README.md>`_ in the Git repository."
 msgstr ""
-"Information om hur du installerar det på olika operativsystem finns i `CLI "
-"README-filen <https://github.com/onionshare/onionshare/blob/develop/cli/"
-"README.md>`_ i Git-arkivet."
+"Information om installation på olika operativsystem finns i `README-filen "
+"för kommandoradsversionen <https://github.com/onionshare/onionshare/blob/"
+"develop/cli/README.md>`_ i Git-arkivet."
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
-msgstr "Köra CRI från Snap"
+msgstr "Köra kommandoradsversionen från Snap"
 
 #: ../../source/advanced.rst:92
 msgid ""
 "If you installed OnionShare using the Snap package, you can run "
 "``onionshare.cli`` to access the command-line interface version."
 msgstr ""
-"Om du installerade OnionShare med Snap-paketet kan du köra "
-"``onionshare.cli`` för att komma åt kommandoradsgränssnittsversionen."
+"Om du installerade OnionShare med Snap-paketet kan du starta "
+"kommandoradsversionen genom att köra ``onionshare.cli``."
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"
-msgstr "Köra CLI från macOS"
+msgstr "Köra kommandoradsversionen på macOS"
 
 #: ../../source/advanced.rst:97
 msgid ""
 "From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
 "onionshare-cli --help``"
 msgstr ""
-"Från Terminal, kan du köra ``/Applications/OnionShare.app/Contents/MacOS/"
+"I Terminal kan du köra ``/Applications/OnionShare.app/Contents/MacOS/"
 "onionshare-cli --help``"
 
 #: ../../source/advanced.rst:100
 msgid "Running the CLI from Windows"
-msgstr "Köra CLI från Windows"
+msgstr "Köra kommandoradsversionen på Windows"
 
 #: ../../source/advanced.rst:102
 msgid ""
@@ -265,19 +265,20 @@ msgstr "Användning"
 msgid ""
 "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
-"Bläddra i kommandoradsdokumentationen genom att köra ``onionshare --help``::"
+"Visa dokumentationen för kommandoradsversionen genom att köra ``onionshare --"
+"help``::"
 
 #: ../../source/advanced.rst:172
 msgid "Running the CLI as a systemd unit file"
-msgstr "Köra CLI som en systemd-enhetsfil"
+msgstr "Köra kommandoradsversionen med en systemd-enhetsfil"
 
 #: ../../source/advanced.rst:174
 msgid ""
 "It is possible to automatically start OnionShare from the CLI using a "
 "systemd unit file."
 msgstr ""
-"Det är möjligt att automatiskt starta OnionShare från CLI med hjälp av en "
-"systemd-enhetsfil."
+"Du kan starta kommandoradsversionen av OnionShare automatiskt med hjälp av "
+"en systemd-enhetsfil."
 
 #: ../../source/advanced.rst:176
 msgid ""
@@ -285,14 +286,14 @@ msgid ""
 "mode, and want to start the same onion service every time your machine "
 "starts."
 msgstr ""
-"Detta är särskilt användbart i beständigt läge när samma onion-tjänst ska "
-"startas varje gång datorn startar."
+"Detta kan vara särskilt användbart om du använder permanent läge och vill "
+"starta samma onion-tjänst varje gång datorn startar."
 
 #: ../../source/advanced.rst:178
 msgid "To do this, you need to prepare some OnionShare json config first."
 msgstr ""
-"För att göra detta måste du först förbereda lite OnionShare json-"
-"konfiguration."
+"För att göra det behöver du först förbereda några JSON-inställningar för "
+"OnionShare."
 
 #: ../../source/advanced.rst:180
 msgid ""
@@ -301,10 +302,10 @@ msgid ""
 "the settings, but if you already have OnionShare installed, it probably "
 "looks much like this already::"
 msgstr ""
-"Här är den huvudsakliga OnionShare-konfigurationen. I det här exemplet "
-"lagras den i ``/home/user/.config/onionshare/onionshare.json``. Du kan "
-"behöva justera några av inställningarna, men om du redan har OnionShare "
-"installerat ser det förmodligen ut ungefär så här redan::"
+"Här är huvudkonfigurationen för OnionShare. I det här exemplet finns den i "
+"``/home/user/.config/onionshare/onionshare.json``. Du kan behöva justera "
+"några inställningar, men om du redan har OnionShare installerat ser "
+"konfigurationen förmodligen redan ut ungefär så här::"
 
 #: ../../source/advanced.rst:209
 msgid ""
@@ -312,18 +313,17 @@ msgid ""
 "user/.config/onionshare/persistent/my-persistent-onion.json``, that looks "
 "like this::"
 msgstr ""
-"Lägg märke till avsnittet 'persistent_tabs'. Vi ska nu skapa en fil på ``/"
-"home/user/.config/onionshare/persistent/my-persistent-onion.json``, som ser "
-"ut så här::"
+"Lägg märke till avsnittet ”persistent_tabs”. Nu skapar vi en fil med "
+"sökvägen ``/home/user/.config/onionshare/persistent/my-persistent-"
+"onion.json`` och följande innehåll::"
 
 #: ../../source/advanced.rst:249
 msgid ""
 "**Don't actually use this private key, service_id or client_auth keys! They "
 "are shown only as an example. Never share the private_key with anyone.**"
 msgstr ""
-"**Använd inte den här privata nyckeln, service_id-nycklarna eller "
-"client_auth-nycklarna! De visas endast som ett exempel. Dela aldrig den "
-"privata nyckeln med någon.**"
+"**Använd inte den här privata nyckeln eller dessa värden för service_id och "
+"client_auth! De är bara exempel. Dela aldrig private_key med någon.**"
 
 #: ../../source/advanced.rst:251
 msgid ""
@@ -335,11 +335,11 @@ msgid ""
 "where it is, and use that persistent file in your systemd unit file below."
 msgstr ""
 "Det enklaste sättet att skapa onion-adressen och den privata nyckeln är att "
-"fästa en OnionShare-flik i datorprogrammet och starta delningen en första "
-"gång. De beständiga inställningarna sparas då med ett slumpmässigt filnamn i "
-"mappen ``.config/onionshare/persistent/``. Därefter kan du lossa fliken "
-"eller låta den vara fäst och använda den beständiga filen i systemd-"
-"enhetsfilen nedan."
+"fästa en OnionShare-flik i skrivbordsprogrammet och starta delningen en "
+"första gång. Inställningarna för den permanenta fliken sparas då med ett "
+"slumpmässigt filnamn i mappen ``.config/onionshare/persistent/``. Därefter "
+"kan du lossa fliken eller låta den vara fäst och använda den sparade filen i "
+"systemd-enhetsfilen nedan."
 
 #: ../../source/advanced.rst:253
 msgid ""
@@ -349,9 +349,9 @@ msgid ""
 "your JSON configs and shares."
 msgstr ""
 "Nu kan du skapa en systemd-enhetsfil i ``/etc/systemd/system/onionshare-"
-"cli.service``. Se till att justera Användare och Grupp till din egen "
-"användare/grupp, samt ändringar av eventuella sökvägar till onionshare-cli-"
-"binärfilen eller sökvägarna till dina JSON-konfigurationer och delningar."
+"cli.service``. Anpassa User och Group till din egen användare och grupp. "
+"Anpassa också sökvägarna till den körbara filen onionshare-cli, dina JSON-"
+"konfigurationer och dina delningar."
 
 #: ../../source/advanced.rst:255
 msgid "The systemd unit file should look like this::"
@@ -363,10 +363,9 @@ msgid ""
 "``filenames`` section of the ``my-persistent-onion.json`` file, it's still "
 "necessary to specify it as the argument to the onionshare-cli command."
 msgstr ""
-"Observera att även om ``/home/user/my-shared-file.txt`` definierades i "
-"avsnittet ``filenames`` i filen ``my-persistent-onion.json``, är det "
-"fortfarande nödvändigt att ange det som argument till onionshare-cli-"
-"kommandot."
+"Observera att du fortfarande måste ange ``/home/user/my-shared-file.txt`` "
+"som argument till kommandot onionshare-cli, även om filen redan har angetts "
+"i avsnittet ``filenames`` i ``my-persistent-onion.json``."
 
 #: ../../source/advanced.rst:272
 msgid ""
@@ -383,16 +382,16 @@ msgid ""
 msgstr ""
 "Nu kan du köra ``sudo systemctl start onionshare-cli.service``. Om du har "
 "``journalctl`` installerat kan du köra ``sudo journalctl -f -t onionshare-"
-"cli``, och du bör se utdata från din tjänst som startar::"
+"cli``. Då bör du se utskrifter som visar att tjänsten startar::"
 
 #: ../../source/advanced.rst:284
 msgid ""
 "If you don't want your users to use a Private Key, set ``public`` to be "
 "``true`` in the ``general`` settings of the my-persistent-onion.json file."
 msgstr ""
-"Om du inte vill att dina användare ska använda en privat nyckel, ställ in "
-"``public`` till ``true`` i ``general``-inställningarna för my-persistent-"
-"onion.json-filen."
+"Om du inte vill att användarna ska behöva en privat nyckel ställer du in "
+"``public`` på ``true`` i avsnittet ``general`` i filen my-persistent-"
+"onion.json."
 
 #: ../../source/advanced.rst:288
 msgid "Keyboard Shortcuts"
@@ -403,16 +402,16 @@ msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
-"OnionShare-programmet för datorer innehåller kortkommandon för enklare "
+"OnionShares skrivbordsprogram innehåller kortkommandon för enklare "
 "användning och bättre tillgänglighet::"
 
 #: ../../source/advanced.rst:295
 msgid "And from the main mode chooser screen::"
-msgstr "Och från huvudskärmen för lägesväljaren::"
+msgstr "På huvudskärmen där du väljer läge finns också följande kortkommandon::"
 
 #: ../../source/advanced.rst:305
 msgid "Migrating your OnionShare data to another computer"
-msgstr "Migrera dina OnionShare-data till en annan dator"
+msgstr "Flytta dina OnionShare-data till en annan dator"
 
 #: ../../source/advanced.rst:307
 msgid ""
@@ -420,9 +419,9 @@ msgid ""
 "computer. This is especially true if you had a 'persistent' onion address "
 "and you want to preserve it."
 msgstr ""
-"Du kanske vill migrera dina OnionShare-data när du byter till en annan "
-"dator. Detta gäller särskilt om du hade en \"beständig\" onion-adress och "
-"vill bevara den."
+"När du byter dator kan du vilja flytta dina OnionShare-data till den nya "
+"datorn. Det är särskilt viktigt om du har en permanent onion-adress som du "
+"vill behålla."
 
 #: ../../source/advanced.rst:309
 msgid ""
@@ -446,7 +445,7 @@ msgstr "Windows: ``%APPDATA%\\OnionShare``"
 
 #: ../../source/advanced.rst:317
 msgid "Configuration file parameters"
-msgstr "Konfigurationsfilparametrar"
+msgstr "Parametrar i konfigurationsfilen"
 
 #: ../../source/advanced.rst:319
 msgid ""
@@ -454,10 +453,10 @@ msgid ""
 "versions use this configuration file. The CLI also lets you specify a path "
 "to a custom configuration file with ``--config``."
 msgstr ""
-"OnionShare lagrar sina inställningar i en JSON-fil. Både CLI- och "
-"skrivbordsversionerna använder denna konfigurationsfil. CLI-gränssnittet "
-"låter dig också ange en sökväg till en anpassad konfigurationsfil med ``--"
-"config``."
+"OnionShare lagrar sina inställningar i en JSON-fil. Både "
+"kommandoradsversionen och skrivbordsversionen använder den här "
+"konfigurationsfilen. I kommandoradsversionen kan du även ange sökvägen till "
+"en egen konfigurationsfil med ``--config``."
 
 #: ../../source/advanced.rst:321
 msgid ""
@@ -465,9 +464,9 @@ msgid ""
 "configuration file has other parameters not listed here, they may be "
 "obsolete from older OnionShare versions."
 msgstr ""
-"Nedan följer konfigurationsfilens parametrar och vad de betyder. Om din "
-"konfigurationsfil har andra parametrar som inte listas här, kan de vara "
-"föråldrade från äldre OnionShare-versioner."
+"Nedan beskrivs konfigurationsfilens parametrar. Om din konfigurationsfil "
+"innehåller andra parametrar än de som listas här kan de vara föråldrade och "
+"finnas kvar från äldre versioner av OnionShare."
 
 #: ../../source/advanced.rst:324 ../../source/advanced.rst:404
 #: ../../source/advanced.rst:415 ../../source/advanced.rst:426
@@ -506,12 +505,12 @@ msgstr "version"
 #: ../../source/advanced.rst:454 ../../source/advanced.rst:455
 #: ../../source/advanced.rst:470
 msgid "``string``"
-msgstr "``sträng``"
+msgstr "``string``"
 
 #: ../../source/advanced.rst:326
 msgid ""
 "The version of OnionShare. You should not ever need to change this value."
-msgstr "Versionen av OnionShare. Du borde aldrig behöva ändra detta värde."
+msgstr "Versionen av OnionShare. Du ska aldrig behöva ändra det här värdet."
 
 #: ../../source/advanced.rst:327
 msgid "connection_type"
@@ -524,7 +523,7 @@ msgid ""
 "'socket_file'. Default: 'bundled'"
 msgstr ""
 "Hur OnionShare ansluter till Tor. Giltiga alternativ är 'bundled', "
-"'automatic' (använd Tor Browsers Tor-anslutning), 'control_port' eller "
+"'automatic' (använd Tor-anslutningen i Tor Browser), 'control_port' eller "
 "'socket_file'. Standard: 'bundled'"
 
 #: ../../source/advanced.rst:328
@@ -536,7 +535,7 @@ msgid ""
 "The IP address of Tor's Control port, if ``connection_type`` is set to "
 "'control_port'. Default: '127.0.0.1'"
 msgstr ""
-"IP-adressen för Tors kontrollport, om ``connection_type`` är satt till "
+"IP-adressen för Tors kontrollport när ``connection_type`` är inställt på "
 "'control_port'. Standard: '127.0.0.1'"
 
 #: ../../source/advanced.rst:329
@@ -547,14 +546,14 @@ msgstr "control_port_port"
 #: ../../source/advanced.rst:337 ../../source/advanced.rst:458
 #: ../../source/advanced.rst:460
 msgid "``integer``"
-msgstr "``heltal``"
+msgstr "``integer``"
 
 #: ../../source/advanced.rst:329
 msgid ""
 "The port number of Tor's Control port, if ``connection_type`` is set to "
 "'control_port'. Default: '9051'"
 msgstr ""
-"Portnumret för Tors kontrollport, om ``connection_type`` är satt till "
+"Portnumret för Tors kontrollport när ``connection_type`` är inställt på "
 "'control_port'. Standard: '9051'"
 
 #: ../../source/advanced.rst:330
@@ -566,7 +565,7 @@ msgid ""
 "The IP address of Tor's SOCKS proxy, if ``connection_type`` is set to "
 "'control_port' or 'socket_file'. Default: '127.0.0.1'"
 msgstr ""
-"IP-adressen för Tors SOCKS-proxy, om ``connection_type`` är satt till "
+"IP-adressen för Tors SOCKS-proxy när ``connection_type`` är inställt på "
 "'control_port' eller 'socket_file'. Standard: '127.0.0.1'"
 
 #: ../../source/advanced.rst:331
@@ -578,8 +577,8 @@ msgid ""
 "The port number of Tor's SOCKS proxy, if ``connection_type`` is set to "
 "'control_port' or 'socket_file'. Default: ''9050'"
 msgstr ""
-"Portnumret för Tors SOCKS-proxy, om ``connection_type`` är satt till "
-"'control_port' eller 'socket_file'. Standard: ''9050'"
+"Portnumret för Tors SOCKS-proxy när ``connection_type`` är inställt på "
+"'control_port' eller 'socket_file'. Standard: '9050'"
 
 #: ../../source/advanced.rst:332
 msgid "socket_file_path"
@@ -614,8 +613,8 @@ msgid ""
 "If access to Tor's control port requires a password, and ``auth_type`` is "
 "set to 'password', specify the password here. Default: ''"
 msgstr ""
-"Om åtkomst till Tors kontrollport kräver ett lösenord, och ``auth_type`` är "
-"satt till 'password', ange lösenordet här. Standard: ''"
+"Om åtkomst till Tors kontrollport kräver ett lösenord och ``auth_type`` är "
+"inställt på 'password' anger du lösenordet här. Standard: ''"
 
 #: ../../source/advanced.rst:335
 msgid "auto_connect"
@@ -630,7 +629,7 @@ msgstr "auto_connect"
 #: ../../source/advanced.rst:457 ../../source/advanced.rst:459
 #: ../../source/advanced.rst:469 ../../source/advanced.rst:471
 msgid "``boolean``"
-msgstr "``booleskt``"
+msgstr "``boolean``"
 
 #: ../../source/advanced.rst:335
 msgid ""
@@ -649,8 +648,8 @@ msgid ""
 "Whether OnionShare should automatically check for updates (over Tor). This "
 "setting is only valid for MacOS or Windows installations. Default: True."
 msgstr ""
-"Om OnionShare ska söka efter uppdateringar automatiskt (via Tor). Den här "
-"inställningen gäller endast för MacOS- eller Windows-installationer. "
+"Om OnionShare ska söka efter uppdateringar automatiskt (via Tor). "
+"Inställningen gäller endast för installationer på macOS eller Windows. "
 "Standard: True."
 
 #: ../../source/advanced.rst:337
@@ -667,7 +666,7 @@ msgstr "bridges_enabled"
 
 #: ../../source/advanced.rst:338
 msgid "Whether to connect to Tor using bridges. Default: False"
-msgstr "Om man ska ansluta till Tor med hjälp av broar. Standard: False"
+msgstr "Om OnionShare ska ansluta till Tor via broar. Standard: False"
 
 #: ../../source/advanced.rst:339
 msgid "bridges_type"
@@ -680,10 +679,10 @@ msgid ""
 "Tor), \"moat\" (request bridges from Tor's Moat API), or \"custom\" (user-"
 "supplied bridges). Default: \"built-in\""
 msgstr ""
-"När ``bridges_enabled`` är True, varifrån broar ska laddas. Alternativen är "
-"\"built-in\" (broar som levereras med OnionShare och som kan uppdateras från "
-"Tor), \"moat\" (begär broar från Tors Moat API) eller \"custom\" "
-"(användarlevererade broar). Standard: \"built-in\""
+"Varifrån broar ska hämtas när ``bridges_enabled`` är True. Alternativen är "
+"\"built-in\" (broar som följer med OnionShare och kan uppdateras från Tor), "
+"\"moat\" (begär broar från Tors Moat-API) eller \"custom\" (broar som "
+"användaren anger). Standard: \"built-in\""
 
 #: ../../source/advanced.rst:340
 msgid "bridges_builtin_pt"
@@ -695,9 +694,9 @@ msgid ""
 "bridge protocol to use. Options are \"obfs4\", \"meek\" or \"snowflake\". "
 "Default: \"obfs4\""
 msgstr ""
-"När ``bridges_type`` är satt till \"inbyggt\" anger detta vilken typ av "
-"broprotokoll som ska användas. Alternativen är \"obfs4\", \"meek\" eller "
-"\"snowflake\". Standard: \"obfs4\""
+"Vilken typ av broprotokoll som ska användas när ``bridges_type`` är inställt "
+"på \"built-in\". Alternativen är \"obfs4\", \"meek\" eller \"snowflake\". "
+"Standard: \"obfs4\""
 
 #: ../../source/advanced.rst:341
 msgid "bridges_moat"
@@ -708,8 +707,8 @@ msgid ""
 "When ``bridges_type`` is set to \"moat\", the bridges returned from Tor's "
 "Moat API are stored here. Default: \"\""
 msgstr ""
-"När ``bridges_type`` är satt till \"moat\" lagras broarna som returneras "
-"från Tors Moat API här. Standard: \"\""
+"Här lagras broarna som hämtas från Tors Moat-API när ``bridges_type`` är "
+"inställt på \"moat\". Standard: \"\""
 
 #: ../../source/advanced.rst:342
 msgid "bridges_custom"
@@ -721,8 +720,8 @@ msgid ""
 "user are stored here. Separate each bridge line in the string with '\\n'. "
 "Default: \"\""
 msgstr ""
-"När ``bridges_type`` är satt till \"custom\" lagras de broar som anges av "
-"användaren här. Separera varje brorad i strängen med '\\n'. Standard: \"\""
+"Här lagras broarna som användaren anger när ``bridges_type`` är inställt på "
+"\"custom\". Separera broraderna i strängen med '\\n'. Standard: \"\""
 
 #: ../../source/advanced.rst:343
 msgid "bridges_builtin"
@@ -737,8 +736,9 @@ msgid ""
 "When ``bridges_type`` is set to \"built-in\", OnionShare obtains the latest "
 "built-in bridges recommended by Tor and stores them here. Default: {}"
 msgstr ""
-"När ``bridges_type`` är satt till \"inbyggt\" hämtar OnionShare de senaste "
-"inbyggda broarna som rekommenderas av Tor och lagrar dem här. Standard: {}"
+"När ``bridges_type`` är inställt på \"built-in\" hämtar OnionShare de "
+"senaste inbyggda broarna som rekommenderas av Tor och lagrar dem här. "
+"Standard: {}"
 
 #: ../../source/advanced.rst:344
 msgid "persistent_tabs"
@@ -747,7 +747,7 @@ msgstr "persistent_tabs"
 #: ../../source/advanced.rst:344 ../../source/advanced.rst:444
 #: ../../source/advanced.rst:472
 msgid "``list``"
-msgstr "``lista``"
+msgstr "``list``"
 
 #: ../../source/advanced.rst:344
 msgid ""
@@ -758,16 +758,15 @@ msgid ""
 "identifier, in a subfolder of the OnionShare configuration folder called "
 "'persistent'. Default: []"
 msgstr ""
-"Om användaren har definierat några flikar som \"sparade\" (vilket betyder "
-"att de är beständiga varje gång OnionShare startas, och deras Onion-adress "
-"inte ändras), får dessa en slumpmässig identifierare som listas här. Den "
-"beständiga Onion-filen lagras som en JSON-fil med samma namn som denna "
-"identifierare, i en undermapp i OnionShare-konfigurationsmappen som heter "
-"\"beständig\". Standard: []"
+"Om användaren har sparat flikar (så att de finns kvar varje gång OnionShare "
+"startas och behåller samma onion-adress) får varje flik en slumpmässig "
+"identifierare som listas här. Den permanenta onion-tjänsten lagras i en JSON-"
+"fil med samma namn som identifieraren, i undermappen 'persistent' i "
+"OnionShares konfigurationsmapp. Standard: []"
 
 #: ../../source/advanced.rst:345
 msgid "locale"
-msgstr "språk"
+msgstr "locale"
 
 #: ../../source/advanced.rst:345
 msgid ""
@@ -781,20 +780,20 @@ msgstr ""
 
 #: ../../source/advanced.rst:346
 msgid "theme"
-msgstr "tema"
+msgstr "theme"
 
 #: ../../source/advanced.rst:346
 msgid ""
 "The theme for the OnionShare desktop app. Valid options are 0 (automatically "
 "detect the user's computer's light or dark theme), 1 (light) or 2 (dark)."
 msgstr ""
-"Temat för OnionShare-skrivbordsappen. Giltiga alternativ är 0 (identifierar "
-"automatiskt användarens dators ljusa eller mörka tema), 1 (ljust) eller 2 "
-"(mörkt)."
+"Temat för OnionShares skrivbordsprogram. Giltiga alternativ är 0 "
+"(identifiera automatiskt om användarens dator använder ett ljust eller mörkt "
+"tema), 1 (ljust) eller 2 (mörkt)."
 
 #: ../../source/advanced.rst:351
 msgid "Configuration file parameters for persistent onions"
-msgstr "Konfigurationsfilparametrar för persistenta onions"
+msgstr "Parametrar i konfigurationsfiler för permanenta onion-tjänster"
 
 #: ../../source/advanced.rst:353
 msgid ""
@@ -802,21 +801,22 @@ msgid ""
 "are stored in its own JSON file. The path to this file can be specified for "
 "the CLI tool with ``--persistent``."
 msgstr ""
-"Som beskrivs ovan har varje beständig onion-tjänst egna parametrar som "
+"Som beskrivs ovan har varje permanent onion-tjänst egna parametrar som "
 "lagras i en separat JSON-fil. Filens sökväg kan anges för "
 "kommandoradsverktyget med ``--persistent``."
 
 #: ../../source/advanced.rst:355
 msgid "Here is an example persistent JSON configuration::"
-msgstr "Här är ett exempel på en beständig JSON-konfiguration::"
+msgstr ""
+"Här är ett exempel på en JSON-konfiguration för en permanent onion-tjänst::"
 
 #: ../../source/advanced.rst:398
 msgid ""
 "Below are the configuration file parameters for a persistent onion and what "
 "they mean, for each section in the JSON"
 msgstr ""
-"Nedan följer konfigurationsfilparametrarna för en persistent onion och vad "
-"de betyder, för varje avsnitt i JSON-filen"
+"Nedan beskrivs parametrarna i konfigurationsfilen för en permanent onion-"
+"tjänst, uppdelade efter avsnitt i JSON-filen"
 
 #: ../../source/advanced.rst:401
 msgid "onion"
@@ -848,35 +848,35 @@ msgstr "client_auth_pub_key"
 msgid ""
 "The public key when using Client Authentication. Used on OnionShare's side."
 msgstr ""
-"Den offentliga nyckeln vid klientautentisering. Används på OnionShares sida."
+"Den publika nyckeln vid klientautentisering. Används på OnionShares sida."
 
 #: ../../source/advanced.rst:412
 msgid "persistent"
-msgstr "beständig"
+msgstr "persistent"
 
 #: ../../source/advanced.rst:417
 msgid "mode"
-msgstr "läge"
+msgstr "mode"
 
 #: ../../source/advanced.rst:417
 msgid ""
 "The mode used by this persistent onion. Options are \"share\", \"receive\", "
 "\"website\" or \"chat\"."
 msgstr ""
-"Läget som används av denna ihållande onion. Alternativen är \"dela\", \"ta "
-"emot\", \"webbplats\" eller \"chatta\"."
+"Läget för den permanenta onion-tjänsten. Alternativen är \"share\", "
+"\"receive\", \"website\" eller \"chat\"."
 
 #: ../../source/advanced.rst:418
 msgid "enabled"
-msgstr "aktiverad"
+msgstr "enabled"
 
 #: ../../source/advanced.rst:418
 msgid ""
 "Whether persistence is enabled for this onion. When the persistent option is "
 "unchecked in the desktop, this entire JSON file is deleted. Default: true"
 msgstr ""
-"Om persistens är aktiverat för denna onion. När alternativet persistens är "
-"avmarkerat på skrivbordet tas bort hela denna JSON-fil. Standard: true"
+"Om onion-tjänsten sparas permanent. Om du avmarkerar alternativet för detta "
+"i skrivbordsprogrammet tas hela den här JSON-filen bort. Standard: true"
 
 #: ../../source/advanced.rst:419
 msgid "autostart_on_launch"
@@ -887,16 +887,16 @@ msgid ""
 "Whether to automatically start this persistent onion when OnionShare starts "
 "and once Tor is connected. Default: false"
 msgstr ""
-"Om den beständiga onion-tjänsten ska startas automatiskt när OnionShare "
+"Om den permanenta onion-tjänsten ska startas automatiskt när OnionShare "
 "startar och Tor har anslutits. Standard: false"
 
 #: ../../source/advanced.rst:423
 msgid "general"
-msgstr "allmän"
+msgstr "general"
 
 #: ../../source/advanced.rst:428
 msgid "title"
-msgstr "titel"
+msgstr "title"
 
 #: ../../source/advanced.rst:428
 msgid ""
@@ -908,7 +908,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:429
 msgid "public"
-msgstr "offentlig"
+msgstr "public"
 
 #: ../../source/advanced.rst:429
 msgid ""
@@ -929,7 +929,7 @@ msgid ""
 "start-timer`` with the CLI tool. Default: false"
 msgstr ""
 "Om onion-tjänsten ska startas vid en viss tidpunkt. Tiden kan anges i "
-"datorprogrammet eller i sekunder med ``--auto-start-timer`` i "
+"skrivbordsprogrammet eller i sekunder med ``--auto-start-timer`` i "
 "kommandoradsverktyget. Standard: false"
 
 #: ../../source/advanced.rst:431
@@ -943,7 +943,7 @@ msgid ""
 "timer`` with the CLI tool. Default: false"
 msgstr ""
 "Om onion-tjänsten ska stoppas vid en viss tidpunkt. Tiden kan anges i "
-"datorprogrammet eller i sekunder med ``--auto-stop-timer`` i "
+"skrivbordsprogrammet eller i sekunder med ``--auto-stop-timer`` i "
 "kommandoradsverktyget. Standard: false"
 
 #: ../../source/advanced.rst:432
@@ -955,7 +955,7 @@ msgid ""
 "The 32-character onion service URL, without the scheme and without the "
 "'.onion' suffix."
 msgstr ""
-"onion-tjänstens 32 tecken långa adress, utan protokollschema och utan "
+"Onion-tjänstens 32 tecken långa webbadress, utan protokollschema och utan "
 "suffixet '.onion'."
 
 #: ../../source/advanced.rst:435
@@ -963,12 +963,12 @@ msgid ""
 "The below are settings specific to the 'mode' specified in the "
 "``persistent`` section above."
 msgstr ""
-"Nedan följer inställningar som är specifika för det 'läge' som anges i "
-"avsnittet ``beständig`` ovan."
+"Inställningarna nedan är specifika för det värde på 'mode' som anges i "
+"avsnittet ``persistent`` ovan."
 
 #: ../../source/advanced.rst:438
 msgid "share"
-msgstr "dela"
+msgstr "share"
 
 #: ../../source/advanced.rst:443
 msgid "autostop_sharing"
@@ -979,12 +979,12 @@ msgid ""
 "Whether to automatically stop the share once files are downloaded the first "
 "time. Default: true"
 msgstr ""
-"Om delningen ska stoppas automatiskt när filer hämtas första gången. "
-"Standard: true"
+"Om delningen ska stoppas automatiskt när filerna har hämtats för första "
+"gången. Standard: true"
 
 #: ../../source/advanced.rst:444 ../../source/advanced.rst:472
 msgid "filenames"
-msgstr "filnamn"
+msgstr "filenames"
 
 #: ../../source/advanced.rst:444 ../../source/advanced.rst:472
 msgid "A list of files to share. Default: []"
@@ -1003,7 +1003,7 @@ msgstr ""
 
 #: ../../source/advanced.rst:449
 msgid "receive"
-msgstr "ta emot"
+msgstr "receive"
 
 #: ../../source/advanced.rst:454
 msgid "data_dir"
@@ -1015,7 +1015,7 @@ msgid ""
 "'OnionShare' folder of the user's home directory."
 msgstr ""
 "Sökvägen där mottagna filer eller textmeddelanden lagras. Standard: mappen "
-"'OnionShare' i användarens hemkatalog."
+"'OnionShare' i användarens hemmapp."
 
 #: ../../source/advanced.rst:455
 msgid "webhook_url"
@@ -1026,8 +1026,8 @@ msgid ""
 "A webhook URL that OnionShare will POST to when it receives files or text "
 "messages. Default: null"
 msgstr ""
-"En webhook-URL som OnionShare skickar till när den tar emot filer eller "
-"textmeddelanden. Standard: null"
+"En webbadress för en webhook dit OnionShare skickar POST-förfrågningar när "
+"programmet tar emot filer eller textmeddelanden. Standard: null"
 
 #: ../../source/advanced.rst:456
 msgid "disable_text"
@@ -1035,7 +1035,7 @@ msgstr "disable_text"
 
 #: ../../source/advanced.rst:456
 msgid "Whether to disable receiving text messages. Default: false"
-msgstr "Om mottagande av textmeddelanden ska inaktiveras. Standard: falskt"
+msgstr "Om mottagning av textmeddelanden ska inaktiveras. Standard: false"
 
 #: ../../source/advanced.rst:457
 msgid "disable_files"
@@ -1047,27 +1047,32 @@ msgstr "Om mottagning av filer ska inaktiveras. Standard: false"
 
 #: ../../source/advanced.rst:458
 msgid "max_upload_size"
-msgstr ""
+msgstr "max_upload_size"
 
 #: ../../source/advanced.rst:458
 msgid ""
 "Maximum size in bytes of a single upload request (including multipart "
 "overhead). 0 means no limit. Default: 0"
 msgstr ""
+"Maximal storlek i byte för en enskild uppladdningsförfrågan (inklusive "
+"multipart-formatets extra data). 0 betyder obegränsad storlek. Standard: 0"
 
 #: ../../source/advanced.rst:459
 msgid "max_upload_size_total"
-msgstr ""
+msgstr "max_upload_size_total"
 
 #: ../../source/advanced.rst:459
 msgid ""
 "Whether max_upload_size applies to the service's entire lifespan, refusing "
 "all further uploads once the total is reached. Default: false"
 msgstr ""
+"Om max_upload_size ska gälla under tjänstens hela livstid, så att alla "
+"ytterligare uppladdningar nekas när den sammanlagda gränsen har nåtts. "
+"Standard: false"
 
 #: ../../source/advanced.rst:460
 msgid "total_upload_size"
-msgstr ""
+msgstr "total_upload_size"
 
 #: ../../source/advanced.rst:460
 msgid ""
@@ -1075,10 +1080,14 @@ msgid ""
 "limit survives restarts. Managed automatically; set it to 0 to reset the "
 "count. Default: 0"
 msgstr ""
+"Det sammanlagda antalet byte som tjänsten har tagit emot. Värdet sparas så "
+"att gränsen för tjänstens hela livstid fortsätter att gälla efter omstarter. "
+"Värdet hanteras automatiskt. Ställ in det på 0 för att nollställa räknaren. "
+"Standard: 0"
 
 #: ../../source/advanced.rst:464
 msgid "website"
-msgstr "webbplats"
+msgstr "website"
 
 #: ../../source/advanced.rst:469
 msgid "disable_csp"
@@ -1089,9 +1098,8 @@ msgid ""
 "If set to ``true``, OnionShare won't set its default Content Security Policy "
 "header for the website. Default: ``false``"
 msgstr ""
-"Om den är inställd på ``true`` kommer OnionShare inte att ställa in "
-"standardrubriken för innehållssäkerhetspolicyn för webbplatsen. Standard: "
-"``false``"
+"Om värdet är ``true`` anger OnionShare inte sin vanliga HTTP-rubrik för "
+"Content Security Policy för webbplatsen. Standard: ``false``"
 
 #: ../../source/advanced.rst:470
 msgid "custom_csp"
@@ -1100,12 +1108,12 @@ msgstr "custom_csp"
 #: ../../source/advanced.rst:470
 msgid "A custom Content Security Policy header to send instead of the default."
 msgstr ""
-"En anpassad rubrik för innehållssäkerhetspolicy att skicka i stället för "
-"standardrubriken."
+"En anpassad HTTP-rubrik för Content Security Policy som ska skickas i "
+"stället för den vanliga."
 
 #: ../../source/advanced.rst:476
 msgid "chat"
-msgstr "chatt"
+msgstr "chat"
 
 #: ../../source/advanced.rst:478
 msgid "There are currently no configurable settings for the Chat mode."
