@@ -306,5 +306,6 @@
     "error_download_not_onionshare_share": "Der Server bot keinen OnionShare-Download an.",
     "error_download_timeout": "Der Download ist abgelaufen.",
     "error_download_dir_permission_denied": "Zugriff auf das Erstellen des Download-Verzeichnisses verweigert: {}",
-    "error_download_dir_not_available": "Fehler beim Suchen eines verfügbaren Download-Verzeichnisses."
+    "error_download_dir_not_available": "Fehler beim Suchen eines verfügbaren Download-Verzeichnisses.",
+    "error_download_canceled": "Download abgebrochen."
 }
