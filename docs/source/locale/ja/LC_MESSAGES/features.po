@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-10-14 09:58+1100\n"
-"PO-Revision-Date: 2026-07-18 08:01+0000\n"
+"PO-Revision-Date: 2026-10-24 08:22+0000\n"
 "Last-Translator: Himmel <himmel@users.noreply.hosted.weblate.org>\n"
 "Language-Team: ja <LL@li.org>\n"
 "Language: ja\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Generated-By: Babel 2.18.0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: ../../source/features.rst:4
 msgid "How OnionShare Works"
@@ -175,31 +176,40 @@ msgstr ""
 
 #: ../../source/features.rst:55
 msgid "Download a Share"
-msgstr ""
+msgstr "共有ファイルをダウンロード"
 
 #: ../../source/features.rst:57
 msgid ""
 "Starting with OnionShare 2.7, you can use Download Mode to download files "
 "from someone else's OnionShare directly in your own OnionShare."
 msgstr ""
+"OnionShare 2.7 以降では、ダウンロードモードを使用して、自分の OnionShare から"
+"直接、他のユーザーの OnionShare にあるファイルをダウンロードできるようになり"
+"ました。"
 
 #: ../../source/features.rst:59
 msgid ""
 "This means that if you have OnionShare, you don't need to use Tor Browser to "
 "download a share from another OnionShare."
 msgstr ""
+"つまり、OnionShare を使っていれば、他の OnionShare から共有ファイルを"
+"ダウンロードするときに Tor Browser を使用する必要はありません。"
 
 #: ../../source/features.rst:61
 msgid ""
 "OnionShare connects to the share over the Tor network, so you can receive "
 "the files entirely within the application."
 msgstr ""
+"OnionShare は Tor ネットワーク経由で共有元に接続するため、アプリケーション内"
+"でファイルのダウンロードが完結します。"
 
 #: ../../source/features.rst:63
 msgid ""
 "Open a 'download' tab in OnioNShare, and paste the OnionShare address that "
 "you were sent."
 msgstr ""
+"OnionShare で「ダウンロード」タブを開き、送られてきた OnionShare のアドレスを"
+"貼り付けてください。"
 
 #: ../../source/features.rst:65
 msgid ""
@@ -207,12 +217,17 @@ msgid ""
 "Key?\" and paste it into the private key field. This lets you download from "
 "shares protected with Tor client authentication."
 msgstr ""
+"秘密鍵も一緒に送られてきた場合は、「秘密鍵も送られてきましたか？」にチェック"
+"を入れ、秘密鍵の入力欄に貼り付けてください。これにより、Tor のクライアント認"
+"証で保護された共有元からダウンロードできるようになります。"
 
 #: ../../source/features.rst:67
 msgid ""
 "You can browse for a folder to save the downloaded files. When you are "
 "ready, click \"Start downloading\"."
 msgstr ""
+"ダウンロードしたファイルを保存するフォルダーを指定できます。準備ができたら、"
+"「ダウンロードを開始する」をクリックします。"
 
 #: ../../source/features.rst:72
 msgid ""
@@ -221,10 +236,14 @@ msgid ""
 "of the files and folders in the share. Support for choosing individual files "
 "to download is planned for a future release."
 msgstr ""
+"OnionShare は、共有元の ``/download`` パスを使用して、共有ファイル全体を単一"
+"の ZIP ファイルとしてダウンロードします。つまり、ZIP ファイルには共有元のすべ"
+"てのファイルとフォルダーが含まれます。個別のファイルを選択してダウンロードす"
+"る機能は、今後のリリースで実装される予定です。"
 
 #: ../../source/features.rst:76
 msgid "Download a share periodically"
-msgstr ""
+msgstr "共有ファイルを定期的にダウンロード"
 
 #: ../../source/features.rst:78
 msgid ""
@@ -235,6 +254,13 @@ msgid ""
 "downloading\". OnionShare downloads the share immediately, then repeats the "
 "download from the same address at the interval you chose."
 msgstr ""
+"ユーザーが長期にわたって OnionShare を運用し、共有しているファイルを更新して"
+"いる場合、その共有ファイルを繰り返しダウンロードすることで、自分のコピーを最"
+"新の状態に保つことができます。「定期的に OnionShare の URL を確認して共有"
+"ファイルをダウンロードする (分単位)」にチェックを入れ、間隔を少なくとも 1 分"
+"に設定してから、「ダウンロードを開始する」をクリックしてください。OnionShare "
+"はすぐに共有ファイルをダウンロードし、その後、設定した間隔で同じアドレスから"
+"ダウンロードを繰り返します。"
 
 #: ../../source/features.rst:82
 msgid ""
@@ -242,6 +268,9 @@ msgid ""
 "separate copy if you want to keep an earlier version. You can click \"Stop "
 "downloading\" to stop polling."
 msgstr ""
+"ダウンロードするたびに以前の ZIP ファイルが上書きされるので、以前のバージョン"
+"を保存しておきたい場合は、別途コピーを保存してください。「ダウンロードを停止"
+"する」をクリックすると、取得を停止できます。"
 
 #: ../../source/features.rst:85
 msgid ""
@@ -251,6 +280,11 @@ msgid ""
 "downloads. They can also save the tab (see :ref:`save_tabs`) to keep the "
 "same OnionShare address between sessions."
 msgstr ""
+"ファイルを共有する側は、OnionShare を起動したままにし、共有タブで「ファイル送"
+"信が終了したら共有を停止 (個々のファイルのダウンロードを許可する場合はオフに"
+"します)」のチェックを外して、繰り返しダウンロードできるようにする必要がありま"
+"す。また、タブを保存することで、セッション間で同じ OnionShare アドレスを維持"
+"することもできます。(:ref:`save_tabs`をご覧ください）"
 
 #: ../../source/features.rst:89
 msgid "Receive Files and Messages"
