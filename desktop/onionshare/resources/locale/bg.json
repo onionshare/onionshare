@@ -141,7 +141,7 @@
     "gui_status_indicator_chat_started": "В разговор",
     "gui_main_page_share_button": "Започнете да споделяте",
     "gui_all_modes_clear_history": "Изчистване",
-    "gui_close_tab_warning_title": "Затваряне на раздел",
+    "gui_close_tab_warning_title": "Затваряне на раздел?",
     "gui_status_indicator_chat_scheduled": "По график…",
     "gui_copied_client_auth": "Частният ключ е копиран",
     "gui_copied_client_auth_title": "Частният ключ е копиран",
