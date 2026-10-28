@@ -211,8 +211,11 @@ class TorConnectionThread(QtCore.QThread):
             self.error_connecting_to_tor.emit(message)
 
         except Exception as e:
-            # Handle any other error that wasn't in the list above
-            message = strings._("error_generic").format(e.args[0])
+            # Handle any other error that wasn't in the list above. Some exceptions,
+            # like stem.SocketClosed, are raised without a message.
+            message = strings._("error_generic").format(
+                e.args[0] if e.args else type(e).__name__
+            )
             self.error_connecting_to_tor.emit(message)
             return
 
