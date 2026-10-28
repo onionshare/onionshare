@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
 "POT-Creation-Date: 2026-10-14 09:58+1100\n"
-"PO-Revision-Date: 2025-05-04 12:03+0000\n"
-"Last-Translator: curtisb <curtisbaltimore@protonmail.com>\n"
+"PO-Revision-Date: 2026-10-18 17:15+0000\n"
+"Last-Translator: curtisb <curtisb@users.noreply.hosted.weblate.org>\n"
 "Language-Team: de <LL@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Generated-By: Babel 2.18.0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -229,9 +230,9 @@ msgid ""
 "`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
 "README.md>`_ in the Git repository."
 msgstr ""
-"Informationen über die Installation auf verschiedenen Betriebssystem findest "
-"du in der Datei `CLI README<https://github.com/onionshare/onionshare/blob/"
-"develop/cli/README.md>`_ im Git-Repository."
+"Informationen über die Installation auf verschiedenen Betriebssystemen "
+"finden Sie in der Datei `CLI README<https://github.com/onionshare/onionshare/"
+"blob/develop/cli/README.md>`_ im Git-Repository."
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
@@ -1082,27 +1083,32 @@ msgstr "Ob der Empfang von Dateien deaktiviert werden soll. Standard: false"
 
 #: ../../source/advanced.rst:458
 msgid "max_upload_size"
-msgstr ""
+msgstr "max_upload_size"
 
 #: ../../source/advanced.rst:458
 msgid ""
 "Maximum size in bytes of a single upload request (including multipart "
 "overhead). 0 means no limit. Default: 0"
 msgstr ""
+"Maximale Größe einer einzelnen Upload-Anfrage in Byte (einschließlich "
+"Multipart-Overhead). 0 bedeutet keine Begrenzung. Standardwert: 0"
 
 #: ../../source/advanced.rst:459
 msgid "max_upload_size_total"
-msgstr ""
+msgstr "max_upload_size_total"
 
 #: ../../source/advanced.rst:459
 msgid ""
 "Whether max_upload_size applies to the service's entire lifespan, refusing "
 "all further uploads once the total is reached. Default: false"
 msgstr ""
+"Gilt „max_upload_size“ für die gesamte Laufzeit des Dienstes, sodass alle "
+"weiteren Uploads abgelehnt werden, sobald die Gesamtgröße erreicht ist? "
+"Standardwert: false"
 
 #: ../../source/advanced.rst:460
 msgid "total_upload_size"
-msgstr ""
+msgstr "total_upload_size"
 
 #: ../../source/advanced.rst:460
 msgid ""
@@ -1110,6 +1116,10 @@ msgid ""
 "limit survives restarts. Managed automatically; set it to 0 to reset the "
 "count. Default: 0"
 msgstr ""
+"Kumulierte Gesamtzahl der vom Dienst empfangenen Bytes, die dauerhaft "
+"gespeichert wird, damit die Lebensdauerbegrenzung auch nach einem Neustart "
+"erhalten bleibt. Wird automatisch verwaltet; setzen Sie den Wert auf 0, um "
+"den Zählerstand zurückzusetzen. Standardwert: 0"
 
 #: ../../source/advanced.rst:464
 msgid "website"
