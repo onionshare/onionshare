@@ -673,6 +673,34 @@ class Common:
         eta = remaining_bytes / download_rate
         return Common.format_seconds(eta)
 
+    def drain_subprocess_output(self, stream, module):
+        """
+        Continuously read a subprocess's output pipe on a daemon thread, logging
+        each line, until the subprocess closes it.
+
+        A subprocess that writes to a pipe nobody reads will block as soon as the
+        pipe's buffer fills up. For tor this freezes the whole process, including
+        its control port, so every stem call against it hangs. The buffer is only
+        about 4 KiB on Windows (64 KiB on Linux), small enough that tor's log
+        output while trying several obfs4 bridges is enough to fill it.
+        """
+
+        def drain():
+            try:
+                for line in stream:
+                    if isinstance(line, bytes):
+                        line = line.decode("utf-8", errors="replace")
+                    line = line.rstrip()
+                    if line:
+                        self.log(module, "output", line)
+            except (OSError, ValueError):
+                # The pipe was closed underneath us, e.g. during cleanup
+                pass
+
+        t = threading.Thread(target=drain, daemon=True)
+        t.start()
+        return t
+
     @staticmethod
     def get_available_port(min_port, max_port):
         """

@@ -120,8 +120,16 @@ class Meek(object):
                 universal_newlines=True,
             )
 
-        # Obtain the host and port that meek is running on
-        for line in iter(self.meek_proc.stdout.readline, b""):
+        # meek-client logs to stderr. Keep reading it so it can never fill the
+        # pipe and block meek-client (the buffer is only ~4 KiB on Windows).
+        self.common.drain_subprocess_output(self.meek_proc.stderr, "Meek")
+
+        # Obtain the host and port that meek is running on. Iterating the pipe
+        # ends at EOF, so if meek-client exits without reporting a port we fall
+        # through to MeekNotRunning below. (The pipe is in text mode, so the
+        # previous iter(readline, b"") sentinel never matched "" at EOF, and
+        # this loop spun forever.)
+        for line in self.meek_proc.stdout:
             if "CMETHOD meek socks5" in line:
                 self.meek_host = line.split(" ")[3].split(":")[0]
                 self.meek_port = line.split(" ")[3].split(":")[1].strip()
@@ -138,6 +146,8 @@ class Meek(object):
                 break
 
         if self.meek_port:
+            # Keep draining stdout too, now that we've read the port from it
+            self.common.drain_subprocess_output(self.meek_proc.stdout, "Meek")
             self.meek_proxies = {
                 "http": f"socks5h://{self.meek_host}:{self.meek_port}",
                 "https": f"socks5h://{self.meek_host}:{self.meek_port}",
