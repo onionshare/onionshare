@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.3\n"
-"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
-"POT-Creation-Date: 2026-10-14 09:58+1100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 12:59+1100\n"
 "PO-Revision-Date: 2026-10-18 17:15+0000\n"
 "Last-Translator: Jonatan Nyberg <nickwick@users.noreply.hosted.weblate.org>\n"
 "Language-Team: sv <LL@li.org>\n"
@@ -92,8 +92,8 @@ msgid ""
 "Then the server will be public and a private key is not needed to load it in "
 "the Tor Browser."
 msgstr ""
-"Om du vill inaktivera den privata nyckeln för en flik markerar du rutan ”"
-"Detta är en offentlig OnionShare-tjänst (inaktiverar den privata nyckeln)” "
+"Om du vill inaktivera den privata nyckeln för en flik markerar du rutan "
+"”Detta är en offentlig OnionShare-tjänst (inaktiverar den privata nyckeln)” "
 "innan du startar servern. Servern blir då offentlig och ingen privat nyckel "
 "behövs för att öppna den i Tor Browser."
 
@@ -108,8 +108,8 @@ msgid ""
 "services is \"OnionShare Chat\"."
 msgstr ""
 "När någon öppnar en OnionShare-tjänst i Tor Browser visas standardtiteln för "
-"den typen av tjänst. Standardtiteln för chattjänster är till exempel ”"
-"OnionShare-chatt”."
+"den typen av tjänst. Standardtiteln för chattjänster är till exempel "
+"”OnionShare-chatt”."
 
 #: ../../source/advanced.rst:42
 msgid ""
@@ -407,7 +407,8 @@ msgstr ""
 
 #: ../../source/advanced.rst:295
 msgid "And from the main mode chooser screen::"
-msgstr "På huvudskärmen där du väljer läge finns också följande kortkommandon::"
+msgstr ""
+"På huvudskärmen där du väljer läge finns också följande kortkommandon::"
 
 #: ../../source/advanced.rst:305
 msgid "Migrating your OnionShare data to another computer"
