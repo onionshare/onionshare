@@ -590,15 +590,15 @@ cython==3.3.0 ; python_version >= "3.10" and python_version < "4.0" \
 dnspython==2.8.0 ; python_version >= "3.10" and python_version < "3.13" \
     --hash=sha256:01d9bbc4a2d76bf0db7c1f729812ded6d912bd318d3b1cf81d30c0f845dbf3af \
     --hash=sha256:181d3c6996452cb1189c4046c61599b84a5a86e099562ffde77d26984ff26d0f
-dnspython==2.9.0 ; python_version >= "3.13" and python_version < "4.0" \
-    --hash=sha256:9a4aedb833c3c1b49214d04d44d3032ab7a9135f7c1d29a549b4ff78fd82fda9 \
-    --hash=sha256:b44dc6b18f07a8b1c56676a19fbfdb5209415b046a9cece286baafa87ff3f7f1
+dnspython==2.9.1 ; python_version >= "3.13" and python_version < "4.0" \
+    --hash=sha256:7c81caf8de1ed57b8cfc7e0ad4f528a0b8ceace473c7eb946df195dc9def751f \
+    --hash=sha256:9a6d30e55f8dc63e6052597666112bff0586b95a2474a9deda03afbbf820d37a
 eventlet==0.41.3 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:66d1883f276e94d040d007e99d7085e6aa5f2738c5b8783d165a137050dc8fb6 \
     --hash=sha256:839ed5711fff67034e46dedf4b41cf33f8378fca541e866621895fc186933e1d
-flask-compress==1.25 ; python_version >= "3.10" and python_version < "4.0" \
-    --hash=sha256:6ca78e29728525e575a9e76e0e8e7acc6e0bf1421e0cbfd452bca0a68626166f \
-    --hash=sha256:802954fb3af048cf4ca2a3b414393bf2b98466ae8067e6654ea0aa34ba34aff5
+flask-compress==1.26 ; python_version >= "3.10" and python_version < "4.0" \
+    --hash=sha256:bd5299504e564eac273951811a1c161d893f5d51b8722066fcef1b4da556749f \
+    --hash=sha256:f647364ba9ec10ba830cac041b781083ca68244cfc0810a68a702e687ad4eb42
 flask-socketio==5.7.0 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:2e399a4a747c6248baec188d3b1294081fda8a85597d11815a2219836bafcbad \
     --hash=sha256:aa01e50106962808dadc245407c3b6354295b1526e888bd154dc7ff4801a7c88

@@ -50,8 +50,8 @@ sources:
     url: https://files.pythonhosted.org/packages/ba/5a/18ad964b0086c6e62e2e7500f7edc89e3faa45033c71c1893d34eed2b2de/dnspython-2.8.0-py3-none-any.whl
     sha256: 01d9bbc4a2d76bf0db7c1f729812ded6d912bd318d3b1cf81d30c0f845dbf3af
   - type: file
-    url: https://files.pythonhosted.org/packages/10/02/cdcc9b7c051786a103c3b09e1003a82fa0c66bcb91ffbdabcfbf7b4163b9/dnspython-2.9.0-py3-none-any.whl
-    sha256: 9a4aedb833c3c1b49214d04d44d3032ab7a9135f7c1d29a549b4ff78fd82fda9
+    url: https://files.pythonhosted.org/packages/61/55/f90405bbbbd3dd8f788e92cec2d39964f5c09783f0570fc35f3bb3381485/dnspython-2.9.1-py3-none-any.whl
+    sha256: 7c81caf8de1ed57b8cfc7e0ad4f528a0b8ceace473c7eb946df195dc9def751f
   - type: file
     url: https://files.pythonhosted.org/packages/8f/ab/56a3facf876d2c32061a2c84c0c0cf15323c90edfa47b99d56bd886a7cf8/eventlet-0.41.3-py3-none-any.whl
     sha256: 839ed5711fff67034e46dedf4b41cf33f8378fca541e866621895fc186933e1d
@@ -62,8 +62,8 @@ sources:
     url: https://files.pythonhosted.org/packages/7f/9c/34f6962f9b9e9c71f6e5ed806e0d0ff03c9d1b0b2340088a0cf4bce09b18/flask-3.1.3-py3-none-any.whl
     sha256: f4bcbefc124291925f1a26446da31a5178f9483862233b23c0c96a20701f670c
   - type: file
-    url: https://files.pythonhosted.org/packages/2d/b0/5f5ab470c3d3b31da361c63974ec70598cd50c9e4d2819641c1cf9988b1a/flask_compress-1.25-py3-none-any.whl
-    sha256: 6ca78e29728525e575a9e76e0e8e7acc6e0bf1421e0cbfd452bca0a68626166f
+    url: https://files.pythonhosted.org/packages/1d/35/09da9feba672481e25112134b5fe6b6c0d9830fc59daed05fe4600e5cee6/flask_compress-1.26-py3-none-any.whl
+    sha256: f647364ba9ec10ba830cac041b781083ca68244cfc0810a68a702e687ad4eb42
   - type: file
     url: https://files.pythonhosted.org/packages/35/40/79ed0a2086b6eb0d310dca81e4813b8e385a33b2938df83702e7036a6905/flask_socketio-5.7.0-py3-none-any.whl
     sha256: 2e399a4a747c6248baec188d3b1294081fda8a85597d11815a2219836bafcbad
