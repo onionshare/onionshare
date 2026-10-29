@@ -428,7 +428,7 @@ class Onion(object):
                 self.tor_proc = subprocess.Popen(
                     [self.tor_path, "-f", self.tor_torrc],
                     stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
                     startupinfo=startupinfo,
                 )
             else:
@@ -440,9 +440,15 @@ class Onion(object):
                 self.tor_proc = subprocess.Popen(
                     [self.tor_path, "-f", self.tor_torrc],
                     stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
                     env=env,
                 )
+
+            # tor logs to stdout. If nothing reads it, tor blocks once the pipe's
+            # buffer is full, and then stops answering on its control port too.
+            # On Windows that buffer is only ~4 KiB, which the log output from
+            # trying the built-in obfs4 bridges fills within seconds.
+            self.common.drain_subprocess_output(self.tor_proc.stdout, "Tor")
 
             # Wait for the tor controller to start
             self.common.log("Onion", "connect", f"tor pid: {self.tor_proc.pid}")
