@@ -172,7 +172,7 @@ parts:
       - go/latest/stable
     source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
     source-type: git
-    source-tag: v2.14.1
+    source-tag: v2.15.3
     organize:
       bin/client: bin/snowflake-client
     after: [obfs4]
