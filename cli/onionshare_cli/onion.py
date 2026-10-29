@@ -998,7 +998,7 @@ class Onion(object):
         builtin_bridges = False
         meek = None
         # Try obtaining bridges over Tor, if we're connected to it.
-        if self.is_authenticated:
+        if self.is_authenticated():
             self.common.log(
                 "Onion",
                 "update_builtin_bridges",

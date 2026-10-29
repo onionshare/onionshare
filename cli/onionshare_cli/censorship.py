@@ -53,8 +53,10 @@ class CensorshipCircumvention(object):
             self.api_proxies = self.meek.meek_proxies
         if onion:
             self.onion = onion
-            if not self.onion.is_authenticated:
-                return False
+            if not self.onion.is_authenticated():
+                # Tor isn't connected, so leave api_proxies empty. The request_*
+                # methods refuse to run without a proxy, so nothing is sent.
+                return
             else:
                 self.common.log(
                     "CensorshipCircumvention",
