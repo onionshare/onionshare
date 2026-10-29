@@ -187,8 +187,9 @@ class FileList(QtWidgets.QListWidget):
         """
         # Drag and drop doesn't work in Flatpak, because of the sandbox
         if self.common.is_flatpak():
-            Alert(self.common, strings._("gui_dragdrop_sandbox_flatpak").format())
             event.ignore()
+            message = strings._("gui_dragdrop_sandbox_flatpak").format()
+            QtCore.QTimer.singleShot(0, lambda: Alert(self.common, message))
             return
 
         if event.mimeData().hasUrls:
