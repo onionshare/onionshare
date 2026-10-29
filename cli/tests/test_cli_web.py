@@ -4,6 +4,8 @@ import re
 import subprocess
 import time
 import zipfile
+import gzip
+import zlib
 import tempfile
 import base64
 import shutil
@@ -759,6 +761,109 @@ class TestRangeRequests:
             bytes_out += resp.data
 
             assert bytes_out == contents
+
+    @pytest.mark.parametrize(
+        "accept_encoding", ["gzip", "gzip, deflate, br", "identity"]
+    )
+    def test_resume_single_file(self, temp_dir, common_obj, tmp_path, accept_encoding):
+        contents = b"A resumable file download.\n" * 1024
+        filename = tmp_path / "download.txt"
+        filename.write_bytes(contents)
+        web = web_obj(temp_dir, common_obj, "share")
+        web.settings.set("share", "autostop_sharing", False)
+        web.share_mode.set_file_info([str(filename)])
+
+        with web.app.test_client() as client:
+            headers = {"Accept-Encoding": accept_encoding}
+            landing = client.get("/", headers=headers)
+            assert landing.status_code == 200
+            if accept_encoding == "gzip":
+                assert landing.headers["Content-Encoding"] == "gzip"
+            displayed_filesize = web.share_mode.filesize
+
+            initial = client.get("/download", headers=headers)
+            assert initial.status_code == 200
+            initial_data = initial.data
+            etag = initial.headers["ETag"]
+
+            # A browser resumes using offsets in the saved, decoded file.
+            offset = 1024
+            headers.update({"Range": f"bytes={offset}-", "If-Range": etag})
+            resumed = client.get("/download", headers=headers)
+            assert resumed.status_code == 206
+            assert displayed_filesize == len(contents)
+            assert "Content-Encoding" not in initial.headers
+            assert initial_data == contents
+            assert initial.content_length == len(contents)
+            assert "Content-Encoding" not in resumed.headers
+            assert resumed.headers["ETag"] == etag
+            assert resumed.headers["Content-Range"] == (
+                f"bytes {offset}-{len(contents) - 1}/{len(contents)}"
+            )
+            assert resumed.content_length == len(contents) - offset
+            assert initial_data[:offset] + resumed.data == contents
+
+            # Changing accepted encodings must not change the representation or ETag.
+            headers["Accept-Encoding"] = "identity"
+            resumed_identity = client.get("/download", headers=headers)
+            assert resumed_identity.status_code == 206
+            assert resumed_identity.headers["ETag"] == etag
+            assert resumed_identity.data == contents[offset:]
+
+            # Individual file views do not support ranges and can still use gzip.
+            individual = client.get(
+                "/download.txt", headers={"Accept-Encoding": "gzip"}
+            )
+            assert individual.headers["Content-Encoding"] == "gzip"
+            assert gzip.decompress(individual.data) == contents
+
+    def test_single_file_gzip_is_removed_when_sharing_stops(
+        self, temp_dir, common_obj, tmp_path
+    ):
+        contents = b"A temporary compressed copy.\n" * 1024
+        filename = tmp_path / "download.txt"
+        filename.write_bytes(contents)
+        web = web_obj(temp_dir, common_obj, "share")
+        web.settings.set("share", "autostop_sharing", False)
+
+        # Restarting the same share must also clean up its new compressed copy.
+        for _ in range(2):
+            web.share_mode.set_file_info([str(filename)])
+            with web.app.test_client() as client:
+                response = client.get(
+                    "/download.txt", headers={"Accept-Encoding": "gzip"}
+                )
+                assert response.status_code == 200
+                assert response.headers["Content-Encoding"] == "gzip"
+                assert gzip.decompress(response.data) == contents
+                response.close()
+
+            gzip_files = list(web.share_mode.gzip_individual_files.values())
+            assert gzip_files
+            assert all(os.path.exists(path) for path in gzip_files)
+            assert web.running
+            web.cleanup()
+            assert all(not os.path.exists(path) for path in gzip_files)
+            assert filename.read_bytes() == contents
+
+    def test_share_compression_does_not_affect_website(
+        self, temp_dir, common_obj, tmp_path
+    ):
+        contents = b"A streamed text file.\n" * 1024
+        filename = tmp_path / "download.txt"
+        filename.write_bytes(contents)
+        share = web_obj(temp_dir, common_obj, "share")
+        website = web_obj(temp_dir, common_obj, "website")
+        website.website_mode.set_file_info([str(filename)])
+
+        assert share.app is not website.app
+        with website.app.test_client() as client:
+            response = client.get(
+                "/download.txt", headers={"Accept-Encoding": "deflate"}
+            )
+            assert response.status_code == 200
+            assert response.headers["Content-Encoding"] == "deflate"
+            assert zlib.decompress(response.data) == contents
 
     def test_mismatched_etags(self, temp_dir, common_obj):
         """RFC 7233 Section 3.2

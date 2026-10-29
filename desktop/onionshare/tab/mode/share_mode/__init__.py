@@ -302,10 +302,7 @@ class ShareMode(Mode):
         """
         Handle REQUEST_STARTED event.
         """
-        if event["data"]["use_gzip"]:
-            filesize = self.web.share_mode.gzip_filesize
-        else:
-            filesize = self.web.share_mode.download_filesize
+        filesize = self.web.share_mode.download_filesize
 
         item = ShareHistoryItem(self.common, event["data"]["id"], filesize)
         self.history.add(event["data"]["id"], item)
