@@ -1,5 +1,14 @@
 # OnionShare Changelog
 
+## 2.7.1
+
+* Bug fix: Prevent freezes (particularly on Windows) due to overloading Tor output to subprocess pipes
+* Bug fix: Don't crash when reporting an exception that has no message that otherwise leads to a KeyError
+* Bug fix: Call is_authenticated() as a method rather than an attribute.
+* Bug fix: Don't compress individual file shares, and ensure they can be resumed (range request issue)
+* Bug fix: Don't crash after throwing drag-and-drop Alert dialog on Flatpak, and ensure app can start back up without lock file issue
+* Other: Update dependencies
+
 ## 2.7
 
 * Security fix: prevent sharing a single file that is a symlink (to a potentially sensitive file). This would require accidental action by the user or local compromise (which would mean bigger problems than just this). See [GHSA-2pj7-hh2q-hjrh](https://github.com/onionshare/onionshare/security/advisories/GHSA-2pj7-hh2q-hjrh)
