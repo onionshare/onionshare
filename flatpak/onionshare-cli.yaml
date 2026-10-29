@@ -5,10 +5,10 @@ build-commands:
     backports-zstd bidict bidict blinker brotli brotlicffi certifi cffi charset-normalizer
     click colorama cython dnspython dnspython eventlet exceptiongroup flask flask-compress
     flask-socketio gevent gevent-websocket greenlet h11 idna iniconfig itsdangerous
-    jinja2 markupsafe packaging pkgconfig pluggy psutil pycparser pygments pynacl
-    pypng pysocks pytest python-engineio python-socketio qrcode requests setuptools
+    jinja2 markupsafe packaging pkgconfig pluggy psutil pycparser pycparser pygments
+    pynacl pypng pysocks pytest python-engineio python-socketio qrcode requests setuptools
     simple-websocket stem tomli typing-extensions unidecode urllib3 waitress werkzeug
-    wheel wsproto zope-event zope-interface
+    wheel wsproto zope-event zope-interface zope-interface
 sources:
   - type: file
     url: https://files.pythonhosted.org/packages/ff/9c/13569626440e88f09d16f43ec1c2aa0d10a523be2811414580d1cfb7c9f3/backports_zstd-1.8.0.tar.gz
@@ -23,14 +23,14 @@ sources:
     url: https://files.pythonhosted.org/packages/10/cb/f2ad4230dc2eb1a74edf38f1a38b9b52277f75bef262d8908e60d957e13c/blinker-1.9.0-py3-none-any.whl
     sha256: ba0efaa9080b619ff2f3459d1d500c57bddea4a6b424b60a91141db6fd2f08bc
   - type: file
-    url: https://files.pythonhosted.org/packages/f7/16/c92ca344d646e71a43b8bb353f0a6490d7f6e06210f8554c8f874e454285/brotli-1.2.0.tar.gz
-    sha256: e310f77e41941c13340a95976fe66a8a95b01e783d430eeaf7a2f87e0a57dd0a
+    url: https://files.pythonhosted.org/packages/cf/81/1546c983678a9b4e77cb4718eaedd1b2caf24a6cdbf1eb8775938d22aff7/brotli-1.2.1.tar.gz
+    sha256: 02b2f7b5a83485efe448a44ddf7983def05c3bb1dcf917d4f7154070260e13de
   - type: file
-    url: https://files.pythonhosted.org/packages/71/97/7845739a36828ffe751a1c6b240692f552fd7ecf65026c51326c0a4aa369/brotlicffi-1.2.0.2.tar.gz
-    sha256: 5e0fbd13644cf1f6015e75fa5e0ad8fdce1048d9c9ff90b0ce826174b249ee35
+    url: https://files.pythonhosted.org/packages/92/8b/10c6c4bac3a7d292707c9b879b8b3bb7f6c8ca5db5e6dff559bd9d59d45e/brotlicffi-1.2.1.0.tar.gz
+    sha256: 5d0b89e959f643aab4c58c15c06e1e87b6f6605e5e88c3c1c28f5ce1c58c4e5f
   - type: file
-    url: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
-    sha256: 62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775
+    url: https://files.pythonhosted.org/packages/32/d1/a3652fe2c19134d0d15922177821d863cbd7e842d53a21bbe7e8e3a1b5ac/certifi-2026.10.23-py3-none-any.whl
+    sha256: e9b54de76e530bb6cf0ccd036787103acb58fd42ba930ea8bf948ddbaa2f61d1
   - type: file
     url: https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz
     sha256: dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be
@@ -53,8 +53,8 @@ sources:
     url: https://files.pythonhosted.org/packages/10/02/cdcc9b7c051786a103c3b09e1003a82fa0c66bcb91ffbdabcfbf7b4163b9/dnspython-2.9.0-py3-none-any.whl
     sha256: 9a4aedb833c3c1b49214d04d44d3032ab7a9135f7c1d29a549b4ff78fd82fda9
   - type: file
-    url: https://files.pythonhosted.org/packages/23/75/9681fa59c4b27d9e34e8be682d2fff3f5be87bf6552477f9a5d395a068c3/eventlet-0.41.2-py3-none-any.whl
-    sha256: 6cae50e67fe6ae8bb7013e7fd4d8e0d0d20aeb9b3259b93f023c93eb6749631f
+    url: https://files.pythonhosted.org/packages/8f/ab/56a3facf876d2c32061a2c84c0c0cf15323c90edfa47b99d56bd886a7cf8/eventlet-0.41.3-py3-none-any.whl
+    sha256: 839ed5711fff67034e46dedf4b41cf33f8378fca541e866621895fc186933e1d
   - type: file
     url: https://files.pythonhosted.org/packages/8a/0e/97c33bf5009bdbac74fd2beace167cab3f978feb69cc36f1ef79360d6c4e/exceptiongroup-1.3.1-py3-none-any.whl
     sha256: a7a39a3bd276781e98394987d3a5701d0c4edffb633bb7a5144577f82c773598
@@ -101,14 +101,17 @@ sources:
     url: https://files.pythonhosted.org/packages/75/6f/f7ec07fba48f07c555cc4099481df644fbbc12067879072c17ac229f6556/pkgconfig-1.6.0-py3-none-any.whl
     sha256: 98e71754855e9563838d952a160eb577edabb57782e49853edb5381927e6bea1
   - type: file
-    url: https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl
-    sha256: e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746
+    url: https://files.pythonhosted.org/packages/40/9e/2b38731e0fc536806f16490e1a12d7f0dc2a1235aa8cc07bcc75416a7daa/pluggy-1.7.0-py3-none-any.whl
+    sha256: 7dd7b0d8832ba3cb632c306926ded123429211b83641b35dc5c41ad2d34f9bec
   - type: file
     url: https://files.pythonhosted.org/packages/aa/c6/d1ddf4abb55e93cebc4f2ed8b5d6dbad109ecb8d63748dd2b20ab5e57ebe/psutil-7.2.2.tar.gz
     sha256: 0746f5f8d406af344fd547f1c8daa5f5c33dbc293bb8d6a16d80b4bb88f59372
   - type: file
     url: https://files.pythonhosted.org/packages/90/11/0e6f11117525ff0eec40ebac3d313376f102df93ca44ad9e893ee85e4f89/pycparser-3.11-py3-none-any.whl
     sha256: 51d5a8ba2be0bbe440b99d2112604c95bbbc3c2748a64260186c541e1729cd80
+  - type: file
+    url: https://files.pythonhosted.org/packages/b6/ae/315bbeee126a769cbde43cf4908acb4b40408d8bf8bbf334dd7368d8dadf/pycparser-3.12-py3-none-any.whl
+    sha256: a076f3f489b39b43ed13563a1dafe42447445bec2e294154ec5c57fcdda4c85e
   - type: file
     url: https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl
     sha256: 2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9
@@ -122,11 +125,11 @@ sources:
     url: https://files.pythonhosted.org/packages/8d/59/b4572118e098ac8e46e399a1dd0f2d85403ce8bbaad9ec79373ed6badaf9/PySocks-1.7.1-py3-none-any.whl
     sha256: 2725bd0a9925919b9b51739eea5f9e2bae91e83288108a9ad338b2e3a4435ee5
   - type: file
-    url: https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl
-    sha256: 37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c
+    url: https://files.pythonhosted.org/packages/51/39/1f5d8c8877a0fa327db959c19341d4be61660de1ab6b7391f9eb805bcd67/pytest-9.2.0-py3-none-any.whl
+    sha256: 07acdcf88ec174f907dc01af70bf52d49b014bbab03faeeade31c96b18c2e588
   - type: file
-    url: https://files.pythonhosted.org/packages/e5/de/07cfd386974c2a26a7bde41f2111be29bbfc92b9ea0bb76694415a4a1a78/python_engineio-4.14.0-py3-none-any.whl
-    sha256: 9f0fe275fb7d67bfc1a632421adf22949fd4843bd9c458c004b0a89cede302a2
+    url: https://files.pythonhosted.org/packages/38/5c/552f1dce2443dc33ce6b2ee7f67599ba5c83ef5582e2235a9878ac239049/python_engineio-4.15.1-py3-none-any.whl
+    sha256: 745cb3c07701c719a2906439a00b67e44ef042904036568530a2c3a8cf18c89a
   - type: file
     url: https://files.pythonhosted.org/packages/ee/be/44b558c944bc16618483967ecd3424c578705aa33ceee7df8c1e4ab43ea0/python_socketio-5.17.0-py3-none-any.whl
     sha256: b5826fd2f8aa02e11347816349b74ac6b53e8a4f4e4b1cf1388e1aff19b7f3f4
@@ -137,8 +140,8 @@ sources:
     url: https://files.pythonhosted.org/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl
     sha256: 2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0
   - type: file
-    url: https://files.pythonhosted.org/packages/95/9c/c510029fc6ef33a6275cd2c5d3cecd6613dfd6aa401d57c54f1c18852ccf/setuptools-84.0.0-py3-none-any.whl
-    sha256: 51a52592b3b99e102b609654876bd65f19f999935166d1352678931132b0c670
+    url: https://files.pythonhosted.org/packages/ef/55/6dc6d6bb953bdfc52519a0059592c52b6e3b8ad51cf8256dffceb55b0610/setuptools-84.2.1-py3-none-any.whl
+    sha256: ca140b45d5325a9478f880e351484f62fef15f336462e449ca0c03c873d589c2
   - type: file
     url: https://files.pythonhosted.org/packages/52/59/0782e51887ac6b07ffd1570e0364cf901ebc36345fea669969d2084baebb/simple_websocket-1.1.0-py3-none-any.whl
     sha256: 4af6069630a38ed6c561010f0e11a5bc0d4ca569b36306eb257cd9a192497c8c
@@ -175,3 +178,6 @@ sources:
   - type: file
     url: https://files.pythonhosted.org/packages/26/39/a8481b926e42c44a6fcc670904f8251469ec42edbff1ba066719ca1e7fb4/zope_interface-8.6.tar.gz
     sha256: b40ef9b4873afb5d0dec02b8d2dfde1cf18c72337b60c99cb735961e0bac05c0
+  - type: file
+    url: https://files.pythonhosted.org/packages/de/ff/a1f0021a26033da0df223fd05a7455d6d2881b67daf2c6dc897b4fe0a427/zope_interface-8.7.tar.gz
+    sha256: 0b47b62e8d0d99b24bcdd32f4f2120425e5019c3bee2ad69a0e1d75737487a96
