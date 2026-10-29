@@ -57,7 +57,7 @@ class Settings(object):
         self.available_locales = {
             #"af": "Afrikaans",  # Afrikaans
             #"sq": "Shqip",  # Albanian
-            #"ar": "العربية",  # Arabic
+            "ar": "العربية",  # Arabic
             #"be": "Беларуская",  # Belarusian
             #"bn": "বাংলা",  # Bengali
             #"bg": "Български",  #Bulgarian
@@ -94,7 +94,7 @@ class Settings(object):
             #"sk": "Slovenčina",  # Slovak
             #"es": "Español",  # Spanish
             #"sw": "Kiswahili",  # Swahili
-            #"sv": "Svenska",  # Swedish
+            "sv": "Svenska",  # Swedish
             #"ta": "Tamil",    # Tamil
             # "te": "తెలుగు",  # Telugu
             "tr": "Türkçe",  # Turkish
