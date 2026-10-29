@@ -487,6 +487,13 @@ class ShareModeWeb(SendBaseModeWeb):
             with open(self.download_filename, "rb") as f:
                 self.download_etag = make_etag(f)
 
+            # Individual-file views store gzipped copies of shared files here.
+            # Delete the directory when the share stops.
+            self.gzip_tmp_dir = tempfile.TemporaryDirectory(
+                dir=self.common.build_tmp_dir()
+            )
+            self.web.cleanup_tempdirs.append(self.gzip_tmp_dir)
+
             self.is_zipped = False
 
         else:

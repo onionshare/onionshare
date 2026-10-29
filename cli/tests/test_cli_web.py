@@ -817,6 +817,35 @@ class TestRangeRequests:
             assert individual.headers["Content-Encoding"] == "gzip"
             assert gzip.decompress(individual.data) == contents
 
+    def test_single_file_gzip_is_removed_when_sharing_stops(
+        self, temp_dir, common_obj, tmp_path
+    ):
+        contents = b"A temporary compressed copy.\n" * 1024
+        filename = tmp_path / "download.txt"
+        filename.write_bytes(contents)
+        web = web_obj(temp_dir, common_obj, "share")
+        web.settings.set("share", "autostop_sharing", False)
+
+        # Restarting the same share must also clean up its new compressed copy.
+        for _ in range(2):
+            web.share_mode.set_file_info([str(filename)])
+            with web.app.test_client() as client:
+                response = client.get(
+                    "/download.txt", headers={"Accept-Encoding": "gzip"}
+                )
+                assert response.status_code == 200
+                assert response.headers["Content-Encoding"] == "gzip"
+                assert gzip.decompress(response.data) == contents
+                response.close()
+
+            gzip_files = list(web.share_mode.gzip_individual_files.values())
+            assert gzip_files
+            assert all(os.path.exists(path) for path in gzip_files)
+            assert web.running
+            web.cleanup()
+            assert all(not os.path.exists(path) for path in gzip_files)
+            assert filename.read_bytes() == contents
+
     def test_share_compression_does_not_affect_website(
         self, temp_dir, common_obj, tmp_path
     ):
