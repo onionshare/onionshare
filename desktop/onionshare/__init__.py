@@ -206,9 +206,7 @@ def main():
     if common.is_flatpak():
         # Flatpak PIDs are namespace-local and can be reused after a crash.
         # Keep an OS-managed lock open for the lifetime of this process instead.
-        flatpak_lock_file, existing_pid = acquire_flatpak_lock(
-            common.gui.lock_filename
-        )
+        flatpak_lock_file, existing_pid = acquire_flatpak_lock(common.gui.lock_filename)
         if flatpak_lock_file is None:
             print(f"Opening tab in existing OnionShare window (pid {existing_pid})")
 
@@ -238,9 +236,7 @@ def main():
                             still_running = False
 
             if still_running:
-                print(
-                    f"Opening tab in existing OnionShare window (pid {existing_pid})"
-                )
+                print(f"Opening tab in existing OnionShare window (pid {existing_pid})")
 
                 if filenames:
                     obj = {"type": "new_share_tab", "filenames": filenames}

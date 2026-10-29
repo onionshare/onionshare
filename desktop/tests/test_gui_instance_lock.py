@@ -80,3 +80,23 @@ time.sleep(30)
         if holder.poll() is None:
             holder.kill()
             holder.wait(timeout=5)
+
+
+def test_flatpak_lock_starts_when_filesystem_lacks_flock(tmp_path, monkeypatch):
+    import errno
+    import fcntl
+
+    def unsupported(fd, operation):
+        raise OSError(errno.ENOLCK, "No locks available")
+
+    monkeypatch.setattr(fcntl, "flock", unsupported)
+
+    lock_filename = tmp_path / "lock"
+    lock_file, existing_pid = acquire_flatpak_lock(str(lock_filename))
+    try:
+        # Starts normally instead of crashing, just without the lock
+        assert lock_file is not None
+        assert existing_pid is None
+        assert lock_filename.read_text() == f"{os.getpid()}\n"
+    finally:
+        lock_file.close()

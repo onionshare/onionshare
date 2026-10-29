@@ -39,6 +39,11 @@ def acquire_flatpak_lock(lock_filename):
         existing_pid = lock_file.read().strip() or "unknown"
         lock_file.close()
         return None, existing_pid
+    except OSError:
+        # The filesystem doesn't support flock (e.g. some network or FUSE
+        # home directories). Start without single-instance detection rather
+        # than refusing to start at all.
+        pass
 
     lock_file.seek(0)
     lock_file.truncate()
