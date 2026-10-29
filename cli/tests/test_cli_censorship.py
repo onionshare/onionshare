@@ -57,3 +57,45 @@ class TestRequestSettings:
     ):
         circumvention_obj.request_settings(transports=["obfs4"])
         assert captured_request["json"] == {"transports": ["obfs4"]}
+
+
+class FakeOnion:
+    """Stands in for Onion, with a controllable Tor connection state."""
+
+    def __init__(self, authenticated):
+        self.authenticated = authenticated
+
+    def is_authenticated(self):
+        return self.authenticated
+
+    def get_tor_socks_port(self):
+        return ("127.0.0.1", 9050)
+
+
+class TestOverTor:
+    def test_uses_tor_socks_proxy_when_connected(self):
+        c = censorship.CensorshipCircumvention(
+            common.Common(), onion=FakeOnion(authenticated=True)
+        )
+        assert c.api_proxies == {
+            "http": "socks5h://127.0.0.1:9050",
+            "https": "socks5h://127.0.0.1:9050",
+        }
+
+    def test_no_proxy_when_tor_not_connected(self):
+        # Must not raise (returning a value from __init__ is a TypeError)
+        c = censorship.CensorshipCircumvention(
+            common.Common(), onion=FakeOnion(authenticated=False)
+        )
+        assert c.api_proxies == {}
+
+    def test_no_request_sent_when_tor_not_connected(self, monkeypatch):
+        def fail(*args, **kwargs):
+            raise AssertionError("request sent without a proxy")
+
+        monkeypatch.setattr(censorship.requests, "post", fail)
+        monkeypatch.setattr(censorship.requests, "get", fail)
+        c = censorship.CensorshipCircumvention(
+            common.Common(), onion=FakeOnion(authenticated=False)
+        )
+        assert c.request_builtin_bridges() is False
