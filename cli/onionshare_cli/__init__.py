@@ -470,8 +470,12 @@ def main(cwd=None):
             sys.exit(1)
 
     if mode == "share":
-        # Prepare files to share
-        print("Compressing files.")
+        # Prepare files to share. A single file is served as-is; only multiple
+        # files or folders are compressed into a zip file.
+        if len(filenames) == 1 and os.path.isfile(filenames[0]):
+            print("Preparing file.")
+        else:
+            print("Compressing files.")
         try:
             web.share_mode.set_file_info(filenames)
         except OSError as e:

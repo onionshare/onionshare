@@ -199,7 +199,7 @@ class ShareModeWeb(SendBaseModeWeb):
             self.web.add_request(
                 self.web.REQUEST_STARTED,
                 request_path,
-                {"id": history_id, "use_gzip": False},
+                {"id": history_id},
             )
 
             basename = os.path.basename(self.download_filename)
