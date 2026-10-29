@@ -22,7 +22,7 @@ import setuptools
 
 # The version must be hard-coded because the Flatpak build deletes
 # pyproject.toml and installs the CLI using this file
-version = "2.7"
+version = "2.7.1"
 
 setuptools.setup(
     name="onionshare-cli",

@@ -3,7 +3,7 @@
 VERSION=$(cat ../cli/pyproject.toml | python -c 'import tomllib,sys;print(tomllib.load(sys.stdin)["project"]["version"])')
 
 # Supported locales
-LOCALES="en sq bg zh_CN de el fr ga it ja fa pl ru es sv tr uk vi"
+LOCALES="en zh_CN fr de ga it ja fa pl ru es sv tr uk"
 
 # Generate English .po files
 make gettext
