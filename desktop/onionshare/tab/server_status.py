@@ -17,6 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+
 import textwrap
 from PySide6 import QtCore, QtWidgets, QtGui
 from PySide6.QtCore import Qt
@@ -77,7 +78,9 @@ class ServerStatus(QtWidgets.QWidget):
         self.server_button.clicked.connect(self.server_button_clicked)
 
         # URL layout
-        url_font = QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont)
+        url_font = QtGui.QFontDatabase.systemFont(
+            QtGui.QFontDatabase.SystemFont.FixedFont
+        )
         self.url_description = QtWidgets.QLabel()
         self.url_description.setWordWrap(True)
         self.url_description.setMinimumHeight(50)
@@ -93,7 +96,8 @@ class ServerStatus(QtWidgets.QWidget):
         self.url.setMinimumSize(self.url.sizeHint())
         self.url.setStyleSheet(self.common.gui.css["server_status_url"])
         self.url.setTextInteractionFlags(
-            Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard
+            Qt.TextInteractionFlag.TextSelectableByMouse
+            | Qt.TextInteractionFlag.TextSelectableByKeyboard
         )
 
         # Copy Onion Address button
@@ -127,7 +131,9 @@ class ServerStatus(QtWidgets.QWidget):
         self.private_key.setWordWrap(True)
         self.private_key.setMinimumSize(self.private_key.sizeHint())
         self.private_key.setStyleSheet(self.common.gui.css["server_status_url"])
-        self.private_key.setTextInteractionFlags(Qt.NoTextInteraction)
+        self.private_key.setTextInteractionFlags(
+            Qt.TextInteractionFlag.NoTextInteraction
+        )
         self.private_key_hidden = True
 
         # Copy ClientAuth button
@@ -309,11 +315,14 @@ class ServerStatus(QtWidgets.QWidget):
             self.client_auth_instructions.show()
             if self.private_key_hidden:
                 self.private_key.setText("*" * len(self.app.auth_string))
-                self.private_key.setTextInteractionFlags(Qt.NoTextInteraction)
+                self.private_key.setTextInteractionFlags(
+                    Qt.TextInteractionFlag.NoTextInteraction
+                )
             else:
                 self.private_key.setText(self.app.auth_string)
                 self.private_key.setTextInteractionFlags(
-                    Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard
+                    Qt.TextInteractionFlag.TextSelectableByMouse
+                    | Qt.TextInteractionFlag.TextSelectableByKeyboard
                 )
             self.private_key.show()
             self.copy_client_auth_button.show()
@@ -336,7 +345,10 @@ class ServerStatus(QtWidgets.QWidget):
         """
         self.common.log("ServerStatus", "update")
         # Set the URL fields
-        if self.status == self.STATUS_STARTED and not self.mode == self.common.gui.MODE_DOWNLOAD:
+        if (
+            self.status == self.STATUS_STARTED
+            and not self.mode == self.common.gui.MODE_DOWNLOAD
+        ):
             # The backend Onion may have saved new settings, such as the private key.
             # Reload the settings before saving new ones.
             self.common.settings.load()
@@ -468,7 +480,7 @@ class ServerStatus(QtWidgets.QWidget):
                     Alert(
                         self.common,
                         strings._("gui_server_autostart_timer_expired"),
-                        QtWidgets.QMessageBox.Warning,
+                        QtWidgets.QMessageBox.Icon.Warning,
                     )
             if self.settings.get("general", "autostop_timer"):
                 if self.local_only:
@@ -491,7 +503,7 @@ class ServerStatus(QtWidgets.QWidget):
                     Alert(
                         self.common,
                         strings._("gui_server_autostop_timer_expired"),
-                        QtWidgets.QMessageBox.Warning,
+                        QtWidgets.QMessageBox.Icon.Warning,
                     )
                 if self.settings.get("general", "autostart_timer"):
                     if self.autostop_timer_datetime <= self.autostart_timer_datetime:
@@ -500,7 +512,7 @@ class ServerStatus(QtWidgets.QWidget):
                             strings._(
                                 "gui_autostop_timer_cant_be_earlier_than_autostart_timer"
                             ),
-                            QtWidgets.QMessageBox.Warning,
+                            QtWidgets.QMessageBox.Icon.Warning,
                         )
                         can_start = False
             if can_start:

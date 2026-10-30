@@ -98,9 +98,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.bridge_use_checkbox = QtWidgets.QCheckBox(
             strings._("gui_settings_bridge_use_checkbox")
         )
-        self.bridge_use_checkbox.clicked.connect(
-            self.bridge_use_checkbox_state_changed
-        )
+        self.bridge_use_checkbox.clicked.connect(self.bridge_use_checkbox_state_changed)
 
         # Built-in bridge
         self.bridge_builtin_radio = QtWidgets.QRadioButton(
@@ -134,7 +132,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         self.bridge_moat_textbox.setMinimumHeight(100)
         self.bridge_moat_textbox.setMaximumHeight(100)
         self.bridge_moat_textbox.setReadOnly(True)
-        self.bridge_moat_textbox.setWordWrapMode(QtGui.QTextOption.NoWrap)
+        self.bridge_moat_textbox.setWordWrapMode(QtGui.QTextOption.WrapMode.NoWrap)
         bridge_moat_textbox_options_layout = QtWidgets.QVBoxLayout()
         bridge_moat_textbox_options_layout.addWidget(self.bridge_moat_button)
         bridge_moat_textbox_options_layout.addWidget(self.bridge_moat_textbox)
@@ -397,7 +395,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         active_tabs_label = QtWidgets.QLabel(
             strings._("gui_settings_stop_active_tabs_label")
         )
-        active_tabs_label.setAlignment(QtCore.Qt.AlignHCenter)
+        active_tabs_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
 
         # Active tabs layout
         active_tabs_layout = QtWidgets.QVBoxLayout()
@@ -422,7 +420,7 @@ class TorSettingsTab(QtWidgets.QWidget):
 
         # Check if autoconnect was enabled
         if self.old_settings.get("auto_connect"):
-            self.autoconnect_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.autoconnect_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
 
         connection_type = self.old_settings.get("connection_type")
         if connection_type == "bundled":
@@ -454,15 +452,19 @@ class TorSettingsTab(QtWidgets.QWidget):
         )
         auth_type = self.old_settings.get("auth_type")
         if auth_type == "no_auth":
-            self.authenticate_no_auth_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.authenticate_no_auth_checkbox.setCheckState(
+                QtCore.Qt.CheckState.Checked
+            )
         else:
-            self.authenticate_no_auth_checkbox.setChecked(QtCore.Qt.Unchecked)
+            self.authenticate_no_auth_checkbox.setChecked(
+                QtCore.Qt.CheckState.Unchecked
+            )
         self.authenticate_password_extras_password.setText(
             self.old_settings.get("auth_password")
         )
 
         if self.old_settings.get("bridges_enabled"):
-            self.bridge_use_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.bridge_use_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
             self.bridge_settings.show()
 
             bridges_type = self.old_settings.get("bridges_type")
@@ -507,7 +509,7 @@ class TorSettingsTab(QtWidgets.QWidget):
             self.bridge_custom_textbox.document().setPlainText(bridges_custom)
 
         else:
-            self.bridge_use_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.bridge_use_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
             self.bridge_settings.hide()
 
     def autoconnect_toggled(self):
@@ -539,12 +541,20 @@ class TorSettingsTab(QtWidgets.QWidget):
         'Use a bridge' checkbox changed
         """
         if self.bridge_use_checkbox.isChecked():
-            self.common.log("TorSettingsTab", "bridge_use_checkbox_state_changed", "Use bridge checkbox toggled on")
+            self.common.log(
+                "TorSettingsTab",
+                "bridge_use_checkbox_state_changed",
+                "Use bridge checkbox toggled on",
+            )
             self.bridge_settings.show()
             self.bridge_builtin_radio.click()
             self.bridge_builtin_dropdown.setCurrentText("obfs4")
         else:
-            self.common.log("TorSettingsTab", "bridge_use_checkbox_state_changed", "Use bridge checkbox toggled off")
+            self.common.log(
+                "TorSettingsTab",
+                "bridge_use_checkbox_state_changed",
+                "Use bridge checkbox toggled off",
+            )
             self.bridge_settings.hide()
 
     def bridge_builtin_radio_toggled(self, checked):
@@ -566,7 +576,7 @@ class TorSettingsTab(QtWidgets.QWidget):
                 Alert(
                     self.common,
                     strings._("gui_settings_meek_expensive_warning"),
-                    QtWidgets.QMessageBox.Warning,
+                    QtWidgets.QMessageBox.Icon.Warning,
                 )
 
     def bridge_moat_radio_toggled(self, checked):
@@ -855,7 +865,10 @@ class TorSettingsTab(QtWidgets.QWidget):
         settings.set("socks_address", self.connection_type_socks_address.text())
         settings.set("socks_port", self.connection_type_socks_port.text())
 
-        if self.authenticate_no_auth_checkbox.checkState() == QtCore.Qt.Checked:
+        if (
+            self.authenticate_no_auth_checkbox.checkState()
+            == QtCore.Qt.CheckState.Checked
+        ):
             settings.set("auth_type", "no_auth")
         else:
             settings.set("auth_type", "password")
@@ -863,7 +876,7 @@ class TorSettingsTab(QtWidgets.QWidget):
         settings.set("auth_password", self.authenticate_password_extras_password.text())
 
         # Whether we use bridges
-        if self.bridge_use_checkbox.checkState() == QtCore.Qt.Checked:
+        if self.bridge_use_checkbox.checkState() == QtCore.Qt.CheckState.Checked:
             settings.set("bridges_enabled", True)
 
             if self.bridge_builtin_radio.isChecked():

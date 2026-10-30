@@ -55,7 +55,9 @@ class TabWidget(QtWidgets.QTabWidget):
 
         # Define the new tab button
         self.new_tab_button = QtWidgets.QPushButton("+", parent=self)
-        self.new_tab_button.setShortcut(QtCore.Qt.CTRL | QtCore.Qt.Key_T)
+        self.new_tab_button.setShortcut(
+            QtCore.Qt.KeyboardModifier.ControlModifier | QtCore.Qt.Key.Key_T
+        )
         self.new_tab_button.setFlat(True)
         self.new_tab_button.setFixedSize(40, 30)
         self.new_tab_button.clicked.connect(self.new_tab_clicked)
@@ -179,7 +181,9 @@ class TabWidget(QtWidgets.QTabWidget):
             return
 
         tab_id = tab.tab_id
-        self.common.log("TabWidget", "check_autoconnect", f"Tab to check autoconnect: {tab_id}")
+        self.common.log(
+            "TabWidget", "check_autoconnect", f"Tab to check autoconnect: {tab_id}"
+        )
         if type(self.tabs[tab_id]) is AutoConnectTab:
             self.tabs[tab_id].check_autoconnect()
 
@@ -207,7 +211,9 @@ class TabWidget(QtWidgets.QTabWidget):
         index = self.addTab(tab, strings._("gui_new_tab"))
         self.setCurrentIndex(index)
 
-        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL | QtCore.Qt.Key_X)
+        sequence = QtGui.QKeySequence(
+            QtCore.Qt.KeyboardModifier.ControlModifier | QtCore.Qt.Key.Key_X
+        )
         close_shortcut = QtGui.QShortcut(sequence, tab)
         close_shortcut.activated.connect(lambda: self.close_tab(index))
 
@@ -260,7 +266,9 @@ class TabWidget(QtWidgets.QTabWidget):
             from_autoconnect=from_autoconnect,
         )
         settings_tab.close_this_tab.connect(self.close_settings_tab)
-        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL | QtCore.Qt.Key_X)
+        sequence = QtGui.QKeySequence(
+            QtCore.Qt.KeyboardModifier.ControlModifier | QtCore.Qt.Key.Key_X
+        )
         close_shortcut = QtGui.QShortcut(sequence, settings_tab)
         close_shortcut.activated.connect(self.close_settings_tab)
         self.tor_settings_tab = settings_tab.tor_settings_tab
@@ -299,12 +307,14 @@ class TabWidget(QtWidgets.QTabWidget):
         if is_persistent:
             self.tabBar().setTabButton(
                 index,
-                QtWidgets.QTabBar.LeftSide,
+                QtWidgets.QTabBar.ButtonPosition.LeftSide,
                 self.tabs[tab_id].persistent_image_label,
             )
         else:
             self.tabBar().setTabButton(
-                index, QtWidgets.QTabBar.LeftSide, self.tabs[tab_id].invisible_widget
+                index,
+                QtWidgets.QTabBar.ButtonPosition.LeftSide,
+                self.tabs[tab_id].invisible_widget,
             )
 
         self.save_persistent_tabs()
@@ -328,7 +338,9 @@ class TabWidget(QtWidgets.QTabWidget):
     def has_no_onionshare_tab(self):
         # Check if the last tab is closed, or there is only one tab
         # which is the settings tab
-        return self.count() == 0 or (self.count() == 1 and type(list(self.tabs.values())[0]) is SettingsParentTab)
+        return self.count() == 0 or (
+            self.count() == 1 and type(list(self.tabs.values())[0]) is SettingsParentTab
+        )
 
     def close_tab(self, index):
         self.common.log("TabWidget", "close_tab", f"{index}")

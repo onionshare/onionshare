@@ -57,11 +57,11 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         )
         if self.settings.get("persistent", "autostart_on_launch"):
             self.persistent_autostart_on_launch_checkbox.setCheckState(
-                QtCore.Qt.Checked
+                QtCore.Qt.CheckState.Checked
             )
         else:
             self.persistent_autostart_on_launch_checkbox.setCheckState(
-                QtCore.Qt.Unchecked
+                QtCore.Qt.CheckState.Unchecked
             )
 
         # Persistent
@@ -69,10 +69,10 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         self.persistent_checkbox.clicked.connect(self.persistent_checkbox_clicked)
         self.persistent_checkbox.setText(strings._("mode_settings_persistent_checkbox"))
         if self.settings.get("persistent", "enabled"):
-            self.persistent_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.persistent_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
             self.persistent_autostart_on_launch_checkbox.show()
         else:
-            self.persistent_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.persistent_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
             self.persistent_autostart_on_launch_checkbox.hide()
 
         # Public
@@ -80,9 +80,9 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         self.public_checkbox.clicked.connect(self.public_checkbox_clicked)
         self.public_checkbox.setText(strings._("mode_settings_public_checkbox"))
         if self.settings.get("general", "public"):
-            self.public_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.public_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
         else:
-            self.public_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.public_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
 
         # Title
         title_label = QtWidgets.QLabel(strings._("mode_settings_title_label"))
@@ -103,9 +103,9 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
             strings._("mode_settings_autostart_timer_checkbox")
         )
         if self.settings.get("general", "autostart_timer"):
-            self.autostart_timer_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.autostart_timer_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
         else:
-            self.autostart_timer_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.autostart_timer_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
 
         # The autostart timer widget
         self.autostart_timer_widget = QtWidgets.QDateTimeEdit()
@@ -113,7 +113,7 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         self.autostart_timer_widget.setDisplayFormat(timer_display_format)
         self.autostart_timer_reset()
         self.autostart_timer_widget.setCurrentSection(
-            QtWidgets.QDateTimeEdit.MinuteSection
+            QtWidgets.QDateTimeEdit.Section.MinuteSection
         )
         if self.settings.get("general", "autostart_timer"):
             self.autostart_timer_widget.show()
@@ -135,9 +135,9 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
             strings._("mode_settings_autostop_timer_checkbox")
         )
         if self.settings.get("general", "autostop_timer"):
-            self.autostop_timer_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.autostop_timer_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
         else:
-            self.autostop_timer_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.autostop_timer_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
 
         # The autostop timer widget
         self.autostop_timer_widget = QtWidgets.QDateTimeEdit()
@@ -145,7 +145,7 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         self.autostop_timer_widget.setDisplayFormat(timer_display_format)
         self.autostop_timer_reset()
         self.autostop_timer_widget.setCurrentSection(
-            QtWidgets.QDateTimeEdit.MinuteSection
+            QtWidgets.QDateTimeEdit.Section.MinuteSection
         )
         if self.settings.get("general", "autostop_timer"):
             self.autostop_timer_widget.show()
@@ -187,10 +187,10 @@ class ModeSettingsWidget(QtWidgets.QScrollArea):
         main_widget = QtWidgets.QWidget()
         main_widget.setLayout(layout)
 
-        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.setWidgetResizable(True)
-        self.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         self.setWidget(main_widget)
 
         self.update_ui()

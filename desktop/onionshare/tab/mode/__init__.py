@@ -112,7 +112,7 @@ class Mode(QtWidgets.QWidget):
         tor_not_connected_label = QtWidgets.QLabel(
             strings._("mode_tor_not_connected_label")
         )
-        tor_not_connected_label.setAlignment(QtCore.Qt.AlignHCenter)
+        tor_not_connected_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
         tor_not_connected_label.setStyleSheet(
             self.common.gui.css["tor_not_connected_label"]
         )
@@ -382,7 +382,7 @@ class Mode(QtWidgets.QWidget):
         """
         self.common.log("Mode", "start_server_error")
 
-        Alert(self.common, error, QtWidgets.QMessageBox.Warning)
+        Alert(self.common, error, QtWidgets.QMessageBox.Icon.Warning)
         self.set_server_active.emit(False)
         self.server_status.stop_server()
         self.status_bar.clearMessage()

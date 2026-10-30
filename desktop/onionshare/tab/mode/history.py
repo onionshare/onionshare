@@ -119,8 +119,8 @@ class ShareHistoryItem(HistoryItem):
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setTextVisible(True)
-        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress_bar.setAttribute(QtCore.Qt.WidgetAttribute.WA_DeleteOnClose)
+        self.progress_bar.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.progress_bar.setMinimum(0)
         self.progress_bar.setMaximum(total_bytes / 1024)
         self.progress_bar.setValue(0)
@@ -205,7 +205,9 @@ class ReceiveHistoryItemFile(QtWidgets.QWidget):
 
         # Folder button
         image = QtGui.QImage(GuiCommon.get_resource_path("images/open_folder.svg"))
-        scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
+        scaled_image = image.scaledToHeight(
+            15, QtCore.Qt.TransformationMode.SmoothTransformation
+        )
         folder_pixmap = QtGui.QPixmap.fromImage(scaled_image)
         folder_icon = QtGui.QIcon(folder_pixmap)
         self.folder_button = QtWidgets.QPushButton()
@@ -353,8 +355,8 @@ class ReceiveHistoryItem(HistoryItem):
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setTextVisible(True)
-        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress_bar.setAttribute(QtCore.Qt.WidgetAttribute.WA_DeleteOnClose)
+        self.progress_bar.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.progress_bar.setMinimum(0)
         self.progress_bar.setValue(0)
         self.progress_bar.setStyleSheet(
@@ -488,7 +490,7 @@ class IndividualFileHistoryItem(HistoryItem):
             self.common.gui.css["history_individual_file_timestamp_label"]
         )
         self.path_label = QtWidgets.QLabel()
-        self.path_label.setTextFormat(QtCore.Qt.PlainText)
+        self.path_label.setTextFormat(QtCore.Qt.TextFormat.PlainText)
         self.path_label.setStyleSheet(self.common.gui.css["history_default_label"])
         self.path_label.setWordWrap(True)
         self.path_label.setMaximumWidth(250)
@@ -500,8 +502,8 @@ class IndividualFileHistoryItem(HistoryItem):
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setTextVisible(True)
-        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress_bar.setAttribute(QtCore.Qt.WidgetAttribute.WA_DeleteOnClose)
+        self.progress_bar.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.progress_bar.setValue(0)
         self.progress_bar.setStyleSheet(
             self.common.gui.css["downloads_uploads_progress_bar"]
@@ -598,11 +600,15 @@ class HistoryItemList(QtWidgets.QScrollArea):
         # The layout that holds all of the items
         self.items_layout = QtWidgets.QVBoxLayout()
         self.items_layout.setContentsMargins(0, 0, 0, 0)
-        self.items_layout.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
+        self.items_layout.setSizeConstraint(
+            QtWidgets.QLayout.SizeConstraint.SetMinAndMaxSize
+        )
 
         # Wrapper layout that also contains a stretch
         wrapper_layout = QtWidgets.QVBoxLayout()
-        wrapper_layout.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
+        wrapper_layout.setSizeConstraint(
+            QtWidgets.QLayout.SizeConstraint.SetMinAndMaxSize
+        )
         wrapper_layout.addLayout(self.items_layout)
         wrapper_layout.addStretch()
 
@@ -613,8 +619,8 @@ class HistoryItemList(QtWidgets.QScrollArea):
         self.setWidgetResizable(True)
 
         # Other scroll area settings
-        self.setBackgroundRole(QtGui.QPalette.Light)
-        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.setBackgroundRole(QtGui.QPalette.ColorRole.Light)
+        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.verticalScrollBar().rangeChanged.connect(self.resizeScroll)
 
     def resizeScroll(self, minimum, maximum):
@@ -707,10 +713,10 @@ class History(QtWidgets.QWidget):
 
         # When there are no items
         self.empty_image = QtWidgets.QLabel()
-        self.empty_image.setAlignment(QtCore.Qt.AlignCenter)
+        self.empty_image.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.empty_image.setPixmap(empty_image)
         self.empty_text = QtWidgets.QLabel(empty_text)
-        self.empty_text.setAlignment(QtCore.Qt.AlignCenter)
+        self.empty_text.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.empty_text.setStyleSheet(
             self.common.gui.css["downloads_uploads_empty_text"]
         )
@@ -948,7 +954,8 @@ class DownloadHistoryItem(HistoryItem):
         )
 
         self.setSizePolicy(
-            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred
+            QtWidgets.QSizePolicy.Policy.Expanding,
+            QtWidgets.QSizePolicy.Policy.Preferred,
         )
 
         # Label
@@ -966,7 +973,7 @@ class DownloadHistoryItem(HistoryItem):
         self.url_label.setMinimumWidth(0)
         self.url_label.setMaximumWidth(250)
         self.url_label.setSizePolicy(
-            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Preferred
+            QtWidgets.QSizePolicy.Policy.Ignored, QtWidgets.QSizePolicy.Policy.Preferred
         )
         self.url_label.setStyleSheet(self.common.gui.css["history_default_label"])
         self.url_text = self.common.gui.wrap_text(self.url_label, self.url)
@@ -975,8 +982,8 @@ class DownloadHistoryItem(HistoryItem):
         # Progress bar
         self.progress_bar = QtWidgets.QProgressBar()
         self.progress_bar.setTextVisible(True)
-        self.progress_bar.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.progress_bar.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress_bar.setAttribute(QtCore.Qt.WidgetAttribute.WA_DeleteOnClose)
+        self.progress_bar.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.progress_bar.setMinimum(0)
         self.progress_bar.setRange(0, 0)
         self.progress_bar.setValue(0)
@@ -1031,7 +1038,8 @@ class DownloadHistoryItem(HistoryItem):
             self.filename_label.setMinimumWidth(0)
             self.filename_label.setMaximumWidth(220)
             self.filename_label.setSizePolicy(
-                QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Preferred
+                QtWidgets.QSizePolicy.Policy.Ignored,
+                QtWidgets.QSizePolicy.Policy.Preferred,
             )
             self.filename_label.setStyleSheet(
                 self.common.gui.css["history_default_label"]
@@ -1048,7 +1056,9 @@ class DownloadHistoryItem(HistoryItem):
 
             # Folder button
             image = QtGui.QImage(GuiCommon.get_resource_path("images/open_folder.svg"))
-            scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
+            scaled_image = image.scaledToHeight(
+                15, QtCore.Qt.TransformationMode.SmoothTransformation
+            )
             folder_pixmap = QtGui.QPixmap.fromImage(scaled_image)
             folder_icon = QtGui.QIcon(folder_pixmap)
             self.folder_button = QtWidgets.QPushButton()

@@ -76,7 +76,7 @@ class ReceiveMode(Mode):
         data_dir_button.clicked.connect(self.data_dir_button_clicked)
         self.data_dir_lineedit.setMinimumWidth(0)
         self.data_dir_lineedit.setSizePolicy(
-            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Fixed
+            QtWidgets.QSizePolicy.Policy.Ignored, QtWidgets.QSizePolicy.Policy.Fixed
         )
         data_dir_path_layout = QtWidgets.QHBoxLayout()
         data_dir_path_layout.setContentsMargins(0, 0, 0, 0)
@@ -102,7 +102,9 @@ class ReceiveMode(Mode):
         self.disable_files_checkbox.setText(
             strings._("mode_settings_receive_disable_files_checkbox")
         )
-        self.disable_files_checkbox.setStyleSheet(self.common.gui.css["receive_options"])
+        self.disable_files_checkbox.setStyleSheet(
+            self.common.gui.css["receive_options"]
+        )
         self.disable_text_checkbox.setMinimumWidth(0)
         self.disable_files_checkbox.setMinimumWidth(0)
         disable_layout = QtWidgets.QHBoxLayout()
@@ -156,17 +158,23 @@ class ReceiveMode(Mode):
         # Load the saved maximum upload size, if any
         max_upload_size = self.settings.get("receive", "max_upload_size")
         if max_upload_size > 0:
-            self.max_upload_size_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.max_upload_size_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
             self.max_upload_size_total_checkbox.setEnabled(True)
             if self.settings.get("receive", "max_upload_size_total"):
-                self.max_upload_size_total_checkbox.setCheckState(QtCore.Qt.Checked)
+                self.max_upload_size_total_checkbox.setCheckState(
+                    QtCore.Qt.CheckState.Checked
+                )
             else:
-                self.max_upload_size_total_checkbox.setCheckState(QtCore.Qt.Unchecked)
+                self.max_upload_size_total_checkbox.setCheckState(
+                    QtCore.Qt.CheckState.Unchecked
+                )
             self.set_max_upload_size_widgets(max_upload_size)
             self.show_max_upload_size()
         else:
-            self.max_upload_size_checkbox.setCheckState(QtCore.Qt.Unchecked)
-            self.max_upload_size_total_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.max_upload_size_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
+            self.max_upload_size_total_checkbox.setCheckState(
+                QtCore.Qt.CheckState.Unchecked
+            )
             self.max_upload_size_total_checkbox.setEnabled(False)
             self.set_max_upload_size_widgets(5 * 1024**2)
             self.hide_max_upload_size()
@@ -196,13 +204,13 @@ class ReceiveMode(Mode):
         webhook_url_layout.addWidget(self.webhook_url_checkbox)
         webhook_url_layout.addWidget(self.webhook_url_lineedit)
         if webhook_url is not None and webhook_url != "":
-            self.webhook_url_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.webhook_url_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
             self.webhook_url_lineedit.setText(
                 self.settings.get("receive", "webhook_url")
             )
             self.show_webhook_url()
         else:
-            self.webhook_url_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.webhook_url_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
             self.hide_webhook_url()
         self.mode_settings_widget.mode_specific_layout.addLayout(webhook_url_layout)
 
@@ -239,9 +247,15 @@ class ReceiveMode(Mode):
             self.common,
             self,
             self.history,
-            QtGui.QIcon(GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_icon_toggle.svg")),
             QtGui.QIcon(
-                GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_icon_toggle_selected.svg")
+                GuiCommon.get_resource_path(
+                    f"images/{self.common.gui.color_mode}_history_icon_toggle.svg"
+                )
+            ),
+            QtGui.QIcon(
+                GuiCommon.get_resource_path(
+                    f"images/{self.common.gui.color_mode}_history_icon_toggle_selected.svg"
+                )
             ),
         )
 
@@ -342,7 +356,7 @@ class ReceiveMode(Mode):
                 Alert(
                     self.common,
                     strings._("gui_receive_data_dir_not_writable").format(selected_dir),
-                    QtWidgets.QMessageBox.Warning,
+                    QtWidgets.QMessageBox.Icon.Warning,
                 )
                 return
 
@@ -401,7 +415,9 @@ class ReceiveMode(Mode):
             self.save_max_upload_size()
         else:
             self.hide_max_upload_size()
-            self.max_upload_size_total_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.max_upload_size_total_checkbox.setCheckState(
+                QtCore.Qt.CheckState.Unchecked
+            )
             self.max_upload_size_total_checkbox.setEnabled(False)
             self.settings.set("receive", "max_upload_size", 0)
             self.settings.set("receive", "max_upload_size_total", False)
@@ -483,7 +499,7 @@ class ReceiveMode(Mode):
             Alert(
                 self.common,
                 strings._("gui_receive_data_dir_not_writable").format(data_dir),
-                QtWidgets.QMessageBox.Warning,
+                QtWidgets.QMessageBox.Icon.Warning,
             )
             return
         super().start_server()
@@ -502,7 +518,7 @@ class ReceiveMode(Mode):
         if self.common.gui.local_only:
             self.web.proxies = None
         else:
-            (socks_address, socks_port) = self.common.gui.onion.get_tor_socks_port()
+            socks_address, socks_port = self.common.gui.onion.get_tor_socks_port()
             self.web.proxies = {
                 "http": f"socks5h://{socks_address}:{socks_port}",
                 "https": f"socks5h://{socks_address}:{socks_port}",
