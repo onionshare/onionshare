@@ -163,7 +163,18 @@ class TestTimerLocale(unittest.TestCase):
     def test_set_datetime_round_trips_through_the_widget(self):
         # The GUI tests set a timer via setDateTime() and compare against
         # dateTime(), so the new display format must not corrupt the value
-        for code in ["en", "fr", "de", "nb_NO", "ja", "zh_Hans", "ru", "ar", "pt_BR", "zh_Hant"]:
+        for code in [
+            "en",
+            "fr",
+            "de",
+            "nb_NO",
+            "ja",
+            "zh_Hans",
+            "ru",
+            "ar",
+            "pt_BR",
+            "zh_Hant",
+        ]:
             self.common.settings.set("locale", code)
             widget = self.make_mode_settings_widget()
             widget.autostart_timer_widget.setDateTime(FIXED_DATETIME)
@@ -173,7 +184,7 @@ class TestTimerLocale(unittest.TestCase):
                 f"Round-trip failed for locale {code!r}",
             )
             widget.autostart_timer_widget.setCurrentSection(
-                QtWidgets.QDateTimeEdit.MinuteSection
+                QtWidgets.QDateTimeEdit.Section.MinuteSection
             )
             self.assertEqual(
                 widget.autostart_timer_widget.dateTime(),

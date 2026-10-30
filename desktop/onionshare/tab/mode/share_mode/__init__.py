@@ -57,9 +57,9 @@ class ShareMode(Mode):
             strings._("mode_settings_share_autostop_sharing_checkbox")
         )
         if self.settings.get("share", "autostop_sharing"):
-            self.autostop_sharing_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.autostop_sharing_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
         else:
-            self.autostop_sharing_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.autostop_sharing_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
 
         self.mode_settings_widget.mode_specific_layout.addWidget(
             self.autostop_sharing_checkbox
@@ -135,9 +135,15 @@ class ShareMode(Mode):
             self.common,
             self,
             self.history,
-            QtGui.QIcon(GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_icon_toggle.svg")),
             QtGui.QIcon(
-                GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_icon_toggle_selected.svg")
+                GuiCommon.get_resource_path(
+                    f"images/{self.common.gui.color_mode}_history_icon_toggle.svg"
+                )
+            ),
+            QtGui.QIcon(
+                GuiCommon.get_resource_path(
+                    f"images/{self.common.gui.color_mode}_history_icon_toggle_selected.svg"
+                )
             ),
         )
 

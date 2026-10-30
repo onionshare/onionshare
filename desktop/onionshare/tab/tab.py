@@ -46,11 +46,13 @@ class NewTabButton(QtWidgets.QPushButton):
         self.setMinimumSize(210, 208)
         self.setMaximumSize(240, 220)
         self.setSizePolicy(
-            QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed
+            QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Fixed
         )
 
         # Keyboard shortcut, using the first letter of the mode
-        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL | shortcut)
+        sequence = QtGui.QKeySequence(
+            QtCore.Qt.KeyboardModifier.ControlModifier | shortcut
+        )
         self.setShortcut(sequence)
 
         self.setAccessibleName(title)
@@ -66,7 +68,7 @@ class NewTabButton(QtWidgets.QPushButton):
                 QtGui.QImage(GuiCommon.get_resource_path(image_filename))
             )
         )
-        self.image_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.image_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.image_label.setStyleSheet(self.common.gui.css["new_tab_button_image"])
         self.image_label.setMinimumHeight(100)
         self.image_label.setMaximumHeight(108)
@@ -75,7 +77,7 @@ class NewTabButton(QtWidgets.QPushButton):
         # Title
         self.title_label = QtWidgets.QLabel(title, parent=self)
         self.title_label.setWordWrap(True)
-        self.title_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.title_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.title_label.setStyleSheet(self.common.gui.css["new_tab_title_text"])
         self.title_label.setMinimumHeight(36)
         button_layout.addWidget(self.title_label)
@@ -83,7 +85,7 @@ class NewTabButton(QtWidgets.QPushButton):
         # Text
         self.text_label = QtWidgets.QLabel(text, parent=self)
         self.text_label.setWordWrap(True)
-        self.text_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.text_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.text_label.setStyleSheet(self.common.gui.css["new_tab_button_text"])
         self.text_label.setMinimumHeight(32)
         button_layout.addWidget(self.text_label)
@@ -126,7 +128,7 @@ class NewTabModeGrid(QtWidgets.QWidget):
             offset = columns - row_items
             column = offset + column_in_row * 2
             self.grid_layout.addWidget(
-                button, row, column, 1, 2, QtCore.Qt.AlignCenter
+                button, row, column, 1, 2, QtCore.Qt.AlignmentFlag.AlignCenter
             )
 
 
@@ -145,13 +147,15 @@ class NewTabModeChooser(QtWidgets.QWidget):
                 )
             )
         )
-        logo_label.setAlignment(QtCore.Qt.AlignCenter)
+        logo_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
         self.mode_grid = NewTabModeGrid(buttons)
         mode_scroll_area = QtWidgets.QScrollArea()
         mode_scroll_area.setWidgetResizable(True)
-        mode_scroll_area.setFrameShape(QtWidgets.QFrame.NoFrame)
-        mode_scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        mode_scroll_area.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
+        mode_scroll_area.setHorizontalScrollBarPolicy(
+            QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff
+        )
         mode_scroll_area.setWidget(self.mode_grid)
 
         layout = QtWidgets.QVBoxLayout(self)
@@ -204,7 +208,7 @@ class Tab(QtWidgets.QWidget):
             "images/{}_mode_new_tab_share.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_share_button"),
             strings._("gui_main_page_share_button"),
-            QtCore.Qt.Key_S,
+            QtCore.Qt.Key.Key_S,
         )
         self.share_button.clicked.connect(self.share_mode_clicked)
 
@@ -213,7 +217,7 @@ class Tab(QtWidgets.QWidget):
             "images/{}_mode_new_tab_receive.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_receive_button"),
             strings._("gui_main_page_receive_button"),
-            QtCore.Qt.Key_R,
+            QtCore.Qt.Key.Key_R,
         )
         self.receive_button.clicked.connect(self.receive_mode_clicked)
 
@@ -222,7 +226,7 @@ class Tab(QtWidgets.QWidget):
             "images/{}_mode_new_tab_website.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_website_button"),
             strings._("gui_main_page_website_button"),
-            QtCore.Qt.Key_W,
+            QtCore.Qt.Key.Key_W,
         )
         self.website_button.clicked.connect(self.website_mode_clicked)
 
@@ -231,7 +235,7 @@ class Tab(QtWidgets.QWidget):
             "images/{}_mode_new_tab_chat.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_chat_button"),
             strings._("gui_main_page_chat_button"),
-            QtCore.Qt.Key_C,
+            QtCore.Qt.Key.Key_C,
         )
         self.chat_button.clicked.connect(self.chat_mode_clicked)
 
@@ -240,7 +244,7 @@ class Tab(QtWidgets.QWidget):
             "images/{}_mode_new_tab_download.png".format(self.common.gui.color_mode),
             strings._("gui_new_tab_download_button"),
             strings._("gui_main_page_download_button"),
-            QtCore.Qt.Key_D,
+            QtCore.Qt.Key.Key_D,
         )
         self.download_button.clicked.connect(self.download_mode_clicked)
 
@@ -273,19 +277,23 @@ class Tab(QtWidgets.QWidget):
                 f"images/{self.common.gui.color_mode}_persistent_enabled.svg"
             )
         )
-        scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
+        scaled_image = image.scaledToHeight(
+            15, QtCore.Qt.TransformationMode.SmoothTransformation
+        )
         self.persistent_image_label.setPixmap(QtGui.QPixmap.fromImage(scaled_image))
 
         # Create the close warning dialog -- the dialog widget needs to be in the constructor
         # in order to test it
         self.close_dialog = QtWidgets.QMessageBox()
         self.close_dialog.setWindowTitle(strings._("gui_close_tab_warning_title"))
-        self.close_dialog.setIcon(QtWidgets.QMessageBox.Critical)
+        self.close_dialog.setIcon(QtWidgets.QMessageBox.Icon.Critical)
         self.close_dialog.accept_button = self.close_dialog.addButton(
-            strings._("gui_close_tab_warning_close"), QtWidgets.QMessageBox.AcceptRole
+            strings._("gui_close_tab_warning_close"),
+            QtWidgets.QMessageBox.ButtonRole.AcceptRole,
         )
         self.close_dialog.reject_button = self.close_dialog.addButton(
-            strings._("gui_close_tab_warning_cancel"), QtWidgets.QMessageBox.RejectRole
+            strings._("gui_close_tab_warning_cancel"),
+            QtWidgets.QMessageBox.ButtonRole.RejectRole,
         )
         self.close_dialog.setDefaultButton(self.close_dialog.reject_button)
 
@@ -578,7 +586,9 @@ class Tab(QtWidgets.QWidget):
             self.tab_id, f"images/{self.common.gui.color_mode}_server_stopped.svg"
         )
         image = self.status_bar.server_status_image_stopped
-        scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
+        scaled_image = image.scaledToHeight(
+            15, QtCore.Qt.TransformationMode.SmoothTransformation
+        )
         self.status_bar.server_status_image_label.setPixmap(
             QtGui.QPixmap.fromImage(scaled_image)
         )
@@ -587,7 +597,9 @@ class Tab(QtWidgets.QWidget):
     def set_server_status_indicator_working(self, label_text):
         self.change_icon.emit(self.tab_id, "images/server_working.svg")
         image = self.status_bar.server_status_image_working
-        scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
+        scaled_image = image.scaledToHeight(
+            15, QtCore.Qt.TransformationMode.SmoothTransformation
+        )
         self.status_bar.server_status_image_label.setPixmap(
             QtGui.QPixmap.fromImage(scaled_image)
         )
@@ -596,7 +608,9 @@ class Tab(QtWidgets.QWidget):
     def set_server_status_indicator_started(self, label_text):
         self.change_icon.emit(self.tab_id, "images/server_started.svg")
         image = self.status_bar.server_status_image_started
-        scaled_image = image.scaledToHeight(15, QtCore.Qt.SmoothTransformation)
+        scaled_image = image.scaledToHeight(
+            15, QtCore.Qt.TransformationMode.SmoothTransformation
+        )
         self.status_bar.server_status_image_label.setPixmap(
             QtGui.QPixmap.fromImage(scaled_image)
         )

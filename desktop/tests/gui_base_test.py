@@ -163,7 +163,9 @@ class GuiBaseTest(unittest.TestCase):
         for _ in range(self.gui.tabs.count()):
             tab = self.gui.tabs.widget(0)
             QtCore.QTimer.singleShot(200, tab.close_dialog.accept_button.click)
-            self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+            self.gui.tabs.tabBar().tabButton(
+                0, QtWidgets.QTabBar.ButtonPosition.RightSide
+            ).click()
 
     def gui_loaded(self):
         """Test that the GUI actually is shown"""

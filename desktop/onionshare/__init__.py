@@ -70,9 +70,9 @@ class Application(QtWidgets.QApplication):
 
     def eventFilter(self, obj, event):
         if (
-            event.type() == QtCore.QEvent.KeyPress
-            and event.key() == QtCore.Qt.Key_Q
-            and event.modifiers() == QtCore.Qt.ControlModifier
+            event.type() == QtCore.QEvent.Type.KeyPress
+            and event.key() == QtCore.Qt.Key.Key_Q
+            and event.modifiers() == QtCore.Qt.KeyboardModifier.ControlModifier
         ):
             self.quit()
         return False
@@ -84,41 +84,41 @@ class Application(QtWidgets.QApplication):
 
     def setLightMode(self):
         light_palette = QPalette()
-        light_palette.setColor(QPalette.Window, QColor(236, 236, 236))
-        light_palette.setColor(QPalette.WindowText, Qt.black)
-        light_palette.setColor(QPalette.Base, Qt.white)
-        light_palette.setColor(QPalette.AlternateBase, QColor(245, 245, 245))
-        light_palette.setColor(QPalette.ToolTipBase, Qt.white)
-        light_palette.setColor(QPalette.ToolTipText, Qt.black)
-        light_palette.setColor(QPalette.Text, Qt.black)
-        light_palette.setColor(QPalette.Button, QColor(236, 236, 236))
-        light_palette.setColor(QPalette.ButtonText, Qt.black)
-        light_palette.setColor(QPalette.BrightText, Qt.white)
-        light_palette.setColor(QPalette.Link, QColor(0, 104, 218))
-        light_palette.setColor(QPalette.Highlight, QColor(179, 215, 255))
-        light_palette.setColor(QPalette.HighlightedText, Qt.black)
-        light_palette.setColor(QPalette.Light, Qt.white)
-        light_palette.setColor(QPalette.Midlight, QColor(245, 245, 245))
-        light_palette.setColor(QPalette.Dark, QColor(191, 191, 191))
-        light_palette.setColor(QPalette.Mid, QColor(169, 169, 169))
-        light_palette.setColor(QPalette.Shadow, Qt.black)
+        light_palette.setColor(QPalette.ColorRole.Window, QColor(236, 236, 236))
+        light_palette.setColor(QPalette.ColorRole.WindowText, Qt.GlobalColor.black)
+        light_palette.setColor(QPalette.ColorRole.Base, Qt.GlobalColor.white)
+        light_palette.setColor(QPalette.ColorRole.AlternateBase, QColor(245, 245, 245))
+        light_palette.setColor(QPalette.ColorRole.ToolTipBase, Qt.GlobalColor.white)
+        light_palette.setColor(QPalette.ColorRole.ToolTipText, Qt.GlobalColor.black)
+        light_palette.setColor(QPalette.ColorRole.Text, Qt.GlobalColor.black)
+        light_palette.setColor(QPalette.ColorRole.Button, QColor(236, 236, 236))
+        light_palette.setColor(QPalette.ColorRole.ButtonText, Qt.GlobalColor.black)
+        light_palette.setColor(QPalette.ColorRole.BrightText, Qt.GlobalColor.white)
+        light_palette.setColor(QPalette.ColorRole.Link, QColor(0, 104, 218))
+        light_palette.setColor(QPalette.ColorRole.Highlight, QColor(179, 215, 255))
+        light_palette.setColor(QPalette.ColorRole.HighlightedText, Qt.GlobalColor.black)
+        light_palette.setColor(QPalette.ColorRole.Light, Qt.GlobalColor.white)
+        light_palette.setColor(QPalette.ColorRole.Midlight, QColor(245, 245, 245))
+        light_palette.setColor(QPalette.ColorRole.Dark, QColor(191, 191, 191))
+        light_palette.setColor(QPalette.ColorRole.Mid, QColor(169, 169, 169))
+        light_palette.setColor(QPalette.ColorRole.Shadow, Qt.GlobalColor.black)
         self.setPalette(light_palette)
 
     def setDarkMode(self):
         dark_palette = QPalette()
-        dark_palette.setColor(QPalette.Window, QColor(53, 53, 53))
-        dark_palette.setColor(QPalette.WindowText, Qt.white)
-        dark_palette.setColor(QPalette.Base, QColor(25, 25, 25))
-        dark_palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-        dark_palette.setColor(QPalette.ToolTipBase, Qt.white)
-        dark_palette.setColor(QPalette.ToolTipText, Qt.white)
-        dark_palette.setColor(QPalette.Text, Qt.white)
-        dark_palette.setColor(QPalette.Button, QColor(53, 53, 53))
-        dark_palette.setColor(QPalette.ButtonText, Qt.white)
-        dark_palette.setColor(QPalette.BrightText, Qt.red)
-        dark_palette.setColor(QPalette.Link, QColor(42, 130, 218))
-        dark_palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
-        dark_palette.setColor(QPalette.HighlightedText, Qt.black)
+        dark_palette.setColor(QPalette.ColorRole.Window, QColor(53, 53, 53))
+        dark_palette.setColor(QPalette.ColorRole.WindowText, Qt.GlobalColor.white)
+        dark_palette.setColor(QPalette.ColorRole.Base, QColor(25, 25, 25))
+        dark_palette.setColor(QPalette.ColorRole.AlternateBase, QColor(53, 53, 53))
+        dark_palette.setColor(QPalette.ColorRole.ToolTipBase, Qt.GlobalColor.white)
+        dark_palette.setColor(QPalette.ColorRole.ToolTipText, Qt.GlobalColor.white)
+        dark_palette.setColor(QPalette.ColorRole.Text, Qt.GlobalColor.white)
+        dark_palette.setColor(QPalette.ColorRole.Button, QColor(53, 53, 53))
+        dark_palette.setColor(QPalette.ColorRole.ButtonText, Qt.GlobalColor.white)
+        dark_palette.setColor(QPalette.ColorRole.BrightText, Qt.GlobalColor.red)
+        dark_palette.setColor(QPalette.ColorRole.Link, QColor(42, 130, 218))
+        dark_palette.setColor(QPalette.ColorRole.Highlight, QColor(42, 130, 218))
+        dark_palette.setColor(QPalette.ColorRole.HighlightedText, Qt.GlobalColor.black)
         self.setPalette(dark_palette)
         self.setStyleSheet(
             "QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }"

@@ -36,19 +36,19 @@ class Alert(QtWidgets.QMessageBox):
     # "OK" always show up in English, regardless of the user's chosen
     # OnionShare locale (see #984). Re-label them using our own strings.
     standard_button_strings = {
-        QtWidgets.QMessageBox.Ok: "gui_alert_button_ok",
-        QtWidgets.QMessageBox.Cancel: "gui_alert_button_cancel",
-        QtWidgets.QMessageBox.Yes: "gui_alert_button_yes",
-        QtWidgets.QMessageBox.No: "gui_alert_button_no",
-        QtWidgets.QMessageBox.Close: "gui_alert_button_close",
+        QtWidgets.QMessageBox.StandardButton.Ok: "gui_alert_button_ok",
+        QtWidgets.QMessageBox.StandardButton.Cancel: "gui_alert_button_cancel",
+        QtWidgets.QMessageBox.StandardButton.Yes: "gui_alert_button_yes",
+        QtWidgets.QMessageBox.StandardButton.No: "gui_alert_button_no",
+        QtWidgets.QMessageBox.StandardButton.Close: "gui_alert_button_close",
     }
 
     def __init__(
         self,
         common,
         message,
-        icon=QtWidgets.QMessageBox.NoIcon,
-        buttons=QtWidgets.QMessageBox.Ok,
+        icon=QtWidgets.QMessageBox.Icon.NoIcon,
+        buttons=QtWidgets.QMessageBox.StandardButton.Ok,
         autostart=True,
         title="OnionShare",
     ):
@@ -93,9 +93,13 @@ class AddFileDialog(QtWidgets.QFileDialog):
         self.setOption(self.Option.ShowDirsOnly, False)
         self.setFileMode(self.FileMode.ExistingFiles)
         tree_view = self.findChild(QtWidgets.QTreeView)
-        tree_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        tree_view.setSelectionMode(
+            QtWidgets.QAbstractItemView.SelectionMode.ExtendedSelection
+        )
         list_view = self.findChild(QtWidgets.QListView, "listView")
-        list_view.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        list_view.setSelectionMode(
+            QtWidgets.QAbstractItemView.SelectionMode.ExtendedSelection
+        )
 
     def accept(self):
         self.common.log("AddFileDialog", "accept")
@@ -123,8 +127,8 @@ class Image(qrcode.image.base.BaseImage):
         self.width = width
         self.box_size = box_size
         size = (width + border * 2) * box_size
-        self._image = QtGui.QImage(size, size, QtGui.QImage.Format_RGB16)
-        self._image.fill(QtCore.Qt.white)
+        self._image = QtGui.QImage(size, size, QtGui.QImage.Format.Format_RGB16)
+        self._image.fill(QtCore.Qt.GlobalColor.white)
 
     def pixmap(self):
         return QtGui.QPixmap.fromImage(self._image)
@@ -136,7 +140,7 @@ class Image(qrcode.image.base.BaseImage):
             (row + self.border) * self.box_size,
             self.box_size,
             self.box_size,
-            QtCore.Qt.black,
+            QtCore.Qt.GlobalColor.black,
         )
 
     def save(self, stream, kind=None):
@@ -157,7 +161,7 @@ class QRCodeDialog(QtWidgets.QDialog):
 
         self.qr_label_title = QtWidgets.QLabel(self)
         self.qr_label_title.setText(title)
-        self.qr_label_title.setAlignment(QtCore.Qt.AlignCenter)
+        self.qr_label_title.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
         self.qr_label = QtWidgets.QLabel(self)
         self.qr_label.setPixmap(qrcode.make(text, image_factory=Image).pixmap())
