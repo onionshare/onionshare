@@ -58,7 +58,7 @@ class TorConnectionWidget(QtWidgets.QWidget):
 
         self.status_bar = status_bar
         self.label = QtWidgets.QLabel(strings._("connecting_to_tor"))
-        self.label.setAlignment(QtCore.Qt.AlignHCenter)
+        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
 
         self.progress = QtWidgets.QProgressBar()
         self.progress.setRange(0, 100)

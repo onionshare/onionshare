@@ -81,7 +81,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Server status indicator icons
         self.status_bar.server_status_image_stopped = QtGui.QImage(
-            GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_server_stopped.svg")
+            GuiCommon.get_resource_path(
+                f"images/{self.common.gui.color_mode}_server_stopped.svg"
+            )
         )
         self.status_bar.server_status_image_working = QtGui.QImage(
             GuiCommon.get_resource_path("images/server_working.svg")
@@ -119,7 +121,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 )
             )
         )
-        sequence = QtGui.QKeySequence(QtCore.Qt.CTRL | QtCore.Qt.Key_H)
+        sequence = QtGui.QKeySequence(
+            QtCore.Qt.KeyboardModifier.ControlModifier | QtCore.Qt.Key.Key_H
+        )
         self.settings_button.setShortcut(sequence)
         self.settings_button.setAccessibleName(strings._("gui_settings_window_title"))
         self.settings_button.clicked.connect(self.open_settings)
@@ -159,12 +163,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.close_dialog = QtWidgets.QMessageBox()
         self.close_dialog.setWindowTitle(strings._("gui_quit_warning_title"))
         self.close_dialog.setText(strings._("gui_quit_warning_description"))
-        self.close_dialog.setIcon(QtWidgets.QMessageBox.Critical)
+        self.close_dialog.setIcon(QtWidgets.QMessageBox.Icon.Critical)
         self.close_dialog.accept_button = self.close_dialog.addButton(
-            strings._("gui_quit_warning_quit"), QtWidgets.QMessageBox.AcceptRole
+            strings._("gui_quit_warning_quit"),
+            QtWidgets.QMessageBox.ButtonRole.AcceptRole,
         )
         self.close_dialog.reject_button = self.close_dialog.addButton(
-            strings._("gui_quit_warning_cancel"), QtWidgets.QMessageBox.NoRole
+            strings._("gui_quit_warning_cancel"),
+            QtWidgets.QMessageBox.ButtonRole.NoRole,
         )
         self.close_dialog.setDefaultButton(self.close_dialog.reject_button)
 
@@ -182,8 +188,8 @@ class MainWindow(QtWidgets.QMainWindow):
             a = Alert(
                 self.common,
                 strings._("gui_tor_connection_ask"),
-                QtWidgets.QMessageBox.Question,
-                buttons=QtWidgets.QMessageBox.NoButton,
+                QtWidgets.QMessageBox.Icon.Question,
+                buttons=QtWidgets.QMessageBox.StandardButton.NoButton,
                 autostart=False,
             )
             settings_button = QtWidgets.QPushButton(
@@ -192,8 +198,8 @@ class MainWindow(QtWidgets.QMainWindow):
             quit_button = QtWidgets.QPushButton(
                 strings._("gui_tor_connection_ask_quit")
             )
-            a.addButton(settings_button, QtWidgets.QMessageBox.AcceptRole)
-            a.addButton(quit_button, QtWidgets.QMessageBox.RejectRole)
+            a.addButton(settings_button, QtWidgets.QMessageBox.ButtonRole.AcceptRole)
+            a.addButton(quit_button, QtWidgets.QMessageBox.ButtonRole.RejectRole)
             a.setDefaultButton(settings_button)
             a.exec()
 
@@ -285,7 +291,7 @@ class MainWindow(QtWidgets.QMainWindow):
         Open the color mode warning alert.
         """
         notice = strings._("gui_color_mode_changed_notice")
-        Alert(self.common, notice, QtWidgets.QMessageBox.Information)
+        Alert(self.common, notice, QtWidgets.QMessageBox.Icon.Information)
 
     def cleanup(self):
         self.common.log("MainWindow", "cleanup")
@@ -294,14 +300,14 @@ class MainWindow(QtWidgets.QMainWindow):
         alert = Alert(
             self.common,
             strings._("gui_rendezvous_cleanup"),
-            QtWidgets.QMessageBox.Information,
-            buttons=QtWidgets.QMessageBox.NoButton,
+            QtWidgets.QMessageBox.Icon.Information,
+            buttons=QtWidgets.QMessageBox.StandardButton.NoButton,
             autostart=False,
         )
         quit_early_button = QtWidgets.QPushButton(
             strings._("gui_rendezvous_cleanup_quit_early")
         )
-        alert.addButton(quit_early_button, QtWidgets.QMessageBox.RejectRole)
+        alert.addButton(quit_early_button, QtWidgets.QMessageBox.ButtonRole.RejectRole)
 
         self.onion_cleanup_thread = OnionCleanupThread(self.common)
         self.onion_cleanup_thread.finished.connect(alert.accept)

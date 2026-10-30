@@ -29,7 +29,9 @@ class TestTabs(GuiBaseTest):
         QtCore.QTimer.singleShot(0, tab.close_dialog.reject_button.click)
 
         # Close tab
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
 
         # The tab should still be open
         self.assertFalse(tab.new_tab.isVisible())
@@ -39,7 +41,9 @@ class TestTabs(GuiBaseTest):
         QtCore.QTimer.singleShot(0, tab.close_dialog.accept_button.click)
 
         # Close tab
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
 
         # The tab should be closed
         self.assertTrue(self.gui.tabs.widget(0).new_tab.isVisible())
@@ -59,7 +63,9 @@ class TestTabs(GuiBaseTest):
         QtCore.QTimer.singleShot(0, tab.close_dialog.reject_button.click)
 
         # Close tab
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
 
         # The tab should still be open
         self.assertFalse(tab.new_tab.isVisible())
@@ -72,7 +78,9 @@ class TestTabs(GuiBaseTest):
         QtCore.QTimer.singleShot(0, tab.close_dialog.accept_button.click)
 
         # Close tab
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
 
         # The tab should be closed
         self.assertTrue(self.gui.tabs.widget(0).new_tab.isVisible())
@@ -102,9 +110,15 @@ class TestTabs(GuiBaseTest):
     def test_04_close_tab_button_closes_tabs(self):
         """Clicking the "x" button should close tabs"""
         self.assertEqual(self.gui.tabs.count(), 4)
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
         self.assertEqual(self.gui.tabs.count(), 1)
 
     def test_05_closing_last_tab_opens_new_one(self):
@@ -117,7 +131,9 @@ class TestTabs(GuiBaseTest):
         self.assertTrue(self.gui.tabs.widget(0).share_mode.isVisible())
 
         # Close the tab
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
 
         # A new tab should be opened
         self.assertEqual(self.gui.tabs.count(), 1)
@@ -131,43 +147,45 @@ class TestTabs(GuiBaseTest):
         self.gui.tabs.widget(1).share_button.click()
         self.assertFalse(self.gui.tabs.widget(1).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(1).share_mode.isVisible())
-        self.assertEqual(
-            self.gui.status_bar.server_status_label.text(), "Stopped"
-        )
+        self.assertEqual(self.gui.status_bar.server_status_label.text(), "Stopped")
 
         # New tab, receive files
         self.gui.tabs.new_tab_button.click()
         self.gui.tabs.widget(2).receive_button.click()
         self.assertFalse(self.gui.tabs.widget(2).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(2).receive_mode.isVisible())
-        self.assertEqual(
-            self.gui.status_bar.server_status_label.text(), "Stopped"
-        )
+        self.assertEqual(self.gui.status_bar.server_status_label.text(), "Stopped")
 
         # New tab, publish website
         self.gui.tabs.new_tab_button.click()
         self.gui.tabs.widget(3).website_button.click()
         self.assertFalse(self.gui.tabs.widget(3).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(3).website_mode.isVisible())
-        self.assertEqual(
-            self.gui.status_bar.server_status_label.text(), "Stopped"
-        )
+        self.assertEqual(self.gui.status_bar.server_status_label.text(), "Stopped")
 
         # New tab, chat mode
         self.gui.tabs.new_tab_button.click()
         self.gui.tabs.widget(4).chat_button.click()
         self.assertFalse(self.gui.tabs.widget(4).new_tab.isVisible())
         self.assertTrue(self.gui.tabs.widget(4).chat_mode.isVisible())
-        self.assertEqual(
-            self.gui.status_bar.server_status_label.text(), "Stopped"
-        )
+        self.assertEqual(self.gui.status_bar.server_status_label.text(), "Stopped")
 
         # Close tabs
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
-        self.gui.tabs.tabBar().tabButton(0, QtWidgets.QTabBar.RightSide).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
+        self.gui.tabs.tabBar().tabButton(
+            0, QtWidgets.QTabBar.ButtonPosition.RightSide
+        ).click()
 
     def test_07_close_share_tab_while_server_started_should_warn(self):
         """Closing a share mode tab when the server is running should throw a warning"""

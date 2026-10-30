@@ -47,7 +47,7 @@ class SettingsTab(QtWidgets.QWidget):
 
         # Autoupdate
         self.autoupdate_checkbox = QtWidgets.QCheckBox()
-        self.autoupdate_checkbox.setCheckState(QtCore.Qt.Unchecked)
+        self.autoupdate_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
         self.autoupdate_checkbox.setText(strings._("gui_settings_autoupdate_option"))
 
         # Last update time
@@ -120,15 +120,19 @@ class SettingsTab(QtWidgets.QWidget):
         version_label = QtWidgets.QLabel(
             strings._("gui_settings_version_label").format(self.common.version)
         )
-        version_label.setAlignment(QtCore.Qt.AlignHCenter)
+        version_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
         help_label = QtWidgets.QLabel(strings._("gui_settings_help_label"))
-        help_label.setAlignment(QtCore.Qt.AlignHCenter)
-        help_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        help_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
+        help_label.setTextInteractionFlags(
+            QtCore.Qt.TextInteractionFlag.TextBrowserInteraction
+        )
         help_label.setOpenExternalLinks(True)
 
         license_label = QtWidgets.QLabel(strings._("gui_settings_license_label"))
-        license_label.setAlignment(QtCore.Qt.AlignHCenter)
-        license_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+        license_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
+        license_label.setTextInteractionFlags(
+            QtCore.Qt.TextInteractionFlag.TextBrowserInteraction
+        )
         license_label.setOpenExternalLinks(True)
 
         # Buttons
@@ -172,9 +176,9 @@ class SettingsTab(QtWidgets.QWidget):
 
         use_autoupdate = self.old_settings.get("use_autoupdate")
         if use_autoupdate:
-            self.autoupdate_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.autoupdate_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
         else:
-            self.autoupdate_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.autoupdate_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
 
         autoupdate_timestamp = self.old_settings.get("autoupdate_timestamp")
         self._update_autoupdate_timestamp(autoupdate_timestamp)
@@ -227,7 +231,7 @@ class SettingsTab(QtWidgets.QWidget):
             Alert(
                 self.common,
                 strings._("update_error_check_error"),
-                QtWidgets.QMessageBox.Warning,
+                QtWidgets.QMessageBox.Icon.Warning,
             )
             close_forced_update_thread()
 
@@ -235,7 +239,7 @@ class SettingsTab(QtWidgets.QWidget):
             Alert(
                 self.common,
                 strings._("update_error_invalid_latest_version").format(latest_version),
-                QtWidgets.QMessageBox.Warning,
+                QtWidgets.QMessageBox.Icon.Warning,
             )
             close_forced_update_thread()
 
@@ -280,12 +284,12 @@ class SettingsTab(QtWidgets.QWidget):
                     ]
                 else:
                     notice = strings._("gui_settings_language_changed_notice")
-                Alert(self.common, notice, QtWidgets.QMessageBox.Information)
+                Alert(self.common, notice, QtWidgets.QMessageBox.Icon.Information)
 
             # If color mode changed, inform user they need to restart OnionShare
             if changed(settings, self.old_settings, ["theme"]):
                 notice = strings._("gui_color_mode_changed_notice")
-                Alert(self.common, notice, QtWidgets.QMessageBox.Information)
+                Alert(self.common, notice, QtWidgets.QMessageBox.Icon.Information)
 
             # Save the new settings
             settings.save()

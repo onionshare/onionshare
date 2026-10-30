@@ -18,7 +18,7 @@ class TestShare(GuiBaseTest):
         )
         QtTest.QTest.mouseClick(
             tab.get_mode().server_status.file_selection.file_list.viewport(),
-            QtCore.Qt.LeftButton,
+            QtCore.Qt.MouseButton.LeftButton,
             pos=rect.center(),
         )
         # Remove button should be visible
@@ -32,7 +32,7 @@ class TestShare(GuiBaseTest):
         )
         QtTest.QTest.mouseClick(
             tab.get_mode().server_status.file_selection.file_list.viewport(),
-            QtCore.Qt.LeftButton,
+            QtCore.Qt.MouseButton.LeftButton,
             pos=rect.center(),
         )
         self.assertTrue(
@@ -134,7 +134,7 @@ class TestShare(GuiBaseTest):
         self.assertEqual(tab.get_mode().server_status.status, 2)
 
     def cancel_the_share(self, tab):
-        """Test that we can cancel a share before it's started up """
+        """Test that we can cancel a share before it's started up"""
         self.server_working_on_start_button_pressed(tab)
         self.server_status_indicator_says_scheduled(tab)
         self.add_remove_buttons_hidden(tab)
@@ -142,11 +142,11 @@ class TestShare(GuiBaseTest):
         self.set_autostart_timer(tab, 10)
         QtTest.QTest.qWait(500, self.gui.qtapp)
         QtTest.QTest.mousePress(
-            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
+            tab.get_mode().server_status.server_button, QtCore.Qt.MouseButton.LeftButton
         )
         QtTest.QTest.qWait(100, self.gui.qtapp)
         QtTest.QTest.mouseRelease(
-            tab.get_mode().server_status.server_button, QtCore.Qt.LeftButton
+            tab.get_mode().server_status.server_button, QtCore.Qt.MouseButton.LeftButton
         )
         QtTest.QTest.qWait(500, self.gui.qtapp)
         self.assertEqual(
@@ -523,7 +523,6 @@ class TestShare(GuiBaseTest):
 
         self.close_all_tabs()
 
-
     def test_405_page_returned_for_invalid_methods(self):
         """
         Our custom 405 page should return for invalid methods
@@ -538,10 +537,14 @@ class TestShare(GuiBaseTest):
         self.run_all_share_mode_started_tests(tab)
 
         url = f"http://127.0.0.1:{tab.app.port}/"
-        self.hit_405(url, expected_resp="OnionShare: 405 Method Not Allowed", data = {'foo':'bar'}, methods = ["put", "post", "delete", "options"])
+        self.hit_405(
+            url,
+            expected_resp="OnionShare: 405 Method Not Allowed",
+            data={"foo": "bar"},
+            methods=["put", "post", "delete", "options"],
+        )
         self.history_widgets_present(tab)
         self.close_all_tabs()
-
 
     def test_compression(self):
         """
@@ -569,7 +572,6 @@ class TestShare(GuiBaseTest):
         self.server_status_indicator_says_closed(tab)
         self.close_all_tabs()
 
-
     def test_persistent_mode_and_autostart_can_be_set(self):
         """
         Test the persistent autostart on launch button can be clicked,
@@ -579,22 +581,30 @@ class TestShare(GuiBaseTest):
         tab.get_mode().server_status.file_selection.file_list.add_file(self.tmpfiles[0])
 
         # Persistent is now visible
-        self.assertTrue(tab.get_mode().mode_settings_widget.persistent_checkbox.isVisible())
+        self.assertTrue(
+            tab.get_mode().mode_settings_widget.persistent_checkbox.isVisible()
+        )
 
         # Autostart on launch is not visible
-        self.assertFalse(tab.get_mode().mode_settings_widget.persistent_autostart_on_launch_checkbox.isVisible())
+        self.assertFalse(
+            tab.get_mode().mode_settings_widget.persistent_autostart_on_launch_checkbox.isVisible()
+        )
 
         # Click on persistence
         tab.get_mode().mode_settings_widget.persistent_checkbox.click()
 
         # Autostart on launch is now visible
-        self.assertTrue(tab.get_mode().mode_settings_widget.persistent_autostart_on_launch_checkbox.isVisible())
+        self.assertTrue(
+            tab.get_mode().mode_settings_widget.persistent_autostart_on_launch_checkbox.isVisible()
+        )
 
         # Click off persistence
         tab.get_mode().mode_settings_widget.persistent_checkbox.click()
 
         # Autostart on launch is not visible
-        self.assertFalse(tab.get_mode().mode_settings_widget.persistent_autostart_on_launch_checkbox.isVisible())
+        self.assertFalse(
+            tab.get_mode().mode_settings_widget.persistent_autostart_on_launch_checkbox.isVisible()
+        )
 
         self.run_all_common_setup_tests()
         self.run_all_share_mode_setup_tests(tab)

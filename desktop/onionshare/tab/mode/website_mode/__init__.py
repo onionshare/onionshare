@@ -56,9 +56,9 @@ class WebsiteMode(Mode):
             strings._("mode_settings_website_disable_csp_checkbox")
         )
         if self.settings.get("website", "disable_csp"):
-            self.disable_csp_checkbox.setCheckState(QtCore.Qt.Checked)
+            self.disable_csp_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
         else:
-            self.disable_csp_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.disable_csp_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
 
         self.mode_settings_widget.mode_specific_layout.addWidget(
             self.disable_csp_checkbox
@@ -67,11 +67,15 @@ class WebsiteMode(Mode):
         # Custom CSP option
         self.custom_csp_checkbox = QtWidgets.QCheckBox()
         self.custom_csp_checkbox.clicked.connect(self.custom_csp_checkbox_clicked)
-        self.custom_csp_checkbox.setText(strings._("mode_settings_website_custom_csp_checkbox"))
-        if self.settings.get("website", "custom_csp") and not self.settings.get("website", "disable_csp"):
-            self.custom_csp_checkbox.setCheckState(QtCore.Qt.Checked)
+        self.custom_csp_checkbox.setText(
+            strings._("mode_settings_website_custom_csp_checkbox")
+        )
+        if self.settings.get("website", "custom_csp") and not self.settings.get(
+            "website", "disable_csp"
+        ):
+            self.custom_csp_checkbox.setCheckState(QtCore.Qt.CheckState.Checked)
         else:
-            self.custom_csp_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.custom_csp_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
         self.custom_csp = QtWidgets.QLineEdit()
         self.custom_csp.setPlaceholderText(
             "default-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; img-src 'self' data:;"
@@ -157,9 +161,15 @@ class WebsiteMode(Mode):
             self.common,
             self,
             self.history,
-            QtGui.QIcon(GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_icon_toggle.svg")),
             QtGui.QIcon(
-                GuiCommon.get_resource_path(f"images/{self.common.gui.color_mode}_history_icon_toggle_selected.svg")
+                GuiCommon.get_resource_path(
+                    f"images/{self.common.gui.color_mode}_history_icon_toggle.svg"
+                )
+            ),
+            QtGui.QIcon(
+                GuiCommon.get_resource_path(
+                    f"images/{self.common.gui.color_mode}_history_icon_toggle_selected.svg"
+                )
             ),
         )
 
@@ -209,7 +219,7 @@ class WebsiteMode(Mode):
             "website", "disable_csp", self.disable_csp_checkbox.isChecked()
         )
         if self.disable_csp_checkbox.isChecked():
-            self.custom_csp_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.custom_csp_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
             self.custom_csp_checkbox.setEnabled(False)
         else:
             self.custom_csp_checkbox.setEnabled(True)
@@ -219,17 +229,13 @@ class WebsiteMode(Mode):
         Uncheck 'disable CSP' setting if custom CSP is used.
         """
         if self.custom_csp_checkbox.isChecked():
-            self.disable_csp_checkbox.setCheckState(QtCore.Qt.Unchecked)
+            self.disable_csp_checkbox.setCheckState(QtCore.Qt.CheckState.Unchecked)
             self.disable_csp_checkbox.setEnabled(False)
-            self.settings.set(
-                "website", "custom_csp", self.custom_csp
-            )
+            self.settings.set("website", "custom_csp", self.custom_csp)
         else:
             self.disable_csp_checkbox.setEnabled(True)
             self.custom_csp.setText("")
-            self.settings.set(
-                "website", "custom_csp", None
-            )
+            self.settings.set("website", "custom_csp", None)
 
     def custom_csp_editing_finished(self):
         if self.custom_csp.text().strip() == "":

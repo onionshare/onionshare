@@ -631,7 +631,7 @@ class GuiCommon:
         """
         if locale.name() == "en_US":
             return "HH:mm"
-        return locale.timeFormat(QtCore.QLocale.ShortFormat)
+        return locale.timeFormat(QtCore.QLocale.FormatType.ShortFormat)
 
     @staticmethod
     def get_timer_date_format(locale, long_format=False):
@@ -645,8 +645,8 @@ class GuiCommon:
         if locale.name() == "en_US":
             return "MMMM dd, yyyy" if long_format else "MMM d, yy"
         if long_format:
-            return locale.dateFormat(QtCore.QLocale.LongFormat)
-        return locale.dateFormat(QtCore.QLocale.ShortFormat)
+            return locale.dateFormat(QtCore.QLocale.FormatType.LongFormat)
+        return locale.dateFormat(QtCore.QLocale.FormatType.ShortFormat)
 
     @staticmethod
     def get_resource_path(filename):
@@ -729,7 +729,7 @@ class ToggleCheckbox(QtWidgets.QCheckBox):
     def __init__(self, text):
         super(ToggleCheckbox, self).__init__(text)
         # Set default parameters
-        self.setCursor(QtCore.Qt.PointingHandCursor)
+        self.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         self.w = 50
         self.h = 24
         self.bg_color = "#D4D4D4"
@@ -742,16 +742,16 @@ class ToggleCheckbox(QtWidgets.QCheckBox):
 
     def paintEvent(self, e):
         painter = QtGui.QPainter(self)
-        painter.setRenderHint(QtGui.QPainter.Antialiasing)
-        painter.setPen(QtCore.Qt.NoPen)
+        painter.setRenderHint(QtGui.QPainter.RenderHint.Antialiasing)
+        painter.setPen(QtCore.Qt.PenStyle.NoPen)
         opt = QtWidgets.QStyleOptionButton()
         opt.initFrom(self)
         self.initStyleOption(opt)
         s = self.style()
-        s.drawControl(QtWidgets.QStyle.CE_CheckBox, opt, painter, self)
+        s.drawControl(QtWidgets.QStyle.ControlElement.CE_CheckBox, opt, painter, self)
 
         rect = QtCore.QRect(
-            s.subElementRect(QtWidgets.QStyle.SE_CheckBoxContents, opt, self)
+            s.subElementRect(QtWidgets.QStyle.SubElement.SE_CheckBoxContents, opt, self)
         )
         x = (
             rect.width() - rect.x() - self.w + 20
