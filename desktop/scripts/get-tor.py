@@ -85,7 +85,7 @@ def get_tor_windows(gpg, torkey, win_url, win_filename, expected_win_sig):
             "e",
             "-y",
             win_path,
-            "Browser\\TorBrowser\\Data\\Tor\\geoip*",
+            "Browser\\TorBrowser\\Tor\\geoip*",
             "-o%s" % os.path.join(working_path, "Data"),
         ]
     ).wait()
