@@ -85,7 +85,7 @@ def get_tor_windows(gpg, torkey, win_url, win_filename, expected_win_sig):
             "e",
             "-y",
             win_path,
-            "Browser\\TorBrowser\\Data\\Tor\\geoip*",
+            "Browser\\TorBrowser\\Tor\\geoip*",
             "-o%s" % os.path.join(working_path, "Data"),
         ]
     ).wait()
@@ -229,11 +229,11 @@ def get_tor_linux64(gpg, torkey, linux64_url, linux64_filename, expected_linux64
 
     # Copy into dist
     shutil.copyfile(
-        os.path.join(tarball_tor_path, "Data", "Tor", "geoip"),
+        os.path.join(tarball_tor_path, "Tor", "geoip"),
         os.path.join(dist_path, "geoip"),
     )
     shutil.copyfile(
-        os.path.join(tarball_tor_path, "Data", "Tor", "geoip6"),
+        os.path.join(tarball_tor_path, "Tor", "geoip6"),
         os.path.join(dist_path, "geoip6"),
     )
     shutil.copyfile(
