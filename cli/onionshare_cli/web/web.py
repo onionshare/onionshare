@@ -24,6 +24,7 @@ import os
 import queue
 import requests
 import shutil
+import time
 from waitress.server import create_server
 
 import flask
@@ -404,6 +405,50 @@ class Web:
             self.waitress_custom_shutdown()
 
         self._cleanup_unix_socket()
+
+        self.running = False
+
+    def unsent_response_bytes(self):
+        """
+        How many bytes of response data Waitress has taken from the app but not
+        yet handed to the operating system, across all connections.
+        """
+        if not self.waitress:
+            return 0
+        while True:
+            try:
+                channels = list(self.waitress._map.values())
+                break
+            except RuntimeError:
+                # Waitress' own thread changed the map while it was being copied
+                continue
+        return sum(getattr(channel, "total_outbufs_len", 0) for channel in channels)
+
+    def wait_for_responses_to_be_sent(self, stall_timeout=30):
+        """
+        Wait until Waitress has sent everything the app has given it.
+
+        When the app finishes producing a response, the end of it can still be
+        sitting in Waitress' output buffer (up to 16 MiB by default) waiting for
+        a slow client, so stopping the server at that moment cuts the transfer
+        short. Gives up if no data gets sent for stall_timeout seconds, or if the
+        server is being stopped.
+        """
+        unsent = self.unsent_response_bytes()
+        last_progress = time.monotonic()
+        while unsent > 0 and self.stop_q.empty():
+            time.sleep(0.1)
+            now_unsent = self.unsent_response_bytes()
+            if now_unsent < unsent:
+                last_progress = time.monotonic()
+            elif time.monotonic() - last_progress > stall_timeout:
+                self.common.log(
+                    "Web",
+                    "wait_for_responses_to_be_sent",
+                    f"giving up with {now_unsent} bytes still unsent",
+                )
+                break
+            unsent = now_unsent
 
     def _cleanup_unix_socket(self):
         """

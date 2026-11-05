@@ -9,6 +9,7 @@ import zlib
 import tempfile
 import base64
 import shutil
+import socket
 import sys
 from io import BytesIO
 
@@ -96,7 +97,7 @@ class TestWeb:
         web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", True)
 
-        assert web.running is True
+        assert web.share_mode.transfer_complete is False
 
         with web.app.test_client() as c:
             # Download the first time
@@ -108,7 +109,33 @@ class TestWeb:
                 or res.mimetype == "application/x-zip-compressed"
             )
 
-            assert web.running is False
+            # The share is over: it must be stopped, and serves nothing more meanwhile
+            assert web.share_mode.transfer_complete is True
+            for path in ["/download", "/"]:
+                res = c.get(path)
+                assert res.status_code == 200
+                assert res.mimetype == "text/html"
+                assert b"download in progress" in res.get_data()
+
+    def test_share_mode_autostop_sharing_on_canceled(
+        self, temp_dir, common_obj, temp_file_1024
+    ):
+        web = web_obj(temp_dir, common_obj, "share", 3)
+        web.settings.set("share", "autostop_sharing", True)
+
+        # The server is being stopped, so the download gets canceled
+        web.stop_q.put(True)
+        with web.app.test_client() as c:
+            res = c.get("/download")
+            res.get_data()
+
+        # A canceled download doesn't count as the files having been sent
+        assert web.share_mode.transfer_complete is False
+
+        # Starting the share again resets the state
+        web.share_mode.transfer_complete = True
+        web.share_mode.set_file_info([temp_file_1024])
+        assert web.share_mode.transfer_complete is False
 
     def test_share_mode_autostop_sharing_off(
         self, temp_dir, common_obj, temp_file_1024
@@ -119,15 +146,127 @@ class TestWeb:
         assert web.running is True
 
         with web.app.test_client() as c:
-            # Download the first time
-            res = c.get("/download")
-            res.get_data()
-            assert res.status_code == 200
-            assert (
-                res.mimetype == "application/zip"
-                or res.mimetype == "application/x-zip-compressed"
-            )
+            # Download twice
+            for _ in range(2):
+                res = c.get("/download")
+                res.get_data()
+                assert res.status_code == 200
+                assert (
+                    res.mimetype == "application/zip"
+                    or res.mimetype == "application/x-zip-compressed"
+                )
+            assert web.share_mode.transfer_complete is False
             assert web.running is True
+
+    def test_share_mode_autostop_sharing_waits_for_slow_recipient(
+        self, temp_dir, common_obj
+    ):
+        """
+        The transfer only counts as complete (which is when the CLI and the GUI stop
+        the server) once the recipient actually has all of it, not when the last
+        chunk has merely been handed to Waitress.
+        """
+        web = web_obj(temp_dir, common_obj, "share")
+        web.settings.set("share", "autostop_sharing", True)
+        contents = os.urandom(12 * 1024 * 1024)
+        filename = os.path.join(temp_dir.name, "big.bin")
+        with open(filename, "wb") as f:
+            f.write(contents)
+        web.share_mode.set_file_info([filename])
+
+        def final_progress_seen():
+            events = []
+            while not web.q.empty():
+                events.append(web.q.get())
+            return any(
+                e["type"] == web.REQUEST_PROGRESS
+                and e["data"]["bytes"] == len(contents)
+                for e in events
+            )
+
+        with live_waitress_server(web) as port:
+            # A recipient that is slow to read, as over Tor
+            sock = socket.socket()
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 4096)
+            sock.connect(("127.0.0.1", port))
+            sock.sendall(
+                b"GET /download HTTP/1.1\r\nHost: localhost\r\n"
+                b"Connection: close\r\n\r\n"
+            )
+            received = b""
+            while b"\r\n\r\n" not in received:
+                received += sock.recv(4096)
+            headers, body = received.split(b"\r\n\r\n", 1)
+            assert headers.startswith(b"HTTP/1.1 200")
+
+            # The whole file has been read from disk, but much of it hasn't been sent
+            time.sleep(1.5)
+            assert web.unsent_response_bytes() > 0
+            assert web.share_mode.transfer_complete is False
+            assert not final_progress_seen()
+
+            # Nobody else can download meanwhile
+            with urlopen(f"http://127.0.0.1:{port}/download") as res:
+                assert b"download in progress" in res.read()
+
+            # Now the recipient reads the rest, and gets all of it
+            while True:
+                data = sock.recv(1024 * 1024)
+                if not data:
+                    break
+                body += data
+            sock.close()
+            assert body == contents
+
+            for _ in range(50):
+                if web.share_mode.transfer_complete:
+                    break
+                time.sleep(0.1)
+            assert web.share_mode.transfer_complete is True
+            assert final_progress_seen()
+
+    def test_wait_for_responses_to_be_sent(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share")
+
+        # No server running: nothing to wait for
+        assert web.unsent_response_bytes() == 0
+        web.wait_for_responses_to_be_sent()
+
+        class Channel:
+            total_outbufs_len = 1000
+
+        class Trigger:
+            pass
+
+        channel = Channel()
+        web.waitress = type("FakeWaitress", (), {})()
+        web.waitress._map = {1: channel, 2: Trigger()}
+        assert web.unsent_response_bytes() == 1000
+
+        # A recipient that stops reading doesn't keep the share up forever
+        start = time.monotonic()
+        web.wait_for_responses_to_be_sent(stall_timeout=0.5)
+        assert 0.5 <= time.monotonic() - start < 5
+
+        # Data still flowing counts as progress
+        def drain():
+            while channel.total_outbufs_len > 0:
+                time.sleep(0.05)
+                channel.total_outbufs_len -= 100
+
+        drainer = Thread(target=drain)
+        drainer.start()
+        web.wait_for_responses_to_be_sent(stall_timeout=0.5)
+        drainer.join()
+        assert web.unsent_response_bytes() == 0
+
+        # Stopping the server cuts the wait short
+        channel.total_outbufs_len = 1000
+        web.stop_q.put(True)
+        start = time.monotonic()
+        web.wait_for_responses_to_be_sent(stall_timeout=30)
+        assert time.monotonic() - start < 1
+        web.waitress = None
 
     def test_receive_mode(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
@@ -671,6 +810,28 @@ def live_server(web):
     finally:
         server.shutdown()
         thread.join(timeout=5)
+
+
+@contextmanager
+def live_waitress_server(web):
+    """Run the web app in Waitress, the way OnionShare does, and yield its port"""
+    with socket.socket() as s:
+        s.bind(("127.0.0.1", 0))
+        port = s.getsockname()[1]
+    thread = Thread(target=web.start, args=(port,), daemon=True)
+    thread.start()
+    try:
+        for _ in range(50):
+            try:
+                socket.create_connection(("127.0.0.1", port), timeout=1).close()
+                break
+            except OSError:
+                time.sleep(0.1)
+        yield port
+    finally:
+        web.stop(port)
+        thread.join(timeout=10)
+        assert not thread.is_alive()
 
 
 class TestRangeRequests:

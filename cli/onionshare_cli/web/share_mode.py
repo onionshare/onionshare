@@ -128,6 +128,11 @@ class ShareModeWeb(SendBaseModeWeb):
         self.download_etag = None
         self.last_modified = datetime.now(tz=timezone.utc)
 
+        # Set when a download completes while "Stop sharing after files have been
+        # sent" is checked. From then on no more downloads are served, and the
+        # CLI stops the server.
+        self.transfer_complete = False
+
     def define_routes(self):
         """
         The web app routes for sharing files
@@ -149,10 +154,9 @@ class ShareModeWeb(SendBaseModeWeb):
             self.web.add_request(self.web.REQUEST_LOAD, request.path)
 
             # Deny new downloads if "Stop sharing after files have been sent" is checked and there is
-            # currently a download
-            deny_download = (
-                self.web.settings.get("share", "autostop_sharing")
-                and self.download_in_progress
+            # currently a download, or the files have already been sent
+            deny_download = self.web.settings.get("share", "autostop_sharing") and (
+                self.download_in_progress or self.transfer_complete
             )
             if deny_download:
                 return render_template("denied.html")
@@ -170,10 +174,9 @@ class ShareModeWeb(SendBaseModeWeb):
             Download the zip file.
             """
             # Deny new downloads if "Stop After First Download" is checked and there is
-            # currently a download
-            deny_download = (
-                self.web.settings.get("share", "autostop_sharing")
-                and self.download_in_progress
+            # currently a download, or the files have already been sent
+            deny_download = self.web.settings.get("share", "autostop_sharing") and (
+                self.download_in_progress or self.transfer_complete
             )
             if deny_download:
                 return render_template("denied.html")
@@ -312,6 +315,7 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.web.add_request(
                     self.web.REQUEST_CANCELED, path, {"id": history_id}
                 )
+                canceled = True
                 break
 
             read_size = min(chunk_size, bytes_left)
@@ -322,10 +326,18 @@ class ShareModeWeb(SendBaseModeWeb):
                 try:
                     yield chunk
 
+                    bytes_left -= read_size
+                    if bytes_left == 0 and self.web.settings.get(
+                        "share", "autostop_sharing"
+                    ):
+                        # The share is stopped as soon as this transfer is reported
+                        # as finished, but the last chunks can still be queued in
+                        # Waitress rather than sent, so wait for them to go out first
+                        self.web.wait_for_responses_to_be_sent()
+
                     # tell GUI the progress
                     downloaded_bytes = fp.tell()
                     percent = (1.0 * downloaded_bytes / filesize) * 100
-                    bytes_left -= read_size
 
                     # only output to stdout if running onionshare in CLI mode, or if using Linux (#203, #304)
                     if (
@@ -376,18 +388,16 @@ class ShareModeWeb(SendBaseModeWeb):
 
         sys.stdout.write("\n")
 
-        # Download is finished
         if self.web.settings.get("share", "autostop_sharing"):
-            self.download_in_progress = False
+            # The files have been sent, so the share must stop. This is set before
+            # download_in_progress is cleared so no new download can start in between.
+            # The CLI stops the server when it sees this; the GUI stops it when it
+            # receives the final progress event.
+            if not canceled:
+                self.transfer_complete = True
 
-        # Close the server, if necessary
-        if self.web.settings.get("share", "autostop_sharing") and not canceled:
-            print("Stopped because transfer is complete")
-            self.web.running = False
-            try:
-                self.web.stop()
-            except Exception:
-                pass
+            # Download is finished
+            self.download_in_progress = False
 
     def directory_listing_template(
         self, path, files, dirs, breadcrumbs, breadcrumbs_leaf
