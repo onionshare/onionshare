@@ -89,12 +89,12 @@ const emitMessage = function (socket) {
 };
 
 const updateUsername = function (socket) {
-  const username = document.getElementById("username").value;
+  const username = document.getElementById("username").value.trim();
 
   if (
     !checkUsernameExists(username) &&
     !checkUsernameTooLong(username) &&
-    !checkUsernameAscii(username)
+    !checkUsernameCharacters(username)
   ) {
     fetch(`${location.origin}/update-session-username`, {
       method: "POST",
@@ -132,13 +132,15 @@ const updateUsername = function (socket) {
  * @param username {string}
  * @returns {boolean}
  */
-const checkUsernameAscii = function (username) {
-  // ASCII characters have code points in the range U+0000-U+007F.
+const checkUsernameCharacters = function (username) {
+  // The same rule the server enforces: ASCII letters, numbers, dashes and
+  // underscores, with single spaces between words.
   const usernameErrorEl = document.getElementById("username-error");
   usernameErrorEl.textContent = "";
 
-  if (!/^[\u0000-\u007f]*$/.test(username)) {
-    usernameErrorEl.textContent = "Non-ASCII usernames are not supported.";
+  if (!/^[A-Za-z0-9_-]+( [A-Za-z0-9_-]+)*$/.test(username)) {
+    usernameErrorEl.textContent =
+      "Usernames can only contain letters (A-Z), numbers, dashes, underscores and single spaces.";
     return true;
   }
 
