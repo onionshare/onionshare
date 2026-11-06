@@ -524,7 +524,7 @@ class GuiBaseTest(unittest.TestCase):
         """Test that the timeout can be set"""
         timer = QtCore.QDateTime.currentDateTime().addSecs(timeout)
         tab.get_mode().mode_settings_widget.autostop_timer_widget.setDateTime(timer)
-        self.assertTrue(
+        self.assertEqual(
             tab.get_mode().mode_settings_widget.autostop_timer_widget.dateTime(), timer
         )
 

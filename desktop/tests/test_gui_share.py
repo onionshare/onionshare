@@ -116,7 +116,7 @@ class TestShare(GuiBaseTest):
         """Test that the timer can be set"""
         schedule = QtCore.QDateTime.currentDateTime().addSecs(timer)
         tab.get_mode().mode_settings_widget.autostart_timer_widget.setDateTime(schedule)
-        self.assertTrue(
+        self.assertEqual(
             tab.get_mode().mode_settings_widget.autostart_timer_widget.dateTime(),
             schedule,
         )
