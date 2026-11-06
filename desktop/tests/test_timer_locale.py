@@ -63,6 +63,15 @@ class TestTimerLocale(unittest.TestCase):
     def make_mode_settings_widget(self):
         return ModeSettingsWidget(self.common, FakeTab(), FakeModeSettings())
 
+    def set_fixed_datetime(self, timer_widget):
+        # ModeSettingsWidget sets each timer's minimum to the current time so
+        # a timer can't be set in the past. Once the clock passes
+        # FIXED_DATETIME (or a reproducible build runs with the clock set into
+        # the future), Qt would silently clamp the value to "now". These tests
+        # check how a known date is displayed, not that bound, so clear it.
+        timer_widget.clearMinimumDateTime()
+        timer_widget.setDateTime(FIXED_DATETIME)
+
     def make_server_status(self, widget):
         return ServerStatus(
             self.common,
@@ -85,7 +94,7 @@ class TestTimerLocale(unittest.TestCase):
     def test_english_widget_uses_24h_and_traditional_date(self):
         self.common.settings.set("locale", "en")
         widget = self.make_mode_settings_widget()
-        widget.autostart_timer_widget.setDateTime(FIXED_DATETIME)
+        self.set_fixed_datetime(widget.autostart_timer_widget)
         self.assertEqual(
             widget.autostart_timer_widget.text(),
             "14:05 Mar 9, 27",
@@ -94,7 +103,7 @@ class TestTimerLocale(unittest.TestCase):
     def test_english_tooltip_uses_24h_and_traditional_date(self):
         self.common.settings.set("locale", "en")
         widget = self.make_mode_settings_widget()
-        widget.autostop_timer_widget.setDateTime(FIXED_DATETIME)
+        self.set_fixed_datetime(widget.autostop_timer_widget)
         server_status = self.make_server_status(widget)
         self.assertEqual(
             server_status.timer_datetime_string(widget.autostop_timer_widget),
@@ -104,7 +113,7 @@ class TestTimerLocale(unittest.TestCase):
     def test_french_widget_uses_24h_and_french_date(self):
         self.common.settings.set("locale", "fr")
         widget = self.make_mode_settings_widget()
-        widget.autostart_timer_widget.setDateTime(FIXED_DATETIME)
+        self.set_fixed_datetime(widget.autostart_timer_widget)
         self.assertEqual(
             widget.autostart_timer_widget.text(),
             "14:05 09/03/2027",
@@ -113,7 +122,7 @@ class TestTimerLocale(unittest.TestCase):
     def test_french_tooltip_uses_24h_and_french_date(self):
         self.common.settings.set("locale", "fr")
         widget = self.make_mode_settings_widget()
-        widget.autostop_timer_widget.setDateTime(FIXED_DATETIME)
+        self.set_fixed_datetime(widget.autostop_timer_widget)
         server_status = self.make_server_status(widget)
         self.assertEqual(
             server_status.timer_datetime_string(widget.autostop_timer_widget),
@@ -123,7 +132,7 @@ class TestTimerLocale(unittest.TestCase):
     def test_german_widget_uses_24h_and_german_date(self):
         self.common.settings.set("locale", "de")
         widget = self.make_mode_settings_widget()
-        widget.autostart_timer_widget.setDateTime(FIXED_DATETIME)
+        self.set_fixed_datetime(widget.autostart_timer_widget)
         self.assertEqual(
             widget.autostart_timer_widget.text(),
             "14:05 09.03.27",
@@ -132,7 +141,7 @@ class TestTimerLocale(unittest.TestCase):
     def test_german_tooltip_uses_24h_and_german_date(self):
         self.common.settings.set("locale", "de")
         widget = self.make_mode_settings_widget()
-        widget.autostop_timer_widget.setDateTime(FIXED_DATETIME)
+        self.set_fixed_datetime(widget.autostop_timer_widget)
         server_status = self.make_server_status(widget)
         self.assertEqual(
             server_status.timer_datetime_string(widget.autostop_timer_widget),
@@ -142,7 +151,7 @@ class TestTimerLocale(unittest.TestCase):
     def test_japanese_tooltip_uses_24h_and_japanese_date(self):
         self.common.settings.set("locale", "ja")
         widget = self.make_mode_settings_widget()
-        widget.autostop_timer_widget.setDateTime(FIXED_DATETIME)
+        self.set_fixed_datetime(widget.autostop_timer_widget)
         server_status = self.make_server_status(widget)
         self.assertEqual(
             server_status.timer_datetime_string(widget.autostop_timer_widget),
@@ -153,7 +162,7 @@ class TestTimerLocale(unittest.TestCase):
         # zh_Hant is one of the locales whose CLDR short time format is 12-hour
         self.common.settings.set("locale", "zh_Hant")
         widget = self.make_mode_settings_widget()
-        widget.autostart_timer_widget.setDateTime(FIXED_DATETIME)
+        self.set_fixed_datetime(widget.autostart_timer_widget)
         self.assertNotIn("14:05", widget.autostart_timer_widget.text())
         self.assertEqual(
             widget.autostart_timer_widget.text(),
@@ -166,7 +175,7 @@ class TestTimerLocale(unittest.TestCase):
         for code in ["en", "fr", "de", "nb_NO", "ja", "zh_Hans", "ru", "ar", "pt_BR", "zh_Hant"]:
             self.common.settings.set("locale", code)
             widget = self.make_mode_settings_widget()
-            widget.autostart_timer_widget.setDateTime(FIXED_DATETIME)
+            self.set_fixed_datetime(widget.autostart_timer_widget)
             self.assertEqual(
                 widget.autostart_timer_widget.dateTime(),
                 FIXED_DATETIME,
