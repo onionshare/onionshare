@@ -6,17 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.4.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-14 09:58+1100\n"
-"PO-Revision-Date: 2024-04-21 10:07+0000\n"
-"Last-Translator: Jenő László <jenolaszlotamas@fiokom.hu>\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2026-10-29 12:59+1100\n"
+"PO-Revision-Date: 2026-11-06 03:51+0000\n"
+"Last-Translator: Kövecses József <kovecses@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: none\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: ../../source/develop.rst:2
 msgid "Developing OnionShare"
@@ -58,13 +59,15 @@ msgstr ""
 
 #: ../../source/develop.rst:15
 msgid "Contributing Code"
-msgstr ""
+msgstr "Kód beküldése"
 
 #: ../../source/develop.rst:17
 msgid ""
 "OnionShare source code is to be found in this Git repository: https://"
 "github.com/onionshare/onionshare"
 msgstr ""
+"Az OnionShare forráskódja ebben a Git-tárolóban található: https://"
+"github.com/onionshare/onionshare"
 
 #: ../../source/develop.rst:19
 msgid ""
@@ -73,6 +76,11 @@ msgid ""
 "also review all of the `open issues <https://github.com/onionshare/"
 "onionshare/issues>`_ on GitHub to see if there are any you'd like to tackle."
 msgstr ""
+"Ha kóddal szeretne hozzájárulni az OnionShare-hez, érdemes csatlakoznia a "
+"Keybase-csapathoz, és ott feltenni kérdéseit arról, amin dolgozni szeretne. "
+"Érdemes átnéznie a GitHubon az összes `nyitott hibajegyet <https://"
+"github.com/onionshare/onionshare/issues>`_ is, hátha van köztük olyan, "
+"amellyel szívesen foglalkozna."
 
 #: ../../source/develop.rst:22
 msgid ""
@@ -80,10 +88,13 @@ msgid ""
 "repository and one of the project maintainers will review it and possibly "
 "ask questions, request changes, reject it, or merge it into the project."
 msgstr ""
+"Ha készen áll a kód beküldésére, nyisson egy pull requestet a GitHub-"
+"tárolóban, és a projekt egyik karbantartója átnézi, esetleg kérdéseket tesz "
+"fel, módosításokat kér, elutasítja, vagy beolvasztja a projektbe."
 
 #: ../../source/develop.rst:27
 msgid "Starting Development"
-msgstr ""
+msgstr "A fejlesztés megkezdése"
 
 #: ../../source/develop.rst:29
 msgid ""
@@ -93,6 +104,10 @@ msgid ""
 "command-line version, and the ``desktop/README.md`` file to learn how to set "
 "up your development environment for the graphical version."
 msgstr ""
+"Az OnionShare Pythonban készül. Kezdésként klónozza a Git-tárolót a https://"
+"github.com/onionshare/onionshare/ címről, majd a parancssoros változat "
+"fejlesztői környezetének beállításához olvassa el a ``cli/README.md`` fájlt, "
+"a grafikus változatéhoz pedig a ``desktop/README.md`` fájlt."
 
 #: ../../source/develop.rst:32
 msgid ""
@@ -100,14 +115,17 @@ msgid ""
 "install dependencies for your platform, and to run OnionShare from the "
 "source tree."
 msgstr ""
+"Ezek a fájlok tartalmazzák a szükséges technikai utasításokat és parancsokat "
+"a függőségek telepítéséhez az Ön platformján, valamint az OnionShare "
+"forrásfából való futtatásához."
 
 #: ../../source/develop.rst:35
 msgid "Debugging tips"
-msgstr ""
+msgstr "Hibakeresési tippek"
 
 #: ../../source/develop.rst:38
 msgid "Verbose mode"
-msgstr ""
+msgstr "Részletes mód"
 
 #: ../../source/develop.rst:40
 msgid ""
@@ -117,12 +135,20 @@ msgid ""
 "initialized, when events occur (like buttons clicked, settings saved or "
 "reloaded), and other debug info. For example::"
 msgstr ""
+"Fejlesztés közben kényelmes az OnionShare-t terminálból futtatni, és a "
+"parancshoz hozzáadni a ``--verbose`` (vagy ``-v``) kapcsolót. Ez sok hasznos "
+"üzenetet ír ki a terminálba, például amikor bizonyos objektumok "
+"inicializálódnak, amikor események történnek (például gombokra kattintanak, "
+"beállításokat mentenek vagy töltenek újra be), valamint egyéb hibakeresési "
+"információkat. Például::"
 
 #: ../../source/develop.rst:117
 msgid ""
 "You can add your own debug messages by running the ``Common.log`` method "
 "from ``onionshare/common.py``. For example::"
 msgstr ""
+"Saját hibakeresési üzeneteket az ``onionshare/common.py`` fájlban található "
+"``Common.log`` metódus meghívásával adhat hozzá. Például::"
 
 #: ../../source/develop.rst:121
 msgid ""
@@ -130,10 +156,13 @@ msgid ""
 "OnionShare, or the value of certain variables before and after they are "
 "manipulated."
 msgstr ""
+"Ez hasznos lehet az OnionShare használata közben bekövetkező események "
+"láncolatának megismeréséhez, vagy bizonyos változók értékének vizsgálatához "
+"azok módosítása előtt és után."
 
 #: ../../source/develop.rst:124
 msgid "Local Only"
-msgstr ""
+msgstr "Csak helyi mód"
 
 #: ../../source/develop.rst:126
 msgid ""
@@ -141,6 +170,9 @@ msgid ""
 "altogether during development. You can do this with the ``--local-only`` "
 "flag. For example::"
 msgstr ""
+"A Tor lassú, ezért fejlesztés közben gyakran kényelmes teljesen kihagyni az "
+"onion szolgáltatások indítását. Ezt a ``--local-only`` kapcsolóval teheti "
+"meg. Például::"
 
 #: ../../source/develop.rst:165
 msgid ""
@@ -148,10 +180,14 @@ msgid ""
 "browser like Firefox, instead of using the Tor Browser. The private key is "
 "not actually needed in local-only mode, so you can ignore it."
 msgstr ""
+"Ebben az esetben a ``http://127.0.0.1:17641`` URL-t egy normál "
+"webböngészőben, például a Firefoxban kell megnyitnia a Tor Browser helyett. "
+"Csak helyi módban a privát kulcsra valójában nincs szükség, így figyelmen "
+"kívül hagyhatja."
 
 #: ../../source/develop.rst:168
 msgid "Contributing Translations"
-msgstr ""
+msgstr "Fordítások beküldése"
 
 #: ../../source/develop.rst:170
 msgid ""
@@ -160,21 +196,28 @@ msgid ""
 "projects/onionshare/>`_. Always keep the \"OnionShare\" in latin letters, "
 "and use \"OnionShare (localname)\" if needed."
 msgstr ""
+"Segítsen az OnionShare-t könnyebben használhatóvá, ismerősebbé és "
+"barátságosabbá tenni az emberek számára azzal, hogy lefordítja a `Hosted "
+"Weblate <https://hosted.weblate.org/projects/onionshare/>`_ oldalon. Az "
+"\"OnionShare\" nevet mindig latin betűkkel írja, és szükség esetén használja "
+"az \"OnionShare (helyi név)\" alakot."
 
 #: ../../source/develop.rst:172
 msgid ""
 "To help translate, make a Hosted Weblate account and start contributing."
-msgstr ""
+msgstr "A fordításhoz hozzon létre egy Hosted Weblate-fiókot, és kezdjen hozzá."
 
 #: ../../source/develop.rst:175
 msgid "Suggestions for Original English Strings"
-msgstr ""
+msgstr "Javaslatok az eredeti angol szövegekhez"
 
 #: ../../source/develop.rst:177
 msgid ""
 "Sometimes the original English strings are wrong, or don't match between the "
 "application and the documentation."
 msgstr ""
+"Előfordul, hogy az eredeti angol szövegek hibásak, vagy eltérnek az "
+"alkalmazásban és a dokumentációban."
 
 #: ../../source/develop.rst:179
 msgid ""
@@ -183,10 +226,15 @@ msgid ""
 "developers see the suggestion, and can potentially modify the string via the "
 "usual code review processes."
 msgstr ""
+"A forrásszövegek javítását úgy javasolhatja, hogy Weblate-megjegyzésében "
+"megemlíti a @kingu felhasználót, vagy nyit egy GitHub-hibajegyet vagy pull "
+"requestet. Ez utóbbi biztosítja, hogy minden upstream fejlesztő lássa a "
+"javaslatot, és a szokásos kódellenőrzési folyamat során módosíthassa a "
+"szöveget."
 
 #: ../../source/develop.rst:183
 msgid "Status of Translations"
-msgstr ""
+msgstr "A fordítások állapota"
 
 #: ../../source/develop.rst:184
 msgid ""
@@ -194,3 +242,6 @@ msgid ""
 "language not yet started, please write to the mailing list: onionshare-"
 "dev@lists.riseup.net"
 msgstr ""
+"Itt látható a fordítások jelenlegi állapota. Ha olyan nyelven szeretne "
+"fordítást kezdeni, amelyen még nem indult el, kérjük, írjon a "
+"levelezőlistára: onionshare-dev@lists.riseup.net"

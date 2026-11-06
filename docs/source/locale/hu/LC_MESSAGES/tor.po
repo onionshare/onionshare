@@ -6,17 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-14 09:58+1100\n"
-"PO-Revision-Date: 2024-04-21 10:07+0000\n"
-"Last-Translator: Jenő László <jenolaszlotamas@fiokom.hu>\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2026-10-29 12:59+1100\n"
+"PO-Revision-Date: 2026-11-06 03:51+0000\n"
+"Last-Translator: Kövecses József <kovecses@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: none\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: ../../source/tor.rst:2
 msgid "Connecting to Tor"
@@ -53,45 +54,57 @@ msgid ""
 "are no problems with your network, including any attempts to block your "
 "access to the Tor network, this should hopefully work the first time."
 msgstr ""
+"A kapcsolódás megkezdéséhez kattintson a \"Csatlakozás a Tor-hoz\" gombra. "
+"Ha nincs probléma a hálózatával – beleértve a Tor-hálózathoz való hozzáférés "
+"blokkolására tett kísérleteket is –, ennek remélhetőleg elsőre sikerülnie "
+"kell."
 
 #: ../../source/tor.rst:13
 msgid ""
 "Or, if you want to manually configure Bridges or other Tor settings before "
 "you connect, you can click \"Network Settings\"."
 msgstr ""
+"Ha pedig a csatlakozás előtt kézzel szeretné beállítani a hidakat vagy más "
+"Tor-beállításokat, kattintson a \"Hálózati beállítások\" gombra."
 
 #: ../../source/tor.rst:16
 msgid "Automatic censorship circumvention"
-msgstr ""
+msgstr "Automatikus cenzúrakerülés"
 
 #: ../../source/tor.rst:18
 msgid ""
 "When you click \"Connect to Tor\", if OnionShare fails to connect, it might "
 "be because Tor is censored in your country or on your local network."
 msgstr ""
+"Ha a \"Csatlakozás a Tor-hoz\" gombra kattintva az OnionShare nem tud "
+"csatlakozni, annak oka lehet, hogy a Tor cenzúrázva van az Ön országában "
+"vagy a helyi hálózatán."
 
 #: ../../source/tor.rst:20
 msgid "If this occurs, you will have these choices:"
-msgstr ""
+msgstr "Ebben az esetben a következő lehetőségek közül választhat:"
 
 #: ../../source/tor.rst:22
 msgid "Try again without a bridge"
-msgstr ""
+msgstr "Próbálja újra hidak nélkül"
 
 #: ../../source/tor.rst:23
 msgid ""
 "Automatically determine my country from my IP address for bridge settings"
-msgstr ""
+msgstr "Határozza meg az IP-címem alapján az országomat a hídbeállításokhoz"
 
 #: ../../source/tor.rst:24
 msgid "Manually select my country for bridge settings"
-msgstr ""
+msgstr "Válassza ki kézzel az országot a hídbeállításokhoz"
 
 #: ../../source/tor.rst:28
 msgid ""
 "If you choose the \"Try again without a bridge\" option, OnionShare will "
 "retry connecting to Tor like normal, without attempting to bypass censorship."
 msgstr ""
+"Ha a \"Próbálja újra hidak nélkül\" lehetőséget választja, az OnionShare a "
+"szokásos módon próbál újra csatlakozni a Torhoz, a cenzúra megkerülésének "
+"kísérlete nélkül."
 
 #: ../../source/tor.rst:30
 msgid ""
@@ -106,6 +119,16 @@ msgid ""
 "Censorship Circumvention API. The Meek proxy hides the fact that you are "
 "trying to find a way to connect to Tor."
 msgstr ""
+"A másik két lehetőség Tor-hidak segítségével próbálja automatikusan "
+"megkerülni a cenzúrát. Ha a hálózati szolgáltatója blokkolja a Tor-"
+"hálózathoz való hozzáférést, remélhetőleg még csatlakozhat egy Tor-hídhoz, "
+"amely aztán a cenzúrát megkerülve a Tor-hálózathoz kapcsolja. Mindkét "
+"lehetőség a Tor Project cenzúrakerülő API-ját használja, hogy Önnek "
+"megfelelő hídbeállításokat adjon. Az OnionShare ideiglenesen a `Meek "
+"<https://gitlab.torproject.org/legacy/trac/-/wikis/doc/meek/>`_ domain-"
+"fronting proxyt használja, hogy a számítógépéről Toron kívüli kapcsolatot "
+"létesítsen a Tor cenzúrakerülő API-jával. A Meek proxy elrejti azt a tényt, "
+"hogy Ön a Torhoz való csatlakozás módját keresi."
 
 #: ../../source/tor.rst:36
 msgid ""
@@ -115,6 +138,11 @@ msgid ""
 "reside in. Based on the country information, the API will try to "
 "automatically find bridges that suit your location."
 msgstr ""
+"Ha a \"Határozza meg az IP-címem alapján az országomat a hídbeállításokhoz\" "
+"lehetőséget választja, a cenzúrakerülő API az IP-címe (igen, a valódi IP-"
+"címe) alapján határozza meg, hogy melyik országban tartózkodhat. Az "
+"országinformáció alapján az API megpróbál automatikusan az Ön helyzetének "
+"megfelelő hidakat keresni."
 
 #: ../../source/tor.rst:41
 msgid ""
@@ -122,10 +150,12 @@ msgid ""
 "Censorship API will find the bridges that suit the country that you "
 "specified."
 msgstr ""
+"Ha a \"Válassza ki kézzel az országot a hídbeállításokhoz\" lehetőséget "
+"választja, a cenzúrakerülő API a megadott országnak megfelelő hidakat keres."
 
 #: ../../source/tor.rst:46
 msgid "How automatic censorship circumvention works"
-msgstr ""
+msgstr "Hogyan működik az automatikus cenzúrakerülés"
 
 #: ../../source/tor.rst:48
 msgid ""
@@ -134,6 +164,10 @@ msgid ""
 "does not find any bridges for your location, OnionShare will ask the API for "
 "\"fallback\" options, and then try to reconnect using those."
 msgstr ""
+"Ha a cenzúrakerülő API olyan hidakat talál, amelyek szerinte megfelelnek "
+"Önnek, az OnionShare megpróbál ezekkel a hidakkal újra csatlakozni a Torhoz. "
+"Ha az API nem talál hidat az Ön helyéhez, az OnionShare \"tartalék\" "
+"lehetőségeket kér az API-tól, majd azokkal próbál újra csatlakozni."
 
 #: ../../source/tor.rst:50
 msgid ""
@@ -141,6 +175,9 @@ msgid ""
 "or if the API returns an error message, OnionShare will attempt to use the "
 "obfs4 built-in bridges."
 msgstr ""
+"Ha az OnionShare valamilyen okból nem tud csatlakozni magához a "
+"cenzúrakerülő API-hoz, vagy az API hibaüzenetet ad vissza, az OnionShare a "
+"beépített obfs4 hidakat próbálja meg használni."
 
 #: ../../source/tor.rst:52
 msgid ""
@@ -148,6 +185,9 @@ msgid ""
 "do not go over the Tor network (because if you could connect to Tor already, "
 "you wouldn't need to connect to the API)."
 msgstr ""
+"Fontos tudni, hogy a cenzúrakerülő API-hoz intézett kérések nem a Tor-"
+"hálózaton keresztül haladnak (hiszen ha már tudna csatlakozni a Torhoz, nem "
+"lenne szüksége az API-ra)."
 
 #: ../../source/tor.rst:54
 msgid ""
@@ -157,6 +197,12 @@ msgid ""
 "to making one or two requests to the Censorship Circumvention API. Then Meek "
 "is stopped, and all further network requests happen over the Tor network."
 msgstr ""
+"Bár egy ellenfél számára nehéz kideríteni, hová tart a Meek-kérés, ez egyes "
+"felhasználók számára így is kockázatos lehet. Ezért ez a funkció csak külön "
+"engedélyezéssel érhető el. A Meek és a Toron kívüli hálózati kérések "
+"használata mindössze egy-két, a cenzúrakerülő API-hoz intézett kérésre "
+"korlátozódik. Ezután a Meek leáll, és minden további hálózati kérés a Tor-"
+"hálózaton keresztül történik."
 
 #: ../../source/tor.rst:56
 msgid ""
@@ -166,10 +212,15 @@ msgid ""
 "appears), and manually configure bridges. After you save any bridge "
 "settings, OnionShare will try to reconnect using those bridges."
 msgstr ""
+"Ha nem szívesen indít olyan kérést, amely nem a Tor-hálózaton keresztül "
+"halad, kattintson a \"Hálózati beállítások\" gombra (vagy a jobb alsó "
+"sarokban lévő Beállítások ikonra, majd a megjelenő képernyőn a Tor "
+"beállítások lapra), és állítsa be kézzel a hidakat. A hídbeállítások mentése "
+"után az OnionShare ezekkel a hidakkal próbál újra csatlakozni."
 
 #: ../../source/tor.rst:59
 msgid "Manually configure Tor settings"
-msgstr ""
+msgstr "A Tor-beállítások kézi megadása"
 
 #: ../../source/tor.rst:61
 msgid ""
@@ -178,21 +229,30 @@ msgid ""
 "the application, and then switch to the Tor Settings tab in the screen that "
 "appears."
 msgstr ""
+"A Tor-beállításokat úgy érheti el, hogy az üdvözlőképernyőn a \"Hálózati "
+"beállítások\" gombra kattint, vagy az alkalmazás jobb alsó sarkában lévő "
+"\"⚙\" ikonra kattint, majd a megjelenő képernyőn átvált a Tor beállítások "
+"lapra."
 
 #: ../../source/tor.rst:65
 msgid ""
 "Here are the different ways you can configure OnionShare to connect to Tor:"
 msgstr ""
+"Az OnionShare-t a következő módokon állíthatja be a Torhoz való "
+"csatlakozásra:"
 
 #: ../../source/tor.rst:68
 msgid "Use the Tor version built into OnionShare"
-msgstr ""
+msgstr "Az OnionShare-be épített Tor-verzió használata"
 
 #: ../../source/tor.rst:70
 msgid ""
 "This is the default, simplest and most reliable way that OnionShare connects "
 "to Tor. For this reason, it's recommended for most users."
 msgstr ""
+"Ez az alapértelmezett, legegyszerűbb és legmegbízhatóbb módja annak, hogy az "
+"OnionShare csatlakozzon a Torhoz. Ezért a legtöbb felhasználónak ezt "
+"javasoljuk."
 
 #: ../../source/tor.rst:73
 msgid ""
@@ -201,22 +261,30 @@ msgid ""
 "``tor`` processes on your computer, so you can use the Tor Browser or the "
 "system ``tor`` on their own."
 msgstr ""
+"Az OnionShare megnyitásakor a háttérben elindul egy előre beállított ``tor`` "
+"folyamat, amelyet az OnionShare használ. Ez nem zavarja a számítógépén futó "
+"többi ``tor`` folyamatot, így a Tor Browsert vagy a rendszer ``tor`` "
+"folyamatát önállóan is használhatja."
 
 #: ../../source/tor.rst:76
 msgid "**Using bridges**"
-msgstr ""
+msgstr "**Hidak használata**"
 
 #: ../../source/tor.rst:78
 msgid ""
 "To use a bridge, you must select \"Use the Tor version built into "
 "OnionShare\" and check the \"Use a bridge\" checkbox."
 msgstr ""
+"Híd használatához ki kell választania a \"Beépített Tor-verzió használata\" "
+"lehetőséget, és be kell jelölnie a \"Használj hidat\" jelölőnégyzetet."
 
 #: ../../source/tor.rst:80
 msgid ""
 "Try using a built-in bridge first. Using `obfs4` or `snowflake` bridges is "
 "recommended over using `meek`."
 msgstr ""
+"Először próbáljon beépített hidat használni. A `meek` helyett az `obfs4` "
+"vagy a `snowflake` hidak használata javasolt."
 
 #: ../../source/tor.rst:84
 msgid ""
@@ -225,12 +293,16 @@ msgid ""
 "bridge. (This makes it more difficult for governments or ISPs to block "
 "access to Tor bridges.)"
 msgstr ""
+"Ha a beépített híd nem működik, kérhet hidat a torproject.org oldaltól. A "
+"híd kéréséhez meg kell oldania egy CAPTCHA-t. (Ez megnehezíti a kormányok "
+"vagy internetszolgáltatók számára a Tor-hidakhoz való hozzáférés "
+"blokkolását.)"
 
 #: ../../source/tor.rst:88
 msgid ""
 "You also have the option of using a bridge that you learned about from a "
 "trusted source."
-msgstr ""
+msgstr "Olyan hidat is használhat, amelyről megbízható forrásból értesült."
 
 #: ../../source/tor.rst:90
 msgid ""
@@ -243,10 +315,19 @@ msgid ""
 "choosing \"webtunnel\" as the bridge type. Solve the CAPTCHA to request the "
 "bridges, then save your settings to connect to Tor using them."
 msgstr ""
+"Az OnionShare a WebTunnel hidakat is támogatja. Ezeket a beépített hidaktól "
+"külön kell megadni vagy kérni. Saját WebTunnel hidak használatához válassza "
+"az \"Adjon meg egy hidat, amelyről tudja hogy megbízható\" lehetőséget, és "
+"illessze be a hídsorokat a hidak szövegmezőjébe, soronként egyet. A Tor "
+"Bridges (Moat) szolgáltatásból is beszerezheti őket: válassza a \"Híd kérése "
+"a torproject.org-tól\" lehetőséget, kattintson a \"Kérjen új hidat\" gombra, "
+"és hídtípusként válassza a \"webtunnel\" lehetőséget. Oldja meg a CAPTCHA-t "
+"a hidak kéréséhez, majd mentse a beállításokat, hogy ezekkel csatlakozzon a "
+"Torhoz."
 
 #: ../../source/tor.rst:96
 msgid "Attempt auto-configuration with Tor Browser"
-msgstr ""
+msgstr "Automatikus konfiguráció a Tor Browserrel"
 
 #: ../../source/tor.rst:98
 msgid ""
@@ -255,16 +336,22 @@ msgid ""
 "from the Tor Browser. Keep in mind you need to keep Tor Browser open in the "
 "background while you're using OnionShare for this to work."
 msgstr ""
+"Ha már `letöltötte a Tor Browsert <https://www.torproject.org>`_, és nem "
+"szeretné, hogy két ``tor`` folyamat fusson, használhatja a Tor Browser "
+"``tor`` folyamatát. Ne feledje, hogy ehhez a Tor Browsernek nyitva kell "
+"maradnia a háttérben, amíg az OnionShare-t használja."
 
 #: ../../source/tor.rst:102
 msgid "Using a system ``tor`` in Windows"
-msgstr ""
+msgstr "Rendszerszintű ``tor`` használata Windows alatt"
 
 #: ../../source/tor.rst:104
 msgid ""
 "This is fairly advanced. You'll need to know how edit plaintext files and do "
 "stuff as an administrator."
 msgstr ""
+"Ez meglehetősen haladó szintű feladat. Tudnia kell egyszerű szöveges "
+"fájlokat szerkeszteni és rendszergazdaként műveleteket végezni."
 
 #: ../../source/tor.rst:106
 msgid ""
@@ -273,6 +360,11 @@ msgid ""
 "the extracted folder to ``C:\\Program Files (x86)\\`` Rename the extracted "
 "folder with ``Data`` and ``Tor`` in it to ``tor-win32``."
 msgstr ""
+"Töltse le a Tor Windows Expert Bundle csomagot `a Tor webhelyéről <https://"
+"www.torproject.org/download/tor/>`_. Csomagolja ki a tömörített fájlt, és "
+"másolja a kicsomagolt mappát a ``C:\\Program Files (x86)\\`` mappába. A "
+"``Data`` és ``Tor`` mappákat tartalmazó kicsomagolt mappát nevezze át ``tor-"
+"win32`` névre."
 
 #: ../../source/tor.rst:110
 msgid ""
@@ -282,6 +374,11 @@ msgid ""
 "administrator, and use ``tor.exe --hash-password`` to generate a hash of "
 "your password. For example::"
 msgstr ""
+"Találjon ki egy jelszót a vezérlőporthoz. (Jelszónak jó ötlet 7 szót "
+"használni egymás után, például: ``comprised stumble rummage work avenging "
+"construct volatile``.) Ezután nyisson meg egy parancssort (``cmd``) "
+"rendszergazdaként, és a ``tor.exe --hash-password`` paranccsal hozza létre a "
+"jelszava hash-értékét. Például::"
 
 #: ../../source/tor.rst:117
 msgid ""
@@ -289,6 +386,9 @@ msgid ""
 "ignore). In the case of the above example, it is "
 "``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 msgstr ""
+"A jelszó hash-értéke néhány figyelmeztetés után jelenik meg (ezeket "
+"figyelmen kívül hagyhatja). A fenti példa esetében ez: "
+"``16:00322E903D96DE986058BB9ABDA91E010D7A863768635AC38E213FDBEF``."
 
 #: ../../source/tor.rst:119
 msgid ""
@@ -296,6 +396,9 @@ msgid ""
 "and put your hashed password output in it, replacing the "
 "``HashedControlPassword`` with the one you just generated::"
 msgstr ""
+"Most hozzon létre egy új szövegfájlt ``C:\\Program Files (x86)\\tor-win32\\t"
+"orrc`` néven, és írja bele a jelszava hash-értékét, a "
+"``HashedControlPassword`` értékét az imént létrehozottra cserélve::"
 
 #: ../../source/tor.rst:124
 msgid ""
@@ -303,10 +406,14 @@ msgid ""
 "appropriate ``torrc`` file you just created (as described in `<https://"
 "2019.www.torproject.org/docs/faq.html.en#NTService>`_). Like this::"
 msgstr ""
+"A rendszergazdai parancssorban telepítse a ``tor`` programot "
+"szolgáltatásként az imént létrehozott ``torrc`` fájl használatával (a "
+"`<https://2019.www.torproject.org/docs/faq.html.en#NTService>`_ oldalon "
+"leírtak szerint). Így::"
 
 #: ../../source/tor.rst:128
 msgid "You are now running a system ``tor`` process in Windows!"
-msgstr ""
+msgstr "Most már egy rendszerszintű ``tor`` folyamat fut a Windowson!"
 
 #: ../../source/tor.rst:130
 msgid ""
@@ -318,24 +425,35 @@ msgid ""
 "Connection to Tor\" button. If all goes well, you should see \"Connected to "
 "the Tor controller\"."
 msgstr ""
+"Nyissa meg az OnionShare-t, kattintson benne a \"⚙\" ikonra, és váltson át a "
+"Tor beállítások lapra. A \"Hogyan csatlakozzon az OnionShare a Tor-hoz?\" "
+"alatt válassza a \"Csatlakozás kontroll port által\" lehetőséget, és a "
+"\"Kontroll port\" értékét állítsa ``127.0.0.1``-re, a \"Port\" értékét pedig "
+"``9051``-re. A \"Tor-hitelesítési beállítások\" alatt válassza a \"Jelszó\" "
+"lehetőséget, és jelszóként adja meg a fent kiválasztott vezérlőport-jelszót. "
+"Kattintson a \"Tor-kapcsolat tesztelése\" gombra. Ha minden rendben van, a "
+"\"Csatlakozva a Tor-kontrollerhez\" üzenetnek kell megjelennie."
 
 #: ../../source/tor.rst:139
 msgid "Using a system ``tor`` in macOS"
-msgstr ""
+msgstr "Rendszerszintű ``tor`` használata macOS alatt"
 
 #: ../../source/tor.rst:141
 msgid ""
 "First, install `Homebrew <https://brew.sh/>`_ if you don't already have it, "
 "and then install Tor::"
 msgstr ""
+"Először telepítse a `Homebrew <https://brew.sh/>`_ csomagkezelőt, ha még "
+"nincs telepítve, majd telepítse a Tort::"
 
 #: ../../source/tor.rst:145
 msgid "Now configure Tor to allow connections from OnionShare::"
 msgstr ""
+"Most állítsa be a Tort úgy, hogy engedélyezze az OnionShare kapcsolódását::"
 
 #: ../../source/tor.rst:152
 msgid "And start the system Tor service::"
-msgstr ""
+msgstr "Majd indítsa el a rendszerszintű Tor szolgáltatást::"
 
 #: ../../source/tor.rst:156
 msgid ""
@@ -346,14 +464,23 @@ msgid ""
 "authentication, or cookie authentication\". Click the \"Test Connection to "
 "Tor\" button."
 msgstr ""
+"Nyissa meg az OnionShare-t, kattintson benne a \"⚙\" ikonra, és váltson át a "
+"Tor beállítások lapra. A \"Hogyan csatlakozzon az OnionShare a Tor-hoz?\" "
+"alatt válassza a \"Szokettfájl használata\" lehetőséget, és a socketfájlt "
+"állítsa ``/usr/local/var/run/tor/control.socket`` értékre. A \"Tor-"
+"hitelesítési beállítások\" alatt válassza a \"Nincs hitelesítés, vagy sütik "
+"általi hitelesítés\" lehetőséget. Kattintson a \"Tor-kapcsolat tesztelése\" "
+"gombra."
 
 #: ../../source/tor.rst:162 ../../source/tor.rst:182
 msgid "If all goes well, you should see \"Connected to the Tor controller\"."
 msgstr ""
+"Ha minden rendben van, a \"Csatlakozva a Tor-kontrollerhez\" üzenetnek kell "
+"megjelennie."
 
 #: ../../source/tor.rst:165
 msgid "Using a system ``tor`` in Linux"
-msgstr ""
+msgstr "Rendszerszintű ``tor`` használata Linux alatt"
 
 #: ../../source/tor.rst:167
 msgid ""
@@ -361,6 +488,9 @@ msgid ""
 "similar Linux distro, It is recommended to use the Tor Project's `official "
 "repository <https://support.torproject.org/apt/tor-deb-repo/>`_."
 msgstr ""
+"Először telepítse a ``tor`` csomagot. Ha Debiant, Ubuntut vagy hasonló Linux-"
+"disztribúciót használ, a Tor Project `hivatalos tárolójának <https://"
+"support.torproject.org/apt/tor-deb-repo/>`_ használata javasolt."
 
 #: ../../source/tor.rst:169
 msgid ""
@@ -368,12 +498,18 @@ msgid ""
 "of Debian and Ubuntu, ``debian-tor``) and configure OnionShare to connect to "
 "your system ``tor``'s control socket file."
 msgstr ""
+"Ezután adja hozzá a felhasználóját ahhoz a csoporthoz, amely a ``tor`` "
+"folyamatot futtatja (Debian és Ubuntu esetén ez a ``debian-tor``), és "
+"állítsa be az OnionShare-t úgy, hogy a rendszer ``tor`` vezérlő "
+"socketfájljához csatlakozzon."
 
 #: ../../source/tor.rst:171
 msgid ""
 "Add your user to the ``debian-tor`` group by running this command (replace "
 "``username`` with your actual username)::"
 msgstr ""
+"Adja hozzá a felhasználóját a ``debian-tor`` csoporthoz a következő parancs "
+"futtatásával (a ``username`` helyére a saját felhasználónevét írja)::"
 
 #: ../../source/tor.rst:175
 msgid ""
@@ -384,3 +520,10 @@ msgid ""
 "settings\" choose \"No authentication, or cookie authentication\". Click the "
 "\"Test Connection to Tor\" button."
 msgstr ""
+"Indítsa újra a számítógépét. Újraindulás után nyissa meg az OnionShare-t, "
+"kattintson benne a \"⚙\" ikonra, és váltson át a Tor beállítások lapra. A "
+"\"Hogyan csatlakozzon az OnionShare a Tor-hoz?\" alatt válassza a "
+"\"Szokettfájl használata\" lehetőséget. A socketfájlt állítsa ``/var/run/tor/"
+"control`` értékre. A \"Tor-hitelesítési beállítások\" alatt válassza a "
+"\"Nincs hitelesítés, vagy sütik általi hitelesítés\" lehetőséget. Kattintson "
+"a \"Tor-kapcsolat tesztelése\" gombra."

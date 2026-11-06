@@ -6,17 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-14 09:58+1100\n"
-"PO-Revision-Date: 2024-04-21 10:07+0000\n"
-"Last-Translator: Jenő László <jenolaszlotamas@fiokom.hu>\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2026-10-29 12:59+1100\n"
+"PO-Revision-Date: 2026-11-06 03:51+0000\n"
+"Last-Translator: Kövecses József <kovecses@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: none\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: ../../source/install.rst:2
 msgid "Installation"
@@ -36,46 +37,49 @@ msgstr ""
 
 #: ../../source/install.rst:12
 msgid "Mobile"
-msgstr ""
+msgstr "Mobil"
 
 #: ../../source/install.rst:14
 msgid "You can download OnionShare for Mobile from the follow links"
-msgstr ""
+msgstr "Az OnionShare mobilváltozata az alábbi hivatkozásokról tölthető le"
 
 #: ../../source/install.rst:16
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: ../../source/install.rst:17
 msgid ""
 "Google Play: https://play.google.com/store/apps/details?"
 "id=org.onionshare.android"
 msgstr ""
+"Google Play: https://play.google.com/store/apps/"
+"details?id=org.onionshare.android"
 
 #: ../../source/install.rst:18
 msgid "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
-msgstr ""
+msgstr "F-Droid: https://github.com/onionshare/onionshare-android-nightly"
 
 #: ../../source/install.rst:20
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #: ../../source/install.rst:21
 msgid "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
-msgstr ""
+msgstr "Apple App Store: https://apps.apple.com/app/onionshare/id1601890129"
 
 #: ../../source/install.rst:22
 msgid ""
 "Direct IPA download: https://github.com/onionshare/onionshare-ios/releases"
 msgstr ""
+"Közvetlen IPA-letöltés: https://github.com/onionshare/onionshare-ios/releases"
 
 #: ../../source/install.rst:23
 msgid "Testflight: https://testflight.apple.com/join/ZCJeY65W"
-msgstr ""
+msgstr "Testflight: https://testflight.apple.com/join/ZCJeY65W"
 
 #: ../../source/install.rst:27
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../source/install.rst:29
 msgid ""
@@ -84,6 +88,11 @@ msgid ""
 "<https://snapcraft.io/>`_ package. Flatpak and Snapcraft ensure that you'll "
 "always use the newest version and run OnionShare inside of a sandbox."
 msgstr ""
+"Az OnionShare többféleképpen telepíthető Linuxra, de a javasolt mód a "
+"`Flatpak <https://flatpak.org/>`_ vagy a `Snap <https://snapcraft.io/>`_ "
+"csomag használata. A Flatpak és a Snapcraft biztosítja, hogy mindig a "
+"legújabb verziót használja, és az OnionShare elkülönített környezetben "
+"(sandbox) fusson."
 
 #: ../../source/install.rst:32
 msgid ""
@@ -91,26 +100,36 @@ msgid ""
 "support, but which you use is up to you. Both work in all Linux "
 "distributions."
 msgstr ""
+"Az Ubuntu beépített Snapcraft-támogatással, a Fedora pedig Flatpak-"
+"támogatással rendelkezik, de hogy melyiket használja, az Önön múlik. "
+"Mindkettő minden Linux-disztribúción működik."
 
 #: ../../source/install.rst:34
 msgid ""
 "**Install OnionShare using Flatpak**: https://flathub.org/apps/details/"
 "org.onionshare.OnionShare"
 msgstr ""
+"**Az OnionShare telepítése Flatpak segítségével**: https://flathub.org/apps/"
+"details/org.onionshare.OnionShare"
 
 #: ../../source/install.rst:36
 msgid "**Install OnionShare using Snapcraft**: https://snapcraft.io/onionshare"
 msgstr ""
+"**Az OnionShare telepítése Snapcraft segítségével**: https://snapcraft.io/"
+"onionshare"
 
 #: ../../source/install.rst:38
 msgid ""
 "You can also download and install PGP-signed ``.flatpak`` or ``.snap`` "
 "packages from https://onionshare.org/dist/ if you prefer."
 msgstr ""
+"Ha úgy kívánja, PGP-aláírással ellátott ``.flatpak`` vagy ``.snap`` "
+"csomagokat is letölthet és telepíthet a https://onionshare.org/dist/ "
+"oldalról."
 
 #: ../../source/install.rst:41
 msgid "Manual Flatpak Installation"
-msgstr ""
+msgstr "Kézi telepítés Flatpakkel"
 
 #: ../../source/install.rst:43
 msgid ""
@@ -118,11 +137,16 @@ msgid ""
 "signed `single-file bundle <https://docs.flatpak.org/en/latest/single-file-"
 "bundles.html>`_, you can do so like this:"
 msgstr ""
+"Ha az OnionShare-t kézzel szeretné telepíteni Flatpakkel, a PGP-aláírással "
+"ellátott `egyfájlos csomag <https://docs.flatpak.org/en/latest/single-file-"
+"bundles.html>`_ használatával, a következőképpen teheti meg:"
 
 #: ../../source/install.rst:45
 msgid ""
 "Install Flatpak by following the instructions at https://flatpak.org/setup/."
 msgstr ""
+"Telepítse a Flatpaket a https://flatpak.org/setup/ oldalon található "
+"útmutató szerint."
 
 #: ../../source/install.rst:46
 msgid ""
@@ -131,18 +155,26 @@ msgid ""
 "won't be downloading OnionShare from Flathub, OnionShare depends on some "
 "packages that are only available there."
 msgstr ""
+"Adja hozzá a Flathub tárolót a ``flatpak remote-add --if-not-exists flathub "
+"https://flathub.org/repo/flathub.flatpakrepo`` parancs futtatásával. Bár az "
+"OnionShare-t nem a Flathubról tölti le, az OnionShare néhány olyan csomagtól "
+"függ, amelyek csak ott érhetők el."
 
 #: ../../source/install.rst:47
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.flatpak`` and ``.flatpak.asc`` files."
 msgstr ""
+"Nyissa meg a https://onionshare.org/dist/ oldalt, válassza ki az OnionShare "
+"legújabb verzióját, és töltse le a ``.flatpak`` és a ``.flatpak.asc`` fájlt."
 
 #: ../../source/install.rst:48
 msgid ""
 "Verify the PGP signature of the ``.flatpak`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Ellenőrizze a ``.flatpak`` fájl PGP-aláírását. További információ: "
+":ref:`verifying_sigs`."
 
 #: ../../source/install.rst:49
 msgid ""
@@ -150,38 +182,51 @@ msgid ""
 "VERSION.flatpak``. Replace ``VERSION`` with the version number of the file "
 "you downloaded."
 msgstr ""
+"Telepítse a ``.flatpak`` fájlt a ``flatpak install OnionShare-"
+"VERSION.flatpak`` parancs futtatásával. A ``VERSION`` helyére a letöltött "
+"fájl verziószámát írja."
 
 #: ../../source/install.rst:51
 msgid "You can run OnionShare with: `flatpak run org.onionshare.OnionShare`."
 msgstr ""
+"Az OnionShare a következő paranccsal futtatható: `flatpak run "
+"org.onionshare.OnionShare`."
 
 #: ../../source/install.rst:54
 msgid "Manual Snapcraft Installation"
-msgstr ""
+msgstr "Kézi telepítés Snapcrafttal"
 
 #: ../../source/install.rst:56
 msgid ""
 "If you'd like to install OnionShare manually with Snapcraft using the PGP-"
 "signed Snapcraft package, you can do so like this:"
 msgstr ""
+"Ha az OnionShare-t kézzel szeretné telepíteni Snapcrafttal, a PGP-aláírással "
+"ellátott Snapcraft-csomag használatával, a következőképpen teheti meg:"
 
 #: ../../source/install.rst:58
 msgid ""
 "Install Snapcraft by following the instructions at https://snapcraft.io/docs/"
 "installing-snapd."
 msgstr ""
+"Telepítse a Snapcraftot a https://snapcraft.io/docs/installing-snapd oldalon "
+"található útmutató szerint."
 
 #: ../../source/install.rst:59
 msgid ""
 "Go to https://onionshare.org/dist/, choose the latest version of OnionShare, "
 "and download the ``.snap`` and ``.snap.asc`` files."
 msgstr ""
+"Nyissa meg a https://onionshare.org/dist/ oldalt, válassza ki az OnionShare "
+"legújabb verzióját, és töltse le a ``.snap`` és a ``.snap.asc`` fájlt."
 
 #: ../../source/install.rst:60
 msgid ""
 "Verify the PGP signature of the ``.snap`` file. See :ref:`verifying_sigs` "
 "for more info."
 msgstr ""
+"Ellenőrizze a ``.snap`` fájl PGP-aláírását. További információ: "
+":ref:`verifying_sigs`."
 
 #: ../../source/install.rst:61
 msgid ""
@@ -191,24 +236,31 @@ msgid ""
 "package is not signed by the Snapcraft store, however you did verify its PGP "
 "signature, so you know it's legitimate."
 msgstr ""
+"Telepítse a ``.snap`` fájlt a ``snap install --dangerous "
+"onionshare_VERSION_amd64.snap`` parancs futtatásával. A ``VERSION`` helyére "
+"a letöltött fájl verziószámát írja. Ne feledje, hogy a `--dangerous` "
+"kapcsolót azért kell használnia, mert a csomagot nem a Snapcraft áruház írta "
+"alá, Ön viszont ellenőrizte a PGP-aláírását, így tudja, hogy hiteles."
 
 #: ../../source/install.rst:63
 msgid "You can run OnionShare with: `snap run onionshare`."
-msgstr ""
+msgstr "Az OnionShare a következő paranccsal futtatható: `snap run onionshare`."
 
 #: ../../source/install.rst:68
 msgid "Command-line only"
-msgstr ""
+msgstr "Csak parancssoros változat"
 
 #: ../../source/install.rst:70
 msgid ""
 "You can install just the command-line version of OnionShare on any operating "
 "system using the Python package manager ``pip``. :ref:`cli` has more info."
 msgstr ""
+"Bármely operációs rendszeren telepítheti az OnionShare csak parancssoros "
+"változatát a ``pip`` Python-csomagkezelővel. További információ: :ref:`cli`."
 
 #: ../../source/install.rst:75
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #: ../../source/install.rst:77
 msgid ""
@@ -218,6 +270,11 @@ msgid ""
 "use OnionShare on a FreeBSD operating system, please be aware that it's "
 "**NOT** officially supported by the OnionShare project."
 msgstr ""
+"Bár nem hivatalosan erre a platformra fejlesztik, az OnionShare a `FreeBSD "
+"<https://freebsd.org/>`_ rendszerre is telepíthető. A portgyűjteményen "
+"keresztül vagy előre lefordított csomagként érhető el. Ha az OnionShare-t "
+"FreeBSD operációs rendszeren kívánja telepíteni és használni, vegye "
+"figyelembe, hogy az OnionShare projekt ezt hivatalosan **NEM** támogatja."
 
 #: ../../source/install.rst:79
 msgid ""
@@ -228,18 +285,24 @@ msgid ""
 "you wish to check changes related to this platform, please refer to the "
 "following resources:"
 msgstr ""
+"Bár nem az OnionShare fejlesztői kínálják és tartják karban hivatalosan, a "
+"FreeBSD-csomagok és -portok a hivatalos OnionShare-tárolóból (vagy a `PyPI-n "
+"<https://pypi.org/project/onionshare-cli/>`_ található hivatalos kiadási "
+"csomagokból) töltik le és ellenőrzik a forráskódot. Ha szeretné nyomon "
+"követni az erre a platformra vonatkozó változásokat, tekintse meg a "
+"következő forrásokat:"
 
 #: ../../source/install.rst:81
 msgid "https://cgit.freebsd.org/ports/log/www/onionshare"
-msgstr ""
+msgstr "https://cgit.freebsd.org/ports/log/www/onionshare"
 
 #: ../../source/install.rst:82
 msgid "https://www.freshports.org/www/onionshare"
-msgstr ""
+msgstr "https://www.freshports.org/www/onionshare"
 
 #: ../../source/install.rst:85
 msgid "Manual pkg Installation"
-msgstr ""
+msgstr "Kézi telepítés pkg segítségével"
 
 #: ../../source/install.rst:87
 msgid ""
@@ -247,6 +310,10 @@ msgid ""
 "``pyXY`` specifying the version of Python the package was built for. So, in "
 "order to install OnionShare for Python 3.9, use::"
 msgstr ""
+"A bináris csomag telepítéséhez használja a ``pkg install pyXY-onionshare`` "
+"parancsot, ahol a ``pyXY`` azt a Python-verziót adja meg, amelyhez a csomag "
+"készült. Az OnionShare Python 3.9-hez való telepítéséhez tehát ezt "
+"használja::"
 
 #: ../../source/install.rst:91
 msgid ""
@@ -254,6 +321,9 @@ msgid ""
 "built package. Replace ``py39-onionshare`` by ``py39-onionshare-cli`` if you "
 "want to install that version."
 msgstr ""
+"Az OnionShare **csak parancssoros** változata is elérhető előre lefordított "
+"csomagként. Ha ezt a változatot szeretné telepíteni, a ``py39-onionshare`` "
+"helyett a ``py39-onionshare-cli`` csomagot adja meg."
 
 #: ../../source/install.rst:93
 msgid ""
@@ -261,10 +331,13 @@ msgid ""
 "please refer to its `official Handbook section about pkg <https://"
 "docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 msgstr ""
+"A FreeBSD előre lefordított csomagjaival kapcsolatos további információkért "
+"és részletekért tekintse meg a `kézikönyv pkg-ről szóló hivatalos fejezetét "
+"<https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_."
 
 #: ../../source/install.rst:96
 msgid "Manual port Installation"
-msgstr ""
+msgstr "Kézi telepítés porttal"
 
 #: ../../source/install.rst:98
 msgid ""
@@ -272,6 +345,8 @@ msgid ""
 "<https://freebsd.org/ports/>`_ you must have checked out before and run the "
 "following::"
 msgstr ""
+"A FreeBSD-port telepítéséhez lépjen be a korábban letöltött `portgyűjtemény "
+"<https://freebsd.org/ports/>`_ könyvtárába, és futtassa a következőt::"
 
 #: ../../source/install.rst:102
 msgid ""
@@ -279,6 +354,9 @@ msgid ""
 "only** version of OnionShare. Replace ``www/onionshare`` by ``www/onionshare-"
 "cli`` if you want to install that version."
 msgstr ""
+"A portgyűjtemény külön portot is kínál az OnionShare **csak parancssoros** "
+"változatához. Ha ezt a változatot szeretné telepíteni, a ``www/onionshare`` "
+"helyett a ``www/onionshare-cli`` portot adja meg."
 
 #: ../../source/install.rst:104
 msgid ""
@@ -286,10 +364,13 @@ msgid ""
 "please refer to its `official Handbook section about ports <https://"
 "docs.freebsd.org/en/books/handbook/ports/#ports-using>`_."
 msgstr ""
+"A FreeBSD portgyűjteményével kapcsolatos további információkért és "
+"részletekért tekintse meg a `kézikönyv portokról szóló hivatalos fejezetét "
+"<https://docs.freebsd.org/en/books/handbook/ports/#ports-using>`_."
 
 #: ../../source/install.rst:109
 msgid "Verifying PGP signatures"
-msgstr ""
+msgstr "PGP-aláírások ellenőrzése"
 
 #: ../../source/install.rst:111
 msgid ""
@@ -299,10 +380,15 @@ msgid ""
 "include operating system-specific signatures, and you can just rely on those "
 "alone if you'd like."
 msgstr ""
+"A PGP-aláírás ellenőrzésével meggyőződhet arról, hogy a letöltött csomag "
+"hiteles, és nem módosították. Windows és macOS esetén ez a lépés nem "
+"kötelező, és többrétegű védelmet nyújt: az OnionShare bináris fájljai "
+"operációs rendszer-specifikus aláírásokat tartalmaznak, és ha szeretné, "
+"egyedül ezekre is hagyatkozhat."
 
 #: ../../source/install.rst:115
 msgid "Signing key"
-msgstr ""
+msgstr "Aláíró kulcs"
 
 #: ../../source/install.rst:117
 msgid ""
@@ -310,15 +396,19 @@ msgid ""
 "particular release. Here is the GPG key information for each of the core "
 "developers of OnionShare:"
 msgstr ""
+"A csomagokat az adott kiadásért felelős fő fejlesztő írja alá. Az OnionShare "
+"egyes fő fejlesztőinek GPG-kulcsadatai a következők:"
 
 #: ../../source/install.rst:120
 msgid "Micah Lee:"
-msgstr ""
+msgstr "Micah Lee:"
 
 #: ../../source/install.rst:121
 msgid ""
 "PGP public key fingerprint ``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 msgstr ""
+"PGP nyilvános kulcs ujjlenyomata: "
+"``927F419D7EC82C2F149C1BD1403C2657CD994F73``."
 
 #: ../../source/install.rst:122
 msgid ""
@@ -326,15 +416,20 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-fingerprint/"
 "927F419D7EC82C2F149C1BD1403C2657CD994F73>`_."
 msgstr ""
+"Micah kulcsát `a keys.openpgp.org kulcsszerverről <https://keys.openpgp.org/"
+"vks/v1/by-fingerprint/927F419D7EC82C2F149C1BD1403C2657CD994F73>`_ töltheti "
+"le."
 
 #: ../../source/install.rst:124
 msgid "Saptak Sengupta:"
-msgstr ""
+msgstr "Saptak Sengupta:"
 
 #: ../../source/install.rst:125
 msgid ""
 "PGP public key fingerprint ``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 msgstr ""
+"PGP nyilvános kulcs ujjlenyomata: "
+"``2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B``."
 
 #: ../../source/install.rst:126
 msgid ""
@@ -342,15 +437,20 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-fingerprint/"
 "2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_."
 msgstr ""
+"Saptak kulcsát `a keys.openpgp.org kulcsszerverről <https://keys.openpgp.org/"
+"vks/v1/by-fingerprint/2AE3D40A6905C8E4E8ED95ECE46A2B977C14666B>`_ töltheti "
+"le."
 
 #: ../../source/install.rst:128
 msgid "Miguel Jacq:"
-msgstr ""
+msgstr "Miguel Jacq:"
 
 #: ../../source/install.rst:129
 msgid ""
 "PGP public key fingerprint ``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
 msgstr ""
+"PGP nyilvános kulcs ujjlenyomata: "
+"``54A91143AE0AB4F7743B01FE888ED1B423A3BC99``."
 
 #: ../../source/install.rst:130
 msgid ""
@@ -358,6 +458,9 @@ msgid ""
 "keys.openpgp.org/vks/v1/by-fingerprint/"
 "54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_."
 msgstr ""
+"Miguel kulcsát `a keys.openpgp.org kulcsszerverről <https://keys.openpgp.org/"
+"vks/v1/by-fingerprint/54A91143AE0AB4F7743B01FE888ED1B423A3BC99>`_ töltheti "
+"le."
 
 #: ../../source/install.rst:132
 msgid ""
@@ -365,10 +468,13 @@ msgid ""
 "want `GPGTools <https://gpgtools.org/>`_, and for Windows you probably want "
 "`Gpg4win <https://www.gpg4win.org/>`_."
 msgstr ""
+"Az aláírások ellenőrzéséhez telepítve kell lennie a GnuPG-nek. macOS "
+"rendszeren valószínűleg a `GPGTools <https://gpgtools.org/>`_, Windowson "
+"pedig a `Gpg4win <https://www.gpg4win.org/>`_ a megfelelő választás."
 
 #: ../../source/install.rst:135
 msgid "Signatures"
-msgstr ""
+msgstr "Aláírások"
 
 #: ../../source/install.rst:137
 msgid ""
@@ -377,10 +483,14 @@ msgid ""
 "folders named for each version of OnionShare. You can also find them on the "
 "`GitHub Releases page <https://github.com/onionshare/onionshare/releases>`_."
 msgstr ""
+"Az aláírásokat (``.asc`` fájlokként), valamint a Windows-, macOS-, Flatpak-, "
+"Snap- és forráscsomagokat a https://onionshare.org/dist/ oldalon találja, az "
+"OnionShare egyes verzióiról elnevezett mappákban. A `GitHub kiadási oldalán "
+"<https://github.com/onionshare/onionshare/releases>`_ is megtalálhatók."
 
 #: ../../source/install.rst:141
 msgid "Verifying"
-msgstr ""
+msgstr "Ellenőrzés"
 
 #: ../../source/install.rst:143
 msgid ""
@@ -388,26 +498,29 @@ msgid ""
 "keychain, downloaded the binary and ``.asc`` signature, you can verify the "
 "binary in a terminal like this:"
 msgstr ""
+"Miután importálta a fő fejlesztők nyilvános kulcsait a GnuPG-kulcstartójába, "
+"és letöltötte a bináris fájlt és a ``.asc`` aláírást, a bináris fájlt egy "
+"terminálban így ellenőrizheti:"
 
 #: ../../source/install.rst:145
 msgid "For Windows::"
-msgstr ""
+msgstr "Windows esetén::"
 
 #: ../../source/install.rst:149
 msgid "For macOS::"
-msgstr ""
+msgstr "macOS esetén::"
 
 #: ../../source/install.rst:153
 msgid "For Linux::"
-msgstr ""
+msgstr "Linux esetén::"
 
 #: ../../source/install.rst:159
 msgid "and for the source file::"
-msgstr ""
+msgstr "a forrásfájl esetén pedig::"
 
 #: ../../source/install.rst:163
 msgid "The expected output looks like this::"
-msgstr ""
+msgstr "A várt kimenet így néz ki::"
 
 #: ../../source/install.rst:173
 msgid ""
@@ -415,6 +528,9 @@ msgid ""
 "integrity of the file (malicious or otherwise), and you should not install "
 "the package."
 msgstr ""
+"Ha nem látja a ``Good signature from`` szöveget, probléma lehet a fájl "
+"sértetlenségével (akár rosszindulatú, akár más okból), és nem szabad "
+"telepítenie a csomagot."
 
 #: ../../source/install.rst:175
 msgid ""
@@ -422,6 +538,9 @@ msgid ""
 "means you haven't defined a level of \"trust\" of Micah's (the core "
 "developer) PGP key."
 msgstr ""
+"A fent látható ``WARNING:`` nem a csomag hibáját jelzi, csak azt, hogy Ön "
+"nem határozott meg \"megbízhatósági\" szintet Micah (a fő fejlesztő) PGP-"
+"kulcsához."
 
 #: ../../source/install.rst:177
 msgid ""
@@ -430,3 +549,7 @@ msgid ""
 "the `Tor Project <https://support.torproject.org/tbb/how-to-verify-signature/"
 ">`_ may be useful."
 msgstr ""
+"Ha többet szeretne megtudni a PGP-aláírások ellenőrzéséről, hasznosak "
+"lehetnek a `Qubes OS <https://www.qubes-os.org/security/verifying-"
+"signatures/>`_ és a `Tor Project <https://support.torproject.org/tbb/how-to-"
+"verify-signature/>`_ útmutatói."

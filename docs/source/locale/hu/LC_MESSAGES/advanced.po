@@ -6,17 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OnionShare 2.5\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-14 09:58+1100\n"
-"PO-Revision-Date: 2024-04-21 10:07+0000\n"
-"Last-Translator: Jenő László <jenolaszlotamas@fiokom.hu>\n"
+"Report-Msgid-Bugs-To: onionshare-dev@lists.riseup.net\n"
+"POT-Creation-Date: 2026-10-29 12:59+1100\n"
+"PO-Revision-Date: 2026-11-06 03:51+0000\n"
+"Last-Translator: Kövecses József <kovecses@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: none\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: ../../source/advanced.rst:2
 msgid "Advanced Usage"
@@ -42,6 +43,8 @@ msgid ""
 "Make any tab persistent by checking the \"Always open this tab when "
 "OnionShare is started\" box before starting your server."
 msgstr ""
+"Bármely lapot állandóvá tehet, ha a szerver indítása előtt bejelöli az \"Ez "
+"a lap mindig nyíljon meg az OnionShare indításakor\" jelölőnégyzetet."
 
 #: ../../source/advanced.rst:16
 msgid ""
@@ -49,22 +52,29 @@ msgid ""
 "opened. Each service then can be started manually, and will be available on "
 "the same OnionShare address and be protected by the same private key."
 msgstr ""
+"Az OnionShare megnyitásakor az előző munkamenetben mentett lapok megnyitva "
+"indulnak. Ezután az egyes szolgáltatások kézzel indíthatók, és ugyanazon az "
+"OnionShare-címen lesznek elérhetők, ugyanazzal a privát kulccsal védve."
 
 #: ../../source/advanced.rst:19
 msgid ""
 "If you save a tab, a copy of its onion service secret key is stored on your "
 "computer."
 msgstr ""
+"Ha ment egy lapot, annak onion szolgáltatásához tartozó titkos kulcs egy "
+"példánya a számítógépén tárolódik."
 
 #: ../../source/advanced.rst:24
 msgid "Turn Off Private Key"
-msgstr ""
+msgstr "A privát kulcs kikapcsolása"
 
 #: ../../source/advanced.rst:26
 msgid ""
 "By default, all OnionShare services are protected with a private key, which "
 "Tor calls \"client authentication\"."
 msgstr ""
+"Alapértelmezés szerint minden OnionShare szolgáltatást privát kulcs véd, "
+"amelyet a Tor \"kliens-hitelesítésnek\" nevez."
 
 #: ../../source/advanced.rst:28
 msgid ""
@@ -72,6 +82,9 @@ msgid ""
 "OnionShare service. If you want to allow the public to use your service, "
 "it's better to disable the private key altogether."
 msgstr ""
+"Amikor betölt egy OnionShare szolgáltatást, a Tor Browser kérni fogja a "
+"privát kulcs megadását. Ha azt szeretné, hogy a nyilvánosság használhassa a "
+"szolgáltatását, jobb teljesen letiltani a privát kulcsot."
 
 #: ../../source/advanced.rst:31
 msgid ""
@@ -80,10 +93,14 @@ msgid ""
 "Then the server will be public and a private key is not needed to load it in "
 "the Tor Browser."
 msgstr ""
+"Bármely lap privát kulcsának kikapcsolásához a szerver indítása előtt "
+"jelölje be az \"Ez egy nyilvános OnionShare szolgáltatás (letiltja a privát "
+"kulcsot)\" jelölőnégyzetet. Ekkor a szerver nyilvános lesz, és a Tor "
+"Browserben való betöltéséhez nincs szükség privát kulcsra."
 
 #: ../../source/advanced.rst:37
 msgid "Custom Titles"
-msgstr ""
+msgstr "Egyéni címek"
 
 #: ../../source/advanced.rst:39
 msgid ""
@@ -91,16 +108,21 @@ msgid ""
 "title for each type of service. For example, the default title for chat "
 "services is \"OnionShare Chat\"."
 msgstr ""
+"Amikor valaki betölt egy OnionShare szolgáltatást a Tor Browserben, az adott "
+"szolgáltatástípus alapértelmezett címét látja. A csevegőszolgáltatások "
+"alapértelmezett címe például \"OnionShare Chat\"."
 
 #: ../../source/advanced.rst:42
 msgid ""
 "If you edit the \"Custom title\" setting before starting a server you can "
 "change it."
 msgstr ""
+"Ezt a szerver indítása előtt az \"Egyéni cím\" beállítás szerkesztésével "
+"módosíthatja."
 
 #: ../../source/advanced.rst:45
 msgid "Scheduled Times"
-msgstr ""
+msgstr "Ütemezett időpontok"
 
 #: ../../source/advanced.rst:47
 msgid ""
@@ -110,6 +132,12 @@ msgid ""
 "time\", \"Stop onion service at scheduled time\", or both, and set the "
 "respective desired dates and times."
 msgstr ""
+"Az OnionShare támogatja annak pontos ütemezését, hogy egy szolgáltatás mikor "
+"induljon el és álljon le. A szerver indítása előtt kattintson a lapján a "
+"\"Speciális beállítások megjelenítése\" lehetőségre, majd jelölje be az "
+"\"Onion szolgáltatás indítása ütemezett időpontban\", az \"Onion "
+"szolgáltatás leállítása ütemezett időpontban\" vagy mindkét jelölőnégyzetet, "
+"és adja meg a kívánt dátumokat és időpontokat."
 
 #: ../../source/advanced.rst:51
 msgid ""
@@ -117,6 +145,10 @@ msgid ""
 "\"Start sharing\" button is clicked. Services scheduled to stop in the "
 "future display a countdown timer when started."
 msgstr ""
+"A jövőben induló ütemezett szolgáltatások a \"Megosztás kezdése\" gombra "
+"kattintáskor visszaszámláló időzítőt jelenítenek meg. A jövőben leálló "
+"ütemezett szolgáltatások az indításukkor jelenítenek meg visszaszámláló "
+"időzítőt."
 
 #: ../../source/advanced.rst:54
 msgid ""
@@ -125,6 +157,11 @@ msgid ""
 "in the future if you are not there to prevent it. If nothing happens to you, "
 "you can cancel the service before it's scheduled to start."
 msgstr ""
+"**Egy OnionShare szolgáltatás automatikus indításának ütemezése "
+"halottkapcsolóként (dead man's switch) is használható.** Ez azt jelenti, "
+"hogy a szolgáltatás egy adott jövőbeli időpontban nyilvánossá válik, ha Ön "
+"nincs ott, hogy megakadályozza. Ha nem történik Önnel semmi, az ütemezett "
+"indítás előtt visszavonhatja a szolgáltatást."
 
 #: ../../source/advanced.rst:60
 msgid ""
@@ -132,42 +169,53 @@ msgid ""
 "exposure**. If you want to share secret info or something that will be "
 "outdated, you can do so for selected limited time."
 msgstr ""
+"**Egy OnionShare szolgáltatás automatikus leállításának ütemezése korlátozza "
+"a kitettségét.** Ha titkos információt vagy hamar elavuló tartalmat szeretne "
+"megosztani, ezt egy kiválasztott, korlátozott ideig teheti meg."
 
 #: ../../source/advanced.rst:68
 msgid "Command-line Interface"
-msgstr ""
+msgstr "Parancssoros felület"
 
 #: ../../source/advanced.rst:70
 msgid ""
 "In addition to its graphical interface, OnionShare has a command-line "
 "interface."
 msgstr ""
+"A grafikus felület mellett az OnionShare parancssoros felülettel is "
+"rendelkezik."
 
 #: ../../source/advanced.rst:73
 msgid "Installing the CLI version"
-msgstr ""
+msgstr "A CLI-változat telepítése"
 
 #: ../../source/advanced.rst:75
 msgid ""
 "If you have installed the Snap, macOS or Windows package, you already have "
 "the CLI version installed."
 msgstr ""
+"Ha a Snap-, macOS- vagy Windows-csomagot telepítette, a CLI-változat már "
+"telepítve van."
 
 #: ../../source/advanced.rst:77
 msgid ""
 "Alternatively, you can install just the command-line version of OnionShare "
 "using ``pip3``::"
 msgstr ""
+"Másik lehetőségként az OnionShare csak parancssoros változatát is "
+"telepítheti a ``pip3`` segítségével::"
 
 #: ../../source/advanced.rst:81
 msgid ""
 "Note that you will also need the ``tor`` package installed. In macOS, "
 "install it with: ``brew install tor``"
 msgstr ""
+"Ne feledje, hogy a ``tor`` csomagra is szüksége lesz. macOS rendszeren a "
+"következő paranccsal telepítheti: ``brew install tor``"
 
 #: ../../source/advanced.rst:83
 msgid "Then run it like this::"
-msgstr ""
+msgstr "Ezután így futtassa::"
 
 #: ../../source/advanced.rst:87
 msgid ""
@@ -175,55 +223,67 @@ msgid ""
 "`CLI README file <https://github.com/onionshare/onionshare/blob/develop/cli/"
 "README.md>`_ in the Git repository."
 msgstr ""
+"A különböző operációs rendszereken való telepítésről a Git-tárolóban "
+"található `CLI README fájlban <https://github.com/onionshare/onionshare/blob/"
+"develop/cli/README.md>`_ talál információt."
 
 #: ../../source/advanced.rst:90
 msgid "Running the CLI from Snap"
-msgstr ""
+msgstr "A CLI futtatása Snapből"
 
 #: ../../source/advanced.rst:92
 msgid ""
 "If you installed OnionShare using the Snap package, you can run "
 "``onionshare.cli`` to access the command-line interface version."
 msgstr ""
+"Ha az OnionShare-t Snap-csomagként telepítette, a parancssoros változatot az "
+"``onionshare.cli`` paranccsal érheti el."
 
 #: ../../source/advanced.rst:95
 msgid "Running the CLI from macOS"
-msgstr ""
+msgstr "A CLI futtatása macOS rendszeren"
 
 #: ../../source/advanced.rst:97
 msgid ""
 "From Terminal, you can run ``/Applications/OnionShare.app/Contents/MacOS/"
 "onionshare-cli --help``"
 msgstr ""
+"A Terminálból a következő parancsot futtathatja: ``/Applications/"
+"OnionShare.app/Contents/MacOS/onionshare-cli --help``"
 
 #: ../../source/advanced.rst:100
 msgid "Running the CLI from Windows"
-msgstr ""
+msgstr "A CLI futtatása Windowson"
 
 #: ../../source/advanced.rst:102
 msgid ""
 "In the Windows installation, the executable ``onionshare-cli.exe`` is "
 "available."
 msgstr ""
+"A Windows-telepítésben az ``onionshare-cli.exe`` futtatható fájl érhető el."
 
 #: ../../source/advanced.rst:105
 msgid "Usage"
-msgstr ""
+msgstr "Használat"
 
 #: ../../source/advanced.rst:107
 msgid ""
 "Browse the command-line documentation by running ``onionshare --help``::"
 msgstr ""
+"A parancssoros dokumentációt az ``onionshare --help`` parancs futtatásával "
+"tekintheti meg::"
 
 #: ../../source/advanced.rst:172
 msgid "Running the CLI as a systemd unit file"
-msgstr ""
+msgstr "A CLI futtatása systemd unitfájlként"
 
 #: ../../source/advanced.rst:174
 msgid ""
 "It is possible to automatically start OnionShare from the CLI using a "
 "systemd unit file."
 msgstr ""
+"Az OnionShare egy systemd unitfájl segítségével automatikusan is elindítható "
+"a CLI-ből."
 
 #: ../../source/advanced.rst:176
 msgid ""
@@ -231,10 +291,12 @@ msgid ""
 "mode, and want to start the same onion service every time your machine "
 "starts."
 msgstr ""
+"Ez különösen hasznos lehet, ha 'állandó' módban használja, és azt szeretné, "
+"hogy a gép minden indításakor ugyanaz az onion szolgáltatás induljon el."
 
 #: ../../source/advanced.rst:178
 msgid "To do this, you need to prepare some OnionShare json config first."
-msgstr ""
+msgstr "Ehhez először el kell készítenie néhány OnionShare JSON-konfigurációt."
 
 #: ../../source/advanced.rst:180
 msgid ""
@@ -243,6 +305,10 @@ msgid ""
 "the settings, but if you already have OnionShare installed, it probably "
 "looks much like this already::"
 msgstr ""
+"Ez az OnionShare fő konfigurációja. Ebben a példában a ``/home/user/.config/"
+"onionshare/onionshare.json`` helyen van tárolva. Előfordulhat, hogy néhány "
+"beállítást módosítania kell, de ha az OnionShare már telepítve van, "
+"valószínűleg már most is nagyjából így néz ki::"
 
 #: ../../source/advanced.rst:209
 msgid ""
@@ -250,12 +316,18 @@ msgid ""
 "user/.config/onionshare/persistent/my-persistent-onion.json``, that looks "
 "like this::"
 msgstr ""
+"Figyelje meg a 'persistent_tabs' szakaszt. Most létrehozunk egy fájlt ``/"
+"home/user/.config/onionshare/persistent/my-persistent-onion.json`` néven, "
+"amely így néz ki::"
 
 #: ../../source/advanced.rst:249
 msgid ""
 "**Don't actually use this private key, service_id or client_auth keys! They "
 "are shown only as an example. Never share the private_key with anyone.**"
 msgstr ""
+"**Ne használja ténylegesen ezt a privát kulcsot, service_id-t vagy "
+"client_auth kulcsokat! Ezek csak példaként szerepelnek. A private_key "
+"értékét soha ne ossza meg senkivel.**"
 
 #: ../../source/advanced.rst:251
 msgid ""
@@ -266,6 +338,12 @@ msgid ""
 "unpin that tab once you've generated it the first time. Or, you can leave it "
 "where it is, and use that persistent file in your systemd unit file below."
 msgstr ""
+"Az onion cím és a privát kulcs előállításának legegyszerűbb módja, ha "
+"először létrehoz egy 'rögzített' OnionShare-lapot az asztali alkalmazásban, "
+"és először elindítja a megosztást. Ez véletlenszerű néven elmenti az állandó "
+"beállításokat a ``.config/onionshare/persistent/`` mappába. Az első "
+"előállítás után a lap rögzítését feloldhatja. Vagy hagyhatja is a helyén, és "
+"az alábbi systemd unitfájlban használhatja azt az állandó fájlt."
 
 #: ../../source/advanced.rst:253
 msgid ""
@@ -274,10 +352,14 @@ msgid ""
 "as well as changes to any paths to the onionshare-cli binary or the paths to "
 "your JSON configs and shares."
 msgstr ""
+"Most létrehozhat egy systemd unitfájlt a ``/etc/systemd/system/onionshare-"
+"cli.service`` helyen. Ügyeljen arra, hogy a User és a Group értékét a saját "
+"felhasználójára/csoportjára állítsa, és módosítsa az onionshare-cli bináris "
+"fájl, valamint a JSON-konfigurációk és a megosztások elérési útjait is."
 
 #: ../../source/advanced.rst:255
 msgid "The systemd unit file should look like this::"
-msgstr ""
+msgstr "A systemd unitfájlnak így kell kinéznie::"
 
 #: ../../source/advanced.rst:270
 msgid ""
@@ -285,11 +367,16 @@ msgid ""
 "``filenames`` section of the ``my-persistent-onion.json`` file, it's still "
 "necessary to specify it as the argument to the onionshare-cli command."
 msgstr ""
+"Ne feledje, hogy bár a ``/home/user/my-shared-file.txt`` meg van adva a ``my-"
+"persistent-onion.json`` fájl ``filenames`` szakaszában, az onionshare-cli "
+"parancs argumentumaként is meg kell adni."
 
 #: ../../source/advanced.rst:272
 msgid ""
 "Be sure to run ``sudo systemctl daemon-reload`` after creating the unit file."
 msgstr ""
+"A unitfájl létrehozása után feltétlenül futtassa a ``sudo systemctl daemon-"
+"reload`` parancsot."
 
 #: ../../source/advanced.rst:274
 msgid ""
@@ -297,30 +384,39 @@ msgid ""
 "``journalctl`` installed, you can run ``sudo journalctl -f -t onionshare-"
 "cli``, and you should see some output of your service starting::"
 msgstr ""
+"Most már futtathatja a ``sudo systemctl start onionshare-cli.service`` "
+"parancsot. Ha a ``journalctl`` telepítve van, futtathatja a ``sudo "
+"journalctl -f -t onionshare-cli`` parancsot, és látnia kell a szolgáltatás "
+"indulásának kimenetét::"
 
 #: ../../source/advanced.rst:284
 msgid ""
 "If you don't want your users to use a Private Key, set ``public`` to be "
 "``true`` in the ``general`` settings of the my-persistent-onion.json file."
 msgstr ""
+"Ha nem szeretné, hogy a felhasználók privát kulcsot használjanak, a my-"
+"persistent-onion.json fájl ``general`` beállításai között állítsa a "
+"``public`` értékét ``true``-ra."
 
 #: ../../source/advanced.rst:288
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Billentyűparancsok"
 
 #: ../../source/advanced.rst:290
 msgid ""
 "The OnionShare desktop application contains some keyboard shortcuts, for "
 "convenience and accessibility::"
 msgstr ""
+"Az OnionShare asztali alkalmazás a kényelem és az akadálymentesség érdekében "
+"néhány billentyűparancsot tartalmaz::"
 
 #: ../../source/advanced.rst:295
 msgid "And from the main mode chooser screen::"
-msgstr ""
+msgstr "A fő módválasztó képernyőn pedig::"
 
 #: ../../source/advanced.rst:305
 msgid "Migrating your OnionShare data to another computer"
-msgstr ""
+msgstr "OnionShare-adatok áttelepítése másik számítógépre"
 
 #: ../../source/advanced.rst:307
 msgid ""
@@ -328,28 +424,33 @@ msgid ""
 "computer. This is especially true if you had a 'persistent' onion address "
 "and you want to preserve it."
 msgstr ""
+"Ha másik számítógépre vált, érdemes lehet áttelepíteni az OnionShare-"
+"adatait. Ez különösen igaz, ha 'állandó' onion címet használt, és meg "
+"szeretné tartani."
 
 #: ../../source/advanced.rst:309
 msgid ""
 "OnionShare stores all such data in a specific folder. Copy the relevant "
 "folder for your operating system below, to your new computer:"
 msgstr ""
+"Az OnionShare minden ilyen adatot egy adott mappában tárol. Másolja át az "
+"operációs rendszerének megfelelő alábbi mappát az új számítógépére:"
 
 #: ../../source/advanced.rst:311
 msgid "Linux: ``~/.config/onionshare``"
-msgstr ""
+msgstr "Linux: ``~/.config/onionshare``"
 
 #: ../../source/advanced.rst:312
 msgid "macOS: ``~/Library/Application Support/OnionShare``"
-msgstr ""
+msgstr "macOS: ``~/Library/Application Support/OnionShare``"
 
 #: ../../source/advanced.rst:313
 msgid "Windows: ``%APPDATA%\\OnionShare``"
-msgstr ""
+msgstr "Windows: ``%APPDATA%\\OnionShare``"
 
 #: ../../source/advanced.rst:317
 msgid "Configuration file parameters"
-msgstr ""
+msgstr "A konfigurációs fájl paraméterei"
 
 #: ../../source/advanced.rst:319
 msgid ""
@@ -357,6 +458,9 @@ msgid ""
 "versions use this configuration file. The CLI also lets you specify a path "
 "to a custom configuration file with ``--config``."
 msgstr ""
+"Az OnionShare a beállításait egy JSON-fájlban tárolja. A CLI és az asztali "
+"változat is ezt a konfigurációs fájlt használja. A CLI-ben a ``--config`` "
+"kapcsolóval egyéni konfigurációs fájl elérési útját is megadhatja."
 
 #: ../../source/advanced.rst:321
 msgid ""
@@ -364,31 +468,34 @@ msgid ""
 "configuration file has other parameters not listed here, they may be "
 "obsolete from older OnionShare versions."
 msgstr ""
+"Az alábbiakban a konfigurációs fájl paraméterei és azok jelentése látható. "
+"Ha a konfigurációs fájlja itt nem szereplő paramétereket is tartalmaz, azok "
+"a régebbi OnionShare-verziókból maradhattak meg, és elavultak lehetnek."
 
 #: ../../source/advanced.rst:324 ../../source/advanced.rst:404
 #: ../../source/advanced.rst:415 ../../source/advanced.rst:426
 #: ../../source/advanced.rst:441 ../../source/advanced.rst:452
 #: ../../source/advanced.rst:467
 msgid "Parameter"
-msgstr ""
+msgstr "Paraméter"
 
 #: ../../source/advanced.rst:324 ../../source/advanced.rst:404
 #: ../../source/advanced.rst:415 ../../source/advanced.rst:426
 #: ../../source/advanced.rst:441 ../../source/advanced.rst:452
 #: ../../source/advanced.rst:467
 msgid "Type"
-msgstr ""
+msgstr "Típus"
 
 #: ../../source/advanced.rst:324 ../../source/advanced.rst:404
 #: ../../source/advanced.rst:415 ../../source/advanced.rst:426
 #: ../../source/advanced.rst:441 ../../source/advanced.rst:452
 #: ../../source/advanced.rst:467
 msgid "Explanation"
-msgstr ""
+msgstr "Magyarázat"
 
 #: ../../source/advanced.rst:326
 msgid "version"
-msgstr ""
+msgstr "version"
 
 #: ../../source/advanced.rst:326 ../../source/advanced.rst:327
 #: ../../source/advanced.rst:328 ../../source/advanced.rst:330
@@ -402,16 +509,16 @@ msgstr ""
 #: ../../source/advanced.rst:454 ../../source/advanced.rst:455
 #: ../../source/advanced.rst:470
 msgid "``string``"
-msgstr ""
+msgstr "``string``"
 
 #: ../../source/advanced.rst:326
 msgid ""
 "The version of OnionShare. You should not ever need to change this value."
-msgstr ""
+msgstr "Az OnionShare verziója. Ezt az értéket soha nem kell módosítania."
 
 #: ../../source/advanced.rst:327
 msgid "connection_type"
-msgstr ""
+msgstr "connection_type"
 
 #: ../../source/advanced.rst:327
 msgid ""
@@ -419,86 +526,103 @@ msgid ""
 "'automatic' (use Tor Browser's Tor connection), 'control_port' or "
 "'socket_file'. Default: 'bundled'"
 msgstr ""
+"Az OnionShare Torhoz való csatlakozásának módja. Érvényes lehetőségek: "
+"'bundled', 'automatic' (a Tor Browser Tor-kapcsolatának használata), "
+"'control_port' vagy 'socket_file'. Alapértelmezett: 'bundled'"
 
 #: ../../source/advanced.rst:328
 msgid "control_port_address"
-msgstr ""
+msgstr "control_port_address"
 
 #: ../../source/advanced.rst:328
 msgid ""
 "The IP address of Tor's Control port, if ``connection_type`` is set to "
 "'control_port'. Default: '127.0.0.1'"
 msgstr ""
+"A Tor vezérlőportjának IP-címe, ha a ``connection_type`` értéke "
+"'control_port'. Alapértelmezett: '127.0.0.1'"
 
 #: ../../source/advanced.rst:329
 msgid "control_port_port"
-msgstr ""
+msgstr "control_port_port"
 
 #: ../../source/advanced.rst:329 ../../source/advanced.rst:331
 #: ../../source/advanced.rst:337 ../../source/advanced.rst:458
 #: ../../source/advanced.rst:460
 msgid "``integer``"
-msgstr ""
+msgstr "``integer``"
 
 #: ../../source/advanced.rst:329
 msgid ""
 "The port number of Tor's Control port, if ``connection_type`` is set to "
 "'control_port'. Default: '9051'"
 msgstr ""
+"A Tor vezérlőportjának portszáma, ha a ``connection_type`` értéke "
+"'control_port'. Alapértelmezett: '9051'"
 
 #: ../../source/advanced.rst:330
 msgid "socks_address"
-msgstr ""
+msgstr "socks_address"
 
 #: ../../source/advanced.rst:330
 msgid ""
 "The IP address of Tor's SOCKS proxy, if ``connection_type`` is set to "
 "'control_port' or 'socket_file'. Default: '127.0.0.1'"
 msgstr ""
+"A Tor SOCKS proxyjának IP-címe, ha a ``connection_type`` értéke "
+"'control_port' vagy 'socket_file'. Alapértelmezett: '127.0.0.1'"
 
 #: ../../source/advanced.rst:331
 msgid "socks_port"
-msgstr ""
+msgstr "socks_port"
 
 #: ../../source/advanced.rst:331
 msgid ""
 "The port number of Tor's SOCKS proxy, if ``connection_type`` is set to "
 "'control_port' or 'socket_file'. Default: ''9050'"
 msgstr ""
+"A Tor SOCKS proxyjának portszáma, ha a ``connection_type`` értéke "
+"'control_port' vagy 'socket_file'. Alapértelmezett: ''9050'"
 
 #: ../../source/advanced.rst:332
 msgid "socket_file_path"
-msgstr ""
+msgstr "socket_file_path"
 
 #: ../../source/advanced.rst:332
 msgid ""
 "The path to Tor's socket file, if ``connection_type`` is set to "
 "'socket_file'. Default: '/var/run/tor/control'"
 msgstr ""
+"A Tor socketfájljának elérési útja, ha a ``connection_type`` értéke "
+"'socket_file'. Alapértelmezett: '/var/run/tor/control'"
 
 #: ../../source/advanced.rst:333
 msgid "auth_type"
-msgstr ""
+msgstr "auth_type"
 
 #: ../../source/advanced.rst:333
 msgid ""
 "If access to Tor's control port requires a password, this can be set to "
 "'password', otherwise 'no_auth'. Default: 'no_auth'"
 msgstr ""
+"Ha a Tor vezérlőportjához való hozzáféréshez jelszó szükséges, ez 'password' "
+"értékre állítható, egyébként 'no_auth'. Alapértelmezett: 'no_auth'"
 
 #: ../../source/advanced.rst:334
 msgid "auth_password"
-msgstr ""
+msgstr "auth_password"
 
 #: ../../source/advanced.rst:334
 msgid ""
 "If access to Tor's control port requires a password, and ``auth_type`` is "
 "set to 'password', specify the password here. Default: ''"
 msgstr ""
+"Ha a Tor vezérlőportjához való hozzáféréshez jelszó szükséges, és az "
+"``auth_type`` értéke 'password', itt adja meg a jelszót. Alapértelmezett: ''"
 
 #: ../../source/advanced.rst:335
 msgid "auto_connect"
-msgstr ""
+msgstr "auto_connect"
 
 #: ../../source/advanced.rst:335 ../../source/advanced.rst:336
 #: ../../source/advanced.rst:338 ../../source/advanced.rst:346
@@ -509,43 +633,49 @@ msgstr ""
 #: ../../source/advanced.rst:457 ../../source/advanced.rst:459
 #: ../../source/advanced.rst:469 ../../source/advanced.rst:471
 msgid "``boolean``"
-msgstr ""
+msgstr "``boolean``"
 
 #: ../../source/advanced.rst:335
 msgid ""
 "Whether OnionShare should automatically connect to Tor when it starts. "
 "Default: False"
 msgstr ""
+"Az OnionShare automatikusan csatlakozzon-e a Torhoz indításkor. "
+"Alapértelmezett: False"
 
 #: ../../source/advanced.rst:336
 msgid "use_autoupdate"
-msgstr ""
+msgstr "use_autoupdate"
 
 #: ../../source/advanced.rst:336
 msgid ""
 "Whether OnionShare should automatically check for updates (over Tor). This "
 "setting is only valid for MacOS or Windows installations. Default: True."
 msgstr ""
+"Az OnionShare automatikusan keressen-e frissítéseket (Toron keresztül). Ez a "
+"beállítás csak macOS- vagy Windows-telepítések esetén érvényes. "
+"Alapértelmezett: True."
 
 #: ../../source/advanced.rst:337
 msgid "autoupdate_timestamp"
-msgstr ""
+msgstr "autoupdate_timestamp"
 
 #: ../../source/advanced.rst:337
 msgid "The last time OnionShare checked for updates. Default: None"
 msgstr ""
+"Az OnionShare legutóbbi frissítéskeresésének időpontja. Alapértelmezett: None"
 
 #: ../../source/advanced.rst:338
 msgid "bridges_enabled"
-msgstr ""
+msgstr "bridges_enabled"
 
 #: ../../source/advanced.rst:338
 msgid "Whether to connect to Tor using bridges. Default: False"
-msgstr ""
+msgstr "Hidak használatával csatlakozzon-e a Torhoz. Alapértelmezett: False"
 
 #: ../../source/advanced.rst:339
 msgid "bridges_type"
-msgstr ""
+msgstr "bridges_type"
 
 #: ../../source/advanced.rst:339
 msgid ""
@@ -554,10 +684,15 @@ msgid ""
 "Tor), \"moat\" (request bridges from Tor's Moat API), or \"custom\" (user-"
 "supplied bridges). Default: \"built-in\""
 msgstr ""
+"Ha a ``bridges_enabled`` értéke True, honnan töltődjenek be a hidak. "
+"Lehetőségek: \"built-in\" (az OnionShare-rel szállított hidak, amelyek a "
+"Torból frissülhetnek), \"moat\" (hidak kérése a Tor Moat API-jától) vagy "
+"\"custom\" (a felhasználó által megadott hidak). Alapértelmezett: \"built-"
+"in\""
 
 #: ../../source/advanced.rst:340
 msgid "bridges_builtin_pt"
-msgstr ""
+msgstr "bridges_builtin_pt"
 
 #: ../../source/advanced.rst:340
 msgid ""
@@ -565,20 +700,25 @@ msgid ""
 "bridge protocol to use. Options are \"obfs4\", \"meek\" or \"snowflake\". "
 "Default: \"obfs4\""
 msgstr ""
+"Ha a ``bridges_type`` értéke \"built-in\", ez határozza meg a használandó "
+"hídprotokoll típusát. Lehetőségek: \"obfs4\", \"meek\" vagy \"snowflake\". "
+"Alapértelmezett: \"obfs4\""
 
 #: ../../source/advanced.rst:341
 msgid "bridges_moat"
-msgstr ""
+msgstr "bridges_moat"
 
 #: ../../source/advanced.rst:341
 msgid ""
 "When ``bridges_type`` is set to \"moat\", the bridges returned from Tor's "
 "Moat API are stored here. Default: \"\""
 msgstr ""
+"Ha a ``bridges_type`` értéke \"moat\", itt tárolódnak a Tor Moat API-ja "
+"által visszaadott hidak. Alapértelmezett: \"\""
 
 #: ../../source/advanced.rst:342
 msgid "bridges_custom"
-msgstr ""
+msgstr "bridges_custom"
 
 #: ../../source/advanced.rst:342
 msgid ""
@@ -586,29 +726,34 @@ msgid ""
 "user are stored here. Separate each bridge line in the string with '\\n'. "
 "Default: \"\""
 msgstr ""
+"Ha a ``bridges_type`` értéke \"custom\", itt tárolódnak a felhasználó által "
+"megadott hidak. A karakterláncban az egyes hídsorokat '\\n' választja el. "
+"Alapértelmezett: \"\""
 
 #: ../../source/advanced.rst:343
 msgid "bridges_builtin"
-msgstr ""
+msgstr "bridges_builtin"
 
 #: ../../source/advanced.rst:343
 msgid "``dict``"
-msgstr ""
+msgstr "``dict``"
 
 #: ../../source/advanced.rst:343
 msgid ""
 "When ``bridges_type`` is set to \"built-in\", OnionShare obtains the latest "
 "built-in bridges recommended by Tor and stores them here. Default: {}"
 msgstr ""
+"Ha a ``bridges_type`` értéke \"built-in\", az OnionShare lekéri a Tor által "
+"javasolt legújabb beépített hidakat, és itt tárolja őket. Alapértelmezett: {}"
 
 #: ../../source/advanced.rst:344
 msgid "persistent_tabs"
-msgstr ""
+msgstr "persistent_tabs"
 
 #: ../../source/advanced.rst:344 ../../source/advanced.rst:444
 #: ../../source/advanced.rst:472
 msgid "``list``"
-msgstr ""
+msgstr "``list``"
 
 #: ../../source/advanced.rst:344
 msgid ""
@@ -619,10 +764,16 @@ msgid ""
 "identifier, in a subfolder of the OnionShare configuration folder called "
 "'persistent'. Default: []"
 msgstr ""
+"Ha a felhasználó bármely lapot 'mentettként' határozott meg (vagyis az "
+"OnionShare minden indításakor megmarad, és az onion címe nem változik), ezek "
+"egy véletlenszerű azonosítót kapnak, amely itt szerepel. Az állandó onion "
+"egy ezzel az azonosítóval megegyező nevű JSON-fájlként tárolódik, az "
+"OnionShare konfigurációs mappájának 'persistent' nevű almappájában. "
+"Alapértelmezett: []"
 
 #: ../../source/advanced.rst:345
 msgid "locale"
-msgstr ""
+msgstr "locale"
 
 #: ../../source/advanced.rst:345
 msgid ""
@@ -630,20 +781,27 @@ msgid ""
 "For valid locale codes, see 'available_locales' in https://github.com/"
 "onionshare/onionshare/blob/main/cli/onionshare_cli/settings.py"
 msgstr ""
+"Az OnionShare által használt nyelvi beállítás (locale). Alapértelmezett: "
+"None (ami megegyezik az 'en' értékkel). Az érvényes nyelvi kódokat lásd az "
+"'available_locales' részben: https://github.com/onionshare/onionshare/blob/"
+"main/cli/onionshare_cli/settings.py"
 
 #: ../../source/advanced.rst:346
 msgid "theme"
-msgstr ""
+msgstr "theme"
 
 #: ../../source/advanced.rst:346
 msgid ""
 "The theme for the OnionShare desktop app. Valid options are 0 (automatically "
 "detect the user's computer's light or dark theme), 1 (light) or 2 (dark)."
 msgstr ""
+"Az OnionShare asztali alkalmazás témája. Érvényes lehetőségek: 0 (a "
+"felhasználó számítógépén beállított világos vagy sötét téma automatikus "
+"észlelése), 1 (világos) vagy 2 (sötét)."
 
 #: ../../source/advanced.rst:351
 msgid "Configuration file parameters for persistent onions"
-msgstr ""
+msgstr "Az állandó onionok konfigurációs fájljának paraméterei"
 
 #: ../../source/advanced.rst:353
 msgid ""
@@ -651,108 +809,128 @@ msgid ""
 "are stored in its own JSON file. The path to this file can be specified for "
 "the CLI tool with ``--persistent``."
 msgstr ""
+"Ahogy fentebb olvasható, minden 'állandó' onion saját paraméterekkel "
+"rendelkezik, amelyek a saját JSON-fájljában tárolódnak. A CLI-eszköz számára "
+"ennek a fájlnak az elérési útja a ``--persistent`` kapcsolóval adható meg."
 
 #: ../../source/advanced.rst:355
 msgid "Here is an example persistent JSON configuration::"
-msgstr ""
+msgstr "Íme egy példa állandó JSON-konfigurációra::"
 
 #: ../../source/advanced.rst:398
 msgid ""
 "Below are the configuration file parameters for a persistent onion and what "
 "they mean, for each section in the JSON"
 msgstr ""
+"Az alábbiakban egy állandó onion konfigurációs fájljának paraméterei és azok "
+"jelentése látható, a JSON egyes szakaszai szerint"
 
 #: ../../source/advanced.rst:401
 msgid "onion"
-msgstr ""
+msgstr "onion"
 
 #: ../../source/advanced.rst:406
 msgid "private_key"
-msgstr ""
+msgstr "private_key"
 
 #: ../../source/advanced.rst:406
 msgid "Base64-encoded private key of the onion service"
-msgstr ""
+msgstr "Az onion szolgáltatás Base64 kódolású privát kulcsa"
 
 #: ../../source/advanced.rst:407
 msgid "client_auth_priv_key"
-msgstr ""
+msgstr "client_auth_priv_key"
 
 #: ../../source/advanced.rst:407
 msgid ""
 "The private key when using Client Authentication. Send this to the user."
 msgstr ""
+"A kliens-hitelesítés használatakor alkalmazott privát kulcs. Ezt küldje el a "
+"felhasználónak."
 
 #: ../../source/advanced.rst:408
 msgid "client_auth_pub_key"
-msgstr ""
+msgstr "client_auth_pub_key"
 
 #: ../../source/advanced.rst:408
 msgid ""
 "The public key when using Client Authentication. Used on OnionShare's side."
 msgstr ""
+"A kliens-hitelesítés használatakor alkalmazott nyilvános kulcs. Az "
+"OnionShare oldalán használatos."
 
 #: ../../source/advanced.rst:412
 msgid "persistent"
-msgstr ""
+msgstr "persistent"
 
 #: ../../source/advanced.rst:417
 msgid "mode"
-msgstr ""
+msgstr "mode"
 
 #: ../../source/advanced.rst:417
 msgid ""
 "The mode used by this persistent onion. Options are \"share\", \"receive\", "
 "\"website\" or \"chat\"."
 msgstr ""
+"Az állandó onion által használt mód. Lehetőségek: \"share\", \"receive\", "
+"\"website\" vagy \"chat\"."
 
 #: ../../source/advanced.rst:418
 msgid "enabled"
-msgstr ""
+msgstr "enabled"
 
 #: ../../source/advanced.rst:418
 msgid ""
 "Whether persistence is enabled for this onion. When the persistent option is "
 "unchecked in the desktop, this entire JSON file is deleted. Default: true"
 msgstr ""
+"Engedélyezve van-e az állandóság ehhez az onionhoz. Ha az asztali "
+"alkalmazásban törlik az állandó lehetőség jelölését, ez a teljes JSON-fájl "
+"törlődik. Alapértelmezett: true"
 
 #: ../../source/advanced.rst:419
 msgid "autostart_on_launch"
-msgstr ""
+msgstr "autostart_on_launch"
 
 #: ../../source/advanced.rst:419
 msgid ""
 "Whether to automatically start this persistent onion when OnionShare starts "
 "and once Tor is connected. Default: false"
 msgstr ""
+"Elinduljon-e automatikusan ez az állandó onion az OnionShare indulásakor, a "
+"Tor-kapcsolat létrejötte után. Alapértelmezett: false"
 
 #: ../../source/advanced.rst:423
 msgid "general"
-msgstr ""
+msgstr "general"
 
 #: ../../source/advanced.rst:428
 msgid "title"
-msgstr ""
+msgstr "title"
 
 #: ../../source/advanced.rst:428
 msgid ""
 "An optional custom title for displaying on the onion service. Default: null "
 "(\"OnionShare\" will be shown instead)"
 msgstr ""
+"Az onion szolgáltatáson megjelenítendő, nem kötelező egyéni cím. "
+"Alapértelmezett: null (helyette az \"OnionShare\" jelenik meg)"
 
 #: ../../source/advanced.rst:429
 msgid "public"
-msgstr ""
+msgstr "public"
 
 #: ../../source/advanced.rst:429
 msgid ""
 "Whether the onion service can be accessed with or without a Private Key "
 "(Client Authentication). If true, no Private Key is required."
 msgstr ""
+"Elérhető-e az onion szolgáltatás privát kulccsal (kliens-hitelesítés) vagy "
+"anélkül. Ha true, nincs szükség privát kulcsra."
 
 #: ../../source/advanced.rst:430
 msgid "autostart_timer"
-msgstr ""
+msgstr "autostart_timer"
 
 #: ../../source/advanced.rst:430
 msgid ""
@@ -760,10 +938,14 @@ msgid ""
 "time can be set in the desktop app or specified in seconds with ``--auto-"
 "start-timer`` with the CLI tool. Default: false"
 msgstr ""
+"Be van-e állítva, hogy az onion szolgáltatás egy adott időpontban induljon "
+"el. Az időpont az asztali alkalmazásban állítható be, vagy a CLI-eszközben "
+"az ``--auto-start-timer`` kapcsolóval adható meg másodpercben. "
+"Alapértelmezett: false"
 
 #: ../../source/advanced.rst:431
 msgid "autostop_timer"
-msgstr ""
+msgstr "autostop_timer"
 
 #: ../../source/advanced.rst:431
 msgid ""
@@ -771,117 +953,139 @@ msgid ""
 "can be set in the desktop app or specified in seconds with ``--auto-stop-"
 "timer`` with the CLI tool. Default: false"
 msgstr ""
+"Be van-e állítva, hogy az onion szolgáltatás egy adott időpontban álljon le. "
+"Az időpont az asztali alkalmazásban állítható be, vagy a CLI-eszközben az "
+"``--auto-stop-timer`` kapcsolóval adható meg másodpercben. Alapértelmezett: "
+"false"
 
 #: ../../source/advanced.rst:432
 msgid "service_id"
-msgstr ""
+msgstr "service_id"
 
 #: ../../source/advanced.rst:432
 msgid ""
 "The 32-character onion service URL, without the scheme and without the "
 "'.onion' suffix."
 msgstr ""
+"A 32 karakteres onion szolgáltatás URL-je, séma és a '.onion' utótag nélkül."
 
 #: ../../source/advanced.rst:435
 msgid ""
 "The below are settings specific to the 'mode' specified in the "
 "``persistent`` section above."
 msgstr ""
+"Az alábbiak a fenti ``persistent`` szakaszban megadott 'mode' értékre "
+"jellemző beállítások."
 
 #: ../../source/advanced.rst:438
 msgid "share"
-msgstr ""
+msgstr "share"
 
 #: ../../source/advanced.rst:443
 msgid "autostop_sharing"
-msgstr ""
+msgstr "autostop_sharing"
 
 #: ../../source/advanced.rst:443
 msgid ""
 "Whether to automatically stop the share once files are downloaded the first "
 "time. Default: true"
 msgstr ""
+"Leálljon-e automatikusan a megosztás, amikor a fájlokat először letöltik. "
+"Alapértelmezett: true"
 
 #: ../../source/advanced.rst:444 ../../source/advanced.rst:472
 msgid "filenames"
-msgstr ""
+msgstr "filenames"
 
 #: ../../source/advanced.rst:444 ../../source/advanced.rst:472
 msgid "A list of files to share. Default: []"
-msgstr ""
+msgstr "A megosztandó fájlok listája. Alapértelmezett: []"
 
 #: ../../source/advanced.rst:445 ../../source/advanced.rst:471
 msgid "log_filenames"
-msgstr ""
+msgstr "log_filenames"
 
 #: ../../source/advanced.rst:445 ../../source/advanced.rst:471
 msgid ""
 "Whether to log URL requests to stdout when using the CLI tool. Default: false"
 msgstr ""
+"A CLI-eszköz használatakor naplózza-e az URL-kéréseket a szabványos "
+"kimenetre (stdout). Alapértelmezett: false"
 
 #: ../../source/advanced.rst:449
 msgid "receive"
-msgstr ""
+msgstr "receive"
 
 #: ../../source/advanced.rst:454
 msgid "data_dir"
-msgstr ""
+msgstr "data_dir"
 
 #: ../../source/advanced.rst:454
 msgid ""
 "The path where received files or text messages will be stored. Default: the "
 "'OnionShare' folder of the user's home directory."
 msgstr ""
+"Az az elérési út, ahol a fogadott fájlok vagy szöveges üzenetek tárolódnak. "
+"Alapértelmezett: a felhasználó saját könyvtárában található 'OnionShare' "
+"mappa."
 
 #: ../../source/advanced.rst:455
 msgid "webhook_url"
-msgstr ""
+msgstr "webhook_url"
 
 #: ../../source/advanced.rst:455
 msgid ""
 "A webhook URL that OnionShare will POST to when it receives files or text "
 "messages. Default: null"
 msgstr ""
+"Webhook URL, amelyre az OnionShare POST kérést küld, amikor fájlokat vagy "
+"szöveges üzeneteket fogad. Alapértelmezett: null"
 
 #: ../../source/advanced.rst:456
 msgid "disable_text"
-msgstr ""
+msgstr "disable_text"
 
 #: ../../source/advanced.rst:456
 msgid "Whether to disable receiving text messages. Default: false"
-msgstr ""
+msgstr "Le legyen-e tiltva a szöveges üzenetek fogadása. Alapértelmezett: false"
 
 #: ../../source/advanced.rst:457
 msgid "disable_files"
-msgstr ""
+msgstr "disable_files"
 
 #: ../../source/advanced.rst:457
 msgid "Whether to disable receiving files. Default: false"
-msgstr ""
+msgstr "Le legyen-e tiltva a fájlok fogadása. Alapértelmezett: false"
 
 #: ../../source/advanced.rst:458
 msgid "max_upload_size"
-msgstr ""
+msgstr "max_upload_size"
 
 #: ../../source/advanced.rst:458
 msgid ""
 "Maximum size in bytes of a single upload request (including multipart "
 "overhead). 0 means no limit. Default: 0"
 msgstr ""
+"Egyetlen feltöltési kérés maximális mérete bájtban (a multipart "
+"többletadatokkal együtt). A 0 azt jelenti, hogy nincs korlát. "
+"Alapértelmezett: 0"
 
 #: ../../source/advanced.rst:459
 msgid "max_upload_size_total"
-msgstr ""
+msgstr "max_upload_size_total"
 
 #: ../../source/advanced.rst:459
 msgid ""
 "Whether max_upload_size applies to the service's entire lifespan, refusing "
 "all further uploads once the total is reached. Default: false"
 msgstr ""
+"A max_upload_size a szolgáltatás teljes élettartamára vonatkozik-e, azaz az "
+"összesített méret elérése után minden további feltöltés elutasításra kerül-"
+"e. Alapértelmezett: false"
 
 #: ../../source/advanced.rst:460
 msgid "total_upload_size"
-msgstr ""
+msgstr "total_upload_size"
 
 #: ../../source/advanced.rst:460
 msgid ""
@@ -889,33 +1093,40 @@ msgid ""
 "limit survives restarts. Managed automatically; set it to 0 to reset the "
 "count. Default: 0"
 msgstr ""
+"A szolgáltatás által fogadott bájtok futó összege, amely tárolásra kerül, "
+"így az élettartamra vonatkozó korlát az újraindítások után is megmarad. "
+"Automatikusan kezelt; a számláló nullázásához állítsa 0-ra. Alapértelmezett: "
+"0"
 
 #: ../../source/advanced.rst:464
 msgid "website"
-msgstr ""
+msgstr "website"
 
 #: ../../source/advanced.rst:469
 msgid "disable_csp"
-msgstr ""
+msgstr "disable_csp"
 
 #: ../../source/advanced.rst:469
 msgid ""
 "If set to ``true``, OnionShare won't set its default Content Security Policy "
 "header for the website. Default: ``false``"
 msgstr ""
+"Ha az értéke ``true``, az OnionShare nem állítja be az alapértelmezett "
+"Content Security Policy fejlécét a webhelyhez. Alapértelmezett: ``false``"
 
 #: ../../source/advanced.rst:470
 msgid "custom_csp"
-msgstr ""
+msgstr "custom_csp"
 
 #: ../../source/advanced.rst:470
 msgid "A custom Content Security Policy header to send instead of the default."
 msgstr ""
+"Az alapértelmezett helyett küldendő egyéni Content Security Policy fejléc."
 
 #: ../../source/advanced.rst:476
 msgid "chat"
-msgstr ""
+msgstr "chat"
 
 #: ../../source/advanced.rst:478
 msgid "There are currently no configurable settings for the Chat mode."
-msgstr ""
+msgstr "A csevegő módnak jelenleg nincsenek konfigurálható beállításai."
