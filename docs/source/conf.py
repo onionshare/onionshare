@@ -11,6 +11,7 @@ languages = [
     ("中文 (简体)", "zh_CN"),  # Simplified Chinese
     ("Français", "fr"), # French
     ("Deutsch", "de"),  # German
+    ("Magyar", "hu"),  # Hungarian
     ("Gaeilge", "ga"),  # Irish
     ("Italiano", "it"),  # Italian
     ("日本語", "ja"),  # Japanese
