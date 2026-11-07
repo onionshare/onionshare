@@ -74,6 +74,7 @@ class Settings(object):
             #"gl": "Galego",  # Galician
             "de": "Deutsch",  # German
             #"el": "Ελληνικά",  # Greek
+            "hu": "Magyar", # Hungarian
             #"is": "Íslenska",  # Icelandic
             #"id": "Bahasa Indonesia",  # Indonesian
             "ga": "Gaeilge",  # Irish

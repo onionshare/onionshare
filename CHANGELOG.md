@@ -1,5 +1,15 @@
 # OnionShare Changelog
 
+## 2.7.2
+
+* Security: Ensure the share properly stops after first download (when configured to) in CLI mode. Desktop mode was not affected.
+* Security: Properly clean non-ASCII usernames in Chat mode
+* Bug fix: Fix fetching GeoIP out of the Tor archive when building
+* Bug fix: Fix timer tests for reproducible builds
+* Improvement: Use scoped PySide6 enums
+* i18n: Hungarian translation added
+* Other: Update dependencies
+
 ## 2.7.1
 
 * Bug fix: Prevent freezes (particularly on Windows) due to overloading Tor output to subprocess pipes
