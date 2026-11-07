@@ -43,7 +43,7 @@ class DropHereWidget(QtWidgets.QWidget):
                 QtGui.QImage(GuiCommon.get_resource_path(image_filename))
             )
         )
-        self.image_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.image_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.image_label.show()
 
         self.header_label = QtWidgets.QLabel(parent=self)
@@ -51,7 +51,7 @@ class DropHereWidget(QtWidgets.QWidget):
         self.header_label.setStyleSheet(
             self.common.gui.css["share_file_selection_drop_here_header_label"]
         )
-        self.header_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.header_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.header_label.show()
 
         self.text_label = QtWidgets.QLabel(parent=self)
@@ -59,7 +59,7 @@ class DropHereWidget(QtWidgets.QWidget):
         self.text_label.setStyleSheet(
             self.common.gui.css["share_file_selection_drop_here_label"]
         )
-        self.text_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.text_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.text_label.show()
 
         self.resize(w, h)
@@ -89,7 +89,7 @@ class DropCountLabel(QtWidgets.QLabel):
         self.common = common
 
         self.setAcceptDrops(True)
-        self.setAlignment(QtCore.Qt.AlignCenter)
+        self.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.setText(strings._("gui_drag_and_drop"))
         self.setStyleSheet(self.common.gui.css["share_file_selection_drop_count_label"])
         self.hide()
@@ -115,7 +115,9 @@ class FileList(QtWidgets.QListWidget):
         self.setIconSize(QtCore.QSize(32, 32))
         self.setSortingEnabled(True)
         self.setMinimumHeight(160)
-        self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        self.setSelectionMode(
+            QtWidgets.QAbstractItemView.SelectionMode.ExtendedSelection
+        )
         self.drop_here = DropHereWidget(
             self.common,
             background_image_filename,
@@ -126,7 +128,7 @@ class FileList(QtWidgets.QListWidget):
         )
         self.drop_count = DropCountLabel(self.common, self)
         self.resizeEvent(None)
-        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
 
     def update(self):
         """
@@ -144,7 +146,7 @@ class FileList(QtWidgets.QListWidget):
         """
         self.setAcceptDrops(False)
         self.setCurrentItem(None)
-        self.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.NoSelection)
         for index in range(self.count()):
             self.item(index).item_button.hide()
 
@@ -153,7 +155,9 @@ class FileList(QtWidgets.QListWidget):
         Update the GUI when the server stops, by showing delete buttons.
         """
         self.setAcceptDrops(True)
-        self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        self.setSelectionMode(
+            QtWidgets.QAbstractItemView.SelectionMode.ExtendedSelection
+        )
         for index in range(self.count()):
             self.item(index).item_button.show()
 
@@ -177,7 +181,9 @@ class FileList(QtWidgets.QListWidget):
             for index in range(self.count()):
                 metrics = QtGui.QFontMetrics(self.item(index).font())
                 elided = metrics.elidedText(
-                    self.item(index).basename, QtCore.Qt.ElideRight, self.width() - 200
+                    self.item(index).basename,
+                    QtCore.Qt.TextElideMode.ElideRight,
+                    self.width() - 200,
                 )
                 self.item(index).setText(elided)
 
@@ -233,7 +239,7 @@ class FileList(QtWidgets.QListWidget):
             return
 
         if event.mimeData().hasUrls:
-            event.setDropAction(QtCore.Qt.CopyAction)
+            event.setDropAction(QtCore.Qt.DropAction.CopyAction)
             event.accept()
         else:
             event.ignore()
@@ -248,7 +254,7 @@ class FileList(QtWidgets.QListWidget):
             return
 
         if event.mimeData().hasUrls:
-            event.setDropAction(QtCore.Qt.CopyAction)
+            event.setDropAction(QtCore.Qt.DropAction.CopyAction)
             event.accept()
             for url in event.mimeData().urls():
                 filename = str(url.toLocalFile())
@@ -299,9 +305,11 @@ class FileList(QtWidgets.QListWidget):
             # Use the basename as the method with which to sort the list
             metrics = QtGui.QFontMetrics(item.font())
             elided = metrics.elidedText(
-                item.basename, QtCore.Qt.ElideRight, self.sizeHint().width()
+                item.basename,
+                QtCore.Qt.TextElideMode.ElideRight,
+                self.sizeHint().width(),
             )
-            item.setData(QtCore.Qt.DisplayRole, elided)
+            item.setData(QtCore.Qt.ItemDataRole.DisplayRole, elided)
 
             # Item's delete button
             def delete_item():
@@ -317,7 +325,7 @@ class FileList(QtWidgets.QListWidget):
             )
             item.item_button.clicked.connect(delete_item)
             item.item_button.setSizePolicy(
-                QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
+                QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed
             )
 
             # Item info widget, with a white background
@@ -435,7 +443,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         Add button clicked.
         """
         file_dialog = AddFileDialog(self.common, caption=strings._("gui_choose_items"))
-        if file_dialog.exec() == QtWidgets.QDialog.Accepted:
+        if file_dialog.exec() == QtWidgets.QDialog.DialogCode.Accepted:
             self.common.log("FileSelection", "add", file_dialog.selectedFiles())
             for filename in file_dialog.selectedFiles():
                 self.file_list.add_file(filename)
@@ -466,7 +474,7 @@ class FileSelection(QtWidgets.QVBoxLayout):
         filename = QtWidgets.QFileDialog.getExistingDirectory(
             self.parent,
             caption=strings._("gui_choose_items"),
-            options=QtWidgets.QFileDialog.ShowDirsOnly,
+            options=QtWidgets.QFileDialog.Option.ShowDirsOnly,
         )
         self.common.log("FileSelection", "add_folder", filename)
         if filename:

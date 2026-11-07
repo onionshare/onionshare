@@ -29,7 +29,7 @@ class TestAlert(unittest.TestCase):
 
     def test_ok_button_is_translated(self):
         alert = Alert(self.common, "test message", autostart=False)
-        ok_button = alert.button(QtWidgets.QMessageBox.Ok)
+        ok_button = alert.button(QtWidgets.QMessageBox.StandardButton.Ok)
         self.assertIsNotNone(ok_button)
         self.assertEqual(ok_button.text(), "TRANSLATED_OK")
 
@@ -37,14 +37,17 @@ class TestAlert(unittest.TestCase):
         alert = Alert(
             self.common,
             "test message",
-            buttons=QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel,
+            buttons=QtWidgets.QMessageBox.StandardButton.Ok
+            | QtWidgets.QMessageBox.StandardButton.Cancel,
             autostart=False,
         )
         self.assertEqual(
-            alert.button(QtWidgets.QMessageBox.Ok).text(), "TRANSLATED_OK"
+            alert.button(QtWidgets.QMessageBox.StandardButton.Ok).text(),
+            "TRANSLATED_OK",
         )
         self.assertEqual(
-            alert.button(QtWidgets.QMessageBox.Cancel).text(), "TRANSLATED_CANCEL"
+            alert.button(QtWidgets.QMessageBox.StandardButton.Cancel).text(),
+            "TRANSLATED_CANCEL",
         )
 
     def test_custom_buttons_are_left_untouched(self):
@@ -53,11 +56,11 @@ class TestAlert(unittest.TestCase):
         alert = Alert(
             self.common,
             "test message",
-            buttons=QtWidgets.QMessageBox.NoButton,
+            buttons=QtWidgets.QMessageBox.StandardButton.NoButton,
             autostart=False,
         )
         custom_button = QtWidgets.QPushButton("Custom")
-        alert.addButton(custom_button, QtWidgets.QMessageBox.AcceptRole)
+        alert.addButton(custom_button, QtWidgets.QMessageBox.ButtonRole.AcceptRole)
         self.assertEqual(custom_button.text(), "Custom")
 
 

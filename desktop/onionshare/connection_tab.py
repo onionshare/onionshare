@@ -125,7 +125,7 @@ class AutoConnectTab(QtWidgets.QWidget):
         content_layout.addWidget(self.use_bridge_widget)
         content_layout.addWidget(self.tor_con)
         content_layout.addStretch()
-        content_layout.setAlignment(QtCore.Qt.AlignCenter)
+        content_layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         content_widget = QtWidgets.QWidget()
         content_widget.setLayout(content_layout)
 
@@ -558,7 +558,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.connection_status_label = QtWidgets.QLabel(
             strings._("gui_autoconnect_failed_to_connect_to_tor")
         )
-        self.connection_status_label.setTextFormat(QtCore.Qt.RichText)
+        self.connection_status_label.setTextFormat(QtCore.Qt.TextFormat.RichText)
         self.connection_status_label.setStyleSheet(
             common.gui.css["autoconnect_failed_to_connect_label"]
         )
@@ -567,7 +567,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.connection_error_message = QtWidgets.QLabel(
             strings._("gui_autoconnect_connection_error_msg")
         )
-        self.connection_error_message.setTextFormat(QtCore.Qt.RichText)
+        self.connection_error_message.setTextFormat(QtCore.Qt.TextFormat.RichText)
         self.connection_error_message.setWordWrap(True)
         self.connection_error_message.setContentsMargins(0, 0, 0, 10)
 
@@ -575,15 +575,13 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.description_label = QtWidgets.QLabel(
             strings._("gui_autoconnect_bridge_description")
         )
-        self.description_label.setTextFormat(QtCore.Qt.RichText)
+        self.description_label.setTextFormat(QtCore.Qt.TextFormat.RichText)
         self.description_label.setWordWrap(True)
         self.description_label.setContentsMargins(0, 0, 0, 20)
 
         # Detection preference
         self.use_bridge = True
-        self.no_bridge = QtWidgets.QRadioButton(
-            strings._("gui_autoconnect_no_bridge")
-        )
+        self.no_bridge = QtWidgets.QRadioButton(strings._("gui_autoconnect_no_bridge"))
         self.no_bridge.toggled.connect(self._toggle_no_bridge)
         self.detect_automatic_radio = QtWidgets.QRadioButton(
             strings._("gui_autoconnect_bridge_detect_automatic")
@@ -623,20 +621,20 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.country_combobox.setIconSize(QtCore.QSize(26, 20))
         for country_code in countries:
             icon = QtGui.QIcon(
-                GuiCommon.get_resource_path(os.path.join("images", "countries", f"{country_code.lower()}.png"))
+                GuiCommon.get_resource_path(
+                    os.path.join("images", "countries", f"{country_code.lower()}.png")
+                )
             )
             self.country_combobox.addItem(icon, countries[country_code], country_code)
 
         # Task label
         self.task_label = QtWidgets.QLabel()
         self.task_label.setStyleSheet(common.gui.css["autoconnect_task_label"])
-        self.task_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.task_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.task_label.hide()
 
         # Buttons
-        self.connect_button = QtWidgets.QPushButton(
-            strings._("gui_autoconnect_start")
-        )
+        self.connect_button = QtWidgets.QPushButton(strings._("gui_autoconnect_start"))
         self.connect_button.clicked.connect(self._connect_clicked)
         self.connect_button.setFixedWidth(150)
         self.connect_button.setStyleSheet(common.gui.css["autoconnect_start_button"])
@@ -663,7 +661,7 @@ class AutoConnectUseBridgeWidget(QtWidgets.QWidget):
         self.progress_label = QtWidgets.QLabel(
             strings._("gui_autoconnect_circumventing_censorship")
         )
-        self.progress_label.setAlignment(QtCore.Qt.AlignHCenter)
+        self.progress_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
         self.progress.hide()
         self.progress_label.hide()
 

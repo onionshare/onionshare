@@ -164,7 +164,7 @@ class DownloadMode(Mode):
         data_dir_button.clicked.connect(self.data_dir_button_clicked)
         self.data_dir_lineedit.setMinimumWidth(0)
         self.data_dir_lineedit.setSizePolicy(
-            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Fixed
+            QtWidgets.QSizePolicy.Policy.Ignored, QtWidgets.QSizePolicy.Policy.Fixed
         )
         data_dir_path_layout = QtWidgets.QHBoxLayout()
         data_dir_path_layout.setContentsMargins(0, 0, 0, 0)
@@ -297,6 +297,7 @@ class DownloadMode(Mode):
             if self.common.gui.is_flatpak:
                 if not selected_dir.startswith(os.path.expanduser("~/OnionShare")):
                     from ....widgets import Alert
+
                     Alert(self.common, strings._("gui_receive_flatpak_data_dir"))
                     return
 
@@ -426,9 +427,7 @@ class DownloadMode(Mode):
             )
         else:
             self.download_mode_explainer.setText(
-                strings._("gui_download_mode_in_progress").format(
-                    self.display_url
-                )
+                strings._("gui_download_mode_in_progress").format(self.display_url)
             )
 
     def trigger_download_thread(self):
