@@ -436,9 +436,10 @@ class Mode(QtWidgets.QWidget):
         if self.server_status.status != ServerStatus.STATUS_STOPPED:
             try:
                 self.web.stop(self.app.port)
-            except Exception:
-                # Probably we had no port to begin with (Onion service didn't start)
-                pass
+            except Exception as e:
+                # Probably we had no port to begin with (Onion service didn't start),
+                # but log it, so a server that failed to stop doesn't go unnoticed
+                self.common.log("Mode", "stop_server", f"error stopping web server: {e}")
         if self.is_server:
             self.web.cleanup()
 

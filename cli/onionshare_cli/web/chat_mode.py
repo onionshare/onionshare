@@ -76,12 +76,21 @@ class ChatModeWeb:
         )
 
     def validate_username(self, username):
+        """
+        A username is valid if it isn't empty, too long or already taken, and
+        doesn't need sanitizing: names that only differ from another participant's
+        by characters that are removed here, by lookalike letters or invisible
+        characters, or by runs of spaces (which display as one) could be used to
+        impersonate them. The name that's checked is the name that gets stored and
+        shown to everyone, so no other form of it needs checking.
+        """
         try:
-            username = self.remove_unallowed_characters(username.strip())
+            sanitized = " ".join(self.remove_unallowed_characters(username).split())
             return (
-                username
-                and username not in self.connected_users
-                and len(username) < 128
+                sanitized != ""
+                and sanitized == username
+                and sanitized not in self.connected_users
+                and len(sanitized) < 128
             )
         except Exception as e:
             self.common.log("ChatModeWeb", "validate_username", e)

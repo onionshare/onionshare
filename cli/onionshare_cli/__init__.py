@@ -552,6 +552,11 @@ def main(cwd=None):
 
         # Wait for app to close
         while t.is_alive():
+            # "Stop sharing after files have been sent" and the files have been sent
+            if mode == "share" and web.share_mode.transfer_complete:
+                print("Stopped because transfer is complete")
+                web.stop(app.port)
+                break
             if app.autostop_timer > 0:
                 # if the auto-stop timer was set and has run out, stop the server
                 if not app.autostop_timer_thread.is_alive():
