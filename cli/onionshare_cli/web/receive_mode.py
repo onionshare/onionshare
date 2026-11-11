@@ -479,6 +479,23 @@ class ReceiveModeFile(object):
         self.onionshare_close_func(self.onionshare_filename, self.upload_error)
 
 
+class DiscardedUploadStream(io.BytesIO):
+    """
+    A file-like object for file parts that are being rejected. Werkzeug
+    writes the whole part to whatever stream _get_file_stream() returns
+    so a plain io.BytesIO() would hold a rejected part of any size in
+    memory. This stream throws the bytes away instead, so it always stays
+    empty.
+    """
+
+    def write(self, b):
+        # Report the bytes as written, but don't keep them
+        return len(b)
+
+    def writelines(self, lines):
+        pass
+
+
 class ReceiveModeRequest(Request):
     """
     A custom flask Request object that keeps track of how much data has been
@@ -575,6 +592,16 @@ class ReceiveModeRequest(Request):
             # file bytes is enforced in file_write_func().
             if self.max_upload_size > 0:
                 self.max_content_length = self.max_upload_size
+
+            # When file uploads are disabled, the only thing a sender can
+            # legitimately submit is a text message, so there is no reason to
+            # parse a body bigger than the largest message plus some multipart
+            # overhead. This applies even when no maximum upload size is set.
+            if self.web.settings.get("receive", "disable_files"):
+                text_only_max = self.max_form_memory_size + 65536
+                if self.max_upload_size > 0:
+                    text_only_max = min(text_only_max, self.max_upload_size)
+                self.max_content_length = text_only_max
 
             # Fail closed before reading the body if we already know it is too
             # big. Content-Length is not trustworthy on its own, so the
@@ -763,7 +790,7 @@ class ReceiveModeRequest(Request):
         """
         # Ignore empty file uploads (user didn't select a file)
         if not filename or filename.strip() == "":
-            return io.BytesIO()
+            return DiscardedUploadStream()
 
         if self.upload_request:
             # Reject uploads that were not admitted (autostop timer had
@@ -771,7 +798,7 @@ class ReceiveModeRequest(Request):
             # saved to disk
             if not self.admitted:
                 self.file_upload_rejected = True
-                return io.BytesIO()
+                return DiscardedUploadStream()
 
             # Reject the file stream if this request already exceeds the
             # maximum upload size, so nothing is written to disk
@@ -782,7 +809,7 @@ class ReceiveModeRequest(Request):
                     "File upload rejected: exceeds maximum upload size",
                 )
                 self.file_upload_rejected = True
-                return io.BytesIO()
+                return DiscardedUploadStream()
 
             # Check if file uploads are disabled - reject file streams early
             if self.web.settings.get("receive", "disable_files"):
@@ -792,7 +819,7 @@ class ReceiveModeRequest(Request):
                     "File upload rejected: disable_files is enabled",
                 )
                 self.file_upload_rejected = True
-                return io.BytesIO()
+                return DiscardedUploadStream()
 
             self.tell_gui_request_started()
 
