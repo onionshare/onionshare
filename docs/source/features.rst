@@ -121,7 +121,7 @@ Use at your own risk
 
 Just like with malicious email attachments, it's possible someone could try to attack your computer by uploading a malicious file to your OnionShare service. OnionShare does not add any safety mechanisms to protect your system from malicious files.
 
-If you receive an Office document or a PDF through OnionShare, you can convert these documents into PDFs that are safe to open using `Dangerzone <https://dangerzone.rocks/>`_. You can also protect yourself when opening untrusted documents by opening them in `Tails <https://tails.boum.org/>`_ or in a `Qubes <https://qubes-os.org/>`_ disposableVM.
+If you receive an Office document or a PDF through OnionShare, you can convert these documents into PDFs that are safe to open using `Dangerzone <https://dangerzone.rocks/>`_. You can also protect yourself when opening untrusted documents by opening them in `Tails <https://tails.net/>`_ or in a `Qubes <https://qubes-os.org/>`_ disposableVM.
 
 However, it is always safe to open text messages sent through OnionShare.
 
