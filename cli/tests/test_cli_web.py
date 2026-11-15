@@ -443,6 +443,39 @@ class TestWeb:
 
         shutil.rmtree(data_dir)
 
+    def test_receive_mode_keeps_files_with_non_ascii_names(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+
+        web.settings.set("receive", "data_dir", data_dir)
+
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={
+                    "file[]": [
+                        (BytesIO(b"PHOTO 1"), "\u7167\u7247.jpg"),
+                        (BytesIO(b"PHOTO 2"), "\u6587\u4ef6.jpg"),
+                    ]
+                },
+            )
+            assert res.status_code == 200
+
+        # Both files are kept, each with its own content
+        data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
+        data_dir_time = os.path.join(data_dir_date, os.listdir(data_dir_date)[0])
+        contents = []
+        for filename in os.listdir(data_dir_time):
+            with open(os.path.join(data_dir_time, filename), "rb") as f:
+                contents.append(f.read())
+        assert sorted(contents) == [b"PHOTO 1", b"PHOTO 2"]
+
+        shutil.rmtree(data_dir)
+
     def test_receive_mode_no_message_no_files(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
 
