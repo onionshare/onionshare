@@ -182,7 +182,7 @@ msgid "Just like with malicious email attachments, it's possible someone could t
 msgstr ""
 
 #: ../../source/features.rst:124
-msgid "If you receive an Office document or a PDF through OnionShare, you can convert these documents into PDFs that are safe to open using `Dangerzone <https://dangerzone.rocks/>`_. You can also protect yourself when opening untrusted documents by opening them in `Tails <https://tails.boum.org/>`_ or in a `Qubes <https://qubes-os.org/>`_ disposableVM."
+msgid "If you receive an Office document or a PDF through OnionShare, you can convert these documents into PDFs that are safe to open using `Dangerzone <https://dangerzone.rocks/>`_. You can also protect yourself when opening untrusted documents by opening them in `Tails <https://tails.net/>`_ or in a `Qubes <https://qubes-os.org/>`_ disposableVM."
 msgstr ""
 
 #: ../../source/features.rst:126
