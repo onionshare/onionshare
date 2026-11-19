@@ -545,13 +545,14 @@ class Onion(object):
 
             else:
                 # Otherwise, try default ports for Tor Browser, Tor Messenger, and system tor
-                try:
-                    ports = [9151, 9153, 9051]
-                    for port in ports:
+                ports = [9151, 9153, 9051]
+                for port in ports:
+                    try:
                         self.c = Controller.from_port(port=port)
                         found_tor = True
-                except Exception:
-                    pass
+                        break
+                    except Exception:
+                        pass
 
                 # If this still didn't work, try guessing the default socket file path
                 socket_file_path = ""
