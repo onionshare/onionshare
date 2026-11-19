@@ -270,5 +270,6 @@
     "mode_settings_receive_max_upload_size_unit_kb": "KB",
     "gui_status_indicator_download_stopped": "Ndaluar",
     "gui_status_indicator_download_working": "Po shkarkohet…",
-    "gui_tab_name_download": "Shkarko"
+    "gui_tab_name_download": "Shkarko",
+    "gui_download_start_server": "Nis shkarkimin"
 }
