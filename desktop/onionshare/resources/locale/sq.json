@@ -216,7 +216,7 @@
     "mode_settings_public_checkbox": "Ky është një shërbim OnionShare publik (çaktivizon kyç publik)",
     "mode_settings_autostart_timer_checkbox": "Nise shërbimin Onion në kohën e planifikuar",
     "mode_settings_autostop_timer_checkbox": "Ndale shërbimin Onion në kohën e planifikuar",
-    "mode_settings_share_autostop_sharing_checkbox": "Ndale ndarjen me të tjerë pasi të jenë dërguar kartelat\n(hiqjani shenjën që të lejoni shkarkim kartelash individuale)",
+    "mode_settings_share_autostop_sharing_checkbox": "Ndale ndarjen me të tjerë, pasi të jenë dërguar kartelat\n(hiqjani shenjën, që të lejoni shkarkim kartelash individuale)",
     "mode_settings_receive_data_dir_label": "Ruaji kartelat te",
     "mode_settings_receive_data_dir_browse_button": "Shfletoni",
     "mode_settings_receive_disable_text_checkbox": "Çaktivizo parashtrim teksti",
@@ -274,5 +274,5 @@
     "gui_download_start_server": "Nis shkarkimin",
     "gui_download_stop_server": "Ndale shkarkimin",
     "gui_receive_data_dir_not_writable": "OnionShare s’mund të shkruajë te kjo dosje:\n\n{}\n\nZgjidhni një dosje te e cila mund të shkruani (për shembull, dosja juaj Shkarkime), mandej riprovoni.",
-    "error_download_canceled": "Shkarkimi u anulua"
+    "error_download_canceled": "Shkarkimi u anulua."
 }
