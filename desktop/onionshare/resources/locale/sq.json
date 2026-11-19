@@ -212,11 +212,11 @@
     "mode_settings_advanced_toggle_show": "Shfaq rregullime të mëtejshme",
     "mode_settings_advanced_toggle_hide": "Fshihi rregullimet e mëtejshme",
     "mode_settings_title_label": "Titull vetjak",
-    "mode_settings_persistent_checkbox": "Hape përherë këtë skedë, kur niset OnionShare (adresa Onion do të mbetet po ajo)",
+    "mode_settings_persistent_checkbox": "Hape përherë këtë skedë, kur niset OnionShare\n(adresa Onion do të mbetet po ajo)",
     "mode_settings_public_checkbox": "Ky është një shërbim OnionShare publik (çaktivizon kyç publik)",
     "mode_settings_autostart_timer_checkbox": "Nise shërbimin Onion në kohën e planifikuar",
     "mode_settings_autostop_timer_checkbox": "Ndale shërbimin Onion në kohën e planifikuar",
-    "mode_settings_share_autostop_sharing_checkbox": "Ndale ndarjen me të tjerë pasi të jenë dërguar kartelat (hiqjani shenjën që të lejoni shkarkim kartelash individuale)",
+    "mode_settings_share_autostop_sharing_checkbox": "Ndale ndarjen me të tjerë pasi të jenë dërguar kartelat\n(hiqjani shenjën që të lejoni shkarkim kartelash individuale)",
     "mode_settings_receive_data_dir_label": "Ruaji kartelat te",
     "mode_settings_receive_data_dir_browse_button": "Shfletoni",
     "mode_settings_receive_disable_text_checkbox": "Çaktivizo parashtrim teksti",
@@ -268,8 +268,10 @@
     "mode_settings_receive_max_upload_size_unit_gb": "GB",
     "mode_settings_receive_max_upload_size_unit_mb": "MB",
     "mode_settings_receive_max_upload_size_unit_kb": "KB",
-    "gui_status_indicator_download_stopped": "Ndaluar",
+    "gui_status_indicator_download_stopped": "Ndalur",
     "gui_status_indicator_download_working": "Po shkarkohet…",
     "gui_tab_name_download": "Shkarko",
-    "gui_download_start_server": "Nis shkarkimin"
+    "gui_download_start_server": "Nis shkarkimin",
+    "gui_download_stop_server": "Ndale shkarkimin",
+    "gui_receive_data_dir_not_writable": "OnionShare s’mund të shkruajë te kjo dosje:\n\n{}\n\nZgjidhni një dosje te e cila mund të shkruani (për shembull, dosja juaj Shkarkime), mandej riprovoni."
 }
