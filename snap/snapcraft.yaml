@@ -140,8 +140,8 @@ parts:
       sed -i 's|'$CRAFT_PART_INSTALL'/bin/python3|/usr/bin/env python3|g' $CRAFT_PART_INSTALL/bin/onionshare-cli
 
   tor:
-    source: https://dist.torproject.org/tor-0.4.9.16.tar.gz
-    source-checksum: sha256/6180e193152f4525bdca5475168419b2a2035b963c3c60162a187f86e6160e48
+    source: https://dist.torproject.org/tor-0.4.9.17.tar.gz
+    source-checksum: sha256/ff372c41ee7013557fe5b7acd96c909950b27a7959c59fcb87c02591682fabe2
     source-type: tar
     plugin: autotools
     autotools-configure-parameters:
@@ -172,7 +172,7 @@ parts:
       - go/latest/stable
     source: https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake.git
     source-type: git
-    source-tag: v2.15.3
+    source-tag: v2.15.4
     organize:
       bin/client: bin/snowflake-client
     after: [obfs4]
