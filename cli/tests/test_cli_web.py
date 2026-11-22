@@ -74,6 +74,28 @@ def web_obj(temp_dir, common_obj, mode, num_files=0):
     return web
 
 
+@contextmanager
+def record_file_streams():
+    """
+    Record the streams that receive mode hands to Werkzeug for uploaded file
+    parts, so tests can check where the bytes of each part went
+    """
+    request_class = onionshare_cli.web.receive_mode.ReceiveModeRequest
+    original = request_class._get_file_stream
+    streams = []
+
+    def _get_file_stream(self, *args, **kwargs):
+        stream = original(self, *args, **kwargs)
+        streams.append(stream)
+        return stream
+
+    request_class._get_file_stream = _get_file_stream
+    try:
+        yield streams
+    finally:
+        request_class._get_file_stream = original
+
+
 class TestWeb:
     def test_share_mode(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
@@ -571,6 +593,162 @@ class TestWeb:
         assert webhook_url == "http://127.0.0.1:1337/example"
         assert webhook_data == "1 file submitted to OnionShare"
 
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_discarded_upload_stream_keeps_nothing(self):
+        """
+        The stream used for rejected file parts must not hold on to the bytes
+        written to it, or a rejected upload of any size ends up in memory
+        """
+        stream = onionshare_cli.web.receive_mode.DiscardedUploadStream()
+        assert stream.write(b"*" * 65536) == 65536
+        stream.writelines([b"*" * 1024, b"*" * 1024])
+        assert stream.getvalue() == b""
+        assert stream.getbuffer().nbytes == 0
+        stream.seek(0)
+        assert stream.read() == b""
+
+    def test_receive_mode_disable_files_discards_file(self, temp_dir, common_obj):
+        """
+        With file uploads disabled, a submitted file is refused, written
+        nowhere, and its bytes are not kept in memory
+        """
+        web = web_obj(temp_dir, common_obj, "receive")
+        data_dir = os.path.join(temp_dir.name, "OnionShare-disable-files")
+        os.makedirs(data_dir, exist_ok=True)
+        web.settings.set("receive", "data_dir", data_dir)
+        web.settings.set("receive", "disable_files", True)
+
+        with record_file_streams() as streams:
+            with web.app.test_client() as c:
+                res = c.post(
+                    "/upload-ajax",
+                    buffered=True,
+                    content_type="multipart/form-data",
+                    data={"file[]": (BytesIO(b"*" * 100000), "new_york.jpg")},
+                )
+                content = res.get_data()
+                assert res.status_code == 200
+                assert b"File uploads are not allowed" in content
+
+        assert len(streams) == 1
+        assert isinstance(
+            streams[0], onionshare_cli.web.receive_mode.DiscardedUploadStream
+        )
+
+        assert os.listdir(data_dir) == []
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_disable_files_rejects_big_body(self, temp_dir, common_obj):
+        """
+        With file uploads disabled, a request body bigger than the largest
+        possible text message is refused before it is parsed, even though no
+        maximum upload size is set
+        """
+        web = web_obj(temp_dir, common_obj, "receive")
+        data_dir = os.path.join(temp_dir.name, "OnionShare-disable-files-big")
+        os.makedirs(data_dir, exist_ok=True)
+        web.settings.set("receive", "data_dir", data_dir)
+        web.settings.set("receive", "disable_files", True)
+        assert web.settings.get("receive", "max_upload_size") == 0
+
+        with web.app.test_client() as c:
+            # As a file
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"file[]": (BytesIO(b"*" * (3 * 1024 * 1024)), "big.bin")},
+            )
+            res.get_data()
+            assert res.status_code == 413
+
+            # As lots of form fields, each under the per-field limit
+            fields = {f"field{i}": "*" * (1024 * 1024) for i in range(4)}
+            for path in ["/upload-ajax", "/upload"]:
+                res = c.post(
+                    path,
+                    buffered=True,
+                    content_type="multipart/form-data",
+                    data=fields,
+                )
+                res.get_data()
+                assert res.status_code == 413
+
+        assert os.listdir(data_dir) == []
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_disable_files_allows_longest_message(
+        self, temp_dir, common_obj
+    ):
+        """
+        The request size ceiling for a text-only service must not get in the
+        way of the longest message allowed, even with 4-byte characters
+        """
+        web = web_obj(temp_dir, common_obj, "receive")
+        data_dir = os.path.join(temp_dir.name, "OnionShare-disable-files-msg")
+        os.makedirs(data_dir, exist_ok=True)
+        web.settings.set("receive", "data_dir", data_dir)
+        web.settings.set("receive", "disable_files", True)
+
+        message = "\U0001f9c5" * 524288
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"text": message},
+            )
+            content = res.get_data()
+            assert res.status_code == 200
+            assert b"Message submitted" in content
+
+        saved = []
+        for root, _, filenames in os.walk(data_dir):
+            saved += [os.path.join(root, f) for f in filenames]
+        assert len(saved) == 1
+        assert saved[0].endswith("-message.txt")
+        with open(saved[0], encoding="utf-8") as f:
+            assert f.read() == message
+
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_empty_filename_discards_file(self, temp_dir, common_obj):
+        """
+        A file part with an empty filename is ignored, and its bytes are not
+        kept in memory either
+        """
+        web = web_obj(temp_dir, common_obj, "receive")
+        data_dir = os.path.join(temp_dir.name, "OnionShare-empty-filename")
+        os.makedirs(data_dir, exist_ok=True)
+        web.settings.set("receive", "data_dir", data_dir)
+
+        boundary = "OnionShareTestBoundary"
+        body = (
+            f"--{boundary}\r\n"
+            'Content-Disposition: form-data; name="file[]"; filename=""\r\n'
+            "Content-Type: application/octet-stream\r\n\r\n"
+        ).encode()
+        body += b"*" * 100000
+        body += f"\r\n--{boundary}--\r\n".encode()
+
+        with record_file_streams() as streams:
+            with web.app.test_client() as c:
+                res = c.post(
+                    "/upload-ajax",
+                    content_type=f"multipart/form-data; boundary={boundary}",
+                    data=body,
+                )
+                content = res.get_data()
+                assert res.status_code == 200
+                assert b"Nothing submitted" in content
+
+        assert len(streams) == 1
+        assert isinstance(
+            streams[0], onionshare_cli.web.receive_mode.DiscardedUploadStream
+        )
+
+        assert os.listdir(data_dir) == []
         shutil.rmtree(data_dir)
 
     def test_receive_mode_max_upload_size_rejects_too_big(self, temp_dir, common_obj):
