@@ -822,6 +822,16 @@ class ReceiveModeRequest(Request):
         """
         name = secure_filename(unidecode(filename)) or "file"
         base, ext = os.path.splitext(name)
+
+        # Transliterating makes a name longer (each Chinese character becomes up
+        # to 6 letters), so a name that fits on the uploader's disk can be too
+        # long for ours. Keep it well under the usual 255-byte limit, leaving
+        # room for "-N" and ".part", or the whole upload fails.
+        ext = ext[:16]
+        if len(base) > 200 - len(ext):
+            base = base[: 200 - len(ext)].rstrip("._") or "file"
+            name = f"{base}{ext}"
+
         candidate, n = name, 1
         while candidate in self.progress or os.path.exists(
             os.path.join(self.receive_mode_dir, candidate)
