@@ -26,6 +26,7 @@ from datetime import datetime
 from flask import Request, request, render_template, make_response, flash, redirect
 from werkzeug.exceptions import RequestEntityTooLarge
 from werkzeug.utils import secure_filename
+from unidecode import unidecode
 
 # Receive mode uses a special flask requests object, ReceiveModeRequest, in
 # order to keep track of upload progress. Here's what happens when someone
@@ -152,7 +153,10 @@ class ReceiveModeWeb:
                 filenames = []
                 for f in files:
                     if f.filename != "":
-                        filename = secure_filename(f.filename)
+                        # The name the file was saved under (see _get_file_stream)
+                        filename = getattr(
+                            f.stream, "onionshare_filename", secure_filename(f.filename)
+                        )
                         filenames.append(filename)
                         local_path = os.path.join(request.receive_mode_dir, filename)
                         basename = os.path.basename(local_path)
@@ -823,7 +827,7 @@ class ReceiveModeRequest(Request):
 
             self.tell_gui_request_started()
 
-            self.filename = secure_filename(filename)
+            self.filename = self._unique_filename(filename)
 
             self.progress[self.filename] = {"uploaded_bytes": 0, "complete": False}
 
@@ -836,6 +840,32 @@ class ReceiveModeRequest(Request):
             )
             self.upload_error = True
         return f
+
+    def _unique_filename(self, filename):
+        """
+        A safe name for an uploaded file that no other file in this upload uses.
+        secure_filename() drops non-ASCII characters, so transliterate first:
+        otherwise two files with Chinese names would both be saved as "jpg".
+        """
+        name = secure_filename(unidecode(filename)) or "file"
+        base, ext = os.path.splitext(name)
+
+        # Transliterating makes a name longer (each Chinese character becomes up
+        # to 6 letters), so a name that fits on the uploader's disk can be too
+        # long for ours. Keep it well under the usual 255-byte limit, leaving
+        # room for "-N" and ".part", or the whole upload fails.
+        ext = ext[:16]
+        if len(base) > 200 - len(ext):
+            base = base[: 200 - len(ext)].rstrip("._") or "file"
+            name = f"{base}{ext}"
+
+        candidate, n = name, 1
+        while candidate in self.progress or os.path.exists(
+            os.path.join(self.receive_mode_dir, candidate)
+        ):
+            n += 1
+            candidate = f"{base}-{n}{ext}"
+        return candidate
 
     def close(self):
         """

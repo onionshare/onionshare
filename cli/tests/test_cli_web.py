@@ -465,6 +465,83 @@ class TestWeb:
 
         shutil.rmtree(data_dir)
 
+    def test_receive_mode_keeps_files_with_non_ascii_names(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+
+        web.settings.set("receive", "data_dir", data_dir)
+
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={
+                    "file[]": [
+                        (BytesIO(b"PHOTO 1"), "\u7167\u7247.jpg"),
+                        (BytesIO(b"PHOTO 2"), "\u6587\u4ef6.jpg"),
+                    ]
+                },
+            )
+            assert res.status_code == 200
+
+        # Both files are kept, each with its own content
+        data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
+        data_dir_time = os.path.join(data_dir_date, os.listdir(data_dir_date)[0])
+        contents = []
+        for filename in os.listdir(data_dir_time):
+            with open(os.path.join(data_dir_time, filename), "rb") as f:
+                contents.append(f.read())
+        assert sorted(contents) == [b"PHOTO 1", b"PHOTO 2"]
+
+        shutil.rmtree(data_dir)
+
+    def test_receive_mode_keeps_files_with_long_non_ascii_names(
+        self, temp_dir, common_obj
+    ):
+        web = web_obj(temp_dir, common_obj, "receive")
+
+        data_dir = os.path.join(temp_dir.name, "OnionShare")
+        os.makedirs(data_dir, exist_ok=True)
+
+        web.settings.set("receive", "data_dir", data_dir)
+
+        # 70 Chinese characters is a valid name on the uploader's disk (214
+        # bytes), but more than 255 bytes once transliterated
+        long_name = "照" * 70 + ".jpg"
+
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={
+                    "file[]": [
+                        (BytesIO(b"PHOTO"), long_name),
+                        (BytesIO(b"NOTES"), "notes.txt"),
+                    ]
+                },
+            )
+            assert res.status_code == 200
+            assert b"error_flashes" not in res.data
+
+        # Both files are kept, and the long one keeps its extension
+        data_dir_date = os.path.join(data_dir, os.listdir(data_dir)[0])
+        data_dir_time = os.path.join(data_dir_date, os.listdir(data_dir_date)[0])
+        filenames = os.listdir(data_dir_time)
+        assert len(filenames) == 2
+        assert "notes.txt" in filenames
+        long_saved = [f for f in filenames if f != "notes.txt"][0]
+        assert long_saved.startswith("Zhao_Zhao_")
+        assert long_saved.endswith(".jpg")
+        assert len(long_saved.encode()) <= 255 - len("-999.part")
+        with open(os.path.join(data_dir_time, long_saved), "rb") as f:
+            assert f.read() == b"PHOTO"
+
+        shutil.rmtree(data_dir)
+
     def test_receive_mode_no_message_no_files(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "receive")
 
