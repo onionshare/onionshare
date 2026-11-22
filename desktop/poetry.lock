@@ -401,15 +401,15 @@ files = [
 
 [[package]]
 name = "certifi"
-version = "2026.10.23"
+version = "2026.11.20"
 description = "Python package for providing Mozilla's CA Bundle."
 optional = false
 python-versions = ">=3.7"
 groups = ["main"]
 markers = "platform_machine == \"x86_64\" or platform_machine == \"i686\" or platform_machine == \"aarch64\" or platform_machine == \"armv7l\" or platform_machine == \"ppc64le\" or platform_machine == \"s390x\" or sys_platform != \"linux\" or platform_machine != \"x86_64\" and platform_machine != \"i686\" and platform_machine != \"aarch64\" and platform_machine != \"armv7l\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\""
 files = [
-    {file = "certifi-2026.10.23-py3-none-any.whl", hash = "sha256:e9b54de76e530bb6cf0ccd036787103acb58fd42ba930ea8bf948ddbaa2f61d1"},
-    {file = "certifi-2026.10.23.tar.gz", hash = "sha256:a9895e6e2758b371e0545e321a3a8fd1fcfd9829ada8824a936dfb16aaaf36cd"},
+    {file = "certifi-2026.11.20-py3-none-any.whl", hash = "sha256:7422df25243767b9877031a2248cb14d09ddac9beee846f4cef3d5c9191d488f"},
+    {file = "certifi-2026.11.20.tar.gz", hash = "sha256:af1cb240a8133f105aa52684a3a3258339d7f2fd0bd4e2812698ff5cf5588c4e"},
 ]
 
 [[package]]
@@ -815,10 +815,30 @@ description = "macOS command line utility to build disk images"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
-markers = "sys_platform == \"darwin\""
+markers = "sys_platform == \"darwin\" and python_version < \"3.13\""
 files = [
     {file = "dmgbuild-1.6.7-py3-none-any.whl", hash = "sha256:37ee5771c377beb3203d9164aae8046ffed8531c06edf9227f5788b3c599b1bf"},
     {file = "dmgbuild-1.6.7.tar.gz", hash = "sha256:676b17acd448899f6d4a83b2184e0657480444ecb6ac9c4922889efad9e5dbfb"},
+]
+
+[package.dependencies]
+ds_store = ">=1.1.0"
+mac_alias = ">=2.0.1"
+
+[package.extras]
+badge-icons = ["pyobjc-framework-Quartz (>=3.0.4)"]
+
+[[package]]
+name = "dmgbuild"
+version = "2.0.0"
+description = "macOS command line utility to build disk images"
+optional = false
+python-versions = ">=3.11"
+groups = ["dev"]
+markers = "sys_platform == \"darwin\" and python_version == \"3.13\""
+files = [
+    {file = "dmgbuild-2.0.0-py3-none-any.whl", hash = "sha256:3d4f33f3a0def7ae2a43701a40aa6ae341f90445433694abd4bc67aab779d2f8"},
+    {file = "dmgbuild-2.0.0.tar.gz", hash = "sha256:8775460fd888aebf56ed1eb9b947ac67e0a100eae2c23718aceb6bfd54ef99d3"},
 ]
 
 [package.dependencies]
@@ -879,10 +899,26 @@ description = "Manipulate Finder .DS_Store files from Python"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
-markers = "sys_platform == \"darwin\""
+markers = "sys_platform == \"darwin\" and python_version < \"3.13\""
 files = [
     {file = "ds_store-1.3.3-py3-none-any.whl", hash = "sha256:b92a371efbf1b4ccce2a04d1ed13fceacc4736c81ba09cf5aefb74c088160a35"},
     {file = "ds_store-1.3.3.tar.gz", hash = "sha256:a7380896ea1e880f7ba07c5cdc24bd1530fb86836cad0be531f3e80e2d721ac5"},
+]
+
+[package.dependencies]
+mac_alias = ">=2.2.2"
+
+[[package]]
+name = "ds-store"
+version = "1.3.4"
+description = "Manipulate Finder .DS_Store files from Python"
+optional = false
+python-versions = ">=3.11"
+groups = ["dev"]
+markers = "sys_platform == \"darwin\" and python_version == \"3.13\""
+files = [
+    {file = "ds_store-1.3.4-py3-none-any.whl", hash = "sha256:6d8ae662921846c96b03c244a92aab19a5b4fb3d9cada118fc83cace9250f049"},
+    {file = "ds_store-1.3.4.tar.gz", hash = "sha256:fc9f8cac2fc9274c7271288c4a1b0802fa418489cded5e28363a35fa5061294a"},
 ]
 
 [package.dependencies]
@@ -910,15 +946,15 @@ dev = ["black", "build", "commitizen", "isort", "pip-tools", "pre-commit", "twin
 
 [[package]]
 name = "exceptiongroup"
-version = "1.3.1"
+version = "1.3.2"
 description = "Backport of PEP 654 (exception groups)"
 optional = false
 python-versions = ">=3.7"
 groups = ["dev"]
 markers = "python_version == \"3.10\" and (platform_machine == \"x86_64\" or platform_machine == \"i686\" or platform_machine == \"aarch64\" or platform_machine == \"armv7l\" or platform_machine == \"ppc64le\" or platform_machine == \"s390x\" or sys_platform != \"linux\" or platform_machine != \"x86_64\" and platform_machine != \"i686\" and platform_machine != \"aarch64\" and platform_machine != \"armv7l\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\")"
 files = [
-    {file = "exceptiongroup-1.3.1-py3-none-any.whl", hash = "sha256:a7a39a3bd276781e98394987d3a5701d0c4edffb633bb7a5144577f82c773598"},
-    {file = "exceptiongroup-1.3.1.tar.gz", hash = "sha256:8b412432c6055b0b7d14c310000ae93352ed6754f70fa8f7c34141f91c4e3219"},
+    {file = "exceptiongroup-1.3.2-py3-none-any.whl", hash = "sha256:41c6a70dfec22050d3d8b43386b059a4dc0bca3f3d40a40971cb206fff1785af"},
+    {file = "exceptiongroup-1.3.2.tar.gz", hash = "sha256:ca82e69f0cb535fbde934885744b67669a3efddd50fe7bc00d3398839fcaddec"},
 ]
 
 [package.dependencies]
@@ -942,15 +978,15 @@ files = [
 
 [[package]]
 name = "filelock"
-version = "4.2.9"
+version = "4.3.0"
 description = "A platform independent file lock."
 optional = false
 python-versions = ">=3.11"
 groups = ["dev"]
 markers = "python_version == \"3.13\" and (platform_machine == \"x86_64\" or platform_machine == \"i686\" or platform_machine == \"aarch64\" or platform_machine == \"armv7l\" or platform_machine == \"ppc64le\" or platform_machine == \"s390x\" or sys_platform != \"linux\" or platform_machine != \"x86_64\" and platform_machine != \"i686\" and platform_machine != \"aarch64\" and platform_machine != \"armv7l\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\")"
 files = [
-    {file = "filelock-4.2.9-py3-none-any.whl", hash = "sha256:a379c50a729e5b68c8519a4d26489f755d9769960a236ecd838190e2a78db2e9"},
-    {file = "filelock-4.2.9.tar.gz", hash = "sha256:96530b7c538d4ea08493ab067247aab7948c54d8cd622cce711c97cccc5d9896"},
+    {file = "filelock-4.3.0-py3-none-any.whl", hash = "sha256:f933f39f7e01249a4a49b9abab30edc6d4b874624c3de5dd0b0d137aa8adb979"},
+    {file = "filelock-4.3.0.tar.gz", hash = "sha256:143407310acf479e82d88068e3b9a6486f45fb410c0ed8729fe7359eaabeb6f1"},
 ]
 
 [[package]]
@@ -1415,18 +1451,19 @@ type = ["pytest-mypy (>=1.0.1) ; platform_python_implementation != \"PyPy\""]
 
 [[package]]
 name = "importlib-metadata"
-version = "10.1.0"
+version = "10.2.0"
 description = "Read metadata from Python packages"
 optional = false
 python-versions = ">=3.11"
 groups = ["dev"]
 markers = "python_version == \"3.13\" and (platform_machine == \"x86_64\" or platform_machine == \"i686\" or platform_machine == \"aarch64\" or platform_machine == \"armv7l\" or platform_machine == \"ppc64le\" or platform_machine == \"s390x\" or sys_platform != \"linux\" or platform_machine != \"x86_64\" and platform_machine != \"i686\" and platform_machine != \"aarch64\" and platform_machine != \"armv7l\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\")"
 files = [
-    {file = "importlib_metadata-10.1.0-py3-none-any.whl", hash = "sha256:cf45ce66a929c64e994185a809c04840d0501db17e663810d993d0f4829265c7"},
-    {file = "importlib_metadata-10.1.0.tar.gz", hash = "sha256:82b04047fa09792c1a8cfeddfe08bec79e4b13c29c8469b0d3949860f61017e8"},
+    {file = "importlib_metadata-10.2.0-py3-none-any.whl", hash = "sha256:c7a4bf1c7479601f6b8e437cfc14f4f77028ba62a8f34ae95cd93d9774dfba51"},
+    {file = "importlib_metadata-10.2.0.tar.gz", hash = "sha256:9413a2029fd9ca5669d27f1386071bbfe3c7ebca0545692ec975088241fe1d79"},
 ]
 
 [package.dependencies]
+lazy-importer = {version = ">=0.1", markers = "python_version < \"3.15\""}
 zipp = ">=3.20"
 
 [package.extras]
@@ -1482,6 +1519,19 @@ MarkupSafe = ">=2.0"
 
 [package.extras]
 i18n = ["Babel (>=2.7)"]
+
+[[package]]
+name = "lazy-importer"
+version = "0.1.0"
+description = "A context manager for portable, opt-in lazy imports"
+optional = false
+python-versions = ">=3.11"
+groups = ["dev"]
+markers = "python_version == \"3.13\" and (platform_machine == \"x86_64\" or platform_machine == \"i686\" or platform_machine == \"aarch64\" or platform_machine == \"armv7l\" or platform_machine == \"ppc64le\" or platform_machine == \"s390x\" or sys_platform != \"linux\" or platform_machine != \"x86_64\" and platform_machine != \"i686\" and platform_machine != \"aarch64\" and platform_machine != \"armv7l\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\")"
+files = [
+    {file = "lazy_importer-0.1.0-py3-none-any.whl", hash = "sha256:bd93fab7bef18e842eea02b839410954d37889140dc64ca4d9680aec6880c739"},
+    {file = "lazy_importer-0.1.0.tar.gz", hash = "sha256:b2e296716ce015c0cd80e57b940e52727c5b934b34b8656d5ce06bdd0ee5fbdd"},
+]
 
 [[package]]
 name = "lief"
@@ -1578,10 +1628,23 @@ description = "Generate/parse macOS Alias records from Python"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
-markers = "sys_platform == \"darwin\""
+markers = "sys_platform == \"darwin\" and python_version < \"3.13\""
 files = [
     {file = "mac_alias-2.2.3-py3-none-any.whl", hash = "sha256:7362b521d2132ef92f606a37abfed5fcd849ceb2f28b6f9743e014b02af92f0d"},
     {file = "mac_alias-2.2.3.tar.gz", hash = "sha256:1c7fa367687d66979f2ce4d1a8b2716cf1c9fb811741cab3cf3ca356555c2beb"},
+]
+
+[[package]]
+name = "mac-alias"
+version = "2.2.4"
+description = "Generate/parse macOS Alias records from Python"
+optional = false
+python-versions = ">=3.11"
+groups = ["dev"]
+markers = "sys_platform == \"darwin\" and python_version == \"3.13\""
+files = [
+    {file = "mac_alias-2.2.4-py3-none-any.whl", hash = "sha256:c20f95f75d7f966dd8ea2f84c317d4ff4abee0db9cc8a13b454891c15aa04226"},
+    {file = "mac_alias-2.2.4.tar.gz", hash = "sha256:a505a1d3f5b7c0919db7b9a49bcc0d0bad2575189034206ac2ec722b9acd3999"},
 ]
 
 [[package]]
@@ -1761,7 +1824,7 @@ files = [
 
 [[package]]
 name = "onionshare-cli"
-version = "2.7.2"
+version = "2.7.3"
 description = "Securely and anonymously share files, host websites, and chat with friends using the Tor network"
 optional = false
 python-versions = ">=3.10,<4.0"
@@ -1882,15 +1945,15 @@ files = [
 
 [[package]]
 name = "platformdirs"
-version = "4.14.5"
+version = "4.14.8"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
 optional = false
 python-versions = ">=3.11"
 groups = ["dev"]
 markers = "python_version == \"3.13\" and (platform_machine == \"x86_64\" or platform_machine == \"i686\" or platform_machine == \"aarch64\" or platform_machine == \"armv7l\" or platform_machine == \"ppc64le\" or platform_machine == \"s390x\" or sys_platform != \"linux\" or platform_machine != \"x86_64\" and platform_machine != \"i686\" and platform_machine != \"aarch64\" and platform_machine != \"armv7l\" and platform_machine != \"ppc64le\" and platform_machine != \"s390x\")"
 files = [
-    {file = "platformdirs-4.14.5-py3-none-any.whl", hash = "sha256:8e778c6fa421516f4d3369449f8df3b0e1b72c0e0005fe88e3ec772d0a14e750"},
-    {file = "platformdirs-4.14.5.tar.gz", hash = "sha256:32e9921db7385aa8169bee4fe9501923e5715ba9fb7ea3b9c69b0d8e0639f7a1"},
+    {file = "platformdirs-4.14.8-py3-none-any.whl", hash = "sha256:1e34af590de4d978631b751eb2202f2fee4497537a17c1720b12fcf57b331392"},
+    {file = "platformdirs-4.14.8.tar.gz", hash = "sha256:96893d686e84e9e6f358a9ea41a8de544df66dbf2ba6cda250e7dc73acf85b9b"},
 ]
 
 [[package]]

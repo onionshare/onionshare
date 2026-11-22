@@ -29,8 +29,8 @@ sources:
     url: https://files.pythonhosted.org/packages/92/8b/10c6c4bac3a7d292707c9b879b8b3bb7f6c8ca5db5e6dff559bd9d59d45e/brotlicffi-1.2.1.0.tar.gz
     sha256: 5d0b89e959f643aab4c58c15c06e1e87b6f6605e5e88c3c1c28f5ce1c58c4e5f
   - type: file
-    url: https://files.pythonhosted.org/packages/32/d1/a3652fe2c19134d0d15922177821d863cbd7e842d53a21bbe7e8e3a1b5ac/certifi-2026.10.23-py3-none-any.whl
-    sha256: e9b54de76e530bb6cf0ccd036787103acb58fd42ba930ea8bf948ddbaa2f61d1
+    url: https://files.pythonhosted.org/packages/6d/39/5eec3296860b94ac20bb8ed807725b88f6adfab3f343df592afd975f5f86/certifi-2026.11.20-py3-none-any.whl
+    sha256: 7422df25243767b9877031a2248cb14d09ddac9beee846f4cef3d5c9191d488f
   - type: file
     url: https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz
     sha256: dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be
@@ -56,8 +56,8 @@ sources:
     url: https://files.pythonhosted.org/packages/8f/ab/56a3facf876d2c32061a2c84c0c0cf15323c90edfa47b99d56bd886a7cf8/eventlet-0.41.3-py3-none-any.whl
     sha256: 839ed5711fff67034e46dedf4b41cf33f8378fca541e866621895fc186933e1d
   - type: file
-    url: https://files.pythonhosted.org/packages/8a/0e/97c33bf5009bdbac74fd2beace167cab3f978feb69cc36f1ef79360d6c4e/exceptiongroup-1.3.1-py3-none-any.whl
-    sha256: a7a39a3bd276781e98394987d3a5701d0c4edffb633bb7a5144577f82c773598
+    url: https://files.pythonhosted.org/packages/a0/7d/0fb19ccdf794c448141461180d5992c50402f69f8515a801bfac7ad65f45/exceptiongroup-1.3.2-py3-none-any.whl
+    sha256: 41c6a70dfec22050d3d8b43386b059a4dc0bca3f3d40a40971cb206fff1785af
   - type: file
     url: https://files.pythonhosted.org/packages/7f/9c/34f6962f9b9e9c71f6e5ed806e0d0ff03c9d1b0b2340088a0cf4bce09b18/flask-3.1.3-py3-none-any.whl
     sha256: f4bcbefc124291925f1a26446da31a5178f9483862233b23c0c96a20701f670c

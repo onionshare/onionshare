@@ -1,5 +1,5 @@
 #!/bin/bash
-SNOWFLAKE_TAG=v2.15.3
+SNOWFLAKE_TAG=v2.15.4
 
 OS=$(uname -s)
 
