@@ -1,5 +1,14 @@
 # OnionShare Changelog
 
+## 2.7.3
+
+* Security: Reject file-based upload when that mode is disabled, without needing to parse the entire body first.
+* Bug fix: Update Tails URL.
+* Bug fix: Transliterate non-ASCII filename characters in Receive mode so that they retain a proper file name.
+* Bug fix: Fix automatic Tor Controller port fallback loop.
+* i18n: Translation updates for Persian, Albanian, French, Chinese (simplified Hans)
+* Other: Update dependencies
+
 ## 2.7.2
 
 * Security: Ensure the share properly stops after first download (when configured to) in CLI mode. Desktop mode was not affected.
