@@ -115,6 +115,23 @@ class TestWeb:
                 or res.mimetype == "application/x-zip-compressed"
             )
 
+    def test_share_mode_files_with_same_name(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share")
+        files = []
+        for folder in ["a", "b"]:
+            os.mkdir(os.path.join(temp_dir.name, folder))
+            path = os.path.join(temp_dir.name, folder, "report.txt")
+            with open(path, "w") as f:
+                f.write(f"from {folder}")
+            files.append(path)
+        web.share_mode.set_file_info(files)
+
+        with web.app.test_client() as c:
+            res = c.get("/download")
+            with zipfile.ZipFile(BytesIO(res.get_data())) as z:
+                contents = {name: z.read(name) for name in z.namelist()}
+        assert contents == {"report.txt": b"from a", "report-2.txt": b"from b"}
+
     def test_share_mode_autostop_sharing_on(self, temp_dir, common_obj, temp_file_1024):
         web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", True)

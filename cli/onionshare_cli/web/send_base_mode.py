@@ -103,9 +103,22 @@ class SendBaseModeWeb:
         else:
             slash = "/"
 
+        # Give files and folders that share a name a unique name, so none of them is lost
+        self.root_names = {}
+        used_names = set()
+        for filename in filenames:
+            name = os.path.basename(filename.rstrip(slash))
+            stem, ext = (name, "") if os.path.isdir(filename) else os.path.splitext(name)
+            n = 2
+            while name in used_names:
+                name = f"{stem}-{n}{ext}"
+                n += 1
+            used_names.add(name)
+            self.root_names[filename] = name
+
         # Build the file list
         for filename in filenames:
-            basename = os.path.basename(filename.rstrip(slash))
+            basename = self.root_names[filename]
 
             # Skip symlinks at the root level
             if os.path.islink(filename):
