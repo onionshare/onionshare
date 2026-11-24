@@ -51,6 +51,7 @@ class Meek(object):
             self.webtunnel_file_path,
         ) = get_tor_paths()
 
+        self.meek_proc = None
         self.meek_proxies = {}
         # The moat reflector, reached via domain fronting, that relays
         # HTTPS requests to bridges.torproject.org. This is distinct from

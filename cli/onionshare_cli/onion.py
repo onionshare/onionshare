@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from .censorship import CensorshipCircumvention
-from .meek import Meek
+from .meek import Meek, MeekNotFound, MeekNotRunning
 from stem.control import Controller
 from stem import ProtocolError, SocketClosed
 from stem.connection import MissingPassword, UnreadableCookieFile, AuthenticationFailure
@@ -1019,12 +1019,24 @@ class Onion(object):
                 "Updating the built-in bridges. Trying via Meek (no Tor)",
             )
             meek = Meek(self.common)
-            meek.start()
-            self.censorship_circumvention = CensorshipCircumvention(
-                self.common, meek, None
-            )
-            builtin_bridges = self.censorship_circumvention.request_builtin_bridges()
-            meek.cleanup()
+            try:
+                meek.start()
+                self.censorship_circumvention = CensorshipCircumvention(
+                    self.common, meek, None
+                )
+                builtin_bridges = self.censorship_circumvention.request_builtin_bridges()
+            except (MeekNotFound, MeekNotRunning) as e:
+                self.common.log(
+                    "Onion",
+                    "update_builtin_bridges",
+                    f"Could not update built-in bridges via Meek: {type(e).__name__}. Keeping the existing built-in bridges.",
+                )
+                print(
+                    "Could not update the built-in bridges because the meek client was not found or failed to start. Using the existing built-in bridges."
+                )
+                builtin_bridges = False
+            finally:
+                meek.cleanup()
 
         if builtin_bridges:
             # If we got to this point, we have bridges

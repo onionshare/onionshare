@@ -4,6 +4,7 @@ import pytest
 from stem import SocketError
 
 from onionshare_cli import onion as onion_module
+from onionshare_cli.meek import MeekNotFound, MeekNotRunning
 from onionshare_cli.onion import Onion
 
 
@@ -80,6 +81,49 @@ class TestUpdateBuiltinBridges:
         assert calls[0]["onion"] is o
         assert calls[0]["meek"] is None
         assert o.settings.get("bridges_builtin") == {"obfs4": ["bridge"]}
+
+    def test_missing_meek_keeps_existing_bridges(self, monkeypatch, capsys):
+        o = make_onion(monkeypatch, authenticated=False)
+        existing = {"obfs4": ["existing_bridge"]}
+        o.settings.set("bridges_builtin", existing)
+
+        class MissingMeek(FakeMeek):
+            def start(self):
+                raise MeekNotFound(o.common)
+
+        monkeypatch.setattr(onion_module, "Meek", MissingMeek)
+        assert o.update_builtin_bridges() is False
+        assert o.settings.get("bridges_builtin") == existing
+        assert "meek" in capsys.readouterr().out.lower()
+
+    def test_meek_not_running_keeps_existing_bridges(self, monkeypatch, capsys):
+        o = make_onion(monkeypatch, authenticated=False)
+        existing = {"obfs4": ["existing_bridge"]}
+        o.settings.set("bridges_builtin", existing)
+
+        class BrokenMeek(FakeMeek):
+            def start(self):
+                raise MeekNotRunning(o.common, "boom")
+
+        monkeypatch.setattr(onion_module, "Meek", BrokenMeek)
+        assert o.update_builtin_bridges() is False
+        assert o.settings.get("bridges_builtin") == existing
+        assert "meek" in capsys.readouterr().out.lower()
+
+    def test_meek_cleanup_runs_on_failure(self, monkeypatch):
+        o = make_onion(monkeypatch, authenticated=False)
+        cleaned = []
+
+        class TrackedMeek(FakeMeek):
+            def start(self):
+                raise MeekNotFound(o.common)
+
+            def cleanup(self):
+                cleaned.append(True)
+
+        monkeypatch.setattr(onion_module, "Meek", TrackedMeek)
+        assert o.update_builtin_bridges() is False
+        assert cleaned == [True]
 
 
 class TestAutomaticConnection:
