@@ -362,3 +362,21 @@ class TestSymlinkProtection:
 
             # Normal nested file should appear in directory listing
             assert "nested.txt" in data
+
+    def test_file_selected_next_to_folder_is_shared(self, temp_dir, common_obj):
+        """A selected file next to a selected folder is not filtered out"""
+        test_dir = tempfile.mkdtemp(dir=temp_dir.name)
+        index = os.path.join(test_dir, "index.html")
+        with open(index, "w") as f:
+            f.write("<p>home</p>")
+        css_dir = os.path.join(test_dir, "css")
+        os.mkdir(css_dir)
+        with open(os.path.join(css_dir, "style.css"), "w") as f:
+            f.write("p {}")
+
+        for mode in ("website", "share"):
+            web = Web(common_obj, False, ModeSettings(common_obj), mode)
+            send_mode = web.website_mode if mode == "website" else web.share_mode
+            send_mode.set_file_info([index, css_dir])
+            assert "index.html" in send_mode.files, mode
+            assert "css/style.css" in send_mode.files, mode

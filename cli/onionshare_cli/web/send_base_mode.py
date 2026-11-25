@@ -74,11 +74,14 @@ class SendBaseModeWeb:
         """
         Build a data structure that describes the list of files
         """
-        # Store canonical paths of selected root directories for containment checking
-        self.selected_roots = []
-        for filename in filenames:
-            if os.path.isdir(filename):
-                self.selected_roots.append(os.path.realpath(filename))
+        # Store canonical paths of the selected files and directories for containment
+        # checking: a selected file next to a selected folder is allowed too.
+        # Selected symlinks are skipped from the share, so they are not roots.
+        self.selected_roots = [
+            os.path.realpath(filename)
+            for filename in filenames
+            if not os.path.islink(filename)
+        ]
 
         # If there's just one folder, replace filenames with a list of files inside that folder
         if len(filenames) == 1 and os.path.isdir(filenames[0]):
