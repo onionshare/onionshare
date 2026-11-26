@@ -132,6 +132,91 @@ class TestWeb:
                 contents = {name: z.read(name) for name in z.namelist()}
         assert contents == {"report.txt": b"from a", "report-2.txt": b"from b"}
 
+    def test_share_mode_folders_with_same_name(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share")
+        base = tempfile.mkdtemp(dir=temp_dir.name)
+        folders = []
+        for parent in ["a", "b"]:
+            folder = os.path.join(base, parent, "photos")
+            os.makedirs(os.path.join(folder, "nested"))
+            for name in ["pic.txt", os.path.join("nested", "pic.txt")]:
+                with open(os.path.join(folder, name), "w") as f:
+                    f.write(f"from {parent}")
+            folders.append(folder)
+        # A trailing slash must not change the names
+        web.share_mode.set_file_info([folders[0], folders[1] + os.sep])
+
+        assert sorted(web.share_mode.root_files) == ["photos", "photos-2"]
+        with web.app.test_client() as c:
+            res = c.get("/download")
+            with zipfile.ZipFile(BytesIO(res.get_data())) as z:
+                contents = {name: z.read(name) for name in z.namelist()}
+        assert contents == {
+            "photos/pic.txt": b"from a",
+            "photos/nested/pic.txt": b"from a",
+            "photos-2/pic.txt": b"from b",
+            "photos-2/nested/pic.txt": b"from b",
+        }
+
+    def test_share_mode_same_path_twice(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share")
+        base = tempfile.mkdtemp(dir=temp_dir.name)
+        paths = []
+        for name in ["report.txt", "notes.txt"]:
+            paths.append(os.path.join(base, name))
+            with open(paths[-1], "w") as f:
+                f.write(name)
+        web.share_mode.set_file_info([paths[0], paths[1], paths[0]])
+
+        # The repeated path is shared once, under its own name
+        assert sorted(web.share_mode.root_files) == ["notes.txt", "report.txt"]
+        with web.app.test_client() as c:
+            res = c.get("/download")
+            with zipfile.ZipFile(BytesIO(res.get_data())) as z:
+                assert sorted(z.namelist()) == ["notes.txt", "report.txt"]
+
+    def test_share_mode_skipped_symlink_does_not_take_name(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "share")
+        base = tempfile.mkdtemp(dir=temp_dir.name)
+        paths = []
+        for folder in ["a", "b", "c"]:
+            os.mkdir(os.path.join(base, folder))
+            paths.append(os.path.join(base, folder, "report.txt"))
+        target = os.path.join(base, "target.txt")
+        with open(target, "w") as f:
+            f.write("target")
+        os.symlink(target, paths[0])
+        for path in paths[1:]:
+            with open(path, "w") as f:
+                f.write(path)
+        web.share_mode.set_file_info(paths)
+
+        # The symlink is not shared, so the first real file keeps the plain name
+        assert web.share_mode.root_files == {
+            "report.txt": paths[1],
+            "report-2.txt": paths[2],
+        }
+        with zipfile.ZipFile(web.share_mode.download_filename) as z:
+            assert sorted(z.namelist()) == ["report-2.txt", "report.txt"]
+
+    def test_website_mode_files_with_same_name(self, temp_dir, common_obj):
+        web = web_obj(temp_dir, common_obj, "website")
+        base = tempfile.mkdtemp(dir=temp_dir.name)
+        paths = []
+        for folder in ["a", "b"]:
+            os.mkdir(os.path.join(base, folder))
+            paths.append(os.path.join(base, folder, "report.txt"))
+            with open(paths[-1], "w") as f:
+                f.write(f"from {folder}")
+        web.website_mode.set_file_info(paths)
+
+        with web.app.test_client() as c:
+            listing = c.get("/").get_data(as_text=True)
+            assert 'href="/report.txt"' in listing
+            assert 'href="/report-2.txt"' in listing
+            assert c.get("/report.txt").get_data() == b"from a"
+            assert c.get("/report-2.txt").get_data() == b"from b"
+
     def test_share_mode_autostop_sharing_on(self, temp_dir, common_obj, temp_file_1024):
         web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", True)
@@ -1020,6 +1105,24 @@ class TestZipWriterDefault:
         previous_size = default_zw._size  # size before adding directory
         default_zw.add_dir(temp_dir_1024_delete)
         assert default_zw._size == previous_size + 1024
+
+    @pytest.mark.parametrize("trailing", ["", os.sep])
+    def test_add_directory_arcname(self, temp_dir, default_zw, trailing):
+        folder = os.path.join(tempfile.mkdtemp(dir=temp_dir.name), f"photos{len(trailing)}")
+        os.makedirs(os.path.join(folder, "nested"))
+        for name in ["pic.txt", os.path.join("nested", "pic.txt")]:
+            with open(os.path.join(folder, name), "w") as f:
+                f.write("pic")
+
+        before = set(default_zw.z.namelist())
+        default_zw.add_dir(folder + trailing)
+        default_zw.add_dir(folder + trailing, f"renamed{len(trailing)}")
+        assert set(default_zw.z.namelist()) - before == {
+            f"photos{len(trailing)}/pic.txt",
+            f"photos{len(trailing)}/nested/pic.txt",
+            f"renamed{len(trailing)}/pic.txt",
+            f"renamed{len(trailing)}/nested/pic.txt",
+        }
 
 
 class TestZipWriterCustom:
