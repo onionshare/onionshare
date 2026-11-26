@@ -72,9 +72,13 @@ def parse_range_header(range_header: str, target_size: int) -> list:
                 # parse ranges of the form "bytes=-100" (i.e., last 100 bytes)
                 end = end_index
                 try:
-                    start = end - int(split[1]) + 1
+                    suffix_length = int(split[1])
                 except ValueError:
                     abort(416)
+                if suffix_length <= 0:
+                    abort(416)
+                # A suffix longer than the file means the whole file (RFC 9110)
+                start = max(0, end - suffix_length + 1)
             else:
                 # parse ranges of the form "bytes=100-200"
                 try:
@@ -91,6 +95,12 @@ def parse_range_header(range_header: str, target_size: int) -> list:
 
                 end = min(end, end_index)
         else:
+            abort(416)
+
+        # The range must start inside the file. Otherwise seeking to it fails
+        # part way through sending the response, before download_in_progress
+        # is cleared.
+        if start < 0 or start > end_index or end < start:
             abort(416)
 
         ranges.append((start, end))
@@ -374,8 +384,13 @@ class ShareModeWeb(SendBaseModeWeb):
                         },
                     )
                     self.web.done = False
-                except Exception:
-                    # looks like the download was canceled
+                except (Exception, GeneratorExit):
+                    # looks like the download was canceled. GeneratorExit is
+                    # raised at the yield when Waitress closes the response
+                    # because the visitor went away. It isn't an Exception, so
+                    # it must be named here, or the code below that clears
+                    # download_in_progress never runs and every later visitor
+                    # is refused until the share is restarted.
                     self.web.done = True
                     canceled = True
 
@@ -383,6 +398,10 @@ class ShareModeWeb(SendBaseModeWeb):
                     self.web.add_request(
                         self.web.REQUEST_CANCELED, path, {"id": history_id}
                     )
+
+                    # Stop now: another download can set web.done back to False,
+                    # and after GeneratorExit this generator must not yield again
+                    break
 
         fp.close()
 
