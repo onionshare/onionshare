@@ -82,6 +82,10 @@ class SendBaseModeWeb:
             for filename in filenames
             if not os.path.islink(filename)
         ]
+        # A single selected folder is replaced by its contents below, also when it is a
+        # symlink to a folder, so its contents must stay contained in the real folder.
+        if len(filenames) == 1 and os.path.isdir(filenames[0]):
+            self.selected_roots = [os.path.realpath(filenames[0])]
 
         # If there's just one folder, replace filenames with a list of files inside that folder
         if len(filenames) == 1 and os.path.isdir(filenames[0]):
@@ -159,13 +163,13 @@ class SendBaseModeWeb:
         Check if the given path is contained within one of the selected root directories.
         Uses realpath to resolve symlinks and ensure containment.
         Returns False if the path is outside the selected roots (potential symlink escape).
+        Every selected file and folder is a root, so with no roots nothing is contained.
         """
-        if not self.selected_roots:
-            return True
-
         resolved_path = os.path.realpath(path)
         for root in self.selected_roots:
-            if resolved_path.startswith(root + os.sep) or resolved_path == root:
+            # A filesystem or drive root already ends with a separator
+            prefix = root if root.endswith(os.sep) else root + os.sep
+            if resolved_path.startswith(prefix) or resolved_path == root:
                 return True
         return False
 
