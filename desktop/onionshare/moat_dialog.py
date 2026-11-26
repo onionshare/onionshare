@@ -26,6 +26,7 @@ import json
 
 from . import strings
 from .gui_common import GuiCommon
+from onionshare_cli.censorship import MOAT_API_TIMEOUT
 from onionshare_cli.meek import MeekNotFound, MeekNotRunning
 
 
@@ -300,6 +301,7 @@ class MoatThread(QtCore.QThread):
                     "https://bridges.torproject.org/moat/fetch",
                     headers={"Content-Type": "application/vnd.api+json"},
                     proxies=self.meek.meek_proxies,
+                    timeout=MOAT_API_TIMEOUT,
                     json={
                         "data": [
                             {
@@ -359,6 +361,7 @@ class MoatThread(QtCore.QThread):
                     "https://bridges.torproject.org/moat/check",
                     headers={"Content-Type": "application/vnd.api+json"},
                     proxies=self.meek.meek_proxies,
+                    timeout=MOAT_API_TIMEOUT,
                     json={
                         "data": [
                             {

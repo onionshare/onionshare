@@ -20,6 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import requests
 
 
+# How long to wait (in seconds) for the Tor Moat API to accept a connection
+# and to send each chunk of its response, so that a stalled request over Tor
+# or Meek can't block the caller forever. A timeout is a RequestException, so
+# it surfaces as a CensorshipCircumventionError like any other failure.
+MOAT_API_TIMEOUT = 60
+
+
 class CensorshipCircumventionError(Exception):
     """
     There was a problem connecting to the Tor CensorshipCircumvention API.
@@ -94,6 +101,7 @@ class CensorshipCircumvention(object):
                 json=data,
                 headers={"Content-Type": "application/vnd.api+json"},
                 proxies=self.api_proxies,
+                timeout=MOAT_API_TIMEOUT,
             )
             if r.status_code != 200:
                 self.common.log(
@@ -153,6 +161,7 @@ class CensorshipCircumvention(object):
                 json=data,
                 headers={"Content-Type": "application/vnd.api+json"},
                 proxies=self.api_proxies,
+                timeout=MOAT_API_TIMEOUT,
             )
             if r.status_code != 200:
                 self.common.log(
@@ -204,6 +213,7 @@ class CensorshipCircumvention(object):
                 endpoint,
                 headers={"Content-Type": "application/vnd.api+json"},
                 proxies=self.api_proxies,
+                timeout=MOAT_API_TIMEOUT,
             )
             if r.status_code != 200:
                 self.common.log(
@@ -291,6 +301,7 @@ class CensorshipCircumvention(object):
                 endpoint,
                 headers={"Content-Type": "application/vnd.api+json"},
                 proxies=self.api_proxies,
+                timeout=MOAT_API_TIMEOUT,
             )
             if r.status_code != 200:
                 self.common.log(

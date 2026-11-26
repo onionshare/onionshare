@@ -562,6 +562,58 @@ class Common:
         else:
             return False
 
+    def check_builtin_bridge_lines(self, lines):
+        """
+        Filter a list of built-in bridge lines (as returned by the Tor API, or
+        as cached in settings), returning only those that are safe to write
+        into a torrc as 'Bridge <line>'.
+
+        Each line must be a single line of printable ASCII shaped like
+        '<transport> <address>:<port> [args]'. In particular this rejects
+        anything containing a newline or other control character, which
+        could otherwise smuggle extra directives into the torrc. Backslashes
+        are rejected too, as one at the end of a torrc line joins it to the
+        line that follows.
+
+        Built-in bridges are not checked with check_bridges_valid(), because
+        that expects a fingerprint that some built-in bridges (meek) lack.
+        """
+        valid_lines = []
+        if not isinstance(lines, list):
+            return valid_lines
+        pattern = re.compile(
+            r"[a-z0-9_]+ +[\x21-\x5b\x5d-\x7e]+:[0-9]+( [\x20-\x5b\x5d-\x7e]*)?"
+        )
+        for line in lines:
+            if isinstance(line, str) and pattern.fullmatch(line.strip(" ")):
+                valid_lines.append(line.strip(" "))
+        return valid_lines
+
+    def check_builtin_bridges_valid(self, builtin_bridges):
+        """
+        Sanity check the built-in bridges returned by the Tor API, which
+        should be a dict of bridge types, each holding a list of bridge lines.
+
+        Returns a dict containing only the well-formed bridge types and
+        lines, or False if there were none.
+        """
+        self.log("Common", "check_builtin_bridges_valid", "Checking bridge syntax")
+        valid_bridges = {}
+        if not isinstance(builtin_bridges, dict):
+            return False
+        for bridge_type, lines in builtin_bridges.items():
+            if not isinstance(bridge_type, str) or not re.fullmatch(
+                r"[A-Za-z0-9_-]+", bridge_type
+            ):
+                continue
+            valid_lines = self.check_builtin_bridge_lines(lines)
+            if valid_lines:
+                valid_bridges[bridge_type] = valid_lines
+        if valid_bridges:
+            return valid_bridges
+        else:
+            return False
+
     def is_flatpak(self):
         """
         Returns True if OnionShare is running in a Flatpak sandbox

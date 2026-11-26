@@ -37,6 +37,7 @@ from onionshare_cli.onion import (
     TorErrorProtocolError,
     BundledTorTimeout,
     BundledTorBroken,
+    BundledTorMissingTransport,
     TorTooOldEphemeral,
     TorTooOldStealth,
     PortNotAvailable,
@@ -708,6 +709,10 @@ class GuiCommon:
             return strings._("settings_error_bundled_tor_timeout")
         elif type(e) is BundledTorBroken:
             return strings._("settings_error_bundled_tor_broken").format(e.args[0])
+        elif type(e) is BundledTorMissingTransport:
+            return strings._("settings_error_bundled_tor_missing_transport").format(
+                e.args[0], e.args[1]
+            )
         elif type(e) is TorTooOldEphemeral:
             return strings._("error_ephemeral_not_supported")
         elif type(e) is TorTooOldStealth:

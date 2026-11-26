@@ -368,3 +368,50 @@ class TestLog:
             and "TestModule.dummy_func" in line_two
             and "TEST_MSG" in line_two
         )
+
+
+class TestCheckBuiltinBridgeLines:
+    @pytest.mark.parametrize("bridge_type", ["obfs4", "meek", "snowflake"])
+    def test_accepts_the_hardcoded_bridges(self, common_obj, bridge_type):
+        # Whatever we ship in the torrc templates must pass the same check
+        # that is applied to the bridges fetched from the Tor API.
+        with open(common_obj.get_resource_path(f"torrc_template-{bridge_type}")) as f:
+            lines = [
+                line[len("Bridge ") :]
+                for line in f.read().splitlines()
+                if line.startswith("Bridge ")
+            ]
+        assert lines
+        assert common_obj.check_builtin_bridge_lines(lines) == lines
+
+    def test_accepts_ipv6(self, common_obj):
+        line = "obfs4 [2001:db8::1]:443 10A6CD36A537FCE513A322361547444B393989F0"
+        assert common_obj.check_builtin_bridge_lines([line]) == [line]
+
+    @pytest.mark.parametrize(
+        "line",
+        [
+            "",
+            "   ",
+            "obfs4",
+            "SocksPort 0.0.0.0:9050",
+            "obfs4 192.0.2.1:443 ABC\nSocksPort 0.0.0.0:9050",
+            "obfs4 192.0.2.1:443 ABC\rSocksPort 0.0.0.0:9050",
+            "obfs4 192.0.2.1:443 ABC\n",
+            "\nobfs4 192.0.2.1:443 ABC",
+            "obfs4 192.0.2.1:443 ABC\x00",
+            "obfs4 192.0.2.1:443 ABC\u2028SocksPort 0.0.0.0:9050",
+            "obfs4\t192.0.2.1:443 ABC",
+            "obfs4 192.0.2.1:443 ABC \\",
+            "obfs4 192.0.2.1:443 ABC cert=a\\b",
+            None,
+            443,
+            ["obfs4 192.0.2.1:443 ABC"],
+        ],
+    )
+    def test_rejects_malformed_lines(self, common_obj, line):
+        assert common_obj.check_builtin_bridge_lines([line]) == []
+
+    @pytest.mark.parametrize("lines", [None, "obfs4 192.0.2.1:443 ABC", {}, 5])
+    def test_rejects_non_lists(self, common_obj, lines):
+        assert common_obj.check_builtin_bridge_lines(lines) == []
