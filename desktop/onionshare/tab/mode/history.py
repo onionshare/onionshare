@@ -1102,8 +1102,10 @@ class DownloadHistoryItem(HistoryItem):
         # Linux
         if self.common.platform == "Linux" or self.common.platform == "BSD":
             try:
-                # If nautilus is available, open it
-                subprocess.Popen(["xdg-open", self.file_path])
+                # Open the folder, not the file: xdg-open would open the file
+                # itself in whatever app handles its type, and both its name
+                # and its contents come from the share we downloaded from
+                subprocess.Popen(["xdg-open", os.path.dirname(self.file_path)])
             except Exception:
                 Alert(
                     self.common,
