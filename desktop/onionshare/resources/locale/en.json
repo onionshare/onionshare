@@ -278,6 +278,7 @@
     "settings_error_bundled_tor_not_supported": "Using the Tor version that comes with OnionShare does not work in developer mode on Windows or macOS.",
     "settings_error_bundled_tor_timeout": "Taking too long to connect to Tor. Maybe you aren't connected to the Internet, or have an inaccurate system clock?",
     "settings_error_bundled_tor_broken": "OnionShare could not connect to Tor:\n{}",
+    "settings_error_bundled_tor_missing_transport": "Your bridge settings need the {} pluggable transport, but OnionShare could not find {}.",
     "gui_rendezvous_cleanup": "Waiting for Tor circuits to close to be sure your files have transferred.\n\nThis might take a few minutes.",
     "gui_rendezvous_cleanup_quit_early": "Quit Early",
     "error_port_not_available": "OnionShare port not available",

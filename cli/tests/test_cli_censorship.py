@@ -29,9 +29,10 @@ def captured_request(monkeypatch):
     """Capture the request body that would go to the Moat API."""
     captured = {}
 
-    def fake_post(endpoint, json=None, headers=None, proxies=None):
+    def fake_post(endpoint, json=None, headers=None, proxies=None, timeout=None):
         captured["endpoint"] = endpoint
         captured["json"] = json
+        captured["timeout"] = timeout
         return FakeResponse()
 
     monkeypatch.setattr(censorship.requests, "post", fake_post)
@@ -99,3 +100,38 @@ class TestOverTor:
             common.Common(), onion=FakeOnion(authenticated=False)
         )
         assert c.request_builtin_bridges() is False
+
+
+class TestTimeouts:
+    """Every request to the Moat API must give up eventually."""
+
+    @pytest.mark.parametrize(
+        "method",
+        [
+            "request_map",
+            "request_settings",
+            "request_builtin_bridges",
+            "request_default_bridges",
+        ],
+    )
+    def test_requests_have_a_timeout(self, monkeypatch, circumvention_obj, method):
+        timeouts = []
+
+        def fake_request(endpoint, **kwargs):
+            timeouts.append(kwargs.get("timeout"))
+            return FakeResponse()
+
+        monkeypatch.setattr(censorship.requests, "post", fake_request)
+        monkeypatch.setattr(censorship.requests, "get", fake_request)
+        getattr(circumvention_obj, method)()
+        assert timeouts == [censorship.MOAT_API_TIMEOUT]
+
+    def test_timeout_raises_censorship_circumvention_error(
+        self, monkeypatch, circumvention_obj
+    ):
+        def timed_out(endpoint, **kwargs):
+            raise censorship.requests.exceptions.Timeout()
+
+        monkeypatch.setattr(censorship.requests, "post", timed_out)
+        with pytest.raises(censorship.CensorshipCircumventionError):
+            circumvention_obj.request_builtin_bridges()

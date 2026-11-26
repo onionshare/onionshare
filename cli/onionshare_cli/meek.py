@@ -203,6 +203,9 @@ class MeekNotRunning(Exception):
         msg = "Meek experienced an error starting up"
         if info:
             msg = msg + f": {info}"
+        # Give the exception a readable message, rather than the default of
+        # the repr of its arguments (which would be the Common object)
+        super().__init__(msg)
         self.common.log("MeekNotRunning", "__init__", msg)
 
 
@@ -213,4 +216,6 @@ class MeekNotFound(Exception):
 
     def __init__(self, common):
         self.common = common
-        self.common.log("MeekNotFound", "__init__", "Could not find the meek binary")
+        msg = "Could not find the meek binary"
+        super().__init__(msg)
+        self.common.log("MeekNotFound", "__init__", msg)
