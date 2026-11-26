@@ -36,7 +36,6 @@ documentation = "https://docs.onionshare.org/"
 
 [project.scripts]
 onionshare = 'onionshare:main'
-onionshare-cli = "onionshare_cli:main"
 
 [tool.setuptools]
 packages = [
