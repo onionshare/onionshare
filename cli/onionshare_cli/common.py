@@ -571,7 +571,9 @@ class Common:
         Each line must be a single line of printable ASCII shaped like
         '<transport> <address>:<port> [args]'. In particular this rejects
         anything containing a newline or other control character, which
-        could otherwise smuggle extra directives into the torrc.
+        could otherwise smuggle extra directives into the torrc. Backslashes
+        are rejected too, as one at the end of a torrc line joins it to the
+        line that follows.
 
         Built-in bridges are not checked with check_bridges_valid(), because
         that expects a fingerprint that some built-in bridges (meek) lack.
@@ -579,7 +581,9 @@ class Common:
         valid_lines = []
         if not isinstance(lines, list):
             return valid_lines
-        pattern = re.compile(r"[a-z0-9_]+ +[\x21-\x7e]+:[0-9]+( [\x20-\x7e]*)?")
+        pattern = re.compile(
+            r"[a-z0-9_]+ +[\x21-\x5b\x5d-\x7e]+:[0-9]+( [\x20-\x5b\x5d-\x7e]*)?"
+        )
         for line in lines:
             if isinstance(line, str) and pattern.fullmatch(line.strip(" ")):
                 valid_lines.append(line.strip(" "))

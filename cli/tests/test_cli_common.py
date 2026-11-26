@@ -402,6 +402,8 @@ class TestCheckBuiltinBridgeLines:
             "obfs4 192.0.2.1:443 ABC\x00",
             "obfs4 192.0.2.1:443 ABC\u2028SocksPort 0.0.0.0:9050",
             "obfs4\t192.0.2.1:443 ABC",
+            "obfs4 192.0.2.1:443 ABC \\",
+            "obfs4 192.0.2.1:443 ABC cert=a\\b",
             None,
             443,
             ["obfs4 192.0.2.1:443 ABC"],

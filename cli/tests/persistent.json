@@ -29,7 +29,10 @@
     "data_dir": "/tmp",
     "webhook_url": null,
     "disable_text": false,
-    "disable_files": false
+    "disable_files": false,
+    "max_upload_size": 0,
+    "max_upload_size_total": false,
+    "total_upload_size": 0
   },
   "website": {
     "disable_csp": false,
@@ -37,5 +40,9 @@
     "log_filenames": false,
     "filenames": []
   },
-  "chat": {}
+  "chat": {},
+  "download": {
+    "data_dir": "/home/user/OnionShare",
+    "poll": 0
+  }
 }
