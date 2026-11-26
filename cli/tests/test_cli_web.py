@@ -1220,6 +1220,8 @@ class TestRangeRequests:
         ("bytes=0-599", 500, [(0, 499)]),
         ("bytes=0-0", 500, [(0, 0)]),
         ("bytes=-100", 500, [(400, 499)]),
+        ("bytes=-500", 500, [(0, 499)]),
+        ("bytes=-99999999", 500, [(0, 499)]),  # a suffix longer than the file
         ("bytes=0-99,100-199", 500, [(0, 199)]),
         ("bytes=0-100,100-199", 500, [(0, 199)]),
         ("bytes=0-99,101-199", 500, [(0, 99), (101, 199)]),
@@ -1230,6 +1232,10 @@ class TestRangeRequests:
     INVALID_RANGES = [
         "bytes=200-100",
         "bytes=0-100,300-200",
+        "bytes=500",
+        "bytes=500-",
+        "bytes=600-700",
+        "bytes=-0",
     ]
 
     def test_parse_ranges(self):
@@ -1242,6 +1248,62 @@ class TestRangeRequests:
             with pytest.raises(RequestedRangeNotSatisfiable):
                 parse_range_header(invalid, 500)
 
+    def test_autostop_sharing_unsatisfiable_range_does_not_lock_share(
+        self, temp_dir, common_obj
+    ):
+        """
+        A Range starting past the end of the file is refused before the download
+        starts, so it can't leave the share stuck in "download in progress".
+        """
+        web = web_obj(temp_dir, common_obj, "share", 1)
+        web.settings.set("share", "autostop_sharing", True)
+
+        with web.app.test_client() as client:
+            for range_header in ["bytes=999999-", "bytes=-0"]:
+                res = client.get("/download", headers={"Range": range_header})
+                res.get_data()
+                assert res.status_code == 416
+
+            assert web.share_mode.download_in_progress is False
+
+            res = client.get("/download")
+            res.get_data()
+            assert res.status_code == 200
+            assert web.share_mode.transfer_complete is True
+
+    def test_autostop_sharing_visitor_disconnect_releases_share(
+        self, temp_dir, common_obj
+    ):
+        """
+        If a visitor goes away part way through a download, the share is free
+        again for the next download instead of refusing everyone.
+        """
+        web = web_obj(temp_dir, common_obj, "share")
+        web.settings.set("share", "autostop_sharing", True)
+        filename = os.path.join(temp_dir.name, "disconnect.bin")
+        # Bigger than Waitress' output buffer (16 MiB), so the download can't
+        # be finished on the server's side before the visitor goes away
+        with open(filename, "wb") as f:
+            f.write(os.urandom(40 * 1024 * 1024))
+        web.share_mode.set_file_info([filename])
+
+        with live_waitress_server(web) as port:
+            sock = socket.socket()
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 4096)
+            sock.connect(("127.0.0.1", port))
+            sock.sendall(b"GET /download HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n")
+            received = 0
+            while received < 256 * 1024:
+                received += len(sock.recv(65536))
+            assert web.share_mode.download_in_progress is True
+            sock.close()
+
+            for _ in range(100):
+                if not web.share_mode.download_in_progress:
+                    break
+                time.sleep(0.1)
+            assert web.share_mode.download_in_progress is False
+            assert web.share_mode.transfer_complete is False
     def test_headers(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", False)
