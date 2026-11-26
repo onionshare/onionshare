@@ -474,10 +474,13 @@ class ShareModeWeb(SendBaseModeWeb):
         for filename in filenames:
             if os.path.islink(filename) or not self._is_path_contained(filename):
                 continue
+            # Only the items that set_file_info named are shared
+            if filename not in self.root_names:
+                continue
 
             info = {
                 "filename": filename,
-                "basename": os.path.basename(filename.rstrip("/")),
+                "basename": self.root_names[filename],
             }
             if os.path.isfile(filename):
                 info["size"] = os.path.getsize(filename)
@@ -513,14 +516,14 @@ class ShareModeWeb(SendBaseModeWeb):
             )
             self.download_filename = self.zip_writer.zip_filename
             for info in self.file_info["files"]:
-                self.zip_writer.add_file(info["filename"])
+                self.zip_writer.add_file(info["filename"], info["basename"])
                 # Canceling early?
                 if self.web.cancel_compression:
                     self.zip_writer.close()
                     return False
 
             for info in self.file_info["dirs"]:
-                if not self.zip_writer.add_dir(info["filename"]):
+                if not self.zip_writer.add_dir(info["filename"], info["basename"]):
                     return False
 
             self.zip_writer.close()
@@ -566,9 +569,9 @@ class ZipWriter(object):
         self._size = 0
         self.processed_size_callback(self._size)
 
-    def add_file(self, filename):
+    def add_file(self, filename, arcname=None):
         """
-        Add a file to the zip archive.
+        Add a file to the zip archive, as arcname if given.
         """
         # Skip symlinks
         if os.path.islink(filename):
@@ -576,15 +579,21 @@ class ZipWriter(object):
         # Verify the file is within selected roots (symlink safety check)
         if self.web and not self.web.share_mode._is_path_contained(filename):
             return
-        self.z.write(filename, os.path.basename(filename), zipfile.ZIP_DEFLATED)
+        self.z.write(
+            filename, arcname or os.path.basename(filename), zipfile.ZIP_DEFLATED
+        )
         self._size += os.path.getsize(filename)
         self.processed_size_callback(self._size)
 
-    def add_dir(self, filename):
+    def add_dir(self, filename, arcname=None):
         """
-        Add a directory, and all of its children, to the zip archive.
+        Add a directory, and all of its children, to the zip archive, under arcname
+        if given.
         """
-        dir_to_strip = os.path.dirname(filename.rstrip("/")) + "/"
+        top = arcname or os.path.basename(os.path.normpath(filename))
+        if top in (os.curdir, os.pardir):
+            # Never write an entry that points outside of the archive
+            top = ""
         for dirpath, dirnames, filenames in os.walk(filename, followlinks=False):
             for f in filenames:
                 # Canceling early?
@@ -598,7 +607,11 @@ class ZipWriter(object):
                 # Verify the file is within selected roots
                 if self.web and not self.web.share_mode._is_path_contained(full_filename):
                     continue
-                arc_filename = full_filename[len(dir_to_strip) :]
+                # Build the name from path components, so it does not depend on which
+                # slash the path was given with, or on a trailing slash
+                arc_filename = os.path.normpath(
+                    os.path.join(top, os.path.relpath(full_filename, filename))
+                )
                 self.z.write(full_filename, arc_filename, zipfile.ZIP_DEFLATED)
                 self._size += os.path.getsize(full_filename)
                 self.processed_size_callback(self._size)

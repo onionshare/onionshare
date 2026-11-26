@@ -86,6 +86,9 @@ class SendBaseModeWeb:
                 os.path.join(filenames[0], x) for x in os.listdir(filenames[0])
             ]
 
+        # A path that was given more than once is shared once
+        filenames = list(dict.fromkeys(filenames))
+
         # Re-initialize
         self.files = {}  # Dictionary mapping file paths to filenames on disk
         self.root_files = (
@@ -103,13 +106,35 @@ class SendBaseModeWeb:
         else:
             slash = "/"
 
+        # Give files and folders that share a name a unique name, so none of them is lost.
+        # Only the items that are shared get a name: the ones skipped below must not
+        # take a name away from the ones that are kept.
+        self.root_names = {}
+        used_names = set()
+        for filename in filenames:
+            if os.path.islink(filename) or not self._is_path_contained(filename):
+                continue
+            name = os.path.basename(filename.rstrip(slash))
+            if os.path.isdir(filename):
+                stem, ext = name, ""
+            elif os.path.isfile(filename):
+                stem, ext = os.path.splitext(name)
+            else:
+                continue
+            n = 2
+            while name in used_names:
+                name = f"{stem}-{n}{ext}"
+                n += 1
+            used_names.add(name)
+            self.root_names[filename] = name
+
         # Build the file list
         for filename in filenames:
-            basename = os.path.basename(filename.rstrip(slash))
-
-            # Skip symlinks at the root level
-            if os.path.islink(filename):
+            # Skip symlinks at the root level, and anything else that was not named above
+            if os.path.islink(filename) or filename not in self.root_names:
                 continue
+
+            basename = self.root_names[filename]
 
             # If it's a filename, add it
             if os.path.isfile(filename):
