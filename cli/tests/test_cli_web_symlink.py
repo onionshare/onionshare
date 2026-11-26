@@ -1,6 +1,7 @@
 import os
 import shutil
 import tempfile
+import zipfile
 
 import pytest
 
@@ -362,3 +363,156 @@ class TestSymlinkProtection:
 
             # Normal nested file should appear in directory listing
             assert "nested.txt" in data
+
+    def test_file_selected_next_to_folder_is_shared(self, temp_dir, common_obj):
+        """A selected file next to a selected folder is not filtered out"""
+        test_dir = tempfile.mkdtemp(dir=temp_dir.name)
+        index = os.path.join(test_dir, "index.html")
+        with open(index, "w") as f:
+            f.write("<p>home</p>")
+        css_dir = os.path.join(test_dir, "css")
+        os.mkdir(css_dir)
+        with open(os.path.join(css_dir, "style.css"), "w") as f:
+            f.write("p {}")
+
+        for mode in ("website", "share"):
+            web = Web(common_obj, False, ModeSettings(common_obj), mode)
+            send_mode = web.website_mode if mode == "website" else web.share_mode
+            send_mode.set_file_info([index, css_dir])
+            assert "index.html" in send_mode.files, mode
+            assert "css/style.css" in send_mode.files, mode
+
+    def test_file_selected_next_to_folder_is_served(self, temp_dir, common_obj):
+        """A selected file next to a selected folder is in the zip and on the website"""
+        test_dir = tempfile.mkdtemp(dir=temp_dir.name)
+        index = os.path.join(test_dir, "index.html")
+        with open(index, "w") as f:
+            f.write("<p>home</p>")
+        css_dir = os.path.join(test_dir, "css")
+        os.mkdir(css_dir)
+        with open(os.path.join(css_dir, "style.css"), "w") as f:
+            f.write("p {}")
+
+        web = Web(common_obj, False, ModeSettings(common_obj), "share")
+        web.app.testing = True
+        web.share_mode.set_file_info([index, css_dir])
+        with zipfile.ZipFile(web.share_mode.download_filename) as z:
+            assert sorted(z.namelist()) == ["css/style.css", "index.html"]
+
+        web = Web(common_obj, False, ModeSettings(common_obj), "website")
+        web.app.testing = True
+        web.website_mode.set_file_info([index, css_dir])
+        with web.app.test_client() as c:
+            assert c.get("/index.html").get_data() == b"<p>home</p>"
+            assert c.get("/css/style.css").get_data() == b"p {}"
+
+    def test_symlink_to_selected_file_is_still_blocked(
+        self, symlink_test_setup, common_obj
+    ):
+        """Selecting a file does not let a symlink in a selected folder serve it"""
+        site_dir = symlink_test_setup["site_dir"]
+        outside = symlink_test_setup["outside_secret"]
+        selected = os.path.join(symlink_test_setup["temp_dir"].name, "selected.txt")
+        with open(selected, "w") as f:
+            f.write("SELECTED")
+        os.symlink(selected, os.path.join(site_dir, "to-selected.txt"))
+
+        web = Web(common_obj, False, ModeSettings(common_obj), "website")
+        web.app.testing = True
+        web.website_mode.set_file_info([site_dir, selected])
+
+        assert "site/to-selected.txt" not in web.website_mode.files
+        assert "site/link.txt" not in web.website_mode.files
+        assert web.website_mode.files["selected.txt"] == selected
+        with web.app.test_client() as c:
+            assert c.get("/selected.txt").get_data() == b"SELECTED"
+            assert c.get("/site/to-selected.txt").status_code == 404
+            res = c.get("/site/link.txt")
+            assert res.status_code == 404
+            assert b"OUTSIDE_SECRET_MARKER" not in res.get_data()
+        assert not web.website_mode._is_path_contained(outside)
+
+    @pytest.mark.parametrize("through_symlink", [False, True])
+    def test_single_folder_file_swapped_for_symlink_after_start(
+        self, symlink_test_setup, common_obj, through_symlink
+    ):
+        """
+        A file that is replaced by a symlink after sharing started is not served, also
+        when the single selected folder is itself a symlink to a folder
+        """
+        site_dir = symlink_test_setup["site_dir"]
+        selected = site_dir
+        if through_symlink:
+            selected = os.path.join(symlink_test_setup["temp_dir"].name, "site-link")
+            os.symlink(site_dir, selected)
+
+        web = Web(common_obj, False, ModeSettings(common_obj), "website")
+        web.app.testing = True
+        web.website_mode.set_file_info([selected])
+        assert web.website_mode.selected_roots == [os.path.realpath(site_dir)]
+
+        with web.app.test_client() as c:
+            assert c.get("/normal.txt").get_data() == b"NORMAL_FILE_CONTENT"
+
+            os.remove(symlink_test_setup["normal_file"])
+            os.symlink(
+                symlink_test_setup["outside_secret"], symlink_test_setup["normal_file"]
+            )
+            res = c.get("/normal.txt")
+            assert res.status_code == 404
+            assert b"OUTSIDE_SECRET_MARKER" not in res.get_data()
+
+    def test_selected_file_swapped_for_symlink_after_start(
+        self, symlink_test_setup, common_obj
+    ):
+        """A selected file that is replaced by a symlink after sharing started is not served"""
+        files = []
+        for name in ["one.txt", "two.txt"]:
+            files.append(os.path.join(symlink_test_setup["temp_dir"].name, name))
+            with open(files[-1], "w") as f:
+                f.write(name)
+
+        web = Web(common_obj, False, ModeSettings(common_obj), "website")
+        web.app.testing = True
+        web.website_mode.set_file_info(files)
+
+        with web.app.test_client() as c:
+            assert c.get("/one.txt").get_data() == b"one.txt"
+
+            os.remove(files[0])
+            os.symlink(symlink_test_setup["outside_secret"], files[0])
+            res = c.get("/one.txt")
+            assert res.status_code == 404
+            assert b"OUTSIDE_SECRET_MARKER" not in res.get_data()
+            assert c.get("/two.txt").get_data() == b"two.txt"
+
+    def test_only_symlinks_selected_contains_nothing(
+        self, symlink_test_setup, common_obj
+    ):
+        """With nothing but symlinks selected, nothing is contained"""
+        web = Web(common_obj, False, ModeSettings(common_obj), "website")
+        web.app.testing = True
+        web.website_mode.set_file_info(
+            [symlink_test_setup["symlink_path"], symlink_test_setup["nested_symlink"]]
+        )
+
+        assert web.website_mode.selected_roots == []
+        assert web.website_mode.files == {}
+        assert not web.website_mode._is_path_contained(
+            symlink_test_setup["outside_secret"]
+        )
+        assert not web.website_mode._is_path_contained(
+            symlink_test_setup["normal_file"]
+        )
+
+    def test_filesystem_root_contains_its_children(self, temp_dir, common_obj):
+        """A selected filesystem or drive root contains what is under it"""
+        web = Web(common_obj, False, ModeSettings(common_obj), "website")
+        fs_root = os.path.abspath(os.sep)
+        web.website_mode.selected_roots = [os.path.realpath(fs_root)]
+        assert web.website_mode._is_path_contained(temp_dir.name)
+
+        # A root is not a prefix for its siblings
+        sibling_root = os.path.realpath(temp_dir.name)
+        web.website_mode.selected_roots = [sibling_root]
+        assert not web.website_mode._is_path_contained(sibling_root + "-other")
