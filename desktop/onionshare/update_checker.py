@@ -151,8 +151,8 @@ class UpdateChecker(QtCore.QObject):
 
             # Validate that latest_version looks like a version string
             # This regex is: 1-3 dot-separated numeric components
-            version_re = r"^(\d+\.)?(\d+\.)?(\d+)$"
-            if not re.match(version_re, latest_version):
+            version_re = r"(\d+\.)?(\d+\.)?(\d+)"
+            if not re.fullmatch(version_re, latest_version, re.ASCII):
                 self.update_invalid_version.emit(latest_version)
                 raise UpdateCheckerInvalidLatestVersion(latest_version)
 
@@ -171,7 +171,8 @@ class UpdateChecker(QtCore.QObject):
             # Do we need to update?
             update_url = "https://onionshare.org"
             installed_version = self.common.version
-            if installed_version < latest_version:
+            # Compare versions numerically: as strings, "2.10.0" < "2.7.3"
+            if Version(installed_version) < Version(latest_version):
                 self.update_available.emit(
                     update_url, installed_version, latest_version
                 )
