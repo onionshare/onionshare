@@ -152,7 +152,7 @@ Browse the command-line documentation by running ``onionshare --help``::
       --auto-start-timer SECONDS
                                 Start onion service at scheduled time (N seconds from now)
       --auto-stop-timer SECONDS
-                                Stop onion service at scheduled time (N seconds from now)
+                                Stop onion service N seconds after it starts (after the auto-start timer, if one is set)
       --no-autostop-sharing     Share files: Continue sharing after files have been sent (the default is to stop sharing)
       --log-filenames           Log file download activity to stdout
       --qr                      Display a QR code in the terminal for share links

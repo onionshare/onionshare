@@ -1,4 +1,5 @@
 import os
+import sys
 import tempfile
 
 import pytest
@@ -160,3 +161,56 @@ class TestOnionShare:
         onionshare_obj.stop_onion_service(mode_settings_obj)
         assert not os.path.exists(socket_path)
         assert not os.path.exists(os.path.dirname(socket_path))
+
+
+class TestCliTimers:
+    def test_autostop_timer_counts_from_when_the_service_starts(
+        self, monkeypatch, tmp_path, capsys
+    ):
+        """
+        --auto-stop-timer counts from when the service starts, which is after
+        the --auto-start-timer delay, so it can be shorter than that delay.
+        """
+        import time
+
+        import onionshare_cli
+
+        class StubOnion:
+            tor_proc = None
+            supports_stealth = True
+
+            def __init__(self, *args, **kwargs):
+                pass
+
+            def connect(self, *args, **kwargs):
+                pass
+
+            def cleanup(self, *args, **kwargs):
+                pass
+
+        monkeypatch.setattr(onionshare_cli, "Onion", StubOnion)
+        shared = tmp_path / "dummy.txt"
+        shared.write_text("dummy")
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "onionshare-cli",
+                "--local-only",
+                "--auto-start-timer",
+                "3",
+                "--auto-stop-timer",
+                "2",
+                str(shared),
+            ],
+        )
+
+        started = time.monotonic()
+        onionshare_cli.main()
+        elapsed = time.monotonic() - started
+
+        out = capsys.readouterr().out
+        assert "can't be the same or earlier" not in out
+        assert "Stopped because auto-stop timer ran out" in out
+        # 3 seconds until it starts, then up for 2 seconds
+        assert 5 <= elapsed < 7
