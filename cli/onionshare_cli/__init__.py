@@ -117,7 +117,7 @@ def main(cwd=None):
         metavar="SECONDS",
         dest="autostop_timer",
         default=0,
-        help="Stop onion service at schedule time (N seconds from now)",
+        help="Stop onion service N seconds after it starts (after the auto-start timer, if one is set)",
     )
     # Share args
     parser.add_argument(
@@ -396,13 +396,9 @@ def main(cwd=None):
 
         # Delay the startup if a startup timer was set
         if autostart_timer > 0:
-            # Can't set a schedule that is later than the auto-stop timer
-            if autostop_timer > 0 and autostop_timer < autostart_timer:
-                print(
-                    "The auto-stop time can't be the same or earlier than the auto-start time. Please update it to start sharing."
-                )
-                sys.exit()
-
+            # The auto-stop timer only starts counting once the service has
+            # started, so it can be any length, including shorter than the
+            # auto-start timer
             app.start_onion_service(mode, mode_settings, False)
             url = f"http://{app.onion_host}"
             schedule = datetime.now() + timedelta(seconds=autostart_timer)
