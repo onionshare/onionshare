@@ -20,9 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import sys
-import tempfile
 import mimetypes
-import gzip
 from flask import Response, request
 from unidecode import unidecode
 from urllib.parse import quote, unquote
@@ -43,10 +41,6 @@ class SendBaseModeWeb:
         self.download_filename = None
         self.download_filesize = None
         self.zip_writer = None
-
-        # Create a temporary dir to store gzip files in
-        self.gzip_tmp_dir = tempfile.TemporaryDirectory(dir=self.common.build_tmp_dir())
-        self.gzip_counter = 0
 
         # If autostop_sharing, only allow one download at a time
         self.download_in_progress = False
@@ -103,7 +97,6 @@ class SendBaseModeWeb:
         )  # This is only the root files and dirs, as opposed to all of them
         self.cur_history_id = 0
         self.file_info = {"files": [], "dirs": []}
-        self.gzip_individual_files = {}
         self.init()
 
         # Windows paths use backslashes, but website paths use forward slashes. We have to
@@ -282,33 +275,43 @@ class SendBaseModeWeb:
 
     def stream_individual_file(self, filesystem_path):
         """
-        Return a flask response that's streaming the download of an individual file, and gzip
-        compressing it if the browser supports it.
+        Return a flask response that's streaming the download of an individual file
+        directly from its original location.
         """
         # Verify the path is contained within selected roots (symlink safety check)
-        if not self._is_path_contained(filesystem_path):
+        if os.path.islink(filesystem_path) or not self._is_path_contained(
+            filesystem_path
+        ):
             history_id = self.cur_history_id
             self.cur_history_id += 1
             return self.web.error404(history_id)
 
-        use_gzip = self.should_use_gzip()
+        # Open the file before starting the response, then check containment again
+        # so that a path swapped for a symlink between the check and the open cannot
+        # escape the selected roots.
+        flags = os.O_RDONLY
+        if hasattr(os, "O_NOFOLLOW"):
+            flags |= os.O_NOFOLLOW
+        try:
+            fd = os.open(filesystem_path, flags)
+        except OSError:
+            history_id = self.cur_history_id
+            self.cur_history_id += 1
+            return self.web.error404(history_id)
 
-        # gzip compress the individual file, if it hasn't already been compressed
-        if use_gzip:
-            if filesystem_path not in self.gzip_individual_files:
-                gzip_filename = os.path.join(
-                    self.gzip_tmp_dir.name, str(self.gzip_counter)
-                )
-                self.gzip_counter += 1
-                self._gzip_compress(filesystem_path, gzip_filename, 6, None)
-                self.gzip_individual_files[filesystem_path] = gzip_filename
+        try:
+            contained = self._is_path_contained(filesystem_path)
+            filesize = os.fstat(fd).st_size
+        except OSError:
+            contained = False
+            filesize = 0
+        if not contained:
+            os.close(fd)
+            history_id = self.cur_history_id
+            self.cur_history_id += 1
+            return self.web.error404(history_id)
 
-            file_to_download = self.gzip_individual_files[filesystem_path]
-            filesize = os.path.getsize(self.gzip_individual_files[filesystem_path])
-        else:
-            file_to_download = filesystem_path
-            filesize = os.path.getsize(filesystem_path)
-
+        fp = os.fdopen(fd, "rb")
         path = request.path
 
         # Tell GUI the individual file started
@@ -324,75 +327,75 @@ class SendBaseModeWeb:
         def generate():
             chunk_size = 102400  # 100kb
 
-            fp = open(file_to_download, "rb")
             self.web.done = False
-            while not self.web.done:
-                chunk = fp.read(chunk_size)
-                if chunk == b"":
-                    self.web.done = True
-                else:
-                    try:
-                        yield chunk
-
-                        # Tell GUI the progress
-                        downloaded_bytes = fp.tell()
-                        percent = (1.0 * downloaded_bytes / filesize) * 100
-                        if (
-                            not self.web.is_gui
-                            or self.common.platform == "Linux"
-                            or self.common.platform == "BSD"
-                        ):
-                            if self.web.settings.get(self.web.mode, "log_filenames"):
-                                # Decode and sanitize the path to remove newlines
-                                decoded_path = unquote(path)
-                                decoded_path = decoded_path.replace("\r", "").replace(
-                                    "\n", ""
-                                )
-                                filename_str = f"{decoded_path} - "
-                            else:
-                                filename_str = ""
-
-                            sys.stdout.write(
-                                "\r{0}{1:s}, {2:.2f}%          ".format(
-                                    filename_str,
-                                    self.common.human_readable_filesize(
-                                        downloaded_bytes
-                                    ),
-                                    percent,
-                                )
-                            )
-                            sys.stdout.flush()
-
-                        self.web.add_request(
-                            self.web.REQUEST_INDIVIDUAL_FILE_PROGRESS,
-                            path,
-                            {
-                                "id": history_id,
-                                "bytes": downloaded_bytes,
-                                "filesize": filesize,
-                            },
-                        )
-                        self.web.done = False
-                    except Exception:
-                        # Looks like the download was canceled
+            try:
+                while not self.web.done:
+                    chunk = fp.read(chunk_size)
+                    if chunk == b"":
                         self.web.done = True
+                    else:
+                        try:
+                            yield chunk
 
-                        # Tell the GUI the individual file was canceled
-                        self.web.add_request(
-                            self.web.REQUEST_INDIVIDUAL_FILE_CANCELED,
-                            path,
-                            {"id": history_id},
-                        )
+                            # Tell GUI the progress
+                            downloaded_bytes = fp.tell()
+                            percent = (1.0 * downloaded_bytes / filesize) * 100
+                            if (
+                                not self.web.is_gui
+                                or self.common.platform == "Linux"
+                                or self.common.platform == "BSD"
+                            ):
+                                if self.web.settings.get(
+                                    self.web.mode, "log_filenames"
+                                ):
+                                    # Decode and sanitize the path to remove newlines
+                                    decoded_path = unquote(path)
+                                    decoded_path = decoded_path.replace(
+                                        "\r", ""
+                                    ).replace("\n", "")
+                                    filename_str = f"{decoded_path} - "
+                                else:
+                                    filename_str = ""
 
-            fp.close()
+                                sys.stdout.write(
+                                    "\r{0}{1:s}, {2:.2f}%          ".format(
+                                        filename_str,
+                                        self.common.human_readable_filesize(
+                                            downloaded_bytes
+                                        ),
+                                        percent,
+                                    )
+                                )
+                                sys.stdout.flush()
 
-            sys.stdout.write("\n")
+                            self.web.add_request(
+                                self.web.REQUEST_INDIVIDUAL_FILE_PROGRESS,
+                                path,
+                                {
+                                    "id": history_id,
+                                    "bytes": downloaded_bytes,
+                                    "filesize": filesize,
+                                },
+                            )
+                            self.web.done = False
+                        except Exception:
+                            # Looks like the download was canceled
+                            self.web.done = True
+
+                            # Tell the GUI the individual file was canceled
+                            self.web.add_request(
+                                self.web.REQUEST_INDIVIDUAL_FILE_CANCELED,
+                                path,
+                                {"id": history_id},
+                            )
+            finally:
+                fp.close()
+                sys.stdout.write("\n")
 
         basename = os.path.basename(filesystem_path)
 
         r = Response(generate())
-        if use_gzip:
-            r.headers.set("Content-Encoding", "gzip")
+        r.call_on_close(fp.close)
         r.headers.set("Content-Length", filesize)
         filename_dict = {
             "filename": unidecode(basename),
@@ -403,37 +406,6 @@ class SendBaseModeWeb:
         if content_type is not None:
             r.headers.set("Content-Type", content_type)
         return r
-
-    def should_use_gzip(self):
-        """
-        Should we use gzip for this browser?
-        """
-        return (not self.is_zipped) and (
-            "gzip" in request.headers.get("Accept-Encoding", "").lower()
-        )
-
-    def _gzip_compress(
-        self, input_filename, output_filename, level, processed_size_callback=None
-    ):
-        """
-        Compress a file with gzip, without loading the whole thing into memory
-        Thanks: https://stackoverflow.com/questions/27035296/python-how-to-gzip-a-large-text-file-without-memoryerror
-        """
-        bytes_processed = 0
-        blocksize = 1 << 16  # 64kB
-        with open(input_filename, "rb") as input_file:
-            output_file = gzip.open(output_filename, "wb", level)
-            while True:
-                if processed_size_callback is not None:
-                    processed_size_callback(bytes_processed)
-
-                block = input_file.read(blocksize)
-                if len(block) == 0:
-                    break
-                output_file.write(block)
-                bytes_processed += blocksize
-
-            output_file.close()
 
     def init(self):
         """

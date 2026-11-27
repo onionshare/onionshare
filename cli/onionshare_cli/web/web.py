@@ -111,6 +111,17 @@ class Web:
             static_url_path=f"/static_{self.common.random_string(16)}",  # randomize static_url_path to avoid making /static unusable
             template_folder=self.common.get_resource_path("templates"),
         )
+        # Website files are streamed directly rather than through a gzip copy in
+        # the temporary directory, so allow gzip as an on-the-fly streaming
+        # algorithm for gzip-only clients. Flask-Compress excludes gzip from its
+        # streaming defaults.
+        if mode == "website":
+            self.app.config["COMPRESS_ALGORITHM_STREAMING"] = [
+                "zstd",
+                "br",
+                "deflate",
+                "gzip",
+            ]
         self.compress = Compress()
         self.compress.init_app(self.app)
 

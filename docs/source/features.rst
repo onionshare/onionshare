@@ -146,6 +146,8 @@ To host a static HTML website with OnionShare, open a website tab, drag the file
 
 If you add an ``index.html`` file, it will render when someone loads your website. You should also include any other HTML files, CSS files, JavaScript files, and images that make up the website. (Note that OnionShare only supports hosting *static* websites. It can't host websites that execute code or use databases. So you can't for example use WordPress.)
 
+Website files are served directly from the folder you select. Changes you make to the contents of those files while the website is running are reflected immediately, and OnionShare does not create temporary copies of them.
+
 If you don't have an ``index.html`` file, it will show a directory listing instead, and people loading it can look through the files and download them.
 
 After you add files, you'll see some settings. Make sure you choose the setting you're interested in before you start sharing.
