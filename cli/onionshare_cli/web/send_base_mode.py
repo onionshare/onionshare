@@ -373,8 +373,10 @@ class SendBaseModeWeb:
                             },
                         )
                         self.web.done = False
-                    except Exception:
-                        # Looks like the download was canceled
+                    except (Exception, GeneratorExit):
+                        # Looks like the download was canceled. GeneratorExit is
+                        # raised at the yield when the visitor goes away; it
+                        # isn't an Exception, so it must be named here too.
                         self.web.done = True
 
                         # Tell the GUI the individual file was canceled
@@ -383,6 +385,11 @@ class SendBaseModeWeb:
                             path,
                             {"id": history_id},
                         )
+
+                        # Stop now: another download can set web.done back to
+                        # False, and after GeneratorExit this generator must
+                        # not yield again
+                        break
 
             fp.close()
 

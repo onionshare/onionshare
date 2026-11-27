@@ -196,14 +196,12 @@ class ShareModeWeb(SendBaseModeWeb):
                 self.filesize, etag, self.last_modified
             )
 
-            # Tell GUI the download started
+            # The GUI is told the download started in generate(), once the file
+            # is actually being sent. A HEAD or 304 response sends no file, so
+            # it would never be followed by a progress or canceled event, and
+            # the GUI would wait for it forever before auto-stopping the share.
             history_id = self.cur_history_id
             self.cur_history_id += 1
-            self.web.add_request(
-                self.web.REQUEST_STARTED,
-                request_path,
-                {"id": history_id},
-            )
 
             basename = os.path.basename(self.download_filename)
 
@@ -293,6 +291,9 @@ class ShareModeWeb(SendBaseModeWeb):
         return range_, status_code
 
     def generate(self, range_, file_to_download, path, history_id, filesize):
+        # Tell GUI the download started
+        self.web.add_request(self.web.REQUEST_STARTED, path, {"id": history_id})
+
         # The user hasn't canceled the download
         self.client_cancel = False
 
