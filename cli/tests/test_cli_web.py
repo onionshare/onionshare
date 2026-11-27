@@ -1242,6 +1242,79 @@ class TestRangeRequests:
             with pytest.raises(RequestedRangeNotSatisfiable):
                 parse_range_header(invalid, 500)
 
+    @pytest.mark.parametrize(
+        "method, headers",
+        [
+            ("HEAD", {}),
+            ("GET", {"If-Unmodified-Since": "Thu, 01 Jan 1970 00:00:00 GMT"}),
+        ],
+    )
+    def test_download_without_body_is_not_a_download_in_progress(
+        self, temp_dir, common_obj, method, headers
+    ):
+        """
+        The GUI only hears that a download started once the file is being sent.
+        A HEAD or 304 response sends nothing, and would never be followed by a
+        progress or canceled event, keeping the share from auto-stopping.
+        """
+        web = web_obj(temp_dir, common_obj, "share", 1)
+        with web.app.test_client() as client:
+            res = client.open("/download", method=method, headers=headers)
+            res.get_data()
+            assert res.status_code in (200, 304)
+
+        events = []
+        while not web.q.empty():
+            events.append(web.q.get()["type"])
+        assert web.REQUEST_STARTED not in events
+
+        # A real download still reports it started, then finished
+        with web.app.test_client() as client:
+            res = client.get("/download")
+            res.get_data()
+        events = []
+        while not web.q.empty():
+            events.append(web.q.get()["type"])
+        assert events[0] == web.REQUEST_STARTED
+        assert web.REQUEST_PROGRESS in events
+
+    def test_individual_file_visitor_disconnect_is_canceled(self, temp_dir, common_obj):
+        """
+        A visitor going away part way through an individual file download is
+        reported as canceled, and the share isn't left looking busy.
+        """
+        web = web_obj(temp_dir, common_obj, "share")
+        web.settings.set("share", "autostop_sharing", False)
+        share_dir = tempfile.mkdtemp(dir=temp_dir.name)
+        with open(os.path.join(share_dir, "big.bin"), "wb") as f:
+            f.write(os.urandom(40 * 1024 * 1024))
+        with open(os.path.join(share_dir, "small.txt"), "w") as f:
+            f.write("small")
+        web.share_mode.set_file_info([share_dir])
+        path = "/big.bin"
+
+        with live_waitress_server(web) as port:
+            sock = socket.socket()
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 4096)
+            sock.settimeout(10)
+            sock.connect(("127.0.0.1", port))
+            sock.sendall(f"GET {path} HTTP/1.1\r\nHost: 127.0.0.1\r\n\r\n".encode())
+            received = sock.recv(65536)
+            assert received.startswith(b"HTTP/1.1 200")
+            while len(received) < 256 * 1024:
+                received += sock.recv(65536)
+            sock.close()
+
+            events = []
+            for _ in range(100):
+                while not web.q.empty():
+                    events.append(web.q.get()["type"])
+                if web.REQUEST_INDIVIDUAL_FILE_CANCELED in events:
+                    break
+                time.sleep(0.1)
+            assert web.REQUEST_INDIVIDUAL_FILE_CANCELED in events
+            assert web.done is True
+
     def test_headers(self, temp_dir, common_obj):
         web = web_obj(temp_dir, common_obj, "share", 3)
         web.settings.set("share", "autostop_sharing", False)
@@ -1514,3 +1587,38 @@ class TestRangeRequests:
 
         with live_server(web) as url:
             subprocess.check_call(["http", url, "Range: bytes=10"])
+
+
+class TestGeneratorCancel:
+    @pytest.mark.parametrize("kind", ["download", "individual"])
+    def test_canceled_stream_never_yields_again(self, temp_dir, common_obj, kind):
+        """
+        Once a download is canceled (the visitor went away), its generator stops,
+        even if another download sets web.done back to False meanwhile.
+        """
+        web = web_obj(temp_dir, common_obj, "share")
+        web.settings.set("share", "autostop_sharing", False)
+        filename = os.path.join(temp_dir.name, "cancel.bin")
+        with open(filename, "wb") as f:
+            f.write(os.urandom(1024 * 1024))
+        web.share_mode.set_file_info([filename])
+
+        if kind == "download":
+            size = web.share_mode.download_filesize
+            gen = web.share_mode.generate((0, size - 1), filename, "/download", 0, size)
+        else:
+            with web.app.test_request_context("/cancel.bin"):
+                gen = web.share_mode.stream_individual_file(filename).response
+
+        # Another download in progress keeps setting web.done back to False
+        original_add_request = web.add_request
+
+        def add_request(request_type, path=None, data=None):
+            original_add_request(request_type, path, data)
+            web.done = False
+
+        web.add_request = add_request
+
+        next(gen)
+        gen.close()  # raises RuntimeError if the generator yields again
+        assert web.done is False  # the other download keeps going
