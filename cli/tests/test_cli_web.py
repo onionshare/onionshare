@@ -1346,41 +1346,40 @@ class TestRangeRequests:
             assert resumed_identity.headers["ETag"] == etag
             assert resumed_identity.data == contents[offset:]
 
-            # Individual file views do not support ranges and can still use gzip.
+            # Individual file views are served directly from the source file,
+            # without creating a gzip copy in the temporary directory.
             individual = client.get(
                 "/download.txt", headers={"Accept-Encoding": "gzip"}
             )
-            assert individual.headers["Content-Encoding"] == "gzip"
-            assert gzip.decompress(individual.data) == contents
+            assert "Content-Encoding" not in individual.headers
+            assert individual.data == contents
 
-    def test_single_file_gzip_is_removed_when_sharing_stops(
-        self, temp_dir, common_obj, tmp_path
+    def test_single_file_share_serves_directly_without_temp_copies(
+        self, temp_dir, common_obj, tmp_path, monkeypatch
     ):
-        contents = b"A temporary compressed copy.\n" * 1024
+        contents = b"A directly served file.\n" * 1024
         filename = tmp_path / "download.txt"
         filename.write_bytes(contents)
+
+        service_tmp = tmp_path / "service-tmp"
+        service_tmp.mkdir()
+        monkeypatch.setattr(common_obj, "build_tmp_dir", lambda: str(service_tmp))
+
         web = web_obj(temp_dir, common_obj, "share")
         web.settings.set("share", "autostop_sharing", False)
+        web.share_mode.set_file_info([str(filename)])
 
-        # Restarting the same share must also clean up its new compressed copy.
-        for _ in range(2):
-            web.share_mode.set_file_info([str(filename)])
-            with web.app.test_client() as client:
-                response = client.get(
-                    "/download.txt", headers={"Accept-Encoding": "gzip"}
-                )
-                assert response.status_code == 200
-                assert response.headers["Content-Encoding"] == "gzip"
-                assert gzip.decompress(response.data) == contents
-                response.close()
+        with web.app.test_client() as client:
+            response = client.get(
+                "/download.txt", headers={"Accept-Encoding": "gzip"}
+            )
+            assert response.status_code == 200
+            assert "Content-Encoding" not in response.headers
+            assert response.data == contents
 
-            gzip_files = list(web.share_mode.gzip_individual_files.values())
-            assert gzip_files
-            assert all(os.path.exists(path) for path in gzip_files)
-            assert web.running
-            web.cleanup()
-            assert all(not os.path.exists(path) for path in gzip_files)
-            assert filename.read_bytes() == contents
+        web.cleanup()
+        assert list(service_tmp.iterdir()) == []
+        assert filename.read_bytes() == contents
 
     def test_share_compression_does_not_affect_website(
         self, temp_dir, common_obj, tmp_path
@@ -1400,6 +1399,31 @@ class TestRangeRequests:
             assert response.status_code == 200
             assert response.headers["Content-Encoding"] == "deflate"
             assert zlib.decompress(response.data) == contents
+
+    def test_website_gzip_streaming_without_temp_copies(
+        self, temp_dir, common_obj, tmp_path, monkeypatch
+    ):
+        contents = b"A compressed-on-the-fly website file.\n" * 1024
+        filename = tmp_path / "download.txt"
+        filename.write_bytes(contents)
+
+        service_tmp = tmp_path / "service-tmp"
+        service_tmp.mkdir()
+        monkeypatch.setattr(common_obj, "build_tmp_dir", lambda: str(service_tmp))
+
+        web = web_obj(temp_dir, common_obj, "website")
+        web.website_mode.set_file_info([str(filename)])
+
+        with web.app.test_client() as client:
+            response = client.get(
+                "/download.txt", headers={"Accept-Encoding": "gzip"}
+            )
+            assert response.status_code == 200
+            assert response.headers["Content-Encoding"] == "gzip"
+            assert gzip.decompress(response.data) == contents
+
+        web.cleanup()
+        assert list(service_tmp.iterdir()) == []
 
     def test_mismatched_etags(self, temp_dir, common_obj):
         """RFC 7233 Section 3.2

@@ -546,10 +546,10 @@ class TestShare(GuiBaseTest):
         self.history_widgets_present(tab)
         self.close_all_tabs()
 
-    def test_compression(self):
+    def test_individual_file_is_served_directly(self):
         """
-        A file with a compressable mimetype should return a Content-Encoding header
-        with gzip compression enabled.
+        A single shared file is streamed directly from its original location,
+        without a gzip copy in the temporary directory.
         """
         tab = self.new_share_tab()
         tab.get_mode().autostop_sharing_checkbox.click()
@@ -564,8 +564,11 @@ class TestShare(GuiBaseTest):
         self.run_all_share_mode_started_tests(tab)
         url = f"http://127.0.0.1:{tab.app.port}/test.html"
         r = requests.get(url)
-        self.assertTrue("Content-Encoding" in r.headers)
-        self.assertEqual("gzip", r.headers["Content-Encoding"])
+        with open(self.tmpfile_test_html, "rb") as f:
+            contents = f.read()
+        self.assertEqual(200, r.status_code)
+        self.assertNotIn("Content-Encoding", r.headers)
+        self.assertEqual(contents, r.content)
 
         self.server_is_stopped(tab)
         self.web_server_is_stopped(tab)
