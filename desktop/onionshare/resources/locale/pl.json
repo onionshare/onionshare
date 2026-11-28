@@ -307,5 +307,6 @@
     "gui_tab_name_download": "Pobierz",
     "gui_status_indicator_download_working": "Pobieranie…",
     "gui_status_indicator_download_stopped": "Zatrzymany",
-    "gui_download_mode_no_files": "Nie pobrano jeszcze żadnych plików"
+    "gui_download_mode_no_files": "Nie pobrano jeszcze żadnych plików",
+    "settings_error_bundled_tor_missing_transport": "Twoje ustawienia mostka wymagają {} transportu wtykowego, ale OnionShare nie mógł znaleźć {}."
 }
