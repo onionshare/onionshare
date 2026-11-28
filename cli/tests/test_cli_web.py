@@ -892,6 +892,53 @@ class TestWeb:
 
         shutil.rmtree(data_dir)
 
+    def test_receive_mode_message_saved_as_utf8(
+        self, temp_dir, common_obj, monkeypatch
+    ):
+        """
+        A text message is saved as UTF-8, even when the platform's default
+        encoding cannot represent it (e.g. cp1252 or cp949 on Windows)
+        """
+        real_open = open
+
+        def open_with_legacy_default(file, mode="r", *args, **kwargs):
+            if "b" not in mode and not args:
+                kwargs.setdefault("encoding", "cp1252")
+            return real_open(file, mode, *args, **kwargs)
+
+        monkeypatch.setattr(
+            onionshare_cli.web.receive_mode,
+            "open",
+            open_with_legacy_default,
+            raising=False,
+        )
+
+        web = web_obj(temp_dir, common_obj, "receive")
+        data_dir = os.path.join(temp_dir.name, "OnionShare-utf8-msg")
+        os.makedirs(data_dir, exist_ok=True)
+        web.settings.set("receive", "data_dir", data_dir)
+
+        message = "Łukasz ✨ 안녕하세요"
+        with web.app.test_client() as c:
+            res = c.post(
+                "/upload-ajax",
+                buffered=True,
+                content_type="multipart/form-data",
+                data={"text": message},
+            )
+            assert res.status_code == 200
+            assert b"Message submitted" in res.get_data()
+
+        saved = []
+        for root, _, filenames in os.walk(data_dir):
+            saved += [os.path.join(root, f) for f in filenames]
+        assert len(saved) == 1
+        assert saved[0].endswith("-message.txt")
+        with real_open(saved[0], encoding="utf-8") as f:
+            assert f.read() == message
+
+        shutil.rmtree(data_dir)
+
     def test_receive_mode_empty_filename_discards_file(self, temp_dir, common_obj):
         """
         A file part with an empty filename is ignored, and its bytes are not

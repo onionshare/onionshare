@@ -662,7 +662,9 @@ class ReceiveModeRequest(Request):
                                     self.message_filename = (
                                         f"{self.receive_mode_dir}-message.txt"
                                     )
-                                    with open(self.message_filename, "w") as f:
+                                    with open(
+                                        self.message_filename, "w", encoding="utf-8"
+                                    ) as f:
                                         f.write(text_message)
 
                                     self.web.common.log(
