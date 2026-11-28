@@ -307,5 +307,6 @@
     "error_download_canceled": "Hämtningen avbröts.",
     "error_download_dir_permission_denied": "Behörighet saknas för att skapa hämtningsmappen: {}",
     "error_download_dir_not_available": "Det gick inte att hitta en tillgänglig hämtningsmapp.",
-    "moat_bridge_type_label": "Typ av bro att begära:"
+    "moat_bridge_type_label": "Typ av bro att begära:",
+    "settings_error_bundled_tor_missing_transport": "Dina brygginställningar behöver den {} pluggbara transporten, men OnionShare kunde inte hitta {}."
 }

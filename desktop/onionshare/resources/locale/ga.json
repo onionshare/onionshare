@@ -307,5 +307,6 @@
     "gui_status_indicator_download_stopped": "Stopadh",
     "gui_status_indicator_download_working": "Ag íosluchtú…",
     "gui_tab_name_download": "Íoslódáil",
-    "gui_download_mode_no_files": "Níl aon chomhad íoslódáilte go fóill"
+    "gui_download_mode_no_files": "Níl aon chomhad íoslódáilte go fóill",
+    "settings_error_bundled_tor_missing_transport": "Teastaíonn an iompar plugálaí {} ó do shocruithe droichid, ach níorbh fhéidir le OnionShare teacht ar {}."
 }
